@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B21AFA3C-07B0-4BA8-A3F4-29D45A02D0C8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ResourceCompiler</RootNamespace>
+    <AssemblyName>Reco</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxMin">
+      <HintPath>..\Lib\compressors\microsoft-ajax-minifer\AjaxMin.dll</HintPath>
+    </Reference>
+    <Reference Include="EcmaScript.NET.modified">
+      <HintPath>..\Lib\compressors\yui-compressor\EcmaScript.NET.modified.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Yahoo.Yui.Compressor">
+      <HintPath>..\Lib\compressors\yui-compressor\Yahoo.Yui.Compressor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Compressors\JavaScript\jsmin\JavaScriptMinifier.cs" />
+    <Compile Include="Compressors\StyleSheet\CssCompressorRegistry.cs" />
+    <Compile Include="Compressors\StyleSheet\CssCompressors.cs" />
+    <Compile Include="Compressors\StyleSheet\ICssCompressor.cs" />
+    <Compile Include="Compressors\StyleSheet\MsCompressor.cs" />
+    <Compile Include="Compressors\StyleSheet\NullCompressor.cs" />
+    <Compile Include="Compressors\StyleSheet\YuiCompressor.cs" />
+    <Compile Include="Assets\StyleSheet\StyleSheetAssets.cs" />
+    <Compile Include="Assets\StyleSheet\IStyleSheetAssets.cs" />
+    <Compile Include="Files\IResource.cs" />
+    <Compile Include="Assets\Assets.cs" />
+    <Compile Include="Mvc\StyleSheetResult.cs" />
+    <Compile Include="Reco.cs" />
+    <Compile Include="Renderers\JavaScript\IJavaScriptRenderer.cs" />
+    <Compile Include="Renderers\StyleSheet\IStyleSheetRenderer.cs" />
+    <Compile Include="Renderers\JavaScript\JavaScriptRenderer.cs" />
+    <Compile Include="Renderers\StyleSheet\StyleSheetRenderer.cs" />
+    <Compile Include="Resolvers\DynamicFileResolver.cs" />
+    <Compile Include="Utilities\MediaType.cs" />
+    <Compile Include="Compressors\JavaScript\ClosureMinifier.cs" />
+    <Compile Include="Compressors\JavaScript\IJavaScriptCompressor.cs" />
+    <Compile Include="Compressors\JavaScript\JavaScriptMinifiers.cs" />
+    <Compile Include="Compressors\JavaScript\JsMinMinifier.cs" />
+    <Compile Include="Compressors\JavaScript\MinifierRegistry.cs" />
+    <Compile Include="Compressors\JavaScript\MsMinifier.cs" />
+    <Compile Include="Compressors\JavaScript\NullMinifier.cs" />
+    <Compile Include="Compressors\JavaScript\YuiMinifier.cs" />
+    <Compile Include="Assets\JavaScript\IJavaScriptAssets.cs" />
+    <Compile Include="Assets\JavaScript\JavaScriptAssets.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Files\FileReader.cs" />
+    <Compile Include="Files\FileReaderFactory.cs" />
+    <Compile Include="Files\IFileReader.cs" />
+    <Compile Include="Files\IFileReaderFactory.cs" />
+    <Compile Include="Files\Resource.cs" />
+    <Compile Include="RecoAssets.cs" />
+    <Compile Include="Resolvers\FileResolver.cs" />
+    <Compile Include="Resolvers\HttpResolver.cs" />
+    <Compile Include="Resolvers\IFileResolver.cs" />
+    <Compile Include="Utilities\Hasher.cs" />
+    <Compile Include="Utilities\StyleSheetPathRewriter.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
