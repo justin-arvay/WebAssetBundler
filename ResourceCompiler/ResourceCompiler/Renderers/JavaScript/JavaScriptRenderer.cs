@@ -9,9 +9,9 @@ namespace ResourceCompiler
 {
     public class JavaScriptRenderer : IJavaScriptRenderer
     {
-        private readonly IJavaScriptAssets _assets;
+        private readonly IJavaScriptAssetsBuilder _assets;
 
-        public JavaScriptRenderer(IJavaScriptAssets assets)
+        public JavaScriptRenderer(IJavaScriptAssetsBuilder assets)
         {
             _assets = assets;
         }

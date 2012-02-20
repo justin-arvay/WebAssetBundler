@@ -11,15 +11,15 @@ namespace ResourceCompiler
     public class RecoAssets
     {
         //singleton instantiation to avoid using lock
-        private static IStyleSheetAssets _styleSheetRegistrar = new StyleSheetAssets();
-        private static IJavaScriptAssets _jsRegistrar = new JavaScriptAssets();
+        private static IStyleSheetAssetsBuilder _styleSheetRegistrar = new StyleSheetAssetsBuilder();
+        private static IJavaScriptAssetsBuilder _jsRegistrar = new JavaScriptAssetsBuilder();
 
-        public static IStyleSheetAssets StyleSheet()
+        public static IStyleSheetAssetsBuilder StyleSheet()
         {
             return _styleSheetRegistrar;
         }
 
-        public static IJavaScriptAssets JavaScript()
+        public static IJavaScriptAssetsBuilder JavaScript()
         {
             return _jsRegistrar;
         }

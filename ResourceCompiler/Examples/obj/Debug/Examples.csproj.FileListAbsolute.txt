@@ -1,0 +1,7 @@
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Examples\bin\Examples.dll
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Examples\bin\Examples.pdb
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Examples\bin\EntityFramework.dll
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Examples\bin\EntityFramework.xml
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Examples\obj\Debug\ResolveAssemblyReference.cache
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Examples\obj\Debug\Examples.dll
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Examples\obj\Debug\Examples.pdb

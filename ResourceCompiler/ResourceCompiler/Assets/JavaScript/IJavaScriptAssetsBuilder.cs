@@ -7,13 +7,14 @@ using ResourceCompiler.Compressors.JavaScript;
 
 namespace ResourceCompiler.Assets
 {
-    public interface IJavaScriptAssets
+    public interface IJavaScriptAssetsBuilder
     {
-        IJavaScriptAssets Combine(bool value);
-        IJavaScriptAssets Compress(bool value);
-        IJavaScriptAssets Version(bool value);
-        IJavaScriptAssets Add(string path);
-        IJavaScriptAssets SetCompressor(IJavaScriptCompressor compressor);
+        IJavaScriptAssetsBuilder Combine(bool value);
+        IJavaScriptAssetsBuilder Compress(bool value);
+        IJavaScriptAssetsBuilder Version(bool value);
+        IJavaScriptAssetsBuilder Add(string path);
+        IJavaScriptAssetsBuilder SetCompressor(IJavaScriptCompressor compressor);
+        IJavaScriptAssetsBuilder Path(string path, Action<PathOnlyBuilder> action);
         IList<IResource> GetFiles();
 
         bool Versioned { get; set; }
@@ -21,5 +22,7 @@ namespace ResourceCompiler.Assets
         bool Compressed { get; set; }
         IJavaScriptCompressor Compressor { get; set; }
         string GetLastWriteTimestamp();
+
+
     }
 }

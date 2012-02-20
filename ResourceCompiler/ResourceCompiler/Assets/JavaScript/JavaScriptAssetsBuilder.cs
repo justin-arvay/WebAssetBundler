@@ -10,15 +10,15 @@ using ResourceCompiler.Compressors.JavaScript;
 
 namespace ResourceCompiler.Assets
 {
-    public class JavaScriptAssets : Assets, IJavaScriptAssets
+    public class JavaScriptAssetsBuilder : Assets, IJavaScriptAssetsBuilder
     {
-        public JavaScriptAssets() : base()
+        public JavaScriptAssetsBuilder() : base()
         {
             Compressor = new NullMinifier();
             _files = new List<IResource>();
         }
 
-        public JavaScriptAssets(IJavaScriptCompressor compressor)
+        public JavaScriptAssetsBuilder(IJavaScriptCompressor compressor)
             : base()
         {
             Compressor = compressor;
@@ -29,7 +29,7 @@ namespace ResourceCompiler.Assets
         public bool Compressed { get; set; }
         public IJavaScriptCompressor Compressor { get; set; }
 
-        public IJavaScriptAssets Add(string path)
+        public IJavaScriptAssetsBuilder Add(string path)
         {
             FileResolver resolver = new FileResolver();
             IResource file = new Resource(resolver.Resolve(path), FileResolver.Type);
@@ -49,33 +49,44 @@ namespace ResourceCompiler.Assets
             return this;
         }
 
-        public IJavaScriptAssets Compress(bool value)
+        public IJavaScriptAssetsBuilder Compress(bool value)
         {
             Compressed = value;
             return this;
         }
 
-        public IJavaScriptAssets Combine(bool value)
+        public IJavaScriptAssetsBuilder Combine(bool value)
         {
             Combined = value;
             return this;
         }
 
-        public IJavaScriptAssets Version(bool value)
+        public IJavaScriptAssetsBuilder Version(bool value)
         {
             Versioned = value;
             return this;
         }
 
-        public IJavaScriptAssets RendererUrl(string url)
+        public IJavaScriptAssetsBuilder RendererUrl(string url)
         {
             Route = url;
             return this;
         }
 
-        public IJavaScriptAssets SetCompressor(IJavaScriptCompressor compressor)
+        public IJavaScriptAssetsBuilder SetCompressor(IJavaScriptCompressor compressor)
         {
             Compressor = compressor;
+            return this;
+        }
+
+        public IJavaScriptAssetsBuilder Path(string path, Action<PathOnlyBuilder> action)
+        {
+            if (System.IO.Path.IsPathRooted(path))
+            {
+                throw new ArgumentException("Path must be a relative path.");
+            }
+
+            action(new PathOnlyBuilder(path, this));
             return this;
         }
     }

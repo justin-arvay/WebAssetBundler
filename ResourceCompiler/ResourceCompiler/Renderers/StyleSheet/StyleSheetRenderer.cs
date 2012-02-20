@@ -14,13 +14,13 @@ namespace ResourceCompiler
 {
     public class StyleSheetRenderer : IStyleSheetRenderer
     {
-        private readonly IStyleSheetAssets _assets;
+        private readonly IStyleSheetAssetsBuilder _assets;
 
         //probably change this to a hashtable for better performance
         //static caching for the lifetime of the app. increases performance, only one iteration of reflection
         private IDictionary<string, string> _modelProperties = new Dictionary<string, string>();
 
-        public StyleSheetRenderer(IStyleSheetAssets assets)
+        public StyleSheetRenderer(IStyleSheetAssetsBuilder assets)
         {
             _assets = assets;
         }

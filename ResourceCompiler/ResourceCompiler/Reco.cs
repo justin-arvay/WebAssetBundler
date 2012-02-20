@@ -18,7 +18,7 @@ namespace ResourceCompiler
             //check if path has a starting slash, if not add it
             //dont add v=? if not versioning
             //handle situation where we dont want to combine
-            IStyleSheetAssets assets = RecoAssets.StyleSheet();
+            IStyleSheetAssetsBuilder assets = RecoAssets.StyleSheet();
 
             string media = "media=\"{0}\"";
             string version = string.Empty;
@@ -36,7 +36,7 @@ namespace ResourceCompiler
 
         public static HtmlString Script(string path)
         {
-            IJavaScriptAssets assets = RecoAssets.JavaScript();
+            IJavaScriptAssetsBuilder assets = RecoAssets.JavaScript();
 
             string version = string.Empty;
             string url = "{0}?v={1}";

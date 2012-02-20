@@ -13,17 +13,17 @@ namespace ResourceCompiler.Assets
 {
 
 
-    public class StyleSheetAssets : Assets, IStyleSheetAssets
+    public class StyleSheetAssetsBuilder : Assets, IStyleSheetAssetsBuilder
     {
         
-        public StyleSheetAssets() : base()
+        public StyleSheetAssetsBuilder() : base()
         {
             MediaType = "screen";
             Compressor = new NullCompressor();
             _files = new List<IResource>();
         }
 
-        public StyleSheetAssets(IStyleSheetCompressor compressor)
+        public StyleSheetAssetsBuilder(IStyleSheetCompressor compressor)
             : base()
         {
             MediaType = "screen";
@@ -36,7 +36,7 @@ namespace ResourceCompiler.Assets
         public string MediaType { get; set; }
         public IStyleSheetCompressor Compressor { get; set; }
 
-        public IStyleSheetAssets Add(string path)
+        public IStyleSheetAssetsBuilder Add(string path)
         {
             FileResolver resolver = new FileResolver();
             IResource file = new Resource(resolver.Resolve(path), FileResolver.Type);
@@ -56,7 +56,7 @@ namespace ResourceCompiler.Assets
             return this;
         }
 
-        public IStyleSheetAssets AddDynamic(string path)
+        public IStyleSheetAssetsBuilder AddDynamic(string path)
         {
             DynamicFileResolver resolver = new DynamicFileResolver();
             IResource file = new Resource(resolver.Resolve(path), DynamicFileResolver.Type);
@@ -76,37 +76,37 @@ namespace ResourceCompiler.Assets
             return this;
         }
 
-        public IStyleSheetAssets Compress(bool value)
+        public IStyleSheetAssetsBuilder Compress(bool value)
         {
             Compressed = value;
             return this;
         }
 
-        public IStyleSheetAssets Combine(bool value)
+        public IStyleSheetAssetsBuilder Combine(bool value)
         {
             Combined = value;
             return this;
         }
 
-        public IStyleSheetAssets Version(bool value)
+        public IStyleSheetAssetsBuilder Version(bool value)
         {
             Versioned = value;
             return this;
         }
 
-        public IStyleSheetAssets Media(string value)
+        public IStyleSheetAssetsBuilder Media(string value)
         {
             MediaType = value;
             return this;
         }
 
-        public IStyleSheetAssets RendererUrl(string url)
+        public IStyleSheetAssetsBuilder RendererUrl(string url)
         {
             Route = url;
             return this;
         }
 
-        public IStyleSheetAssets SetCompressor(IStyleSheetCompressor compressor)
+        public IStyleSheetAssetsBuilder SetCompressor(IStyleSheetCompressor compressor)
         {
             Compressor = compressor;
             return this;

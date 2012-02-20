@@ -1,0 +1,5 @@
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\ConsoleApplication1\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\ConsoleApplication1\obj\x86\Debug\ConsoleApplication1.exe
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\ConsoleApplication1\obj\x86\Debug\ConsoleApplication1.pdb
