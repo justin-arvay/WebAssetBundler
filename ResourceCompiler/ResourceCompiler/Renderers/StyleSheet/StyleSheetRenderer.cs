@@ -9,7 +9,7 @@ using ResourceCompiler.Utilities;
 using ResourceCompiler.Resolvers;
 using System.Reflection;
 using System.Text.RegularExpressions;
-
+/*
 namespace ResourceCompiler
 {
     public class StyleSheetRenderer : IStyleSheetRenderer
@@ -95,3 +95,4 @@ namespace ResourceCompiler
         }
     }
 }
+*/

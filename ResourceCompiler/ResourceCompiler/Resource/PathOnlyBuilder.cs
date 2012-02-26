@@ -7,7 +7,7 @@ using System.IO;
 namespace ResourceCompiler.Resource
 {
     public class PathOnlyBuilder<TBuilder>
-        where TBuilder : AssetsBuilder<TBuilder>
+        where TBuilder : ResourceGroupBuilder
     {
         TBuilder assetBuilder;
 

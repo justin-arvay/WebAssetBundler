@@ -79,8 +79,6 @@
     <Compile Include="Files\IResource.cs" />
     <Compile Include="Files\Resource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reco.cs" />
-    <Compile Include="RecoAssets.cs" />
     <Compile Include="Renderers\JavaScript\IJavaScriptRenderer.cs" />
     <Compile Include="Renderers\JavaScript\JavaScriptRenderer.cs" />
     <Compile Include="Renderers\StyleSheet\IStyleSheetRenderer.cs" />

@@ -7,7 +7,7 @@ using ResourceCompiler.Resolvers;
 using ResourceCompiler.Files;
 using System.IO;
 using ResourceCompiler.Compressors.JavaScript;
-
+/*
 namespace ResourceCompiler.Resource
 {
     public class JavaScriptAssetsBuilder : AssetsBuilder<IJavaScriptAssetsBuilder>, IJavaScriptAssetsBuilder
@@ -80,3 +80,4 @@ namespace ResourceCompiler.Resource
         }
     }
 }
+*/

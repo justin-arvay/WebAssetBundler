@@ -7,8 +7,8 @@ using ResourceCompiler.Resource;
 using Moq;
 
 
-
-namespace Tests.Assets
+/*
+namespace Tests.Resource
 {
     [TestFixture]
     public class JavaScriptAssetBuilderTests
@@ -34,4 +34,4 @@ namespace Tests.Assets
             builder.Path("\\test\\", null);
         }
     }
-}
+}*/

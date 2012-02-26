@@ -7,8 +7,8 @@ using ResourceCompiler.Resource;
 using Moq;
 using System.IO;
 
-
-namespace Tests.Assets
+/*
+namespace Tests.Resource
 {
     [TestFixture]
     public class PathOnlyBuilderTests
@@ -53,3 +53,4 @@ namespace Tests.Assets
 
     }
 }
+*/

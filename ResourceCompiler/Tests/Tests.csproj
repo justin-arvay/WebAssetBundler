@@ -51,8 +51,9 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\JavaScriptAssetBuilderTests.cs" />
-    <Compile Include="Assets\PathOnlyBuilderTests.cs" />
+    <Compile Include="Resource\DefaultSettingsTests.cs" />
+    <Compile Include="Resource\JavaScriptAssetBuilderTests.cs" />
+    <Compile Include="Resource\PathOnlyBuilderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

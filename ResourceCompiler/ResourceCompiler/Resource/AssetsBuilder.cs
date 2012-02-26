@@ -7,7 +7,7 @@ using System.Web;
 using ResourceCompiler.Compressors.StyleSheet;
 using ResourceCompiler.Files;
 using System.Web.Routing;
-
+/*
 namespace ResourceCompiler.Resource
 {
     public abstract class AssetsBuilder<TBuilder>
@@ -68,3 +68,4 @@ namespace ResourceCompiler.Resource
 
     }    
 }
+*/

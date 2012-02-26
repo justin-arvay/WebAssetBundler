@@ -9,6 +9,6 @@ namespace ResourceCompiler.Resource
     {
         TBuilder Add(string path);
 
-        TBuilder Path(string path, Action<PathOnlyBuilder<TBuilder>> action);
+       // TBuilder Path(string path, Action<PathOnlyBuilder<TBuilder>> action);
     }
 }
