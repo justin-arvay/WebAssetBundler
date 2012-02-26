@@ -55,6 +55,7 @@
     <Compile Include="Resource\JavaScriptAssetBuilderTests.cs" />
     <Compile Include="Resource\PathOnlyBuilderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource\ResourceGroupTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ResourceCompiler\ResourceCompiler.csproj">

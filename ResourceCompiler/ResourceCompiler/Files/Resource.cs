@@ -6,21 +6,21 @@ namespace ResourceCompiler.Files
 
     public class Resource : IResource
     {
-        public string Path { get; private set; }
+        public string Source { get; private set; }
 
         public Resource(string path)
         {
-            Path = path;
+            Source = path;
         }
 
         public bool Exists()
         {
-            return File.Exists(Path);
+            return File.Exists(Source);
         }
 
         public DateTime GetLastWrite()
         {
-            string fileName = Path;
+            string fileName = Source;
             DateTime lastWriteDateTime = DateTime.MinValue;
             try
             {

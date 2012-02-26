@@ -3,7 +3,7 @@ namespace ResourceCompiler.Files
 {
     public interface IResource
     {
-        string Path { get; }
+        string Source { get; }
         bool Exists();
         DateTime GetLastWrite();
     }

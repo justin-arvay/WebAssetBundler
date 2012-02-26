@@ -8,10 +8,11 @@ namespace ResourceCompiler.Resource
 {
     public static class DefaultSettings
     {
-        private static string styleSheetFilesPath = "~/Content/";
+        private static string styleSheetFilesPath = "~/Content";
         private static string scriptFilesPath = "~/Scripts";
         private static string version = new AssemblyName(typeof(DefaultSettings).Assembly.FullName).Version.ToString(3);
-
+        private static bool compressed = true;
+        
         /// <summary>
         /// Gets or sets the style sheet files path. Path must be a virtual path.
         /// </summary>
@@ -36,11 +37,11 @@ namespace ResourceCompiler.Resource
         {
             get
             {
-                return styleSheetFilesPath;
+                return scriptFilesPath;
             }
             set
             {
-                styleSheetFilesPath = value;
+                scriptFilesPath = value;
             }
         }
 
@@ -58,6 +59,32 @@ namespace ResourceCompiler.Resource
             {
                 version = value;
             }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether assets should be served as compressed.
+        /// </summary>
+        /// <value><c>true</c> if compressed; otherwise, <c>false</c>.</value>
+        public static bool Compressed
+        {
+            get
+            {
+                return compressed;
+            }
+            set
+            {
+                compressed = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether assets shoule be combined.
+        /// </summary>
+        /// <value><c>true</c> if combined; otherwise, <c>false</c>.</value>
+        public static bool Combined
+        {
+            get;
+            set;
         }
     }
 }

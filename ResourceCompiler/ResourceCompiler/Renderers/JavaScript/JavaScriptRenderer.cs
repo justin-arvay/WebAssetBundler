@@ -38,7 +38,7 @@ namespace ResourceCompiler
 
         private string GetResourceContent(IResource resource)
         {
-            FileReader reader = new FileReader(resource.Path);
+            FileReader reader = new FileReader(resource.Source);
             return reader.ReadToEnd();
         }
 
