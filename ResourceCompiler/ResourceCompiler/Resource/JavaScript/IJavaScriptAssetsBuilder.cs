@@ -5,16 +5,15 @@ using System.Text;
 using ResourceCompiler.Files;
 using ResourceCompiler.Compressors.JavaScript;
 
-namespace ResourceCompiler.Assets
+namespace ResourceCompiler.Resource
 {
-    public interface IJavaScriptAssetsBuilder
+    public interface IJavaScriptAssetsBuilder : IAssetsBuilder<IJavaScriptAssetsBuilder>
     {
         IJavaScriptAssetsBuilder Combine(bool value);
         IJavaScriptAssetsBuilder Compress(bool value);
         IJavaScriptAssetsBuilder Version(bool value);
         IJavaScriptAssetsBuilder Add(string path);
         IJavaScriptAssetsBuilder SetCompressor(IJavaScriptCompressor compressor);
-        IJavaScriptAssetsBuilder Path(string path, Action<PathOnlyBuilder> action);
         IList<IResource> GetFiles();
 
         bool Versioned { get; set; }

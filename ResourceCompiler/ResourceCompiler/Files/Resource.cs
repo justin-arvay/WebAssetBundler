@@ -7,12 +7,10 @@ namespace ResourceCompiler.Files
     public class Resource : IResource
     {
         public string Path { get; private set; }
-        public string Type { get; private set; }
 
-        public Resource(string path, string type)
+        public Resource(string path)
         {
             Path = path;
-            Type = type;
         }
 
         public bool Exists()

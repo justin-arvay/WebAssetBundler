@@ -8,9 +8,9 @@ using ResourceCompiler.Files;
 using System.IO;
 using ResourceCompiler.Compressors.JavaScript;
 
-namespace ResourceCompiler.Assets
+namespace ResourceCompiler.Resource
 {
-    public class JavaScriptAssetsBuilder : Assets, IJavaScriptAssetsBuilder
+    public class JavaScriptAssetsBuilder : AssetsBuilder<IJavaScriptAssetsBuilder>, IJavaScriptAssetsBuilder
     {
         public JavaScriptAssetsBuilder() : base()
         {
@@ -29,7 +29,7 @@ namespace ResourceCompiler.Assets
         public bool Compressed { get; set; }
         public IJavaScriptCompressor Compressor { get; set; }
 
-        public IJavaScriptAssetsBuilder Add(string path)
+        public override IJavaScriptAssetsBuilder Add(string path)
         {
             FileResolver resolver = new FileResolver();
             IResource file = new Resource(resolver.Resolve(path), FileResolver.Type);
@@ -76,17 +76,6 @@ namespace ResourceCompiler.Assets
         public IJavaScriptAssetsBuilder SetCompressor(IJavaScriptCompressor compressor)
         {
             Compressor = compressor;
-            return this;
-        }
-
-        public IJavaScriptAssetsBuilder Path(string path, Action<PathOnlyBuilder> action)
-        {
-            if (System.IO.Path.IsPathRooted(path))
-            {
-                throw new ArgumentException("Path must be a relative path.");
-            }
-
-            action(new PathOnlyBuilder(path, this));
             return this;
         }
     }

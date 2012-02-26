@@ -8,19 +8,20 @@ using ResourceCompiler.Compressors.StyleSheet;
 using ResourceCompiler.Files;
 using System.Web.Routing;
 
-namespace ResourceCompiler.Assets
+namespace ResourceCompiler.Resource
 {
-    public abstract class Assets
+    public abstract class AssetsBuilder<TBuilder>
+        where TBuilder : IAssetsBuilder<TBuilder>
     {
-        protected const string _versionFormat = "MMddyyyyHHmmss";
+        protected const string versionFormat = "MMddyyyyHHmmss";
         protected IList<IResource> _files;
 
-        public Assets()
+        public AssetsBuilder()
         {
             _files = new List<IResource>();
         }
 
-        public void AddResource(IResource file)
+        protected void AddResource(IResource file)
         {
             _files.Add(file);
         }
@@ -44,12 +45,26 @@ namespace ResourceCompiler.Assets
                 }
             }
 
-            return dateTime.ToString(_versionFormat);
+            return dateTime.ToString(versionFormat);
         }
 
         protected bool FileExists(IResource inputFile)
         {
             return _files.Any<IResource>(i => i != inputFile && i.Path.Equals(inputFile.Path));
         }
+
+        public abstract TBuilder Add(string path);
+
+        public TBuilder Path(string path, Action<PathOnlyBuilder<TBuilder>> action)
+        {
+            if (System.IO.Path.IsPathRooted(path))
+            {
+                throw new ArgumentException("Path must be a relative path.");
+            }
+
+            action(new PathOnlyBuilder<TBuilder>(path, this as TBuilder));
+            return this as TBuilder;
+        }
+
     }    
 }

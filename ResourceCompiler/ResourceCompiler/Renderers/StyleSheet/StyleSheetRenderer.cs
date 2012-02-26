@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ResourceCompiler.Assets;
+using ResourceCompiler.Resource;
 using System.Web;
 using ResourceCompiler.Files;
 using ResourceCompiler.Utilities;

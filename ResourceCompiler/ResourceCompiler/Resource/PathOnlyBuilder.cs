@@ -4,21 +4,22 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace ResourceCompiler.Assets
+namespace ResourceCompiler.Resource
 {
-    public class PathOnlyBuilder
+    public class PathOnlyBuilder<TBuilder>
+        where TBuilder : AssetsBuilder<TBuilder>
     {
-        IJavaScriptAssetsBuilder assetBuilder;
+        TBuilder assetBuilder;
 
         string path;
 
-        public PathOnlyBuilder(string path, IJavaScriptAssetsBuilder assetBuilder)
+        public PathOnlyBuilder(string path, TBuilder assetBuilder)
         {
             this.path = path;
             this.assetBuilder = assetBuilder;
         }
 
-        public PathOnlyBuilder Add(string path)
+        public PathOnlyBuilder<TBuilder> Add(string path)
         {
             if (Path.IsPathRooted(path))
             {
