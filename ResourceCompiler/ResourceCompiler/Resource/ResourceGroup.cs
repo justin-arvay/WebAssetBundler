@@ -13,7 +13,7 @@ namespace ResourceCompiler.Resource
         {
             Name = name;
             IsShared = isShared;
-            Resources = new List<IResource>();
+            Resources = new InternalResourceCollection();
 
         }
 
@@ -70,10 +70,12 @@ namespace ResourceCompiler.Resource
         {
             protected override void InsertItem(int index, IResource item)
             {
-                if (!AlreadyExists(item))
+                if (AlreadyExists(item))
                 {
-                    base.InsertItem(index, item);
+                    throw new ArgumentException(TextResource.Exceptions.ItemWithSpecifiedSourceAlreadyExists, "item");
                 }
+
+                base.InsertItem(index, item);
             }
 
             protected override void SetItem(int index, IResource item)

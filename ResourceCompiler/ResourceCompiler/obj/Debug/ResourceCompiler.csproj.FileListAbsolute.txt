@@ -6,3 +6,6 @@ D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\ResourceCompiler
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\ResourceCompiler\bin\Debug\EcmaScript.NET.modified.dll
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\ResourceCompiler\obj\Debug\ResourceCompiler.dll
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\ResourceCompiler\obj\Debug\ResourceCompiler.pdb
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\ResourceCompiler\obj\Debug\ResourceCompiler.TextResource.Exceptions.resources
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\ResourceCompiler\obj\Debug\GenerateResource.read.1.tlog
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\ResourceCompiler\obj\Debug\GenerateResource.write.1.tlog

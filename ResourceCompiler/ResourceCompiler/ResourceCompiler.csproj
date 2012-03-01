@@ -37,6 +37,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,6 +48,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComponentFactory.cs" />
+    <Compile Include="MVC\HtmlHelperExtension.cs" />
     <Compile Include="Resource\DefaultSettings.cs" />
     <Compile Include="Resource\ResourceGroup.cs" />
     <Compile Include="Resource\ResourceGroupBuilder.cs" />
@@ -87,11 +90,22 @@
     <Compile Include="Resolvers\FileResolver.cs" />
     <Compile Include="Resolvers\HttpResolver.cs" />
     <Compile Include="Resolvers\IFileResolver.cs" />
+    <Compile Include="TextResource\Exceptions.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Exceptions.resx</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\Hasher.cs" />
     <Compile Include="Utilities\MediaType.cs" />
     <Compile Include="Utilities\StyleSheetPathRewriter.cs" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="TextResource\Exceptions.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Exceptions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

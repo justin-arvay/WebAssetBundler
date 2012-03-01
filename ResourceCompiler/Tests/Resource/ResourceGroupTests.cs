@@ -104,12 +104,19 @@ namespace Tests.Resource
 
         public void Adding_Duplicate_Item_Throws_Exception()
         {
+            var group = new ResourceGroup("", false);
+
+            group.Resources.Add(new ResourceCompiler.Files.Resource("/path/file.js"));
+            Assert.Throws<ArgumentException>(() => group.Resources.Add(new ResourceCompiler.Files.Resource("/path/file.js")));
 
         }
 
         public void Setting_Duplicate_Item_To_Existing_Index_Throws_Exception()
         {
+            var group = new ResourceGroup("", false);
 
+            group.Resources.Add(new ResourceCompiler.Files.Resource("/path/file.js"));
+            Assert.Throws<ArgumentException>(() => group.Resources.Insert(1, new ResourceCompiler.Files.Resource("/path/file.js")));
         }
 
     }
