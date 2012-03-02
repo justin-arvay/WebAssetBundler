@@ -6,7 +6,7 @@ using NUnit.Framework;
 using ResourceCompiler;
 using ResourceCompiler.Resource.StyleSheet;
 
-namespace Tests.Resource
+namespace Tests
 {
     [TestFixture]
     public class ComponentFactoryTests

@@ -52,7 +52,8 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Resource\ComponentFactoryTests.cs" />
+    <Compile Include="ComponentFactoryTests.cs" />
+    <Compile Include="HtmlHelperExtensionTests.cs" />
     <Compile Include="Resource\DefaultSettingsTests.cs" />
     <Compile Include="Resource\JavaScriptAssetBuilderTests.cs" />
     <Compile Include="Resource\PathOnlyBuilderTests.cs" />

@@ -8,10 +8,24 @@ namespace ResourceCompiler
 {
     public class ComponentFactory
     {
+        private static readonly object styleSheetSyncLock = new object();
+        private static StyleSheetRegistrarBuilder styleSheetRegistrarBuilder;
+
         public StyleSheetRegistrarBuilder StyleSheetRegistrar()
         {
-            var registrar = new StyleSheetRegistrar();
-            return new StyleSheetRegistrarBuilder(registrar);
+
+            if (styleSheetRegistrarBuilder == null)
+            {
+                lock (styleSheetSyncLock)
+                {
+                    if (styleSheetRegistrarBuilder == null)
+                    {
+                        styleSheetRegistrarBuilder = new StyleSheetRegistrarBuilder(new StyleSheetRegistrar());
+                    }
+                }
+            }
+
+            return styleSheetRegistrarBuilder;
         }
     }
 }
