@@ -13,7 +13,7 @@ namespace Tests.Resource.StyleSheet
         [Test]
         public void Default_Group_Returns_Self_For_Chaining()
         {
-            var builder = new StyleSheetRegistrarBuilder(new StyleSheetRegistrar());
+            var builder = new StyleSheetRegistrarBuilder(new StyleSheetRegistrar(), TestHelper.CreateViewContext());
 
             Assert.IsInstanceOf<StyleSheetRegistrarBuilder>(builder.DefaultGroup(g => g.ToString()));
         }
@@ -22,7 +22,7 @@ namespace Tests.Resource.StyleSheet
         public void Can_Configure_Default_Group()
         {
             var registrar = new StyleSheetRegistrar();
-            var builder = new StyleSheetRegistrarBuilder(registrar);
+            var builder = new StyleSheetRegistrarBuilder(registrar, TestHelper.CreateViewContext());
 
             builder.DefaultGroup(g => g.Add("test/test.js"));
 

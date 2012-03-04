@@ -1,15 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ResourceCompiler.Resource.StyleSheet;
-
+﻿
 namespace ResourceCompiler
-{
+{   
+    using ResourceCompiler.Resource.StyleSheet;
+    using System.Web.Mvc;
+
     public class ComponentFactory
     {
         private static readonly object styleSheetSyncLock = new object();
         private static StyleSheetRegistrarBuilder styleSheetRegistrarBuilder;
+
+        private ViewContext viewContext;
+
+        public ComponentFactory(ViewContext viewContext)
+        {
+            this.viewContext = viewContext;
+        }
 
         public StyleSheetRegistrarBuilder StyleSheetRegistrar()
         {
@@ -20,7 +25,7 @@ namespace ResourceCompiler
                 {
                     if (styleSheetRegistrarBuilder == null)
                     {
-                        styleSheetRegistrarBuilder = new StyleSheetRegistrarBuilder(new StyleSheetRegistrar());
+                        styleSheetRegistrarBuilder = new StyleSheetRegistrarBuilder(new StyleSheetRegistrar(), viewContext);
                     }
                 }
             }

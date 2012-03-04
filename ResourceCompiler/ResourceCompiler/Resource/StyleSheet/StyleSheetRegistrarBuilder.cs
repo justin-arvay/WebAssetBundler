@@ -1,19 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
-using System.IO;
-
+﻿
 namespace ResourceCompiler.Resource.StyleSheet
 {
+    using System.Web.UI;
+    using System.Web;
+    using System;
+    using System.Web.Mvc;
+    using System.IO;
+    using ResourceCompiler.TextResource;
+
     public class StyleSheetRegistrarBuilder : IHtmlString
     {
         private readonly StyleSheetRegistrar registrar;
 
-        public StyleSheetRegistrarBuilder(StyleSheetRegistrar registrar)
+        private bool hasRendered;
+
+        private ViewContext viewContext;
+
+        public StyleSheetRegistrarBuilder(StyleSheetRegistrar registrar, ViewContext viewContext)
         {
             this.registrar = registrar;
+            this.viewContext = viewContext;
         }
 
         public StyleSheetRegistrarBuilder DefaultGroup(Action<ResourceGroupBuilder> action)
@@ -24,7 +30,19 @@ namespace ResourceCompiler.Resource.StyleSheet
 
         public void Render()
         {
+            if (hasRendered)
+            {
+                throw new InvalidOperationException(TextResource.Exceptions.YouCannotCallRenderMoreThanOnce);
+            }
 
+            var baseWriter = viewContext.Writer;
+
+            using (HtmlTextWriter textWriter = new HtmlTextWriter(baseWriter))
+            {
+                Write(baseWriter);
+            }
+
+            hasRendered = true;
         }
 
         public string ToHtmlString()

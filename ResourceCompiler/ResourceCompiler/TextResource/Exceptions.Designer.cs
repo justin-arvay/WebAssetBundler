@@ -61,11 +61,29 @@ namespace ResourceCompiler.TextResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A group with that name already exists..
+        /// </summary>
+        internal static string GroupWithSpecifiedNameAlreadyExists {
+            get {
+                return ResourceManager.GetString("GroupWithSpecifiedNameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Item with specified source already exists..
         /// </summary>
         internal static string ItemWithSpecifiedSourceAlreadyExists {
             get {
                 return ResourceManager.GetString("ItemWithSpecifiedSourceAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can not call render more than once..
+        /// </summary>
+        internal static string YouCannotCallRenderMoreThanOnce {
+            get {
+                return ResourceManager.GetString("YouCannotCallRenderMoreThanOnce", resourceCulture);
             }
         }
     }

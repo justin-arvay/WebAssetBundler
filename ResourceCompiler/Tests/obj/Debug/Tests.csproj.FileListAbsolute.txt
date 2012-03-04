@@ -1,4 +1,3 @@
-D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Tests\obj\Debug\ResolveAssemblyReference.cache
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Tests\bin\Debug\Tests.dll
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Tests\bin\Debug\Tests.pdb
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Tests\bin\Debug\Moq.dll
@@ -8,5 +7,6 @@ D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Tests\bin\Debug\
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Tests\bin\Debug\AjaxMin.dll
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Tests\bin\Debug\EcmaScript.NET.modified.dll
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Tests\bin\Debug\ResourceCompiler.pdb
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Tests\obj\Debug\ResolveAssemblyReference.cache
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Tests\obj\Debug\Tests.dll
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Tests\obj\Debug\Tests.pdb

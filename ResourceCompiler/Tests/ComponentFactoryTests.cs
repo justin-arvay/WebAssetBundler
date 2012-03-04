@@ -14,7 +14,7 @@ namespace Tests
         [Test]
         public void Can_Get_Instance_Of_Style_Sheet_Builder()
         {
-            var factory = new ComponentFactory();
+            var factory = new ComponentFactory(TestHelper.CreateViewContext());
 
             Assert.IsInstanceOf<StyleSheetRegistrarBuilder>(factory.StyleSheetRegistrar());
         }
@@ -22,7 +22,7 @@ namespace Tests
         [Test]
         public void Always_Return_Same_Instance_Of_Style_Sheet_Builder()
         {
-            var factory = new ComponentFactory();
+            var factory = new ComponentFactory(TestHelper.CreateViewContext());
 
             var builderOne = factory.StyleSheetRegistrar();
             var builderTwo = factory.StyleSheetRegistrar();

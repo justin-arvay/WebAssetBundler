@@ -19,7 +19,7 @@ namespace ResourceCompiler
                 {
                     if (factory == null)
                     {
-                        factory = new ComponentFactory();
+                        factory = new ComponentFactory(helper.ViewContext);
                     }
                 }
             }

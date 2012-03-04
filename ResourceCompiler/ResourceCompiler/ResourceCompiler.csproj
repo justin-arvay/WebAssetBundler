@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComponentFactory.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="HtmlHelperExtension.cs" />
     <Compile Include="Resource\DefaultSettings.cs" />
     <Compile Include="Resource\ResourceGroup.cs" />
@@ -58,6 +59,9 @@
     <Compile Include="Resource\JavaScript\IJavaScriptAssetsBuilder.cs" />
     <Compile Include="Resource\JavaScript\JavaScriptAssetsBuilder.cs" />
     <Compile Include="Resource\PathOnlyBuilder.cs" />
+    <Compile Include="Resource\ResourceGroupCollection.cs" />
+    <Compile Include="Resource\ResourceGroupCollectionBuilder.cs" />
+    <Compile Include="Resource\ResourceType.cs" />
     <Compile Include="Resource\StyleSheet\StyleSheetRegistrar.cs" />
     <Compile Include="Resource\StyleSheet\StyleSheetRegistrarBuilder.cs" />
     <Compile Include="Compressors\JavaScript\ClosureMinifier.cs" />
