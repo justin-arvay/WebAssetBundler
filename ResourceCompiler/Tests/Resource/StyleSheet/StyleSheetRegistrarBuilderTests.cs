@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using ResourceCompiler.Resource.StyleSheet;
+using ResourceCompiler.Resource;
 
 namespace Tests.Resource.StyleSheet
 {
@@ -13,7 +14,7 @@ namespace Tests.Resource.StyleSheet
         [Test]
         public void Default_Group_Returns_Self_For_Chaining()
         {
-            var builder = new StyleSheetRegistrarBuilder(new StyleSheetRegistrar(), TestHelper.CreateViewContext());
+            var builder = new StyleSheetRegistrarBuilder(new StyleSheetRegistrar(new ResourceGroupCollection()), TestHelper.CreateViewContext());
 
             Assert.IsInstanceOf<StyleSheetRegistrarBuilder>(builder.DefaultGroup(g => g.ToString()));
         }
@@ -21,7 +22,7 @@ namespace Tests.Resource.StyleSheet
         [Test]
         public void Can_Configure_Default_Group()
         {
-            var registrar = new StyleSheetRegistrar();
+            var registrar = new StyleSheetRegistrar(new ResourceGroupCollection());
             var builder = new StyleSheetRegistrarBuilder(registrar, TestHelper.CreateViewContext());
 
             builder.DefaultGroup(g => g.Add("test/test.js"));

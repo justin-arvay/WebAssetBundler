@@ -12,6 +12,7 @@ namespace ResourceCompiler.Resource
         private static string scriptFilesPath = "~/Scripts";
         private static string version = new AssemblyName(typeof(DefaultSettings).Assembly.FullName).Version.ToString(3);
         private static bool compressed = true;
+        private static string defaultGroupName = "Default";
         
         /// <summary>
         /// Gets or sets the style sheet files path. Path must be a virtual path.
@@ -85,6 +86,21 @@ namespace ResourceCompiler.Resource
         {
             get;
             set;
+        }
+
+        /// <summary>
+        /// Gets or sets the default group name.
+        /// </summary>
+        public static string DefaultGroupName
+        {
+            get
+            {
+                return defaultGroupName;
+            }
+            set
+            {
+                defaultGroupName = value;
+            }
         }
     }
 }

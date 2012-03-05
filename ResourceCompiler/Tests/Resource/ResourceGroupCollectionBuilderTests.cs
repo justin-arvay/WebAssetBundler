@@ -28,5 +28,14 @@
 
             Assert.Throws<ArgumentException>(() => builder.AddGroup("test", g => g.ToString()));           
         }
+
+        [Test]
+        public void Should_Have_Nothing_In_Collection_By_Default()
+        {
+            var collection = new ResourceGroupCollection();
+            var builder = new ResourceGroupCollectionBuilder(ResourceType.None, collection);
+
+            Assert.AreEqual(0, collection.Count);
+        }
     }
 }

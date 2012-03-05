@@ -95,6 +95,19 @@ namespace Tests.Resource
 
             //re-set the default
             DefaultSettings.Combined = false;
-        } 
+        }
+
+        [Test]
+        public void Default_Group_Name_Should_Already_Be_Set()
+        {
+            Assert.AreEqual("Default", DefaultSettings.DefaultGroupName);
+        }
+
+        [Test]
+        public void Can_Set_Default_Group_Name()
+        {
+            DefaultSettings.DefaultGroupName = "SomeGroup";
+            Assert.AreEqual("SomeGroup", DefaultSettings.DefaultGroupName);
+        }
     }
 }

@@ -3,6 +3,7 @@ namespace ResourceCompiler
 {   
     using ResourceCompiler.Resource.StyleSheet;
     using System.Web.Mvc;
+    using ResourceCompiler.Resource;
 
     public class ComponentFactory
     {
@@ -25,7 +26,7 @@ namespace ResourceCompiler
                 {
                     if (styleSheetRegistrarBuilder == null)
                     {
-                        styleSheetRegistrarBuilder = new StyleSheetRegistrarBuilder(new StyleSheetRegistrar(), viewContext);
+                        styleSheetRegistrarBuilder = new StyleSheetRegistrarBuilder(new StyleSheetRegistrar(new ResourceGroupCollection()), viewContext);
                     }
                 }
             }

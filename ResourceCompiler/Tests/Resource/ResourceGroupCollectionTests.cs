@@ -24,7 +24,6 @@
 
             Assert.NotNull(collection.FindGroupByName("tEST"));
         }
-
-        
+       
     }
 }
