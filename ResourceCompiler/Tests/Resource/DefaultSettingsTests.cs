@@ -106,8 +106,12 @@ namespace Tests.Resource
         [Test]
         public void Can_Set_Default_Group_Name()
         {
+            var previous = DefaultSettings.DefaultGroupName;
+
             DefaultSettings.DefaultGroupName = "SomeGroup";
             Assert.AreEqual("SomeGroup", DefaultSettings.DefaultGroupName);
+
+            DefaultSettings.DefaultGroupName = previous;
         }
     }
 }

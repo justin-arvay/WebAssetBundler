@@ -51,6 +51,15 @@
     <Compile Include="ComponentFactory.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="HtmlHelperExtension.cs" />
+    <Compile Include="Resolvers\CombinedResourceGroupResolver.cs" />
+    <Compile Include="Resolvers\ResourceGroupResolver.cs" />
+    <Compile Include="Resolvers\ResourceGroupCollectionResolver.cs" />
+    <Compile Include="Resolvers\IResourceGroupCollectionResolver.cs" />
+    <Compile Include="Resolvers\IResourceResolver.cs" />
+    <Compile Include="Resolvers\IResourceResolverFactory.cs" />
+    <Compile Include="Resolvers\IUrlResolver.cs" />
+    <Compile Include="Resolvers\ResourceResolverFactory.cs" />
+    <Compile Include="Resolvers\UrlResolver.cs" />
     <Compile Include="Resource\DefaultSettings.cs" />
     <Compile Include="Resource\ResourceGroup.cs" />
     <Compile Include="Resource\ResourceGroupBuilder.cs" />
@@ -86,14 +95,6 @@
     <Compile Include="Files\IResource.cs" />
     <Compile Include="Files\Resource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Renderers\JavaScript\IJavaScriptRenderer.cs" />
-    <Compile Include="Renderers\JavaScript\JavaScriptRenderer.cs" />
-    <Compile Include="Renderers\StyleSheet\IStyleSheetRenderer.cs" />
-    <Compile Include="Renderers\StyleSheet\StyleSheetRenderer.cs" />
-    <Compile Include="Resolvers\DynamicFileResolver.cs" />
-    <Compile Include="Resolvers\FileResolver.cs" />
-    <Compile Include="Resolvers\HttpResolver.cs" />
-    <Compile Include="Resolvers\IFileResolver.cs" />
     <Compile Include="TextResource\Exceptions.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

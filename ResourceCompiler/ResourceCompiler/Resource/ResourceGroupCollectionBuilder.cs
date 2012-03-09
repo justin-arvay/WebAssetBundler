@@ -36,6 +36,16 @@ namespace ResourceCompiler.Resource
         }
 
         /// <summary>
+        /// Adds a file to the collection.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public ResourceGroupCollectionBuilder Add(string source)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
         /// Adds a new group and allows you to configure that group, or add an existing group as a shared group and configure it differently for this use.
         /// </summary>
         /// <param name="name"></param>

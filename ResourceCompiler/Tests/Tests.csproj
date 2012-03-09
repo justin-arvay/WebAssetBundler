@@ -56,6 +56,8 @@
     <Compile Include="ComponentFactoryTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
     <Compile Include="HtmlHelperExtensionTests.cs" />
+    <Compile Include="Resolvers\ResourceResolverFactoryTests.cs" />
+    <Compile Include="Resolvers\UrlResolverTests.cs" />
     <Compile Include="Resource\DefaultSettingsTests.cs" />
     <Compile Include="Resource\JavaScriptAssetBuilderTests.cs" />
     <Compile Include="Resource\PathOnlyBuilderTests.cs" />
