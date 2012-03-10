@@ -4,6 +4,7 @@ namespace ResourceCompiler
     using ResourceCompiler.Resource.StyleSheet;
     using System.Web.Mvc;
     using ResourceCompiler.Resource;
+    using ResourceCompiler.Resolvers;
 
     public class ComponentFactory
     {
@@ -26,7 +27,12 @@ namespace ResourceCompiler
                 {
                     if (styleSheetRegistrarBuilder == null)
                     {
-                        styleSheetRegistrarBuilder = new StyleSheetRegistrarBuilder(new StyleSheetRegistrar(new ResourceGroupCollection()), viewContext);
+                        var collection = new ResourceGroupCollection();
+                        var urlResolver = new UrlResolver();
+                        var resolverFactory = new ResourceResolverFactory();
+                        var resolver = new ResourceGroupCollectionResolver(urlResolver, resolverFactory);
+
+                        styleSheetRegistrarBuilder = new StyleSheetRegistrarBuilder(new StyleSheetRegistrar(collection), viewContext, resolver);
                     }
                 }
             }

@@ -22,5 +22,12 @@
 
             Assert.True(name.IsCaseSensitiveEqual("John"));
         }
+
+        [Test]
+        public void Should_Be_Able_To_Format_String()
+        {
+            string format = "{0} - {1}";
+            Assert.AreEqual("t - s", format.FormatWith("t", "s"));
+        }
     }
 }

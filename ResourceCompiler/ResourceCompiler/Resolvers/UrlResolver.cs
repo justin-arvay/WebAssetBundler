@@ -5,7 +5,7 @@ namespace ResourceCompiler.Resolvers
     using System.Web.Routing;
     using System.Web.Mvc;
 
-    public class UrlResolver
+    public class UrlResolver : IUrlResolver
     {
         /// <summary>
         /// Returns the relative path for the specified virtual path.

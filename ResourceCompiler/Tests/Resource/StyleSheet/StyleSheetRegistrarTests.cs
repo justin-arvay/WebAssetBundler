@@ -40,5 +40,6 @@ namespace Tests.Resource.StyleSheet
             Assert.AreEqual(1, collection.Count);
             Assert.True(collection.FindGroupByName(DefaultSettings.DefaultGroupName).Name.IsCaseSensitiveEqual(DefaultSettings.DefaultGroupName));
         }
+
     }
 }
