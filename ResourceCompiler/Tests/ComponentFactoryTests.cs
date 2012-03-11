@@ -18,17 +18,5 @@ namespace Tests
 
             Assert.IsInstanceOf<StyleSheetRegistrarBuilder>(factory.StyleSheetRegistrar());
         }
-
-        [Test]
-        public void Always_Return_Same_Instance_Of_Style_Sheet_Builder()
-        {
-            var factory = new ComponentFactory(TestHelper.CreateViewContext());
-
-            var builderOne = factory.StyleSheetRegistrar();
-            var builderTwo = factory.StyleSheetRegistrar();
-
-
-            Assert.AreSame(builderOne, builderTwo);
-        }
     }
 }

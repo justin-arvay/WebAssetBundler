@@ -21,21 +21,44 @@ namespace ResourceCompiler.Resource.StyleSheet
         public StyleSheetRegistrarBuilder(StyleSheetRegistrar registrar, ViewContext viewContext, IResourceGroupCollectionResolver resolver)
         {
             Registrar = registrar;
+            this.resolver = resolver;
             this.viewContext = viewContext;
         }
 
+        /// <summary>
+        /// Allows building of the default group.
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
         public StyleSheetRegistrarBuilder DefaultGroup(Action<ResourceGroupBuilder> action)
         {
             action(new ResourceGroupBuilder(Registrar.DefaultGroup));
             return this;
         }
 
+        /// <summary>
+        /// Allows building of groups and page.
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public StyleSheetRegistrarBuilder StyleSheets(Action<ResourceGroupCollectionBuilder> action)
+        {
+            action(new ResourceGroupCollectionBuilder(ResourceType.StyleSheet, Registrar.StyleSheets));
+            return this;
+        }
+
+        /// <summary>
+        /// A registrar of all the stylesheets. 
+        /// </summary>
         public StyleSheetRegistrar Registrar 
         { 
             get; 
             private set; 
         }
 
+        /// <summary>
+        /// Renders the stylesheets into the responce stream.
+        /// </summary>
         public void Render()
         {
             if (hasRendered)
@@ -47,12 +70,16 @@ namespace ResourceCompiler.Resource.StyleSheet
 
             using (HtmlTextWriter textWriter = new HtmlTextWriter(baseWriter))
             {
-                Write(baseWriter);
+                Write(textWriter);
             }
 
             hasRendered = true;
         }
 
+        /// <summary>
+        /// Returns the stylesheets as a string.
+        /// </summary>
+        /// <returns></returns>
         public string ToHtmlString()
         {
            using (var output = new StringWriter())

@@ -42,7 +42,14 @@ namespace ResourceCompiler.Resource
         /// <returns></returns>
         public ResourceGroupCollectionBuilder Add(string source)
         {
-            throw new NotImplementedException();
+            var group = new ResourceGroup("Single", false) ;
+
+            group.Resources.Add(new Files.Resource(source));
+
+            //add to collection
+            resourceGroups.Add(group);
+
+            return this;
         }
 
         /// <summary>

@@ -41,5 +41,16 @@
         {
             return string.Format(CultureInfo.CurrentCulture, instance, args);
         }
+
+        /// <summary>
+        /// Determine the number of occurances in the string.
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static int CountOccurance(this string instance, string value)
+        {
+            return instance.Split(new [] { value }, StringSplitOptions.None).Length - 1;
+        }
     }
 }

@@ -29,5 +29,13 @@
             string format = "{0} - {1}";
             Assert.AreEqual("t - s", format.FormatWith("t", "s"));
         }
+
+        [Test]
+        public void Should_Find_Correct_Number_Of_Occurances()
+        {
+            string value = "This is the best string.";
+
+            Assert.AreEqual(2, value.CountOccurance("is"));
+        }
     }
 }

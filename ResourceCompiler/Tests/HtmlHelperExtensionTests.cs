@@ -11,7 +11,7 @@ namespace Tests
     public class HtmlHelperExtensionTests
     {
         [Test]
-        public void Should_Return_Same_Instance()
+        public void Should_Return_Instance()
         {
             //var helper = new HtmlHelper(null, null);
             //

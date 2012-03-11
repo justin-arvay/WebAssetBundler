@@ -181,7 +181,7 @@
                 new Mock<IView>().Object, 
                 new ViewDataDictionary(), 
                 new TempDataDictionary(), 
-                TextWriter.Null);
+                new StringWriter());
         }
 
         public static ControllerContext CreateControllerContext()

@@ -1,6 +1,11 @@
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Examples\bin\Examples.dll
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Examples\bin\Examples.pdb
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Examples\bin\EntityFramework.dll
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Examples\bin\ResourceCompiler.dll
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Examples\bin\Yahoo.Yui.Compressor.dll
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Examples\bin\AjaxMin.dll
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Examples\bin\EcmaScript.NET.modified.dll
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Examples\bin\ResourceCompiler.pdb
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Examples\bin\EntityFramework.xml
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Examples\obj\Debug\ResolveAssemblyReference.cache
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Examples\obj\Debug\Examples.dll
