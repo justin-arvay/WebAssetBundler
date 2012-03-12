@@ -13,6 +13,7 @@ namespace ResourceCompiler.Resolvers
         public ResourceGroupCollectionResolver(IUrlResolver urlResolver, IResourceResolverFactory resolverFactory)
         {
             this.resolverFactory = resolverFactory;
+            this.urlResolver = urlResolver;
         }
 
         /// <summary>
@@ -30,7 +31,7 @@ namespace ResourceCompiler.Resolvers
                 var groupUrls = resolver.Resolve();
                
                 //
-                groupUrls.Select((url) => urlResolver.Resolve(url));
+                groupUrls = groupUrls.Select((url) => urlResolver.Resolve(url));
                 urls.AddRange(groupUrls);
             }
 
