@@ -1,9 +1,9 @@
 ﻿
 namespace ResourceCompiler
-{   
-    using ResourceCompiler.Resource.StyleSheet;
+{
+    using ResourceCompiler.Registrar;
     using System.Web.Mvc;
-    using ResourceCompiler.Resource;
+    using ResourceCompiler.WebAsset;
     using ResourceCompiler.Resolvers;
 
     public class ComponentFactory
@@ -18,10 +18,10 @@ namespace ResourceCompiler
 
         public StyleSheetRegistrarBuilder StyleSheetRegistrar()
         {
-            var collection = new ResourceGroupCollection();
+            var collection = new WebAssetGroupCollection();
             var urlResolver = new UrlResolver();
-            var resolverFactory = new ResourceResolverFactory();
-            var resolver = new ResourceGroupCollectionResolver(urlResolver, resolverFactory);
+            var resolverFactory = new WebAssetResolverFactory();
+            var resolver = new WebAssetGroupCollectionResolver(urlResolver, resolverFactory);
 
             return new StyleSheetRegistrarBuilder(new StyleSheetRegistrar(collection), viewContext, resolver);
         }

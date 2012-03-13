@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using ResourceCompiler;
-using ResourceCompiler.Resource.StyleSheet;
+using ResourceCompiler.Registrar;
 
 namespace Tests
 {

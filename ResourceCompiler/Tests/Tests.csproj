@@ -56,19 +56,18 @@
     <Compile Include="ComponentFactoryTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
     <Compile Include="HtmlHelperExtensionTests.cs" />
-    <Compile Include="Resolvers\ResourceGroupResolverTests.cs" />
-    <Compile Include="Resolvers\ResourceResolverFactoryTests.cs" />
+    <Compile Include="Resolvers\WebAssetGroupResolverTests.cs" />
+    <Compile Include="Resolvers\WebAssetResolverFactoryTests.cs" />
     <Compile Include="Resolvers\UrlResolverTests.cs" />
-    <Compile Include="Resource\DefaultSettingsTests.cs" />
-    <Compile Include="Resource\JavaScriptAssetBuilderTests.cs" />
-    <Compile Include="Resource\PathOnlyBuilderTests.cs" />
+    <Compile Include="WebAsset\DefaultSettingsTests.cs" />
+    <Compile Include="WebAsset\PathOnlyBuilderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resource\ResourceGroupBuilderTests.cs" />
-    <Compile Include="Resource\ResourceGroupCollectionBuilderTests.cs" />
-    <Compile Include="Resource\ResourceGroupCollectionTests.cs" />
-    <Compile Include="Resource\ResourceGroupTests.cs" />
-    <Compile Include="Resource\StyleSheet\StyleSheetRegistrarTests.cs" />
-    <Compile Include="Resource\StyleSheet\StyleSheetRegistrarBuilderTests.cs" />
+    <Compile Include="WebAsset\WebAssetGroupBuilderTests.cs" />
+    <Compile Include="WebAsset\WebAssetGroupCollectionBuilderTests.cs" />
+    <Compile Include="WebAsset\WebAssetCollectionTests.cs" />
+    <Compile Include="WebAsset\WebAsssetGroupTests.cs" />
+    <Compile Include="Registrar\StyleSheet\StyleSheetRegistrarTests.cs" />
+    <Compile Include="Registrar\StyleSheet\StyleSheetRegistrarBuilderTests.cs" />
     <Compile Include="TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
