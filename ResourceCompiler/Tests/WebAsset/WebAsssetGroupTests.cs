@@ -97,7 +97,7 @@ namespace Tests.WebAsset
         public void Can_Add_Resource()
         {
             var group = new WebAssetGroup("", false);
-            group.Assets.Add(new ResourceCompiler.Files.SourceWebAsset("/path/file.js"));
+            group.Assets.Add(new SourceWebAsset("/path/file.js"));
 
             Assert.AreEqual(1, group.Assets.Count);
         }
@@ -106,8 +106,8 @@ namespace Tests.WebAsset
         {
             var group = new WebAssetGroup("", false);
 
-            group.Assets.Add(new ResourceCompiler.Files.SourceWebAsset("/path/file.js"));
-            Assert.Throws<ArgumentException>(() => group.Assets.Add(new ResourceCompiler.Files.SourceWebAsset("/path/file.js")));
+            group.Assets.Add(new SourceWebAsset("/path/file.js"));
+            Assert.Throws<ArgumentException>(() => group.Assets.Add(new SourceWebAsset("/path/file.js")));
 
         }
 
@@ -115,8 +115,8 @@ namespace Tests.WebAsset
         {
             var group = new WebAssetGroup("", false);
 
-            group.Assets.Add(new ResourceCompiler.Files.SourceWebAsset("/path/file.js"));
-            Assert.Throws<ArgumentException>(() => group.Assets.Insert(1, new ResourceCompiler.Files.SourceWebAsset("/path/file.js")));
+            group.Assets.Add(new SourceWebAsset("/path/file.js"));
+            Assert.Throws<ArgumentException>(() => group.Assets.Insert(1, new SourceWebAsset("/path/file.js")));
         }
 
     }

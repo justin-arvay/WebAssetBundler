@@ -1,5 +1,5 @@
 
-namespace ResourceCompiler.Files
+namespace ResourceCompiler.WebAsset
 {
     using System.IO;
     using System;

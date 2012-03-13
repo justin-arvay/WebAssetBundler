@@ -44,7 +44,7 @@ namespace ResourceCompiler.WebAsset
         {
             var group = new WebAssetGroup("Single", false) ;
 
-            group.Assets.Add(new Files.SourceWebAsset(source));
+            group.Assets.Add(new SourceWebAsset(source));
 
             //add to collection
             resourceGroups.Add(group);

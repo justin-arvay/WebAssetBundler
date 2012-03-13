@@ -1,5 +1,5 @@
 ﻿using System;
-namespace ResourceCompiler.Files
+namespace ResourceCompiler.WebAsset
 {
     public interface IWebAsset
     {

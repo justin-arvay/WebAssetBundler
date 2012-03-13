@@ -51,7 +51,7 @@ namespace ResourceCompiler.WebAsset
         /// <returns></returns>
         public WebAssetGroupBuilder Add(string filePath)
         {
-            group.Assets.Add(new Files.SourceWebAsset(filePath));
+            group.Assets.Add(new SourceWebAsset(filePath));
             return this;
         }
 
