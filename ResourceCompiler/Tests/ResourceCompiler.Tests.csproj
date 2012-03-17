@@ -9,8 +9,8 @@
     <ProjectGuid>{9FEF5FAF-C2E6-4943-ACCC-7B89C13013C0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tests</RootNamespace>
-    <AssemblyName>Tests</AssemblyName>
+    <RootNamespace>ResourceCompiler.Tests</RootNamespace>
+    <AssemblyName>ResourceCompiler.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -33,6 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxMin, Version=4.5.3886.23096, Culture=neutral, PublicKeyToken=24297a69a7eae424, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Moq">
       <HintPath>..\..\Library\Moq.dll</HintPath>
     </Reference>
@@ -44,8 +46,13 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Yahoo.Yui.Compressor, Version=1.4.2.0, Culture=neutral, PublicKeyToken=f8b4b81ec75097e2, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
@@ -53,6 +60,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caching\CacheTest.cs" />
     <Compile Include="ComponentFactoryTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
     <Compile Include="HtmlHelperExtensionTests.cs" />
@@ -66,8 +74,8 @@
     <Compile Include="WebAsset\WebAssetGroupCollectionBuilderTests.cs" />
     <Compile Include="WebAsset\WebAssetCollectionTests.cs" />
     <Compile Include="WebAsset\WebAsssetGroupTests.cs" />
-    <Compile Include="Registrar\StyleSheet\StyleSheetRegistrarTests.cs" />
-    <Compile Include="Registrar\StyleSheet\StyleSheetRegistrarBuilderTests.cs" />
+    <Compile Include="Registrar\StyleSheetRegistrarTests.cs" />
+    <Compile Include="Registrar\StyleSheetRegistrarBuilderTests.cs" />
     <Compile Include="TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +85,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Shadow Include="Test References\ResourceCompiler.accessor" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

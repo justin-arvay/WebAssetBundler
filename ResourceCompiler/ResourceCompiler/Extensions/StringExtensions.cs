@@ -52,5 +52,15 @@
         {
             return instance.Split(new [] { value }, StringSplitOptions.None).Length - 1;
         }
+
+        /// <summary>
+        /// Check is the string is not not null or empty
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool IsNotNullOrEmpty(this string value)
+        {
+            return !string.IsNullOrEmpty(value);
+        }
     }
 }

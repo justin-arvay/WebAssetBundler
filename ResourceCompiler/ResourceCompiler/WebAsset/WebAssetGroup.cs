@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ResourceCompiler.Files;
 using System.Collections.ObjectModel;
 
 namespace ResourceCompiler.WebAsset

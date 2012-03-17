@@ -48,6 +48,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caching\Cache.cs" />
+    <Compile Include="Caching\CacheFactory.cs" />
+    <Compile Include="Caching\CacheProvider.cs" />
+    <Compile Include="Caching\ICache.cs" />
+    <Compile Include="Caching\ICacheFactory.cs" />
+    <Compile Include="Caching\ICacheProvider.cs" />
     <Compile Include="ComponentFactory.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="HtmlHelperExtension.cs" />
@@ -68,8 +74,8 @@
     <Compile Include="WebAsset\WebAssetGroupCollection.cs" />
     <Compile Include="WebAsset\WebAssetGroupCollectionBuilder.cs" />
     <Compile Include="WebAsset\WebAssetType.cs" />
-    <Compile Include="Registrar\StyleSheet\StyleSheetRegistrar.cs" />
-    <Compile Include="Registrar\StyleSheet\StyleSheetRegistrarBuilder.cs" />
+    <Compile Include="Registrar\StyleSheetRegistrar.cs" />
+    <Compile Include="Registrar\StyleSheetRegistrarBuilder.cs" />
     <Compile Include="Compressors\JavaScript\ClosureMinifier.cs" />
     <Compile Include="Compressors\JavaScript\IJavaScriptCompressor.cs" />
     <Compile Include="Compressors\JavaScript\JavaScriptMinifiers.cs" />
@@ -85,10 +91,6 @@
     <Compile Include="Compressors\StyleSheet\MsCompressor.cs" />
     <Compile Include="Compressors\StyleSheet\NullCompressor.cs" />
     <Compile Include="Compressors\StyleSheet\YuiCompressor.cs" />
-    <Compile Include="Files\FileReader.cs" />
-    <Compile Include="Files\FileReaderFactory.cs" />
-    <Compile Include="Files\IFileReader.cs" />
-    <Compile Include="Files\IFileReaderFactory.cs" />
     <Compile Include="WebAsset\IWebAsset.cs" />
     <Compile Include="WebAsset\SourceWebAsset.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
