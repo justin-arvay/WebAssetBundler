@@ -1,15 +1,15 @@
 ﻿
 namespace ResourceCompiler
 {
-    using ResourceCompiler.Registrar;
     using System.Web.Mvc;
-    using ResourceCompiler.WebAsset;
-    using ResourceCompiler.Resolvers;
+    using ResourceCompiler.Web.Mvc;
 
     public class ComponentFactory
     {
 
         private ViewContext viewContext;
+
+        private ICacheFactory cacheFactory;
 
         public ComponentFactory(ViewContext viewContext)
         {
@@ -23,7 +23,7 @@ namespace ResourceCompiler
             var resolverFactory = new WebAssetResolverFactory();
             var resolver = new WebAssetGroupCollectionResolver(urlResolver, resolverFactory);
 
-            return new StyleSheetRegistrarBuilder(new StyleSheetRegistrar(collection), viewContext, resolver);
+            return new StyleSheetRegistrarBuilder(new StyleSheetRegistrar(collection), viewContext, resolver, cacheFactory);
         }
     }
 }

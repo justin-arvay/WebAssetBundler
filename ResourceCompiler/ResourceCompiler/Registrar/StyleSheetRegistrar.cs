@@ -1,7 +1,7 @@
 ﻿
-namespace ResourceCompiler.Registrar
+namespace ResourceCompiler.Web.Mvc
 {
-    using ResourceCompiler.WebAsset;
+    using ResourceCompiler.Web.Mvc;
 
     public class StyleSheetRegistrar
     {

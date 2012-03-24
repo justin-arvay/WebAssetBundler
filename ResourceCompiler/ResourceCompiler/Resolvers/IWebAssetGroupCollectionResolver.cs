@@ -1,7 +1,7 @@
 ﻿
-namespace ResourceCompiler.Resolvers
+namespace ResourceCompiler.Web.Mvc
 {
-    using ResourceCompiler.WebAsset;
+    using ResourceCompiler.Web.Mvc;
     using System.Collections.Generic;
 
     public interface IWebAssetGroupCollectionResolver

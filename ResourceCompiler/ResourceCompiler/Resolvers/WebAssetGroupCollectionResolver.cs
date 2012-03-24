@@ -1,8 +1,8 @@
 ﻿
-namespace ResourceCompiler.Resolvers
+namespace ResourceCompiler.Web.Mvc
 {
     using System.Collections.Generic;
-    using ResourceCompiler.WebAsset;
+    using ResourceCompiler.Web.Mvc;
     using System.Linq;
 
     public class WebAssetGroupCollectionResolver : IWebAssetGroupCollectionResolver

@@ -1,7 +1,7 @@
 ﻿
-namespace ResourceCompiler.Resolvers
+namespace ResourceCompiler.Web.Mvc
 {
-    using ResourceCompiler.WebAsset;
+    using ResourceCompiler.Web.Mvc;
 
     public interface IWebAssetResolverFactory
     {

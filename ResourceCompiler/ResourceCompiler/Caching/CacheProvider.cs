@@ -14,12 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace ResourceCompiler.Caching
+namespace ResourceCompiler.Web.Mvc
 {
     using System.Linq;
     using System.Web;
     using System.Web.Caching;
-    using Extensions;
 
     public class CacheProvider : ICacheProvider
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace ResourceCompiler.Resolvers
+namespace ResourceCompiler.Web.Mvc
 {
     using System.Web;
     using System.Web.Routing;

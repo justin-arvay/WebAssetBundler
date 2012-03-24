@@ -66,14 +66,13 @@
     <Compile Include="Resolvers\IUrlResolver.cs" />
     <Compile Include="Resolvers\WebAssetResolverFactory.cs" />
     <Compile Include="Resolvers\UrlResolver.cs" />
-    <Compile Include="WebAsset\DefaultSettings.cs" />
-    <Compile Include="WebAsset\WebAssetGroup.cs" />
-    <Compile Include="WebAsset\WebAssetGroupBuilder.cs" />
-    <Compile Include="WebAsset\IAssetsBuilder.cs" />
-    <Compile Include="WebAsset\PathOnlyBuilder.cs" />
-    <Compile Include="WebAsset\WebAssetGroupCollection.cs" />
-    <Compile Include="WebAsset\WebAssetGroupCollectionBuilder.cs" />
-    <Compile Include="WebAsset\WebAssetType.cs" />
+    <Compile Include="Fluent\DefaultSettings.cs" />
+    <Compile Include="Fluent\WebAssetGroup.cs" />
+    <Compile Include="Fluent\WebAssetGroupBuilder.cs" />
+    <Compile Include="Fluent\PathOnlyBuilder.cs" />
+    <Compile Include="Fluent\WebAssetGroupCollection.cs" />
+    <Compile Include="Fluent\WebAssetGroupCollectionBuilder.cs" />
+    <Compile Include="Fluent\WebAssetType.cs" />
     <Compile Include="Registrar\StyleSheetRegistrar.cs" />
     <Compile Include="Registrar\StyleSheetRegistrarBuilder.cs" />
     <Compile Include="Compressors\JavaScript\ClosureMinifier.cs" />
@@ -91,8 +90,8 @@
     <Compile Include="Compressors\StyleSheet\MsCompressor.cs" />
     <Compile Include="Compressors\StyleSheet\NullCompressor.cs" />
     <Compile Include="Compressors\StyleSheet\YuiCompressor.cs" />
-    <Compile Include="WebAsset\IWebAsset.cs" />
-    <Compile Include="WebAsset\SourceWebAsset.cs" />
+    <Compile Include="Fluent\IWebAsset.cs" />
+    <Compile Include="Fluent\WebAsset.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextResource\Exceptions.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -1,4 +1,4 @@
-﻿namespace ResourceCompiler.Extensions
+﻿namespace ResourceCompiler.Web.Mvc
 {
     using System;
     using System.Globalization;
