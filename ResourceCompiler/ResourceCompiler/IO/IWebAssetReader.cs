@@ -17,13 +17,9 @@
 namespace ResourceCompiler.Web.Mvc
 {
     using System;
-    using System.IO;
 
-    public class WebAssetReader : IWebAssetReader
+    public interface IWebAssetReader
     {
-        public WebAssetReader(TextReader reader)
-        {
-        }
-
+        string Read(IWebAsset webAsset);
     }
 }
