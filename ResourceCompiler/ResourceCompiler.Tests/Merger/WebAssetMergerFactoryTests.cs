@@ -18,10 +18,18 @@ namespace ResourceCompiler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using System;
+    using Moq;
 
     [TestFixture]
     public class WebAssetMergerFactoryTests
     {
+        private IWebAssetReader reader;
+
+        public WebAssetMergerFactoryTests()
+        {
+            reader = new Mock<IWebAssetReader>().Object;
+        }
+
         [Test]
         public void Should_Return_Combined_Merger()
         {
@@ -30,7 +38,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
                 Combined = true
             };
 
-            var factory = new WebAssetMergerFactory();
+            var factory = new WebAssetMergerFactory(reader);
 
             Assert.IsInstanceOf<CombinedWebAssetGroupMerger>(factory.Create(group));
         }
@@ -43,7 +51,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
                 Version = "1.1"
             };
 
-            var factory = new WebAssetMergerFactory();
+            var factory = new WebAssetMergerFactory(reader);
 
             Assert.IsInstanceOf<VersionedWebAssetGroupMerger>(factory.Create(group));
         }
@@ -52,7 +60,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         public void Should_Return_Empty_Merger()
         {
             var group = new WebAssetGroup("test", false);
-            var factory = new WebAssetMergerFactory();
+            var factory = new WebAssetMergerFactory(reader);
 
             Assert.IsInstanceOf<EmptyWebAssetGroupMerger>(factory.Create(group));
         }

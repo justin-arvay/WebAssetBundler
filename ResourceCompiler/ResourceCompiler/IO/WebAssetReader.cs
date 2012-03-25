@@ -21,9 +21,18 @@ namespace ResourceCompiler.Web.Mvc
 
     public class WebAssetReader : IWebAssetReader
     {
-        public WebAssetReader(TextReader reader)
+ 
+        public WebAssetReader()
         {
         }
 
+
+        public string Read(IWebAsset webAsset)
+        {
+            using (var reader = new StreamReader(webAsset.Source))
+            {
+                return reader.ReadToEnd();
+            }
+        }
     }
 }

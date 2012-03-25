@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="AjaxMin, Version=4.5.3886.23096, Culture=neutral, PublicKeyToken=24297a69a7eae424, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Moq">
       <HintPath>..\..\Library\Moq.dll</HintPath>
     </Reference>
@@ -65,6 +66,8 @@
     <Compile Include="Extensions\StringExtensionsTests.cs" />
     <Compile Include="HtmlHelperExtension.cs" />
     <Compile Include="HtmlHelperExtensionTests.cs" />
+    <Compile Include="IO\WebAssetReaderTests.cs" />
+    <Compile Include="Merger\VersionedWebAssetGroupMergerTests.cs" />
     <Compile Include="Merger\WebAssetMergerFactoryTests.cs" />
     <Compile Include="Resolvers\WebAssetGroupResolverTests.cs" />
     <Compile Include="Resolvers\WebAssetResolverFactoryTests.cs" />
@@ -87,11 +90,14 @@
       <Name>ResourceCompiler</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="IO\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Shadow Include="Test References\ResourceCompiler.accessor" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Files\read.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

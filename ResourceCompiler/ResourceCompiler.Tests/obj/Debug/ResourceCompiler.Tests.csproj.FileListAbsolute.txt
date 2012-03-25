@@ -10,6 +10,7 @@ D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Tests\bin\Debug\
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Tests\bin\Debug\ResourceCompiler_Accessor.pdb
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Tests\obj\Debug\ResourceCompiler.Tests.dll
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\Tests\obj\Debug\ResourceCompiler.Tests.pdb
+D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\ResourceCompiler.Tests\bin\Debug\Files\read.txt
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\ResourceCompiler.Tests\bin\Debug\ResourceCompiler.Tests.dll
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\ResourceCompiler.Tests\bin\Debug\ResourceCompiler.Tests.pdb
 D:\Projects\ASP.Net Projects\Resource-Compiler\ResourceCompiler\ResourceCompiler.Tests\bin\Debug\Moq.dll

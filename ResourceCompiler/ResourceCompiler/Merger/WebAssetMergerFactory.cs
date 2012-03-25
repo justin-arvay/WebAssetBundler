@@ -20,8 +20,11 @@ namespace ResourceCompiler.Web.Mvc
 
     public class WebAssetMergerFactory : IWebAssetMergerFactory
     {
-        public WebAssetMergerFactory()
+        private IWebAssetReader reader;
+
+        public WebAssetMergerFactory(IWebAssetReader reader)
         {
+            this.reader = reader;
         }
 
         public IWebAssetMerger Create(WebAssetGroup group)
@@ -33,7 +36,7 @@ namespace ResourceCompiler.Web.Mvc
 
             if (group.Version.IsNotNullOrEmpty())
             {
-                return new VersionedWebAssetGroupMerger();
+                return new VersionedWebAssetGroupMerger(reader);
             }
 
             //not reason to merge anything

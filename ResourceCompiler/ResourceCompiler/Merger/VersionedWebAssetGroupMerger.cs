@@ -18,16 +18,24 @@ namespace ResourceCompiler.Web.Mvc
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class VersionedWebAssetGroupMerger : IWebAssetMerger
     {
-        public VersionedWebAssetGroupMerger()
+        private IWebAssetReader reader;
+
+        public VersionedWebAssetGroupMerger(IWebAssetReader reader)
         {
+            this.reader = reader;
         }
 
         public IEnumerable<string> Merge(IEnumerable<IWebAsset> webAssets)
         {
-            throw new NotImplementedException();
+            var fileContents = new List<string>();
+
+            fileContents.AddRange(webAssets.Select((webAsset) => reader.Read(webAsset)));
+
+            return fileContents;
         }
     }
 }
