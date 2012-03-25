@@ -34,6 +34,17 @@
         }
 
         [Test]
+        public void Can_Set_Generated_Files_Path()
+        {
+            DefaultSettings.GeneratedFilesPath = "~/test/";
+
+            Assert.AreEqual("~/test/", DefaultSettings.GeneratedFilesPath);
+
+            //re-set the default
+            DefaultSettings.GeneratedFilesPath = "~/Generated";
+        }
+
+        [Test]
         public void Can_Set_Version()
         {
             DefaultSettings.Version = "1.0";

@@ -61,9 +61,12 @@
     <Compile Include="IO\WebAssetReader.cs" />
     <Compile Include="Merger\CombinedWebAssetGroupMerger.cs" />
     <Compile Include="Merger\EmptyWebAssetGroupMerger.cs" />
+    <Compile Include="Merger\IWebAsserGroupCollectionMerger.cs" />
     <Compile Include="Merger\IWebAssetMergerFactory.cs" />
     <Compile Include="Merger\VersionedWebAssetGroupMerger.cs" />
+    <Compile Include="Merger\WebAssetGroupCollectionMerger.cs" />
     <Compile Include="Merger\WebAssetMergerFactory.cs" />
+    <Compile Include="Merger\WebAssetMergerResult.cs" />
     <Compile Include="Resolvers\CombinedWebAssetGroupResolver.cs" />
     <Compile Include="Merger\IWebAssetMerger.cs" />
     <Compile Include="Resolvers\WebAssetGroupResolver.cs" />
@@ -74,7 +77,7 @@
     <Compile Include="Resolvers\IUrlResolver.cs" />
     <Compile Include="Resolvers\WebAssetResolverFactory.cs" />
     <Compile Include="Resolvers\UrlResolver.cs" />
-    <Compile Include="Fluent\DefaultSettings.cs" />
+    <Compile Include="DefaultSettings.cs" />
     <Compile Include="Fluent\WebAssetGroup.cs" />
     <Compile Include="Fluent\WebAssetGroupBuilder.cs" />
     <Compile Include="Fluent\PathOnlyBuilder.cs" />

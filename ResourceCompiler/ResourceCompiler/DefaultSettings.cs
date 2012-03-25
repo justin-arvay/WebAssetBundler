@@ -10,6 +10,8 @@ namespace ResourceCompiler.Web.Mvc
     {
         private static string styleSheetFilesPath = "~/Content";
         private static string scriptFilesPath = "~/Scripts";
+        private static string generatedFilesPath = "~/Generated";
+
         private static string version = new AssemblyName(typeof(DefaultSettings).Assembly.FullName).Version.ToString(3);
         private static bool compressed = true;
         private static string defaultGroupName = "Default";
@@ -43,6 +45,22 @@ namespace ResourceCompiler.Web.Mvc
             set
             {
                 scriptFilesPath = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the generated files path. Path must be a virtual path.
+        /// </summary>
+        /// <value>The style sheet files path.</value>
+        public static string GeneratedFilesPath
+        {
+            get
+            {
+                return generatedFilesPath;
+            }
+            set
+            {
+                generatedFilesPath = value;
             }
         }
 

@@ -23,19 +23,26 @@ namespace ResourceCompiler.Web.Mvc
     public class VersionedWebAssetGroupMerger : IWebAssetMerger
     {
         private IWebAssetReader reader;
+        private WebAssetGroup group;
 
-        public VersionedWebAssetGroupMerger(IWebAssetReader reader)
+        public VersionedWebAssetGroupMerger(WebAssetGroup group, IWebAssetReader reader)
         {
             this.reader = reader;
+            this.group = group;
         }
 
-        public IEnumerable<string> Merge(IEnumerable<IWebAsset> webAssets)
+        public IList<WebAssetMergerResult> Merge()
         {
-            var fileContents = new List<string>();
+            var results = new List<WebAssetMergerResult>();
 
-            fileContents.AddRange(webAssets.Select((webAsset) => reader.Read(webAsset)));
+            foreach (var webAsset in group.Assets)
+            {
+                var content = reader.Read(webAsset);
 
-            return fileContents;
+                results.Add(new WebAssetMergerResult(group.Name, group.Version, content));
+            }
+
+            return results;
         }
     }
 }

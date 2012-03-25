@@ -31,12 +31,12 @@ namespace ResourceCompiler.Web.Mvc
         {
             if (group.Combined)
             {
-                return new CombinedWebAssetGroupMerger();
+                return new CombinedWebAssetGroupMerger(group, reader);
             }
 
             if (group.Version.IsNotNullOrEmpty())
             {
-                return new VersionedWebAssetGroupMerger(reader);
+                return new VersionedWebAssetGroupMerger(group, reader);
             }
 
             //not reason to merge anything

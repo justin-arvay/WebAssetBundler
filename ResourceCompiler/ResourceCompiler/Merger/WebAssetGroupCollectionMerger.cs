@@ -19,16 +19,25 @@ namespace ResourceCompiler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public class EmptyWebAssetGroupMerger : IWebAssetMerger
+    public class WebAssetGroupCollectionMerger : IWebAsserGroupCollectionMerger
     {
-        public EmptyWebAssetGroupMerger()
+        private IWebAssetMergerFactory mergerFactory;
+
+        public WebAssetGroupCollectionMerger(IWebAssetMergerFactory mergerFactory)
         {
+            this.mergerFactory = mergerFactory;
         }
 
-        public IList<WebAssetMergerResult> Merge()
+        public IList<WebAssetMergerResult> Merge(WebAssetGroupCollection groupCollection)
         {
-            return new List<WebAssetMergerResult>();
-        }
+            var results = new List<WebAssetMergerResult>();
 
+            foreach (var group in groupCollection)
+            {
+                results.AddRange(mergerFactory.Create(group).Merge());
+            }
+
+            return results;
+        }
     }
 }

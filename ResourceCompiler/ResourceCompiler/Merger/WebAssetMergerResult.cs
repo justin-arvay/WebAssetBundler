@@ -17,18 +17,32 @@
 namespace ResourceCompiler.Web.Mvc
 {
     using System;
-    using System.Collections.Generic;
 
-    public class EmptyWebAssetGroupMerger : IWebAssetMerger
+    public class WebAssetMergerResult
     {
-        public EmptyWebAssetGroupMerger()
+        public WebAssetMergerResult(string name, string version, string content)
         {
+            Content = content;
+            Name = name;
+            Version = version;
+        }
+        
+        public string Name
+        {
+            get;
+            private set;
         }
 
-        public IList<WebAssetMergerResult> Merge()
+        public string Version
         {
-            return new List<WebAssetMergerResult>();
+            get;
+            private set;
         }
 
+        public string Content
+        {
+            get;
+            private set;
+        }
     }
 }

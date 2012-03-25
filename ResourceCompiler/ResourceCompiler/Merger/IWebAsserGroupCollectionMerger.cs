@@ -19,16 +19,8 @@ namespace ResourceCompiler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public class EmptyWebAssetGroupMerger : IWebAssetMerger
+    public interface IWebAsserGroupCollectionMerger
     {
-        public EmptyWebAssetGroupMerger()
-        {
-        }
-
-        public IList<WebAssetMergerResult> Merge()
-        {
-            return new List<WebAssetMergerResult>();
-        }
-
+        IList<WebAssetMergerResult> Merge(WebAssetGroupCollection groupCollection);
     }
 }
