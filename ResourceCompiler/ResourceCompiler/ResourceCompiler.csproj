@@ -57,7 +57,9 @@
     <Compile Include="ComponentFactory.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="HtmlHelperExtension.cs" />
+    <Compile Include="IO\IWebAssetMergerResultWriter.cs" />
     <Compile Include="IO\IWebAssetReader.cs" />
+    <Compile Include="IO\WebAssetMergerResultWriter.cs" />
     <Compile Include="IO\WebAssetReader.cs" />
     <Compile Include="Merger\CombinedWebAssetGroupMerger.cs" />
     <Compile Include="Merger\EmptyWebAssetGroupMerger.cs" />
@@ -69,6 +71,8 @@
     <Compile Include="Merger\WebAssetMergerResult.cs" />
     <Compile Include="Resolvers\CombinedWebAssetGroupResolver.cs" />
     <Compile Include="Merger\IWebAssetMerger.cs" />
+    <Compile Include="Resolvers\IPathResolver.cs" />
+    <Compile Include="Resolvers\PathResolver.cs" />
     <Compile Include="Resolvers\WebAssetGroupResolver.cs" />
     <Compile Include="Resolvers\WebAssetGroupCollectionResolver.cs" />
     <Compile Include="Resolvers\IWebAssetGroupCollectionResolver.cs" />
