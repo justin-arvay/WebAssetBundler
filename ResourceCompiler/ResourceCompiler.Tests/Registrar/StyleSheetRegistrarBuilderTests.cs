@@ -19,7 +19,7 @@
         private StyleSheetRegistrarBuilder CreateBuilder(ViewContext context)
         {
             var collection = new WebAssetGroupCollection();
-            var urlResolver = new UrlResolver();
+            var urlResolver = new UrlResolver(TestHelper.CreateRequestContext());
             var resolverFactory = new WebAssetResolverFactory();
             var resolver = new WebAssetGroupCollectionResolver(urlResolver, resolverFactory);
             var cacheFactory = new Mock<ICacheFactory>();

@@ -7,6 +7,13 @@ namespace ResourceCompiler.Web.Mvc
 
     public class UrlResolver : IUrlResolver
     {
+        private RequestContext context;
+
+        public UrlResolver(RequestContext context)
+        {
+            this.context = context;
+        }
+
         /// <summary>
         /// Returns the relative path for the specified virtual path.
         /// </summary>
@@ -14,9 +21,7 @@ namespace ResourceCompiler.Web.Mvc
         /// <returns></returns>
         public string Resolve(string url)
         {
-            HttpContextBase httpContext = new HttpContextWrapper(HttpContext.Current);
-            RequestContext requestContext = httpContext.Request.RequestContext;
-            UrlHelper helper = new UrlHelper(requestContext);
+            UrlHelper helper = new UrlHelper(context);
 
             return helper.Content(url);
         }

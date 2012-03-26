@@ -19,7 +19,7 @@ namespace ResourceCompiler
         public StyleSheetRegistrarBuilder StyleSheetRegistrar()
         {
             var collection = new WebAssetGroupCollection();
-            var urlResolver = new UrlResolver();
+            var urlResolver = new UrlResolver(viewContext.RequestContext);
             var resolverFactory = new WebAssetResolverFactory();
             var resolver = new WebAssetGroupCollectionResolver(urlResolver, resolverFactory);
 
