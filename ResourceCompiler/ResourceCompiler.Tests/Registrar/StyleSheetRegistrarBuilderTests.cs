@@ -21,10 +21,11 @@
             var collection = new WebAssetGroupCollection();
             var urlResolver = new UrlResolver(TestHelper.CreateRequestContext());
             var resolverFactory = new WebAssetResolverFactory();
-            var resolver = new WebAssetGroupCollectionResolver(urlResolver, resolverFactory);
+            var collectionResolver = new WebAssetGroupCollectionResolver(urlResolver, resolverFactory);
+            var collectionMerger = new WebAssetGroupCollectionMerger(new WebAssetMergerFactory(new WebAssetReader()));
             var cacheFactory = new Mock<ICacheFactory>();
 
-            return new StyleSheetRegistrarBuilder(new StyleSheetRegistrar(collection), context, resolver, cacheFactory.Object);
+            return new StyleSheetRegistrarBuilder(new StyleSheetRegistrar(collection), context, collectionResolver, collectionMerger, cacheFactory.Object);
         }
 
         [Test]

@@ -61,7 +61,7 @@
     <Compile Include="IO\WebAssetReader.cs" />
     <Compile Include="Merger\CombinedWebAssetGroupMerger.cs" />
     <Compile Include="Merger\EmptyWebAssetGroupMerger.cs" />
-    <Compile Include="Merger\IWebAsserGroupCollectionMerger.cs" />
+    <Compile Include="Merger\IWebAssetGroupCollectionMerger.cs" />
     <Compile Include="Merger\IWebAssetMergerFactory.cs" />
     <Compile Include="Merger\VersionedWebAssetGroupMerger.cs" />
     <Compile Include="Merger\WebAssetGroupCollectionMerger.cs" />

@@ -19,7 +19,7 @@ namespace ResourceCompiler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public interface IWebAsserGroupCollectionMerger
+    public interface IWebAssetGroupCollectionMerger
     {
         IList<WebAssetMergerResult> Merge(WebAssetGroupCollection groupCollection);
     }

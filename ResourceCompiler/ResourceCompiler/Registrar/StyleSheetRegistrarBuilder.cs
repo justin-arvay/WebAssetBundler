@@ -11,7 +11,8 @@ namespace ResourceCompiler.Web.Mvc
 
     public class StyleSheetRegistrarBuilder : IHtmlString
     {
-        private readonly IWebAssetGroupCollectionResolver resolver;
+        private readonly IWebAssetGroupCollectionResolver collectionResolver;
+        private readonly IWebAssetGroupCollectionMerger collectionMerger;
         private bool hasRendered;
         private ViewContext viewContext;
         private ICacheFactory cacheFactory;
@@ -22,10 +23,15 @@ namespace ResourceCompiler.Web.Mvc
         /// <param name="registrar"></param>
         /// <param name="viewContext"></param>
         /// <param name="resolver"></param>
-        public StyleSheetRegistrarBuilder(StyleSheetRegistrar registrar, ViewContext viewContext, IWebAssetGroupCollectionResolver resolver, ICacheFactory cacheFactory)
+        public StyleSheetRegistrarBuilder(
+            StyleSheetRegistrar registrar, 
+            ViewContext viewContext, 
+            IWebAssetGroupCollectionResolver resolver, 
+            IWebAssetGroupCollectionMerger merger,
+            ICacheFactory cacheFactory)
         {
             Registrar = registrar;
-            this.resolver = resolver;
+            this.collectionResolver = resolver;
             this.viewContext = viewContext;
             this.cacheFactory = cacheFactory;
         }
@@ -98,7 +104,7 @@ namespace ResourceCompiler.Web.Mvc
         protected virtual void Write(TextWriter writer)
         {
             var link = "<link type=\"text/css\" href=\"{0}\" rel=\"stylesheet\"/>";
-            var urls = resolver.Resolve(Registrar.StyleSheets);
+            var urls = collectionResolver.Resolve(Registrar.StyleSheets);
 
             foreach (var url in urls)
             {
@@ -108,37 +114,9 @@ namespace ResourceCompiler.Web.Mvc
 
         protected virtual void Generate(StreamWriter writer)
         {
-            var cache = cacheFactory.Create("stylesheet");
+            var results = collectionMerger.Merge(Registrar.StyleSheets);
 
-            foreach (var group in Registrar.StyleSheets)
-            {
-                string value;
-
-                if (group.Version.IsNotNullOrEmpty())
-                {
-                    if (group.Combined)
-                    {
-                        //create MergedWebAsset for group using a file reader and merger
-                    }
-                    else
-                    {
-                        //create MergedWebAsset for group using a file reader and merger
-                    }
-                }
-
-                else if (group.Combined)
-                {
-                    //does not exist in cache, must already be generated
-                    if (cache.TryGetValue<string>(group.Name, out value) == false)
-                    {
-                        foreach (var asset in group.Assets)
-                        {
-                            
-                        }
-                        //create MergedWebAsset for group using a file reader and merger 
-                    }
-                }
-            }            
+            //write the files
         }
     }
 }

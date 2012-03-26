@@ -21,9 +21,15 @@ namespace ResourceCompiler
             var collection = new WebAssetGroupCollection();
             var urlResolver = new UrlResolver(viewContext.RequestContext);
             var resolverFactory = new WebAssetResolverFactory();
-            var resolver = new WebAssetGroupCollectionResolver(urlResolver, resolverFactory);
+            var collectionResolver = new WebAssetGroupCollectionResolver(urlResolver, resolverFactory);
+            var collectionMerger = new WebAssetGroupCollectionMerger(new WebAssetMergerFactory(new WebAssetReader()));
 
-            return new StyleSheetRegistrarBuilder(new StyleSheetRegistrar(collection), viewContext, resolver, cacheFactory);
+            return new StyleSheetRegistrarBuilder(
+                new StyleSheetRegistrar(collection), 
+                viewContext, 
+                collectionResolver,
+                collectionMerger,
+                cacheFactory);
         }
     }
 }
