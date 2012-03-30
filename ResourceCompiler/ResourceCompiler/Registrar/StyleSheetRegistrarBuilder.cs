@@ -16,6 +16,7 @@ namespace ResourceCompiler.Web.Mvc
         private bool hasRendered;
         private ViewContext viewContext;
         private ICacheFactory cacheFactory;
+        private IWebAssetMergerResultWriter writer;
 
         /// <summary>
         /// Constructor
@@ -27,13 +28,16 @@ namespace ResourceCompiler.Web.Mvc
             StyleSheetRegistrar registrar, 
             ViewContext viewContext, 
             IWebAssetGroupCollectionResolver resolver, 
-            IWebAssetGroupCollectionMerger merger,
+            IWebAssetGroupCollectionMerger collectionMerger,
+            IWebAssetMergerResultWriter writer,
             ICacheFactory cacheFactory)
         {
             Registrar = registrar;
             this.collectionResolver = resolver;
             this.viewContext = viewContext;
             this.cacheFactory = cacheFactory;
+            this.collectionMerger = collectionMerger; 
+            this.writer = writer;
         }
 
         /// <summary>
@@ -79,6 +83,8 @@ namespace ResourceCompiler.Web.Mvc
 
             var baseWriter = viewContext.Writer;
 
+            Generate();
+
             using (HtmlTextWriter textWriter = new HtmlTextWriter(baseWriter))
             {
                 Write(textWriter);
@@ -93,12 +99,14 @@ namespace ResourceCompiler.Web.Mvc
         /// <returns></returns>
         public string ToHtmlString()
         {
-           using (var output = new StringWriter())
-           {
-               Write(output);
+            Generate();
 
-               return output.ToString();
-           }
+            using (var output = new StringWriter())
+            {
+                Write(output);
+
+                return output.ToString();
+            }
         }
 
         protected virtual void Write(TextWriter writer)
@@ -112,11 +120,14 @@ namespace ResourceCompiler.Web.Mvc
             }
         }
 
-        protected virtual void Generate(StreamWriter writer)
+        protected virtual void Generate()
         {
             var results = collectionMerger.Merge(Registrar.StyleSheets);
 
-            //write the files
+            foreach (var result in results)
+            {
+                writer.Write(DefaultSettings.GeneratedFilesPath, result);
+            }
         }
     }
 }

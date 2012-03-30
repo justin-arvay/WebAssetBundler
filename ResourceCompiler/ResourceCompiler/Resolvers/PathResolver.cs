@@ -18,6 +18,8 @@ namespace ResourceCompiler.Web.Mvc
 {
     using System;
     using System.IO;
+    using System.Web;
+    using System.Web.Hosting;
 
     public class PathResolver : IPathResolver
     {
@@ -28,7 +30,15 @@ namespace ResourceCompiler.Web.Mvc
         public string Resolve(string path, string version, string fileName, string fileExt)
         {
             fileName = fileName + "." + fileExt;
-            return Path.Combine(path, version, fileName);
+            path = Path.Combine(path, version);
+            path = HostingEnvironment.MapPath(path);
+
+            //move this out of here, the path resolver should not need to generate a directory
+            Directory.CreateDirectory(path);
+
+            path = Path.Combine(path, fileName);
+
+            return path;
         }
     }
 }

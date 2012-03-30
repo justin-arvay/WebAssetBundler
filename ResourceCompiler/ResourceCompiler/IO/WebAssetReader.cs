@@ -18,18 +18,21 @@ namespace ResourceCompiler.Web.Mvc
 {
     using System;
     using System.IO;
+    using System.Web;
+    using System.Web.Hosting;
 
     public class WebAssetReader : IWebAssetReader
     {
- 
+
         public WebAssetReader()
         {
+
         }
 
 
         public string Read(IWebAsset webAsset)
         {
-            using (var reader = new StreamReader(webAsset.Source))
+            using (var reader = new StreamReader(HostingEnvironment.MapPath(webAsset.Source)))
             {
                 return reader.ReadToEnd();
             }
