@@ -17,31 +17,9 @@
 namespace ResourceCompiler.Web.Mvc
 {
     using System;
-    using System.IO;
-    using System.Web;
-    using System.Web.Hosting;
 
-    public class PathResolver : IPathResolver
+    public interface IDirectoryWriter
     {
-        private HttpServerUtility server;
-
-        public PathResolver(HttpServerUtility server)
-        {
-            this.server = server;
-        }
-
-        public string Resolve(string path, string version, string fileName, string fileExt)
-        {
-            fileName = fileName + "." + fileExt;
-            path = Path.Combine(path, version);
-            path = server.MapPath(path);
-
-            //move this out of here, the path resolver should not need to generate a directory
-            Directory.CreateDirectory(path);
-
-            path = Path.Combine(path, fileName);
-
-            return path;
-        }
+        void Write(string path);
     }
 }

@@ -32,7 +32,8 @@ namespace ResourceCompiler.Web.Mvc
 
         public string Read(IWebAsset webAsset)
         {
-            using (var reader = new StreamReader(HostingEnvironment.MapPath(webAsset.Source)))
+            var path = HttpContext.Current.Server.MapPath(webAsset.Source);
+            using (var reader = new StreamReader(path))
             {
                 return reader.ReadToEnd();
             }

@@ -9,10 +9,12 @@
     public class WebAssetMergerResultWriterTests
     {
         private Mock<IPathResolver> resolver;
+        private Mock<IDirectoryWriter> dirWriter;
 
         public WebAssetMergerResultWriterTests()
         {
             resolver = new Mock<IPathResolver>();
+            dirWriter = new Mock<IDirectoryWriter>();
         }
 
         [SetUp]
@@ -31,7 +33,7 @@
         public void Should_Write_File_At_Correct_Location()
         {
             var filePath = "Files/Generated/file-test.css";
-            var writer = new WebAssetMergerResultWriter("css", resolver.Object);
+            var writer = new WebAssetMergerResultWriter("css", resolver.Object, dirWriter.Object);
             var result = new WebAssetMergerResult("name", "1.1", "content");
 
             //have the resolver return an explicit path
@@ -49,8 +51,8 @@
             var filePath = "Files/Generated/file-test.css";
             var content = "This content should be written.";
 
-            
-            var writer = new WebAssetMergerResultWriter("css", resolver.Object);
+
+            var writer = new WebAssetMergerResultWriter("css", resolver.Object, dirWriter.Object);
             var result = new WebAssetMergerResult("name", "1.1", content);
 
             //have the resolver return an explicit path
@@ -63,6 +65,12 @@
             {
                 Assert.AreEqual(content, reader.ReadToEnd());
             }
+        }
+
+        [Test]
+        public void Should_Create_Directory_If_Doesnt_Exist()
+        {
+            Assert.Inconclusive();
         }
     }
 }

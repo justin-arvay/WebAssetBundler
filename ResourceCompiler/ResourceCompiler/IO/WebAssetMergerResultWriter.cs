@@ -24,17 +24,29 @@ namespace ResourceCompiler.Web.Mvc
         private string extension;
 
         private IPathResolver resolver;
+        private IDirectoryWriter dirWriter;
 
-        public WebAssetMergerResultWriter(string extension, IPathResolver resolver)
+        public WebAssetMergerResultWriter(string extension, IPathResolver resolver, IDirectoryWriter dirWriter)
         {
             this.extension = extension;
             this.resolver = resolver;
+            this.dirWriter = dirWriter;
         }
 
 
         public void Write(string path, WebAssetMergerResult result)
         {
-            using (var writer = new StreamWriter(resolver.Resolve(path, result.Version, result.Name, extension)) )
+            var filePath = resolver.Resolve(path, result.Version, result.Name, extension);
+            var directoryName = Path.GetDirectoryName(filePath);
+
+            //ensure we create the directory structure to the resource
+            if (Directory.Exists(directoryName) == false)
+            {
+                dirWriter.Write(directoryName);
+            }
+
+            //if dir doesnt exist, write it
+            using (var writer = new StreamWriter(filePath))
             {
                 writer.Write(result.Content);
             }
