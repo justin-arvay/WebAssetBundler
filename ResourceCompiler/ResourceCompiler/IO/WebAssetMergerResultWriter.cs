@@ -18,6 +18,7 @@ namespace ResourceCompiler.Web.Mvc
 {
     using System;
     using System.IO;
+    using System.Web;
 
     public class WebAssetMergerResultWriter : IWebAssetMergerResultWriter
     {
@@ -25,18 +26,20 @@ namespace ResourceCompiler.Web.Mvc
 
         private IPathResolver resolver;
         private IDirectoryWriter dirWriter;
+        private HttpServerUtilityBase server;
 
-        public WebAssetMergerResultWriter(string extension, IPathResolver resolver, IDirectoryWriter dirWriter)
+        public WebAssetMergerResultWriter(string extension, IPathResolver resolver, IDirectoryWriter dirWriter, HttpServerUtilityBase server)
         {
             this.extension = extension;
             this.resolver = resolver;
             this.dirWriter = dirWriter;
+            this.server = server;
         }
 
 
         public void Write(string path, WebAssetMergerResult result)
         {
-            var filePath = resolver.Resolve(path, result.Version, result.Name, extension);
+            var filePath = server.MapPath(resolver.Resolve(path, result.Version, result.Name, extension));
             var directoryName = Path.GetDirectoryName(filePath);
 
             //ensure we create the directory structure to the resource

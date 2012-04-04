@@ -4,17 +4,20 @@
     using System;
     using Moq;
     using System.IO;
+    using System.Web;
 
     [TestFixture]
     public class WebAssetMergerResultWriterTests
     {
         private Mock<IPathResolver> resolver;
         private Mock<IDirectoryWriter> dirWriter;
+        private Mock<HttpServerUtilityBase> server;
 
         public WebAssetMergerResultWriterTests()
         {
             resolver = new Mock<IPathResolver>();
             dirWriter = new Mock<IDirectoryWriter>();
+            server = new Mock<HttpServerUtilityBase>();
         }
 
         [SetUp]
@@ -33,8 +36,13 @@
         public void Should_Write_File_At_Correct_Location()
         {
             var filePath = "Files/Generated/file-test.css";
-            var writer = new WebAssetMergerResultWriter("css", resolver.Object, dirWriter.Object);
+            
+            var writer = new WebAssetMergerResultWriter("css", resolver.Object, dirWriter.Object, server.Object);
             var result = new WebAssetMergerResult("name", "1.1", "content");
+
+            //map the mapPath call return whatever was passed
+            server.Setup(m => m.MapPath(It.IsAny<string>()))
+                .Returns((string mappedPath) => mappedPath);
 
             //have the resolver return an explicit path
             resolver.Setup(m => m.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
@@ -51,9 +59,12 @@
             var filePath = "Files/Generated/file-test.css";
             var content = "This content should be written.";
 
-
-            var writer = new WebAssetMergerResultWriter("css", resolver.Object, dirWriter.Object);
+            var writer = new WebAssetMergerResultWriter("css", resolver.Object, dirWriter.Object, server.Object);
             var result = new WebAssetMergerResult("name", "1.1", content);
+
+            //make the mapPath call return whatever was passed
+            server.Setup(m => m.MapPath(It.IsAny<string>()))
+                .Returns((string mappedPath) => mappedPath);
 
             //have the resolver return an explicit path
             resolver.Setup(m => m.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))

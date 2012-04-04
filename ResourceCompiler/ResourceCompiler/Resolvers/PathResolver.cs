@@ -23,18 +23,14 @@ namespace ResourceCompiler.Web.Mvc
 
     public class PathResolver : IPathResolver
     {
-        private HttpServerUtilityBase server;
-
-        public PathResolver(HttpServerUtilityBase server)
+        public PathResolver()
         {
-            this.server = server;
         }
 
         public string Resolve(string path, string version, string fileName, string fileExt)
         {
             fileName = fileName + "." + fileExt;
-            path = Path.Combine(path, version, fileName);
-            return server.MapPath(path);
+            return Path.Combine(path, version, fileName);
         }
     }
 }

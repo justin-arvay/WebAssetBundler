@@ -22,7 +22,8 @@
             var server = new Mock<HttpServerUtilityBase>();
             var collection = new WebAssetGroupCollection();
             var urlResolver = new UrlResolver(TestHelper.CreateRequestContext());
-            var resolverFactory = new WebAssetResolverFactory();
+            var pathResolver = new Mock<IPathResolver>();
+            var resolverFactory = new WebAssetResolverFactory(pathResolver.Object);
             var collectionResolver = new WebAssetGroupCollectionResolver(urlResolver, resolverFactory);
             var collectionMerger = new WebAssetGroupCollectionMerger(new WebAssetMergerFactory(new WebAssetReader(server.Object)));
             var cacheFactory = new Mock<ICacheFactory>();

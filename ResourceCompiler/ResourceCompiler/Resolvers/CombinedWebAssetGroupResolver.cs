@@ -9,15 +9,30 @@ namespace ResourceCompiler.Web.Mvc
     public class CombinedWebAssetGroupResolver : IWebAssetResolver
     {
         private WebAssetGroup resourceGroup;
+        private IPathResolver pathResolver;
 
-        public CombinedWebAssetGroupResolver(WebAssetGroup resourceGroup)
+        public CombinedWebAssetGroupResolver(WebAssetGroup resourceGroup, IPathResolver pathResolver)
         {
             this.resourceGroup = resourceGroup;
         }
 
         public IEnumerable<string> Resolve()
         {
-            throw new NotImplementedException();
+            var basePath = GetBasePath();
+
+            throw new Exception();
+        }
+
+        private string GetBasePath()
+        {
+            var basePath = DefaultSettings.GeneratedFilesPath;
+
+            if (basePath.StartsWith("~"))
+            {
+                basePath = basePath.TrimStart('~');
+            }
+
+            return basePath;
         }
     }
 }
