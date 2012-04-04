@@ -23,16 +23,17 @@ namespace ResourceCompiler.Web.Mvc
 
     public class WebAssetReader : IWebAssetReader
     {
+        private HttpServerUtilityBase server;
 
-        public WebAssetReader()
+        public WebAssetReader(HttpServerUtilityBase server)
         {
-
+            this.server = server;
         }
 
 
         public string Read(IWebAsset webAsset)
         {
-            var path = HttpContext.Current.Server.MapPath(webAsset.Source);
+            var path = server.MapPath(webAsset.Source);
             using (var reader = new StreamReader(path))
             {
                 return reader.ReadToEnd();

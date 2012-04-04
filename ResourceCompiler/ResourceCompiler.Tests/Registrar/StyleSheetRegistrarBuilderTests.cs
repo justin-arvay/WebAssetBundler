@@ -10,6 +10,7 @@
     using System.IO;
     using System.Web.Mvc;
     using Moq;
+    using System.Web;
 
 
     [TestFixture]
@@ -18,11 +19,12 @@
 
         private StyleSheetRegistrarBuilder CreateBuilder(ViewContext context)
         {
+            var server = new Mock<HttpServerUtilityBase>();
             var collection = new WebAssetGroupCollection();
             var urlResolver = new UrlResolver(TestHelper.CreateRequestContext());
             var resolverFactory = new WebAssetResolverFactory();
             var collectionResolver = new WebAssetGroupCollectionResolver(urlResolver, resolverFactory);
-            var collectionMerger = new WebAssetGroupCollectionMerger(new WebAssetMergerFactory(new WebAssetReader()));
+            var collectionMerger = new WebAssetGroupCollectionMerger(new WebAssetMergerFactory(new WebAssetReader(server.Object)));
             var cacheFactory = new Mock<ICacheFactory>();
             var writer = new Mock<IWebAssetMergerResultWriter>();
 

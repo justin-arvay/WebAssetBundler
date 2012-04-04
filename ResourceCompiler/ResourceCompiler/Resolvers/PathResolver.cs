@@ -23,9 +23,9 @@ namespace ResourceCompiler.Web.Mvc
 
     public class PathResolver : IPathResolver
     {
-        private HttpServerUtility server;
+        private HttpServerUtilityBase server;
 
-        public PathResolver(HttpServerUtility server)
+        public PathResolver(HttpServerUtilityBase server)
         {
             this.server = server;
         }
@@ -33,15 +33,8 @@ namespace ResourceCompiler.Web.Mvc
         public string Resolve(string path, string version, string fileName, string fileExt)
         {
             fileName = fileName + "." + fileExt;
-            path = Path.Combine(path, version);
-            path = server.MapPath(path);
-
-            //move this out of here, the path resolver should not need to generate a directory
-            Directory.CreateDirectory(path);
-
-            path = Path.Combine(path, fileName);
-
-            return path;
+            path = Path.Combine(path, version, fileName);
+            return server.MapPath(path);
         }
     }
 }
