@@ -18,13 +18,7 @@ namespace ResourceCompiler.Web.Mvc
                 return Path.GetFileName(Source);
             }
         }
-
-        public string Version
-        {
-            get;
-            set;
-        }
-
+       
         public string Source
         {
             get;

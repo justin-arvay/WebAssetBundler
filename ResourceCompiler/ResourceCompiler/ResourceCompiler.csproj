@@ -75,6 +75,7 @@
     <Compile Include="IO\IDirectoryWriter.cs" />
     <Compile Include="Resolvers\IPathResolver.cs" />
     <Compile Include="Resolvers\PathResolver.cs" />
+    <Compile Include="Resolvers\VersionedWebAssetGroupResolver.cs" />
     <Compile Include="Resolvers\WebAssetGroupResolver.cs" />
     <Compile Include="Resolvers\WebAssetGroupCollectionResolver.cs" />
     <Compile Include="Resolvers\IWebAssetGroupCollectionResolver.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Fluent\IWebAsset.cs" />
     <Compile Include="Fluent\WebAsset.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resolvers\WebAssetResolverResult.cs" />
     <Compile Include="TextResource\Exceptions.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

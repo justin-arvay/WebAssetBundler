@@ -12,14 +12,19 @@
             this.pathResolver = pathResolver;
         }
 
-        public IWebAssetResolver Create(WebAssetGroup resourceGroup)
+        public IWebAssetResolver Create(WebAssetGroup webAssetGroup)
         {
-            if (resourceGroup.Combined)
+            if (webAssetGroup.Combined)
             {
-                return new CombinedWebAssetGroupResolver(resourceGroup, pathResolver);
+                return new CombinedWebAssetGroupResolver(webAssetGroup, pathResolver);
             }
 
-            return new WebAssetGroupResolver(resourceGroup);
+            if (webAssetGroup.Version.IsNotNullOrEmpty())
+            {
+                return new VersionedWebAssetGroupResolver(webAssetGroup, pathResolver);
+            }
+
+            return new WebAssetGroupResolver(webAssetGroup);
         }
     }
 }

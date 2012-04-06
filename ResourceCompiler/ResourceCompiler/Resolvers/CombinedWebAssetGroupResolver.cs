@@ -14,13 +14,16 @@ namespace ResourceCompiler.Web.Mvc
         public CombinedWebAssetGroupResolver(WebAssetGroup resourceGroup, IPathResolver pathResolver)
         {
             this.resourceGroup = resourceGroup;
+            this.pathResolver = pathResolver;
         }
 
         public IEnumerable<string> Resolve()
         {
             var basePath = GetBasePath();
 
-            throw new Exception();
+            var paths = new List<string>();
+
+            paths.Add(pathResolver.Resolve("", resourceGroup.Version, resourceGroup.Name, 
         }
 
         private string GetBasePath()

@@ -6,6 +6,6 @@ namespace ResourceCompiler.Web.Mvc
 
     public interface IWebAssetGroupCollectionResolver
     {
-        IEnumerable<string> Resolve(WebAssetGroupCollection resources);
+        ICollection<WebAssetResolverResult> Resolve(WebAssetGroupCollection resources);
     }
 }

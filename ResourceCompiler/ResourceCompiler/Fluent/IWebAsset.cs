@@ -6,5 +6,7 @@ namespace ResourceCompiler.Web.Mvc
     public interface IWebAsset
     {
         string Source { get; }
+        string FileName { get; }
+        string Extension { get; }
     }
 }

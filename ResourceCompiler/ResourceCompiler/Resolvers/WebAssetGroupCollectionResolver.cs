@@ -21,22 +21,18 @@ namespace ResourceCompiler.Web.Mvc
         /// </summary>
         /// <param name="resourceGroups"></param>
         /// <returns></returns>
-        public IEnumerable<string> Resolve(WebAssetGroupCollection resourceGroups)
+        public IEnumerable<WebAssetResolverResult> Resolve(WebAssetGroupCollection resourceGroups)
         {
-            var urls = new List<string>();
+            var results = new List<WebAssetResolverResult>();
 
             foreach (var resourceGroup in resourceGroups)
             {
                 var resolver = resolverFactory.Create(resourceGroup);
-                var groupUrls = resolver.Resolve();
-               
-                //
-                groupUrls = groupUrls.Select((url) => urlResolver.Resolve(url));
-                urls.AddRange(groupUrls);
+                results.AddRange(resolver.Resolve());
             }
 
 
-            return urls;
+            return results;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 
 namespace ResourceCompiler.Web.Mvc
 {
@@ -8,23 +8,32 @@ namespace ResourceCompiler.Web.Mvc
 
     public class WebAssetGroupResolver : IWebAssetResolver
     {
-        private WebAssetGroup resourceGroup;
+        private WebAssetGroup webAssetGroup;
+        private IPathResolver pathResolver;
 
-        public WebAssetGroupResolver(WebAssetGroup resourceGroup)
+        public WebAssetGroupResolver(WebAssetGroup webAssetGroup)
         {
-            this.resourceGroup = resourceGroup;
+            this.webAssetGroup = webAssetGroup;            
         }
 
-        public IEnumerable<string> Resolve()
+        public ICollection<WebAssetResolverResult> Resolve()
         {
-            var relativePaths = new List<string>();
+            var results = new List<WebAssetResolverResult>();
 
-            foreach (var resource in resourceGroup.Assets)
+            foreach (var webAsset in webAssetGroup.Assets)
             {
-                relativePaths.Add(resource.Source);
+                results.Add(ResolveWebAsset(webAssetGroup.Name, webAssetGroup.Version, webAsset));
             }
 
-            return relativePaths;
+            return results;
+        }
+
+        private WebAssetResolverResult ResolveWebAsset(string name, string version, IWebAsset webAsset)
+        {
+            var assets = new List<IWebAsset>();
+            assets.Add(webAsset);
+
+            return new WebAssetResolverResult(webAsset.Source, assets);
         }
     }
 }
