@@ -29,7 +29,7 @@ namespace ResourceCompiler.Web.Mvc
         {
             get
             {
-                return Path.GetExtension(Source);
+                return Path.GetExtension(Source).Replace(".", "");
             }
         }
     }

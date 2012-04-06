@@ -21,7 +21,7 @@ namespace ResourceCompiler.Web.Mvc
             private set;
         }
 
-        public ICollection<WebAsset> WebAssets
+        public ICollection<IWebAsset> WebAssets
         {
             get;
             private set;

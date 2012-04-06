@@ -22,7 +22,7 @@ namespace ResourceCompiler
             var collection = new WebAssetGroupCollection();
             var urlResolver = new UrlResolver(viewContext.RequestContext);
             var resolverFactory = new WebAssetResolverFactory(pathResolver);
-            var collectionResolver = new WebAssetGroupCollectionResolver(urlResolver, resolverFactory);
+            var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
             var collectionMerger = new WebAssetGroupCollectionMerger(new WebAssetMergerFactory(new WebAssetReader(viewContext.HttpContext.Server)));
             var writer = new WebAssetMergerResultWriter("css", pathResolver, new DirectoryWriter(), viewContext.HttpContext.Server);
 
@@ -30,6 +30,7 @@ namespace ResourceCompiler
                 new StyleSheetRegistrar(collection), 
                 viewContext, 
                 collectionResolver,
+                urlResolver,
                 collectionMerger,
                 writer,
                 cacheFactory);

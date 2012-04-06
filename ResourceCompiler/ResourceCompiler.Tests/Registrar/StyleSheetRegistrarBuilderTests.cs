@@ -24,12 +24,12 @@
             var urlResolver = new UrlResolver(TestHelper.CreateRequestContext());
             var pathResolver = new Mock<IPathResolver>();
             var resolverFactory = new WebAssetResolverFactory(pathResolver.Object);
-            var collectionResolver = new WebAssetGroupCollectionResolver(urlResolver, resolverFactory);
+            var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
             var collectionMerger = new WebAssetGroupCollectionMerger(new WebAssetMergerFactory(new WebAssetReader(server.Object)));
             var cacheFactory = new Mock<ICacheFactory>();
             var writer = new Mock<IWebAssetMergerResultWriter>();
 
-            return new StyleSheetRegistrarBuilder(new StyleSheetRegistrar(collection), context, collectionResolver, collectionMerger, writer.Object, cacheFactory.Object);
+            return new StyleSheetRegistrarBuilder(new StyleSheetRegistrar(collection), context, collectionResolver, urlResolver, collectionMerger, writer.Object, cacheFactory.Object);
         }
 
         [Test]

@@ -8,34 +8,24 @@ namespace ResourceCompiler.Web.Mvc
 
     public class CombinedWebAssetGroupResolver : IWebAssetResolver
     {
-        private WebAssetGroup resourceGroup;
+        private WebAssetGroup webAssetGroup;
         private IPathResolver pathResolver;
 
-        public CombinedWebAssetGroupResolver(WebAssetGroup resourceGroup, IPathResolver pathResolver)
+        public CombinedWebAssetGroupResolver(WebAssetGroup webAssetGroup, IPathResolver pathResolver)
         {
-            this.resourceGroup = resourceGroup;
+            this.webAssetGroup = webAssetGroup;
             this.pathResolver = pathResolver;
         }
 
-        public IEnumerable<string> Resolve()
+        public ICollection<WebAssetResolverResult> Resolve()
         {
-            var basePath = GetBasePath();
+            var path = pathResolver.Resolve("", webAssetGroup.Version, webAssetGroup.Name, "css");
+            var results = new List<WebAssetResolverResult>();
 
-            var paths = new List<string>();
+            results.Add(new WebAssetResolverResult(path, webAssetGroup.Assets));
 
-            paths.Add(pathResolver.Resolve("", resourceGroup.Version, resourceGroup.Name, 
+            return results;
         }
 
-        private string GetBasePath()
-        {
-            var basePath = DefaultSettings.GeneratedFilesPath;
-
-            if (basePath.StartsWith("~"))
-            {
-                basePath = basePath.TrimStart('~');
-            }
-
-            return basePath;
-        }
     }
 }

@@ -17,6 +17,7 @@ namespace ResourceCompiler.Web.Mvc
         private ViewContext viewContext;
         private ICacheFactory cacheFactory;
         private IWebAssetMergerResultWriter writer;
+        private IUrlResolver urlResolver;
 
         /// <summary>
         /// Constructor
@@ -28,12 +29,14 @@ namespace ResourceCompiler.Web.Mvc
             StyleSheetRegistrar registrar, 
             ViewContext viewContext, 
             IWebAssetGroupCollectionResolver resolver, 
+            IUrlResolver urlResolver,
             IWebAssetGroupCollectionMerger collectionMerger,
             IWebAssetMergerResultWriter writer,
             ICacheFactory cacheFactory)
         {
             Registrar = registrar;
             this.collectionResolver = resolver;
+            this.urlResolver = urlResolver;
             this.viewContext = viewContext;
             this.cacheFactory = cacheFactory;
             this.collectionMerger = collectionMerger; 
@@ -112,11 +115,11 @@ namespace ResourceCompiler.Web.Mvc
         protected virtual void Write(TextWriter writer)
         {
             var link = "<link type=\"text/css\" href=\"{0}\" rel=\"stylesheet\"/>";
-            var urls = collectionResolver.Resolve(Registrar.StyleSheets);
+            var results = collectionResolver.Resolve(Registrar.StyleSheets);
 
-            foreach (var url in urls)
+            foreach (var result in results)
             {
-                writer.WriteLine(link.FormatWith(url));
+                writer.WriteLine(link.FormatWith(urlResolver.Resolve(result.Path)));
             }
         }
 
@@ -126,7 +129,7 @@ namespace ResourceCompiler.Web.Mvc
 
             foreach (var result in results)
             {
-                writer.Write(DefaultSettings.GeneratedFilesPath, result);
+                //writer.Write(DefaultSettings.GeneratedFilesPath, result);
             }
         }
     }

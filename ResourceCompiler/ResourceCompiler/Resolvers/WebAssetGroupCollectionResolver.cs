@@ -8,12 +8,10 @@ namespace ResourceCompiler.Web.Mvc
     public class WebAssetGroupCollectionResolver : IWebAssetGroupCollectionResolver
     {
         private IWebAssetResolverFactory resolverFactory;
-        private IUrlResolver urlResolver;
 
-        public WebAssetGroupCollectionResolver(IUrlResolver urlResolver, IWebAssetResolverFactory resolverFactory)
+        public WebAssetGroupCollectionResolver(IWebAssetResolverFactory resolverFactory)
         {
             this.resolverFactory = resolverFactory;
-            this.urlResolver = urlResolver;
         }
 
         /// <summary>
@@ -21,7 +19,7 @@ namespace ResourceCompiler.Web.Mvc
         /// </summary>
         /// <param name="resourceGroups"></param>
         /// <returns></returns>
-        public IEnumerable<WebAssetResolverResult> Resolve(WebAssetGroupCollection resourceGroups)
+        public ICollection<WebAssetResolverResult> Resolve(WebAssetGroupCollection resourceGroups)
         {
             var results = new List<WebAssetResolverResult>();
 
