@@ -45,7 +45,7 @@
                 .Returns((string mappedPath) => mappedPath);
 
             //have the resolver return an explicit path
-            resolver.Setup(m => m.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            resolver.Setup(m => m.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(filePath);
 
             writer.Write(filePath, result);
@@ -67,7 +67,7 @@
                 .Returns((string mappedPath) => mappedPath);
 
             //have the resolver return an explicit path
-            resolver.Setup(m => m.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            resolver.Setup(m => m.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(filePath);
 
             writer.Write(filePath, result);

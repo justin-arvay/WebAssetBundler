@@ -37,8 +37,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
             pathResolver.Setup(m => m.Resolve(
                 It.Is<string>(s => s.Equals(DefaultSettings.GeneratedFilesPath)),
                 It.Is<string>(s => s.Equals(group.Version)),
-                It.Is<string>(s => s.Equals(group.Name)),
-                It.Is<string>(s => s.Equals("css"))))
+                It.Is<string>(s => s.Equals(group.Name))))                
                 .Returns(path);
 
             var resolver = new VersionedWebAssetGroupResolver(group, pathResolver.Object);

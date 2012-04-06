@@ -18,7 +18,7 @@ namespace ResourceCompiler
 
         public StyleSheetRegistrarBuilder StyleSheetRegistrar()
         {
-            var pathResolver = new PathResolver();
+            var pathResolver = new PathResolver(WebAssetType.StyleSheet);
             var collection = new WebAssetGroupCollection();
             var urlResolver = new UrlResolver(viewContext.RequestContext);
             var resolverFactory = new WebAssetResolverFactory(pathResolver);

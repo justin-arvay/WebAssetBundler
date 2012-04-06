@@ -23,14 +23,30 @@ namespace ResourceCompiler.Web.Mvc
 
     public class PathResolver : IPathResolver
     {
-        public PathResolver()
+        private WebAssetType type;
+
+        public PathResolver(WebAssetType type)
         {
+            this.type = type;
         }
 
-        public string Resolve(string path, string version, string fileName, string fileExt)
+        public string Resolve(string path, string version, string name)
         {
-            fileName = fileName + "." + fileExt;
+            var fileName = name + "." + GetExtension();
             return Path.Combine(path, version, fileName);
+        }
+
+        private string GetExtension()
+        {
+            switch (type)
+            {
+                case WebAssetType.StyleSheet:
+                    return "css";
+                case WebAssetType.Javascript:
+                    return "js";
+                default:
+                    return "";
+            }
         }
     }
 }

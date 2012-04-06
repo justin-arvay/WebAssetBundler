@@ -20,6 +20,6 @@ namespace ResourceCompiler.Web.Mvc
 
     public interface IPathResolver
     {
-        string Resolve(string path, string version, string fileName, string fileExt);
+        string Resolve(string path, string version, string name);
     }
 }

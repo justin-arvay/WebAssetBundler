@@ -9,10 +9,10 @@
     public class PathResolverTests
     {
         [Test]
-        public void Should_Combine_Version_Into_Path()
+        public void Should_Combine_Into_Path()
         {
-            var resolver = new PathResolver();
-            var path = resolver.Resolve("path", "1.1", "test", "css");
+            var resolver = new PathResolver(WebAssetType.StyleSheet);
+            var path = resolver.Resolve("path", "1.1", "test");
 
             Assert.AreEqual("path\\1.1\\test.css", path);
         }

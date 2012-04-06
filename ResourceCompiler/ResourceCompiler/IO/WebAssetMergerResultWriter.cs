@@ -39,7 +39,7 @@ namespace ResourceCompiler.Web.Mvc
 
         public void Write(string path, WebAssetMergerResult result)
         {
-            var filePath = server.MapPath(resolver.Resolve(path, result.Version, result.Name, extension));
+            var filePath = server.MapPath(resolver.Resolve(path, result.Version, result.Name));
             var directoryName = Path.GetDirectoryName(filePath);
 
             //ensure we create the directory structure to the resource
