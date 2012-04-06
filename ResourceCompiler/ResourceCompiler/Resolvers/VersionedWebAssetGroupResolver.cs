@@ -30,7 +30,7 @@ namespace ResourceCompiler.Web.Mvc
 
         private WebAssetResolverResult ResolveWebAsset(string name, string version, IWebAsset webAsset)
         {
-            var path = pathResolver.Resolve("", version, name, webAsset.Extension);
+            var path = pathResolver.Resolve(DefaultSettings.GeneratedFilesPath, version, name, webAsset.Extension);
             var assets = new List<IWebAsset>();
             assets.Add(webAsset);
 
