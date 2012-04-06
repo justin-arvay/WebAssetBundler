@@ -74,7 +74,9 @@
     <Compile Include="Mergers\WebAssetGroupCollectionMergerTests.cs" />
     <Compile Include="Mergers\WebAssetMergerFactoryTests.cs" />
     <Compile Include="Mergers\WebAssetMergerResultTests.cs" />
+    <Compile Include="Resolvers\CombinedWebAssetGroupResolverTest.cs" />
     <Compile Include="Resolvers\PathResolverTests.cs" />
+    <Compile Include="Resolvers\VersionedWebAssetGroupResolverTest.cs" />
     <Compile Include="Resolvers\WebAssetGroupResolverTests.cs" />
     <Compile Include="Resolvers\WebAssetResolverFactoryTests.cs" />
     <Compile Include="Resolvers\UrlResolverTests.cs" />

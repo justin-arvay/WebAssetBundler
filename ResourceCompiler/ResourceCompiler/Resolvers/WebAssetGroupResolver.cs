@@ -16,7 +16,7 @@ namespace ResourceCompiler.Web.Mvc
             this.webAssetGroup = webAssetGroup;            
         }
 
-        public ICollection<WebAssetResolverResult> Resolve()
+        public IList<WebAssetResolverResult> Resolve()
         {
             var results = new List<WebAssetResolverResult>();
 

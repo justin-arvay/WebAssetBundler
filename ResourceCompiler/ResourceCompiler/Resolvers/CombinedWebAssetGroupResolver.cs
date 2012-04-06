@@ -17,7 +17,7 @@ namespace ResourceCompiler.Web.Mvc
             this.pathResolver = pathResolver;
         }
 
-        public ICollection<WebAssetResolverResult> Resolve()
+        public IList<WebAssetResolverResult> Resolve()
         {
             var path = pathResolver.Resolve(DefaultSettings.GeneratedFilesPath, webAssetGroup.Version, webAssetGroup.Name, "css");
             var results = new List<WebAssetResolverResult>();
