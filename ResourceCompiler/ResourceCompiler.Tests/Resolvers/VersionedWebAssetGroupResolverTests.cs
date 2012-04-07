@@ -6,7 +6,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
     using System.Collections.Generic;
 
     [TestFixture]
-    public class VersionedWebAssetGroupResolverTest
+    public class VersionedWebAssetGroupResolverTests
     {
         [Test]
         public void Should_Return_A_List_Of_Results()

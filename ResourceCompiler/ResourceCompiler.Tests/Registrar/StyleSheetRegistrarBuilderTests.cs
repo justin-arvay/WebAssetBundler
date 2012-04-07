@@ -17,11 +17,10 @@
     public class StyleSheetRegistrarBuilderTests
     {
 
-        private StyleSheetRegistrarBuilder CreateBuilder(ViewContext context)
+        private StyleSheetRegistrarBuilder CreateBuilder(ViewContext context, Mock<IUrlResolver> urlResolver)
         {
             var server = new Mock<HttpServerUtilityBase>();
-            var collection = new WebAssetGroupCollection();
-            var urlResolver = new UrlResolver(TestHelper.CreateRequestContext());
+            var collection = new WebAssetGroupCollection();            
             var pathResolver = new Mock<IPathResolver>();
             var resolverFactory = new WebAssetResolverFactory(pathResolver.Object);
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
@@ -29,7 +28,12 @@
             var cacheFactory = new Mock<ICacheFactory>();
             var writer = new Mock<IWebAssetMergerResultWriter>();
 
-            return new StyleSheetRegistrarBuilder(new StyleSheetRegistrar(collection), context, collectionResolver, urlResolver, collectionMerger, writer.Object, cacheFactory.Object);
+            return new StyleSheetRegistrarBuilder(new StyleSheetRegistrar(collection), context, collectionResolver, urlResolver.Object, collectionMerger, writer.Object, cacheFactory.Object);
+        }
+
+        private StyleSheetRegistrarBuilder CreateBuilder(ViewContext context)
+        {
+            return CreateBuilder(context, new Mock<IUrlResolver>());
         }
 
         [Test]
@@ -85,6 +89,24 @@
             string output = context.Writer.ToString();
 
             Assert.AreEqual(2, output.CountOccurance("<link"));
+        }
+
+        [Test]
+        public void Should_Resole_Virtual_Path_To_Url()
+        {
+            var urlResolver = new Mock<IUrlResolver>();
+            var builder = CreateBuilder(TestHelper.CreateViewContext(), urlResolver);
+            var path = "~/Files/test/css";
+
+            builder.StyleSheets(style => style
+                .AddGroup("test", group => group
+                    .Add(path)
+                    .Combine(false)));            
+
+            builder.Render();
+
+            urlResolver.Verify(m => m.Resolve(It.Is<string>(s => s.Equals(path))), Times.Exactly(1));
+            
         }
 
         [Test]
