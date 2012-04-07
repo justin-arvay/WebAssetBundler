@@ -17,9 +17,10 @@
 namespace ResourceCompiler.Web.Mvc
 {
     using System;
+    using System.Collections.Generic;
 
-    public interface IWebAssetMergerFactory
+    public interface IWebAssetMerger
     {
-        IWebAssetMerger Create(WebAssetGroup group);
+        WebAssetMergerResult Merge(WebAssetResolverResult resolverResult);
     }
 }

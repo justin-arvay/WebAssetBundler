@@ -67,13 +67,9 @@
     <Compile Include="HtmlHelperExtension.cs" />
     <Compile Include="HtmlHelperExtensionTests.cs" />
     <Compile Include="IO\DirectoryWriterTests.cs" />
-    <Compile Include="IO\WebAssetMergerResultWriterTests.cs" />
+    <Compile Include="Files\WebAssetMergerResult.cs" />
+    <Compile Include="IO\WebAssetWriterTests.cs" />
     <Compile Include="IO\WebAssetReaderTests.cs" />
-    <Compile Include="Mergers\CombinedWebAssetGroupMergerTests.cs" />
-    <Compile Include="Mergers\VersionedWebAssetGroupMergerTests.cs" />
-    <Compile Include="Mergers\WebAssetGroupCollectionMergerTests.cs" />
-    <Compile Include="Mergers\WebAssetMergerFactoryTests.cs" />
-    <Compile Include="Mergers\WebAssetMergerResultTests.cs" />
     <Compile Include="Resolvers\CombinedWebAssetGroupResolverTest.cs" />
     <Compile Include="Resolvers\PathResolverTests.cs" />
     <Compile Include="Resolvers\VersionedWebAssetGroupResolverTests.cs" />

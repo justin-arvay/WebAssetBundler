@@ -8,16 +8,17 @@ namespace ResourceCompiler.Web.Mvc
     using System.IO;
     using ResourceCompiler.TextResource;
     using ResourceCompiler.Web.Mvc;
+using System.Collections.Generic;
 
     public class StyleSheetRegistrarBuilder : IHtmlString
     {
         private readonly IWebAssetGroupCollectionResolver collectionResolver;
-        private readonly IWebAssetGroupCollectionMerger collectionMerger;
         private bool hasRendered;
         private ViewContext viewContext;
         private ICacheFactory cacheFactory;
-        private IWebAssetMergerResultWriter writer;
+        private IWebAssetWriter writer;
         private IUrlResolver urlResolver;
+        private IWebAssetMerger merger;
 
         /// <summary>
         /// Constructor
@@ -30,17 +31,17 @@ namespace ResourceCompiler.Web.Mvc
             ViewContext viewContext, 
             IWebAssetGroupCollectionResolver resolver, 
             IUrlResolver urlResolver,
-            IWebAssetGroupCollectionMerger collectionMerger,
-            IWebAssetMergerResultWriter writer,
-            ICacheFactory cacheFactory)
+            IWebAssetWriter writer,
+            ICacheFactory cacheFactory,
+            IWebAssetMerger merger)
         {
             Registrar = registrar;
             this.collectionResolver = resolver;
             this.urlResolver = urlResolver;
             this.viewContext = viewContext;
             this.cacheFactory = cacheFactory;
-            this.collectionMerger = collectionMerger; 
             this.writer = writer;
+            this.merger = merger;
         }
 
         /// <summary>
@@ -84,13 +85,14 @@ namespace ResourceCompiler.Web.Mvc
                 throw new InvalidOperationException(TextResource.Exceptions.YouCannotCallRenderMoreThanOnce);
             }
 
+            var results = collectionResolver.Resolve(Registrar.StyleSheets);
             var baseWriter = viewContext.Writer;
 
-            Generate();
+            Generate(results);
 
             using (HtmlTextWriter textWriter = new HtmlTextWriter(baseWriter))
             {
-                Write(textWriter);
+                Write(textWriter, results);
             }
 
             hasRendered = true;
@@ -102,20 +104,21 @@ namespace ResourceCompiler.Web.Mvc
         /// <returns></returns>
         public string ToHtmlString()
         {
-            Generate();
+            var results = collectionResolver.Resolve(Registrar.StyleSheets);
+
+            Generate(results);
 
             using (var output = new StringWriter())
             {
-                Write(output);
+                Write(output, results);
 
                 return output.ToString();
             }
         }
 
-        protected virtual void Write(TextWriter writer)
+        protected virtual void Write(TextWriter writer, IList<WebAssetResolverResult> results)
         {
-            var link = "<link type=\"text/css\" href=\"{0}\" rel=\"stylesheet\"/>";
-            var results = collectionResolver.Resolve(Registrar.StyleSheets);
+            var link = "<link type=\"text/css\" href=\"{0}\" rel=\"stylesheet\"/>";            
 
             foreach (var result in results)
             {
@@ -123,13 +126,12 @@ namespace ResourceCompiler.Web.Mvc
             }
         }
 
-        protected virtual void Generate()
+        protected virtual void Generate(IList<WebAssetResolverResult> resolverResults)
         {
-            var results = collectionMerger.Merge(Registrar.StyleSheets);
-
-            foreach (var result in results)
+            foreach (var resolverResult in resolverResults)
             {
-                //writer.Write(DefaultSettings.GeneratedFilesPath, result);
+
+                writer.Write(merger.Merge(resolverResult));
             }
         }
     }

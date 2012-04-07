@@ -17,18 +17,9 @@
 namespace ResourceCompiler.Web.Mvc
 {
     using System;
-    using System.Collections.Generic;
 
-    public class EmptyWebAssetGroupMerger : IWebAssetMerger
+    public interface IWebAssetWriter
     {
-        public EmptyWebAssetGroupMerger()
-        {
-        }
-
-        public IList<WebAssetMergerResult> Merge()
-        {
-            return new List<WebAssetMergerResult>();
-        }
-
+        void Write(WebAssetMergerResult result);
     }
 }

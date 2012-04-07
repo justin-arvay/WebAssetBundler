@@ -20,32 +20,27 @@ namespace ResourceCompiler.Web.Mvc
     using System.IO;
     using System.Web;
 
-    public class WebAssetMergerResultWriter : IWebAssetMergerResultWriter
+    public class WebAssetWriter : IWebAssetWriter
     {
-        private string extension;
-
-        private IPathResolver resolver;
         private IDirectoryWriter dirWriter;
         private HttpServerUtilityBase server;
 
-        public WebAssetMergerResultWriter(string extension, IPathResolver resolver, IDirectoryWriter dirWriter, HttpServerUtilityBase server)
+        public WebAssetWriter(IDirectoryWriter dirWriter, HttpServerUtilityBase server)
         {
-            this.extension = extension;
-            this.resolver = resolver;
             this.dirWriter = dirWriter;
             this.server = server;
         }
 
-
-        public void Write(string path, WebAssetMergerResult result)
+        public void Write(WebAssetMergerResult result)
         {
-            var filePath = server.MapPath(resolver.Resolve(path, result.Version, result.Name));
-            var directoryName = Path.GetDirectoryName(filePath);
+            var filePath = server.MapPath(result.Path);            
 
             //ensure we create the directory structure to the resource
-            if (Directory.Exists(directoryName) == false)
+            //we need to be careful here as the version can look like a file
+            if (Directory.Exists(Path.GetDirectoryName(filePath)) == false)
             {
-                dirWriter.Write(directoryName);
+                //pass the full path to the directory writer. Do not pass the directory only
+                dirWriter.Write(filePath);
             }
 
             //if dir doesnt exist, write it
