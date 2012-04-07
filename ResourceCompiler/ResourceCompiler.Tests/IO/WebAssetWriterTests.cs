@@ -85,13 +85,7 @@
             Assert.Throws<DirectoryNotFoundException>(() => writer.Write(result));
 
             //verify the filepath is passed to the directory writer write method
-            dirWriter.Verify(d => d.Write(It.Is<string>(s => s.Equals(filePath))));
-        }
-
-        [Test]
-        public void Should_Create_Directory_If_Doesnt_Exist()
-        {
-            Assert.Inconclusive();
+            dirWriter.Verify(d => d.Write(It.Is<string>(s => s.Equals(filePath))), Times.Exactly(1));
         }
     }
 }
