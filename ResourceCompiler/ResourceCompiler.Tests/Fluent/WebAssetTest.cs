@@ -15,5 +15,22 @@
 
             Assert.AreEqual(source, webAsset.Source);
         }
+
+        [Test]
+        public void Should_Be_Able_To_Get_Name_Without_Ext()
+        {
+            var name = "file";
+            var webAsset = new WebAsset("path/file.css");
+
+            Assert.AreEqual(name, webAsset.Name);
+        }
+
+        [Test]
+        public void Should_Be_Able_To_Get_Extention()
+        {
+            var webAsset = new WebAsset("path/file.css");
+
+            Assert.AreEqual("css", webAsset.Extension);
+        }
     }
 }

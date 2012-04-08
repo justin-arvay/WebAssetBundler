@@ -11,11 +11,11 @@ namespace ResourceCompiler.Web.Mvc
             Source = source;
         }
 
-        public string FileName
+        public string Name
         {
             get
             {
-                return Path.GetFileName(Source);
+                return Path.GetFileNameWithoutExtension(Source);
             }
         }
        

@@ -29,7 +29,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
             reader.Setup(r => r.Read(It.IsAny<IWebAsset>()))
                 .Returns(content);
 
-            Assert.AreEqual(content + content, merger.Merge(resolverResult));
+            Assert.AreEqual(content + content, merger.Merge(resolverResult).Content);
         }
 
         [Test]

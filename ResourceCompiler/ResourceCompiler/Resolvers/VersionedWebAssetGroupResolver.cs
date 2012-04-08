@@ -22,15 +22,15 @@ namespace ResourceCompiler.Web.Mvc
 
             foreach (var webAsset in webAssetGroup.Assets)
             {
-                results.Add(ResolveWebAsset(webAssetGroup.Name, webAssetGroup.Version, webAsset));
+                results.Add(ResolveWebAsset(webAssetGroup.Version, webAsset));
             }
 
             return results;
         }
 
-        private WebAssetResolverResult ResolveWebAsset(string name, string version, IWebAsset webAsset)
+        private WebAssetResolverResult ResolveWebAsset(string version, IWebAsset webAsset)
         {
-            var path = pathResolver.Resolve(DefaultSettings.GeneratedFilesPath, version, name);
+            var path = pathResolver.Resolve(DefaultSettings.GeneratedFilesPath, version, webAsset.Name);
             var assets = new List<IWebAsset>();
             assets.Add(webAsset);
 

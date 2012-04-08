@@ -33,3 +33,4 @@ _ReSharper*/
 
 ResourceCompiler/*/bin/Debug
 ResourceCompiler/*/bin/Release
+ResourceCompiler/Examples/Generated/*
