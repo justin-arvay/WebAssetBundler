@@ -8,10 +8,12 @@ namespace ResourceCompiler.Web.Mvc
     public class StyleSheetWebAssetMerger : IWebAssetMerger
     {
         private IWebAssetReader reader;
+        private IWebAssetContentFilter filter;
 
-        public StyleSheetWebAssetMerger(IWebAssetReader reader)
+        public StyleSheetWebAssetMerger(IWebAssetReader reader, IWebAssetContentFilter filter)
         {
             this.reader = reader;
+            this.filter = filter;
         }
 
         public WebAssetMergerResult Merge(WebAssetResolverResult resolverResult)
