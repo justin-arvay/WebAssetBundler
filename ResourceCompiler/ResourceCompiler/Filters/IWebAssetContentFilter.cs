@@ -7,6 +7,6 @@ namespace ResourceCompiler.Web.Mvc
 {
     public interface IWebAssetContentFilter
     {
-        string Filter(string basePath, string content);
+        string Filter(string outputPath, string sourcePath, string content);
     }
 }

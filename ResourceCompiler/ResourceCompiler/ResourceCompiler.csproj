@@ -111,11 +111,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Exceptions.resx</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\Hasher.cs" />
-    <Compile Include="Utilities\ImagePathContentFilter.cs" />
-    <Compile Include="Utilities\IWebAssetContentFilter.cs" />
-    <Compile Include="Utilities\MediaType.cs" />
-    <Compile Include="Utilities\StyleSheetPathRewriter.cs" />
+    <Compile Include="Filters\ImagePathContentFilter.cs" />
+    <Compile Include="Filters\IWebAssetContentFilter.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

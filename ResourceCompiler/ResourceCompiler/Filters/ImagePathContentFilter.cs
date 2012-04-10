@@ -1,41 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Text.RegularExpressions;
-
+﻿
 namespace ResourceCompiler.Web.Mvc
 {
-    public class StyleSheetPathRewriter
+    using System;
+    using System.Text.RegularExpressions;
+    using System.Web;
+    using System.Collections.Generic;
+    using System.IO;
+
+    public class ImagePathContentFilter : IWebAssetContentFilter
     {
 
-        public static string RewriteCssPaths(string outputPath, string sourcePath, string css)
+
+        //private static readonly Regex urlRegex = new Regex(@"url\s*\((\""|\')?(?<url>[^)]+)?(\""|\')?\)",
+            //RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.CultureInvariant);
+
+        public ImagePathContentFilter()
+        {            
+
+        }
+
+        public string Filter(string outputPath, string sourcePath, string content)
         {
             var sourceUri = new Uri(Path.GetDirectoryName(sourcePath) + "/", UriKind.Absolute);
             var outputUri = new Uri(Path.GetDirectoryName(outputPath) + "/", UriKind.Absolute);
 
-            var relativePaths = FindDistinctRelativePathsIn(css);
+            var relativePaths = FindDistinctRelativePathsIn(content);
 
             foreach (string relativePath in relativePaths)
             {
                 var resolvedSourcePath = new Uri(sourceUri + relativePath);
                 var resolvedOutput = outputUri.MakeRelativeUri(resolvedSourcePath);
 
-                css = css.Replace(relativePath, resolvedOutput.OriginalString);
+                content = content.Replace(relativePath, resolvedOutput.OriginalString);
             }
-            return css;
+
+
+            return content;
         }
 
         private static IEnumerable<string> FindDistinctRelativePathsIn(string css)
         {
             var matchesHash = new HashSet<string>();
             var matches = Regex.Matches(css, @"url\([""']{0,1}(.+?)[""']{0,1}\)", RegexOptions.IgnoreCase);
-            
+
             foreach (Match match in matches)
             {
                 var path = match.Groups[1].Captures[0].Value;
-                
+
                 //remove the starting slash if it exists
                 if (path.StartsWith("/"))
                 {
@@ -50,5 +61,4 @@ namespace ResourceCompiler.Web.Mvc
             }
         }
     }
-
 }
