@@ -9,11 +9,6 @@ namespace ResourceCompiler.Web.Mvc
 
     public class ImagePathContentFilter : IWebAssetContentFilter
     {
-
-
-        //private static readonly Regex urlRegex = new Regex(@"url\s*\((\""|\')?(?<url>[^)]+)?(\""|\')?\)",
-            //RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.CultureInvariant);
-
         public ImagePathContentFilter()
         {            
 
@@ -34,31 +29,39 @@ namespace ResourceCompiler.Web.Mvc
                 content = content.Replace(relativePath, resolvedOutput.OriginalString);
             }
 
-
             return content;
         }
 
-        private static IEnumerable<string> FindDistinctRelativePathsIn(string css)
+        private IEnumerable<string> FindDistinctRelativePathsIn(string css)
         {
             var matchesHash = new HashSet<string>();
-            var matches = Regex.Matches(css, @"url\([""']{0,1}(.+?)[""']{0,1}\)", RegexOptions.IgnoreCase);
+            var urlMatches = Regex.Matches(css, @"url\([""']{0,1}(.+?)[""']{0,1}\)", RegexOptions.IgnoreCase);
+            var srcMatches = Regex.Matches(css, @"\(src\=[""']{0,1}(.+?)[""']{0,1}\)", RegexOptions.IgnoreCase);
 
-            foreach (Match match in matches)
+            foreach (Match match in urlMatches)
             {
-                var path = match.Groups[1].Captures[0].Value;
-
-                //remove the starting slash if it exists
-                if (path.StartsWith("/"))
-                {
-                    path = path.Substring(1);
-                }
-
-                //if the path does not already exist, add it.
-                if (matchesHash.Add(path))
-                {
-                    yield return path;
-                }
+                matchesHash.Add(GetUrlFromMatch(match));
             }
+
+            foreach (Match match in srcMatches)
+            {
+                matchesHash.Add(GetUrlFromMatch(match));
+            }
+
+            return matchesHash;
+        }
+
+        private string GetUrlFromMatch(Match match)
+        {
+            var path = match.Groups[1].Captures[0].Value;
+
+            //remove the starting slash if it exists
+            if (path.StartsWith("/"))
+            {
+                path = path.Substring(1);
+            }
+
+            return path;
         }
     }
 }

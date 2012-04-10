@@ -44,7 +44,7 @@ namespace ResourceCompiler.Web.Mvc
         }
 
         /// <summary>
-        /// Adds a bew resource to the group by file path.
+        /// Adds a new resource to the group by file path.
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>

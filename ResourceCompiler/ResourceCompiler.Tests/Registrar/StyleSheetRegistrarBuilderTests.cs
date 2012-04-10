@@ -26,7 +26,7 @@
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);            
             var cacheFactory = new Mock<ICacheFactory>();
             var writer = new Mock<IWebAssetWriter>();
-            var merger = new StyleSheetWebAssetMerger(new Mock<IWebAssetReader>().Object);
+            var merger = new StyleSheetWebAssetMerger(new Mock<IWebAssetReader>().Object, new Mock<IWebAssetContentFilter>().Object, server.Object);
 
             return new StyleSheetRegistrarBuilder(new StyleSheetRegistrar(collection), context, collectionResolver, urlResolver.Object, writer.Object, cacheFactory.Object, merger);
         }
