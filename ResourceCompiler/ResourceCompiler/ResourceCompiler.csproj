@@ -57,6 +57,7 @@
     <Compile Include="ComponentFactory.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="HtmlHelperExtension.cs" />
+    <Compile Include="IO\JavaScriptWebAssetMerger.cs" />
     <Compile Include="IO\DirectoryWriter.cs" />
     <Compile Include="IO\IWebAssetWriter.cs" />
     <Compile Include="IO\IWebAssetReader.cs" />
