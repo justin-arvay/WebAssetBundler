@@ -32,8 +32,8 @@ namespace ResourceCompiler.Web.Mvc.Tests
             var path = "/test/file.css";
             var group = new WebAssetGroup("Test", false) { Version = "1.2" };
 
-            group.Assets.Add(new WebAsset("~/Files/test.css"));     
-      
+            group.Assets.Add(new WebAsset("~/Files/test.css"));
+
             pathResolver.Setup(m => m.Resolve(
                 It.Is<string>(s => s.Equals(DefaultSettings.GeneratedFilesPath)),
                 It.Is<string>(s => s.Equals(group.Version)),

@@ -33,6 +33,12 @@ namespace ResourceCompiler.Web.Mvc
         public string Resolve(string path, string version, string name)
         {
             var fileName = name + "." + GetExtension();
+
+            if (String.IsNullOrEmpty(version))
+            {
+                return Path.Combine(path, fileName);
+            }
+
             return Path.Combine(path, version, fileName);
         }
 

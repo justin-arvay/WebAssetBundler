@@ -12,7 +12,7 @@
             .AddGroup("Test", g => g
                 .Add("~/Content/themes/base/jquery.ui.all.css")
                 .Add("~/Content/Site.css")
-                .Version("1.2")))
+                .Combine(true)))
         .Render();}
 </head>
 <body>

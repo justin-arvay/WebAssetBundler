@@ -90,6 +90,7 @@
     <Compile Include="Registrar\StyleSheetRegistrarTests.cs" />
     <Compile Include="Registrar\StyleSheetRegistrarBuilderTests.cs" />
     <Compile Include="TestHelper.cs" />
+    <Compile Include="Utilities\ImagePathContentFilterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ResourceCompiler\ResourceCompiler.csproj">
