@@ -66,13 +66,15 @@
     <Compile Include="Extensions\StringExtensionsTests.cs" />
     <Compile Include="HtmlHelperExtension.cs" />
     <Compile Include="HtmlHelperExtensionTests.cs" />
-    <Compile Include="IO\JavaScriptWebAssetMergerTests.cs" />
+    <Compile Include="IO\ScriptWebAssetMergerTests.cs" />
     <Compile Include="IO\DirectoryWriterTests.cs" />
     <Compile Include="Files\WebAssetMergerResult.cs" />
     <Compile Include="IO\StyleSheetWebAssetMergerTests.cs" />
     <Compile Include="IO\WebAssetMergerResultTest.cs" />
     <Compile Include="IO\WebAssetWriterTests.cs" />
     <Compile Include="IO\WebAssetReaderTests.cs" />
+    <Compile Include="Manager\ScriptManagerBuilderTests.cs" />
+    <Compile Include="Manager\ScriptManagerTests.cs" />
     <Compile Include="Resolvers\CombinedWebAssetGroupResolverTest.cs" />
     <Compile Include="Resolvers\PathResolverTests.cs" />
     <Compile Include="Resolvers\VersionedWebAssetGroupResolverTests.cs" />
@@ -88,8 +90,8 @@
     <Compile Include="Fluent\WebAssetCollectionTests.cs" />
     <Compile Include="Fluent\WebAssetTest.cs" />
     <Compile Include="Fluent\WebAssetGroupTests.cs" />
-    <Compile Include="Registrar\StyleSheetRegistrarTests.cs" />
-    <Compile Include="Registrar\StyleSheetRegistrarBuilderTests.cs" />
+    <Compile Include="Manager\StyleSheetManagerTests.cs" />
+    <Compile Include="Manager\StyleSheetManagerBuilderTests.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="Filters\ImagePathContentFilterTests.cs" />
   </ItemGroup>

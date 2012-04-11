@@ -14,10 +14,10 @@
 
 
     [TestFixture]
-    public class StyleSheetRegistrarBuilderTests
+    public class StyleSheetManagerBuilderTests
     {
 
-        private StyleSheetRegistrarBuilder CreateBuilder(ViewContext context, Mock<IUrlResolver> urlResolver)
+        private StyleSheetManagerBuilder CreateBuilder(ViewContext context, Mock<IUrlResolver> urlResolver)
         {
             var server = new Mock<HttpServerUtilityBase>();
             var collection = new WebAssetGroupCollection();            
@@ -28,10 +28,10 @@
             var writer = new Mock<IWebAssetWriter>();
             var merger = new StyleSheetWebAssetMerger(new Mock<IWebAssetReader>().Object, new Mock<IWebAssetContentFilter>().Object, server.Object);
 
-            return new StyleSheetRegistrarBuilder(new StyleSheetRegistrar(collection), context, collectionResolver, urlResolver.Object, writer.Object, cacheFactory.Object, merger);
+            return new StyleSheetManagerBuilder(new StyleSheetManager(collection), context, collectionResolver, urlResolver.Object, writer.Object, cacheFactory.Object, merger);
         }
 
-        private StyleSheetRegistrarBuilder CreateBuilder(ViewContext context)
+        private StyleSheetManagerBuilder CreateBuilder(ViewContext context)
         {
             return CreateBuilder(context, new Mock<IUrlResolver>());
         }
@@ -41,14 +41,14 @@
         {
             var builder = CreateBuilder(TestHelper.CreateViewContext());
 
-            Assert.IsInstanceOf<StyleSheetRegistrarBuilder>(builder.DefaultGroup(g => g.ToString()));
+            Assert.IsInstanceOf<StyleSheetManagerBuilder>(builder.DefaultGroup(g => g.ToString()));
         }
 
         [Test]
         public void StyleSheets_Return_Self_For_Chaining()
         {
             var builder = CreateBuilder(TestHelper.CreateViewContext());
-            Assert.IsInstanceOf<StyleSheetRegistrarBuilder>(builder.StyleSheets(s => s.ToString()));
+            Assert.IsInstanceOf<StyleSheetManagerBuilder>(builder.StyleSheets(s => s.ToString()));
         }
 
         [Test]
@@ -58,7 +58,7 @@
 
             builder.DefaultGroup(g => g.Add("test/test.js"));
 
-            Assert.AreEqual(1, builder.Registrar.DefaultGroup.Assets.Count);
+            Assert.AreEqual(1, builder.Manager.DefaultGroup.Assets.Count);
         }
 
         [Test]
@@ -69,7 +69,7 @@
             builder.StyleSheets(style => style.AddGroup("test", group => group.ToString()));
 
             //there is 2 because of default group
-            Assert.AreEqual(2, builder.Registrar.StyleSheets.Count);
+            Assert.AreEqual(2, builder.Manager.StyleSheets.Count);
         }
 
         [Test]
@@ -122,7 +122,7 @@
         [Test]
         public void Constructor_Should_Set_Registrar()
         {
-            Assert.NotNull(CreateBuilder(TestHelper.CreateViewContext()).Registrar);
+            Assert.NotNull(CreateBuilder(TestHelper.CreateViewContext()).Manager);
         }
     }
 }

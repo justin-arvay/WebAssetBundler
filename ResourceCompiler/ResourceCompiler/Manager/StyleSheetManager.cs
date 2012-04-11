@@ -3,9 +3,9 @@ namespace ResourceCompiler.Web.Mvc
 {
     using ResourceCompiler.Web.Mvc;
 
-    public class StyleSheetRegistrar
+    public class StyleSheetManager
     {
-        public StyleSheetRegistrar(WebAssetGroupCollection styleSheets)
+        public StyleSheetManager(WebAssetGroupCollection styleSheets)
         {
             StyleSheets = styleSheets;
 

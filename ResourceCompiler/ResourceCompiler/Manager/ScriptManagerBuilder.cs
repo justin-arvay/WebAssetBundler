@@ -8,9 +8,9 @@ namespace ResourceCompiler.Web.Mvc
     using System.IO;
     using ResourceCompiler.TextResource;
     using ResourceCompiler.Web.Mvc;
-using System.Collections.Generic;
+    using System.Collections.Generic;
 
-    public class StyleSheetRegistrarBuilder : IHtmlString
+    public class ScriptManagerBuilder : IHtmlString
     {
         private readonly IWebAssetGroupCollectionResolver collectionResolver;
         private bool hasRendered;
@@ -26,8 +26,8 @@ using System.Collections.Generic;
         /// <param name="registrar"></param>
         /// <param name="viewContext"></param>
         /// <param name="resolver"></param>
-        public StyleSheetRegistrarBuilder(
-            StyleSheetRegistrar registrar, 
+        public ScriptManagerBuilder(
+            ScriptManager registrar, 
             ViewContext viewContext, 
             IWebAssetGroupCollectionResolver resolver, 
             IUrlResolver urlResolver,
@@ -35,7 +35,7 @@ using System.Collections.Generic;
             ICacheFactory cacheFactory,
             IWebAssetMerger merger)
         {
-            Registrar = registrar;
+            Manager = registrar;
             this.collectionResolver = resolver;
             this.urlResolver = urlResolver;
             this.viewContext = viewContext;
@@ -49,9 +49,9 @@ using System.Collections.Generic;
         /// </summary>
         /// <param name="action"></param>
         /// <returns></returns>
-        public StyleSheetRegistrarBuilder DefaultGroup(Action<WebAssetGroupBuilder> action)
+        public ScriptManagerBuilder DefaultGroup(Action<WebAssetGroupBuilder> action)
         {
-            action(new WebAssetGroupBuilder(Registrar.DefaultGroup));
+            action(new WebAssetGroupBuilder(Manager.DefaultGroup));
             return this;
         }
 
@@ -60,16 +60,16 @@ using System.Collections.Generic;
         /// </summary>
         /// <param name="action"></param>
         /// <returns></returns>
-        public StyleSheetRegistrarBuilder StyleSheets(Action<WebAssetGroupCollectionBuilder> action)
+        public ScriptManagerBuilder StyleSheets(Action<WebAssetGroupCollectionBuilder> action)
         {
-            action(new WebAssetGroupCollectionBuilder(WebAssetType.StyleSheet, Registrar.StyleSheets));
+            action(new WebAssetGroupCollectionBuilder(WebAssetType.StyleSheet, Manager.Scripts));
             return this;
         }
 
         /// <summary>
         /// A registrar of all the stylesheets. 
         /// </summary>
-        public StyleSheetRegistrar Registrar 
+        public ScriptManager Manager 
         { 
             get; 
             private set; 
@@ -85,7 +85,7 @@ using System.Collections.Generic;
                 throw new InvalidOperationException(TextResource.Exceptions.YouCannotCallRenderMoreThanOnce);
             }
 
-            var results = collectionResolver.Resolve(Registrar.StyleSheets);
+            var results = collectionResolver.Resolve(Manager.Scripts);
             var baseWriter = viewContext.Writer;
 
             Generate(results);
@@ -104,7 +104,7 @@ using System.Collections.Generic;
         /// <returns></returns>
         public string ToHtmlString()
         {
-            var results = collectionResolver.Resolve(Registrar.StyleSheets);
+            var results = collectionResolver.Resolve(Manager.Scripts);
 
             Generate(results);
 

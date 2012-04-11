@@ -57,7 +57,7 @@
     <Compile Include="ComponentFactory.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="HtmlHelperExtension.cs" />
-    <Compile Include="IO\JavaScriptWebAssetMerger.cs" />
+    <Compile Include="IO\ScriptWebAssetMerger.cs" />
     <Compile Include="IO\DirectoryWriter.cs" />
     <Compile Include="IO\IWebAssetWriter.cs" />
     <Compile Include="IO\IWebAssetReader.cs" />
@@ -65,6 +65,8 @@
     <Compile Include="IO\WebAssetMergerResult.cs" />
     <Compile Include="IO\WebAssetWriter.cs" />
     <Compile Include="IO\WebAssetReader.cs" />
+    <Compile Include="Manager\ScriptManagerBuilder.cs" />
+    <Compile Include="Manager\ScriptManager.cs" />
     <Compile Include="Resolvers\CombinedWebAssetGroupResolver.cs" />
     <Compile Include="IO\IWebAssetMerger.cs" />
     <Compile Include="IO\IDirectoryWriter.cs" />
@@ -86,8 +88,8 @@
     <Compile Include="Fluent\WebAssetGroupCollection.cs" />
     <Compile Include="Fluent\WebAssetGroupCollectionBuilder.cs" />
     <Compile Include="Fluent\WebAssetType.cs" />
-    <Compile Include="Registrar\StyleSheetRegistrar.cs" />
-    <Compile Include="Registrar\StyleSheetRegistrarBuilder.cs" />
+    <Compile Include="Manager\StyleSheetManager.cs" />
+    <Compile Include="Manager\StyleSheetManagerBuilder.cs" />
     <Compile Include="Compressors\JavaScript\ClosureMinifier.cs" />
     <Compile Include="Compressors\JavaScript\IJavaScriptCompressor.cs" />
     <Compile Include="Compressors\JavaScript\JavaScriptMinifiers.cs" />

@@ -15,7 +15,15 @@
         {
             var factory = new ComponentFactory(TestHelper.CreateViewContext());
 
-            Assert.IsInstanceOf<StyleSheetRegistrarBuilder>(factory.StyleSheetRegistrar());
+            Assert.IsInstanceOf<StyleSheetManagerBuilder>(factory.StyleSheetRegistrar());
+        }
+
+        [Test]
+        public void Can_Get_Instance_Of_Script_Builder()
+        {
+            var factory = new ComponentFactory(TestHelper.CreateViewContext());
+
+            Assert.IsInstanceOf<ScriptManagerBuilder>(factory.ScriptRegistrar());
         }
     }
 }

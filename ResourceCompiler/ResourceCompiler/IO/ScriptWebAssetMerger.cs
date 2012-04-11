@@ -6,11 +6,11 @@ using System.Web;
 
 namespace ResourceCompiler.Web.Mvc
 {
-    public class JavaScriptWebAssetMerger : IWebAssetMerger
+    public class ScriptWebAssetMerger : IWebAssetMerger
     {
         private IWebAssetReader reader;
 
-        public JavaScriptWebAssetMerger(IWebAssetReader reader)
+        public ScriptWebAssetMerger(IWebAssetReader reader)
         {
             this.reader = reader;            
         }
