@@ -19,7 +19,7 @@
         }
 
         [Test]
-        public void Default_Groups_Path_Is_Set_To_MVC_Style_Sheet_Path_By_Default()
+        public void Default_Groups_Path_Is_Set_To_MVC_Script_Path_By_Default()
         {
             var manager = new ScriptManager(new WebAssetGroupCollection());
 

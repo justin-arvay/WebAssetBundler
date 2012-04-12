@@ -60,9 +60,9 @@ namespace ResourceCompiler.Web.Mvc
         /// </summary>
         /// <param name="action"></param>
         /// <returns></returns>
-        public ScriptManagerBuilder StyleSheets(Action<WebAssetGroupCollectionBuilder> action)
+        public ScriptManagerBuilder Scripts(Action<WebAssetGroupCollectionBuilder> action)
         {
-            action(new WebAssetGroupCollectionBuilder(WebAssetType.StyleSheet, Manager.Scripts));
+            action(new WebAssetGroupCollectionBuilder(WebAssetType.Javascript, Manager.Scripts));
             return this;
         }
 
