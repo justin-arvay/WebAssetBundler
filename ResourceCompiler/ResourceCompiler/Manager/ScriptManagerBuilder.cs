@@ -23,11 +23,11 @@ namespace ResourceCompiler.Web.Mvc
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="registrar"></param>
+        /// <param name="manager"></param>
         /// <param name="viewContext"></param>
         /// <param name="resolver"></param>
         public ScriptManagerBuilder(
-            ScriptManager registrar, 
+            ScriptManager manager, 
             ViewContext viewContext, 
             IWebAssetGroupCollectionResolver resolver, 
             IUrlResolver urlResolver,
@@ -35,7 +35,7 @@ namespace ResourceCompiler.Web.Mvc
             ICacheFactory cacheFactory,
             IWebAssetMerger merger)
         {
-            Manager = registrar;
+            Manager = manager;
             this.collectionResolver = resolver;
             this.urlResolver = urlResolver;
             this.viewContext = viewContext;
@@ -67,7 +67,7 @@ namespace ResourceCompiler.Web.Mvc
         }
 
         /// <summary>
-        /// A registrar of all the stylesheets. 
+        /// A manager of all the stylesheets. 
         /// </summary>
         public ScriptManager Manager 
         { 

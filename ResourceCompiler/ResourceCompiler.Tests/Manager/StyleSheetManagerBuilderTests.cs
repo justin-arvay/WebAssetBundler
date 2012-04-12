@@ -120,7 +120,7 @@
         }
 
         [Test]
-        public void Constructor_Should_Set_Registrar()
+        public void Constructor_Should_Set_Manage()
         {
             Assert.NotNull(CreateBuilder(TestHelper.CreateViewContext()).Manager);
         }

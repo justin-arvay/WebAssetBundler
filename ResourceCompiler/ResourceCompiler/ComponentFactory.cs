@@ -16,7 +16,7 @@ namespace ResourceCompiler
             this.viewContext = viewContext;
         }
 
-        public StyleSheetManagerBuilder StyleSheetRegistrar()
+        public StyleSheetManagerBuilder StyleSheetManager()
         {
             var pathResolver = new PathResolver(WebAssetType.StyleSheet);
             var collection = new WebAssetGroupCollection();
@@ -36,7 +36,7 @@ namespace ResourceCompiler
                 merger);
         }
 
-        public ScriptManagerBuilder ScriptRegistrar()
+        public ScriptManagerBuilder ScriptManager()
         {
             var pathResolver = new PathResolver(WebAssetType.Javascript);
             var collection = new WebAssetGroupCollection();

@@ -13,17 +13,17 @@
         [Test]
         public void Can_Get_Default_Group()
         {
-            var registrar = new ScriptManager(new WebAssetGroupCollection());
+            var manager = new ScriptManager(new WebAssetGroupCollection());
 
-            Assert.IsInstanceOf<WebAssetGroup>(registrar.DefaultGroup);
+            Assert.IsInstanceOf<WebAssetGroup>(manager.DefaultGroup);
         }
 
         [Test]
         public void Default_Groups_Path_Is_Set_To_MVC_Style_Sheet_Path_By_Default()
         {
-            var registrar = new ScriptManager(new WebAssetGroupCollection());
+            var manager = new ScriptManager(new WebAssetGroupCollection());
 
-            Assert.AreEqual(DefaultSettings.StyleSheetFilesPath, registrar.DefaultGroup.DefaultPath);
+            Assert.AreEqual(DefaultSettings.StyleSheetFilesPath, manager.DefaultGroup.DefaultPath);
         }
 
 
@@ -31,7 +31,7 @@
         public void Should_Add_Default_Group_To_Collection()
         {
             var collection = new WebAssetGroupCollection();
-            var registrar = new ScriptManager(collection);
+            var manager = new ScriptManager(collection);
 
             Assert.AreEqual(1, collection.Count);
             Assert.True(collection.FindGroupByName(DefaultSettings.DefaultGroupName).Name.IsCaseSensitiveEqual(DefaultSettings.DefaultGroupName));

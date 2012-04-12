@@ -67,7 +67,7 @@ using System.Collections.Generic;
         }
 
         /// <summary>
-        /// A registrar of all the stylesheets. 
+        /// A manager of all the stylesheets. 
         /// </summary>
         public StyleSheetManager Manager 
         { 
