@@ -16,7 +16,7 @@ namespace ResourceCompiler.Web.Mvc
         private bool hasRendered;
         private ViewContext viewContext;
         private ICacheFactory cacheFactory;        
-        private IUrlResolver urlResolver;
+        private ITagWriter tagWriter;
         private IWebAssetGenerator generator;
 
         /// <summary>
@@ -28,14 +28,14 @@ namespace ResourceCompiler.Web.Mvc
         public ScriptManagerBuilder(
             ScriptManager manager, 
             ViewContext viewContext, 
-            IWebAssetGroupCollectionResolver resolver, 
-            IUrlResolver urlResolver,
+            IWebAssetGroupCollectionResolver resolver,
+            ITagWriter tagWriter,
             ICacheFactory cacheFactory,
             IWebAssetGenerator generator)
         {
             Manager = manager;
             this.collectionResolver = resolver;
-            this.urlResolver = urlResolver;
+            this.tagWriter = tagWriter;
             this.viewContext = viewContext;
             this.cacheFactory = cacheFactory;
             this.generator = generator;
@@ -89,7 +89,7 @@ namespace ResourceCompiler.Web.Mvc
 
             using (HtmlTextWriter textWriter = new HtmlTextWriter(baseWriter))
             {
-                Write(textWriter, results);
+                tagWriter.Write(textWriter, results);
             }
 
             hasRendered = true;
@@ -107,19 +107,9 @@ namespace ResourceCompiler.Web.Mvc
 
             using (var output = new StringWriter())
             {
-                Write(output, results);
+                tagWriter.Write(output, results);
 
                 return output.ToString();
-            }
-        }
-
-        protected virtual void Write(TextWriter writer, IList<WebAssetResolverResult> results)
-        {
-            var link = "<link type=\"text/css\" href=\"{0}\" rel=\"stylesheet\"/>";            
-
-            foreach (var result in results)
-            {
-                writer.WriteLine(link.FormatWith(urlResolver.Resolve(result.Path)));
             }
         }
     }

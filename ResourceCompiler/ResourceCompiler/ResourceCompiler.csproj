@@ -57,10 +57,13 @@
     <Compile Include="ComponentFactory.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="HtmlHelperExtension.cs" />
+    <Compile Include="IO\ITagWriter.cs" />
+    <Compile Include="IO\ScriptTagWriter.cs" />
     <Compile Include="IO\ScriptWebAssetMerger.cs" />
     <Compile Include="IO\DirectoryWriter.cs" />
     <Compile Include="IO\IWebAssetWriter.cs" />
     <Compile Include="IO\IWebAssetReader.cs" />
+    <Compile Include="IO\StyleSheetTagWriter.cs" />
     <Compile Include="IO\StyleSheetWebAssetMerger.cs" />
     <Compile Include="IO\WebAssetGenerator.cs" />
     <Compile Include="IO\WebAssetMergerResult.cs" />

@@ -26,12 +26,13 @@ namespace ResourceCompiler
             var writer = new WebAssetWriter(new DirectoryWriter(), viewContext.HttpContext.Server);
             var merger = new StyleSheetWebAssetMerger(new WebAssetReader(viewContext.HttpContext.Server), new ImagePathContentFilter(), viewContext.HttpContext.Server);
             var generator = new WebAssetGenerator(writer, merger);
+            var tagWriter = new StyleSheetTagWriter(urlResolver);
 
             return new StyleSheetManagerBuilder(
                 new StyleSheetManager(collection), 
                 viewContext, 
                 collectionResolver,
-                urlResolver,                                
+                tagWriter,                                
                 cacheFactory,
                 generator);
         }
@@ -46,12 +47,13 @@ namespace ResourceCompiler
             var writer = new WebAssetWriter(new DirectoryWriter(), viewContext.HttpContext.Server);
             var merger = new ScriptWebAssetMerger(new WebAssetReader(viewContext.HttpContext.Server));
             var generator = new WebAssetGenerator(writer, merger);
+            var tagWriter = new ScriptTagWriter(urlResolver);
 
             return new ScriptManagerBuilder(
                 new ScriptManager(collection),
                 viewContext,
                 collectionResolver,
-                urlResolver,                
+                tagWriter,                
                 cacheFactory,
                 generator);
         }

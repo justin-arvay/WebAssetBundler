@@ -66,9 +66,11 @@
     <Compile Include="Extensions\StringExtensionsTests.cs" />
     <Compile Include="HtmlHelperExtension.cs" />
     <Compile Include="HtmlHelperExtensionTests.cs" />
+    <Compile Include="IO\ScriptTagWriterTests.cs" />
     <Compile Include="IO\ScriptWebAssetMergerTests.cs" />
     <Compile Include="IO\DirectoryWriterTests.cs" />
     <Compile Include="Files\WebAssetMergerResult.cs" />
+    <Compile Include="IO\StyleSheetTagWriterTests.cs" />
     <Compile Include="IO\StyleSheetWebAssetMergerTests.cs" />
     <Compile Include="IO\WebAssetGeneratorTests.cs" />
     <Compile Include="IO\WebAssetMergerResultTest.cs" />

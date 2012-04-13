@@ -17,7 +17,7 @@
     public class StyleSheetManagerBuilderTests
     {
 
-        private StyleSheetManagerBuilder CreateBuilder(ViewContext context, Mock<IUrlResolver> urlResolver)
+        private StyleSheetManagerBuilder CreateBuilder(ViewContext context, Mock<ITagWriter> tagWriter)
         {
             var server = new Mock<HttpServerUtilityBase>();
             var collection = new WebAssetGroupCollection();            
@@ -32,15 +32,15 @@
             return new StyleSheetManagerBuilder(
                 new StyleSheetManager(collection), 
                 context, 
-                collectionResolver, 
-                urlResolver.Object, 
+                collectionResolver,
+                tagWriter.Object, 
                 cacheFactory.Object, 
                 generator.Object);
         }
 
         private StyleSheetManagerBuilder CreateBuilder(ViewContext context)
         {
-            return CreateBuilder(context, new Mock<IUrlResolver>());
+            return CreateBuilder(context, new Mock<ITagWriter>());
         }
 
         [Test]
@@ -80,10 +80,10 @@
         }
 
         [Test]
-        public void Should_Return_Html_When_Rendered()
+        public void Should_Write_Tags()
         {
-            var context = TestHelper.CreateViewContext();
-            var builder = CreateBuilder(context);
+            var tagWriter = new Mock<ITagWriter>();
+            var builder = CreateBuilder(TestHelper.CreateViewContext(), tagWriter);
 
             builder.StyleSheets(style => style
                 .AddGroup("test", group => group
@@ -93,28 +93,9 @@
 
             builder.Render();
 
-            string output = context.Writer.ToString();
-
-            Assert.AreEqual(2, output.CountOccurance("<link"));
+            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), It.IsAny<IList<WebAssetResolverResult>>()), Times.Exactly(2));
         }
 
-        [Test]
-        public void Should_Resole_Virtual_Path_To_Url()
-        {
-            var urlResolver = new Mock<IUrlResolver>();
-            var builder = CreateBuilder(TestHelper.CreateViewContext(), urlResolver);
-            var path = "~/Files/test/css";
-
-            builder.StyleSheets(style => style
-                .AddGroup("test", group => group
-                    .Add(path)
-                    .Combine(false)));            
-
-            builder.Render();
-
-            urlResolver.Verify(m => m.Resolve(It.Is<string>(s => s.Equals(path))), Times.Exactly(1));
-            
-        }
 
         [Test]
         public void Should_Throw_Exception_When_Render_Called_More_Than_Once()
