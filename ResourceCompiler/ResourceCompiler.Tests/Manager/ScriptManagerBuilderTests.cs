@@ -18,10 +18,17 @@ namespace ResourceCompiler.Web.Mvc.Tests
             var resolverFactory = new WebAssetResolverFactory(pathResolver.Object);
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
             var cacheFactory = new Mock<ICacheFactory>();
-            var writer = new Mock<IWebAssetWriter>();
-            var merger = new ScriptWebAssetMerger(new Mock<IWebAssetReader>().Object);
+            //var writer = new Mock<IWebAssetWriter>();
+            //var merger = new ScriptWebAssetMerger(new Mock<IWebAssetReader>().Object);
+            var generator = new Mock<IWebAssetGenerator>();
 
-            return new ScriptManagerBuilder(new ScriptManager(collection), context, collectionResolver, urlResolver.Object, writer.Object, cacheFactory.Object, merger);
+            return new ScriptManagerBuilder(
+                new ScriptManager(collection), 
+                context, 
+                collectionResolver, 
+                urlResolver.Object,                 
+                cacheFactory.Object, 
+                generator.Object);
         }
 
         private ScriptManagerBuilder CreateBuilder(ViewContext context)
@@ -42,6 +49,27 @@ namespace ResourceCompiler.Web.Mvc.Tests
         {
             var builder = CreateBuilder(TestHelper.CreateViewContext());
             Assert.IsInstanceOf<ScriptManagerBuilder>(builder.Scripts(s => s.ToString()));
+        }
+
+        [Test]
+        public void Can_Configure_Default_Group()
+        {
+            var builder = CreateBuilder(TestHelper.CreateViewContext());
+
+            builder.DefaultGroup(g => g.Add("test/test.js"));
+
+            Assert.AreEqual(1, builder.Manager.DefaultGroup.Assets.Count);
+        }
+
+        [Test]
+        public void Can_Configure_Scripts()
+        {
+            var builder = CreateBuilder(TestHelper.CreateViewContext());
+
+            builder.Scripts(s => s.AddGroup("test", group => group.ToString()));
+
+            //there is 2 because of default group
+            Assert.AreEqual(2, builder.Manager.Scripts.Count);
         }
     }
 }

@@ -27,8 +27,15 @@
             var cacheFactory = new Mock<ICacheFactory>();
             var writer = new Mock<IWebAssetWriter>();
             var merger = new StyleSheetWebAssetMerger(new Mock<IWebAssetReader>().Object, new Mock<IWebAssetContentFilter>().Object, server.Object);
+            var generator = new Mock<IWebAssetGenerator>();
 
-            return new StyleSheetManagerBuilder(new StyleSheetManager(collection), context, collectionResolver, urlResolver.Object, writer.Object, cacheFactory.Object, merger);
+            return new StyleSheetManagerBuilder(
+                new StyleSheetManager(collection), 
+                context, 
+                collectionResolver, 
+                urlResolver.Object, 
+                cacheFactory.Object, 
+                generator.Object);
         }
 
         private StyleSheetManagerBuilder CreateBuilder(ViewContext context)
@@ -56,7 +63,7 @@
         {
             var builder = CreateBuilder(TestHelper.CreateViewContext());
 
-            builder.DefaultGroup(g => g.Add("test/test.js"));
+            builder.DefaultGroup(g => g.Add("test/test.css"));
 
             Assert.AreEqual(1, builder.Manager.DefaultGroup.Assets.Count);
         }

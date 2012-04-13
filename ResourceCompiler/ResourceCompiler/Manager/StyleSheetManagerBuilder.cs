@@ -8,17 +8,16 @@ namespace ResourceCompiler.Web.Mvc
     using System.IO;
     using ResourceCompiler.TextResource;
     using ResourceCompiler.Web.Mvc;
-using System.Collections.Generic;
+    using System.Collections.Generic;
 
     public class StyleSheetManagerBuilder : IHtmlString
     {
         private readonly IWebAssetGroupCollectionResolver collectionResolver;
         private bool hasRendered;
         private ViewContext viewContext;
-        private ICacheFactory cacheFactory;
-        private IWebAssetWriter writer;
-        private IUrlResolver urlResolver;
-        private IWebAssetMerger merger;
+        private ICacheFactory cacheFactory;        
+        private IUrlResolver urlResolver;        
+        private IWebAssetGenerator generator;
 
         /// <summary>
         /// Constructor
@@ -30,18 +29,16 @@ using System.Collections.Generic;
             StyleSheetManager manager, 
             ViewContext viewContext, 
             IWebAssetGroupCollectionResolver resolver, 
-            IUrlResolver urlResolver,
-            IWebAssetWriter writer,
-            ICacheFactory cacheFactory,
-            IWebAssetMerger merger)
+            IUrlResolver urlResolver,            
+            ICacheFactory cacheFactory,            
+            IWebAssetGenerator generator)
         {
             Manager = manager;
             this.collectionResolver = resolver;
             this.urlResolver = urlResolver;
             this.viewContext = viewContext;
-            this.cacheFactory = cacheFactory;
-            this.writer = writer;
-            this.merger = merger;
+            this.cacheFactory = cacheFactory;                        
+            this.generator = generator;
         }
 
         /// <summary>
@@ -88,7 +85,7 @@ using System.Collections.Generic;
             var results = collectionResolver.Resolve(Manager.StyleSheets);
             var baseWriter = viewContext.Writer;
 
-            Generate(results);
+            generator.Generate(results);
 
             using (HtmlTextWriter textWriter = new HtmlTextWriter(baseWriter))
             {
@@ -106,7 +103,7 @@ using System.Collections.Generic;
         {
             var results = collectionResolver.Resolve(Manager.StyleSheets);
 
-            Generate(results);
+            generator.Generate(results);
 
             using (var output = new StringWriter())
             {
@@ -123,15 +120,6 @@ using System.Collections.Generic;
             foreach (var result in results)
             {
                 writer.WriteLine(link.FormatWith(urlResolver.Resolve(result.Path)));
-            }
-        }
-
-        protected virtual void Generate(IList<WebAssetResolverResult> resolverResults)
-        {
-            foreach (var resolverResult in resolverResults)
-            {
-
-                writer.Write(merger.Merge(resolverResult));
             }
         }
     }

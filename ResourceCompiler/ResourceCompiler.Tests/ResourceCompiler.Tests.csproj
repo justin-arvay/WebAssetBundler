@@ -70,6 +70,7 @@
     <Compile Include="IO\DirectoryWriterTests.cs" />
     <Compile Include="Files\WebAssetMergerResult.cs" />
     <Compile Include="IO\StyleSheetWebAssetMergerTests.cs" />
+    <Compile Include="IO\WebAssetGeneratorTests.cs" />
     <Compile Include="IO\WebAssetMergerResultTest.cs" />
     <Compile Include="IO\WebAssetWriterTests.cs" />
     <Compile Include="IO\WebAssetReaderTests.cs" />

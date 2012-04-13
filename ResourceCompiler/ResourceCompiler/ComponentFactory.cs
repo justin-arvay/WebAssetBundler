@@ -25,15 +25,15 @@ namespace ResourceCompiler
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
             var writer = new WebAssetWriter(new DirectoryWriter(), viewContext.HttpContext.Server);
             var merger = new StyleSheetWebAssetMerger(new WebAssetReader(viewContext.HttpContext.Server), new ImagePathContentFilter(), viewContext.HttpContext.Server);
+            var generator = new WebAssetGenerator(writer, merger);
 
             return new StyleSheetManagerBuilder(
                 new StyleSheetManager(collection), 
                 viewContext, 
                 collectionResolver,
-                urlResolver,                
-                writer,
+                urlResolver,                                
                 cacheFactory,
-                merger);
+                generator);
         }
 
         public ScriptManagerBuilder ScriptManager()
@@ -45,15 +45,15 @@ namespace ResourceCompiler
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
             var writer = new WebAssetWriter(new DirectoryWriter(), viewContext.HttpContext.Server);
             var merger = new ScriptWebAssetMerger(new WebAssetReader(viewContext.HttpContext.Server));
+            var generator = new WebAssetGenerator(writer, merger);
 
             return new ScriptManagerBuilder(
                 new ScriptManager(collection),
                 viewContext,
                 collectionResolver,
-                urlResolver,
-                writer,
+                urlResolver,                
                 cacheFactory,
-                merger);
+                generator);
         }
     }
 }

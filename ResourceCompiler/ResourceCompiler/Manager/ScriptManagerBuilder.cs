@@ -15,10 +15,9 @@ namespace ResourceCompiler.Web.Mvc
         private readonly IWebAssetGroupCollectionResolver collectionResolver;
         private bool hasRendered;
         private ViewContext viewContext;
-        private ICacheFactory cacheFactory;
-        private IWebAssetWriter writer;
+        private ICacheFactory cacheFactory;        
         private IUrlResolver urlResolver;
-        private IWebAssetMerger merger;
+        private IWebAssetGenerator generator;
 
         /// <summary>
         /// Constructor
@@ -31,17 +30,15 @@ namespace ResourceCompiler.Web.Mvc
             ViewContext viewContext, 
             IWebAssetGroupCollectionResolver resolver, 
             IUrlResolver urlResolver,
-            IWebAssetWriter writer,
             ICacheFactory cacheFactory,
-            IWebAssetMerger merger)
+            IWebAssetGenerator generator)
         {
             Manager = manager;
             this.collectionResolver = resolver;
             this.urlResolver = urlResolver;
             this.viewContext = viewContext;
             this.cacheFactory = cacheFactory;
-            this.writer = writer;
-            this.merger = merger;
+            this.generator = generator;
         }
 
         /// <summary>
@@ -88,7 +85,7 @@ namespace ResourceCompiler.Web.Mvc
             var results = collectionResolver.Resolve(Manager.Scripts);
             var baseWriter = viewContext.Writer;
 
-            Generate(results);
+            generator.Generate(results);
 
             using (HtmlTextWriter textWriter = new HtmlTextWriter(baseWriter))
             {
@@ -106,7 +103,7 @@ namespace ResourceCompiler.Web.Mvc
         {
             var results = collectionResolver.Resolve(Manager.Scripts);
 
-            Generate(results);
+            generator.Generate(results);
 
             using (var output = new StringWriter())
             {
@@ -123,15 +120,6 @@ namespace ResourceCompiler.Web.Mvc
             foreach (var result in results)
             {
                 writer.WriteLine(link.FormatWith(urlResolver.Resolve(result.Path)));
-            }
-        }
-
-        protected virtual void Generate(IList<WebAssetResolverResult> resolverResults)
-        {
-            foreach (var resolverResult in resolverResults)
-            {
-
-                writer.Write(merger.Merge(resolverResult));
             }
         }
     }

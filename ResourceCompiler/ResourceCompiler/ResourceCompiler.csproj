@@ -62,6 +62,7 @@
     <Compile Include="IO\IWebAssetWriter.cs" />
     <Compile Include="IO\IWebAssetReader.cs" />
     <Compile Include="IO\StyleSheetWebAssetMerger.cs" />
+    <Compile Include="IO\WebAssetGenerator.cs" />
     <Compile Include="IO\WebAssetMergerResult.cs" />
     <Compile Include="IO\WebAssetWriter.cs" />
     <Compile Include="IO\WebAssetReader.cs" />
@@ -116,6 +117,7 @@
     </Compile>
     <Compile Include="Filters\ImagePathContentFilter.cs" />
     <Compile Include="Filters\IWebAssetContentFilter.cs" />
+    <Compile Include="IO\IWebAssetGenerator.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
