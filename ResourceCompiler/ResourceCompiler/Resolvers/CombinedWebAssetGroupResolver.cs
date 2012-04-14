@@ -22,7 +22,7 @@ namespace ResourceCompiler.Web.Mvc
             var path = pathResolver.Resolve(DefaultSettings.GeneratedFilesPath, webAssetGroup.Version, webAssetGroup.Name);
             var results = new List<WebAssetResolverResult>();
 
-            results.Add(new WebAssetResolverResult(path, webAssetGroup.Assets));
+            results.Add(new WebAssetResolverResult(path, webAssetGroup.Compress, webAssetGroup.Assets));
 
             return results;
         }

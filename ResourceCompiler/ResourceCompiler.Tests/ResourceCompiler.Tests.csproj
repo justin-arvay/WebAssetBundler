@@ -95,6 +95,7 @@
     <Compile Include="Fluent\WebAssetGroupTests.cs" />
     <Compile Include="Manager\StyleSheetManagerTests.cs" />
     <Compile Include="Manager\StyleSheetManagerBuilderTests.cs" />
+    <Compile Include="Resolvers\WebAssetResolverResultTests.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="Filters\ImagePathContentFilterTests.cs" />
   </ItemGroup>

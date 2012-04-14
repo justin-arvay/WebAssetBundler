@@ -27,7 +27,7 @@
         public void Should_Return_Combined_Group_Resolver()
         {
             var factory = new WebAssetResolverFactory(pathResolver.Object);
-            var group = new WebAssetGroup("", false) { Combined = true };
+            var group = new WebAssetGroup("", false) { Combine = true };
 
             Assert.IsInstanceOf<CombinedWebAssetGroupResolver>(factory.Create(group));
         }

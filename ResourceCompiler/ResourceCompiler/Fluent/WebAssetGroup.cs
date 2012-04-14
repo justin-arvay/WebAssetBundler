@@ -46,13 +46,13 @@ namespace ResourceCompiler.Web.Mvc
             set;
         }
 
-        public bool Compressed
+        public bool Compress
         {
             get;
             set;
         }
 
-        public bool Combined
+        public bool Combine
         {
             get;
             set;

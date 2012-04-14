@@ -26,13 +26,27 @@
         {
             var path = "~/Files/test.css";
             var group = new WebAssetGroup("Test", false);
+
             group.Assets.Add(new WebAsset(path));
 
             var resolver = new WebAssetGroupResolver(group);
-            var results = (List<WebAssetResolverResult>)resolver.Resolve();
+            var results = resolver.Resolve();
 
             Assert.AreEqual(path, results[0].Path);
         }
 
+        [Test]
+        public void Should_Resolve_Compress_For_Result()
+        {            
+            var group = new WebAssetGroup("Test", false);
+
+            group.Compress = true;
+            group.Assets.Add(new WebAsset(""));
+
+            var resolver = new WebAssetGroupResolver(group);
+            var results = resolver.Resolve();
+
+            Assert.IsTrue(results[0].Compress);
+        }
     }
 }

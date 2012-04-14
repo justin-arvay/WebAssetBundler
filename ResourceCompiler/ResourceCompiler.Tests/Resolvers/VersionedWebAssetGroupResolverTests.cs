@@ -45,5 +45,21 @@ namespace ResourceCompiler.Web.Mvc.Tests
 
             Assert.AreEqual(path, results[0].Path);
         }
+
+        [Test]
+        public void Should_Resolve_Compress_For_Result()
+        {
+            var pathResolver = new Mock<IPathResolver>();
+            var path = "/test/file.css";
+            var group = new WebAssetGroup("Test", false) { Version = "1.2" };
+
+            group.Compress = true;
+            group.Assets.Add(new WebAsset(path));            
+
+            var resolver = new VersionedWebAssetGroupResolver(group, pathResolver.Object);
+            var results = (List<WebAssetResolverResult>)resolver.Resolve();
+
+            Assert.IsTrue(results[0].Compress);
+        }
     }
 }

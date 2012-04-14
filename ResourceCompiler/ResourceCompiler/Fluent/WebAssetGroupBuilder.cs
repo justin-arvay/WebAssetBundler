@@ -28,13 +28,13 @@ namespace ResourceCompiler.Web.Mvc
 
         public WebAssetGroupBuilder Compress(bool value)
         {
-            group.Compressed = value;
+            group.Compress = value;
             return this;
         }
 
         public WebAssetGroupBuilder Combine(bool value)
         {
-            group.Combined = value;
+            group.Combine = value;
             return this;
         }
 

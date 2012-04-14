@@ -34,11 +34,11 @@ namespace ResourceCompiler.Web.Mvc.Tests
             var group = new WebAssetGroup("", false);
 
             //get the opposite of its current value so we always know it changed
-            var value = group.Combined ? false : true;
+            var value = group.Combine ? false : true;
                         
-            group.Combined = value;
+            group.Combine = value;
 
-            Assert.AreEqual(value, group.Combined);
+            Assert.AreEqual(value, group.Combine);
         }
 
         [Test]
@@ -47,11 +47,11 @@ namespace ResourceCompiler.Web.Mvc.Tests
             var group = new WebAssetGroup("", false);
 
             //get the opposite of its current value so we always know it changed
-            var value = group.Compressed ? false : true;
+            var value = group.Compress ? false : true;
 
-            group.Compressed = value;
+            group.Compress = value;
 
-            Assert.AreEqual(value, group.Compressed);
+            Assert.AreEqual(value, group.Compress);
         }
 
         [Test]

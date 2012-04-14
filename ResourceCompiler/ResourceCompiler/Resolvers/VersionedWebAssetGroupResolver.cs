@@ -22,19 +22,19 @@ namespace ResourceCompiler.Web.Mvc
 
             foreach (var webAsset in webAssetGroup.Assets)
             {
-                results.Add(ResolveWebAsset(webAssetGroup.Version, webAsset));
+                results.Add(ResolveWebAsset(webAssetGroup.Version, webAssetGroup.Compress, webAsset));
             }
 
             return results;
         }
 
-        private WebAssetResolverResult ResolveWebAsset(string version, IWebAsset webAsset)
+        private WebAssetResolverResult ResolveWebAsset(string version, bool compress, IWebAsset webAsset)
         {
             var path = pathResolver.Resolve(DefaultSettings.GeneratedFilesPath, version, webAsset.Name);
             var assets = new List<IWebAsset>();
             assets.Add(webAsset);
 
-            return new WebAssetResolverResult(path, assets);
+            return new WebAssetResolverResult(path, compress, assets);
         }
     }
 }

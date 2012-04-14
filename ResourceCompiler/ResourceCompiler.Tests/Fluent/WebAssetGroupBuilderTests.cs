@@ -61,10 +61,10 @@
             var builder = new WebAssetGroupBuilder(group);
 
             builder.Compress(true);
-            Assert.True(group.Compressed, "Enabled Compression");
+            Assert.True(group.Compress, "Enabled Compression");
 
             builder.Compress(false);
-            Assert.False(group.Compressed, "Disabled Compression");
+            Assert.False(group.Compress, "Disabled Compression");
         }
 
         [Test]
@@ -83,10 +83,10 @@
             var builder = new WebAssetGroupBuilder(group);
 
             builder.Combine(true);
-            Assert.True(group.Combined, "Enabled Combining");
+            Assert.True(group.Combine, "Enabled Combining");
 
             builder.Combine(false);
-            Assert.False(group.Combined, "Disabled Combining");
+            Assert.False(group.Combine, "Disabled Combining");
         }
 
         [Test]

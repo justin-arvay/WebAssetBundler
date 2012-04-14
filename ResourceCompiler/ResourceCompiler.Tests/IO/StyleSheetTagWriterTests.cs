@@ -34,8 +34,8 @@ namespace ResourceCompiler.Web.Mvc
             var path = "~/Files/test/css";
 
             var results = new List<WebAssetResolverResult>();
-            results.Add(new WebAssetResolverResult(path, null));
-            results.Add(new WebAssetResolverResult(path, null));
+            results.Add(new WebAssetResolverResult(path, false, null));
+            results.Add(new WebAssetResolverResult(path, false, null));
 
             tagWriter.Write(writer.Object, results);
 
@@ -50,8 +50,8 @@ namespace ResourceCompiler.Web.Mvc
             var tagWriter = new StyleSheetTagWriter(urlResolver.Object);            
 
             var results = new List<WebAssetResolverResult>();
-            results.Add(new WebAssetResolverResult("", null));
-            results.Add(new WebAssetResolverResult("", null));
+            results.Add(new WebAssetResolverResult("", false, null));
+            results.Add(new WebAssetResolverResult("", false, null));
 
             tagWriter.Write(writer.Object, results);
 
@@ -66,8 +66,8 @@ namespace ResourceCompiler.Web.Mvc
             var tagWriter = new StyleSheetTagWriter(urlResolver.Object);
 
             var results = new List<WebAssetResolverResult>();
-            results.Add(new WebAssetResolverResult("", null));
-            results.Add(new WebAssetResolverResult("", null));
+            results.Add(new WebAssetResolverResult("", false, null));
+            results.Add(new WebAssetResolverResult("", false, null));
 
             tagWriter.Write(writer.Object, results);
 

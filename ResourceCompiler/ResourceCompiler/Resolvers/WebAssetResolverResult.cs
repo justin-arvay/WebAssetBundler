@@ -9,16 +9,23 @@ namespace ResourceCompiler.Web.Mvc
     public class WebAssetResolverResult
     {
 
-        public WebAssetResolverResult(string path, ICollection<IWebAsset> webAssets)
+        public WebAssetResolverResult(string path, bool compress, ICollection<IWebAsset> webAssets)
         {
             Path = path;
             WebAssets = webAssets;
+            Compress = compress;
         }
 
         public string Path
         {
             get;
             private set;
+        }
+
+        public bool Compress
+        {
+            get;
+            set;
         }
 
         public ICollection<IWebAsset> WebAssets

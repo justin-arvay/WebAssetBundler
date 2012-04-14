@@ -45,7 +45,7 @@ namespace ResourceCompiler
             var resolverFactory = new WebAssetResolverFactory(pathResolver);
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
             var writer = new WebAssetWriter(new DirectoryWriter(), viewContext.HttpContext.Server);
-            var merger = new ScriptWebAssetMerger(new WebAssetReader(viewContext.HttpContext.Server));
+            var merger = new ScriptWebAssetMerger(new WebAssetReader(viewContext.HttpContext.Server), DefaultSettings.ScriptCompressor);
             var generator = new WebAssetGenerator(writer, merger);
             var tagWriter = new ScriptTagWriter(urlResolver);
 

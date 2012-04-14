@@ -14,7 +14,7 @@
 
         public IWebAssetResolver Create(WebAssetGroup webAssetGroup)
         {
-            if (webAssetGroup.Combined)
+            if (webAssetGroup.Combine)
             {
                 return new CombinedWebAssetGroupResolver(webAssetGroup, pathResolver);
             }

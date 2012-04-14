@@ -18,8 +18,8 @@ namespace ResourceCompiler.Web.Mvc.Tests
             var generator = new WebAssetGenerator(writer.Object, merger.Object);
 
             var results = new List<WebAssetResolverResult>();
-            results.Add(new WebAssetResolverResult("", null));
-            results.Add(new WebAssetResolverResult("", null));
+            results.Add(new WebAssetResolverResult("", false, null));
+            results.Add(new WebAssetResolverResult("", false, null));
 
             generator.Generate(results);
 
@@ -34,8 +34,8 @@ namespace ResourceCompiler.Web.Mvc.Tests
             var generator = new WebAssetGenerator(writer.Object, merger.Object);
 
             var results = new List<WebAssetResolverResult>();
-            results.Add(new WebAssetResolverResult("", null));
-            results.Add(new WebAssetResolverResult("", null));
+            results.Add(new WebAssetResolverResult("", false, null));
+            results.Add(new WebAssetResolverResult("", false, null));
 
             generator.Generate(results);
 

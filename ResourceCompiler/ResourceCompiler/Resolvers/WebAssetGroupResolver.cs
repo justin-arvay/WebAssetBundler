@@ -22,18 +22,18 @@ namespace ResourceCompiler.Web.Mvc
 
             foreach (var webAsset in webAssetGroup.Assets)
             {
-                results.Add(ResolveWebAsset(webAssetGroup.Name, webAssetGroup.Version, webAsset));
+                results.Add(ResolveWebAsset(webAssetGroup.Name, webAssetGroup.Compress, webAsset));
             }
 
             return results;
         }
 
-        private WebAssetResolverResult ResolveWebAsset(string name, string version, IWebAsset webAsset)
+        private WebAssetResolverResult ResolveWebAsset(string name, bool compress, IWebAsset webAsset)
         {
             var assets = new List<IWebAsset>();
             assets.Add(webAsset);
 
-            return new WebAssetResolverResult(webAsset.Source, assets);
+            return new WebAssetResolverResult(webAsset.Source, compress, assets);
         }
     }
 }
