@@ -34,18 +34,45 @@ namespace ResourceCompiler.Web.Mvc
             var path = "~/Files/test/css";
 
             var results = new List<WebAssetResolverResult>();
-            results.Add(new WebAssetResolverResult("", null));
-            results.Add(new WebAssetResolverResult("", null));
+            results.Add(new WebAssetResolverResult(path, null));
+            results.Add(new WebAssetResolverResult(path, null));
 
             tagWriter.Write(writer.Object, results);
 
-            urlResolver.Verify(m => m.Resolve(It.Is<string>(s => s.Equals(path))), Times.Exactly(2));
+            urlResolver.Verify(m => m.Resolve(It.IsAny<string>()), Times.Exactly(2));
         }
 
         [Test]
         public void Should_Write_To_Writer()
         {
-            Assert.Inconclusive();
+            var urlResolver = new Mock<IUrlResolver>();
+            var writer = new Mock<TextWriter>();
+            var tagWriter = new StyleSheetTagWriter(urlResolver.Object);            
+
+            var results = new List<WebAssetResolverResult>();
+            results.Add(new WebAssetResolverResult("", null));
+            results.Add(new WebAssetResolverResult("", null));
+
+            tagWriter.Write(writer.Object, results);
+
+            writer.Verify(m => m.WriteLine(It.IsAny<string>()), Times.Exactly(2));   
+        }
+
+        [Test]
+        public void Should_Format_Tag_Correctly()
+        {
+            var urlResolver = new Mock<IUrlResolver>();
+            var writer = new Mock<TextWriter>();
+            var tagWriter = new StyleSheetTagWriter(urlResolver.Object);
+
+            var results = new List<WebAssetResolverResult>();
+            results.Add(new WebAssetResolverResult("", null));
+            results.Add(new WebAssetResolverResult("", null));
+
+            tagWriter.Write(writer.Object, results);
+
+            var tag = "<link type=\"text/css\" href=\"\" rel=\"stylesheet\"/>";
+            writer.Verify(m => m.WriteLine(It.Is<string>(s => s.Equals(tag))), Times.Exactly(2));   
         }
 
     }
