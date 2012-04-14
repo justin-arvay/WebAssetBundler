@@ -1,8 +1,7 @@
-namespace ResourceCompiler.Compressors.StyleSheet
+namespace ResourceCompiler.Web.Mvc
 {
     public interface IStyleSheetCompressor
-    {
-        string Identifier { get; }
+    {        
         string CompressContent(string content);
     }
 }

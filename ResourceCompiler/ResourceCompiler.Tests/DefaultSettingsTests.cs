@@ -124,5 +124,40 @@
 
             DefaultSettings.DefaultGroupName = previous;
         }
+
+        [Test]
+        public void Should_Use_Ms_Script_Compressor_By_Default()
+        {
+            Assert.IsInstanceOf<MsScriptCompressor>(DefaultSettings.ScriptCompressor);
+        }
+
+        [Test]
+        public void Can_Set_Script_Compressor()
+        {
+            var previous = DefaultSettings.ScriptCompressor;
+
+            DefaultSettings.ScriptCompressor = new YuiScriptCompressor();
+            Assert.IsInstanceOf<YuiScriptCompressor>(DefaultSettings.ScriptCompressor);
+
+            DefaultSettings.ScriptCompressor = previous;
+        }
+
+        [Test]
+        public void Should_Use_Ms_Style_Sheet_Compressor_By_Defaut()
+        {
+            Assert.IsInstanceOf<MsStyleSheetCompressor>(DefaultSettings.StyleSheetCompressor);
+        }
+
+        [Test]
+        public void Can_Set_Style_Sheet_Compressor()
+        {
+            var previous = DefaultSettings.StyleSheetCompressor;
+
+            DefaultSettings.StyleSheetCompressor = new YuiStyleSheetCompressor();
+            Assert.IsInstanceOf<YuiStyleSheetCompressor>(DefaultSettings.StyleSheetCompressor);
+
+            DefaultSettings.StyleSheetCompressor = previous;
+        }
+
     }
 }

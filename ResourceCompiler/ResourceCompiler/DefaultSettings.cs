@@ -16,6 +16,9 @@ namespace ResourceCompiler.Web.Mvc
         private static bool compressed = true;
         private static string defaultGroupName = "Default";
         
+        private static IScriptCompressor scriptCompressor = new MsScriptCompressor();
+        private static IStyleSheetCompressor styleSheetCompressor = new MsStyleSheetCompressor();
+
         /// <summary>
         /// Gets or sets the style sheet files path. Path must be a virtual path.
         /// </summary>
@@ -118,6 +121,36 @@ namespace ResourceCompiler.Web.Mvc
             set
             {
                 defaultGroupName = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the default script compressor.
+        /// </summary>
+        public static IScriptCompressor ScriptCompressor
+        {
+            get
+            {
+                return scriptCompressor;
+            }
+            set
+            {
+                scriptCompressor = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the default style sheet compressor.
+        /// </summary>
+        public static IStyleSheetCompressor StyleSheetCompressor
+        {
+            get
+            {
+                return styleSheetCompressor;
+            }
+            set
+            {
+                styleSheetCompressor = value;
             }
         }
     }
