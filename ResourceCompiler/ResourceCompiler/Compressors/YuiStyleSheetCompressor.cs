@@ -6,7 +6,7 @@ namespace ResourceCompiler.Web.Mvc
 
     public class YuiStyleSheetCompressor: IStyleSheetCompressor
     {
-        public string CompressContent(string content)
+        public string Compress(string content)
         {
             return CssCompressor.Compress(content, 0, CssCompressionType.StockYuiCompressor);
         }

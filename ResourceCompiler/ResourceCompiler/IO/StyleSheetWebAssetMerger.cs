@@ -10,13 +10,15 @@ namespace ResourceCompiler.Web.Mvc
     {
         private IWebAssetReader reader;
         private IWebAssetContentFilter filter;
+        private IStyleSheetCompressor compressor;
         private HttpServerUtilityBase server;
 
-        public StyleSheetWebAssetMerger(IWebAssetReader reader, IWebAssetContentFilter filter, HttpServerUtilityBase server)
+        public StyleSheetWebAssetMerger(IWebAssetReader reader, IWebAssetContentFilter filter, IStyleSheetCompressor compressor, HttpServerUtilityBase server)
         {
             this.reader = reader;
             this.filter = filter;
             this.server = server;
+            this.compressor = compressor;
         }
 
         public WebAssetMergerResult Merge(WebAssetResolverResult resolverResult)
@@ -27,7 +29,12 @@ namespace ResourceCompiler.Web.Mvc
             {
                 content += filter.Filter(server.MapPath(resolverResult.Path), server.MapPath(webAsset.Source), reader.Read(webAsset));
             }
-         
+
+            if (resolverResult.Compress)
+            {
+                content = compressor.Compress(content);
+            }
+
             return new WebAssetMergerResult(resolverResult.Path, content);
         }
     }

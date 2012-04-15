@@ -24,7 +24,11 @@ namespace ResourceCompiler
             var resolverFactory = new WebAssetResolverFactory(pathResolver);
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
             var writer = new WebAssetWriter(new DirectoryWriter(), viewContext.HttpContext.Server);
-            var merger = new StyleSheetWebAssetMerger(new WebAssetReader(viewContext.HttpContext.Server), new ImagePathContentFilter(), viewContext.HttpContext.Server);
+            var merger = new StyleSheetWebAssetMerger(
+                new WebAssetReader(viewContext.HttpContext.Server), 
+                new ImagePathContentFilter(), 
+                DefaultSettings.StyleSheetCompressor, 
+                viewContext.HttpContext.Server);
             var generator = new WebAssetGenerator(writer, merger);
             var tagWriter = new StyleSheetTagWriter(urlResolver);
 

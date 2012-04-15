@@ -6,7 +6,7 @@ namespace ResourceCompiler.Web.Mvc
     public class MsStyleSheetCompressor: IStyleSheetCompressor
     {
 
-        public string CompressContent(string content)
+        public string Compress(string content)
         {
             var minifier = new Minifier();
             return minifier.MinifyStyleSheet(content);
