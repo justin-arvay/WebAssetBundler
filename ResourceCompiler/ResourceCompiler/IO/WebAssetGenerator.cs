@@ -18,6 +18,12 @@ namespace ResourceCompiler.Web.Mvc
         {
             foreach (var resolverResult in resolverResults)
             {
+                //check if the merger result exists in the cache
+                //if exists:
+                //do nothing
+                //if not exists:
+                //write the file
+                //add to cache, cache provider needs seperate instance for stylesheet and sript, best way to do this would be a namespace
                 writer.Write(merger.Merge(resolverResult));
             }
         }

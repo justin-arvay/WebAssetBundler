@@ -54,6 +54,8 @@
     <Compile Include="Caching\ICache.cs" />
     <Compile Include="Caching\ICacheFactory.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
+    <Compile Include="Caching\IMergedResultCache.cs" />
+    <Compile Include="Caching\MergedResultCache.cs" />
     <Compile Include="ComponentFactory.cs" />
     <Compile Include="Compressors\IScriptCompressor.cs" />
     <Compile Include="Compressors\IStyleSheetCompressor.cs" />
