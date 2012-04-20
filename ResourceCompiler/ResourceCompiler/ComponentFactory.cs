@@ -43,7 +43,7 @@ namespace ResourceCompiler
 
         public ScriptManagerBuilder ScriptManager()
         {
-            var pathResolver = new PathResolver(WebAssetType.Javascript);
+            var pathResolver = new PathResolver(WebAssetType.Script);
             var collection = new WebAssetGroupCollection();
             var urlResolver = new UrlResolver(viewContext.RequestContext);
             var resolverFactory = new WebAssetResolverFactory(pathResolver);

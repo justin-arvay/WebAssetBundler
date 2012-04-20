@@ -7,10 +7,12 @@ namespace ResourceCompiler.Web.Mvc
     {
         private ICacheProvider provider;
         private const string keyPrefix = "MergedResult->";
+        private WebAssetType type;
 
-        public MergedResultCache(ICacheProvider provider)
+        public MergedResultCache(WebAssetType type, ICacheProvider provider)
         {
             this.provider = provider;
+            this.type = type;
         }
 
         /// <summary>
@@ -51,12 +53,24 @@ namespace ResourceCompiler.Web.Mvc
         /// <returns></returns>
         private string GetKey(WebAssetMergerResult result)
         {
+            var typePrefix = "";
+
+            switch (type)
+            {
+                case WebAssetType.Script:
+                    typePrefix = "Script";
+                    break;
+                case WebAssetType.StyleSheet:
+                    typePrefix = "StyleSheet";
+                    break;
+            }
+
             var keySuffix = result.Path
                 .Replace("~", "")
                 .Replace("\\", ".")
                 .Replace("/", ".");
 
-            return keyPrefix + keySuffix;
+            return typePrefix + "->" + keyPrefix + keySuffix;
         }
     }
 }

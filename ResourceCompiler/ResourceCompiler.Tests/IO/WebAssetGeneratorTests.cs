@@ -41,5 +41,29 @@ namespace ResourceCompiler.Web.Mvc.Tests
 
             merger.Verify(w => w.Merge(It.IsAny<WebAssetResolverResult>()), Times.Exactly(2));
         }
+
+        [Test]
+        public void Should_Cache_Merged_Result()
+        {
+            Assert.Fail();
+        }
+
+        [Test]
+        public void Should_Not_Cache_Result()
+        {
+            Assert.Fail();
+        }
+
+        [Test]
+        public void Should_Generate_If_No_Cache_Exists()
+        {
+            Assert.Fail();
+        }
+
+        [Test]
+        public void Should_Not_Generate_If_Cache_Exists()
+        {
+            Assert.Fail();
+        }
     }
 }

@@ -59,7 +59,7 @@ namespace ResourceCompiler.Web.Mvc
         /// <returns></returns>
         public ScriptManagerBuilder Scripts(Action<WebAssetGroupCollectionBuilder> action)
         {
-            action(new WebAssetGroupCollectionBuilder(WebAssetType.Javascript, Manager.Scripts));
+            action(new WebAssetGroupCollectionBuilder(WebAssetType.Script, Manager.Scripts));
             return this;
         }
 

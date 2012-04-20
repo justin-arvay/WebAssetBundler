@@ -48,7 +48,7 @@ namespace ResourceCompiler.Web.Mvc
             {
                 case WebAssetType.StyleSheet:
                     return "css";
-                case WebAssetType.Javascript:
+                case WebAssetType.Script:
                     return "js";
                 default:
                     return "";

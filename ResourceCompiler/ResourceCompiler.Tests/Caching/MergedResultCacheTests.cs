@@ -4,6 +4,8 @@ namespace ResourceCompiler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     [TestFixture]
     public class MergedResultCacheTests
@@ -15,7 +17,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         public void Setup()
         {
             provider = new Mock<ICacheProvider>();
-            cache = new MergedResultCache(provider.Object);
+            cache = new MergedResultCache(WebAssetType.None, provider.Object);
         }
 
         [Test]
@@ -62,6 +64,27 @@ namespace ResourceCompiler.Web.Mvc.Tests
 
             Assert.IsFalse(cache.Exists(result));
 
+        }
+
+        [Test]
+        public void Should_Add_To_Cache_With_Unique_Key_Per_Type()
+        {
+            var result = new WebAssetMergerResult("path/file.ext", "");
+            var jsResultCache = new MergedResultCache(WebAssetType.Script, provider.Object);
+            var cssResultCache = new MergedResultCache(WebAssetType.StyleSheet, provider.Object);
+
+            var paths = new List<string>();
+
+            provider.Setup(p => p.Insert(It.IsAny<string>(), It.IsAny<object>()))
+                .Callback((string path, object mergedResult) => {
+                    paths.Add(path);
+                });
+
+            jsResultCache.Add(result);
+            cssResultCache.Add(result);
+
+            //should return 1 path for each result added
+            Assert.AreEqual(2, paths.Distinct().Count());
         }
     }
 }
