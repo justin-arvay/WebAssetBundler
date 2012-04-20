@@ -1,6 +1,8 @@
 ﻿
 namespace ResourceCompiler.Web.Mvc
 {
+    using System;
+
     public class MergedResultCache : IMergedResultCache
     {
         private ICacheProvider provider;
@@ -17,7 +19,14 @@ namespace ResourceCompiler.Web.Mvc
         /// <param name="result"></param>
         public void Add(WebAssetMergerResult result)
         {
-            provider.Insert(GetKey(result), result);
+            if (result.Path.IsNotNullOrEmpty())
+            {
+                provider.Insert(GetKey(result), result);
+            }
+            else
+            {
+                throw new InvalidOperationException("Result path is not supplied");
+            }
         }
 
         /// <summary>
