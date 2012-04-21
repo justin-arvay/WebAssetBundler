@@ -1,4 +1,19 @@
-﻿
+﻿// ResourceCompiler - Compiles web assets so you dont have to.
+// Copyright (C) 2012  Justin Arvay
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 namespace ResourceCompiler.Web.Mvc
 {
     using System.Collections.Generic;
@@ -7,24 +22,26 @@ namespace ResourceCompiler.Web.Mvc
     {
         private IWebAssetWriter writer;
         private IWebAssetMerger merger;
+        private IMergedResultCache cache;
 
-        public WebAssetGenerator(IWebAssetWriter writer, IWebAssetMerger merger)
+        public WebAssetGenerator(IWebAssetWriter writer, IWebAssetMerger merger, IMergedResultCache cache)
         {
             this.writer = writer;
             this.merger = merger;
+            this.cache = cache;
         }
 
         public void Generate(IList<WebAssetResolverResult> resolverResults)
         {
             foreach (var resolverResult in resolverResults)
             {
-                //check if the merger result exists in the cache
-                //if exists:
-                //do nothing
-                //if not exists:
-                //write the file
-                //add to cache, cache provider needs seperate instance for stylesheet and sript, best way to do this would be a namespace
-                writer.Write(merger.Merge(resolverResult));
+                var mergedResult = merger.Merge(resolverResult);
+
+                if (cache.Exists(mergedResult) == false)
+                {
+                    cache.Add(mergedResult);
+                    writer.Write(mergedResult);
+                }
             }
         }
     }

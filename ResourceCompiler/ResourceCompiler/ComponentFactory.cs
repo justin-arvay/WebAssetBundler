@@ -1,4 +1,19 @@
-﻿
+﻿// ResourceCompiler - Compiles web assets so you dont have to.
+// Copyright (C) 2012  Justin Arvay
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 namespace ResourceCompiler
 {
     using System.Web.Mvc;
@@ -10,10 +25,12 @@ namespace ResourceCompiler
         private ViewContext viewContext;
 
         private ICacheFactory cacheFactory;
+        private ICacheProvider cacheProvider;
 
-        public ComponentFactory(ViewContext viewContext)
+        public ComponentFactory(ViewContext viewContext, ICacheProvider cacheProvider)
         {
             this.viewContext = viewContext;
+            this.cacheProvider = cacheProvider;
         }
 
         public StyleSheetManagerBuilder StyleSheetManager()
@@ -29,7 +46,7 @@ namespace ResourceCompiler
                 new ImagePathContentFilter(), 
                 DefaultSettings.StyleSheetCompressor, 
                 viewContext.HttpContext.Server);
-            var generator = new WebAssetGenerator(writer, merger);
+            var generator = new WebAssetGenerator(writer, merger, new MergedResultCache(WebAssetType.StyleSheet, cacheProvider));
             var tagWriter = new StyleSheetTagWriter(urlResolver);
 
             return new StyleSheetManagerBuilder(
@@ -50,7 +67,7 @@ namespace ResourceCompiler
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
             var writer = new WebAssetWriter(new DirectoryWriter(), viewContext.HttpContext.Server);
             var merger = new ScriptWebAssetMerger(new WebAssetReader(viewContext.HttpContext.Server), DefaultSettings.ScriptCompressor);
-            var generator = new WebAssetGenerator(writer, merger);
+            var generator = new WebAssetGenerator(writer, merger, new MergedResultCache(WebAssetType.Script, cacheProvider));
             var tagWriter = new ScriptTagWriter(urlResolver);
 
             return new ScriptManagerBuilder(

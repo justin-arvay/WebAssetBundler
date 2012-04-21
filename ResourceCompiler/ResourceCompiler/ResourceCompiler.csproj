@@ -96,7 +96,6 @@
     <Compile Include="DefaultSettings.cs" />
     <Compile Include="Fluent\WebAssetGroup.cs" />
     <Compile Include="Fluent\WebAssetGroupBuilder.cs" />
-    <Compile Include="Fluent\PathOnlyBuilder.cs" />
     <Compile Include="Fluent\WebAssetGroupCollection.cs" />
     <Compile Include="Fluent\WebAssetGroupCollectionBuilder.cs" />
     <Compile Include="Fluent\WebAssetType.cs" />
