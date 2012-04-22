@@ -2,13 +2,14 @@
 <html>
 <head>
     <title>@ViewBag.Title</title>
+    
     @{Html.Reco().StyleSheetManager()
-        .DefaultGroup(g => g
-            .Add("~/Content/themes/base/jquery.ui.all.css")
+        .DefaultGroup(g => g            
             .Add("~/Content/Site.css")
-            .Version("1.1")
-            .Combine(true)
             .Compress(true))
+        .Render();}
+
+     @{Html.Reco().StyleSheetManager()
         .StyleSheets(style => style
             .AddGroup("Test", g => g
                 .Add("~/Content/themes/base/jquery.ui.all.css")
@@ -35,9 +36,7 @@
             <div id="title">
                 <h1>My MVC Application</h1>
             </div>
-            <div id="logindisplay">
-                @Html.Partial("_LogOnPartial")
-            </div>
+
             <div id="menucontainer">
                 <ul id="menu">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>

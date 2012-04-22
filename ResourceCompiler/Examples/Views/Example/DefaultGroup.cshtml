@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "DefaultGroup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DefaultGroup</h2>
+
+<!-- compression example -->
+@{Html.Reco().StyleSheetManager()
+    .DefaultGroup(g => g            
+        .Add("~/Content/Site.css")
+        .Add("~/Content/themes/base/jquery.ui.all.css")
+        .Compress(true))
+    .Render();}
+
+<!-- version example -->
+@{Html.Reco().StyleSheetManager()
+    .DefaultGroup(g => g            
+        .Add("~/Content/Site.css")
+        .Add("~/Content/themes/base/jquery.ui.all.css")
+        .Version("1.1"))
+    .Render();}
+
+
+<!-- combining example -->
+@{Html.Reco().StyleSheetManager()
+    .DefaultGroup(g => g            
+        .Add("~/Content/Site.css")
+        .Add("~/Content/themes/base/jquery.ui.all.css")
+        .Combine(true))
+    .Render();}

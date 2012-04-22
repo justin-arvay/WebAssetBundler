@@ -6,16 +6,14 @@ using System.Web.Mvc;
 
 namespace Examples.Controllers
 {
-    public class HomeController : Controller
+    public class ExampleController : Controller
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Welcome to ASP.NET MVC!";
-
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult DefaultGroup()
         {
             return View();
         }
