@@ -37,13 +37,23 @@ namespace ResourceCompiler.Web.Mvc.Tests
         [Test]
         public void Should_Set_Path_Group_For_New_Group()
         {
-            Assert.Fail();
+            var collection = new WebAssetGroupCollection();
+            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection, DefaultSettings.GeneratedFilesPath);
+
+            builder.AddGroup("test", g => g.ToString());
+
+            Assert.AreEqual(DefaultSettings.GeneratedFilesPath, collection[0].GeneratedPath);
         }
 
         [Test]
         public void Should_Set_Path_Group_For_Group_When_Adding_Single_Asset()
         {
-            Assert.Fail();
+            var collection = new WebAssetGroupCollection();
+            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection, DefaultSettings.GeneratedFilesPath);
+
+            builder.Add("~/soure/file.css");
+
+            Assert.AreEqual(DefaultSettings.GeneratedFilesPath, collection[0].GeneratedPath);
         }
 
         [Test]

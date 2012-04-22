@@ -75,5 +75,22 @@ namespace ResourceCompiler.Web.Mvc.Tests
 
             Assert.IsTrue(results[0].Compress);
         }
+
+        [Test]
+        public void Should_Pass_Correct_Prams_When_Resolving()
+        {
+            var pathResolver = new Mock<IPathResolver>();            
+            var group = new WebAssetGroup("Test", false, DefaultSettings.GeneratedFilesPath) { Version = "1.2" };
+
+            group.Assets.Add(new WebAsset("~/Files/test.css"));            
+
+            var resolver = new CombinedWebAssetGroupResolver(group, pathResolver.Object);
+            resolver.Resolve();
+
+            pathResolver.Verify(m => m.Resolve(
+                It.Is<string>(s => s.Equals(DefaultSettings.GeneratedFilesPath)),
+                It.Is<string>(s => s.Equals(group.Version)),
+                It.Is<string>(s => s.Equals(group.Name))));
+        }
     }
 }
