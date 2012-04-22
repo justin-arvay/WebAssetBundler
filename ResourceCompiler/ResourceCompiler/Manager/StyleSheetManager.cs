@@ -24,10 +24,7 @@ namespace ResourceCompiler.Web.Mvc
         {
             StyleSheets = styleSheets;
 
-            DefaultGroup = new WebAssetGroup("Default", false)
-            {
-                DefaultPath = DefaultSettings.StyleSheetFilesPath
-            };
+            DefaultGroup = new WebAssetGroup("Default", false, DefaultSettings.GeneratedFilesPath);
 
             StyleSheets.Add(DefaultGroup);
         }

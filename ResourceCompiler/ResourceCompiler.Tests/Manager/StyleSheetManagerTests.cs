@@ -39,7 +39,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         {
             var manager = new StyleSheetManager(new WebAssetGroupCollection());
 
-            Assert.AreEqual(DefaultSettings.StyleSheetFilesPath, manager.DefaultGroup.DefaultPath);
+            Assert.AreEqual(DefaultSettings.GeneratedFilesPath, manager.DefaultGroup.GeneratedPath);
         }
 
 

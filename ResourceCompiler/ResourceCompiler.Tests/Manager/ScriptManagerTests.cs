@@ -35,11 +35,11 @@ namespace ResourceCompiler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Default_Groups_Path_Is_Set_To_MVC_Script_Path_By_Default()
+        public void Default_Groups_Generated_Path_Is_Set_To_Default_Generated_Path_By_Default()
         {
             var manager = new ScriptManager(new WebAssetGroupCollection());
 
-            Assert.AreEqual(DefaultSettings.StyleSheetFilesPath, manager.DefaultGroup.DefaultPath);
+            Assert.AreEqual(DefaultSettings.GeneratedFilesPath, manager.DefaultGroup.GeneratedPath);
         }
 
 

@@ -22,13 +22,14 @@ namespace ResourceCompiler.Web.Mvc
     {
 
         private WebAssetType type;
-
         private WebAssetGroupCollection resourceGroups;
+        private string generatedPath;
 
-        public WebAssetGroupCollectionBuilder(WebAssetType type, WebAssetGroupCollection resourceGroups)
+        public WebAssetGroupCollectionBuilder(WebAssetType type, WebAssetGroupCollection resourceGroups, string generatedPath)
         {
             this.type = type;
             this.resourceGroups = resourceGroups;
+            this.generatedPath = generatedPath;
         }
 
 
@@ -40,7 +41,7 @@ namespace ResourceCompiler.Web.Mvc
                 throw new ArgumentException(TextResource.Exceptions.GroupWithSpecifiedNameAlreadyExists);
             }
 
-            var group = new WebAssetGroup(name, false) ;
+            var group = new WebAssetGroup(name, false, generatedPath);
 
             //add to collection
             resourceGroups.Add(group);
@@ -57,7 +58,7 @@ namespace ResourceCompiler.Web.Mvc
         /// <returns></returns>
         public WebAssetGroupCollectionBuilder Add(string source)
         {
-            var group = new WebAssetGroup("Single", false) ;
+            var group = new WebAssetGroup("Single", false, generatedPath) ;
 
             group.Assets.Add(new WebAsset(source));
 

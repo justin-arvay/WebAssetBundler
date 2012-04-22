@@ -53,11 +53,6 @@ namespace ResourceCompiler.Web.Mvc
             return this;
         }
 
-        public WebAssetGroupBuilder Path(string path, Action<PathOnlyBuilder<WebAssetGroupBuilder>> builder)
-        {
-            return this;    
-        }
-
         /// <summary>
         /// Adds a new resource to the group by file path.
         /// </summary>

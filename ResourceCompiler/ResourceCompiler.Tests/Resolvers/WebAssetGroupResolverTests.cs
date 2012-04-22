@@ -28,7 +28,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         [Test]
         public void Should_Resolve_A_List_Of_Sources_For_Each_Item_In_Group()
         {
-            var group = new WebAssetGroup("Test", false);
+            var group = new WebAssetGroup("Test", false, "");
             group.Assets.Add(new WebAsset("~/Files/test.css"));
             group.Assets.Add(new WebAsset("~/Files/test2.css"));
 
@@ -41,7 +41,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         public void Should_Use_Source_For_Result_Path()
         {
             var path = "~/Files/test.css";
-            var group = new WebAssetGroup("Test", false);
+            var group = new WebAssetGroup("Test", false, "");
 
             group.Assets.Add(new WebAsset(path));
 
@@ -53,8 +53,8 @@ namespace ResourceCompiler.Web.Mvc.Tests
 
         [Test]
         public void Should_Resolve_Compress_For_Result()
-        {            
-            var group = new WebAssetGroup("Test", false);
+        {
+            var group = new WebAssetGroup("Test", false, "");
 
             group.Compress = true;
             group.Assets.Add(new WebAsset(""));

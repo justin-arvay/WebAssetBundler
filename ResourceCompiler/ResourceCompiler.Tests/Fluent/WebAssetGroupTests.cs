@@ -30,7 +30,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         [Test]
         public void Constructor_Sets_Name()
         {
-            var group = new WebAssetGroup("John", false);
+            var group = new WebAssetGroup("John", false, "");
 
             Assert.AreEqual("John", group.Name);
         }
@@ -38,7 +38,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         [Test]
         public void Constructor_Sets_IsShared()
         {
-            var group = new WebAssetGroup("", true);
+            var group = new WebAssetGroup("", true, "");
 
             Assert.True(group.IsShared);
         }
@@ -46,7 +46,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         [Test]
         public void Can_Set_Combined()
         {
-            var group = new WebAssetGroup("", false);
+            var group = new WebAssetGroup("", false, "");
 
             //get the opposite of its current value so we always know it changed
             var value = group.Combine ? false : true;
@@ -59,7 +59,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         [Test]
         public void Can_Set_Compressed()
         {
-            var group = new WebAssetGroup("", false);
+            var group = new WebAssetGroup("", false, "");
 
             //get the opposite of its current value so we always know it changed
             var value = group.Compress ? false : true;
@@ -72,7 +72,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         [Test]
         public void Can_Set_Version()
         {
-            var group = new WebAssetGroup("", false);
+            var group = new WebAssetGroup("", false, "");
 
             group.Version = "2.0";
 
@@ -82,7 +82,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         [Test]
         public void Can_Set_Enabled()
         {
-            var group = new WebAssetGroup("", false);
+            var group = new WebAssetGroup("", false, "");
 
             //get the opposite of its current value so we always know it changed
             var value = group.Enabled ? false : true;
@@ -93,19 +93,17 @@ namespace ResourceCompiler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Can_Set_DefaultPath()
+        public void Constructor_Sets_GeneratedPath_Path()
         {
-            var group = new WebAssetGroup("", false);
+            var group = new WebAssetGroup("", false, "/path");            
 
-            group.DefaultPath = "/path";
-
-            Assert.AreEqual("/path", group.DefaultPath);
+            Assert.AreEqual("/path", group.GeneratedPath);
         }
 
         [Test]
         public void Resources_Are_Empty_By_Default()
         {
-            var group = new WebAssetGroup("", false);
+            var group = new WebAssetGroup("", false, "");
 
             Assert.AreEqual(0, group.Assets.Count);
         }
@@ -113,7 +111,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         [Test]
         public void Can_Add_Resource()
         {
-            var group = new WebAssetGroup("", false);
+            var group = new WebAssetGroup("", false, "");
             group.Assets.Add(new WebAsset("/path/file.js"));
 
             Assert.AreEqual(1, group.Assets.Count);
@@ -121,7 +119,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
 
         public void Adding_Duplicate_Item_Throws_Exception()
         {
-            var group = new WebAssetGroup("", false);
+            var group = new WebAssetGroup("", false, "");
 
             group.Assets.Add(new WebAsset("/path/file.js"));
             Assert.Throws<ArgumentException>(() => group.Assets.Add(new WebAsset("/path/file.js")));
@@ -130,7 +128,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
 
         public void Setting_Duplicate_Item_To_Existing_Index_Throws_Exception()
         {
-            var group = new WebAssetGroup("", false);
+            var group = new WebAssetGroup("", false, "");
 
             group.Assets.Add(new WebAsset("/path/file.js"));
             Assert.Throws<ArgumentException>(() => group.Assets.Insert(1, new WebAsset("/path/file.js")));

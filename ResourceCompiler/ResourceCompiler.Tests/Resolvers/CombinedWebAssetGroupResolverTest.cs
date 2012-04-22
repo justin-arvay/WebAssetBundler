@@ -27,7 +27,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         public void Should_Return_A_List_Of_Results()
         {
             var pathResolver = new Mock<IPathResolver>();
-            var group = new WebAssetGroup("Test", false)
+            var group = new WebAssetGroup("Test", false, "")
             {
                 Version = "1.2"
             };
@@ -45,7 +45,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         {
             var pathResolver = new Mock<IPathResolver>();
             var path = "/test/file.css";
-            var group = new WebAssetGroup("Test", false) { Version = "1.2" };
+            var group = new WebAssetGroup("Test", false, DefaultSettings.GeneratedFilesPath) { Version = "1.2" };
 
             group.Assets.Add(new WebAsset("~/Files/test.css"));
 
@@ -64,8 +64,8 @@ namespace ResourceCompiler.Web.Mvc.Tests
         [Test]
         public void Should_Resolve_Compress_For_Result()
         {
-            var pathResolver = new Mock<IPathResolver>();            
-            var group = new WebAssetGroup("Test", false) { Version = "1.2" };
+            var pathResolver = new Mock<IPathResolver>();
+            var group = new WebAssetGroup("Test", false, "") { Version = "1.2" };
 
             group.Compress = true;
             group.Assets.Add(new WebAsset("~/Files/test.css"));

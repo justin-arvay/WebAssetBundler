@@ -27,7 +27,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         public void Should_Be_Able_To_Add_Group()
         {
             var collection = new WebAssetGroupCollection();
-            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection);
+            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection, DefaultSettings.GeneratedFilesPath);
 
             builder.AddGroup("test", g => g.ToString());
 
@@ -35,10 +35,22 @@ namespace ResourceCompiler.Web.Mvc.Tests
         }
 
         [Test]
+        public void Should_Set_Path_Group_For_New_Group()
+        {
+            Assert.Fail();
+        }
+
+        [Test]
+        public void Should_Set_Path_Group_For_Group_When_Adding_Single_Asset()
+        {
+            Assert.Fail();
+        }
+
+        [Test]
         public void Should_Throw_Exception_When_Adding_Group_That_Already_Exists()
         {
             var collection = new WebAssetGroupCollection();
-            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection);
+            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection, DefaultSettings.GeneratedFilesPath);
 
             builder.AddGroup("test", g => g.ToString());
 
@@ -49,7 +61,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         public void Should_Have_Nothing_In_Collection_By_Default()
         {
             var collection = new WebAssetGroupCollection();
-            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection);
+            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection, DefaultSettings.GeneratedFilesPath);
 
             Assert.AreEqual(0, collection.Count);
         }
@@ -58,7 +70,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         public void Adding_File_Should_Add_New_Group_With_Resource()
         {
             var collection = new WebAssetGroupCollection();
-            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection);
+            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection, DefaultSettings.GeneratedFilesPath);
 
             builder.Add("~/Files/test.css");
             builder.Add("~/Files/test.css");
@@ -75,7 +87,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         public void Adding_Group_Should_Return_Self_For_Chaining()
         {
             var collection = new WebAssetGroupCollection();
-            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection);
+            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection, DefaultSettings.GeneratedFilesPath);
 
             Assert.IsInstanceOf<WebAssetGroupCollectionBuilder>(builder.AddGroup("test", g => g.ToString()));
         }
@@ -84,7 +96,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         public void Add_Should_Return_Self_For_Chaining()
         {
             var collection = new WebAssetGroupCollection();
-            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection);
+            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection, DefaultSettings.GeneratedFilesPath);
 
             Assert.IsInstanceOf<WebAssetGroupCollectionBuilder>(builder.Add("~/Files/test.css"));
         }

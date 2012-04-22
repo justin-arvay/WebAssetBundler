@@ -24,10 +24,7 @@ namespace ResourceCompiler.Web.Mvc
         {
             Scripts = scripts;
 
-            DefaultGroup = new WebAssetGroup("Default", false)
-            {
-                DefaultPath = DefaultSettings.StyleSheetFilesPath
-            };
+            DefaultGroup = new WebAssetGroup("Default", false, DefaultSettings.GeneratedFilesPath);                                     
 
             Scripts.Add(DefaultGroup);
         }

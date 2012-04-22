@@ -26,10 +26,11 @@ namespace ResourceCompiler.Web.Mvc
 
     public class WebAssetGroup
     {
-        public WebAssetGroup(string name, bool isShared)
+        public WebAssetGroup(string name, bool isShared, string generatedPath)
         {
             Name = name;
             IsShared = isShared;
+            GeneratedPath = generatedPath;
             Assets = new InternalCollection();
 
         }
@@ -46,10 +47,10 @@ namespace ResourceCompiler.Web.Mvc
             private set;
         }
 
-        public string DefaultPath
+        public string GeneratedPath
         {
             get;
-            set;
+            private set;
         }
 
         public bool Enabled
