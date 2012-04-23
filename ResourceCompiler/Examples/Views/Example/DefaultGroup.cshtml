@@ -6,6 +6,7 @@
 <h2>DefaultGroup</h2>
 
 <!-- compression example -->
+<p>The default group can be used like any group. Indi</p>
 @{Html.Reco().StyleSheetManager()
     .DefaultGroup(g => g            
         .Add("~/Content/Site.css")
@@ -29,3 +30,31 @@
         .Add("~/Content/themes/base/jquery.ui.all.css")
         .Combine(true))
     .Render();}
+
+
+<!-- Creating a Group -->
+@{Html.Reco().StyleSheetManager()
+      .StyleSheets(script => script
+          .AddGroup("Example1", g => g
+              .Add("~/Content/Site.css")
+              .Add("~/Content/themes/base/jquery.ui.all.css")))
+        .Render();}
+              
+}
+
+<!-- Combining Web Assets
+@{Html.Reco().StyleSheetManager()
+      .StyleSheets(script => script
+          .AddGroup("Example1", g => g
+              .Add("~/Content/Site.css")
+              .Add("~/Content/themes/base/jquery.ui.all.css")))
+        .Render();}
+
+<!-- Versioning Web Assets -->
+
+<!-- Compressing Web Assets -->
+
+<!-- Changing the path of the generated files -->
+
+<!-- Different Compressors for Script and StyleSheets -->
+<!-- Implementing your own compressor for scripts and style sheets -->
