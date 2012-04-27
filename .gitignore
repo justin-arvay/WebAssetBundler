@@ -12,7 +12,7 @@ Thumbs.db
 *_i.c
 *_p.c
 *.ncb
-*.suo
+*/*.suo
 *.tlb
 *.tlh
 *.bak
@@ -35,3 +35,4 @@ _ReSharper*/
 ResourceCompiler/*/bin/Debug
 ResourceCompiler/*/bin/Release
 ResourceCompiler/Examples/Generated/*
+ResourceCompiler/ResourceCompiler.suo
