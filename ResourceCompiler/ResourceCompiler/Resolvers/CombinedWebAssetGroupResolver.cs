@@ -32,12 +32,12 @@ namespace ResourceCompiler.Web.Mvc
             this.pathResolver = pathResolver;
         }
 
-        public IList<WebAssetResolverResult> Resolve()
+        public IList<ResolverResult> Resolve()
         {
             var path = pathResolver.Resolve(webAssetGroup.GeneratedPath, webAssetGroup.Version, webAssetGroup.Name);
-            var results = new List<WebAssetResolverResult>();
+            var results = new List<ResolverResult>();
 
-            results.Add(new WebAssetResolverResult(path, webAssetGroup.Compress, webAssetGroup.Assets));
+            results.Add(new ResolverResult(path, webAssetGroup.Compress, webAssetGroup.Assets));
 
             return results;
         }

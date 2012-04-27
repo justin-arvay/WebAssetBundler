@@ -43,7 +43,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
             var content = "function(){}";
             var merger = new ScriptWebAssetMerger(reader.Object, compressor.Object);
             var webAssets = new List<IWebAsset>();
-            var resolverResult = new WebAssetResolverResult("", false, webAssets);
+            var resolverResult = new ResolverResult("", false, webAssets);
 
             webAssets.Add(new WebAsset(""));
             webAssets.Add(new WebAsset(""));
@@ -60,7 +60,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         {
             var path = "path/test.js";
             var merger = new ScriptWebAssetMerger(reader.Object, compressor.Object);
-            var resolverResult = new WebAssetResolverResult(path, false, new List<IWebAsset>());
+            var resolverResult = new ResolverResult(path, false, new List<IWebAsset>());
 
             Assert.AreEqual(path, merger.Merge(resolverResult).Path);
         }
@@ -70,7 +70,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         {            
             var merger = new ScriptWebAssetMerger(reader.Object, compressor.Object);
             var webAssets = new List<IWebAsset>();
-            var resolverResult = new WebAssetResolverResult("", true, webAssets);
+            var resolverResult = new ResolverResult("", true, webAssets);
 
             webAssets.Add(new WebAsset(""));
             webAssets.Add(new WebAsset(""));
@@ -85,7 +85,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         {
             var merger = new ScriptWebAssetMerger(reader.Object, compressor.Object);
             var webAssets = new List<IWebAsset>();
-            var resolverResult = new WebAssetResolverResult("", false, webAssets);
+            var resolverResult = new ResolverResult("", false, webAssets);
 
             webAssets.Add(new WebAsset(""));
             webAssets.Add(new WebAsset(""));

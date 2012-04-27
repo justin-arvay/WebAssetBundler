@@ -32,9 +32,9 @@ namespace ResourceCompiler.Web.Mvc
             this.pathResolver = pathResolver;
         }
 
-        public IList<WebAssetResolverResult> Resolve()
+        public IList<ResolverResult> Resolve()
         {
-            var results = new List<WebAssetResolverResult>();
+            var results = new List<ResolverResult>();
 
             foreach (var webAsset in webAssetGroup.Assets)
             {
@@ -44,13 +44,13 @@ namespace ResourceCompiler.Web.Mvc
             return results;
         }
 
-        private WebAssetResolverResult ResolveWebAsset(string version, bool compress, IWebAsset webAsset)
+        private ResolverResult ResolveWebAsset(string version, bool compress, IWebAsset webAsset)
         {
             var path = pathResolver.Resolve(webAssetGroup.GeneratedPath, version, webAsset.Name);
             var assets = new List<IWebAsset>();
             assets.Add(webAsset);
 
-            return new WebAssetResolverResult(path, compress, assets);
+            return new ResolverResult(path, compress, assets);
         }
     }
 }

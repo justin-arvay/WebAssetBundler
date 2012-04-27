@@ -38,9 +38,9 @@ namespace ResourceCompiler.Web.Mvc.Tests
             var writer = new Mock<IWebAssetWriter>();
             var generator = new WebAssetGenerator(writer.Object, merger.Object, cache.Object);
 
-            var results = new List<WebAssetResolverResult>();
-            results.Add(new WebAssetResolverResult("", false, null));
-            results.Add(new WebAssetResolverResult("", false, null));
+            var results = new List<ResolverResult>();
+            results.Add(new ResolverResult("", false, null));
+            results.Add(new ResolverResult("", false, null));
 
             generator.Generate(results);
 
@@ -54,13 +54,13 @@ namespace ResourceCompiler.Web.Mvc.Tests
             var writer = new Mock<IWebAssetWriter>();
             var generator = new WebAssetGenerator(writer.Object, merger.Object, cache.Object);
 
-            var results = new List<WebAssetResolverResult>();
-            results.Add(new WebAssetResolverResult("", false, null));
-            results.Add(new WebAssetResolverResult("", false, null));
+            var results = new List<ResolverResult>();
+            results.Add(new ResolverResult("", false, null));
+            results.Add(new ResolverResult("", false, null));
 
             generator.Generate(results);
 
-            merger.Verify(w => w.Merge(It.IsAny<WebAssetResolverResult>()), Times.Exactly(2));
+            merger.Verify(w => w.Merge(It.IsAny<ResolverResult>()), Times.Exactly(2));
         }
 
         [Test]
@@ -70,8 +70,8 @@ namespace ResourceCompiler.Web.Mvc.Tests
             var writer = new Mock<IWebAssetWriter>();
             var generator = new WebAssetGenerator(writer.Object, merger.Object, cache.Object);
 
-            var results = new List<WebAssetResolverResult>();
-            results.Add(new WebAssetResolverResult("", false, null));
+            var results = new List<ResolverResult>();
+            results.Add(new ResolverResult("", false, null));
 
             generator.Generate(results);
             cache.Verify(c => c.Add(It.IsAny<WebAssetMergerResult>()), Times.Once());
@@ -84,8 +84,8 @@ namespace ResourceCompiler.Web.Mvc.Tests
             var writer = new Mock<IWebAssetWriter>();
             var generator = new WebAssetGenerator(writer.Object, merger.Object, cache.Object);
 
-            var results = new List<WebAssetResolverResult>();
-            results.Add(new WebAssetResolverResult("", false, null));
+            var results = new List<ResolverResult>();
+            results.Add(new ResolverResult("", false, null));
 
             cache.Setup(c => c.Exists(It.IsAny<WebAssetMergerResult>()))
                 .Returns(true);
@@ -104,8 +104,8 @@ namespace ResourceCompiler.Web.Mvc.Tests
             var writer = new Mock<IWebAssetWriter>();
             var generator = new WebAssetGenerator(writer.Object, merger.Object, cache.Object);
 
-            var results = new List<WebAssetResolverResult>();
-            results.Add(new WebAssetResolverResult("", false, null));
+            var results = new List<ResolverResult>();
+            results.Add(new ResolverResult("", false, null));
 
             cache.Setup(c => c.Exists(It.IsAny<WebAssetMergerResult>()))
                 .Returns(true);

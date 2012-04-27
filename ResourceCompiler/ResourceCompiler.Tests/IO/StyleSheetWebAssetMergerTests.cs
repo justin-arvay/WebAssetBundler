@@ -25,7 +25,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
     public class StyleSheetWebAssetMergerTests
     {
         private Mock<IWebAssetReader> reader;
-        private Mock<IWebAssetContentFilter> filter;
+        private Mock<IContentFilter> filter;
         private Mock<IStyleSheetCompressor> compressor;
         private Mock<HttpServerUtilityBase> server;
 
@@ -33,7 +33,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         public void Setup()
         {
             reader = new Mock<IWebAssetReader>();
-            filter = new Mock<IWebAssetContentFilter>();
+            filter = new Mock<IContentFilter>();
             server = new Mock<HttpServerUtilityBase>();
             compressor = new Mock<IStyleSheetCompressor>();
         }
@@ -44,7 +44,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
             var content = "1";
             var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, server.Object);
             var webAssets = new List<IWebAsset>();
-            var resolverResult = new WebAssetResolverResult("", false, webAssets);
+            var resolverResult = new ResolverResult("", false, webAssets);
 
             webAssets.Add(new WebAsset(""));
             webAssets.Add(new WebAsset(""));
@@ -65,7 +65,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         {
             var path = "path/test.css";
             var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, server.Object);
-            var resolverResult = new WebAssetResolverResult(path, false, new List<IWebAsset>());
+            var resolverResult = new ResolverResult(path, false, new List<IWebAsset>());
 
             Assert.AreEqual(path, merger.Merge(resolverResult).Path);
         }
@@ -76,7 +76,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
             var content = "1";
             var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, server.Object);
             var webAssets = new List<IWebAsset>();
-            var resolverResult = new WebAssetResolverResult("", false, webAssets);
+            var resolverResult = new ResolverResult("", false, webAssets);
 
             webAssets.Add(new WebAsset(""));
             webAssets.Add(new WebAsset(""));
@@ -102,7 +102,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
             var sourcePath = "~/Content/File.css";
             var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, server.Object);
             var webAssets = new List<IWebAsset>();
-            var resolverResult = new WebAssetResolverResult(outputPath, false, webAssets);
+            var resolverResult = new ResolverResult(outputPath, false, webAssets);
 
             webAssets.Add(new WebAsset(sourcePath));            
 
@@ -120,7 +120,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         {
             var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, server.Object);
             var webAssets = new List<IWebAsset>();
-            var resolverResult = new WebAssetResolverResult("", true, webAssets);
+            var resolverResult = new ResolverResult("", true, webAssets);
 
             webAssets.Add(new WebAsset(""));
 
@@ -134,7 +134,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
         {
             var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, server.Object);
             var webAssets = new List<IWebAsset>();
-            var resolverResult = new WebAssetResolverResult("", false, webAssets);
+            var resolverResult = new ResolverResult("", false, webAssets);
 
             webAssets.Add(new WebAsset(""));
 

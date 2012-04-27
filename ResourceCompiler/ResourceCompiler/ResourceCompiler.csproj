@@ -56,7 +56,7 @@
     <Compile Include="Caching\ICacheProvider.cs" />
     <Compile Include="Caching\IMergedResultCache.cs" />
     <Compile Include="Caching\MergedResultCache.cs" />
-    <Compile Include="ComponentFactory.cs" />
+    <Compile Include="ComponentBuilder.cs" />
     <Compile Include="Compressors\IScriptCompressor.cs" />
     <Compile Include="Compressors\IStyleSheetCompressor.cs" />
     <Compile Include="Compressors\MsScriptCompressor.cs" />
@@ -104,14 +104,14 @@
     <Compile Include="Fluent\IWebAsset.cs" />
     <Compile Include="Fluent\WebAsset.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resolvers\WebAssetResolverResult.cs" />
+    <Compile Include="Resolvers\ResolverResult.cs" />
     <Compile Include="TextResource\Exceptions.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Exceptions.resx</DependentUpon>
     </Compile>
     <Compile Include="Filters\ImagePathContentFilter.cs" />
-    <Compile Include="Filters\IWebAssetContentFilter.cs" />
+    <Compile Include="Filters\IContentFilter.cs" />
     <Compile Include="IO\IWebAssetGenerator.cs" />
   </ItemGroup>
   <ItemGroup />

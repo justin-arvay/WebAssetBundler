@@ -25,7 +25,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
     using Moq;
 
     [TestFixture]
-    public class ComponentFactoryTests
+    public class ComponentBuilderTests
     {
         private Mock<ICacheProvider> cacheProvider;
 
@@ -38,17 +38,29 @@ namespace ResourceCompiler.Web.Mvc.Tests
         [Test]
         public void Can_Get_Instance_Of_Style_Sheet_Builder()
         {
-            var factory = new ComponentFactory(TestHelper.CreateViewContext(), cacheProvider.Object);
+            var factory = new ComponentBuilder(TestHelper.CreateViewContext(), cacheProvider.Object);
 
             Assert.IsInstanceOf<StyleSheetManagerBuilder>(factory.StyleSheetManager());
         }
 
         [Test]
+        public void Should_Be_Same_Script_Instance()
+        {
+            Assert.Fail();
+        }
+
+        [Test]
         public void Can_Get_Instance_Of_Script_Builder()
         {
-            var factory = new ComponentFactory(TestHelper.CreateViewContext(), cacheProvider.Object);
+            var factory = new ComponentBuilder(TestHelper.CreateViewContext(), cacheProvider.Object);
 
             Assert.IsInstanceOf<ScriptManagerBuilder>(factory.ScriptManager());
+        }
+
+        [Test]
+        public void Should_Be_Same_Script_Instance()
+        {
+            Assert.Fail();
         }
     }
 }
