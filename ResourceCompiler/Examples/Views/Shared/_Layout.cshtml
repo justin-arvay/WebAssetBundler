@@ -2,12 +2,6 @@
 <html>
 <head>
     <title>@ViewBag.Title</title>
-    
-    @{Html.Reco().StyleSheetManager()
-        .DefaultGroup(g => g            
-            .Add("~/Content/Site.css")
-            .Compress(true))
-        .Render();}
 
      @{Html.Reco().StyleSheetManager()
         .StyleSheets(style => style
