@@ -31,5 +31,20 @@ namespace ResourceCompiler.Web.Mvc
             var cacheProvider = new CacheProvider();
             return new ComponentFactory(helper.ViewContext, cacheProvider);   
         }
+
+        /*
+        public class SingletonPerRequest
+        {
+            public static SingletonPerRequest Current
+            {
+                get
+                {
+                    return (HttpContext.Current.Items["SingletonPerRequest"] ??
+                        (HttpContext.Current.Items["SingletonPerRequest"] =
+                        new SingletonPerRequest())) as SingletonPerRequest;
+
+                }
+            }
+        }*/
     }
 }

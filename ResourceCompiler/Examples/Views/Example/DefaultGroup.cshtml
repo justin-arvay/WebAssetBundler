@@ -40,19 +40,40 @@
               .Add("~/Content/themes/base/jquery.ui.all.css")))
         .Render();}
               
-}
 
-<!-- Combining Web Assets
+<!-- Combining Web Assets into a single file -->
 @{Html.Reco().StyleSheetManager()
       .StyleSheets(script => script
           .AddGroup("Example1", g => g
               .Add("~/Content/Site.css")
-              .Add("~/Content/themes/base/jquery.ui.all.css")))
+              .Add("~/Content/themes/base/jquery.ui.all.css")
+              .Combine(true)))
         .Render();}
 
 <!-- Versioning Web Assets -->
-
+@{Html.Reco().StyleSheetManager()
+      .StyleSheets(script => script
+          .AddGroup("Example1", g => g
+              .Add("~/Content/Site.css")
+              .Add("~/Content/themes/base/jquery.ui.all.css")
+              .Version("1.3.1")))
+        ;}
+@{Html.Reco().StyleSheetManager()
+      .StyleSheets(script => script
+          .AddGroup("Example1", g => g
+              .Add("~/Content/Site.css")
+              .Add("~/Content/themes/base/jquery.ui.all.css")
+              .Version("1.3.1")))
+        .Render();}
 <!-- Compressing Web Assets -->
+@{Html.Reco().StyleSheetManager()
+      .StyleSheets(script => script
+          .AddGroup("Example1", g => g
+              .Add("~/Content/Site.css")
+              .Add("~/Content/themes/base/jquery.ui.all.css")
+              .Compress(true)))
+        .Render();}
+
 
 <!-- Changing the path of the generated files -->
 
