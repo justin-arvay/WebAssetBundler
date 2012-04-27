@@ -22,8 +22,7 @@ namespace ResourceCompiler.Web.Mvc
 
     public class WebAssetGroupResolver : IWebAssetResolver
     {
-        private WebAssetGroup webAssetGroup;
-        private IPathResolver pathResolver;
+        private WebAssetGroup webAssetGroup;        
 
         public WebAssetGroupResolver(WebAssetGroup webAssetGroup)
         {

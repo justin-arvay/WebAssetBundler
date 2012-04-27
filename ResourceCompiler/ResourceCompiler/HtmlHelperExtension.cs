@@ -23,6 +23,7 @@ namespace ResourceCompiler.Web.Mvc
     using System.Linq;
     using System.Text;
     using System.Web.Mvc;
+    using System.Web;
 
     public static class HtmlHelperExtension
     {
@@ -31,11 +32,14 @@ namespace ResourceCompiler.Web.Mvc
 
             var viewContext = helper.ViewContext;
             var cacheProvider = new CacheProvider();
+                        
+            var styleSheetManager = (HttpContext.Current.Items["ScriptManager"] ??
+                        (HttpContext.Current.Items["ScriptManager"] =
+                        new StyleSheetManager(new WebAssetGroupCollection()))) as StyleSheetManager;
 
-            var scriptManager = new ScriptManager(new WebAssetGroupCollection());
-            var styleSheetManager = new StyleSheetManager(new WebAssetGroupCollection());
-
-
+            var scriptManager = (HttpContext.Current.Items["ScriptManager"] ??
+                        (HttpContext.Current.Items["ScriptManager"] =
+                        new ScriptManager(new WebAssetGroupCollection()))) as ScriptManager;
 
 
             return new ComponentBuilder(

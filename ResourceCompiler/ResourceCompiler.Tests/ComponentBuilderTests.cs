@@ -23,11 +23,55 @@ namespace ResourceCompiler.Web.Mvc.Tests
     using NUnit.Framework;
     using ResourceCompiler;
     using Moq;
+    using System.Web;
+    using System.Web.Mvc;
 
     [TestFixture]
     public class ComponentBuilderTests
     {
         private Mock<ICacheProvider> cacheProvider;
+
+        private StyleSheetManagerBuilder CreateStyleSheetManagerBuilder()
+        {
+            var tagWriter = new Mock<ITagWriter>();
+            var server = new Mock<HttpServerUtilityBase>();
+            var collection = new WebAssetGroupCollection();
+            var pathResolver = new Mock<IPathResolver>();
+            var resolverFactory = new WebAssetResolverFactory(pathResolver.Object);
+            var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
+            var writer = new Mock<IWebAssetWriter>();
+            var merger = new StyleSheetWebAssetMerger(
+                new Mock<IWebAssetReader>().Object,
+                new Mock<IContentFilter>().Object,
+                new Mock<IStyleSheetCompressor>().Object,
+                server.Object);
+            var generator = new Mock<IWebAssetGenerator>();
+
+            return new StyleSheetManagerBuilder(
+                new StyleSheetManager(collection),
+                TestHelper.CreateViewContext(),
+                collectionResolver,
+                tagWriter.Object,
+                generator.Object);
+        }
+
+        private ScriptManagerBuilder CreateScriptManagerBuilder()
+        {
+            var tagWriter = new Mock<ITagWriter>();
+            var server = new Mock<HttpServerUtilityBase>();
+            var collection = new WebAssetGroupCollection();
+            var pathResolver = new Mock<IPathResolver>();
+            var resolverFactory = new WebAssetResolverFactory(pathResolver.Object);
+            var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
+            var generator = new Mock<IWebAssetGenerator>();
+
+            return new ScriptManagerBuilder(
+                new ScriptManager(collection),
+                TestHelper.CreateViewContext(),
+                collectionResolver,
+                tagWriter.Object,
+                generator.Object);
+        }
 
         [SetUp]
         public void Setup()
@@ -38,21 +82,26 @@ namespace ResourceCompiler.Web.Mvc.Tests
         [Test]
         public void Can_Get_Instance_Of_Style_Sheet_Builder()
         {
-            var factory = new ComponentBuilder(TestHelper.CreateViewContext(), cacheProvider.Object);
+            var factory = new ComponentBuilder(CreateStyleSheetManagerBuilder(), CreateScriptManagerBuilder());
 
             Assert.IsInstanceOf<StyleSheetManagerBuilder>(factory.StyleSheetManager());
         }
 
         [Test]
-        public void Should_Be_Same_Script_Instance()
+        public void Should_Be_Same_Style_Sheet_Instance()
         {
-            Assert.Fail();
+            var factory = new ComponentBuilder(CreateStyleSheetManagerBuilder(), CreateScriptManagerBuilder());
+
+            var builderOne = factory.StyleSheetManager();
+            var builderTwo = factory.StyleSheetManager();
+
+            Assert.AreSame(builderOne, builderTwo);
         }
 
         [Test]
         public void Can_Get_Instance_Of_Script_Builder()
         {
-            var factory = new ComponentBuilder(TestHelper.CreateViewContext(), cacheProvider.Object);
+            var factory = new ComponentBuilder(CreateStyleSheetManagerBuilder(), CreateScriptManagerBuilder());
 
             Assert.IsInstanceOf<ScriptManagerBuilder>(factory.ScriptManager());
         }
@@ -60,7 +109,12 @@ namespace ResourceCompiler.Web.Mvc.Tests
         [Test]
         public void Should_Be_Same_Script_Instance()
         {
-            Assert.Fail();
+            var factory = new ComponentBuilder(CreateStyleSheetManagerBuilder(), CreateScriptManagerBuilder());
+
+            var builderOne = factory.ScriptManager();
+            var builderTwo = factory.ScriptManager();
+
+            Assert.AreSame(builderOne, builderTwo);
         }
     }
 }
