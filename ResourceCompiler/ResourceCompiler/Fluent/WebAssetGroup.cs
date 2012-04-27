@@ -90,7 +90,7 @@ namespace ResourceCompiler.Web.Mvc
             {
                 if (AlreadyExists(item))
                 {
-                    throw new ArgumentException(TextResource.Exceptions.ItemWithSpecifiedSourceAlreadyExists, "item");
+                    throw new ArgumentException(TextResource.Exceptions.ItemWithSpecifiedSourceAlreadyExists + Message(item), "item");
                 }
 
                 base.InsertItem(index, item);
@@ -100,7 +100,7 @@ namespace ResourceCompiler.Web.Mvc
             {
                 if (AlreadyExists(item))
                 {
-                    throw new ArgumentException(TextResource.Exceptions.ItemWithSpecifiedSourceAlreadyExists, "item");
+                    throw new ArgumentException(TextResource.Exceptions.ItemWithSpecifiedSourceAlreadyExists + Message(item), "item");
                 }
 
                 base.SetItem(index, item);
@@ -109,6 +109,11 @@ namespace ResourceCompiler.Web.Mvc
             private bool AlreadyExists(IWebAsset item)
             {
                 return this.Any(i => i != item && i.Source.Equals(item.Source));
+            }
+
+            private string Message(IWebAsset item)
+            {
+                return " Asset: \"" + item.Source + "\"";
             }
         }
     }

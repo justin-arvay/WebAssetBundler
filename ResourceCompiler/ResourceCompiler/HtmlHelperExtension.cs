@@ -32,22 +32,22 @@ namespace ResourceCompiler.Web.Mvc
 
             var viewContext = helper.ViewContext;
             var cacheProvider = new CacheProvider();
-                        
-            var styleSheetManager = (HttpContext.Current.Items["ScriptManager"] ??
-                        (HttpContext.Current.Items["ScriptManager"] =
-                        new StyleSheetManager(new WebAssetGroupCollection()))) as StyleSheetManager;
 
-            var scriptManager = (HttpContext.Current.Items["ScriptManager"] ??
-                        (HttpContext.Current.Items["ScriptManager"] =
-                        new ScriptManager(new WebAssetGroupCollection()))) as ScriptManager;
+            var styleSheetManagerBuilder = (HttpContext.Current.Items["StyleSheetManagerBuilder"] ??
+                        (HttpContext.Current.Items["StyleSheetManagerBuilder"] =
+                        CreateStyleSheetManagerBuilder(viewContext, cacheProvider))) as StyleSheetManagerBuilder;
+
+            var scriptManagerBuilder = (HttpContext.Current.Items["ScriptManagerBuilder"] ??
+                        (HttpContext.Current.Items["ScriptManagerBuilder"] =
+                        CreateScriptManagerBuilder(viewContext, cacheProvider))) as ScriptManagerBuilder;
 
 
             return new ComponentBuilder(
-                CreateStyleSheetManagerBuilder(styleSheetManager, viewContext, cacheProvider), 
-                CreateScriptManagerBuilder(scriptManager, viewContext, cacheProvider));
+                styleSheetManagerBuilder,
+                scriptManagerBuilder);
         }
 
-        private static StyleSheetManagerBuilder CreateStyleSheetManagerBuilder(StyleSheetManager manager, ViewContext viewContext, ICacheProvider cacheProvider)
+        private static StyleSheetManagerBuilder CreateStyleSheetManagerBuilder(ViewContext viewContext, ICacheProvider cacheProvider)
         {
             var pathResolver = new PathResolver(WebAssetType.StyleSheet);
             var collection = new WebAssetGroupCollection();
@@ -64,14 +64,14 @@ namespace ResourceCompiler.Web.Mvc
             var tagWriter = new StyleSheetTagWriter(urlResolver);
 
             return new StyleSheetManagerBuilder(
-                manager,
+                new StyleSheetManager(new WebAssetGroupCollection()),
                 viewContext,
                 collectionResolver,
                 tagWriter,
                 generator);
         }
 
-        private static ScriptManagerBuilder CreateScriptManagerBuilder(ScriptManager manager, ViewContext viewContext, ICacheProvider cacheProvider)
+        private static ScriptManagerBuilder CreateScriptManagerBuilder(ViewContext viewContext, ICacheProvider cacheProvider)
         {
 
             var pathResolver = new PathResolver(WebAssetType.Script);
@@ -85,7 +85,7 @@ namespace ResourceCompiler.Web.Mvc
             var tagWriter = new ScriptTagWriter(urlResolver);
 
             return new ScriptManagerBuilder(
-                manager,
+                new ScriptManager(new WebAssetGroupCollection()),
                 viewContext,
                 collectionResolver,
                 tagWriter,
