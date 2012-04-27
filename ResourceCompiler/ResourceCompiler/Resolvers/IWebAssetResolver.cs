@@ -20,6 +20,6 @@ namespace ResourceCompiler.Web.Mvc
 
     public interface IWebAssetResolver
     {
-        IList<WebAssetResolverResult> Resolve();
+        IList<ResolverResult> Resolve();
     }
 }

@@ -26,10 +26,66 @@ namespace ResourceCompiler.Web.Mvc
 
     public static class HtmlHelperExtension
     {
-        public static ComponentFactory Reco(this HtmlHelper helper)
+        public static ComponentBuilder Reco(this HtmlHelper helper)
         {
+
+            var viewContext = helper.ViewContext;
             var cacheProvider = new CacheProvider();
-            return new ComponentFactory(helper.ViewContext, cacheProvider);   
+
+            var scriptManager = new ScriptManager(new WebAssetGroupCollection());
+            var styleSheetManager = new StyleSheetManager(new WebAssetGroupCollection());
+
+
+
+
+            return new ComponentBuilder(
+                CreateStyleSheetManagerBuilder(styleSheetManager, viewContext, cacheProvider), 
+                CreateScriptManagerBuilder(scriptManager, viewContext, cacheProvider));
+        }
+
+        private static StyleSheetManagerBuilder CreateStyleSheetManagerBuilder(StyleSheetManager manager, ViewContext viewContext, ICacheProvider cacheProvider)
+        {
+            var pathResolver = new PathResolver(WebAssetType.StyleSheet);
+            var collection = new WebAssetGroupCollection();
+            var urlResolver = new UrlResolver(viewContext.RequestContext);
+            var resolverFactory = new WebAssetResolverFactory(pathResolver);
+            var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
+            var writer = new WebAssetWriter(new DirectoryWriter(), viewContext.HttpContext.Server);
+            var merger = new StyleSheetWebAssetMerger(
+                new WebAssetReader(viewContext.HttpContext.Server),
+                new ImagePathContentFilter(),
+                DefaultSettings.StyleSheetCompressor,
+                viewContext.HttpContext.Server);
+            var generator = new WebAssetGenerator(writer, merger, new MergedResultCache(WebAssetType.StyleSheet, cacheProvider));
+            var tagWriter = new StyleSheetTagWriter(urlResolver);
+
+            return new StyleSheetManagerBuilder(
+                manager,
+                viewContext,
+                collectionResolver,
+                tagWriter,
+                generator);
+        }
+
+        private static ScriptManagerBuilder CreateScriptManagerBuilder(ScriptManager manager, ViewContext viewContext, ICacheProvider cacheProvider)
+        {
+
+            var pathResolver = new PathResolver(WebAssetType.Script);
+            
+            var urlResolver = new UrlResolver(viewContext.RequestContext);
+            var resolverFactory = new WebAssetResolverFactory(pathResolver);
+            var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
+            var writer = new WebAssetWriter(new DirectoryWriter(), viewContext.HttpContext.Server);
+            var merger = new ScriptWebAssetMerger(new WebAssetReader(viewContext.HttpContext.Server), DefaultSettings.ScriptCompressor);
+            var generator = new WebAssetGenerator(writer, merger, new MergedResultCache(WebAssetType.Script, cacheProvider));
+            var tagWriter = new ScriptTagWriter(urlResolver);
+
+            return new ScriptManagerBuilder(
+                manager,
+                viewContext,
+                collectionResolver,
+                tagWriter,
+                generator);
         }
     }
 }

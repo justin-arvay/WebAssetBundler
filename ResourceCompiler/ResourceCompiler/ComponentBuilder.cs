@@ -14,38 +14,32 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace ResourceCompiler.Web.Mvc
+namespace ResourceCompiler
 {
-    using System;
-    using System.Collections.Generic;
+    using System.Web.Mvc;
+    using ResourceCompiler.Web.Mvc;
 
-
-    public class WebAssetResolverResult
+    public class ComponentBuilder
     {
 
-        public WebAssetResolverResult(string path, bool compress, ICollection<IWebAsset> webAssets)
+        private StyleSheetManagerBuilder styleSheetManagerBuilder;
+        private ScriptManagerBuilder scriptManagerBuilder;
+
+        public ComponentBuilder(StyleSheetManagerBuilder styleSheetManagerBuilder, ScriptManagerBuilder scriptManagerBuilder )
         {
-            Path = path;
-            WebAssets = webAssets;
-            Compress = compress;
+            this.scriptManagerBuilder = scriptManagerBuilder;
+            this.styleSheetManagerBuilder = styleSheetManagerBuilder;
+
         }
 
-        public string Path
+        public StyleSheetManagerBuilder StyleSheetManager()
         {
-            get;
-            private set;
+            return styleSheetManagerBuilder;
         }
 
-        public bool Compress
+        public ScriptManagerBuilder ScriptManager()
         {
-            get;
-            set;
-        }
-
-        public ICollection<IWebAsset> WebAssets
-        {
-            get;
-            private set;
+            return scriptManagerBuilder;
         }
     }
 }

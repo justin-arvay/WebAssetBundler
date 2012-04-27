@@ -62,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Caching\MergedResultCacheTests.cs" />
-    <Compile Include="ComponentFactoryTests.cs" />
+    <Compile Include="ComponentBuilderTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
     <Compile Include="HtmlHelperExtensionTests.cs" />
     <Compile Include="IO\ScriptTagWriterTests.cs" />
@@ -92,7 +92,7 @@
     <Compile Include="Fluent\WebAssetGroupTests.cs" />
     <Compile Include="Manager\StyleSheetManagerTests.cs" />
     <Compile Include="Manager\StyleSheetManagerBuilderTests.cs" />
-    <Compile Include="Resolvers\WebAssetResolverResultTests.cs" />
+    <Compile Include="Resolvers\ResolverResultTests.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="Filters\ImagePathContentFilterTests.cs" />
   </ItemGroup>

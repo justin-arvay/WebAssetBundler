@@ -22,7 +22,7 @@ namespace ResourceCompiler.Web.Mvc
     using System.Collections.Generic;
     using System.IO;
 
-    public class ImagePathContentFilter : IWebAssetContentFilter
+    public class ImagePathContentFilter : IContentFilter
     {
         public ImagePathContentFilter()
         {            

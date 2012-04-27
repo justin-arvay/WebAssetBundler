@@ -35,7 +35,7 @@ namespace ResourceCompiler.Web.Mvc
             this.compressor = compressor;
         }
 
-        public WebAssetMergerResult Merge(WebAssetResolverResult resolverResult)
+        public WebAssetMergerResult Merge(ResolverResult resolverResult)
         {
             string content = "";
 

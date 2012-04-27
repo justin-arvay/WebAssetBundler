@@ -35,7 +35,6 @@ namespace ResourceCompiler.Web.Mvc.Tests
             var pathResolver = new Mock<IPathResolver>();
             var resolverFactory = new WebAssetResolverFactory(pathResolver.Object);
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
-            var cacheFactory = new Mock<ICacheFactory>();
             var generator = new Mock<IWebAssetGenerator>();
             
             return new ScriptManagerBuilder(
@@ -43,7 +42,6 @@ namespace ResourceCompiler.Web.Mvc.Tests
                 context, 
                 collectionResolver, 
                 tagWriter.Object,                 
-                cacheFactory.Object, 
                 generator.Object);
         }
 
@@ -118,7 +116,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
 
             builder.Render();
 
-            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), It.IsAny<IList<WebAssetResolverResult>>()), Times.Exactly(1));
+            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), It.IsAny<IList<ResolverResult>>()), Times.Exactly(1));
         }
     }
 }

@@ -31,7 +31,7 @@ namespace ResourceCompiler.Web.Mvc
             this.cache = cache;
         }
 
-        public void Generate(IList<WebAssetResolverResult> resolverResults)
+        public void Generate(IList<ResolverResult> resolverResults)
         {
             foreach (var resolverResult in resolverResults)
             {

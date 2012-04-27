@@ -34,9 +34,9 @@ namespace ResourceCompiler.Web.Mvc
         /// </summary>
         /// <param name="resourceGroups"></param>
         /// <returns></returns>
-        public IList<WebAssetResolverResult> Resolve(WebAssetGroupCollection resourceGroups)
+        public IList<ResolverResult> Resolve(WebAssetGroupCollection resourceGroups)
         {
-            var results = new List<WebAssetResolverResult>();
+            var results = new List<ResolverResult>();
 
             foreach (var resourceGroup in resourceGroups)
             {

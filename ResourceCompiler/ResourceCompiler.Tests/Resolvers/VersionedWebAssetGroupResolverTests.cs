@@ -56,7 +56,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
                 .Returns(path);
 
             var resolver = new VersionedWebAssetGroupResolver(group, pathResolver.Object);
-            var results = (List<WebAssetResolverResult>)resolver.Resolve();
+            var results = (List<ResolverResult>)resolver.Resolve();
 
             Assert.AreEqual(path, results[0].Path);
         }

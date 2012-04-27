@@ -21,6 +21,6 @@ namespace ResourceCompiler.Web.Mvc
 
     public interface IWebAssetMerger
     {
-        WebAssetMergerResult Merge(WebAssetResolverResult resolverResult);
+        WebAssetMergerResult Merge(ResolverResult resolverResult);
     }
 }

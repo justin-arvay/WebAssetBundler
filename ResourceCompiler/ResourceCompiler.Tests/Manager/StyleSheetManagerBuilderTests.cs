@@ -40,11 +40,10 @@ namespace ResourceCompiler.Web.Mvc.Tests
             var pathResolver = new Mock<IPathResolver>();
             var resolverFactory = new WebAssetResolverFactory(pathResolver.Object);
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);            
-            var cacheFactory = new Mock<ICacheFactory>();
             var writer = new Mock<IWebAssetWriter>();
             var merger = new StyleSheetWebAssetMerger(
                 new Mock<IWebAssetReader>().Object, 
-                new Mock<IWebAssetContentFilter>().Object,
+                new Mock<IContentFilter>().Object,
                 new Mock<IStyleSheetCompressor>().Object,
                 server.Object);
             var generator = new Mock<IWebAssetGenerator>();
@@ -54,7 +53,6 @@ namespace ResourceCompiler.Web.Mvc.Tests
                 context, 
                 collectionResolver,
                 tagWriter.Object, 
-                cacheFactory.Object, 
                 generator.Object);
         }
 
@@ -113,7 +111,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
 
             builder.Render();
 
-            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), It.IsAny<IList<WebAssetResolverResult>>()), Times.Exactly(1));
+            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), It.IsAny<IList<ResolverResult>>()), Times.Exactly(1));
         }
 
 

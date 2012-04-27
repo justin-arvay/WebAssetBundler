@@ -16,7 +16,7 @@
 
 namespace ResourceCompiler.Web.Mvc
 {
-    public interface IWebAssetContentFilter
+    public interface IContentFilter
     {
         string Filter(string outputPath, string sourcePath, string content);
     }

@@ -30,7 +30,6 @@ namespace ResourceCompiler.Web.Mvc
         private readonly IWebAssetGroupCollectionResolver collectionResolver;
         private bool hasRendered;
         private ViewContext viewContext;
-        private ICacheFactory cacheFactory;
         private ITagWriter tagWriter;        
         private IWebAssetGenerator generator;
 
@@ -44,15 +43,13 @@ namespace ResourceCompiler.Web.Mvc
             StyleSheetManager manager, 
             ViewContext viewContext, 
             IWebAssetGroupCollectionResolver resolver,
-            ITagWriter tagWriter,            
-            ICacheFactory cacheFactory,            
+            ITagWriter tagWriter,                    
             IWebAssetGenerator generator)
         {
             Manager = manager;
             this.collectionResolver = resolver;
             this.tagWriter = tagWriter;
-            this.viewContext = viewContext;
-            this.cacheFactory = cacheFactory;                        
+            this.viewContext = viewContext;                      
             this.generator = generator;
         }
 

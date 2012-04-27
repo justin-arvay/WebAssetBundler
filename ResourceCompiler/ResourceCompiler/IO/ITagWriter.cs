@@ -22,6 +22,6 @@ namespace ResourceCompiler.Web.Mvc
 
     public interface ITagWriter
     {
-        void Write(TextWriter writer, IList<WebAssetResolverResult> results);
+        void Write(TextWriter writer, IList<ResolverResult> results);
     }
 }
