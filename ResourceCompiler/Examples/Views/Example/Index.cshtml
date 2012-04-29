@@ -3,4 +3,30 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Defaults</h2>
+<p>Defaults are setup such like so:</p>
+<ul>
+    <li>Script Path: ~/Script/</li>
+    <li>Style Sheet Path: ~/Content/</li>
+    <li>Generated Path: ~/Generated/</li>
+    <li>Script Compressor: MsScriptCompressor</li>
+    <li>Style Sheet Compressor: MsStyleSheetCompressor</li>
+    <li>Default Group Name: Default</li>
+</ul>
+
+<h2>Web Asset Groups</h2>
+
+<p><strong>Note:</strong>Groups require that the generated folder have read and write access for the application. See The section on defaults for changing the generated location.</p>
+
+<p>Asset groups can be defined in any location, but must be rendered in a view or master page.</p>
+<p>Groups can be versioned. When you version a group it will transform the output path of the file. This means 
+a file will be generated for this "versioned" asset.</p>
+
+<p>Example:</p>
+<code>
+<!-- from -->
+<script type="text/javascript" src="/Script/core.js"></script>
+
+<!-- to -->
+<script type="text/javascript" src="/Generated/1.1/core.js"></script>
+</code>
