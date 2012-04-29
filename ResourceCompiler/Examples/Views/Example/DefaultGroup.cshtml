@@ -3,36 +3,87 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DefaultGroup</h2>
+<h2>Default Group</h2>
 
-<!-- compression example -->
-<p>The default group can be used like any group. Indi</p>
+<p>The default group (comming soon) allows you to manage the default (or page specific) assets. Any snippets (onDocumentReady etc) will be registered here. 
+Otherwise the default group behaves exactly like any other group. You can combine, compress and version the assets within that group.</p>
+
+<p>If you have no need for specific named groups it would be best to add all assets with the default group. This offers no functional benefit over other groups, but 
+makes it obvious that there was no intent to have multiple asset groups.</p>
+
+<p>There is no functional difference between stylesheets and scripts.</p>
+
+<!-- adding to the default group -->
+@{Html.Reco().StyleSheetManager()
+    .DefaultGroup(g => g            
+        .Add("~/Content/Site.css")
+        .Add("~/Content/themes/base/jquery.ui.all.css"));}
+
+@{Html.Reco().ScriptManager()
+      .DefaultGroup(g => g
+          .Add("jquery-1.5.1.js")
+          .Add("jquery-ui-1.8.11.js"));}
+    
+<!-- compress it -->
+@{Html.Reco().StyleSheetManager()
+    .DefaultGroup(g => g            
+        .Compress(true));}
+
+@{Html.Reco().ScriptManager()
+      .DefaultGroup(g => g
+          .Compress(true));}
+
+<!-- version it -->
+@{Html.Reco().StyleSheetManager()
+    .DefaultGroup(g => g            
+        .Version("1.1"));}
+
+@{Html.Reco().ScriptManager()
+      .DefaultGroup(g => g
+          .Version("1.1"));}
+
+<!-- combine it -->
+@{Html.Reco().StyleSheetManager()
+    .DefaultGroup(g => g            
+        .Combine(true));}
+
+@{Html.Reco().ScriptManager()
+      .DefaultGroup(g => g
+          .Combine(true));}
+
+<!-- all together -->
 @{Html.Reco().StyleSheetManager()
     .DefaultGroup(g => g            
         .Add("~/Content/Site.css")
         .Add("~/Content/themes/base/jquery.ui.all.css")
-        .Compress(true))
-    .Render();}
+        .Compress(true)
+        .Combine(true)
+        .Version("1.1"));}
 
-<!-- version example -->
+@{Html.Reco().ScriptManager()
+      .DefaultGroup(g => g
+          .Add("jquery-1.5.1.js")
+          .Add("jquery-ui-1.8.11.js")
+          .Combine(true)
+          .Compress(true)
+          .Version("1.1"));}
+
+<!-- rendering - can be done all together as well -->
 @{Html.Reco().StyleSheetManager()
-    .DefaultGroup(g => g            
-        .Add("~/Content/Site.css")
-        .Add("~/Content/themes/base/jquery.ui.all.css")
-        .Version("1.1"))
+    .Render();}
+
+@{Html.Reco().ScriptManager()
     .Render();}
 
 
-<!-- combining example -->
-@{Html.Reco().StyleSheetManager()
-    .DefaultGroup(g => g            
-        .Add("~/Content/Site.css")
-        .Add("~/Content/themes/base/jquery.ui.all.css")
-        .Combine(true))
-    .Render();}
 
 
-<!-- Creating a Group -->
+
+
+
+
+
+ <!-- Creating a Group -->
 @{Html.Reco().StyleSheetManager()
       .StyleSheets(script => script
           .AddGroup("Example1", g => g
