@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ResourceCompiler.Web.Mvc;
+using System.Configuration;
 
 namespace Examples.Controllers
 {
@@ -10,6 +12,9 @@ namespace Examples.Controllers
     {
         public ActionResult Index()
         {
+            var section = ConfigurationManager.GetSection("reco");
+            var config = new SharedGroupConfigurationSection();
+
             return View();
         }
 

@@ -13,6 +13,16 @@ makes it obvious that there was no intent to have multiple asset groups.</p>
 
 <p>There is no functional difference between stylesheets and scripts.</p>
 
+@{Html.Reco().StyleSheetManager()
+    .StyleSheets(s => s
+        .AddGroup("GroupName", g => g            
+            .Version("1.1")));}
+
+@{Html.Reco().ScriptManager()
+    .Scripts(s => s
+      .AddGroup("GroupName", g => g
+          .Version("1.1")));}
+
 <!-- adding to the default group -->
 @{Html.Reco().StyleSheetManager()
     .DefaultGroup(g => g            
