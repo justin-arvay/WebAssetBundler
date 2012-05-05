@@ -19,7 +19,8 @@ namespace ResourceCompiler.Web.Mvc
     using System;
     using System.Configuration;
 
-    public class WebAssetConfigurationElement : ConfigurationElement
+    [ConfigurationCollection(typeof(WebAssetConfigurationElement), AddItemName = "asset")]
+    public class WebAssetConfigurationElement : ConfigurationElementCollection
     {
         /// <summary>
         /// Gets or sets the source.
@@ -36,6 +37,24 @@ namespace ResourceCompiler.Web.Mvc
             set
             {
                 this["source"] = value;
+            }
+        }
+
+        protected override ConfigurationElement CreateNewElement()
+        {
+            return new WebAssetConfigurationElement();
+        }
+
+        protected override object GetElementKey(ConfigurationElement element)
+        {
+            return ((WebAssetConfigurationElement)element).Source;
+        }
+
+        protected override string ElementName
+        {
+            get
+            {
+                return "asset";
             }
         }
     }

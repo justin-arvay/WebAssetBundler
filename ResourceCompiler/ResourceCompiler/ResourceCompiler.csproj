@@ -65,7 +65,6 @@
     <Compile Include="Compressors\YuiScriptCompressor.cs" />
     <Compile Include="Compressors\YuiStyleSheetCompressor.cs" />
     <Compile Include="Configuration\GroupConfigurationElement.cs" />
-    <Compile Include="Configuration\GroupConfigurationElementCollection.cs" />
     <Compile Include="Configuration\SharedGroupConfigurationSection.cs" />
     <Compile Include="Configuration\WebAssetConfigurationElement.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />

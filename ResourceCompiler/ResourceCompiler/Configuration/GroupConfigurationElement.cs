@@ -19,17 +19,15 @@ namespace ResourceCompiler.Web.Mvc
     using System;
     using System.Configuration;
 
+    [ConfigurationCollection(typeof(GroupConfigurationElement), AddItemName = "group")]
     public class GroupConfigurationElement : ConfigurationElementCollection
     {
-        public GroupConfigurationElement()
-        {
-        }
 
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
         /// <value>The name.</value>
-        [ConfigurationProperty("name", IsRequired = true, IsKey = true)]
+        [ConfigurationProperty("name", IsRequired = true, IsKey = true, IsDefaultCollection = true)]
         public string Name
         {
             get
@@ -115,14 +113,25 @@ namespace ResourceCompiler.Web.Mvc
             }
         }
 
+/*
+        public new WebAssetConfigurationElement this[string name]
+        {
+            get
+            {
+                return base.BaseGet(name) as WebAssetConfigurationElement;
+            }          
+
+        }
+ */
+
         protected override ConfigurationElement CreateNewElement()
         {
-            return new WebAssetConfigurationElement();
+            return new GroupConfigurationElement();
         }
 
         protected override object GetElementKey(ConfigurationElement element)
         {
-            return ((WebAssetConfigurationElement)element).Source;
+            return ((GroupConfigurationElement)element).Name;
         }
     }
 }

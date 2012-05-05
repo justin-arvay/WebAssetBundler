@@ -45,11 +45,11 @@ namespace ResourceCompiler.Web.Mvc
         /// </summary>
         /// <value>The style sheets.</value>
         [ConfigurationProperty("styleSheets")]
-        public GroupConfigurationElementCollection StyleSheets
+        public GroupConfigurationElement StyleSheets
         {
             get
             {
-                return (GroupConfigurationElementCollection)base["styleSheets"] ?? new GroupConfigurationElementCollection();
+                return (GroupConfigurationElement)base["styleSheets"] ?? new GroupConfigurationElement();
             }
         }
 
@@ -58,11 +58,11 @@ namespace ResourceCompiler.Web.Mvc
         /// </summary>
         /// <value>The style sheets.</value>
         [ConfigurationProperty("scripts")]
-        public GroupConfigurationElementCollection Scripts
+        public GroupConfigurationElement Scripts
         {
             get
             {
-                return (GroupConfigurationElementCollection)base["scripts"] ?? new GroupConfigurationElementCollection();
+                return (GroupConfigurationElement)base["scripts"] ?? new GroupConfigurationElement();
             }
         }
     }
