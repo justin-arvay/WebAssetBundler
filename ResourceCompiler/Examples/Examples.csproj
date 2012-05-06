@@ -62,11 +62,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigurationSectionDesigner1.csd.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ConfigurationSectionDesigner1.csd</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\ExampleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -154,22 +149,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Example\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ConfigurationSectionDesigner1.csd">
-      <Generator>CsdFileGenerator</Generator>
-      <LastGenOutput>ConfigurationSectionDesigner1.csd.cs</LastGenOutput>
-    </None>
-    <Content Include="ConfigurationSectionDesigner1.csd.config">
-      <DependentUpon>ConfigurationSectionDesigner1.csd</DependentUpon>
-    </Content>
-    <None Include="ConfigurationSectionDesigner1.csd.diagram">
-      <DependentUpon>ConfigurationSectionDesigner1.csd</DependentUpon>
-    </None>
-    <None Include="ConfigurationSectionDesigner1.csd.xsd">
-      <DependentUpon>ConfigurationSectionDesigner1.csd</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

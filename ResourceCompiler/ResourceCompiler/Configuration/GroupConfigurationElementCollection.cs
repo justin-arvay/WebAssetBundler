@@ -19,25 +19,35 @@ namespace ResourceCompiler.Web.Mvc
     using System;
     using System.Configuration;
 
-    [ConfigurationCollection(typeof(GroupConfigurationElement), AddItemName = "group")]
-    public class GroupConfigurationElement : ConfigurationElementCollection
+    [ConfigurationCollection(typeof(AssetConfigurationElement), AddItemName = "asset", CollectionType = ConfigurationElementCollectionType.BasicMap)]
+    public class GroupConfigurationElementCollection : ConfigurationElementCollection
     {
+
+        protected override ConfigurationElement CreateNewElement()
+        {
+            return new AssetConfigurationElement();
+        }
+
+        protected override object GetElementKey(ConfigurationElement element)
+        {
+            if (element == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return ((AssetConfigurationElement)element).Source;
+        }
 
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
         /// <value>The name.</value>
-        [ConfigurationProperty("name", IsRequired = true, IsKey = true, IsDefaultCollection = true)]
-        public string Name
+        [ConfigurationProperty("name", IsRequired = true)]
+        public string Name 
         {
             get
             {
-                return (string)this["name"];
-            }
-
-            set
-            {
-                this["name"] = value;
+                return (string)base["name"];
             }
         }
 
@@ -111,27 +121,6 @@ namespace ResourceCompiler.Web.Mvc
             {
                 this["combined"] = value;
             }
-        }
-
-/*
-        public new WebAssetConfigurationElement this[string name]
-        {
-            get
-            {
-                return base.BaseGet(name) as WebAssetConfigurationElement;
-            }          
-
-        }
- */
-
-        protected override ConfigurationElement CreateNewElement()
-        {
-            return new GroupConfigurationElement();
-        }
-
-        protected override object GetElementKey(ConfigurationElement element)
-        {
-            return ((GroupConfigurationElement)element).Name;
         }
     }
 }

@@ -18,15 +18,15 @@ namespace ResourceCompiler.Web.Mvc
 {
     using System;
     using System.Configuration;
-
-    [ConfigurationCollection(typeof(WebAssetConfigurationElement), AddItemName = "asset")]
-    public class WebAssetConfigurationElement : ConfigurationElementCollection
+    
+    public class AssetConfigurationElement : ConfigurationElement
     {
+
         /// <summary>
         /// Gets or sets the source.
         /// </summary>
         /// <value>The source.</value>
-        [ConfigurationProperty("source", IsRequired = true, IsKey = true)]
+        [ConfigurationProperty("source", IsRequired = false, IsKey = false)]
         public string Source
         {
             get
@@ -37,24 +37,6 @@ namespace ResourceCompiler.Web.Mvc
             set
             {
                 this["source"] = value;
-            }
-        }
-
-        protected override ConfigurationElement CreateNewElement()
-        {
-            return new WebAssetConfigurationElement();
-        }
-
-        protected override object GetElementKey(ConfigurationElement element)
-        {
-            return ((WebAssetConfigurationElement)element).Source;
-        }
-
-        protected override string ElementName
-        {
-            get
-            {
-                return "asset";
             }
         }
     }

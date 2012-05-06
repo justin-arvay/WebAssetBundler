@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ResourceCompiler.Web.Mvc;
 using System.Configuration;
+using System.Web.Configuration;
 
 namespace Examples.Controllers
 {
@@ -12,8 +13,15 @@ namespace Examples.Controllers
     {
         public ActionResult Index()
         {
-            var section = ConfigurationManager.GetSection("reco");
-            var config = new SharedGroupConfigurationSection();
+            MySection sections1 = (MySection)ConfigurationManager.GetSection("mySection");
+
+            var sections = WebConfigurationManager.GetWebApplicationSection("reco") as SharedGroupConfigurationSection;
+
+            foreach (var groups in sections.StyleSheets)
+            {
+                var e = groups;
+            }
+            //var config = new SharedGroupConfigurationSection();
 
             return View();
         }

@@ -22,21 +22,16 @@ namespace ResourceCompiler.Web.Mvc
     public class SharedGroupConfigurationSection : ConfigurationSection
     {
 
-        private static string sectionName = "reco";
-
         /// <summary>
-        /// Gets the name of the section.
+        /// Gets the style sheets.
         /// </summary>
-        /// <value>The name of the section.</value>
-        public static string SectionName
+        /// <value>The style sheets.</value>
+        [ConfigurationProperty("styleSheets", Options = ConfigurationPropertyOptions.IsRequired)]        
+        public StyleSheetConfigurationElementCollection StyleSheets
         {
             get
             {
-                return sectionName;
-            }
-            set
-            {
-                sectionName = value;
+                return (StyleSheetConfigurationElementCollection)base["styleSheets"] ?? new StyleSheetConfigurationElementCollection();
             }
         }
 
@@ -44,25 +39,12 @@ namespace ResourceCompiler.Web.Mvc
         /// Gets the style sheets.
         /// </summary>
         /// <value>The style sheets.</value>
-        [ConfigurationProperty("styleSheets")]
-        public GroupConfigurationElement StyleSheets
+        [ConfigurationProperty("scripts", Options = ConfigurationPropertyOptions.IsRequired)]        
+        public ScriptConfigurationElementCollection Scripts
         {
             get
             {
-                return (GroupConfigurationElement)base["styleSheets"] ?? new GroupConfigurationElement();
-            }
-        }
-
-        /// <summary>
-        /// Gets the style sheets.
-        /// </summary>
-        /// <value>The style sheets.</value>
-        [ConfigurationProperty("scripts")]
-        public GroupConfigurationElement Scripts
-        {
-            get
-            {
-                return (GroupConfigurationElement)base["scripts"] ?? new GroupConfigurationElement();
+                return (ScriptConfigurationElementCollection)base["scripts"] ?? new ScriptConfigurationElementCollection();
             }
         }
     }
