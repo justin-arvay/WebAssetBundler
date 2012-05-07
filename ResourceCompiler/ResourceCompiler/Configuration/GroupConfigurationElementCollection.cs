@@ -22,6 +22,10 @@ namespace ResourceCompiler.Web.Mvc
     [ConfigurationCollection(typeof(AssetConfigurationElement), AddItemName = "asset", CollectionType = ConfigurationElementCollectionType.BasicMap)]
     public class GroupConfigurationElementCollection : ConfigurationElementCollection
     {
+        public GroupConfigurationElementCollection()
+        {
+            AddElementName = "asset";
+        }
 
         protected override ConfigurationElement CreateNewElement()
         {

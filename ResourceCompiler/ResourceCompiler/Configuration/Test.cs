@@ -31,7 +31,7 @@ namespace ResourceCompiler.Web.Mvc
             if (element == null)
                 throw new ArgumentNullException("element");
 
-            return ((EntryElement)element).Name;
+            return ((EntryElement)element).Source;
         }
 
         [ConfigurationProperty("default", IsRequired = false)]
@@ -46,12 +46,12 @@ namespace ResourceCompiler.Web.Mvc
 
     public class EntryElement : ConfigurationElement
     {
-        [ConfigurationProperty("name", IsRequired = true, IsKey = true)]
-        public string Name
+        [ConfigurationProperty("source", IsRequired = true, IsKey = true)]
+        public string Source
         {
             get
             {
-                return (string)base["name"];
+                return (string)base["source"];
             }
         }
     }
