@@ -13,13 +13,15 @@ namespace Examples.Controllers
     {
         public ActionResult Index()
         {
-            MySection sections1 = (MySection)ConfigurationManager.GetSection("mySection");
-
             var sections = WebConfigurationManager.GetWebApplicationSection("reco") as SharedGroupConfigurationSection;
 
-            foreach (var groups in sections.StyleSheets)
+            foreach (GroupConfigurationElementCollection group in sections.StyleSheets)
             {
-                var e = groups;
+                foreach (AssetConfigurationElement asset in group)
+                {
+                    var e = asset.Source;
+                }
+
             }
             //var config = new SharedGroupConfigurationSection();
 
