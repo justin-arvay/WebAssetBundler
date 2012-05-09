@@ -8,7 +8,7 @@ namespace ResourceCompiler.Web.Mvc
 
     public interface ISharedGroupConfigurationMapper
     {
-        public void MapStyleSheets(IList<WebAssetGroup> groups);
-        public void MapScripts(IList<WebAssetGroup> groups);
+        void MapStyleSheets(IList<WebAssetGroup> groups);
+        void MapScripts(IList<WebAssetGroup> groups);
     }
 }

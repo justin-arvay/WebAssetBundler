@@ -84,9 +84,11 @@
     <Compile Include="IO\WebAssetMergerResult.cs" />
     <Compile Include="IO\WebAssetWriter.cs" />
     <Compile Include="IO\WebAssetReader.cs" />
+    <Compile Include="Manager\ISharedGroupManagerFactory.cs" />
     <Compile Include="Manager\ScriptManagerBuilder.cs" />
     <Compile Include="Manager\ScriptManager.cs" />
     <Compile Include="Manager\SharedGroupManager.cs" />
+    <Compile Include="Manager\SharedGroupManagerFactory.cs" />
     <Compile Include="Resolvers\CombinedWebAssetGroupResolver.cs" />
     <Compile Include="IO\IWebAssetMerger.cs" />
     <Compile Include="IO\IDirectoryWriter.cs" />

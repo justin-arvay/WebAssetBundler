@@ -76,6 +76,8 @@
     <Compile Include="IO\WebAssetReaderTests.cs" />
     <Compile Include="Manager\ScriptManagerBuilderTests.cs" />
     <Compile Include="Manager\ScriptManagerTests.cs" />
+    <Compile Include="Manager\SharedGroupManagerFactoryTests.cs" />
+    <Compile Include="Manager\SharedGroupManagerTests.cs" />
     <Compile Include="Resolvers\CombinedWebAssetGroupResolverTest.cs" />
     <Compile Include="Resolvers\PathResolverTests.cs" />
     <Compile Include="Resolvers\VersionedWebAssetGroupResolverTests.cs" />

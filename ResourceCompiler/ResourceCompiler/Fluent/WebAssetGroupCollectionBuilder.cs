@@ -19,24 +19,23 @@ namespace ResourceCompiler.Web.Mvc
     using System;
 
     public class WebAssetGroupCollectionBuilder
-    {
-
-        private WebAssetType type;
-        private WebAssetGroupCollection resourceGroups;
+    {        
+        private WebAssetGroupCollection groups;
+        private WebAssetGroupCollection sharedGroups;
         private string generatedPath;
 
-        public WebAssetGroupCollectionBuilder(WebAssetType type, WebAssetGroupCollection resourceGroups, string generatedPath)
-        {
-            this.type = type;
-            this.resourceGroups = resourceGroups;
+        public WebAssetGroupCollectionBuilder(WebAssetGroupCollection groups, WebAssetGroupCollection sharedGroups, string generatedPath)
+        {            
+            this.groups = groups;
             this.generatedPath = generatedPath;
+            this.sharedGroups = sharedGroups;
         }
 
 
         public WebAssetGroupCollectionBuilder AddGroup(string name, Action<WebAssetGroupBuilder> configureAction)
         {
             //ensure that we cannot add the same group twice
-            if (resourceGroups.FindGroupByName(name) != null) 
+            if (groups.FindGroupByName(name) != null) 
             {
                 throw new ArgumentException(TextResource.Exceptions.GroupWithSpecifiedNameAlreadyExists);
             }
@@ -44,7 +43,7 @@ namespace ResourceCompiler.Web.Mvc
             var group = new WebAssetGroup(name, false, generatedPath);
 
             //add to collection
-            resourceGroups.Add(group);
+            groups.Add(group);
 
             //call action
             configureAction(new WebAssetGroupBuilder(group));
@@ -63,21 +62,49 @@ namespace ResourceCompiler.Web.Mvc
             group.Assets.Add(new WebAsset(source));
 
             //add to collection
-            resourceGroups.Add(group);
+            groups.Add(group);
 
             return this;
         }
 
         /// <summary>
-        /// Adds a new group and allows you to configure that group, or add an existing group as a shared group and configure it differently for this use.
+        /// Adds a shared group.
         /// </summary>
         /// <param name="name"></param>
-        /// <param name="configureAction"></param>
+        /// <returns></returns>
+        public WebAssetGroupCollectionBuilder AddSharedGroup(string name)
+        {
+            var group = FindSharedGroup(name);
+            groups.Add(group);
+            return this;
+        }
+
+        /// <summary>
+        /// Adds a shared group and allows to override configuration.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="configureAction">Allows overriding of shared configuration if needed.</param>
         /// <returns></returns>
         public WebAssetGroupCollectionBuilder AddSharedGroup(string name, Action<WebAssetGroupBuilder> configureAction)
         {
-            throw new NotImplementedException();
+            var group = FindSharedGroup(name);
+
+            groups.Add(group);
+            configureAction(new WebAssetGroupBuilder(group));
+            
             return this;
+        }
+
+        private WebAssetGroup FindSharedGroup(string name)
+        {
+            var group = sharedGroups.FindGroupByName(name);
+
+            if (group == null)
+            {
+                throw new ArgumentException("Shared group does not exist: " + name);
+            }
+
+            return group;
         }
     }
 }

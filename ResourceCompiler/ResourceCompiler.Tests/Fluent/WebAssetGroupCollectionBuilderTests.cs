@@ -23,11 +23,20 @@ namespace ResourceCompiler.Web.Mvc.Tests
     [TestFixture]
     public class WebAssetGroupCollectionBuilderTests
     {
+        private WebAssetGroupCollection sharedGroups;
+        private WebAssetGroupCollection collection;
+
+        [SetUp]
+        public void Setup()
+        {
+            sharedGroups = new WebAssetGroupCollection();
+            collection = new WebAssetGroupCollection();
+        }
+
         [Test]
         public void Should_Be_Able_To_Add_Group()
-        {
-            var collection = new WebAssetGroupCollection();
-            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection, DefaultSettings.GeneratedFilesPath);
+        {            
+            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups, DefaultSettings.GeneratedFilesPath);
 
             builder.AddGroup("test", g => g.ToString());
 
@@ -36,9 +45,8 @@ namespace ResourceCompiler.Web.Mvc.Tests
 
         [Test]
         public void Should_Set_Path_Group_For_New_Group()
-        {
-            var collection = new WebAssetGroupCollection();
-            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection, DefaultSettings.GeneratedFilesPath);
+        {            
+            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups, DefaultSettings.GeneratedFilesPath);
 
             builder.AddGroup("test", g => g.ToString());
 
@@ -47,9 +55,8 @@ namespace ResourceCompiler.Web.Mvc.Tests
 
         [Test]
         public void Should_Set_Path_Group_For_Group_When_Adding_Single_Asset()
-        {
-            var collection = new WebAssetGroupCollection();
-            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection, DefaultSettings.GeneratedFilesPath);
+        {            
+            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups, DefaultSettings.GeneratedFilesPath);
 
             builder.Add("~/soure/file.css");
 
@@ -58,9 +65,8 @@ namespace ResourceCompiler.Web.Mvc.Tests
 
         [Test]
         public void Should_Throw_Exception_When_Adding_Group_That_Already_Exists()
-        {
-            var collection = new WebAssetGroupCollection();
-            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection, DefaultSettings.GeneratedFilesPath);
+        {            
+            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups, DefaultSettings.GeneratedFilesPath);
 
             builder.AddGroup("test", g => g.ToString());
 
@@ -69,18 +75,16 @@ namespace ResourceCompiler.Web.Mvc.Tests
 
         [Test]
         public void Should_Have_Nothing_In_Collection_By_Default()
-        {
-            var collection = new WebAssetGroupCollection();
-            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection, DefaultSettings.GeneratedFilesPath);
+        {            
+            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups, DefaultSettings.GeneratedFilesPath);
 
             Assert.AreEqual(0, collection.Count);
         }
 
         [Test]
         public void Adding_File_Should_Add_New_Group_With_Resource()
-        {
-            var collection = new WebAssetGroupCollection();
-            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection, DefaultSettings.GeneratedFilesPath);
+        {            
+            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups, DefaultSettings.GeneratedFilesPath);
 
             builder.Add("~/Files/test.css");
             builder.Add("~/Files/test.css");
@@ -95,20 +99,63 @@ namespace ResourceCompiler.Web.Mvc.Tests
 
         [Test]
         public void Adding_Group_Should_Return_Self_For_Chaining()
-        {
-            var collection = new WebAssetGroupCollection();
-            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection, DefaultSettings.GeneratedFilesPath);
+        {            
+            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups, DefaultSettings.GeneratedFilesPath);
 
             Assert.IsInstanceOf<WebAssetGroupCollectionBuilder>(builder.AddGroup("test", g => g.ToString()));
         }
 
         [Test]
         public void Add_Should_Return_Self_For_Chaining()
-        {
-            var collection = new WebAssetGroupCollection();
-            var builder = new WebAssetGroupCollectionBuilder(WebAssetType.None, collection, DefaultSettings.GeneratedFilesPath);
+        {            
+            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups, DefaultSettings.GeneratedFilesPath);
 
             Assert.IsInstanceOf<WebAssetGroupCollectionBuilder>(builder.Add("~/Files/test.css"));
+        }
+
+        [Test]
+        public void Adding_Shared_Group_Should_Return_Self_For_Chaining()
+        {
+            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups, DefaultSettings.GeneratedFilesPath);
+            sharedGroups.Add(new WebAssetGroup("Foo", true, "~/"));
+
+            Assert.IsInstanceOf<WebAssetGroupCollectionBuilder>(builder.AddSharedGroup("Foo"), "No Configuration");
+            Assert.IsInstanceOf<WebAssetGroupCollectionBuilder>(builder.AddSharedGroup("Foo", x => x.ToString()), "Configuration");
+        }
+
+        [Test]
+        public void Should_Allow_Overriding_Of_Configuration_For_Shared_Group()
+        {
+            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups, DefaultSettings.GeneratedFilesPath);
+
+            //add the shared group with combine false
+            sharedGroups.Add(new WebAssetGroup("Foo", true, "~/") { Combine = false });
+
+            //override the shared group by setting combine to true
+            builder.AddSharedGroup("Foo", g => g.Combine(true));
+
+            Assert.IsTrue(sharedGroups.FindGroupByName("Foo").Combine);
+        }
+
+        [Test]
+        public void Should_Add_Shared_Group_To_Groups()
+        {
+            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups, DefaultSettings.GeneratedFilesPath);
+            var group = new WebAssetGroup("Foo", true, "~/");
+            sharedGroups.Add(group);
+
+            builder.AddSharedGroup("Foo");
+
+            Assert.AreSame(group, collection.FindGroupByName("Foo"));
+        }
+
+        [Test]
+        public void Should_Throw_Exception_If_Shared_Group_Doesnt_Exist()
+        {
+            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups, DefaultSettings.GeneratedFilesPath);
+
+            Assert.Throws<ArgumentException>(() => builder.AddSharedGroup("name"), "No Configure");
+            Assert.Throws<ArgumentException>(() => builder.AddSharedGroup("name", g => g.ToString()), "Configure");
         }
     }
 }

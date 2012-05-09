@@ -71,7 +71,8 @@ namespace ResourceCompiler.Web.Mvc
         /// <returns></returns>
         public StyleSheetManagerBuilder StyleSheets(Action<WebAssetGroupCollectionBuilder> action)
         {
-            action(new WebAssetGroupCollectionBuilder(WebAssetType.StyleSheet, Manager.StyleSheets, DefaultSettings.GeneratedFilesPath));
+            //@TODO:: replace new instance of group collection with shared group collection
+            action(new WebAssetGroupCollectionBuilder(Manager.StyleSheets, new WebAssetGroupCollection(), DefaultSettings.GeneratedFilesPath));
             return this;
         }
 

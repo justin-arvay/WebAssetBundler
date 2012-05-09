@@ -21,7 +21,10 @@ namespace ResourceCompiler.Web.Mvc.Tests
     using System.Linq;
     using System.Text;
     using NUnit.Framework;
+    using Moq;
     using ResourceCompiler;
+    using System.Web;
+    using System.IO;
 
     [TestFixture]
     public class HtmlHelperExtensionTests
@@ -29,6 +32,11 @@ namespace ResourceCompiler.Web.Mvc.Tests
         [Test]
         public void Should_Return_Instance()
         {
+            HttpRequest httpRequest = new HttpRequest("", "http://mySomething/", "");
+            StringWriter stringWriter = new StringWriter();
+            HttpResponse httpResponce = new HttpResponse(stringWriter);            
+
+            HttpContext.Current = new HttpContext(httpRequest, httpResponce);
             var helper = TestHelper.CreateHtmlHelper();
             
             Assert.IsInstanceOf<ComponentBuilder>(helper.Reco());            
