@@ -33,6 +33,10 @@ namespace ResourceCompiler.Web.Mvc
             {
                 return (StyleSheetConfigurationElementCollection)base["styleSheets"] ?? new StyleSheetConfigurationElementCollection();
             }
+            set
+            {
+                base["styleSheets"] = value;
+            }
         }
 
         /// <summary>
@@ -45,6 +49,10 @@ namespace ResourceCompiler.Web.Mvc
             get
             {
                 return (ScriptConfigurationElementCollection)base["scripts"] ?? new ScriptConfigurationElementCollection();
+            }
+            set
+            {
+                base["scripts"] = value;
             }
         }
     }

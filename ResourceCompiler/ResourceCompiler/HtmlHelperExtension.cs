@@ -27,8 +27,15 @@ namespace ResourceCompiler.Web.Mvc
 
     public static class HtmlHelperExtension
     {
+        private static ISharedGroupManagerFactory sharedGroupManagerFactory;
+
         public static ComponentBuilder Reco(this HtmlHelper helper)
         {
+            //
+            if (sharedGroupManagerFactory == null)
+            {
+                //sharedGroupManagerFactory = new SharedGroupManagerFactory(new SharedGroupManagerLoader());
+            }
 
             var viewContext = helper.ViewContext;
             var cacheProvider = new CacheProvider();

@@ -8,12 +8,12 @@ namespace ResourceCompiler.Web.Mvc.Tests
     [TestFixture]
     public class SharedGroupManagerFactoryTests
     {
-        private Mock<ISharedGroupConfigurationMapper> mapper;
+        private Mock<ISharedGroupConfigurationLoader> mapper;
         
         [SetUp]
         public void Setup()
         {
-            mapper = new Mock<ISharedGroupConfigurationMapper>();
+            mapper = new Mock<ISharedGroupConfigurationLoader>();
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
             var factory = new SharedGroupManagerFactory(mapper.Object);
             factory.Create();
 
-            mapper.Verify(m => m.MapStyleSheets(It.IsAny<IList<WebAssetGroup>>()), Times.Once());
+            mapper.Verify(m => m.LoadStyleSheets(It.IsAny<IList<WebAssetGroup>>()), Times.Once());
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
             var factory = new SharedGroupManagerFactory(mapper.Object); 
             factory.Create();
 
-            mapper.Verify(m => m.MapScripts(It.IsAny<IList<WebAssetGroup>>()), Times.Once());
+            mapper.Verify(m => m.LoadScripts(It.IsAny<IList<WebAssetGroup>>()), Times.Once());
         }
     }
 }

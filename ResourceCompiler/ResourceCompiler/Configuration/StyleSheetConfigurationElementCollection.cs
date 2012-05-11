@@ -26,5 +26,10 @@ namespace ResourceCompiler.Web.Mvc
 
             return ((GroupConfigurationElementCollection)element).Name;
         }
+
+        public void Add(GroupConfigurationElementCollection collection)
+        {
+            BaseAdd(collection);
+        }
     }
 }

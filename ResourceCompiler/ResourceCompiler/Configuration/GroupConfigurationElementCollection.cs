@@ -42,6 +42,11 @@ namespace ResourceCompiler.Web.Mvc
             return ((AssetConfigurationElement)element).Source;
         }
 
+        public void Add(AssetConfigurationElement element)
+        {
+            BaseAdd(element);
+        }
+
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
@@ -53,25 +58,7 @@ namespace ResourceCompiler.Web.Mvc
             {
                 return (string)base["name"];
             }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="WebAssetGroupConfigurationElement"/> is enabled.
-        /// </summary>
-        /// <value><c>true</c> if enabled; otherwise, <c>false</c>.</value>
-        [ConfigurationProperty("enabled", DefaultValue = true)]
-        public bool Enabled
-        {
-            get
-            {
-                return (bool)this["enabled"];
-            }
-
-            set
-            {
-                this["enabled"] = value;
-            }
-        }
+        }  
 
         /// <summary>
         /// Gets or sets the version.

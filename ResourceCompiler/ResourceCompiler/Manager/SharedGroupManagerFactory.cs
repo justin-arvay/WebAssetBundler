@@ -5,10 +5,9 @@ namespace ResourceCompiler.Web.Mvc
     public class SharedGroupManagerFactory : ISharedGroupManagerFactory
     {
         private SharedGroupManager manager;
+        private ISharedGroupConfigurationLoader mapper;
 
-        private ISharedGroupConfigurationMapper mapper;
-
-        public SharedGroupManagerFactory(ISharedGroupConfigurationMapper mapper)
+        public SharedGroupManagerFactory(ISharedGroupConfigurationLoader mapper)
         {
             this.mapper = mapper;
         }
@@ -19,8 +18,8 @@ namespace ResourceCompiler.Web.Mvc
             {
                 manager = new SharedGroupManager();
 
-                mapper.MapScripts(manager.Scripts);
-                mapper.MapStyleSheets(manager.StyleSheets);
+                mapper.LoadScripts(manager.Scripts);
+                mapper.LoadStyleSheets(manager.StyleSheets);
             }
 
             return manager;

@@ -44,6 +44,7 @@
       <HintPath>..\..\Library\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -63,6 +64,8 @@
   <ItemGroup>
     <Compile Include="Caching\MergedResultCacheTests.cs" />
     <Compile Include="ComponentBuilderTests.cs" />
+    <Compile Include="Configuration\ConfigurationTestHelper.cs" />
+    <Compile Include="Configuration\SharedGroupConfigurationLoaderTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
     <Compile Include="HtmlHelperExtensionTests.cs" />
     <Compile Include="IO\ScriptTagWriterTests.cs" />

@@ -25,7 +25,7 @@ namespace ResourceCompiler
         private StyleSheetManagerBuilder styleSheetManagerBuilder;
         private ScriptManagerBuilder scriptManagerBuilder;
 
-        public ComponentBuilder(StyleSheetManagerBuilder styleSheetManagerBuilder, ScriptManagerBuilder scriptManagerBuilder )
+        public ComponentBuilder(StyleSheetManagerBuilder styleSheetManagerBuilder, ScriptManagerBuilder scriptManagerBuilder)
         {
             this.scriptManagerBuilder = scriptManagerBuilder;
             this.styleSheetManagerBuilder = styleSheetManagerBuilder;
