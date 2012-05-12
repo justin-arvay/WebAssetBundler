@@ -23,7 +23,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
 
             var groupCollection = new GroupConfigurationElementCollection()
             {
-                Combined = true,
+                Combine = true,
                 Compress = true,
                 Version = "1.1"
             };

@@ -66,6 +66,8 @@
     <Compile Include="ComponentBuilderTests.cs" />
     <Compile Include="Configuration\ConfigurationTestHelper.cs" />
     <Compile Include="Configuration\SharedGroupConfigurationLoaderTests.cs" />
+    <Compile Include="Configuration\SharedWebAssetFactoryTests.cs" />
+    <Compile Include="Configuration\SharedWebAssetGroupFactoryTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
     <Compile Include="HtmlHelperExtensionTests.cs" />
     <Compile Include="IO\ScriptTagWriterTests.cs" />
@@ -93,7 +95,7 @@
     <Compile Include="Fluent\WebAssetGroupBuilderTests.cs" />
     <Compile Include="Fluent\WebAssetGroupCollectionBuilderTests.cs" />
     <Compile Include="Fluent\WebAssetCollectionTests.cs" />
-    <Compile Include="Fluent\WebAssetTest.cs" />
+    <Compile Include="Fluent\WebAssetTests.cs" />
     <Compile Include="Fluent\WebAssetGroupTests.cs" />
     <Compile Include="Manager\StyleSheetManagerTests.cs" />
     <Compile Include="Manager\StyleSheetManagerBuilderTests.cs" />

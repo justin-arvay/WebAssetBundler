@@ -58,6 +58,10 @@ namespace ResourceCompiler.Web.Mvc
             {
                 return (string)base["name"];
             }
+            set
+            {
+                base["name"] = value;
+            }
         }  
 
         /// <summary>
@@ -99,18 +103,18 @@ namespace ResourceCompiler.Web.Mvc
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="WebAssetGroupConfigurationElement"/> is combined.
         /// </summary>
-        /// <value><c>true</c> if combined; otherwise, <c>false</c>.</value>
-        [ConfigurationProperty("combined", DefaultValue = true)]
-        public bool Combined
+        /// <value><c>true</c> if combine; otherwise, <c>false</c>.</value>
+        [ConfigurationProperty("combine", DefaultValue = true)]
+        public bool Combine
         {
             get
             {
-                return (bool)this["combined"];
+                return (bool)this["combine"];
             }
 
             set
             {
-                this["combined"] = value;
+                this["combine"] = value;
             }
         }
     }

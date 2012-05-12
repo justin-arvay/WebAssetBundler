@@ -20,7 +20,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
     using ResourceCompiler.Web.Mvc;
 
     [TestFixture]
-    public class WebAssetTest
+    public class WebAssetTests
     {
 
         [Test]

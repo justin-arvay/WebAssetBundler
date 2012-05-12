@@ -73,6 +73,8 @@
     <Compile Include="Configuration\SharedGroupConfigurationLoader.cs" />
     <Compile Include="Configuration\SharedGroupConfigurationSection.cs" />
     <Compile Include="Configuration\AssetConfigurationElement.cs" />
+    <Compile Include="Configuration\SharedWebAssetFactory.cs" />
+    <Compile Include="Configuration\SharedWebAssetGroupFactory.cs" />
     <Compile Include="Configuration\StyleSheetConfigurationElementCollection.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="HtmlHelperExtension.cs" />

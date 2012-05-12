@@ -19,7 +19,12 @@ namespace ResourceCompiler.Web.Mvc.Tests
             groupFactory = new Mock<ISharedWebAssetGroupFactory>();
             sectionFactory = new Mock<IConfigurationSectionFactory>();
 
-            sectionFactory.Setup(s => s.Create()).Returns(ConfigurationTestHelper.CreateSection());            
+            sectionFactory.Setup(s => s.Create()).Returns(ConfigurationTestHelper.CreateSection());
+            groupFactory.Setup(g => g.Create(It.IsAny<GroupConfigurationElementCollection>()))
+                .Returns(new WebAssetGroup("", true, ""));
+
+            assetFactory.Setup(a => a.Create(It.IsAny<AssetConfigurationElement>()))
+                .Returns(new WebAsset(""));
         }
 
         [Test]
