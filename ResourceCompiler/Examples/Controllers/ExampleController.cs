@@ -13,17 +13,7 @@ namespace Examples.Controllers
     {
         public ActionResult Index()
         {
-            var sections = WebConfigurationManager.GetWebApplicationSection("reco") as SharedGroupConfigurationSection;
-
-            foreach (GroupConfigurationElementCollection group in sections.StyleSheets)
-            {
-                foreach (AssetConfigurationElement asset in group)
-                {
-                    var e = asset.Source;
-                }
-
-            }
-            //var config = new SharedGroupConfigurationSection();
+            
 
             return View();
         }
