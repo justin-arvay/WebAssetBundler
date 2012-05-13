@@ -14,8 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-
 namespace ResourceCompiler.Web.Mvc
 {
     using System;
@@ -27,14 +25,17 @@ namespace ResourceCompiler.Web.Mvc
 
     public static class HtmlHelperExtension
     {
-        private static ISharedGroupManagerFactory sharedGroupManagerFactory;
+        private static SharedGroupManager sharedManager;
 
         public static ComponentBuilder Reco(this HtmlHelper helper)
         {
             //
-            if (sharedGroupManagerFactory == null)
+            if (sharedManager == null)
             {
-                //sharedGroupManagerFactory = new SharedGroupManagerFactory(new SharedGroupManagerLoader());
+                sharedManager = (new SharedGroupManagerFactory(new SharedGroupConfigurationLoader(
+                    new ConfigurationSectionFactory(), 
+                    new SharedWebAssetGroupFactory(), 
+                    new SharedWebAssetFactory()))).Create();
             }
 
             var viewContext = helper.ViewContext;
@@ -42,11 +43,11 @@ namespace ResourceCompiler.Web.Mvc
 
             var styleSheetManagerBuilder = (HttpContext.Current.Items["StyleSheetManagerBuilder"] ??
                         (HttpContext.Current.Items["StyleSheetManagerBuilder"] =
-                        CreateStyleSheetManagerBuilder(viewContext, cacheProvider))) as StyleSheetManagerBuilder;
+                        CreateStyleSheetManagerBuilder(viewContext, cacheProvider, sharedManager))) as StyleSheetManagerBuilder;
 
             var scriptManagerBuilder = (HttpContext.Current.Items["ScriptManagerBuilder"] ??
                         (HttpContext.Current.Items["ScriptManagerBuilder"] =
-                        CreateScriptManagerBuilder(viewContext, cacheProvider))) as ScriptManagerBuilder;
+                        CreateScriptManagerBuilder(viewContext, cacheProvider, sharedManager))) as ScriptManagerBuilder;
 
 
             return new ComponentBuilder(
@@ -54,7 +55,7 @@ namespace ResourceCompiler.Web.Mvc
                 scriptManagerBuilder);
         }
 
-        private static StyleSheetManagerBuilder CreateStyleSheetManagerBuilder(ViewContext viewContext, ICacheProvider cacheProvider)
+        private static StyleSheetManagerBuilder CreateStyleSheetManagerBuilder(ViewContext viewContext, ICacheProvider cacheProvider, SharedGroupManager sharedManager)
         {
             var pathResolver = new PathResolver(WebAssetType.StyleSheet);
             var collection = new WebAssetGroupCollection();
@@ -72,13 +73,14 @@ namespace ResourceCompiler.Web.Mvc
 
             return new StyleSheetManagerBuilder(
                 new StyleSheetManager(new WebAssetGroupCollection()),
+                sharedManager.StyleSheets,
                 viewContext,
                 collectionResolver,
                 tagWriter,
                 generator);
         }
 
-        private static ScriptManagerBuilder CreateScriptManagerBuilder(ViewContext viewContext, ICacheProvider cacheProvider)
+        private static ScriptManagerBuilder CreateScriptManagerBuilder(ViewContext viewContext, ICacheProvider cacheProvider, SharedGroupManager sharedManager)
         {
 
             var pathResolver = new PathResolver(WebAssetType.Script);
@@ -93,6 +95,7 @@ namespace ResourceCompiler.Web.Mvc
 
             return new ScriptManagerBuilder(
                 new ScriptManager(new WebAssetGroupCollection()),
+                sharedManager.Scripts,
                 viewContext,
                 collectionResolver,
                 tagWriter,

@@ -49,6 +49,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
 
             return new StyleSheetManagerBuilder(
                 new StyleSheetManager(collection),
+                collection,
                 TestHelper.CreateViewContext(),
                 collectionResolver,
                 tagWriter.Object,
@@ -67,6 +68,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
 
             return new ScriptManagerBuilder(
                 new ScriptManager(collection),
+                collection,
                 TestHelper.CreateViewContext(),
                 collectionResolver,
                 tagWriter.Object,

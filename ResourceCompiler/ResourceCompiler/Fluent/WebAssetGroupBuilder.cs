@@ -54,7 +54,7 @@ namespace ResourceCompiler.Web.Mvc
         }
 
         /// <summary>
-        /// Adds a new resource to the group by file path.
+        /// Adds a new asset to the group by file path.
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
@@ -64,5 +64,15 @@ namespace ResourceCompiler.Web.Mvc
             return this;
         }
 
+        /// <summary>
+        /// Adds all assets from the shared group. Uses the current groups settings and not those from the shared group.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public WebAssetGroupBuilder AddShared(string name)
+        {
+            throw new NotImplementedException();
+            return this;
+        }
     }
 }

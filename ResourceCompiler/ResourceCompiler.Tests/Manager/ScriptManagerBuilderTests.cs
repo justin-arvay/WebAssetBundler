@@ -39,6 +39,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
             
             return new ScriptManagerBuilder(
                 new ScriptManager(collection), 
+                collection,
                 context, 
                 collectionResolver, 
                 tagWriter.Object,                 

@@ -67,5 +67,34 @@ namespace ResourceCompiler.Web.Mvc.Tests
 
             assetFactory.Verify(a => a.Create(It.IsAny<AssetConfigurationElement>()), Times.Once());      
         }
+
+        [Test]
+        public void Should_Not_Load_Scripts()
+        {
+            sectionFactory.Setup(s => s.Create())
+                .Returns(() => null);
+
+            var manager = new SharedGroupManager();
+            var loader = new SharedGroupConfigurationLoader(sectionFactory.Object, groupFactory.Object, assetFactory.Object);
+            loader.LoadScripts(manager.Scripts);
+
+            groupFactory.Verify(a => a.Create(It.IsAny<GroupConfigurationElementCollection>()), Times.Never());                            
+            assetFactory.Verify(a => a.Create(It.IsAny<AssetConfigurationElement>()), Times.Never());                             
+                           
+        }
+
+        [Test]
+        public void Should_Not_Load_Style_Sheets()
+        {
+            sectionFactory.Setup(s => s.Create())
+                .Returns(() => null);
+
+            var manager = new SharedGroupManager();
+            var loader = new SharedGroupConfigurationLoader(sectionFactory.Object, groupFactory.Object, assetFactory.Object);
+            loader.LoadStyleSheets(manager.StyleSheets);
+
+            groupFactory.Verify(a => a.Create(It.IsAny<GroupConfigurationElementCollection>()), Times.Never());
+            assetFactory.Verify(a => a.Create(It.IsAny<AssetConfigurationElement>()), Times.Never());       
+        }
     }
 }

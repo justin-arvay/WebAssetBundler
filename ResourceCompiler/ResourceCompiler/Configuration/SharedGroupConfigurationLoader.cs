@@ -24,31 +24,37 @@ namespace ResourceCompiler.Web.Mvc
 
         public void LoadStyleSheets(IList<WebAssetGroup> groups)
         {
-            foreach (GroupConfigurationElementCollection group in section.StyleSheets)
+            if (section != null)
             {
-                var webAssetGroup = groupFactory.Create(group);
-
-                foreach (AssetConfigurationElement asset in group)
+                foreach (GroupConfigurationElementCollection group in section.StyleSheets)
                 {
-                    webAssetGroup.Assets.Add(assetFactory.Create(asset));
-                }
+                    var webAssetGroup = groupFactory.Create(group);
 
-                groups.Add(webAssetGroup);
+                    foreach (AssetConfigurationElement asset in group)
+                    {
+                        webAssetGroup.Assets.Add(assetFactory.Create(asset));
+                    }
+
+                    groups.Add(webAssetGroup);
+                }
             }
         }
 
         public void LoadScripts(IList<WebAssetGroup> groups)
         {
-            foreach (GroupConfigurationElementCollection group in section.Scripts)
+            if (section != null)
             {
-                var webAssetGroup = groupFactory.Create(group);
-
-                foreach (AssetConfigurationElement asset in group)
+                foreach (GroupConfigurationElementCollection group in section.Scripts)
                 {
-                    webAssetGroup.Assets.Add(assetFactory.Create(asset));
-                }
+                    var webAssetGroup = groupFactory.Create(group);
 
-                groups.Add(webAssetGroup);
+                    foreach (AssetConfigurationElement asset in group)
+                    {
+                        webAssetGroup.Assets.Add(assetFactory.Create(asset));
+                    }
+
+                    groups.Add(webAssetGroup);
+                }
             }
         }
     }

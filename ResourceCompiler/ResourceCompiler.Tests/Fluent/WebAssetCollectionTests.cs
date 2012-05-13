@@ -40,6 +40,14 @@ namespace ResourceCompiler.Web.Mvc.Tests
 
             Assert.NotNull(collection.FindGroupByName("tEST"));
         }
+
+        [Test]
+        public void Should_Return_Null_If_Not_Group_Not_Found()
+        {
+            var collection = new WebAssetGroupCollection();
+
+            Assert.Null(collection.FindGroupByName("Foo"));
+        }
        
     }
 }

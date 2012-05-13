@@ -32,6 +32,7 @@ namespace ResourceCompiler.Web.Mvc
         private ViewContext viewContext;    
         private ITagWriter tagWriter;
         private IWebAssetGenerator generator;
+        private WebAssetGroupCollection sharedGroups;
 
         /// <summary>
         /// Constructor
@@ -41,6 +42,7 @@ namespace ResourceCompiler.Web.Mvc
         /// <param name="resolver"></param>
         public ScriptManagerBuilder(
             ScriptManager manager, 
+            WebAssetGroupCollection sharedGroups,
             ViewContext viewContext, 
             IWebAssetGroupCollectionResolver resolver,
             ITagWriter tagWriter,
@@ -51,6 +53,7 @@ namespace ResourceCompiler.Web.Mvc
             this.tagWriter = tagWriter;
             this.viewContext = viewContext;
             this.generator = generator;
+            this.sharedGroups = sharedGroups;
         }
 
         /// <summary>
@@ -72,7 +75,7 @@ namespace ResourceCompiler.Web.Mvc
         public ScriptManagerBuilder Scripts(Action<WebAssetGroupCollectionBuilder> action)
         {
             //@TODO:: replace new instance of group collection with shared group collection
-            action(new WebAssetGroupCollectionBuilder(Manager.Scripts, new WebAssetGroupCollection(), DefaultSettings.GeneratedFilesPath));
+            action(new WebAssetGroupCollectionBuilder(Manager.Scripts, sharedGroups, DefaultSettings.GeneratedFilesPath));
             return this;
         }
 

@@ -50,6 +50,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
 
             return new StyleSheetManagerBuilder(
                 new StyleSheetManager(collection), 
+                collection,
                 context, 
                 collectionResolver,
                 tagWriter.Object, 
