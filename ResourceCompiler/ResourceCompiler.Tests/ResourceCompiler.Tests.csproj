@@ -9,7 +9,7 @@
     <ProjectGuid>{9FEF5FAF-C2E6-4943-ACCC-7B89C13013C0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ResourceCompiler.Tests</RootNamespace>
+    <RootNamespace>WebAssetBundler.Tests</RootNamespace>
     <AssemblyName>ResourceCompiler.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

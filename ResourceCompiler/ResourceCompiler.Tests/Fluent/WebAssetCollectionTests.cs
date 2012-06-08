@@ -14,11 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace ResourceCompiler.Web.Mvc.Tests
+namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System;
     using NUnit.Framework;
-    using ResourceCompiler.Web.Mvc;
+    using WebAssetBundler.Web.Mvc;
 
     [TestFixture]
     public class WebAssetCollectionTests

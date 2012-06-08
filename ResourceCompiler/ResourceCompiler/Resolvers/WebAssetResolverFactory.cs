@@ -14,10 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace ResourceCompiler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc
 {
     using System.Linq;
-    using ResourceCompiler.Web.Mvc;
+    using WebAssetBundler.Web.Mvc;
 
     public class WebAssetResolverFactory : IWebAssetResolverFactory
     {

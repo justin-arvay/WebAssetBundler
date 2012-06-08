@@ -14,15 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace ResourceCompiler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc
 {
     using System.Web.UI;
     using System.Web;
     using System;
     using System.Web.Mvc;
     using System.IO;
-    using ResourceCompiler.TextResource;
-    using ResourceCompiler.Web.Mvc;
+    using WebAssetBundler.TextResource;
+    using WebAssetBundler.Web.Mvc;
     using System.Collections.Generic;
 
     public class ScriptManagerBuilder : IHtmlString

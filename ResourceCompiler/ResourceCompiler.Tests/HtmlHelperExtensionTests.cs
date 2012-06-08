@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace ResourceCompiler.Web.Mvc.Tests
+namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System;
     using System.Collections.Generic;
@@ -22,7 +22,7 @@ namespace ResourceCompiler.Web.Mvc.Tests
     using System.Text;
     using NUnit.Framework;
     using Moq;
-    using ResourceCompiler;
+    using WebAssetBundler;
     using System.Web;
     using System.IO;
 

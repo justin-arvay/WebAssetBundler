@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ResourceCompiler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc
 {
     public class SharedGroupManager
     {

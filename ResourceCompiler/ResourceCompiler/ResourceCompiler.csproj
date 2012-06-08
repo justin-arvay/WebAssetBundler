@@ -8,7 +8,7 @@
     <ProjectGuid>{2AC03817-4112-47FE-AF34-44A8AE4717AB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ResourceCompiler</RootNamespace>
+    <RootNamespace>WebAssetBundler</RootNamespace>
     <AssemblyName>ResourceCompiler</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

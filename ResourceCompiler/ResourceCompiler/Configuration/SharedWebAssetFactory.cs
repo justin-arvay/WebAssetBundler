@@ -1,5 +1,5 @@
 ﻿
-namespace ResourceCompiler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc
 {
     public class SharedWebAssetFactory : ISharedWebAssetFactory
     {

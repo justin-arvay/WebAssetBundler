@@ -16,7 +16,7 @@
 
 
 
-namespace ResourceCompiler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Collections.Generic;
