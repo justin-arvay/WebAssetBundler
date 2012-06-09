@@ -72,7 +72,7 @@ namespace WebAssetBundler.Web.Mvc
         public WebAssetGroupBuilder AddShared(string name)
         {
             throw new NotImplementedException();
-            return this;
+            
         }
     }
 }
