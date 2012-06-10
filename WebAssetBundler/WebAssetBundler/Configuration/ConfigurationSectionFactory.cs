@@ -7,7 +7,7 @@ namespace WebAssetBundler.Web.Mvc
     {
         public SharedGroupConfigurationSection Create()
         {
-            return WebConfigurationManager.GetWebApplicationSection("reco") as SharedGroupConfigurationSection;
+            return WebConfigurationManager.GetWebApplicationSection("bundler") as SharedGroupConfigurationSection;
         }
     }
 }

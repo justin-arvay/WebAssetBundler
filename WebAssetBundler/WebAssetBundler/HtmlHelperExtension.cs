@@ -27,7 +27,7 @@ namespace WebAssetBundler.Web.Mvc
     {
         private static SharedGroupManager sharedManager;
 
-        public static ComponentBuilder Reco(this HtmlHelper helper)
+        public static ComponentBuilder Bundler(this HtmlHelper helper)
         {
             //
             if (sharedManager == null)
