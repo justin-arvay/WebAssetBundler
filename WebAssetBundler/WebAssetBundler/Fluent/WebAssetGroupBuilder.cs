@@ -23,10 +23,12 @@ namespace WebAssetBundler.Web.Mvc
     public class WebAssetGroupBuilder
     {
         private readonly WebAssetGroup group;
+        private readonly WebAssetGroupCollection sharedGroups;
 
-        public WebAssetGroupBuilder(WebAssetGroup group)
+        public WebAssetGroupBuilder(WebAssetGroup group, WebAssetGroupCollection sharedGroups)
         {
             this.group = group;
+            this.sharedGroups = sharedGroups;
         }
 
         public WebAssetGroupBuilder Enable(bool value)
@@ -71,8 +73,14 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public WebAssetGroupBuilder AddShared(string name)
         {
-            throw new NotImplementedException();
-            
+            var sharedGroup = sharedGroups.FindGroupByName(name);
+
+            foreach (var asset in sharedGroup.Assets)
+            {
+                group.Assets.Add(asset);
+            }
+
+            return this;            
         }
     }
 }

@@ -63,7 +63,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public StyleSheetManagerBuilder DefaultGroup(Action<WebAssetGroupBuilder> action)
         {
-            action(new WebAssetGroupBuilder(Manager.DefaultGroup));
+            action(new WebAssetGroupBuilder(Manager.DefaultGroup, sharedGroups));
             return this;
         }
 

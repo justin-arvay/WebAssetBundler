@@ -46,7 +46,7 @@ namespace WebAssetBundler.Web.Mvc
             groups.Add(group);
 
             //call action
-            configureAction(new WebAssetGroupBuilder(group));
+            configureAction(new WebAssetGroupBuilder(group, sharedGroups));
             return this;
         }
 
@@ -90,7 +90,7 @@ namespace WebAssetBundler.Web.Mvc
             var group = FindSharedGroup(name);
 
             groups.Add(group);
-            configureAction(new WebAssetGroupBuilder(group));
+            configureAction(new WebAssetGroupBuilder(group, sharedGroups));
             
             return this;
         }
