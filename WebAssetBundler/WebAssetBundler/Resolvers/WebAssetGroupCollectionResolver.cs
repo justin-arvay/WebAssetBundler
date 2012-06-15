@@ -30,17 +30,17 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
-        /// Resolves all the resource groups into a collection of urls.
+        /// Resolves all the asset groups into a collection of urls.
         /// </summary>
-        /// <param name="resourceGroups"></param>
+        /// <param name="groups"></param>
         /// <returns></returns>
-        public IList<ResolverResult> Resolve(WebAssetGroupCollection resourceGroups)
+        public IList<ResolverResult> Resolve(WebAssetGroupCollection groups)
         {
             var results = new List<ResolverResult>();
 
-            foreach (var resourceGroup in resourceGroups)
+            foreach (var group in groups)
             {
-                var resolver = resolverFactory.Create(resourceGroup);
+                var resolver = resolverFactory.Create(group);
                 results.AddRange(resolver.Resolve());
             }
 

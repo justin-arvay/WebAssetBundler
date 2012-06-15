@@ -35,7 +35,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             var filePath = server.MapPath(result.Path);            
 
-            //ensure we create the directory structure to the resource
+            //ensure we create the directory structure to the asset
             //we need to be careful here as the version can look like a file
             if (Directory.Exists(Path.GetDirectoryName(filePath)) == false)
             {

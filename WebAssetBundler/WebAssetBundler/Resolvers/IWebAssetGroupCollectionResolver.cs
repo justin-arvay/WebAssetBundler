@@ -21,6 +21,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IWebAssetGroupCollectionResolver
     {
-        IList<ResolverResult> Resolve(WebAssetGroupCollection resources);
+        IList<ResolverResult> Resolve(WebAssetGroupCollection groups);
     }
 }

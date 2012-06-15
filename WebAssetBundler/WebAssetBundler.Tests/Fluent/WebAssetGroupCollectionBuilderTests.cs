@@ -82,7 +82,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Adding_File_Should_Add_New_Group_With_Resource()
+        public void Adding_File_Should_Add_New_Group_With_Asset()
         {            
             var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups, DefaultSettings.GeneratedFilesPath);
 

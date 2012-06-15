@@ -36,7 +36,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Can_Add_Resource_To_Group()
+        public void Can_Add_Asset_To_Group()
         {
             var group = new WebAssetGroup("", false, "");
             var builder = new WebAssetGroupBuilder(group, sharedGroups);

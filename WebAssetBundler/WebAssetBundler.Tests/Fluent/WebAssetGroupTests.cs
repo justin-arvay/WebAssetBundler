@@ -101,7 +101,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Resources_Are_Empty_By_Default()
+        public void Groups_Are_Empty_By_Default()
         {
             var group = new WebAssetGroup("", false, "");
 
@@ -109,7 +109,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Can_Add_Resource()
+        public void Can_Add_Asset()
         {
             var group = new WebAssetGroup("", false, "");
             group.Assets.Add(new WebAsset("/path/file.js"));
