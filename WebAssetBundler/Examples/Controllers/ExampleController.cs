@@ -12,9 +12,7 @@ namespace Examples.Controllers
     public class ExampleController : Controller
     {
         public ActionResult Index()
-        {
-            
-
+        {            
             return View();
         }
 

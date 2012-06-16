@@ -74,7 +74,6 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public ScriptManagerBuilder Scripts(Action<WebAssetGroupCollectionBuilder> action)
         {
-            //@TODO:: replace new instance of group collection with shared group collection
             action(new WebAssetGroupCollectionBuilder(Manager.Scripts, sharedGroups, DefaultSettings.GeneratedFilesPath));
             return this;
         }

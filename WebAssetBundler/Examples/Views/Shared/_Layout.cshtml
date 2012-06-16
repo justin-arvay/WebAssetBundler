@@ -3,7 +3,7 @@
 <head>
     <title>@ViewBag.Title</title>
 
-     @{Html.Reco().StyleSheetManager()
+     @{Html.Bundler().StyleSheetManager()
         .StyleSheets(style => style
             .AddGroup("Test", g => g
                 .Add("~/Content/themes/base/jquery.ui.all.css")
@@ -13,12 +13,10 @@
                 .Combine(true)))
         .Render();}
 
-        @{Html.Reco().ScriptManager()
+        @{Html.Bundler().ScriptManager()
               .Scripts(s => s
-                  .AddSharedGroup("jQuery")
-                  .AddGroup("Test2", g => g
-                      .Add("~/Scripts/jquery-1.5.1.min.js")
-                      .Add("~/Scripts/jquery.validate.js")
+                  .AddSharedGroup("jQuery")                  
+                  .AddGroup("Test2", g => g                                           
                       .Combine(true)
                       .Compress(true)
                       .Version("1.3333")))

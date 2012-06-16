@@ -75,7 +75,7 @@ namespace WebAssetBundler.Web.Mvc
         public WebAssetGroupCollectionBuilder AddSharedGroup(string name)
         {
             var group = FindSharedGroup(name);
-            groups.Add(group);
+            groups.AddShared(group);
             return this;
         }
 
@@ -89,7 +89,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             var group = FindSharedGroup(name);
 
-            groups.Add(group);
+            groups.AddShared(group);
             configureAction(new WebAssetGroupBuilder(group, sharedGroups));
             
             return this;

@@ -166,6 +166,30 @@ namespace WebAssetBundler.Web.Mvc.Tests
             sharedGroups.Add(new WebAssetGroup("Test", true, ""));
 
             Assert.IsInstanceOf<WebAssetGroupBuilder>(builder.AddShared("Test"));
+        }       
+
+        [Test]
+        public void Should_Throw_Exception_If_Shared_Included_Already()
+        {
+            var group = new WebAssetGroup("", false, "");
+            var builder = new WebAssetGroupBuilder(group, sharedGroups);
+
+            sharedGroups.Add(new WebAssetGroup("Test", true, "") { IsIncluded = true });
+
+            Assert.Throws<InvalidOperationException>(() => builder.AddShared("Test"));
+        }
+
+        [Test]
+        public void Should_Set_Shared_Group_As_Included()
+        {
+            sharedGroups.Add(new WebAssetGroup("Test", true, ""));
+
+            var group = new WebAssetGroup("", false, "");
+            var builder = new WebAssetGroupBuilder(group, sharedGroups);
+            
+            builder.AddShared("Test");
+
+            Assert.IsTrue(sharedGroups[0].IsIncluded);
         }
     }
 }

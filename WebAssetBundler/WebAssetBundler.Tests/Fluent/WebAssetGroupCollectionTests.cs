@@ -21,7 +21,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using WebAssetBundler.Web.Mvc;
 
     [TestFixture]
-    public class WebAssetCollectionTests
+    public class WebAssetGroupCollectionTests
     {
         [Test]
         public void Should_Find_Group_By_Name()
@@ -48,6 +48,25 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.Null(collection.FindGroupByName("Foo"));
         }
-       
+
+        [Test]
+        public void Should_Throw_Exception_If_Shared_Group_Has_Already_Been_Included()
+        {
+            var collection = new WebAssetGroupCollection();
+            var group = new WebAssetGroup("Test", true, "") { IsIncluded = true };
+
+            Assert.Throws<InvalidOperationException>(() => collection.AddShared(group));
+        }
+
+        [Test]
+        public void Should_Set_Shared_Group_As_Included()
+        {
+            var collection = new WebAssetGroupCollection();
+            var group = new WebAssetGroup("Test", true, "");
+
+            collection.AddShared(group);
+
+            Assert.IsTrue(group.IsIncluded);
+        }
     }
 }

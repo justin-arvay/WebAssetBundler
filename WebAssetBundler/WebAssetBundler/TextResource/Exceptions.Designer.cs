@@ -61,6 +61,15 @@ namespace WebAssetBundler.TextResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can not add the shared group twice..
+        /// </summary>
+        internal static string CannotAddSharedGroupTwice {
+            get {
+                return ResourceManager.GetString("CannotAddSharedGroupTwice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A group with that name already exists..
         /// </summary>
         internal static string GroupWithSpecifiedNameAlreadyExists {

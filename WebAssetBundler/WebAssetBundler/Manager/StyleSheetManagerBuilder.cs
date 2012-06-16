@@ -73,8 +73,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="action"></param>
         /// <returns></returns>
         public StyleSheetManagerBuilder StyleSheets(Action<WebAssetGroupCollectionBuilder> action)
-        {
-            //@TODO:: replace new instance of group collection with shared group collection
+        {            
             action(new WebAssetGroupCollectionBuilder(Manager.StyleSheets, sharedGroups, DefaultSettings.GeneratedFilesPath));
             return this;
         }

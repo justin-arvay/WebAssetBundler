@@ -75,10 +75,17 @@ namespace WebAssetBundler.Web.Mvc
         {
             var sharedGroup = sharedGroups.FindGroupByName(name);
 
+            if (sharedGroup.IsIncluded)
+            {
+                throw new InvalidOperationException(TextResource.Exceptions.CannotAddSharedGroupTwice);
+            }
+
             foreach (var asset in sharedGroup.Assets)
             {
                 group.Assets.Add(asset);
             }
+
+            sharedGroup.IsIncluded = true;
 
             return this;            
         }

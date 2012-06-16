@@ -41,5 +41,19 @@ namespace WebAssetBundler.Web.Mvc
             return Items.SingleOrDefault(g => g.Name.IsCaseInsensitiveEqual(name));
         }
 
+        public void AddShared(WebAssetGroup item)
+        {
+            if (item.IsShared)
+            {
+                if (item.IsIncluded)
+                {
+                    throw new InvalidOperationException(TextResource.Exceptions.CannotAddSharedGroupTwice);
+                }
+            }
+
+            item.IsIncluded = true;
+
+            base.Add(item);
+        }
     }
 }

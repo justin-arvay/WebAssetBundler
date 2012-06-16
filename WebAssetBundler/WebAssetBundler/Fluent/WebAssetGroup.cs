@@ -47,6 +47,12 @@ namespace WebAssetBundler.Web.Mvc
             private set;
         }
 
+        public bool IsIncluded
+        {
+            get;
+            set;
+        }
+
         public string GeneratedPath
         {
             get;

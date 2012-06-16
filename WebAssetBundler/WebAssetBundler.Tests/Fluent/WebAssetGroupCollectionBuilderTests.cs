@@ -119,7 +119,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups, DefaultSettings.GeneratedFilesPath);
             sharedGroups.Add(new WebAssetGroup("Foo", true, "~/"));
 
-            Assert.IsInstanceOf<WebAssetGroupCollectionBuilder>(builder.AddSharedGroup("Foo"), "No Configuration");
+            Assert.IsInstanceOf<WebAssetGroupCollectionBuilder>(builder.AddSharedGroup("Foo"), "No Configuration");           
+        }
+
+        [Test]
+        public void Adding_Configured_Shared_Group_Should_Return_Self_For_Chaining()
+        {
+            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups, DefaultSettings.GeneratedFilesPath);
+            sharedGroups.Add(new WebAssetGroup("Foo", true, "~/"));
+            
             Assert.IsInstanceOf<WebAssetGroupCollectionBuilder>(builder.AddSharedGroup("Foo", x => x.ToString()), "Configuration");
         }
 
@@ -156,6 +164,28 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.Throws<ArgumentException>(() => builder.AddSharedGroup("name"), "No Configure");
             Assert.Throws<ArgumentException>(() => builder.AddSharedGroup("name", g => g.ToString()), "Configure");
+        }
+
+        [Test]
+        public void Should_Set_Shared_Group_To_Included()
+        {
+            sharedGroups.Add(new WebAssetGroup("Foo", true, ""));
+            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups, DefaultSettings.GeneratedFilesPath);
+
+            builder.AddSharedGroup("Foo");
+
+            Assert.IsTrue(sharedGroups[0].IsIncluded);
+        }
+
+        [Test]
+        public void Should_Set_Configured_Shared_Group_To_Included()
+        {
+            sharedGroups.Add(new WebAssetGroup("Foo", true, ""));
+            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups, DefaultSettings.GeneratedFilesPath);
+
+            builder.AddSharedGroup("Foo", s => s.ToString());
+
+            Assert.IsTrue(sharedGroups[0].IsIncluded);
         }
     }
 }
