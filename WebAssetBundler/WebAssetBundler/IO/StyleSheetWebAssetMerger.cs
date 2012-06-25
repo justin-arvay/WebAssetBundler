@@ -27,31 +27,47 @@ namespace WebAssetBundler.Web.Mvc
         private IWebAssetReader reader;
         private IContentFilter filter;
         private IStyleSheetCompressor compressor;
+        private IPathResolver pathResolver;
         private HttpServerUtilityBase server;
 
-        public StyleSheetWebAssetMerger(IWebAssetReader reader, IContentFilter filter, IStyleSheetCompressor compressor, HttpServerUtilityBase server)
+        public StyleSheetWebAssetMerger(IWebAssetReader reader, IContentFilter filter, IStyleSheetCompressor compressor, IPathResolver pathResolver, 
+            HttpServerUtilityBase server)
         {
             this.reader = reader;
             this.filter = filter;
             this.server = server;
+            this.pathResolver = pathResolver;
             this.compressor = compressor;
         }
 
-        public WebAssetMergerResult Merge(ResolverResult resolverResult)
+        public IList<WebAssetMergerResult> Merge(IList<ResolverResult> results)
         {
-            string content = "";
+            var mergedResults = new List<WebAssetMergerResult>();
 
-            foreach (var webAsset in resolverResult.WebAssets)
+            foreach (var result in results)
             {
-                content += filter.Filter(server.MapPath(resolverResult.Path), server.MapPath(webAsset.Source), reader.Read(webAsset));
+                mergedResults.Add(MergeSingle(result));
             }
 
-            if (resolverResult.Compress)
+            return mergedResults;
+        }
+
+        private WebAssetMergerResult MergeSingle(ResolverResult result)
+        {
+            string content = "";
+            string generatedPath = pathResolver.Resolve(DefaultSettings.GeneratedFilesPath, result.Version, result.Name);
+
+            foreach (var asset in result.Assets)
+            {
+                content += filter.Filter(server.MapPath(generatedPath), server.MapPath(asset.Source), reader.Read(asset));
+            }
+
+            if (result.Compress)
             {
                 content = compressor.Compress(content);
             }
 
-            return new WebAssetMergerResult(resolverResult.Path, content);
+            return new WebAssetMergerResult(generatedPath, content);
         }
     }
 }

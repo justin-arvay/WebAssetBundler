@@ -36,33 +36,45 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual(2, resolver.Resolve().Count);
         }
-
-        [Test]
-        public void Should_Use_Source_For_Result_Path()
-        {
-            var path = "~/Files/test.css";
-            var group = new WebAssetGroup("Test", false, "");
-
-            group.Assets.Add(new WebAsset(path));
-
-            var resolver = new WebAssetGroupResolver(group);
-            var results = resolver.Resolve();
-
-            Assert.AreEqual(path, results[0].Path);
-        }
+        
 
         [Test]
         public void Should_Resolve_Compress_For_Result()
         {
-            var group = new WebAssetGroup("Test", false, "");
-
-            group.Compress = true;
+            var group = new WebAssetGroup("Test", false, "") { Compress = true };
+            
             group.Assets.Add(new WebAsset(""));
 
             var resolver = new WebAssetGroupResolver(group);
             var results = resolver.Resolve();
 
             Assert.IsTrue(results[0].Compress);
+        }
+
+        [Test]
+        public void Should_Resolve_Version_For_Result()
+        {
+            var group = new WebAssetGroup("Test", false, "") { Version = "1.2" };
+
+            group.Assets.Add(new WebAsset(""));
+
+            var resolver = new WebAssetGroupResolver(group);
+            var results = resolver.Resolve();
+
+            Assert.AreEqual("1.2", results[0].Version);
+        }
+
+        [Test]
+        public void Should_Resolve_Name_For_Result()
+        {
+            var group = new WebAssetGroup("Test", false, "");
+
+            group.Assets.Add(new WebAsset("~/Files/test-file.css"));
+
+            var resolver = new WebAssetGroupResolver(group);
+            var results = resolver.Resolve();
+
+            Assert.AreEqual("test-file", results[0].Name);
         }
     }
 }

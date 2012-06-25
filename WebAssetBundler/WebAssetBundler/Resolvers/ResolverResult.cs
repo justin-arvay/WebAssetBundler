@@ -23,17 +23,22 @@ namespace WebAssetBundler.Web.Mvc
     public class ResolverResult
     {
 
-        public ResolverResult(string path, bool compress, ICollection<IWebAsset> webAssets)
+        public ResolverResult(ICollection<IWebAsset> webAssets, string name)
         {
-            Path = path;
-            WebAssets = webAssets;
-            Compress = compress;
+            Name = name;            
+            Assets = webAssets;            
         }
 
-        public string Path
+        public string Name
         {
             get;
             private set;
+        }
+
+        public string Version
+        {
+            get;
+            set;
         }
 
         public bool Compress
@@ -42,7 +47,7 @@ namespace WebAssetBundler.Web.Mvc
             set;
         }
 
-        public ICollection<IWebAsset> WebAssets
+        public ICollection<IWebAsset> Assets
         {
             get;
             private set;

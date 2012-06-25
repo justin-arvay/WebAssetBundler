@@ -28,31 +28,46 @@ namespace WebAssetBundler.Web.Mvc
     {
         private IWebAssetReader reader;
         private IScriptCompressor compressor;
+        private IPathResolver pathResolver;
 
-        public ScriptWebAssetMerger(IWebAssetReader reader, IScriptCompressor compressor)
+        public ScriptWebAssetMerger(IWebAssetReader reader, IPathResolver pathResolver, IScriptCompressor compressor)
         {
             this.reader = reader;
             this.compressor = compressor;
+            this.pathResolver = pathResolver;
         }
 
-        public WebAssetMergerResult Merge(ResolverResult resolverResult)
+        public IList<WebAssetMergerResult> Merge(IList<ResolverResult> results)
+        {
+            var mergedResults = new List<WebAssetMergerResult>();
+
+            foreach (var result in results)
+            {
+                mergedResults.Add(MergeSingle(result));
+            }
+
+            return mergedResults;
+        }
+
+        private WebAssetMergerResult MergeSingle(ResolverResult result)
         {
             string content = "";
+            string generatedPath = pathResolver.Resolve(DefaultSettings.GeneratedFilesPath, result.Version, result.Name);
 
-            foreach (var webAsset in resolverResult.WebAssets)
+            foreach (var asset in result.Assets)
             {
                 //combined the content with a (;) 
                 //(;) ensures we end each script in case the developer forgot
-                content += reader.Read(webAsset) + ";";
+                content += reader.Read(asset) + ";";
             }
 
-            if (resolverResult.Compress)
+            if (result.Compress)
             {
                 //compress the merged content if we can
                 content = compressor.Compress(content);
             }
          
-            return new WebAssetMergerResult(resolverResult.Path, content);
-        }
+            return new WebAssetMergerResult(generatedPath, content);
+        }        
     }
 }

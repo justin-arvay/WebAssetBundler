@@ -30,7 +30,8 @@ namespace WebAssetBundler.Web.Mvc
         private readonly IWebAssetGroupCollectionResolver collectionResolver;
         private bool hasRendered;
         private ViewContext viewContext;
-        private ITagWriter tagWriter;        
+        private ITagWriter tagWriter;
+        private IWebAssetMerger merger;
         private IWebAssetGenerator generator;
         private WebAssetGroupCollection sharedGroups;
 
@@ -45,13 +46,15 @@ namespace WebAssetBundler.Web.Mvc
             WebAssetGroupCollection sharedGroups,
             ViewContext viewContext, 
             IWebAssetGroupCollectionResolver resolver,
-            ITagWriter tagWriter,                    
+            ITagWriter tagWriter,                   
+            IWebAssetMerger merger,
             IWebAssetGenerator generator)
         {
             Manager = manager;
             this.collectionResolver = resolver;
             this.tagWriter = tagWriter;
-            this.viewContext = viewContext;                      
+            this.viewContext = viewContext;
+            this.merger = merger;         
             this.generator = generator;
             this.sharedGroups = sharedGroups;
         }
@@ -97,7 +100,7 @@ namespace WebAssetBundler.Web.Mvc
                 throw new InvalidOperationException(TextResource.Exceptions.YouCannotCallRenderMoreThanOnce);
             }
 
-            var results = collectionResolver.Resolve(Manager.StyleSheets);
+            var results = merger.Merge(collectionResolver.Resolve(Manager.StyleSheets));
             var baseWriter = viewContext.Writer;
 
             generator.Generate(results);
@@ -116,7 +119,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public string ToHtmlString()
         {
-            var results = collectionResolver.Resolve(Manager.StyleSheets);
+            var results = merger.Merge(collectionResolver.Resolve(Manager.StyleSheets));
 
             generator.Generate(results);
 

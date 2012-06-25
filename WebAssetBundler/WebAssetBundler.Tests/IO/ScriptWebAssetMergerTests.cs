@@ -25,6 +25,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class ScriptWebAssetMergerTests
     {
         private Mock<IWebAssetReader> reader;
+        private Mock<IPathResolver> resolver;
         private Mock<IScriptCompressor> compressor;
         
         [SetUp]
@@ -32,6 +33,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             reader = new Mock<IWebAssetReader>();
             compressor = new Mock<IScriptCompressor>();
+            resolver = new Mock<IPathResolver>();
 
             compressor.Setup(c => c.Compress(It.IsAny<string>()))
                 .Returns((string content) => content);
@@ -41,41 +43,56 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Merge_Content_From_Result_Assets_With_Delimeter()
         {
             var content = "function(){}";
-            var merger = new ScriptWebAssetMerger(reader.Object, compressor.Object);
-            var webAssets = new List<IWebAsset>();
-            var resolverResult = new ResolverResult("", false, webAssets);
+            var merger = new ScriptWebAssetMerger(reader.Object, resolver.Object, compressor.Object);
+            var assets = new List<IWebAsset>();
+            var results = new List<ResolverResult>();
 
-            webAssets.Add(new WebAsset(""));
-            webAssets.Add(new WebAsset(""));
+            results.Add (new ResolverResult(assets, "Test"));
+
+            assets.Add(new WebAsset(""));
+            assets.Add(new WebAsset(""));
 
             //set up the reader to always return content
             reader.Setup(r => r.Read(It.IsAny<IWebAsset>()))
                 .Returns(content);
 
-            Assert.AreEqual(content + ";" + content + ";", merger.Merge(resolverResult).Content);
+            Assert.AreEqual(content + ";" + content + ";", merger.Merge(results)[0].Content);
         }
 
         [Test]
-        public void Should_Return_Merger_Result_Path_As_Result_Path()
+        public void Should_Return_Merger_Result_Path_Resolved()
         {
-            var path = "path/test.js";
-            var merger = new ScriptWebAssetMerger(reader.Object, compressor.Object);
-            var resolverResult = new ResolverResult(path, false, new List<IWebAsset>());
+            var path = "Generated/js/test.js";
+            var merger = new ScriptWebAssetMerger(reader.Object, resolver.Object, compressor.Object);
+            var results = new List<ResolverResult>();
 
-            Assert.AreEqual(path, merger.Merge(resolverResult).Path);
+            results.Add(new ResolverResult(new List<IWebAsset>(), "Test")
+                {
+                    Version = "1.1"                    
+                });
+
+            resolver.Setup(r => r.Resolve(
+                It.Is<string>(s => s.Equals(DefaultSettings.GeneratedFilesPath)),
+                It.Is<string>(s => s.Equals("1.1")),
+                It.Is<string>(s => s.Equals("Test")))).Returns(path);
+
+
+            Assert.AreEqual(path, merger.Merge(results)[0].Path);
         }
 
         [Test]
         public void Should_Compress_Merged_Content()
         {            
-            var merger = new ScriptWebAssetMerger(reader.Object, compressor.Object);
+            var merger = new ScriptWebAssetMerger(reader.Object, resolver.Object, compressor.Object);
             var webAssets = new List<IWebAsset>();
-            var resolverResult = new ResolverResult("", true, webAssets);
+            var results = new List<ResolverResult>();
+
+            results.Add(new ResolverResult(webAssets, "Test") { Compress = true });
 
             webAssets.Add(new WebAsset(""));
             webAssets.Add(new WebAsset(""));
 
-            merger.Merge(resolverResult);
+            merger.Merge(results);
 
             compressor.Verify(c => c.Compress(It.IsAny<string>()), Times.Once());                       
         }
@@ -83,14 +100,16 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Compress_Merged_Content()
         {
-            var merger = new ScriptWebAssetMerger(reader.Object, compressor.Object);
+            var merger = new ScriptWebAssetMerger(reader.Object, resolver.Object, compressor.Object);
             var webAssets = new List<IWebAsset>();
-            var resolverResult = new ResolverResult("", false, webAssets);
+            var results = new List<ResolverResult>();
+
+            results.Add(new ResolverResult(webAssets, "Test"));
 
             webAssets.Add(new WebAsset(""));
             webAssets.Add(new WebAsset(""));
 
-            merger.Merge(resolverResult);
+            merger.Merge(results);
 
             compressor.Verify(c => c.Compress(It.IsAny<string>()), Times.Never());                       
         }

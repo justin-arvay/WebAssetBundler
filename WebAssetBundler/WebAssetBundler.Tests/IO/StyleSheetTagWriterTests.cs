@@ -33,9 +33,9 @@ namespace WebAssetBundler.Web.Mvc
             var tagWriter = new StyleSheetTagWriter(urlResolver.Object);
             var path = "~/Files/test/css";
 
-            var results = new List<ResolverResult>();
-            results.Add(new ResolverResult(path, false, null));
-            results.Add(new ResolverResult(path, false, null));
+            var results = new List<WebAssetMergerResult>();
+            results.Add(new WebAssetMergerResult("", ""));
+            results.Add(new WebAssetMergerResult("", ""));
 
             tagWriter.Write(writer.Object, results);
 
@@ -47,11 +47,11 @@ namespace WebAssetBundler.Web.Mvc
         {
             var urlResolver = new Mock<IUrlResolver>();
             var writer = new Mock<TextWriter>();
-            var tagWriter = new StyleSheetTagWriter(urlResolver.Object);            
+            var tagWriter = new StyleSheetTagWriter(urlResolver.Object);
 
-            var results = new List<ResolverResult>();
-            results.Add(new ResolverResult("", false, null));
-            results.Add(new ResolverResult("", false, null));
+            var results = new List<WebAssetMergerResult>();
+            results.Add(new WebAssetMergerResult("", ""));
+            results.Add(new WebAssetMergerResult("", ""));
 
             tagWriter.Write(writer.Object, results);
 
@@ -65,9 +65,9 @@ namespace WebAssetBundler.Web.Mvc
             var writer = new Mock<TextWriter>();
             var tagWriter = new StyleSheetTagWriter(urlResolver.Object);
 
-            var results = new List<ResolverResult>();
-            results.Add(new ResolverResult("", false, null));
-            results.Add(new ResolverResult("", false, null));
+            var results = new List<WebAssetMergerResult>();
+            results.Add(new WebAssetMergerResult("", ""));
+            results.Add(new WebAssetMergerResult("", ""));
 
             tagWriter.Write(writer.Object, results);
 

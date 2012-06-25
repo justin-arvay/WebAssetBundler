@@ -28,8 +28,8 @@ namespace WebAssetBundler.Web.Mvc
         {
             this.urlResolver = urlResolver;
         }
-    
-        public void  Write(TextWriter writer, IList<ResolverResult> results)
+
+        public void Write(TextWriter writer, IList<WebAssetMergerResult> results)
         {
             var link = "<link type=\"text/css\" href=\"{0}\" rel=\"stylesheet\"/>";
 

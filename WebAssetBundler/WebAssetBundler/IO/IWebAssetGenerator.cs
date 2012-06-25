@@ -21,6 +21,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IWebAssetGenerator
     {
-        void Generate(IList<ResolverResult> resolverResults);
+        void Generate(IList<WebAssetMergerResult> results);
     }
 }

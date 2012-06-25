@@ -23,21 +23,22 @@ namespace WebAssetBundler.Web.Mvc
 
     public class CombinedWebAssetGroupResolver : IWebAssetResolver
     {
-        private WebAssetGroup webAssetGroup;
-        private IPathResolver pathResolver;
+        private WebAssetGroup group;        
 
-        public CombinedWebAssetGroupResolver(WebAssetGroup webAssetGroup, IPathResolver pathResolver)
+        public CombinedWebAssetGroupResolver(WebAssetGroup group)
         {
-            this.webAssetGroup = webAssetGroup;
-            this.pathResolver = pathResolver;
+            this.group = group;            
         }
 
         public IList<ResolverResult> Resolve()
-        {
-            var path = pathResolver.Resolve(webAssetGroup.GeneratedPath, webAssetGroup.Version, webAssetGroup.Name);
+        {            
             var results = new List<ResolverResult>();
 
-            results.Add(new ResolverResult(path, webAssetGroup.Compress, webAssetGroup.Assets));
+            results.Add(new ResolverResult(group.Assets, group.Name)
+                {
+                    Compress = group.Compress,
+                    Version = group.Version
+                });
 
             return results;
         }

@@ -33,45 +33,27 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
         [Test]
         public void Should_Generate_If_No_Cache_Exists()
-        {
-            var merger = new Mock<IWebAssetMerger>();
+        {            
             var writer = new Mock<IWebAssetWriter>();
-            var generator = new WebAssetGenerator(writer.Object, merger.Object, cache.Object);
+            var generator = new WebAssetGenerator(writer.Object, cache.Object);
 
-            var results = new List<ResolverResult>();
-            results.Add(new ResolverResult("", false, null));
-            results.Add(new ResolverResult("", false, null));
+            var results = new List<WebAssetMergerResult>();
+            results.Add(new WebAssetMergerResult("", ""));
+            results.Add(new WebAssetMergerResult("", ""));
 
             generator.Generate(results);
 
             writer.Verify(w => w.Write(It.IsAny<WebAssetMergerResult>()), Times.Exactly(2));
-        }
-
-        [Test]
-        public void Should_Merge_Each_Result()
-        {
-            var merger = new Mock<IWebAssetMerger>();
-            var writer = new Mock<IWebAssetWriter>();
-            var generator = new WebAssetGenerator(writer.Object, merger.Object, cache.Object);
-
-            var results = new List<ResolverResult>();
-            results.Add(new ResolverResult("", false, null));
-            results.Add(new ResolverResult("", false, null));
-
-            generator.Generate(results);
-
-            merger.Verify(w => w.Merge(It.IsAny<ResolverResult>()), Times.Exactly(2));
-        }
+        }        
 
         [Test]
         public void Should_Cache_Merged_Result()
-        {
-            var merger = new Mock<IWebAssetMerger>();
+        {            
             var writer = new Mock<IWebAssetWriter>();
-            var generator = new WebAssetGenerator(writer.Object, merger.Object, cache.Object);
+            var generator = new WebAssetGenerator(writer.Object, cache.Object);
 
-            var results = new List<ResolverResult>();
-            results.Add(new ResolverResult("", false, null));
+            var results = new List<WebAssetMergerResult>();
+            results.Add(new WebAssetMergerResult("", ""));            
 
             generator.Generate(results);
             cache.Verify(c => c.Add(It.IsAny<WebAssetMergerResult>()), Times.Once());
@@ -79,13 +61,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
         [Test]
         public void Should_Not_Cache_Result()
-        {
-            var merger = new Mock<IWebAssetMerger>();
+        {           
             var writer = new Mock<IWebAssetWriter>();
-            var generator = new WebAssetGenerator(writer.Object, merger.Object, cache.Object);
+            var generator = new WebAssetGenerator(writer.Object, cache.Object);
 
-            var results = new List<ResolverResult>();
-            results.Add(new ResolverResult("", false, null));
+            var results = new List<WebAssetMergerResult>();
+            results.Add(new WebAssetMergerResult("", ""));            
 
             cache.Setup(c => c.Exists(It.IsAny<WebAssetMergerResult>()))
                 .Returns(true);
@@ -102,10 +83,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var merger = new Mock<IWebAssetMerger>();
             var writer = new Mock<IWebAssetWriter>();
-            var generator = new WebAssetGenerator(writer.Object, merger.Object, cache.Object);
+            var generator = new WebAssetGenerator(writer.Object, cache.Object);
 
-            var results = new List<ResolverResult>();
-            results.Add(new ResolverResult("", false, null));
+            var results = new List<WebAssetMergerResult>();
+            results.Add(new WebAssetMergerResult("", ""));            
 
             cache.Setup(c => c.Exists(It.IsAny<WebAssetMergerResult>()))
                 .Returns(true);

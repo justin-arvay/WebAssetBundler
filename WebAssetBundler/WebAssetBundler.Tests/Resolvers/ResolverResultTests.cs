@@ -24,29 +24,21 @@ namespace WebAssetBundler.Web.Mvc
     public class ResolverResultTests
     {
         [Test]
-        public void Should_Set_Path_In_Constructor()
-        {
-            var path = "some/path/file.css";
-            var result = new ResolverResult(path, false, null);
+        public void Should_Set_Name_In_Constructor()
+        {            
+            var result = new ResolverResult(null, "Test");
 
-            Assert.AreEqual(path, result.Path);
+            Assert.AreEqual("Test", result.Name);
         }
-
-        [Test]
-        public void Should_Set_Compress_In_Constructor()
-        {
-            var result = new ResolverResult("", true, null);
-
-            Assert.IsTrue(result.Compress);
-        }
+        
 
         [Test]
         public void Should_Set_Web_Assets_In_Constructor()
         {
             var webAssets = new List<IWebAsset>();
-            var result = new ResolverResult("", false, webAssets);
+            var result = new ResolverResult(webAssets, "Test");
 
-            Assert.NotNull(result.WebAssets);
+            Assert.NotNull(result.Assets);
         }
     }
 }

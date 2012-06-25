@@ -27,13 +27,41 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class ScriptManagerBuilderTests
     {
+        private Mock<ITagWriter> tagWriter;
+        private Mock<IWebAssetMerger> merger;
+        private Mock<IWebAssetGenerator> generator;
+        private ScriptManagerBuilder builder;
+
+        [SetUp]
+        public void Setup()
+        {
+            var server = new Mock<HttpServerUtilityBase>();
+            
+            var collection = new WebAssetGroupCollection();
+            var pathResolver = new Mock<IPathResolver>();
+            var resolverFactory = new WebAssetResolverFactory();
+            var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
+            generator = new Mock<IWebAssetGenerator>();
+            merger = new Mock<IWebAssetMerger>();
+            tagWriter = new Mock<ITagWriter>();
+
+            builder = new ScriptManagerBuilder(
+                new ScriptManager(collection),
+                collection,
+                TestHelper.CreateViewContext(),
+                collectionResolver,
+                tagWriter.Object,
+                merger.Object,
+                generator.Object);
+        }
 
         private ScriptManagerBuilder CreateBuilder(ViewContext context, Mock<ITagWriter> tagWriter)
         {
             var server = new Mock<HttpServerUtilityBase>();
+            var merger = new Mock<IWebAssetMerger>();
             var collection = new WebAssetGroupCollection();
             var pathResolver = new Mock<IPathResolver>();
-            var resolverFactory = new WebAssetResolverFactory(pathResolver.Object);
+            var resolverFactory = new WebAssetResolverFactory();
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
             var generator = new Mock<IWebAssetGenerator>();
             
@@ -42,7 +70,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 collection,
                 context, 
                 collectionResolver, 
-                tagWriter.Object,                 
+                tagWriter.Object,    
+                merger.Object,
                 generator.Object);
         }
 
@@ -104,7 +133,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Write_Tags()
+        public void Should_Write_Tags_On_Render()
         {
             var tagWriter = new Mock<ITagWriter>();
             var builder = CreateBuilder(TestHelper.CreateViewContext(), tagWriter);
@@ -117,7 +146,54 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             builder.Render();
 
-            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), It.IsAny<IList<ResolverResult>>()), Times.Exactly(1));
+            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), It.IsAny<IList<WebAssetMergerResult>>()), Times.Exactly(1));
+        }
+
+        [Test]
+        public void Should_Write_Tags_On_ToString()
+        {
+            var tagWriter = new Mock<ITagWriter>();
+            var builder = CreateBuilder(TestHelper.CreateViewContext(), tagWriter);
+
+            builder.Scripts(style => style
+                .AddGroup("test", group => group
+                    .Add("~/Files/test.js")
+                    .Add("~/Files/test2.js")
+                    .Combine(false)));
+
+            builder.ToHtmlString();
+
+            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), It.IsAny<IList<WebAssetMergerResult>>()), Times.Exactly(1));
+        }
+
+        [Test]
+        public void Should_Generate_On_Render()
+        {
+            var results = new List<WebAssetMergerResult>();
+            results.Add(new WebAssetMergerResult("", ""));
+            results.Add(new WebAssetMergerResult("", ""));
+
+            merger.Setup(m => m.Merge(It.IsAny<IList<ResolverResult>>())).Returns(results);
+
+            builder.Render();
+
+            //should call generate with 2 results passed
+            generator.Verify(g => g.Generate(It.Is<IList<WebAssetMergerResult>>(r => r.Count == 2)), Times.Once());   
+        }
+
+        [Test]
+        public void Should_Generate_On_ToString()
+        {
+            var results = new List<WebAssetMergerResult>();
+            results.Add(new WebAssetMergerResult("", ""));
+            results.Add(new WebAssetMergerResult("", ""));
+
+            merger.Setup(m => m.Merge(It.IsAny<IList<ResolverResult>>())).Returns(results);
+
+            builder.ToHtmlString();
+
+            //should call generate with 2 results passed
+            generator.Verify(g => g.Generate(It.Is<IList<WebAssetMergerResult>>(r => r.Count == 2)), Times.Once());   
         }
     }
 }

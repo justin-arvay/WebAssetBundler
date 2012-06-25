@@ -60,15 +60,16 @@ namespace WebAssetBundler.Web.Mvc
             var pathResolver = new PathResolver(WebAssetType.StyleSheet);
             var collection = new WebAssetGroupCollection();
             var urlResolver = new UrlResolver(viewContext.RequestContext);
-            var resolverFactory = new WebAssetResolverFactory(pathResolver);
+            var resolverFactory = new WebAssetResolverFactory();
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
             var writer = new WebAssetWriter(new DirectoryWriter(), viewContext.HttpContext.Server);
             var merger = new StyleSheetWebAssetMerger(
                 new WebAssetReader(viewContext.HttpContext.Server),
                 new ImagePathContentFilter(),
                 DefaultSettings.StyleSheetCompressor,
+                pathResolver, 
                 viewContext.HttpContext.Server);
-            var generator = new WebAssetGenerator(writer, merger, new MergedResultCache(WebAssetType.StyleSheet, cacheProvider));
+            var generator = new WebAssetGenerator(writer, new MergedResultCache(WebAssetType.StyleSheet, cacheProvider));
             var tagWriter = new StyleSheetTagWriter(urlResolver);
 
             return new StyleSheetManagerBuilder(
@@ -77,6 +78,7 @@ namespace WebAssetBundler.Web.Mvc
                 viewContext,
                 collectionResolver,
                 tagWriter,
+                merger,
                 generator);
         }
 
@@ -86,11 +88,11 @@ namespace WebAssetBundler.Web.Mvc
             var pathResolver = new PathResolver(WebAssetType.Script);
             
             var urlResolver = new UrlResolver(viewContext.RequestContext);
-            var resolverFactory = new WebAssetResolverFactory(pathResolver);
+            var resolverFactory = new WebAssetResolverFactory();
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
             var writer = new WebAssetWriter(new DirectoryWriter(), viewContext.HttpContext.Server);
-            var merger = new ScriptWebAssetMerger(new WebAssetReader(viewContext.HttpContext.Server), DefaultSettings.ScriptCompressor);
-            var generator = new WebAssetGenerator(writer, merger, new MergedResultCache(WebAssetType.Script, cacheProvider));
+            var merger = new ScriptWebAssetMerger(new WebAssetReader(viewContext.HttpContext.Server), pathResolver, DefaultSettings.ScriptCompressor);
+            var generator = new WebAssetGenerator(writer, new MergedResultCache(WebAssetType.Script, cacheProvider));
             var tagWriter = new ScriptTagWriter(urlResolver);
 
             return new ScriptManagerBuilder(
@@ -99,6 +101,7 @@ namespace WebAssetBundler.Web.Mvc
                 viewContext,
                 collectionResolver,
                 tagWriter,
+                merger,
                 generator);
         }
 

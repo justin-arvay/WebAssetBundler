@@ -26,73 +26,53 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Return_A_List_Of_Results()
         {
-            var pathResolver = new Mock<IPathResolver>();
-            var group = new WebAssetGroup("Test", false, "")
-            {
-                Version = "1.2"
-            };
+            var group = new WebAssetGroup("Test", false, "");
 
             group.Assets.Add(new WebAsset("~/Files/test.css"));
             group.Assets.Add(new WebAsset("~/Files/test2.css"));
 
-            var resolver = new VersionedWebAssetGroupResolver(group, pathResolver.Object);
+            var resolver = new VersionedWebAssetGroupResolver(group);
 
             Assert.AreEqual(2, resolver.Resolve().Count);
-        }
-
-        [Test]
-        public void Should_Resolve_Path_For_Result()
-        {
-            var pathResolver = new Mock<IPathResolver>();
-            var path = "/test/file.css";
-            var group = new WebAssetGroup("Test", false, DefaultSettings.GeneratedFilesPath) { Version = "1.2" };
-
-            group.Assets.Add(new WebAsset(path));     
-      
-            pathResolver.Setup(m => m.Resolve(
-                It.Is<string>(s => s.Equals(DefaultSettings.GeneratedFilesPath)),
-                It.Is<string>(s => s.Equals(group.Version)),
-                It.Is<string>(s => s.Equals("file"))))                
-                .Returns(path);
-
-            var resolver = new VersionedWebAssetGroupResolver(group, pathResolver.Object);
-            var results = (List<ResolverResult>)resolver.Resolve();
-
-            Assert.AreEqual(path, results[0].Path);
-        }
+        }        
 
         [Test]
         public void Should_Resolve_Compress_For_Result()
         {
-            var pathResolver = new Mock<IPathResolver>();
-            var path = "/test/file.css";
-            var group = new WebAssetGroup("Test", false, "") { Version = "1.2" };
+            var group = new WebAssetGroup("Test", false, "") { Compress = true };
+            
+            group.Assets.Add(new WebAsset("~/Files/test.css"));            
 
-            group.Compress = true;
-            group.Assets.Add(new WebAsset(path));            
-
-            var resolver = new VersionedWebAssetGroupResolver(group, pathResolver.Object);
+            var resolver = new VersionedWebAssetGroupResolver(group);
             var results = resolver.Resolve();
 
             Assert.IsTrue(results[0].Compress);
         }
 
         [Test]
-        public void Should_Pass_Correct_Prams_When_Resolving()
+        public void Should_Resolve_Version_For_Result()
         {
-            var pathResolver = new Mock<IPathResolver>();
-            var path = "/test/file.css";
-            var group = new WebAssetGroup("Test", false, DefaultSettings.GeneratedFilesPath) { Version = "1.2" };
+            var group = new WebAssetGroup("Test", false, "") { Version = "1.2" };
+            
+            group.Assets.Add(new WebAsset("~/Files/test.css"));
 
-            group.Assets.Add(new WebAsset(path));
+            var resolver = new VersionedWebAssetGroupResolver(group);
+            var results = resolver.Resolve();
 
-            var resolver = new VersionedWebAssetGroupResolver(group, pathResolver.Object);
-            resolver.Resolve();
+            Assert.AreEqual("1.2", results[0].Version);
+        }
 
-            pathResolver.Verify(m => m.Resolve(
-                It.Is<string>(s => s.Equals(DefaultSettings.GeneratedFilesPath)),
-                It.Is<string>(s => s.Equals(group.Version)),
-                It.Is<string>(s => s.Equals("file"))));
+        [Test]
+        public void Should_Resolve_Name_For_Result()
+        {
+            var group = new WebAssetGroup("Test", false, "");
+            
+            group.Assets.Add(new WebAsset("~/Files/the-file.css"));
+
+            var resolver = new VersionedWebAssetGroupResolver(group);
+            var results = resolver.Resolve();
+
+            Assert.AreEqual("the-file", results[0].Name);
         }
     }
 }

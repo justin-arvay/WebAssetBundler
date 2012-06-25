@@ -23,9 +23,9 @@ namespace WebAssetBundler.Web.Mvc
 
     public class WebAssetMergerResult
     {
-        public WebAssetMergerResult(string path, string content)
-        {
-            Path = path;
+        public WebAssetMergerResult(string generatedPath, string content)
+        {            
+            Path = generatedPath;
             Content = content;
         }
 
@@ -33,7 +33,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             get;
             private set;
-        }
+        }        
 
         public string Content
         {

@@ -25,7 +25,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Resolve_Collection_And_Return_Results()
         {
-            var factory = new WebAssetResolverFactory(new Mock<IPathResolver>().Object);
+            var factory = new WebAssetResolverFactory();
             var resolver = new WebAssetGroupCollectionResolver(factory);
             var collection = new WebAssetGroupCollection();
             var group = new WebAssetGroup("test", false, "");

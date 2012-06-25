@@ -20,27 +20,23 @@ namespace WebAssetBundler.Web.Mvc
 
     public class WebAssetGenerator : IWebAssetGenerator
     {
-        private IWebAssetWriter writer;
-        private IWebAssetMerger merger;
+        private IWebAssetWriter writer;        
         private IMergedResultCache cache;
 
-        public WebAssetGenerator(IWebAssetWriter writer, IWebAssetMerger merger, IMergedResultCache cache)
+        public WebAssetGenerator(IWebAssetWriter writer, IMergedResultCache cache)
         {
-            this.writer = writer;
-            this.merger = merger;
+            this.writer = writer;            
             this.cache = cache;
         }
 
-        public void Generate(IList<ResolverResult> resolverResults)
+        public void Generate(IList<WebAssetMergerResult> results)
         {
-            foreach (var resolverResult in resolverResults)
-            {
-                var mergedResult = merger.Merge(resolverResult);
-
-                if (cache.Exists(mergedResult) == false)
+            foreach (var result in results)
+            {                
+                if (cache.Exists(result) == false)
                 {
-                    cache.Add(mergedResult);
-                    writer.Write(mergedResult);
+                    cache.Add(result);
+                    writer.Write(result);
                 }
             }
         }

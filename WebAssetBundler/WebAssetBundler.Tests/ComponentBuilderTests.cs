@@ -35,16 +35,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var tagWriter = new Mock<ITagWriter>();
             var server = new Mock<HttpServerUtilityBase>();
-            var collection = new WebAssetGroupCollection();
-            var pathResolver = new Mock<IPathResolver>();
-            var resolverFactory = new WebAssetResolverFactory(pathResolver.Object);
+            var collection = new WebAssetGroupCollection();            
+            var resolverFactory = new WebAssetResolverFactory();
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
             var writer = new Mock<IWebAssetWriter>();
-            var merger = new StyleSheetWebAssetMerger(
-                new Mock<IWebAssetReader>().Object,
-                new Mock<IContentFilter>().Object,
-                new Mock<IStyleSheetCompressor>().Object,
-                server.Object);
+            var merger = new Mock<IWebAssetMerger>();
             var generator = new Mock<IWebAssetGenerator>();
 
             return new StyleSheetManagerBuilder(
@@ -53,6 +48,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 TestHelper.CreateViewContext(),
                 collectionResolver,
                 tagWriter.Object,
+                merger.Object,
                 generator.Object);
         }
 
@@ -62,7 +58,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var server = new Mock<HttpServerUtilityBase>();
             var collection = new WebAssetGroupCollection();
             var pathResolver = new Mock<IPathResolver>();
-            var resolverFactory = new WebAssetResolverFactory(pathResolver.Object);
+            var merger = new Mock<IWebAssetMerger>();
+            var resolverFactory = new WebAssetResolverFactory();
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
             var generator = new Mock<IWebAssetGenerator>();
 
@@ -72,6 +69,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 TestHelper.CreateViewContext(),
                 collectionResolver,
                 tagWriter.Object,
+                merger.Object,
                 generator.Object);
         }
 

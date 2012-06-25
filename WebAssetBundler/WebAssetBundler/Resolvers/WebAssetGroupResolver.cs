@@ -22,31 +22,35 @@ namespace WebAssetBundler.Web.Mvc
 
     public class WebAssetGroupResolver : IWebAssetResolver
     {
-        private WebAssetGroup webAssetGroup;        
+        private WebAssetGroup group;        
 
-        public WebAssetGroupResolver(WebAssetGroup webAssetGroup)
+        public WebAssetGroupResolver(WebAssetGroup group)
         {
-            this.webAssetGroup = webAssetGroup;            
+            this.group = group;            
         }
 
         public IList<ResolverResult> Resolve()
         {
             var results = new List<ResolverResult>();
 
-            foreach (var webAsset in webAssetGroup.Assets)
+            foreach (var asset in group.Assets)
             {
-                results.Add(ResolveWebAsset(webAssetGroup.Name, webAssetGroup.Compress, webAsset));
+                results.Add(ResolveWebAsset(asset.Name, group.Version, group.Compress, asset));
             }
 
             return results;
         }
 
-        private ResolverResult ResolveWebAsset(string name, bool compress, IWebAsset webAsset)
+        private ResolverResult ResolveWebAsset(string name, string version, bool compress, IWebAsset webAsset)
         {
             var assets = new List<IWebAsset>();
             assets.Add(webAsset);
 
-            return new ResolverResult(webAsset.Source, compress, assets);
+            return new ResolverResult(assets, name)
+                {
+                    Version = version,
+                    Compress = compress
+                };
         }
     }
 }

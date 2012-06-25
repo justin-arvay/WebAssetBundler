@@ -27,6 +27,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IWebAssetReader> reader;
         private Mock<IContentFilter> filter;
         private Mock<IStyleSheetCompressor> compressor;
+        private Mock<IPathResolver> resolver;
         private Mock<HttpServerUtilityBase> server;
 
         [SetUp]
@@ -34,6 +35,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             reader = new Mock<IWebAssetReader>();
             filter = new Mock<IContentFilter>();
+            resolver = new Mock<IPathResolver>();
             server = new Mock<HttpServerUtilityBase>();
             compressor = new Mock<IStyleSheetCompressor>();
         }
@@ -42,9 +44,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Merge_Content_From_Result_Assets()
         {
             var content = "1";
-            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, server.Object);
+            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, resolver.Object, server.Object);
             var webAssets = new List<IWebAsset>();
-            var resolverResult = new ResolverResult("", false, webAssets);
+            var results = new List<ResolverResult>();
+
+            results.Add(new ResolverResult(webAssets, "Test"));
 
             webAssets.Add(new WebAsset(""));
             webAssets.Add(new WebAsset(""));
@@ -57,26 +61,38 @@ namespace WebAssetBundler.Web.Mvc.Tests
             reader.Setup(r => r.Read(It.IsAny<IWebAsset>()))
                 .Returns(content);
 
-            Assert.AreEqual(content + content, merger.Merge(resolverResult).Content);
+            Assert.AreEqual(content + content, merger.Merge(results)[0].Content);
         }
 
         [Test]
         public void Should_Return_Merger_Result_Path_As_Result_Path()
         {
             var path = "path/test.css";
-            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, server.Object);
-            var resolverResult = new ResolverResult(path, false, new List<IWebAsset>());
+            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, resolver.Object, server.Object);
+            var results = new List<ResolverResult>();            
 
-            Assert.AreEqual(path, merger.Merge(resolverResult).Path);
+            results.Add(new ResolverResult(new List<IWebAsset>(), "Test")
+            {
+                Version = "1.1"
+            });
+
+            resolver.Setup(r => r.Resolve(
+                It.Is<string>(s => s.Equals(DefaultSettings.GeneratedFilesPath)),
+                It.Is<string>(s => s.Equals("1.1")),
+                It.Is<string>(s => s.Equals("Test")))).Returns(path);
+
+            Assert.AreEqual(path, merger.Merge(results)[0].Path);
         }
 
         [Test]
         public void Should_Filter_Each_WebAsset()
         {
             var content = "1";
-            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, server.Object);
+            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, resolver.Object, server.Object);
             var webAssets = new List<IWebAsset>();
-            var resolverResult = new ResolverResult("", false, webAssets);
+            var results = new List<ResolverResult>();
+
+            results.Add(new ResolverResult(webAssets, "Test"));
 
             webAssets.Add(new WebAsset(""));
             webAssets.Add(new WebAsset(""));
@@ -89,7 +105,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             reader.Setup(r => r.Read(It.IsAny<IWebAsset>()))
                 .Returns(content);
 
-            merger.Merge(resolverResult);
+            merger.Merge(results);
 
             //verify that we called the filter twice
             filter.Verify(f => f.Filter(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
@@ -100,14 +116,16 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var outputPath = "~/Generated/File.css";
             var sourcePath = "~/Content/File.css";
-            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, server.Object);
+            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, resolver.Object, server.Object);
             var webAssets = new List<IWebAsset>();
-            var resolverResult = new ResolverResult(outputPath, false, webAssets);
+            var results = new List<ResolverResult>();
 
-            webAssets.Add(new WebAsset(sourcePath));            
+            results.Add(new ResolverResult(webAssets, "Test"));
 
-            merger.Merge(resolverResult);
+            webAssets.Add(new WebAsset(sourcePath)); resolver.Setup(r => r.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(outputPath);
 
+            merger.Merge(results);
+           
             //Verify it calles mappath once with the outputPath as a param
             server.Verify(r => r.MapPath(It.Is<string>(s => s.Equals(outputPath))), Times.Exactly(1));
 
@@ -118,13 +136,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Compress_Content()
         {
-            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, server.Object);
+            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, resolver.Object, server.Object);
             var webAssets = new List<IWebAsset>();
-            var resolverResult = new ResolverResult("", true, webAssets);
+            var results = new List<ResolverResult>();
+
+            results.Add(new ResolverResult(webAssets, "Test") { Compress = true });
 
             webAssets.Add(new WebAsset(""));
 
-            merger.Merge(resolverResult);
+            merger.Merge(results);
 
             compressor.Verify(c => c.Compress(It.IsAny<string>()), Times.Once());
         }
@@ -132,15 +152,46 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Compress_Content()
         {
-            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, server.Object);
+            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, resolver.Object, server.Object);
             var webAssets = new List<IWebAsset>();
-            var resolverResult = new ResolverResult("", false, webAssets);
+            var results = new List<ResolverResult>();
+
+            results.Add(new ResolverResult(webAssets, "Test"));
 
             webAssets.Add(new WebAsset(""));
 
-            merger.Merge(resolverResult);
+            merger.Merge(results);
 
             compressor.Verify(c => c.Compress(It.IsAny<string>()), Times.Never());
+        }
+
+        [Test]
+        public void Should_Pass_Correct_Values_To_Filter()
+        {
+            var content = "1";
+            var path ="~/Test/file.css";
+            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, resolver.Object, server.Object);
+            var webAssets = new List<IWebAsset>();
+            var results = new List<ResolverResult>();
+
+            results.Add(new ResolverResult(webAssets, "Test"));
+
+            webAssets.Add(new WebAsset(""));
+            webAssets.Add(new WebAsset(""));
+
+            resolver.Setup(r => r.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(path);
+
+            server.Setup(r => r.MapPath(path)).Returns(path);
+
+            //sets up the filter to return whatever was passed to its content variable
+            filter.Setup(f => f.Filter(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(() => content);
+
+            //set up the reader to always return content
+            reader.Setup(r => r.Read(It.IsAny<IWebAsset>()))
+                .Returns(content);
+
+            merger.Merge(results);
         }
     }
 }

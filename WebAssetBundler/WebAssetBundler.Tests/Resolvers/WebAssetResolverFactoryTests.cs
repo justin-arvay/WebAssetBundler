@@ -23,18 +23,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
     [TestFixture]
     public class WebAssetResolverFactoryTests
-    {
-        private Mock<IPathResolver> pathResolver;
-
-        public WebAssetResolverFactoryTests()
-        {
-            pathResolver = new Mock<IPathResolver>();
-        }
+    {        
 
         [Test]
         public void Should_Return_Group_Resolver()
         {
-            var factory = new WebAssetResolverFactory(pathResolver.Object);
+            var factory = new WebAssetResolverFactory();
 
             Assert.IsInstanceOf<WebAssetGroupResolver>(factory.Create(new WebAssetGroup("", false, "")));
         }
@@ -42,7 +36,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Return_Combined_Group_Resolver()
         {
-            var factory = new WebAssetResolverFactory(pathResolver.Object);
+            var factory = new WebAssetResolverFactory();
             var group = new WebAssetGroup("", false, "") { Combine = true };
 
             Assert.IsInstanceOf<CombinedWebAssetGroupResolver>(factory.Create(group));

@@ -20,24 +20,18 @@ namespace WebAssetBundler.Web.Mvc
     using WebAssetBundler.Web.Mvc;
 
     public class WebAssetResolverFactory : IWebAssetResolverFactory
-    {
-        private IPathResolver pathResolver;
-
-        public WebAssetResolverFactory(IPathResolver pathResolver)
-        {
-            this.pathResolver = pathResolver;
-        }
+    {                
 
         public IWebAssetResolver Create(WebAssetGroup webAssetGroup)
         {
             if (webAssetGroup.Combine)
             {
-                return new CombinedWebAssetGroupResolver(webAssetGroup, pathResolver);
+                return new CombinedWebAssetGroupResolver(webAssetGroup);
             }
 
             if (webAssetGroup.Version.IsNotNullOrEmpty())
             {
-                return new VersionedWebAssetGroupResolver(webAssetGroup, pathResolver);
+                return new VersionedWebAssetGroupResolver(webAssetGroup);
             }
 
             return new WebAssetGroupResolver(webAssetGroup);
