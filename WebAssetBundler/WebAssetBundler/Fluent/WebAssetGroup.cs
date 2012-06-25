@@ -26,11 +26,10 @@ namespace WebAssetBundler.Web.Mvc
 
     public class WebAssetGroup
     {
-        public WebAssetGroup(string name, bool isShared, string generatedPath)
+        public WebAssetGroup(string name, bool isShared)
         {
             Name = name;
-            IsShared = isShared;
-            GeneratedPath = generatedPath;
+            IsShared = isShared;            
             Assets = new InternalCollection();
 
         }
@@ -51,13 +50,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             get;
             set;
-        }
-
-        public string GeneratedPath
-        {
-            get;
-            private set;
-        }
+        }        
 
         public bool Enabled
         {

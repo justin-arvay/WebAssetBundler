@@ -26,7 +26,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Return_A_List_Of_Results()
         {            
-            var group = new WebAssetGroup("Test", false, "")
+            var group = new WebAssetGroup("Test", false)
             {
                 Version = "1.2"
             };
@@ -42,7 +42,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Resolve_Compress_For_Result()
         {            
-            var group = new WebAssetGroup("Test", false, "");
+            var group = new WebAssetGroup("Test", false);
 
             group.Compress = true;
             group.Assets.Add(new WebAsset("~/Files/test.css"));
@@ -56,7 +56,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Resolve_Version_For_Result()
         {
-            var group = new WebAssetGroup("Test", false, "") { Version = "1.2" };
+            var group = new WebAssetGroup("Test", false) { Version = "1.2" };
             
             group.Assets.Add(new WebAsset("~/Files/test.css"));
 
@@ -69,7 +69,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Resolve_Name_For_Result()
         {
-            var group = new WebAssetGroup("Test", false, "");
+            var group = new WebAssetGroup("Test", false);
             
             group.Assets.Add(new WebAsset("~/Files/test.css"));
 

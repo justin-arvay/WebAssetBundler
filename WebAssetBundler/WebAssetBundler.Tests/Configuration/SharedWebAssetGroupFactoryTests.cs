@@ -23,13 +23,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             Assert.IsTrue(factory.Create(new GroupConfigurationElementCollection()).IsShared);
             
-        }
-
-        [Test]
-        public void Should_Use_Generated_Path()
-        {
-            Assert.AreEqual(DefaultSettings.GeneratedFilesPath, factory.Create(new GroupConfigurationElementCollection()).GeneratedPath);
-        }
+        }        
 
         [Test]
         public void Should_Map_Name()

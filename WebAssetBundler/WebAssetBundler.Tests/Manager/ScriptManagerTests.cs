@@ -32,16 +32,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var manager = new ScriptManager(new WebAssetGroupCollection());
 
             Assert.IsInstanceOf<WebAssetGroup>(manager.DefaultGroup);
-        }
-
-        [Test]
-        public void Default_Groups_Generated_Path_Is_Set_To_Default_Generated_Path_By_Default()
-        {
-            var manager = new ScriptManager(new WebAssetGroupCollection());
-
-            Assert.AreEqual(DefaultSettings.GeneratedFilesPath, manager.DefaultGroup.GeneratedPath);
-        }
-
+        }       
 
         [Test]
         public void Should_Add_Default_Group_To_Collection()

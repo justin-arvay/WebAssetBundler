@@ -77,7 +77,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public ScriptManagerBuilder Scripts(Action<WebAssetGroupCollectionBuilder> action)
         {
-            action(new WebAssetGroupCollectionBuilder(Manager.Scripts, sharedGroups, DefaultSettings.GeneratedFilesPath));
+            action(new WebAssetGroupCollectionBuilder(Manager.Scripts, sharedGroups));
             return this;
         }
 

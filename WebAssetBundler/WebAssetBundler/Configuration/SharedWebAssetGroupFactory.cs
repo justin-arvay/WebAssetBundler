@@ -6,7 +6,7 @@ namespace WebAssetBundler.Web.Mvc
     {
         public WebAssetGroup Create(GroupConfigurationElementCollection collection)
         {
-            return new WebAssetGroup(collection.Name, true, DefaultSettings.GeneratedFilesPath)
+            return new WebAssetGroup(collection.Name, true)
             { 
                 Combine = collection.Combine,
                 Compress = collection.Compress,

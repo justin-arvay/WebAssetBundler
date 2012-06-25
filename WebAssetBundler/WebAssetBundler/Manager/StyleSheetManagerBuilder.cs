@@ -77,7 +77,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public StyleSheetManagerBuilder StyleSheets(Action<WebAssetGroupCollectionBuilder> action)
         {            
-            action(new WebAssetGroupCollectionBuilder(Manager.StyleSheets, sharedGroups, DefaultSettings.GeneratedFilesPath));
+            action(new WebAssetGroupCollectionBuilder(Manager.StyleSheets, sharedGroups));
             return this;
         }
 

@@ -28,7 +28,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var factory = new WebAssetResolverFactory();
             var resolver = new WebAssetGroupCollectionResolver(factory);
             var collection = new WebAssetGroupCollection();
-            var group = new WebAssetGroup("test", false, "");
+            var group = new WebAssetGroup("test", false);
 
             group.Assets.Add(new WebAsset("path/test.css"));
             collection.Add(group);

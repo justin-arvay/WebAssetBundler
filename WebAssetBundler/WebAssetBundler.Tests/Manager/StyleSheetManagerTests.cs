@@ -32,16 +32,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var manager = new StyleSheetManager(new WebAssetGroupCollection());
 
             Assert.IsInstanceOf<WebAssetGroup>(manager.DefaultGroup);
-        }
-
-        [Test]
-        public void Default_Groups_Path_Is_Set_To_MVC_Style_Sheet_Path_By_Default()
-        {
-            var manager = new StyleSheetManager(new WebAssetGroupCollection());
-
-            Assert.AreEqual(DefaultSettings.GeneratedFilesPath, manager.DefaultGroup.GeneratedPath);
-        }
-
+        }       
 
         [Test]
         public void Should_Add_Default_Group_To_Collection()

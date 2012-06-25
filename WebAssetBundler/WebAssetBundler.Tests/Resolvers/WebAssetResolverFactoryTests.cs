@@ -30,14 +30,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var factory = new WebAssetResolverFactory();
 
-            Assert.IsInstanceOf<WebAssetGroupResolver>(factory.Create(new WebAssetGroup("", false, "")));
+            Assert.IsInstanceOf<WebAssetGroupResolver>(factory.Create(new WebAssetGroup("", false)));
         }
 
         [Test]
         public void Should_Return_Combined_Group_Resolver()
         {
             var factory = new WebAssetResolverFactory();
-            var group = new WebAssetGroup("", false, "") { Combine = true };
+            var group = new WebAssetGroup("", false) { Combine = true };
 
             Assert.IsInstanceOf<CombinedWebAssetGroupResolver>(factory.Create(group));
         }

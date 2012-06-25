@@ -24,7 +24,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             Scripts = scripts;
 
-            DefaultGroup = new WebAssetGroup("Default", false, DefaultSettings.GeneratedFilesPath);                                     
+            DefaultGroup = new WebAssetGroup("Default", false);                                     
 
             Scripts.Add(DefaultGroup);
         }

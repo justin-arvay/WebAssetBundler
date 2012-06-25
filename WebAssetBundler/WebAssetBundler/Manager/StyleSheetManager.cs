@@ -24,7 +24,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             StyleSheets = styleSheets;
 
-            DefaultGroup = new WebAssetGroup("Default", false, DefaultSettings.GeneratedFilesPath);
+            DefaultGroup = new WebAssetGroup("Default", false);
 
             StyleSheets.Add(DefaultGroup);
         }

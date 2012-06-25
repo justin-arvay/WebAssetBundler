@@ -24,7 +24,7 @@ namespace WebAssetBundler.Web.Mvc
         private WebAssetGroupCollection sharedGroups;
         private string generatedPath;
 
-        public WebAssetGroupCollectionBuilder(WebAssetGroupCollection groups, WebAssetGroupCollection sharedGroups, string generatedPath)
+        public WebAssetGroupCollectionBuilder(WebAssetGroupCollection groups, WebAssetGroupCollection sharedGroups)
         {            
             this.groups = groups;
             this.generatedPath = generatedPath;
@@ -40,7 +40,7 @@ namespace WebAssetBundler.Web.Mvc
                 throw new ArgumentException(TextResource.Exceptions.GroupWithSpecifiedNameAlreadyExists);
             }
 
-            var group = new WebAssetGroup(name, false, generatedPath);
+            var group = new WebAssetGroup(name, false);
 
             //add to collection
             groups.Add(group);
@@ -57,7 +57,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public WebAssetGroupCollectionBuilder Add(string source)
         {
-            var group = new WebAssetGroup("Single", false, generatedPath) ;
+            var group = new WebAssetGroup("Single", false) ;
 
             group.Assets.Add(new WebAsset(source));
 
