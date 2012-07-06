@@ -28,14 +28,13 @@ namespace WebAssetBundler.Web.Mvc
         private static SharedGroupManager sharedManager;
 
         public static ComponentBuilder Bundler(this HtmlHelper helper)
-        {
-            //
+        {            
             if (sharedManager == null)
             {
-                sharedManager = (new SharedGroupManagerFactory(new SharedGroupConfigurationLoader(
-                    new ConfigurationSectionFactory(), 
-                    new SharedWebAssetGroupFactory(), 
-                    new SharedWebAssetFactory()))).Create();
+                var loader = new SharedGroupManagerLoader(new AssetConfigurationFactory());
+                sharedManager = new SharedGroupManager();
+
+                loader.Load(sharedManager);                                
             }
 
             var viewContext = helper.ViewContext;

@@ -6,8 +6,8 @@ namespace WebAssetBundler.Web.Mvc
     using System.Linq;
     using System.Text;
 
-    public interface ISharedWebAssetFactory
+    public interface ISharedGroupManagerLoader
     {
-        WebAsset Create(AssetConfigurationElement element);
+        void Load(SharedGroupManager manager);
     }
 }

@@ -21,13 +21,11 @@ namespace WebAssetBundler.Web.Mvc
     public class WebAssetGroupCollectionBuilder
     {        
         private WebAssetGroupCollection groups;
-        private WebAssetGroupCollection sharedGroups;
-        private string generatedPath;
+        private WebAssetGroupCollection sharedGroups;        
 
         public WebAssetGroupCollectionBuilder(WebAssetGroupCollection groups, WebAssetGroupCollection sharedGroups)
         {            
-            this.groups = groups;
-            this.generatedPath = generatedPath;
+            this.groups = groups;            
             this.sharedGroups = sharedGroups;
         }
 

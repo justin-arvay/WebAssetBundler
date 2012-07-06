@@ -14,24 +14,34 @@ namespace WebAssetBundler.Web.Mvc.Tests
             {
                 StyleSheets = new StyleSheetConfigurationElementCollection(),
                 Scripts = new ScriptConfigurationElementCollection()
-            };
+            };            
 
-            var assetElement = new AssetConfigurationElement()
-            {
-                Source = "~/"
-            };
-
-            var groupCollection = new GroupConfigurationElementCollection()
+            var collectionOne = new GroupConfigurationElementCollection()
             {
                 Combine = true,
                 Compress = true,
                 Version = "1.1"
             };
 
-            groupCollection.Add(assetElement);
+            var collectionTwo = new GroupConfigurationElementCollection()
+            {
+                Combine = true,
+                Compress = true,
+                Version = "1.1"
+            };
 
-            section.Scripts.Add(groupCollection);
-            section.StyleSheets.Add(groupCollection);
+            collectionOne.Add(new AssetConfigurationElement()
+            {
+                Source = "~/AssetOne"
+            });
+
+            collectionTwo.Add(new AssetConfigurationElement()
+            {
+                Source = "~/AssetTwo"
+            });
+
+            section.Scripts.Add(collectionOne);
+            section.StyleSheets.Add(collectionTwo);
 
             return section;
         }
