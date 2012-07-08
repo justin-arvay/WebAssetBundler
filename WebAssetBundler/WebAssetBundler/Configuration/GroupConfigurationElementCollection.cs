@@ -108,7 +108,7 @@ namespace WebAssetBundler.Web.Mvc
         public bool Combine
         {
             get
-            {
+            {                
                 return (bool)this["combine"];
             }
 

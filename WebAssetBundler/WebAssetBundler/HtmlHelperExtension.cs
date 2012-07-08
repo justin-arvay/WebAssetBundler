@@ -24,21 +24,15 @@ namespace WebAssetBundler.Web.Mvc
     using System.Web;
 
     public static class HtmlHelperExtension
-    {
-        private static SharedGroupManager sharedManager;
+    {       
 
         public static ComponentBuilder Bundler(this HtmlHelper helper)
-        {            
-            if (sharedManager == null)
-            {
-                var loader = new SharedGroupManagerLoader(new AssetConfigurationFactory());
-                sharedManager = new SharedGroupManager();
-
-                loader.Load(sharedManager);                                
-            }
-
+        {                                    
             var viewContext = helper.ViewContext;
             var cacheProvider = new CacheProvider();
+             
+            var sharedManager = (HttpContext.Current.Items["SharedManager"] ??
+                (HttpContext.Current.Items["SharedManager"] = CreateSharedGroupManager())) as SharedGroupManager;
 
             var styleSheetManagerBuilder = (HttpContext.Current.Items["StyleSheetManagerBuilder"] ??
                         (HttpContext.Current.Items["StyleSheetManagerBuilder"] =
@@ -52,6 +46,16 @@ namespace WebAssetBundler.Web.Mvc
             return new ComponentBuilder(
                 styleSheetManagerBuilder,
                 scriptManagerBuilder);
+        }
+
+        private static SharedGroupManager CreateSharedGroupManager()
+        {
+            var loader = new SharedGroupManagerLoader(new AssetConfigurationFactory());
+            var sharedManager = new SharedGroupManager();
+
+            loader.Load(sharedManager);
+
+            return sharedManager;
         }
 
         private static StyleSheetManagerBuilder CreateStyleSheetManagerBuilder(ViewContext viewContext, ICacheProvider cacheProvider, SharedGroupManager sharedManager)

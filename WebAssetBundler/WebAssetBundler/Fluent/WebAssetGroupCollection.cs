@@ -54,6 +54,6 @@ namespace WebAssetBundler.Web.Mvc
             item.IsIncluded = true;
 
             base.Add(item);
-        }
+        }                
     }
 }

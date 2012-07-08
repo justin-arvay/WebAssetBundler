@@ -31,7 +31,8 @@ namespace WebAssetBundler.Web.Mvc
             Name = name;
             IsShared = isShared;            
             Assets = new InternalCollection();
-
+            Combine = DefaultSettings.Combined;
+            Compress = DefaultSettings.Compressed;          
         }
 
         public string Name
@@ -71,6 +72,12 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         public bool Combine
+        {
+            get;
+            set;
+        }
+
+        public string DefaultPath
         {
             get;
             set;

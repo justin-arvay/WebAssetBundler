@@ -32,6 +32,8 @@ namespace WebAssetBundler.Web.Mvc
 
         private static string version = new AssemblyName(typeof(DefaultSettings).Assembly.FullName).Version.ToString(3);
         private static bool compressed = true;
+        private static bool combined = true;
+
         private static string defaultGroupName = "Default";
         
         private static IScriptCompressor scriptCompressor = new MsScriptCompressor();
@@ -123,8 +125,14 @@ namespace WebAssetBundler.Web.Mvc
         /// <value><c>true</c> if combined; otherwise, <c>false</c>.</value>
         public static bool Combined
         {
-            get;
-            set;
+            get
+            {
+                return combined;
+            }
+            set
+            {
+                combined = value;
+            }
         }
 
         /// <summary>

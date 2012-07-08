@@ -8,17 +8,13 @@
             .AddGroup("Test", g => g
                 .Add("~/Content/themes/base/jquery.ui.all.css")
                 .Add("~/Content/Site.css")
-                .Compress(true)
-                .Version("1.2")
-                .Combine(false)))
+                .Version("1.2")))
         .Render();}
 
         @{Html.Bundler().ScriptManager()
               .Scripts(s => s
                   .AddSharedGroup("jQuery")                  
                   .AddGroup("Test2", g => g                                           
-                      .Combine(true)
-                      .Compress(true)
                       .Version("1.3333")))
             .Render();
         }

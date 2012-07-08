@@ -116,7 +116,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Can_Set_Combined()
         {
-            DefaultSettings.Combined = true;
+            DefaultSettings.Combined = false;
 
             Assert.True(DefaultSettings.Combined);
 

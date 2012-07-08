@@ -72,6 +72,12 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public WebAssetGroupCollectionBuilder AddSharedGroup(string name)
         {
+            //ensure that we cannot add the same group twice
+            if (groups.FindGroupByName(name) != null)
+            {
+                throw new ArgumentException(TextResource.Exceptions.GroupWithSpecifiedNameAlreadyExists);
+            }
+
             var group = FindSharedGroup(name);
             groups.AddShared(group);
             return this;
@@ -85,6 +91,12 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public WebAssetGroupCollectionBuilder AddSharedGroup(string name, Action<WebAssetGroupBuilder> configureAction)
         {
+            //ensure that we cannot add the same group twice
+            if (groups.FindGroupByName(name) != null)
+            {
+                throw new ArgumentException(TextResource.Exceptions.GroupWithSpecifiedNameAlreadyExists);
+            }
+
             var group = FindSharedGroup(name);
 
             groups.AddShared(group);
