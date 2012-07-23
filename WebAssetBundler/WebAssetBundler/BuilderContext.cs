@@ -67,6 +67,12 @@ namespace WebAssetBundler.Web.Mvc
             set;
         }
 
+        public bool EnableCacheBreaker
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Checks if a group can be combined.
         /// </summary>
@@ -110,6 +116,15 @@ namespace WebAssetBundler.Web.Mvc
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Creates the cache breaker version.
+        /// </summary>
+        /// <returns></returns>
+        public string CreateCacheBreakerVersion()
+        {
+            return DateTime.Now.ToString("MM_dd_yy_H_mm_ss_fff");
         }
 
         public IAssetFactory AssetFactory

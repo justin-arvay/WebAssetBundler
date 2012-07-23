@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System;
 
     [TestFixture]
     public class BuilderContextTests
@@ -84,6 +85,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
             context.EnableCompressing = false;
             Assert.IsFalse(context.CanCompress(group), "second");
 
+        }
+
+        [Test]
+        public void Should_Crate_Cache_Breaker_Version()
+        {
+            var now = DateTime.Now.ToString("MM_dd_yy_H_mm_ss");
+            Assert.IsTrue(context.CreateCacheBreakerVersion().StartsWith(now));
         }
 
     }

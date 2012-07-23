@@ -30,7 +30,8 @@ namespace WebAssetBundler.Web.Mvc
                 Host = DefaultSettings.ScriptHost,
                 DebugMode = DefaultSettings.DebugMode,
                 EnableCombining = DefaultSettings.DebugModeSettings.EnableCombining,
-                EnableCompressing = DefaultSettings.DebugModeSettings.EnableCompressing               
+                EnableCompressing = DefaultSettings.DebugModeSettings.EnableCompressing,
+                EnableCacheBreaker = DefaultSettings.DebugModeSettings.EnableCacheBreaker
             };
 
             context.AssetFactory = new AssetFactory(context);
@@ -48,7 +49,8 @@ namespace WebAssetBundler.Web.Mvc
                 Host = DefaultSettings.StyleSheetHost,
                 DebugMode = DefaultSettings.DebugMode,
                 EnableCombining = DefaultSettings.DebugModeSettings.EnableCombining,
-                EnableCompressing = DefaultSettings.DebugModeSettings.EnableCompressing
+                EnableCompressing = DefaultSettings.DebugModeSettings.EnableCompressing,
+                EnableCacheBreaker = DefaultSettings.DebugModeSettings.EnableCacheBreaker
             };
 
             context.AssetFactory = new AssetFactory(context);

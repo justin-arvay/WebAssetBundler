@@ -42,6 +42,7 @@ namespace Examples
             DefaultSettings.DebugMode = true;
             DefaultSettings.DebugModeSettings.EnableCombining = false;
             DefaultSettings.DebugModeSettings.EnableCompressing = true;
+            DefaultSettings.DebugModeSettings.EnableCacheBreaker = true;
 
             SharedGroups.Scripts(s =>s
                 .AddGroup("jQuery2", g => g

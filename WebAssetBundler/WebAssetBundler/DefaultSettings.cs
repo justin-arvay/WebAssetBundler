@@ -228,6 +228,15 @@ namespace WebAssetBundler.Web.Mvc
                 get;
                 set;
             }
+
+            /// <summary>
+            /// Forces client side cache breaking when enabled. False by default. Note: Overrides all versioning for all groups.
+            /// </summary>
+            public static bool EnableCacheBreaker
+            {
+                get;
+                set;
+            }
         }
     }
 }

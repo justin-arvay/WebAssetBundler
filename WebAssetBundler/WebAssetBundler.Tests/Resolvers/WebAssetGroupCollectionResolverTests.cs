@@ -27,6 +27,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private WebAssetGroupCollectionResolver resolver;
         private WebAssetGroupCollection collection;
         private BuilderContext context;
+        private Mock<IWebAssetResolver> internalResolver;
 
         [SetUp]
         public void Setup()
@@ -35,20 +36,19 @@ namespace WebAssetBundler.Web.Mvc.Tests
             resolver = new WebAssetGroupCollectionResolver(factory.Object);
             collection = new WebAssetGroupCollection();
             context = new BuilderContext();
+
+            internalResolver = new Mock<IWebAssetResolver>();
+            internalResolver.Setup(f => f.Resolve()).Returns(new List<ResolverResult>());
+            factory.Setup(f => f.Create(It.IsAny<WebAssetGroup>())).Returns(internalResolver.Object);
         }
 
         [Test]
         public void Should_Resolve_Collection_And_Return_Results()
-        {
-            var internalResolver = new Mock<IWebAssetResolver>();            
-
+        {                     
             var group = new WebAssetGroup("test", false);
 
             group.Assets.Add(new WebAsset("path/test.css"));
             collection.Add(group);
-
-            internalResolver.Setup(f => f.Resolve()).Returns(new List<ResolverResult>());
-            factory.Setup(f => f.Create(It.IsAny<WebAssetGroup>())).Returns(internalResolver.Object);
 
             var results = resolver.Resolve(collection, context);
 
@@ -61,15 +61,16 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var group = new WebAssetGroup("test", false)
             {
-                Combine = false
+                Combine = true
             };
 
             context.DebugMode = true;
-            context.EnableCombining = true;
-
+            context.EnableCombining = false;
+            collection.Add(group);
+            
             resolver.Resolve(collection, context);
 
-            Assert.AreEqual(context.CanCombine(group), group.Combine);
+            Assert.AreEqual(false, group.Combine);
 
         }
 
@@ -78,15 +79,33 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var group = new WebAssetGroup("test", false)
             {
-                Compress = false
+                Compress = true
             };
 
             context.DebugMode = true;
-            context.EnableCompressing = true;
+            context.EnableCompressing = false;
+            collection.Add(group);
 
             resolver.Resolve(collection, context);
 
-            Assert.AreEqual(context.CanCompress(group), group.Combine);
+            Assert.AreEqual(false, group.Combine);
+        }
+
+        [Test]
+        public void Should_Override_Group_Version()
+        {
+            var group = new WebAssetGroup("test", false)
+            {
+                Version = "1.1"
+            };
+
+            context.DebugMode = true;
+            context.EnableCacheBreaker = true;
+            collection.Add(group);
+
+            resolver.Resolve(collection, context);
+
+            Assert.AreNotEqual("1.1", group.Version);
         }
     }
 }
