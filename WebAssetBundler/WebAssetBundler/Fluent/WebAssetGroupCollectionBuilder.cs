@@ -21,12 +21,14 @@ namespace WebAssetBundler.Web.Mvc
     public class WebAssetGroupCollectionBuilder
     {        
         private WebAssetGroupCollection groups;
-        private WebAssetGroupCollection sharedGroups;        
+        private WebAssetGroupCollection sharedGroups;
+        private BuilderContext context;
 
-        public WebAssetGroupCollectionBuilder(WebAssetGroupCollection groups, WebAssetGroupCollection sharedGroups)
+        public WebAssetGroupCollectionBuilder(WebAssetGroupCollection groups, WebAssetGroupCollection sharedGroups, BuilderContext context)
         {            
             this.groups = groups;            
             this.sharedGroups = sharedGroups;
+            this.context = context;
         }
 
 
@@ -38,13 +40,13 @@ namespace WebAssetBundler.Web.Mvc
                 throw new ArgumentException(TextResource.Exceptions.GroupWithSpecifiedNameAlreadyExists);
             }
 
-            var group = new WebAssetGroup(name, false);
+            var group = context.AssetFactory.CreateGroup(name, false);
 
             //add to collection
             groups.Add(group);
 
             //call action
-            configureAction(new WebAssetGroupBuilder(group, sharedGroups));
+            configureAction(new WebAssetGroupBuilder(group, sharedGroups, context));
             return this;
         }
 
@@ -55,9 +57,9 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public WebAssetGroupCollectionBuilder Add(string source)
         {
-            var group = new WebAssetGroup("Single", false) ;
+            var group = context.AssetFactory.CreateGroup("Single", false);
 
-            group.Assets.Add(new WebAsset(source));
+            group.Assets.Add(context.AssetFactory.CreateAsset(source));
 
             //add to collection
             groups.Add(group);
@@ -78,8 +80,14 @@ namespace WebAssetBundler.Web.Mvc
                 throw new ArgumentException(TextResource.Exceptions.GroupWithSpecifiedNameAlreadyExists);
             }
 
-            var group = FindSharedGroup(name);
-            groups.AddShared(group);
+            var group = sharedGroups.FindGroupByName(name);
+
+            if (group == null)
+            {
+                throw new ArgumentException(TextResource.Exceptions.SharedGroupDoesNotExist);
+            }
+
+            groups.Add(group);
             return this;
         }
 
@@ -97,24 +105,17 @@ namespace WebAssetBundler.Web.Mvc
                 throw new ArgumentException(TextResource.Exceptions.GroupWithSpecifiedNameAlreadyExists);
             }
 
-            var group = FindSharedGroup(name);
-
-            groups.AddShared(group);
-            configureAction(new WebAssetGroupBuilder(group, sharedGroups));
-            
-            return this;
-        }
-
-        private WebAssetGroup FindSharedGroup(string name)
-        {
             var group = sharedGroups.FindGroupByName(name);
 
             if (group == null)
             {
-                throw new ArgumentException("Shared group does not exist: " + name);
+                throw new ArgumentException(TextResource.Exceptions.SharedGroupDoesNotExist);
             }
 
-            return group;
+            groups.Add(group);
+            configureAction(new WebAssetGroupBuilder(group, sharedGroups, context));
+            
+            return this;
         }
     }
 }

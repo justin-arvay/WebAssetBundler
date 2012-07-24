@@ -29,18 +29,21 @@ namespace WebAssetBundler.Web.Mvc
         public static ComponentBuilder Bundler(this HtmlHelper helper)
         {                                    
             var viewContext = helper.ViewContext;
-            var cacheProvider = new CacheProvider();
+            var cacheProvider = new CacheProvider();                               
              
             var sharedManager = (HttpContext.Current.Items["SharedManager"] ??
                 (HttpContext.Current.Items["SharedManager"] = CreateSharedGroupManager())) as SharedGroupManager;
 
+
+            var builderFactory = new ManagerBuilderFactory(viewContext, cacheProvider, sharedManager);
+
             var styleSheetManagerBuilder = (HttpContext.Current.Items["StyleSheetManagerBuilder"] ??
                         (HttpContext.Current.Items["StyleSheetManagerBuilder"] =
-                        CreateStyleSheetManagerBuilder(viewContext, cacheProvider, sharedManager))) as StyleSheetManagerBuilder;
+                        builderFactory.CreateStyleSheetManagerBuilder())) as StyleSheetManagerBuilder;
 
             var scriptManagerBuilder = (HttpContext.Current.Items["ScriptManagerBuilder"] ??
                         (HttpContext.Current.Items["ScriptManagerBuilder"] =
-                        CreateScriptManagerBuilder(viewContext, cacheProvider, sharedManager))) as ScriptManagerBuilder;
+                        builderFactory.CreateScriptManagerBuilder())) as ScriptManagerBuilder;
 
 
             return new ComponentBuilder(
@@ -56,71 +59,6 @@ namespace WebAssetBundler.Web.Mvc
             loader.Load(sharedManager);
 
             return sharedManager;
-        }
-
-        private static StyleSheetManagerBuilder CreateStyleSheetManagerBuilder(ViewContext viewContext, ICacheProvider cacheProvider, SharedGroupManager sharedManager)
-        {
-            var pathResolver = new PathResolver(WebAssetType.StyleSheet);
-            var collection = new WebAssetGroupCollection();
-            var urlResolver = new UrlResolver(viewContext.RequestContext);
-            var resolverFactory = new WebAssetResolverFactory();
-            var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
-            var writer = new WebAssetWriter(new DirectoryWriter(), viewContext.HttpContext.Server);
-            var merger = new StyleSheetWebAssetMerger(
-                new WebAssetReader(viewContext.HttpContext.Server),
-                new ImagePathContentFilter(),
-                DefaultSettings.StyleSheetCompressor,
-                pathResolver, 
-                viewContext.HttpContext.Server);
-            var generator = new WebAssetGenerator(writer, new MergedResultCache(WebAssetType.StyleSheet, cacheProvider));
-            var tagWriter = new StyleSheetTagWriter(urlResolver);
-
-            return new StyleSheetManagerBuilder(
-                new StyleSheetManager(new WebAssetGroupCollection()),
-                sharedManager.StyleSheets,
-                viewContext,
-                collectionResolver,
-                tagWriter,
-                merger,
-                generator);
-        }
-
-        private static ScriptManagerBuilder CreateScriptManagerBuilder(ViewContext viewContext, ICacheProvider cacheProvider, SharedGroupManager sharedManager)
-        {
-
-            var pathResolver = new PathResolver(WebAssetType.Script);
-            
-            var urlResolver = new UrlResolver(viewContext.RequestContext);
-            var resolverFactory = new WebAssetResolverFactory();
-            var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
-            var writer = new WebAssetWriter(new DirectoryWriter(), viewContext.HttpContext.Server);
-            var merger = new ScriptWebAssetMerger(new WebAssetReader(viewContext.HttpContext.Server), pathResolver, DefaultSettings.ScriptCompressor);
-            var generator = new WebAssetGenerator(writer, new MergedResultCache(WebAssetType.Script, cacheProvider));
-            var tagWriter = new ScriptTagWriter(urlResolver);
-
-            return new ScriptManagerBuilder(
-                new ScriptManager(new WebAssetGroupCollection()),
-                sharedManager.Scripts,
-                viewContext,
-                collectionResolver,
-                tagWriter,
-                merger,
-                generator);
-        }
-
-        /*
-        public class SingletonPerRequest
-        {
-            public static SingletonPerRequest Current
-            {
-                get
-                {
-                    return (HttpContext.Current.Items["SingletonPerRequest"] ??
-                        (HttpContext.Current.Items["SingletonPerRequest"] =
-                        new SingletonPerRequest())) as SingletonPerRequest;
-
-                }
-            }
-        }*/
+        }        
     }
 }

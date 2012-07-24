@@ -22,27 +22,32 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System.Linq;
     using System.Text;
     using NUnit.Framework;
+    using Moq;
 
     [TestFixture]
     public class StyleSheetManagerTests
     {
+        private WebAssetGroupCollection collection;
+        private StyleSheetManager manager;
+
+        [SetUp]
+        public void Setup()
+        {
+            collection = new WebAssetGroupCollection();
+            manager = new StyleSheetManager(collection);
+        }
+
         [Test]
         public void Can_Get_Default_Group()
         {
-            var manager = new StyleSheetManager(new WebAssetGroupCollection());
-
             Assert.IsInstanceOf<WebAssetGroup>(manager.DefaultGroup);
         }       
 
         [Test]
         public void Should_Add_Default_Group_To_Collection()
         {
-            var collection = new WebAssetGroupCollection();
-            var manager = new StyleSheetManager(collection);
-
             Assert.AreEqual(1, collection.Count);
             Assert.True(collection.FindGroupByName(DefaultSettings.DefaultGroupName).Name.IsCaseSensitiveEqual(DefaultSettings.DefaultGroupName));
         }
-
     }
 }

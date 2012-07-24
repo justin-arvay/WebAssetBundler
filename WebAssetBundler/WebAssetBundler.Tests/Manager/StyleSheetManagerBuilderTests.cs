@@ -36,10 +36,16 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IWebAssetGenerator> generator;
         private Mock<IWebAssetMerger> merger;
         private StyleSheetManagerBuilder builder;
+        private Mock<IAssetFactory> assetFactory;
+        private BuilderContext context;
 
         [SetUp]
         public void Setup()
         {
+            assetFactory = new Mock<IAssetFactory>();
+            context = new BuilderContext(WebAssetType.None);
+            context.AssetFactory = assetFactory.Object;
+
             var server = new Mock<HttpServerUtilityBase>();
             var collection = new WebAssetGroupCollection();
             var resolverFactory = new WebAssetResolverFactory();
@@ -56,54 +62,26 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 collectionResolver,
                 tagWriter.Object,
                 merger.Object,
-                generator.Object);
+                generator.Object,
+                context);
         }
-
-        private StyleSheetManagerBuilder CreateBuilder(ViewContext context, Mock<ITagWriter> tagWriter)
-        {
-            var server = new Mock<HttpServerUtilityBase>();
-            var collection = new WebAssetGroupCollection();                        
-            var resolverFactory = new WebAssetResolverFactory();
-            var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);            
-            var writer = new Mock<IWebAssetWriter>();
-            var merger = new Mock<IWebAssetMerger>();
-            var generator = new Mock<IWebAssetGenerator>();
-
-            return new StyleSheetManagerBuilder(
-                new StyleSheetManager(collection), 
-                collection,
-                context, 
-                collectionResolver,
-                tagWriter.Object, 
-                merger.Object,
-                generator.Object);
-        }
-
-        private StyleSheetManagerBuilder CreateBuilder(ViewContext context)
-        {
-            return CreateBuilder(context, new Mock<ITagWriter>());
-        }
+ 
 
         [Test]
         public void Default_Group_Returns_Self_For_Chaining()
         {
-            var builder = CreateBuilder(TestHelper.CreateViewContext());
-
             Assert.IsInstanceOf<StyleSheetManagerBuilder>(builder.DefaultGroup(g => g.ToString()));
         }
 
         [Test]
         public void StyleSheets_Return_Self_For_Chaining()
         {
-            var builder = CreateBuilder(TestHelper.CreateViewContext());
             Assert.IsInstanceOf<StyleSheetManagerBuilder>(builder.StyleSheets(s => s.ToString()));
         }
 
         [Test]
         public void Can_Configure_Default_Group()
         {
-            var builder = CreateBuilder(TestHelper.CreateViewContext());
-
             builder.DefaultGroup(g => g.Add("test/test.css"));
 
             Assert.AreEqual(1, builder.Manager.DefaultGroup.Assets.Count);
@@ -112,8 +90,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Can_Configure_Style_Sheets()
         {
-            var builder = CreateBuilder(TestHelper.CreateViewContext());
-
             builder.StyleSheets(style => style.AddGroup("test", group => group.ToString()));
 
             //there is 2 because of default group
@@ -123,14 +99,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Write_Tags_On_Render()
         {
-            var tagWriter = new Mock<ITagWriter>();
-            var builder = CreateBuilder(TestHelper.CreateViewContext(), tagWriter);
+            context.AssetFactory = new AssetFactory(context);
 
-            builder.StyleSheets(style => style
-                .AddGroup("test", group => group
-                    .Add("~/Files/test.css")
-                    .Add("~/Files/test2.css")
-                    .Combine(false)));
+            var results = new List<WebAssetMergerResult>();
+            results.Add(new WebAssetMergerResult("", ""));
 
             builder.Render();
 
@@ -140,14 +112,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Write_Tags_On_ToString()
         {
-            var tagWriter = new Mock<ITagWriter>();
-            var builder = CreateBuilder(TestHelper.CreateViewContext(), tagWriter);
+            context.AssetFactory = new AssetFactory(context);
 
-            builder.StyleSheets(style => style
-                .AddGroup("test", group => group
-                    .Add("~/Files/test.css")
-                    .Add("~/Files/test2.css")
-                    .Combine(false)));
+            var results = new List<WebAssetMergerResult>();
+            results.Add(new WebAssetMergerResult("", ""));
 
             builder.ToHtmlString();
 
@@ -188,7 +156,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Throw_Exception_When_Render_Called_More_Than_Once()
         {
-            var builder = CreateBuilder(TestHelper.CreateViewContext());
+
 
             builder.Render();
 
@@ -198,7 +166,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Constructor_Should_Set_Manage()
         {
-            Assert.NotNull(CreateBuilder(TestHelper.CreateViewContext()).Manager);
+            Assert.NotNull(builder.Manager);
         }
     }
 }

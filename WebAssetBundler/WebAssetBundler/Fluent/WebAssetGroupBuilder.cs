@@ -20,15 +20,18 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+
     public class WebAssetGroupBuilder
     {
         private readonly WebAssetGroup group;
         private readonly WebAssetGroupCollection sharedGroups;
+        private BuilderContext context;
 
-        public WebAssetGroupBuilder(WebAssetGroup group, WebAssetGroupCollection sharedGroups)
+        public WebAssetGroupBuilder(WebAssetGroup group, WebAssetGroupCollection sharedGroups, BuilderContext context)
         {
             this.group = group;
             this.sharedGroups = sharedGroups;
+            this.context = context;
         }
 
         public WebAssetGroupBuilder Enable(bool value)
@@ -62,7 +65,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public WebAssetGroupBuilder Add(string filePath)
         {
-            group.Assets.Add(new WebAsset(filePath));
+            group.Assets.Add(context.AssetFactory.CreateAsset(filePath));
             return this;
         }
 
@@ -73,19 +76,12 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public WebAssetGroupBuilder AddShared(string name)
         {
-            var sharedGroup = sharedGroups.FindGroupByName(name);
-
-            if (sharedGroup.IsIncluded)
-            {
-                throw new InvalidOperationException(TextResource.Exceptions.CannotAddSharedGroupTwice);
-            }
+            var sharedGroup = sharedGroups.FindGroupByName(name);            
 
             foreach (var asset in sharedGroup.Assets)
             {
                 group.Assets.Add(asset);
-            }
-
-            sharedGroup.IsIncluded = true;
+            }            
 
             return this;            
         }

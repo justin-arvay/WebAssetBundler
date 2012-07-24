@@ -33,6 +33,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
         private StyleSheetManagerBuilder CreateStyleSheetManagerBuilder()
         {
+            var builderContext = new BuilderContext(WebAssetType.None);
             var tagWriter = new Mock<ITagWriter>();
             var server = new Mock<HttpServerUtilityBase>();
             var collection = new WebAssetGroupCollection();            
@@ -49,11 +50,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 collectionResolver,
                 tagWriter.Object,
                 merger.Object,
-                generator.Object);
+                generator.Object,
+                builderContext);
         }
 
         private ScriptManagerBuilder CreateScriptManagerBuilder()
         {
+            var builderContext = new BuilderContext(WebAssetType.None);
             var tagWriter = new Mock<ITagWriter>();
             var server = new Mock<HttpServerUtilityBase>();
             var collection = new WebAssetGroupCollection();
@@ -70,7 +73,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 collectionResolver,
                 tagWriter.Object,
                 merger.Object,
-                generator.Object);
+                generator.Object,
+                builderContext);
         }
 
         [SetUp]

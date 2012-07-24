@@ -23,6 +23,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System;
     using System.IO;
     using System.Collections.Generic;
+    using System.Web.UI;
 
     [TestFixture]
     public class ScriptManagerBuilderTests
@@ -31,12 +32,16 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IWebAssetMerger> merger;
         private Mock<IWebAssetGenerator> generator;
         private ScriptManagerBuilder builder;
+        private Mock<IAssetFactory> assetFactory;
+        private BuilderContext context;
 
         [SetUp]
         public void Setup()
         {
+            assetFactory = new Mock<IAssetFactory>();
             var server = new Mock<HttpServerUtilityBase>();
-            
+            context = new BuilderContext(WebAssetType.None);
+            context.AssetFactory = assetFactory.Object;
             var collection = new WebAssetGroupCollection();
             var pathResolver = new Mock<IPathResolver>();
             var resolverFactory = new WebAssetResolverFactory();
@@ -52,53 +57,26 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 collectionResolver,
                 tagWriter.Object,
                 merger.Object,
-                generator.Object);
-        }
-
-        private ScriptManagerBuilder CreateBuilder(ViewContext context, Mock<ITagWriter> tagWriter)
-        {
-            var server = new Mock<HttpServerUtilityBase>();
-            var merger = new Mock<IWebAssetMerger>();
-            var collection = new WebAssetGroupCollection();
-            var pathResolver = new Mock<IPathResolver>();
-            var resolverFactory = new WebAssetResolverFactory();
-            var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
-            var generator = new Mock<IWebAssetGenerator>();
-            
-            return new ScriptManagerBuilder(
-                new ScriptManager(collection), 
-                collection,
-                context, 
-                collectionResolver, 
-                tagWriter.Object,    
-                merger.Object,
-                generator.Object);
-        }
-
-        private ScriptManagerBuilder CreateBuilder(ViewContext context)
-        {
-            return CreateBuilder(context, new Mock<ITagWriter>());
+                generator.Object,
+                context);
         }
 
         [Test]
         public void Default_Group_Returns_Self_For_Chaining()
         {
-            var builder = CreateBuilder(TestHelper.CreateViewContext());
-
             Assert.IsInstanceOf<ScriptManagerBuilder>(builder.DefaultGroup(g => g.ToString()));
         }
 
         [Test]
         public void Scripts_Return_Self_For_Chaining()
         {
-            var builder = CreateBuilder(TestHelper.CreateViewContext());
             Assert.IsInstanceOf<ScriptManagerBuilder>(builder.Scripts(s => s.ToString()));
         }
 
         [Test]
         public void Can_Configure_Default_Group()
         {
-            var builder = CreateBuilder(TestHelper.CreateViewContext());
+            assetFactory.Setup(f => f.CreateAsset(It.IsAny<string>())).Returns(new WebAsset("test/test.js"));
 
             builder.DefaultGroup(g => g.Add("test/test.js"));
 
@@ -108,7 +86,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Can_Configure_Scripts()
         {
-            var builder = CreateBuilder(TestHelper.CreateViewContext());
+            assetFactory.Setup(f => f.CreateGroup(It.IsAny<string>(), It.IsAny<bool>()));
 
             builder.Scripts(s => s.AddGroup("test", group => group.ToString()));
 
@@ -119,8 +97,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Throw_Exception_When_Render_Called_More_Than_Once()
         {
-            var builder = CreateBuilder(TestHelper.CreateViewContext());
-
             builder.Render();
 
             Assert.Throws<InvalidOperationException>(() => builder.Render());
@@ -129,37 +105,30 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Constructor_Should_Set_Manage()
         {
-            Assert.NotNull(CreateBuilder(TestHelper.CreateViewContext()).Manager);
+            Assert.NotNull(builder.Manager);
         }
 
         [Test]
         public void Should_Write_Tags_On_Render()
         {
-            var tagWriter = new Mock<ITagWriter>();
-            var builder = CreateBuilder(TestHelper.CreateViewContext(), tagWriter);
+            context.AssetFactory = new AssetFactory(context);
 
-            builder.Scripts(style => style
-                .AddGroup("test", group => group
-                    .Add("~/Files/test.js")
-                    .Add("~/Files/test2.js")
-                    .Combine(false)));
+            var results = new List<WebAssetMergerResult>();
+            results.Add(new WebAssetMergerResult("", ""));
+            merger.Setup(m => m.Merge(It.IsAny<IList<ResolverResult>>())).Returns(results);
 
             builder.Render();
 
-            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), It.IsAny<IList<WebAssetMergerResult>>()), Times.Exactly(1));
+            tagWriter.Verify(t => t.Write(It.IsAny<HtmlTextWriter>(), It.IsAny<IList<WebAssetMergerResult>>()), Times.Once());
         }
 
         [Test]
         public void Should_Write_Tags_On_ToString()
         {
-            var tagWriter = new Mock<ITagWriter>();
-            var builder = CreateBuilder(TestHelper.CreateViewContext(), tagWriter);
+            context.AssetFactory = new AssetFactory(context);
 
-            builder.Scripts(style => style
-                .AddGroup("test", group => group
-                    .Add("~/Files/test.js")
-                    .Add("~/Files/test2.js")
-                    .Combine(false)));
+            var results = new List<WebAssetMergerResult>();
+            results.Add(new WebAssetMergerResult("", ""));
 
             builder.ToHtmlString();
 

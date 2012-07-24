@@ -34,6 +34,7 @@ namespace WebAssetBundler.Web.Mvc
         private IWebAssetMerger merger;
         private IWebAssetGenerator generator;
         private WebAssetGroupCollection sharedGroups;
+        private BuilderContext context;
 
         /// <summary>
         /// Constructor
@@ -48,7 +49,8 @@ namespace WebAssetBundler.Web.Mvc
             IWebAssetGroupCollectionResolver resolver,
             ITagWriter tagWriter,                   
             IWebAssetMerger merger,
-            IWebAssetGenerator generator)
+            IWebAssetGenerator generator,
+            BuilderContext context)
         {
             Manager = manager;
             this.collectionResolver = resolver;
@@ -57,6 +59,7 @@ namespace WebAssetBundler.Web.Mvc
             this.merger = merger;         
             this.generator = generator;
             this.sharedGroups = sharedGroups;
+            this.context = context;
         }
 
         /// <summary>
@@ -66,7 +69,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public StyleSheetManagerBuilder DefaultGroup(Action<WebAssetGroupBuilder> action)
         {
-            action(new WebAssetGroupBuilder(Manager.DefaultGroup, sharedGroups));
+            action(new WebAssetGroupBuilder(Manager.DefaultGroup, sharedGroups, context));
             return this;
         }
 
@@ -76,8 +79,8 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="action"></param>
         /// <returns></returns>
         public StyleSheetManagerBuilder StyleSheets(Action<WebAssetGroupCollectionBuilder> action)
-        {            
-            action(new WebAssetGroupCollectionBuilder(Manager.StyleSheets, sharedGroups));
+        {
+            action(new WebAssetGroupCollectionBuilder(Manager.StyleSheets, sharedGroups, context));
             return this;
         }
 

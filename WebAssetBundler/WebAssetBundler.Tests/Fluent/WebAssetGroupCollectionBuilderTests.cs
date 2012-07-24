@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System;
     using NUnit.Framework;
+    using Moq;
     using WebAssetBundler.Web.Mvc;
 
     [TestFixture]
@@ -25,28 +26,37 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private WebAssetGroupCollection sharedGroups;
         private WebAssetGroupCollection collection;
+        private WebAssetGroupCollectionBuilder builder;
+        private BuilderContext context;
+        private Mock<IAssetFactory> assetFactory;
 
         [SetUp]
         public void Setup()
         {
+            assetFactory = new Mock<IAssetFactory>();
+            context = new BuilderContext(WebAssetType.None);
+            context.AssetFactory = assetFactory.Object;
+
             sharedGroups = new WebAssetGroupCollection();
             collection = new WebAssetGroupCollection();
+            builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups, context);
+
         }
 
         [Test]
         public void Should_Be_Able_To_Add_Group()
-        {            
-            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups);
-
+        {                      
             builder.AddGroup("test", g => g.ToString());
+
+            assetFactory.Verify(f => f.CreateGroup(It.Is<string>(s => s.Equals("test")), It.Is<bool>(b => b.Equals(false))), Times.Once());
 
             Assert.AreEqual(1, collection.Count);
         }                
 
         [Test]
         public void Should_Throw_Exception_When_Adding_Group_That_Already_Exists()
-        {            
-            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups);
+        {
+            assetFactory.Setup(f => f.CreateGroup(It.IsAny<string>(), It.IsAny<bool>())).Returns(new WebAssetGroup("test", false));
 
             builder.AddGroup("test", g => g.ToString());
 
@@ -56,21 +66,22 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Have_Nothing_In_Collection_By_Default()
         {            
-            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups);
-
             Assert.AreEqual(0, collection.Count);
         }
 
         [Test]
         public void Adding_File_Should_Add_New_Group_With_Asset()
-        {            
-            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups);
+        {
+            assetFactory.Setup(f => f.CreateGroup(It.IsAny<string>(), It.IsAny<bool>())).Returns(new WebAssetGroup("Single", false));
+            assetFactory.Setup(f => f.CreateAsset(It.IsAny<string>())).Returns(new WebAsset("~/Files/test/css"));
 
             builder.Add("~/Files/test.css");
-            builder.Add("~/Files/test.css");
+
+            assetFactory.Verify(f => f.CreateGroup(It.Is<string>(s => s.Equals("Single")), It.Is<bool>(b => b.Equals(false))), Times.Exactly(1));
+            assetFactory.Verify(f => f.CreateAsset(It.Is<string>(s => s.Equals("~/Files/test.css"))), Times.Exactly(1));
 
             //should be 2 items in the collection, and 1 item in each collections group
-            Assert.AreEqual(2, collection.Count);
+            Assert.AreEqual(1, collection.Count);
             foreach (var group in collection) 
             {
                 Assert.AreEqual(1, group.Assets.Count);
@@ -80,15 +91,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Adding_Group_Should_Return_Self_For_Chaining()
         {            
-            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups);
-
             Assert.IsInstanceOf<WebAssetGroupCollectionBuilder>(builder.AddGroup("test", g => g.ToString()));
         }
 
         [Test]
         public void Add_Should_Return_Self_For_Chaining()
-        {            
-            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups);
+        {
+            assetFactory.Setup(f => f.CreateGroup(It.IsAny<string>(), It.IsAny<bool>())).Returns(new WebAssetGroup("test", false));
 
             Assert.IsInstanceOf<WebAssetGroupCollectionBuilder>(builder.Add("~/Files/test.css"));
         }
@@ -96,7 +105,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Adding_Shared_Group_Should_Return_Self_For_Chaining()
         {
-            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups);
             sharedGroups.Add(new WebAssetGroup("Foo", true));
 
             Assert.IsInstanceOf<WebAssetGroupCollectionBuilder>(builder.AddSharedGroup("Foo"), "No Configuration");           
@@ -105,7 +113,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Adding_Configured_Shared_Group_Should_Return_Self_For_Chaining()
         {
-            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups);
             sharedGroups.Add(new WebAssetGroup("Foo", true));
             
             Assert.IsInstanceOf<WebAssetGroupCollectionBuilder>(builder.AddSharedGroup("Foo", x => x.ToString()), "Configuration");
@@ -114,8 +121,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Allow_Overriding_Of_Configuration_For_Shared_Group()
         {
-            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups);
-
             //add the shared group with combine false
             sharedGroups.Add(new WebAssetGroup("Foo", true) { Combine = false });
 
@@ -128,7 +133,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Add_Shared_Group_To_Groups()
         {
-            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups);
             var group = new WebAssetGroup("Foo", true);
             sharedGroups.Add(group);
 
@@ -140,32 +144,28 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Throw_Exception_If_Shared_Group_Doesnt_Exist()
         {
-            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups);
-
             Assert.Throws<ArgumentException>(() => builder.AddSharedGroup("name"), "No Configure");
             Assert.Throws<ArgumentException>(() => builder.AddSharedGroup("name", g => g.ToString()), "Configure");
-        }
+        }        
 
         [Test]
-        public void Should_Set_Shared_Group_To_Included()
+        public void Should_Throw_Excecption_If_Shared_Group_Already_Exists()
         {
-            sharedGroups.Add(new WebAssetGroup("Foo", true));
-            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups);
+            sharedGroups.Add(new WebAssetGroup("Foo", true));            
 
             builder.AddSharedGroup("Foo");
 
-            Assert.IsTrue(sharedGroups[0].IsIncluded);
+            Assert.Throws<ArgumentException>(() => builder.AddSharedGroup("Foo"));
         }
 
         [Test]
-        public void Should_Set_Configured_Shared_Group_To_Included()
+        public void Should_Throw_Exception_If_Config_Shared_Group_Already_Exists()
         {
-            sharedGroups.Add(new WebAssetGroup("Foo", true));
-            var builder = new WebAssetGroupCollectionBuilder(collection, sharedGroups);
+            sharedGroups.Add(new WebAssetGroup("Foo", true));            
 
             builder.AddSharedGroup("Foo", s => s.ToString());
 
-            Assert.IsTrue(sharedGroups[0].IsIncluded);
+            Assert.Throws<ArgumentException>(() => builder.AddSharedGroup("Foo"));
         }
     }
 }

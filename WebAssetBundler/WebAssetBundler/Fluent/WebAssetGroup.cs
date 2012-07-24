@@ -32,7 +32,7 @@ namespace WebAssetBundler.Web.Mvc
             IsShared = isShared;            
             Assets = new InternalCollection();
             Combine = DefaultSettings.Combined;
-            Compress = DefaultSettings.Compressed;          
+            Compress = DefaultSettings.Compressed;                      
         }
 
         public string Name
@@ -45,13 +45,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             get;
             private set;
-        }
-
-        public bool IsIncluded
-        {
-            get;
-            set;
-        }        
+        }      
 
         public bool Enabled
         {

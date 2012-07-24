@@ -78,9 +78,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Combined_Should_Be_False_By_Default()
+        public void Combined_Should_Be_True_By_Default()
         {
-            Assert.False(DefaultSettings.Combined);
+            Assert.True(DefaultSettings.Combined);
         }
 
         [Test]
@@ -118,10 +118,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             DefaultSettings.Combined = false;
 
-            Assert.True(DefaultSettings.Combined);
+            Assert.False(DefaultSettings.Combined);
 
             //re-set the default
-            DefaultSettings.Combined = false;
+            DefaultSettings.Combined = true;
         }
 
         [Test]

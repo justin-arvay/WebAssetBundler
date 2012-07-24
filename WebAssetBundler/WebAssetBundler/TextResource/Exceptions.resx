@@ -126,6 +126,9 @@
   <data name="ItemWithSpecifiedSourceAlreadyExists" xml:space="preserve">
     <value>Item with specified source already exists.</value>
   </data>
+  <data name="SharedGroupDoesNotExist" xml:space="preserve">
+    <value>The shared group you are adding does not exist.</value>
+  </data>
   <data name="YouCannotCallRenderMoreThanOnce" xml:space="preserve">
     <value>You can not call render more than once.</value>
   </data>

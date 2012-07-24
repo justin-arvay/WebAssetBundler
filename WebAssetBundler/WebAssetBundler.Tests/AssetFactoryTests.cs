@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -17,39 +17,39 @@
 namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
-    using WebAssetBundler.Web.Mvc;
-    using WebAssetBundler.Web.Mvc;
     using Moq;
+    using System.IO;
 
     [TestFixture]
-    public class WebAssetResolverFactoryTests
+    public class AssetFactoryTests
     {
-        private IWebAssetResolverFactory factory;
+        private AssetFactory factory;
+        private BuilderContext context;
 
         [SetUp]
         public void Setup()
         {
-            factory = new WebAssetResolverFactory();
+            context = new BuilderContext(WebAssetType.None);
+            factory = new AssetFactory(context);
         }
 
         [Test]
-        public void Should_Return_Group_Resolver()
+        public void Should_Create_Asset_With_Default_Path()
         {
-            Assert.IsInstanceOf<WebAssetGroupResolver>(factory.Create(new WebAssetGroup("", false) { Combine = false }));
+            var asset = factory.CreateAsset("file.css");
+
+            Assert.IsInstanceOf<WebAsset>(asset);
+            Assert.AreEqual(Path.Combine("~/Content", "file.css"), asset.Source);
         }
 
         [Test]
-        public void Should_Return_Combined_Group_Resolver()
+        public void Should_Create_Group()
         {
-            var group = new WebAssetGroup("", false) { Combine = true };
+            var group = factory.CreateGroup("test", false);
 
-            Assert.IsInstanceOf<CombinedWebAssetGroupResolver>(factory.Create(group));
-        }
-
-        [Test]
-        public void Should_Return_Versioned_Group_Resolver()
-        {
-            Assert.IsInstanceOf<VersionedWebAssetGroupResolver>(factory.Create(new WebAssetGroup("", false) { Combine = false, Version = "1.1" }));
+            Assert.NotNull(group);
+            Assert.AreEqual(context.Combine, group.Combine);
+            Assert.AreEqual(context.Compress, group.Compress);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -17,39 +17,35 @@
 namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
-    using WebAssetBundler.Web.Mvc;
-    using WebAssetBundler.Web.Mvc;
     using Moq;
 
     [TestFixture]
-    public class WebAssetResolverFactoryTests
+    public class ManagerBuilderFactoryTests
     {
-        private IWebAssetResolverFactory factory;
+        private ManagerBuilderFactory factory;
+        private Mock<ICacheProvider> cacheProvider;
 
         [SetUp]
         public void Setup()
         {
-            factory = new WebAssetResolverFactory();
+            cacheProvider = new Mock<ICacheProvider>();
+
+            factory = new ManagerBuilderFactory(
+                TestHelper.CreateViewContext(),
+                cacheProvider.Object,
+                new SharedGroupManager());
         }
 
         [Test]
-        public void Should_Return_Group_Resolver()
+        public void Should_Create_Style_Sheet_Builder()
         {
-            Assert.IsInstanceOf<WebAssetGroupResolver>(factory.Create(new WebAssetGroup("", false) { Combine = false }));
+            Assert.IsInstanceOf<StyleSheetManagerBuilder>(factory.CreateStyleSheetManagerBuilder());
         }
 
         [Test]
-        public void Should_Return_Combined_Group_Resolver()
+        public void Should_Create_Script_Builder()
         {
-            var group = new WebAssetGroup("", false) { Combine = true };
-
-            Assert.IsInstanceOf<CombinedWebAssetGroupResolver>(factory.Create(group));
-        }
-
-        [Test]
-        public void Should_Return_Versioned_Group_Resolver()
-        {
-            Assert.IsInstanceOf<VersionedWebAssetGroupResolver>(factory.Create(new WebAssetGroup("", false) { Combine = false, Version = "1.1" }));
+            Assert.IsInstanceOf<ScriptManagerBuilder>(factory.CreateScriptManagerBuilder());
         }
     }
 }

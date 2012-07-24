@@ -18,15 +18,24 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System;
     using NUnit.Framework;
+    using Moq;
     using WebAssetBundler.Web.Mvc;
 
     [TestFixture]
     public class WebAssetGroupCollectionTests
     {
+        private WebAssetGroupCollection collection;
+
+        [SetUp]
+        public void Setup()
+        {
+            collection = new WebAssetGroupCollection();
+        }
+
         [Test]
         public void Should_Find_Group_By_Name()
         {
-            var collection = new WebAssetGroupCollection();
+            
             collection.Add(new WebAssetGroup("test", false));
 
             Assert.NotNull(collection.FindGroupByName("test"));
@@ -35,7 +44,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Find_Group_By_Name_Regardless_Of_Case()
         {
-            var collection = new WebAssetGroupCollection();
             collection.Add(new WebAssetGroup("Test", false));
 
             Assert.NotNull(collection.FindGroupByName("tEST"));
@@ -44,29 +52,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Return_Null_If_Not_Group_Not_Found()
         {
-            var collection = new WebAssetGroupCollection();
-
             Assert.Null(collection.FindGroupByName("Foo"));
-        }
-
-        [Test]
-        public void Should_Throw_Exception_If_Shared_Group_Has_Already_Been_Included()
-        {
-            var collection = new WebAssetGroupCollection();
-            var group = new WebAssetGroup("Test", true) { IsIncluded = true };
-
-            Assert.Throws<InvalidOperationException>(() => collection.AddShared(group));
-        }
-
-        [Test]
-        public void Should_Set_Shared_Group_As_Included()
-        {
-            var collection = new WebAssetGroupCollection();
-            var group = new WebAssetGroup("Test", true);
-
-            collection.AddShared(group);
-
-            Assert.IsTrue(group.IsIncluded);
         }
     }
 }

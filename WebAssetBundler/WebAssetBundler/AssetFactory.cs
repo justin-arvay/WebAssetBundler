@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -17,29 +17,35 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.Collections.ObjectModel;
-    using System.Collections.Generic;
-    using System.Linq;
+    using System.IO;
 
-    public class WebAssetGroupCollection : Collection<WebAssetGroup>
+    public class AssetFactory : IAssetFactory
     {
+        private BuilderContext context;
 
-        /// <summary>
-        /// The default Constructor.
-        /// </summary>
-        public WebAssetGroupCollection()
+        public AssetFactory(BuilderContext context)
         {
-
+            this.context = context;
         }
 
-        /// <summary>
-        /// Finds a asset group by name. If none is found returns null.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public WebAssetGroup FindGroupByName(string name)
+        public WebAsset CreateAsset(string source)
         {
-            return Items.SingleOrDefault(g => g.Name.IsCaseInsensitiveEqual(name));
+            if (source.StartsWith("~/") == false)
+            {
+                source = Path.Combine(context.DefaultPath, source);
+            }
+
+            return new WebAsset(source);
+        }
+
+
+        public WebAssetGroup CreateGroup(string name, bool isShared)
+        {
+            return new WebAssetGroup(name, isShared)
+            {
+                Combine = context.Combine,
+                Compress = context.Compress,                
+            };
         }
     }
 }

@@ -21,6 +21,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System.Linq;
     using System.Text;
     using NUnit.Framework;
+    using Moq;
     using WebAssetBundler.Web.Mvc;
 
 
@@ -28,40 +29,42 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class WebAssetGroupBuilderTests
     {
         private WebAssetGroupCollection sharedGroups;
+        private WebAssetGroupBuilder builder;
+        private BuilderContext context;
+        private Mock<IAssetFactory> assetFactory;
+        private WebAssetGroup group;
 
         [SetUp]
         public void SetUp()
         {
             sharedGroups = new WebAssetGroupCollection();
+            group = new WebAssetGroup("", false);
+
+            assetFactory = new Mock<IAssetFactory>();
+            context = new BuilderContext(WebAssetType.None);
+            context.AssetFactory = assetFactory.Object;
+            builder = new WebAssetGroupBuilder(group, sharedGroups, context);
         }
 
         [Test]
         public void Can_Add_Asset_To_Group()
         {
-            var group = new WebAssetGroup("", false);
-            var builder = new WebAssetGroupBuilder(group, sharedGroups);
-
             builder.Add("test.js");
+            assetFactory.Verify(f => f.CreateAsset(It.Is<string>(s => s.Equals("test.js"))), Times.Once());
+
 
             Assert.AreEqual(1, group.Assets.Count);
-
         }
 
         [Test]
         public void Add_Returns_Self_For_Chaining()
         {
-            var group = new WebAssetGroup("", false);
-            var builder = new WebAssetGroupBuilder(group, sharedGroups);
-
             Assert.IsInstanceOf<WebAssetGroupBuilder>(builder.Add("test.js"));
         }
 
         [Test]
         public void Can_Enable_Or_Disable_Group()
         {
-            var group = new WebAssetGroup("", false);
-            var builder = new WebAssetGroupBuilder(group, sharedGroups);
-
             builder.Enable(true);
             Assert.True(group.Enabled, "Enabled Group");
 
@@ -72,18 +75,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Enable_Returns_Self_For_Chaining()
         {
-            var group = new WebAssetGroup("", false);
-            var builder = new WebAssetGroupBuilder(group, sharedGroups);
-
             Assert.IsInstanceOf<WebAssetGroupBuilder>(builder.Enable(true));
         }
 
         [Test]
         public void Can_Enable_Or_Disable_Compression()
         {
-            var group = new WebAssetGroup("", false);
-            var builder = new WebAssetGroupBuilder(group, sharedGroups);
-
             builder.Compress(true);
             Assert.True(group.Compress, "Enabled Compression");
 
@@ -94,18 +91,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Compress_Returns_Self_For_Chaining()
         {
-            var group = new WebAssetGroup("", false);
-            var builder = new WebAssetGroupBuilder(group, sharedGroups);
-
             Assert.IsInstanceOf<WebAssetGroupBuilder>(builder.Compress(true));
         }
 
         [Test]
         public void Can_Enable_Or_Disable_Combining()
         {
-            var group = new WebAssetGroup("", false);
-            var builder = new WebAssetGroupBuilder(group, sharedGroups);
-
             builder.Combine(true);
             Assert.True(group.Combine, "Enabled Combining");
 
@@ -116,18 +107,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Combine_Returns_Self_For_Chaining()
         {
-            var group = new WebAssetGroup("", false);
-            var builder = new WebAssetGroupBuilder(group, sharedGroups);
-
             Assert.IsInstanceOf<WebAssetGroupBuilder>(builder.Combine(true));
         }
 
         [Test]
         public void Can_Set_Version()
         {
-            var group = new WebAssetGroup("", false);
-            var builder = new WebAssetGroupBuilder(group, sharedGroups);
-
             builder.Version("1.1.1");
 
             Assert.AreEqual("1.1.1", group.Version);
@@ -136,18 +121,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Version_Returns_Self_For_Chaining()
         {
-            var group = new WebAssetGroup("", false);
-            var builder = new WebAssetGroupBuilder(group, sharedGroups);
-
             Assert.IsInstanceOf<WebAssetGroupBuilder>(builder.Version("1.1"));
         }
 
         [Test]
         public void Should_Add_Assets_From_Shared()
         {
-            var group = new WebAssetGroup("", false);
-            var builder = new WebAssetGroupBuilder(group, sharedGroups);
-
             var sharedGroup = new WebAssetGroup("Test", true);
             sharedGroup.Assets.Add(new WebAsset("~/Test/File.css"));
             sharedGroups.Add(sharedGroup);
@@ -160,36 +139,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Return_Self_For_Chaining_When_Adding_Shared()
         {
-            var group = new WebAssetGroup("", false);
-            var builder = new WebAssetGroupBuilder(group, sharedGroups);
-
             sharedGroups.Add(new WebAssetGroup("Test", true));
 
             Assert.IsInstanceOf<WebAssetGroupBuilder>(builder.AddShared("Test"));
-        }       
-
-        [Test]
-        public void Should_Throw_Exception_If_Shared_Included_Already()
-        {
-            var group = new WebAssetGroup("", false);
-            var builder = new WebAssetGroupBuilder(group, sharedGroups);
-
-            sharedGroups.Add(new WebAssetGroup("Test", true) { IsIncluded = true });
-
-            Assert.Throws<InvalidOperationException>(() => builder.AddShared("Test"));
-        }
-
-        [Test]
-        public void Should_Set_Shared_Group_As_Included()
-        {
-            sharedGroups.Add(new WebAssetGroup("Test", true));
-
-            var group = new WebAssetGroup("", false);
-            var builder = new WebAssetGroupBuilder(group, sharedGroups);
-            
-            builder.AddShared("Test");
-
-            Assert.IsTrue(sharedGroups[0].IsIncluded);
-        }
+        }                       
     }
 }

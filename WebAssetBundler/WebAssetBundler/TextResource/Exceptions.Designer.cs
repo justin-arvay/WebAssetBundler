@@ -88,6 +88,15 @@ namespace WebAssetBundler.TextResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The shared group you are adding does not exist..
+        /// </summary>
+        internal static string SharedGroupDoesNotExist {
+            get {
+                return ResourceManager.GetString("SharedGroupDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You can not call render more than once..
         /// </summary>
         internal static string YouCannotCallRenderMoreThanOnce {

@@ -8,20 +8,24 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class SharedGroupManagerTests
     {
+        private SharedGroupManager manager;
+
+        [SetUp]
+        public void Setup()
+        {
+            manager = new SharedGroupManager();
+        }
+
         [Test]
         public void Should_Have_Empty_Scripts()
         {
-            var manager = new SharedGroupManager();
-
             Assert.AreEqual(0, manager.Scripts.Count);
         }
 
         [Test]
         public void Should_Have_Empty_StyleSheets()
         {
-            var manager = new SharedGroupManager();
-
             Assert.AreEqual(0, manager.StyleSheets.Count);
-        }        
+        }
     }
 }
