@@ -57,9 +57,10 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public WebAssetGroupCollectionBuilder Add(string source)
         {
-            var group = context.AssetFactory.CreateGroup("Single", false);
+            var asset = context.AssetFactory.CreateAsset(source);
+            var group = context.AssetFactory.CreateGroup(asset.Name, false);
 
-            group.Assets.Add(context.AssetFactory.CreateAsset(source));
+            group.Assets.Add(asset);
 
             //add to collection
             groups.Add(group);

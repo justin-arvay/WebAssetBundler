@@ -73,11 +73,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Adding_File_Should_Add_New_Group_With_Asset()
         {
             assetFactory.Setup(f => f.CreateGroup(It.IsAny<string>(), It.IsAny<bool>())).Returns(new WebAssetGroup("Single", false));
-            assetFactory.Setup(f => f.CreateAsset(It.IsAny<string>())).Returns(new WebAsset("~/Files/test/css"));
+            assetFactory.Setup(f => f.CreateAsset(It.IsAny<string>())).Returns(new WebAsset("~/Files/test.css"));
 
             builder.Add("~/Files/test.css");
 
-            assetFactory.Verify(f => f.CreateGroup(It.Is<string>(s => s.Equals("Single")), It.Is<bool>(b => b.Equals(false))), Times.Exactly(1));
+            assetFactory.Verify(f => f.CreateGroup(It.Is<string>(s => s.Equals("test")), It.Is<bool>(b => b.Equals(false))), Times.Exactly(1));
             assetFactory.Verify(f => f.CreateAsset(It.Is<string>(s => s.Equals("~/Files/test.css"))), Times.Exactly(1));
 
             //should be 2 items in the collection, and 1 item in each collections group
@@ -97,6 +97,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Add_Should_Return_Self_For_Chaining()
         {
+            assetFactory.Setup(f =>f.CreateAsset(It.IsAny<string>())).Returns(new WebAsset("test.css"));
             assetFactory.Setup(f => f.CreateGroup(It.IsAny<string>(), It.IsAny<bool>())).Returns(new WebAssetGroup("test", false));
 
             Assert.IsInstanceOf<WebAssetGroupCollectionBuilder>(builder.Add("~/Files/test.css"));
