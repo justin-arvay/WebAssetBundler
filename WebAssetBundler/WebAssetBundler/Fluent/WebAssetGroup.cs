@@ -30,9 +30,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             Name = name;
             IsShared = isShared;            
-            Assets = new InternalCollection();
-            Combine = DefaultSettings.Combined;
-            Compress = DefaultSettings.Compressed;                      
+            Assets = new InternalCollection();                    
         }
 
         public string Name
