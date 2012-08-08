@@ -126,23 +126,5 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.Throws<ArgumentException>(() => group.Assets.Insert(1, new WebAsset("/path/file.js")));
         }
 
-        [Test]
-        public void Should_Use_Default_Settings_For_Combine_By_Default()
-        {
-            DefaultSettings.Combined = true;
-            var group = new WebAssetGroup("", false);            
-
-            Assert.AreEqual(DefaultSettings.Combined, group.Combine);
-        }
-
-        [Test]
-        public void Should_Use_Default_Setting_For_Compress_By_Default()
-        {
-            DefaultSettings.Compressed = true;
-            var group = new WebAssetGroup("", false);      
-
-            Assert.AreEqual(DefaultSettings.Compressed, group.Compress);
-        }
-
     }
 }

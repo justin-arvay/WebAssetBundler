@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using WebAssetBundler.Web.Mvc;
 
 namespace Examples
 {
@@ -35,6 +36,11 @@ namespace Examples
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            SharedGroups.Scripts(s =>s
+                .AddGroup("jQuery2", g => g
+                    .Add("jquery-1.5.1.js")
+                    .Version("YEAH")));
         }
     }
 }

@@ -29,13 +29,10 @@ namespace WebAssetBundler.Web.Mvc
         public static ComponentBuilder Bundler(this HtmlHelper helper)
         {                                    
             var viewContext = helper.ViewContext;
-            var cacheProvider = new CacheProvider();                               
-             
-            var sharedManager = (HttpContext.Current.Items["SharedManager"] ??
-                (HttpContext.Current.Items["SharedManager"] = CreateSharedGroupManager())) as SharedGroupManager;
+            var cacheProvider = new CacheProvider();
 
 
-            var builderFactory = new ManagerBuilderFactory(viewContext, cacheProvider, sharedManager);
+            var builderFactory = new ManagerBuilderFactory(viewContext, cacheProvider, SharedGroups.Manager);
 
             var styleSheetManagerBuilder = (HttpContext.Current.Items["StyleSheetManagerBuilder"] ??
                         (HttpContext.Current.Items["StyleSheetManagerBuilder"] =
@@ -50,15 +47,6 @@ namespace WebAssetBundler.Web.Mvc
                 styleSheetManagerBuilder,
                 scriptManagerBuilder);
         }
-
-        private static SharedGroupManager CreateSharedGroupManager()
-        {
-            var loader = new SharedGroupManagerLoader(new AssetConfigurationFactory());
-            var sharedManager = new SharedGroupManager();
-
-            loader.Load(sharedManager);
-
-            return sharedManager;
-        }        
+     
     }
 }
