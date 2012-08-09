@@ -61,7 +61,7 @@ namespace WebAssetBundler.TextResource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can not add the shared group twice..
+        ///   Looks up a localized string similar to You can not add the shared group twice. Name: {0}.
         /// </summary>
         internal static string CannotAddSharedGroupTwice {
             get {
@@ -70,7 +70,7 @@ namespace WebAssetBundler.TextResource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A group with that name already exists..
+        ///   Looks up a localized string similar to A group with that name already exists. Name: {0}.
         /// </summary>
         internal static string GroupWithSpecifiedNameAlreadyExists {
             get {
@@ -79,7 +79,7 @@ namespace WebAssetBundler.TextResource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Item with specified source already exists..
+        ///   Looks up a localized string similar to Item with specified source already exists. Source: {0}.
         /// </summary>
         internal static string ItemWithSpecifiedSourceAlreadyExists {
             get {
@@ -88,7 +88,7 @@ namespace WebAssetBundler.TextResource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The shared group you are adding does not exist..
+        ///   Looks up a localized string similar to The shared group you are adding does not exist. Name: {0}.
         /// </summary>
         internal static string SharedGroupDoesNotExist {
             get {

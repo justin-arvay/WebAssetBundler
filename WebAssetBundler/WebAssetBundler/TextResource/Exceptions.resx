@@ -118,16 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CannotAddSharedGroupTwice" xml:space="preserve">
-    <value>You can not add the shared group twice.</value>
+    <value>You can not add the shared group twice. Name: {0}</value>
   </data>
   <data name="GroupWithSpecifiedNameAlreadyExists" xml:space="preserve">
-    <value>A group with that name already exists.</value>
+    <value>A group with that name already exists. Name: {0}</value>
   </data>
   <data name="ItemWithSpecifiedSourceAlreadyExists" xml:space="preserve">
-    <value>Item with specified source already exists.</value>
+    <value>Item with specified source already exists. Source: {0}</value>
   </data>
   <data name="SharedGroupDoesNotExist" xml:space="preserve">
-    <value>The shared group you are adding does not exist.</value>
+    <value>The shared group you are adding does not exist. Name: {0}</value>
   </data>
   <data name="YouCannotCallRenderMoreThanOnce" xml:space="preserve">
     <value>You can not call render more than once.</value>

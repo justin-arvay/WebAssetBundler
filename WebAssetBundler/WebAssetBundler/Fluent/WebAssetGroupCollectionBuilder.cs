@@ -37,7 +37,7 @@ namespace WebAssetBundler.Web.Mvc
             //ensure that we cannot add the same group twice
             if (groups.FindGroupByName(name) != null) 
             {
-                throw new ArgumentException(TextResource.Exceptions.GroupWithSpecifiedNameAlreadyExists);
+                throw new ArgumentException(string.Format(TextResource.Exceptions.GroupWithSpecifiedNameAlreadyExists, name));
             }
 
             var group = context.AssetFactory.CreateGroup(name, false);
@@ -78,14 +78,14 @@ namespace WebAssetBundler.Web.Mvc
             //ensure that we cannot add the same group twice
             if (groups.FindGroupByName(name) != null)
             {
-                throw new ArgumentException(TextResource.Exceptions.GroupWithSpecifiedNameAlreadyExists);
+                throw new ArgumentException(string.Format(TextResource.Exceptions.GroupWithSpecifiedNameAlreadyExists, name));
             }
 
             var group = sharedGroups.FindGroupByName(name);
 
             if (group == null)
             {
-                throw new ArgumentException(TextResource.Exceptions.SharedGroupDoesNotExist);
+                throw new ArgumentException(string.Format(TextResource.Exceptions.SharedGroupDoesNotExist, name));
             }
 
             groups.Add(group);
@@ -103,14 +103,14 @@ namespace WebAssetBundler.Web.Mvc
             //ensure that we cannot add the same group twice
             if (groups.FindGroupByName(name) != null)
             {
-                throw new ArgumentException(TextResource.Exceptions.GroupWithSpecifiedNameAlreadyExists);
+                throw new ArgumentException(string.Format(TextResource.Exceptions.GroupWithSpecifiedNameAlreadyExists, name));
             }
 
             var group = sharedGroups.FindGroupByName(name);
 
             if (group == null)
             {
-                throw new ArgumentException(TextResource.Exceptions.SharedGroupDoesNotExist);
+                throw new ArgumentException(string.Format(TextResource.Exceptions.SharedGroupDoesNotExist, name));
             }
 
             groups.Add(group);

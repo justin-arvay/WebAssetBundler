@@ -88,7 +88,7 @@ namespace WebAssetBundler.Web.Mvc
             {
                 if (AlreadyExists(item))
                 {
-                    throw new ArgumentException(TextResource.Exceptions.ItemWithSpecifiedSourceAlreadyExists + Message(item), "item");
+                    throw new ArgumentException(string.Format(TextResource.Exceptions.ItemWithSpecifiedSourceAlreadyExists, item.Source), "item");
                 }
 
                 base.InsertItem(index, item);
@@ -98,7 +98,7 @@ namespace WebAssetBundler.Web.Mvc
             {
                 if (AlreadyExists(item))
                 {
-                    throw new ArgumentException(TextResource.Exceptions.ItemWithSpecifiedSourceAlreadyExists + Message(item), "item");
+                    throw new ArgumentException(string.Format(TextResource.Exceptions.ItemWithSpecifiedSourceAlreadyExists, item.Source), "item");
                 }
 
                 base.SetItem(index, item);
