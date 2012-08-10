@@ -50,10 +50,18 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Can_Add_Asset_To_Group()
         {
             builder.Add("test.js");
-            assetFactory.Verify(f => f.CreateAsset(It.Is<string>(s => s.Equals("test.js"))), Times.Once());
-
+            assetFactory.Verify(f => f.CreateAsset(It.Is<string>(s => s.Equals("test.js")), It.IsAny<string>()), Times.Once());
 
             Assert.AreEqual(1, group.Assets.Count);
+        }
+
+        [Test]
+        public void Should_Use_Groups_Default_Path()
+        {
+            group.DefaultPath = "~/TestPath";
+            builder.Add("test.js");
+
+            assetFactory.Verify(f => f.CreateAsset(It.Is<string>(s => s.Equals("test.js")), It.Is<string>(s => s.Equals("~/TestPath"))), Times.Once());
         }
 
         [Test]
@@ -142,6 +150,20 @@ namespace WebAssetBundler.Web.Mvc.Tests
             sharedGroups.Add(new WebAssetGroup("Test", true));
 
             Assert.IsInstanceOf<WebAssetGroupBuilder>(builder.AddShared("Test"));
-        }                       
+        }
+
+        [Test]
+        public void Should_Set_Default_Path()
+        {
+            builder.DefaultPath("~/Test");
+
+            Assert.AreEqual("~/Test", group.DefaultPath);
+        }
+
+        [Test]
+        public void Should_Be_Virtual_Path()
+        {
+            Assert.Throws<ArgumentException>(() => builder.DefaultPath("test"));
+        }
     }
 }

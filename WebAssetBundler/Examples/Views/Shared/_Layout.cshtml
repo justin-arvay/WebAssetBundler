@@ -8,7 +8,8 @@
             .Add("themes/base/jquery.ui.all.css")
             .Add("themes/base/jquery.ui.all.css")
             .AddGroup("Test", g => g
-                .Add("themes/base/jquery.ui.all.css")
+                .DefaultPath("~/Content/themes")
+                .Add("base/jquery.ui.all.css")
                 .Add("~/Content/Site.css")
                 .Version("1.2")))
         .Render();}

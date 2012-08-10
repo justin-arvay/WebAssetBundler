@@ -28,11 +28,18 @@ namespace WebAssetBundler.Web.Mvc
             this.context = context;
         }
 
-        public WebAsset CreateAsset(string source)
-        {
+        public WebAsset CreateAsset(string source, string path)
+        {            
             if (source.StartsWith("~/") == false)
             {
-                source = Path.Combine(context.DefaultPath, source);
+                if (string.IsNullOrEmpty(path))
+                {
+                    source = Path.Combine(context.DefaultPath, source);
+                }
+                else
+                {
+                    source = Path.Combine(path, source);
+                }                
             }
 
             return new WebAsset(source);

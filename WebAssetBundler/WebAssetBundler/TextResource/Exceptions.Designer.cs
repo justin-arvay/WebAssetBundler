@@ -88,6 +88,15 @@ namespace WebAssetBundler.TextResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The supplied path must be virtual. Path: {0}.
+        /// </summary>
+        internal static string PathMustBeVirtual {
+            get {
+                return ResourceManager.GetString("PathMustBeVirtual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The shared group you are adding does not exist. Name: {0}.
         /// </summary>
         internal static string SharedGroupDoesNotExist {

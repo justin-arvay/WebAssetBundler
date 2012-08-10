@@ -33,28 +33,64 @@ namespace WebAssetBundler.Web.Mvc
             this.sharedGroups = sharedGroups;
             this.context = context;
         }
-
+        
+        /// <summary>
+        /// Enables or disables the group. A disabled group does not get included on the page.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public WebAssetGroupBuilder Enable(bool value)
         {
             group.Enabled = value;
             return this;
         }
 
+        /// <summary>
+        /// Sets the version for the group. Overrides all other versioning.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public WebAssetGroupBuilder Version(string value)
         {
             group.Version = value;
             return this;
         }
 
+        /// <summary>
+        /// Compresses the group.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public WebAssetGroupBuilder Compress(bool value)
         {
             group.Compress = value;
             return this;
         }
 
+        /// <summary>
+        /// Combines all the assets in the group into one file.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public WebAssetGroupBuilder Combine(bool value)
         {
             group.Combine = value;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets a path to use when adding assets to the group.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public WebAssetGroupBuilder DefaultPath(string path)
+        {
+            if (path.StartsWith("~/") == false)
+            {
+                throw new ArgumentException(string.Format(TextResource.Exceptions.PathMustBeVirtual, path));
+            }
+
+            group.DefaultPath = path;
             return this;
         }
 
@@ -65,7 +101,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public WebAssetGroupBuilder Add(string filePath)
         {
-            group.Assets.Add(context.AssetFactory.CreateAsset(filePath));
+            group.Assets.Add(context.AssetFactory.CreateAsset(filePath, group.DefaultPath));
             return this;
         }
 

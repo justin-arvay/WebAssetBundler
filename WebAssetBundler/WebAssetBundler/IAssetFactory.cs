@@ -23,15 +23,16 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Creates an asset. Automatically resoves the default path as needed.
         /// </summary>
+        /// <param name="source"></param>
+        /// <param name="path"></param>
         /// <returns></returns>
-        WebAsset CreateAsset(string source);
+        WebAsset CreateAsset(string source, string path);
 
         /// <summary>
         /// Creates a group.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="isShared"></param>
-        /// <param name="context"></param>
         /// <returns></returns>
         WebAssetGroup CreateGroup(string name, bool isShared);
     }

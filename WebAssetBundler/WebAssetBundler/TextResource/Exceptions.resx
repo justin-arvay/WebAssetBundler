@@ -126,6 +126,9 @@
   <data name="ItemWithSpecifiedSourceAlreadyExists" xml:space="preserve">
     <value>Item with specified source already exists. Source: {0}</value>
   </data>
+  <data name="PathMustBeVirtual" xml:space="preserve">
+    <value>The supplied path must be virtual. Path: {0}</value>
+  </data>
   <data name="SharedGroupDoesNotExist" xml:space="preserve">
     <value>The shared group you are adding does not exist. Name: {0}</value>
   </data>

@@ -34,12 +34,30 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Create_Asset_With_Default_Path()
+        public void Should_Create_Asset_With_Contexts_Default_Path()
         {
-            var asset = factory.CreateAsset("file.css");
+            var asset = factory.CreateAsset("file.css", "");
 
             Assert.IsInstanceOf<WebAsset>(asset);
             Assert.AreEqual(Path.Combine("~/Content", "file.css"), asset.Source);
+        }
+
+        [Test]
+        public void Should_Create_Asset_With_Default_Path()
+        {
+            var asset = factory.CreateAsset("file.css", "~/test");
+
+            Assert.IsInstanceOf<WebAsset>(asset);
+            Assert.AreEqual(Path.Combine("~/test", "file.css"), asset.Source);
+        }
+
+        [Test]
+        public void Should_Create_Asset_Without_Default_Path()
+        {
+            var asset = factory.CreateAsset("~/file.css", "");
+
+            Assert.IsInstanceOf<WebAsset>(asset);
+            Assert.AreEqual("~/file.css", asset.Source);
         }
 
         [Test]

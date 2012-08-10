@@ -76,7 +76,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Can_Configure_Default_Group()
         {
-            assetFactory.Setup(f => f.CreateAsset(It.IsAny<string>())).Returns(new WebAsset("test/test.js"));
+            assetFactory.Setup(f => f.CreateAsset(It.IsAny<string>(), It.IsAny<string>())).Returns(new WebAsset("test/test.js"));
 
             builder.DefaultGroup(g => g.Add("test/test.js"));
 
