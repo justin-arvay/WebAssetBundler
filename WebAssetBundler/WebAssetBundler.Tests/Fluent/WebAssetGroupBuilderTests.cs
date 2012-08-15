@@ -165,5 +165,26 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             Assert.Throws<ArgumentException>(() => builder.DefaultPath("test"));
         }
+
+        [Test]
+        public void Should_Disable_Group()
+        {
+            group.Enabled = true;
+            builder.Disable();
+
+            Assert.False(group.Enabled);
+        }
+
+        [Test]
+        public void Should_Enable_Or_Disable_Group()
+        {
+            group.Enabled = false;
+
+            builder.Enable(true);
+            Assert.True(group.Enabled);
+
+            builder.Enable(false);
+            Assert.False(group.Enabled);
+        }
     }
 }

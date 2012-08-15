@@ -22,19 +22,24 @@ namespace WebAssetBundler.Web.Mvc
     public class WebAssetResolverFactory : IWebAssetResolverFactory
     {                
 
-        public IWebAssetResolver Create(WebAssetGroup webAssetGroup)
+        public IWebAssetResolver Create(WebAssetGroup group)
         {
-            if (webAssetGroup.Combine)
+            if (group.Enabled == false)
             {
-                return new CombinedWebAssetGroupResolver(webAssetGroup);
+                return new DoNothingWebAssetResolver();
             }
 
-            if (webAssetGroup.Version.IsNotNullOrEmpty())
+            if (group.Combine)
             {
-                return new VersionedWebAssetGroupResolver(webAssetGroup);
+                return new CombinedWebAssetGroupResolver(group);
             }
 
-            return new WebAssetGroupResolver(webAssetGroup);
+            if (group.Version.IsNotNullOrEmpty())
+            {
+                return new VersionedWebAssetGroupResolver(group);
+            }
+
+            return new WebAssetGroupResolver(group);
         }
     }
 }

@@ -24,56 +24,53 @@ namespace WebAssetBundler.Web.Mvc
 
     public class StyleSheetTagWriterTests
     {
+        private Mock<IUrlResolver> resolver;
+        private Mock<TextWriter> textWriter;
+        private StyleSheetTagWriter tagWriter;
+
+        [SetUp]
+        public void SetUp()
+        {
+            resolver = new Mock<IUrlResolver>();
+            textWriter = new Mock<TextWriter>();
+            tagWriter = new StyleSheetTagWriter(resolver.Object);
+        }
 
         [Test]
         public void Should_Resole_Virtual_Path_To_Url()
-        {
-            var urlResolver = new Mock<IUrlResolver>();
-            var writer = new Mock<TextWriter>();
-            var tagWriter = new StyleSheetTagWriter(urlResolver.Object);
-            var path = "~/Files/test/css";
-
+        {            
             var results = new List<WebAssetMergerResult>();
             results.Add(new WebAssetMergerResult("", ""));
             results.Add(new WebAssetMergerResult("", ""));
 
-            tagWriter.Write(writer.Object, results);
+            tagWriter.Write(textWriter.Object, results);
 
-            urlResolver.Verify(m => m.Resolve(It.IsAny<string>()), Times.Exactly(2));
+            resolver.Verify(m => m.Resolve(It.IsAny<string>()), Times.Exactly(2));
         }
 
         [Test]
         public void Should_Write_To_Writer()
         {
-            var urlResolver = new Mock<IUrlResolver>();
-            var writer = new Mock<TextWriter>();
-            var tagWriter = new StyleSheetTagWriter(urlResolver.Object);
-
             var results = new List<WebAssetMergerResult>();
             results.Add(new WebAssetMergerResult("", ""));
             results.Add(new WebAssetMergerResult("", ""));
 
-            tagWriter.Write(writer.Object, results);
+            tagWriter.Write(textWriter.Object, results);
 
-            writer.Verify(m => m.WriteLine(It.IsAny<string>()), Times.Exactly(2));   
+            textWriter.Verify(m => m.WriteLine(It.IsAny<string>()), Times.Exactly(2));   
         }
 
         [Test]
         public void Should_Format_Tag_Correctly()
         {
-            var urlResolver = new Mock<IUrlResolver>();
-            var writer = new Mock<TextWriter>();
-            var tagWriter = new StyleSheetTagWriter(urlResolver.Object);
-
             var results = new List<WebAssetMergerResult>();
             results.Add(new WebAssetMergerResult("", ""));
             results.Add(new WebAssetMergerResult("", ""));
 
-            tagWriter.Write(writer.Object, results);
+            tagWriter.Write(textWriter.Object, results);
 
             var tag = "<link type=\"text/css\" href=\"\" rel=\"stylesheet\"/>";
-            writer.Verify(m => m.WriteLine(It.Is<string>(s => s.Equals(tag))), Times.Exactly(2));   
+            textWriter.Verify(m => m.WriteLine(It.Is<string>(s => s.Equals(tag))), Times.Exactly(2));   
         }
-
     }
 }

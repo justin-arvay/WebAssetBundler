@@ -33,7 +33,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             get;
             private set;
-        }        
+        }
 
         public string Content
         {

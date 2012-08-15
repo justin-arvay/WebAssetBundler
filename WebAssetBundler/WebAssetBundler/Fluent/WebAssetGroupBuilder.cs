@@ -35,6 +35,17 @@ namespace WebAssetBundler.Web.Mvc
         }
         
         /// <summary>
+        /// Disables the group. A disabled group does not get included on the page.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public WebAssetGroupBuilder Disable()
+        {
+            group.Enabled = false;
+            return this;
+        }
+
+        /// <summary>
         /// Enables or disables the group. A disabled group does not get included on the page.
         /// </summary>
         /// <param name="value"></param>
@@ -44,6 +55,7 @@ namespace WebAssetBundler.Web.Mvc
             group.Enabled = value;
             return this;
         }
+
 
         /// <summary>
         /// Sets the version for the group. Overrides all other versioning.

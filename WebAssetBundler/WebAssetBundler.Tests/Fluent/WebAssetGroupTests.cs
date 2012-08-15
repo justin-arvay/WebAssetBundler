@@ -109,6 +109,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual(1, group.Assets.Count);
         }
 
+        [Test]
         public void Adding_Duplicate_Item_Throws_Exception()
         {
             var group = new WebAssetGroup("", false);
@@ -118,6 +119,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
         }
 
+        [Test]
         public void Setting_Duplicate_Item_To_Existing_Index_Throws_Exception()
         {
             var group = new WebAssetGroup("", false);
@@ -126,5 +128,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.Throws<ArgumentException>(() => group.Assets.Insert(1, new WebAsset("/path/file.js")));
         }
 
+        [Test]
+        public void Should_Be_Enabled_By_Default()
+        {
+            var group = new WebAssetGroup("", false);
+
+            Assert.True(group.Enabled);
+        }
     }
 }

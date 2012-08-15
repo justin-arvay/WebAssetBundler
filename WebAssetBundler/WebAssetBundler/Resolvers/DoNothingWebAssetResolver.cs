@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -17,26 +17,14 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.IO;
     using System.Collections.Generic;
 
-    public class StyleSheetTagWriter : ITagWriter
+    public class DoNothingWebAssetResolver : IWebAssetResolver
     {
-        private IUrlResolver urlResolver;
 
-        public StyleSheetTagWriter(IUrlResolver urlResolver)
+        public IList<ResolverResult> Resolve()
         {
-            this.urlResolver = urlResolver;
-        }
-
-        public void Write(TextWriter writer, IList<WebAssetMergerResult> results)
-        {
-            var link = "<link type=\"text/css\" href=\"{0}\" rel=\"stylesheet\"/>";
-
-            foreach (var result in results)
-            {
-                writer.WriteLine(link.FormatWith(urlResolver.Resolve(result.Path)));                
-            }
+            return new List<ResolverResult>();
         }
     }
 }

@@ -28,6 +28,7 @@ namespace WebAssetBundler.Web.Mvc
     {
         public WebAssetGroup(string name, bool isShared)
         {
+            Enabled = true;
             Name = name;
             IsShared = isShared;            
             Assets = new InternalCollection();                    
