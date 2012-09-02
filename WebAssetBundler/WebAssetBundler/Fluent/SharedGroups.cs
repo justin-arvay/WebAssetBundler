@@ -27,7 +27,8 @@ namespace WebAssetBundler.Web.Mvc
 
         static SharedGroups()
         {
-            LoadManager();
+            //LoadManager();
+            Manager = new SharedGroupManager();
             scriptContext = builderContextFactory.CreateScriptContext();
             styleSheetContext = builderContextFactory.CreateStyleSheetContext();
         }
