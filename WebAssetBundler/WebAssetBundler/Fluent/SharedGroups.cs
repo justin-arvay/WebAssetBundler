@@ -23,10 +23,13 @@ namespace WebAssetBundler.Web.Mvc
     {
         private static BuilderContext scriptContext;
         private static BuilderContext styleSheetContext;
+        private static IBuilderContextFactory builderContextFactory = new BuilderContextFactory();
 
         static SharedGroups()
         {
             LoadManager();
+            scriptContext = builderContextFactory.CreateScriptContext();
+            styleSheetContext = builderContextFactory.CreateStyleSheetContext();
         }
 
         public static SharedGroupManager Manager
@@ -39,9 +42,6 @@ namespace WebAssetBundler.Web.Mvc
         {
             get
             {
-                scriptContext = new BuilderContext(WebAssetType.Script);
-                scriptContext.AssetFactory = new AssetFactory(scriptContext);
-
                 return scriptContext;
             }            
         }
@@ -50,9 +50,6 @@ namespace WebAssetBundler.Web.Mvc
         {
             get
             {
-                styleSheetContext = new BuilderContext(WebAssetType.StyleSheet);
-                styleSheetContext.AssetFactory = new AssetFactory(styleSheetContext);
-
                 return styleSheetContext;
             }            
         }

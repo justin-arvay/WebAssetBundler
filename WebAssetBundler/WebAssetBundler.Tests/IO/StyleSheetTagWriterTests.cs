@@ -72,5 +72,23 @@ namespace WebAssetBundler.Web.Mvc
             var tag = "<link type=\"text/css\" href=\"\" rel=\"stylesheet\"/>";
             textWriter.Verify(m => m.WriteLine(It.Is<string>(s => s.Equals(tag))), Times.Exactly(2));   
         }
+
+        [Test]
+        public void Should_Add_Host_To_Url()
+        {
+            var result = new WebAssetMergerResult("/test.css", "");
+            result.Host = "http://www.test.com";
+
+            var results = new List<WebAssetMergerResult>();
+            results.Add(result);
+
+            //return whatever url was passed
+            resolver.Setup(x => x.Resolve(It.IsAny<string>())).Returns((string url) => { return url; });
+
+            tagWriter.Write(textWriter.Object, results);
+
+
+            textWriter.Verify(x => x.WriteLine(It.Is<string>(s => s.Contains("http://www.test.com/test.css"))), Times.Once());
+        }
     }
 }

@@ -20,6 +20,8 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Security.Policy;
+    using System.IO;
 
     public class WebAssetMergerResult
     {
@@ -39,6 +41,33 @@ namespace WebAssetBundler.Web.Mvc
         {
             get;
             private set;
+        }
+
+        public string Host
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="result"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string CreateUrl(string path, string host)
+        {
+            if (host != null && host.Length > 0)
+            {
+                if (path.StartsWith("/"))
+                {
+                    path = path.TrimStart('/');
+                }
+
+                return System.IO.Path.Combine(host, path).Replace("\\", "/");
+            }
+
+            return path;
         }
     }
 }

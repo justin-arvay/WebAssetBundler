@@ -40,8 +40,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var context = SharedGroups.ScriptContext;
 
             Assert.IsInstanceOf<BuilderContext>(context);
-            Assert.IsInstanceOf<IAssetFactory>(context.AssetFactory);
-            Assert.AreEqual(WebAssetType.Script, context.TypeEnum);
+            Assert.IsInstanceOf<IAssetFactory>(context.AssetFactory);            
         }
 
         [Test]
@@ -50,8 +49,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var context = SharedGroups.StyleSheetContext;
 
             Assert.IsInstanceOf<BuilderContext>(context);
-            Assert.IsInstanceOf<IAssetFactory>(context.AssetFactory);
-            Assert.AreEqual(WebAssetType.StyleSheet, context.TypeEnum);
+            Assert.IsInstanceOf<IAssetFactory>(context.AssetFactory);            
         }
 
         [Test]

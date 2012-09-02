@@ -51,7 +51,8 @@ namespace WebAssetBundler.Web.Mvc
             return new WebAssetGroup(name, isShared)
             {
                 Combine = context.Combine,
-                Compress = context.Compress,                
+                Compress = context.Compress,
+                Host = context.Host       
             };
         }
     }

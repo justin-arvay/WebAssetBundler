@@ -37,6 +37,9 @@ namespace Examples
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 
+            //DefaultSettings.StyleSheetHost = "192.168.1.69";
+           // DefaultSettings.ScriptHost = "6.6.6.6";
+
             SharedGroups.Scripts(s =>s
                 .AddGroup("jQuery2", g => g
                     .Add("jquery-1.5.1.js")

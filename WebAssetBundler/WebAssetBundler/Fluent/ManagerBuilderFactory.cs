@@ -24,18 +24,19 @@ namespace WebAssetBundler.Web.Mvc
         private ViewContext viewContext;
         private ICacheProvider cacheProvider;
         private SharedGroupManager sharedManager;
+        private IBuilderContextFactory contextFactory;
 
-        public ManagerBuilderFactory(ViewContext viewContext, ICacheProvider cacheProvider, SharedGroupManager sharedManager)
+        public ManagerBuilderFactory(ViewContext viewContext, ICacheProvider cacheProvider, IBuilderContextFactory contextFactory, SharedGroupManager sharedManager)
         {
             this.viewContext = viewContext;
             this.cacheProvider = cacheProvider;
             this.sharedManager = sharedManager;
+            this.contextFactory = contextFactory;
         }
 
         public StyleSheetManagerBuilder CreateStyleSheetManagerBuilder()
         {
-            var builderContext = new BuilderContext(WebAssetType.StyleSheet);
-            builderContext.AssetFactory = new AssetFactory(builderContext);
+            var builderContext = contextFactory.CreateStyleSheetContext();
 
             var pathResolver = new PathResolver(WebAssetType.StyleSheet);
             var urlResolver = new UrlResolver(viewContext.RequestContext);
@@ -64,10 +65,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public ScriptManagerBuilder CreateScriptManagerBuilder()
         {
-            
-            var builderContext = new BuilderContext(WebAssetType.Script);           
-            builderContext.AssetFactory = new AssetFactory(builderContext);
-
+            var builderContext = contextFactory.CreateScriptContext();     
             var pathResolver = new PathResolver(WebAssetType.Script);
 
             var urlResolver = new UrlResolver(viewContext.RequestContext);

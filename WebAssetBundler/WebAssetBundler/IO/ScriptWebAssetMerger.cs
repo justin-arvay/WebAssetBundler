@@ -66,8 +66,11 @@ namespace WebAssetBundler.Web.Mvc
                 //compress the merged content if we can
                 content = compressor.Compress(content);
             }
-         
-            return new WebAssetMergerResult(generatedPath, content);
+
+            return new WebAssetMergerResult(generatedPath, content)
+            {
+                Host = result.Host
+            };
         }        
     }
 }

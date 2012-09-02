@@ -24,15 +24,18 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private ManagerBuilderFactory factory;
         private Mock<ICacheProvider> cacheProvider;
+        private Mock<IBuilderContextFactory> contextFactory;
 
         [SetUp]
         public void Setup()
         {
             cacheProvider = new Mock<ICacheProvider>();
+            contextFactory = new Mock<IBuilderContextFactory>();
 
             factory = new ManagerBuilderFactory(
                 TestHelper.CreateViewContext(),
                 cacheProvider.Object,
+                contextFactory.Object,
                 new SharedGroupManager());
         }
 
@@ -40,12 +43,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Create_Style_Sheet_Builder()
         {
             Assert.IsInstanceOf<StyleSheetManagerBuilder>(factory.CreateStyleSheetManagerBuilder());
+            contextFactory.Verify(c => c.CreateStyleSheetContext(), Times.Once());
         }
 
         [Test]
         public void Should_Create_Script_Builder()
         {
             Assert.IsInstanceOf<ScriptManagerBuilder>(factory.CreateScriptManagerBuilder());
+            contextFactory.Verify(c => c.CreateScriptContext(), Times.Once());
         }
     }
 }

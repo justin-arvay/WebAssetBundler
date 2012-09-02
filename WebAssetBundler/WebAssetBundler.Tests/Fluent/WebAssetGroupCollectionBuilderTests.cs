@@ -34,7 +34,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Setup()
         {
             assetFactory = new Mock<IAssetFactory>();
-            context = new BuilderContext(WebAssetType.None);
+            context = new BuilderContext();
             context.AssetFactory = assetFactory.Object;
 
             sharedGroups = new WebAssetGroupCollection();

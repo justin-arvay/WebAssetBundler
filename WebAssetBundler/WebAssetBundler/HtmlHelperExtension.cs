@@ -24,20 +24,26 @@ namespace WebAssetBundler.Web.Mvc
     using System.Web;
 
     public static class HtmlHelperExtension
-    {       
+    {
+        private static IBuilderContextFactory builderContextFactory  = new BuilderContextFactory();
+        private static ManagerBuilderFactory builderFactory;
+        private static ICacheProvider cacheProvider = new CacheProvider();
 
         public static ComponentBuilder Bundler(this HtmlHelper helper)
         {                                    
             var viewContext = helper.ViewContext;
-            var cacheProvider = new CacheProvider();
 
+            //per request variables
+            var builderFactory = (HttpContext.Current.Items["builderFactory"] ??
+                        (HttpContext.Current.Items["builderFactory"] =
+                        new ManagerBuilderFactory(viewContext, cacheProvider, builderContextFactory, SharedGroups.Manager))) as ManagerBuilderFactory;
 
-            var builderFactory = new ManagerBuilderFactory(viewContext, cacheProvider, SharedGroups.Manager);
-
+            //per request variables
             var styleSheetManagerBuilder = (HttpContext.Current.Items["StyleSheetManagerBuilder"] ??
                         (HttpContext.Current.Items["StyleSheetManagerBuilder"] =
                         builderFactory.CreateStyleSheetManagerBuilder())) as StyleSheetManagerBuilder;
 
+            //per request variables
             var scriptManagerBuilder = (HttpContext.Current.Items["ScriptManagerBuilder"] ??
                         (HttpContext.Current.Items["ScriptManagerBuilder"] =
                         builderFactory.CreateScriptManagerBuilder())) as ScriptManagerBuilder;
@@ -46,7 +52,6 @@ namespace WebAssetBundler.Web.Mvc
             return new ComponentBuilder(
                 styleSheetManagerBuilder,
                 scriptManagerBuilder);
-        }
-     
+        }     
     }
 }

@@ -107,6 +107,17 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
+        /// Sets the host to be used for this group. Overrides global host.
+        /// </summary>
+        /// <param name="host"></param>
+        /// <returns></returns>
+        public WebAssetGroupBuilder Host(string host)
+        {
+            group.Host = host;
+            return this;
+        }
+
+        /// <summary>
         /// Adds a new asset to the group by file path.
         /// </summary>
         /// <param name="filePath"></param>

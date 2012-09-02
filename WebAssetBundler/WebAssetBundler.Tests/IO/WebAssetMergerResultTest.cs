@@ -38,5 +38,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreSame(result.Content, content);
         }
+
+        [Test]
+        public void Should_Create_Url()
+        {                    
+            Assert.AreEqual("192.168.1.1/test.css", WebAssetMergerResult.CreateUrl("/test.css", "192.168.1.1/"), "Ip");
+            Assert.AreEqual("http://www.test.com/test.css", WebAssetMergerResult.CreateUrl("test.css", "http://www.test.com/"), "domain");
+            Assert.AreEqual("/test.css", WebAssetMergerResult.CreateUrl("/test.css", null), "null host");
+            Assert.AreEqual("/test.css", WebAssetMergerResult.CreateUrl("/test.css", ""), "length 0 host");
+            Assert.AreEqual("http://www.test.com/test.css", WebAssetMergerResult.CreateUrl("/test.css", "http://www.test.com"), "with \\ to /");
+        }
     }
 }

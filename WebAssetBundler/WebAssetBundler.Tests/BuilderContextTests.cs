@@ -26,41 +26,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
         [SetUp]
         public void Setup()
-        {
-            context = new BuilderContext(WebAssetType.None);
-        }
-        
-        [Test]
-        public void Should_Set_Type_Enum()
-        {
-            Assert.AreEqual(WebAssetType.None, context.TypeEnum);        }
+        {            
+            context = new BuilderContext();
+        }       
 
-        [Test]
-        public void Should_Get_Compress_From_Settings()
-        {
-            Assert.AreEqual(DefaultSettings.Compressed, context.Compress);
-        }
-
-        [Test]
-        public void Should_Get_Combine_From_Settings()
-        {
-            Assert.AreEqual(DefaultSettings.Combined, context.Combine);
-        }
-
-        [Test]
-        public void Should_Get_Style_Sheet_Default_Path_From_Settings()
-        {
-            context = new BuilderContext(WebAssetType.StyleSheet);
-
-            Assert.AreEqual(DefaultSettings.StyleSheetFilesPath, context.DefaultPath);
-        }
-
-        [Test]
-        public void Should_Get_Script_Default_Path_From_Settings()
-        {
-            context = new BuilderContext(WebAssetType.Script);
-
-            Assert.AreEqual(DefaultSettings.ScriptFilesPath, context.DefaultPath);
-        }
     }
 }

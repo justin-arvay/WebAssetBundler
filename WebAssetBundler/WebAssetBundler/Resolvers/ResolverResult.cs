@@ -47,6 +47,12 @@ namespace WebAssetBundler.Web.Mvc
             set;
         }
 
+        public string Host
+        {
+            get;
+            set;
+        }
+
         public ICollection<IWebAsset> Assets
         {
             get;

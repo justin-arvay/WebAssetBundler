@@ -33,7 +33,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
         private StyleSheetManagerBuilder CreateStyleSheetManagerBuilder()
         {
-            var builderContext = new BuilderContext(WebAssetType.None);
+            var builderContext = new BuilderContext();
             var tagWriter = new Mock<ITagWriter>();
             var server = new Mock<HttpServerUtilityBase>();
             var collection = new WebAssetGroupCollection();            
@@ -56,7 +56,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
         private ScriptManagerBuilder CreateScriptManagerBuilder()
         {
-            var builderContext = new BuilderContext(WebAssetType.None);
+            var builderContext = new BuilderContext();
             var tagWriter = new Mock<ITagWriter>();
             var server = new Mock<HttpServerUtilityBase>();
             var collection = new WebAssetGroupCollection();

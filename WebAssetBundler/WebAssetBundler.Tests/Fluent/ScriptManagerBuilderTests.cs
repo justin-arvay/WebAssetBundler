@@ -40,7 +40,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             assetFactory = new Mock<IAssetFactory>();
             var server = new Mock<HttpServerUtilityBase>();
-            context = new BuilderContext(WebAssetType.None);
+            context = new BuilderContext();
             context.AssetFactory = assetFactory.Object;
             var collection = new WebAssetGroupCollection();
             var pathResolver = new Mock<IPathResolver>();

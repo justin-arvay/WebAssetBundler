@@ -193,5 +193,23 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             merger.Merge(results);
         }
+
+        [Test]
+        public void Should_Set_Host()
+        {
+            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, resolver.Object, server.Object);
+            var webAssets = new List<IWebAsset>();
+            var results = new List<ResolverResult>();
+            var result = new ResolverResult(webAssets, "Test");
+
+
+            result.Host = "192.168.1.1";
+            results.Add(result);
+            webAssets.Add(new WebAsset(""));
+
+            var mergedResults = merger.Merge(results);
+
+            Assert.AreSame("192.168.1.1", mergedResults[0].Host);
+        }
     }
 }

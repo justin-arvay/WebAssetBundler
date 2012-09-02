@@ -36,13 +36,13 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (var asset in group.Assets)
             {
-                results.Add(ResolveWebAsset(asset.Name, group.Version, group.Compress, asset));
+                results.Add(ResolveWebAsset(asset.Name, group.Version, group.Compress, group.Host, asset));
             }
 
             return results;
         }
 
-        private ResolverResult ResolveWebAsset(string name, string version, bool compress, IWebAsset webAsset)
+        private ResolverResult ResolveWebAsset(string name, string version, bool compress, string host, IWebAsset webAsset)
         {            
             var assets = new List<IWebAsset>();
             assets.Add(webAsset);
@@ -50,7 +50,8 @@ namespace WebAssetBundler.Web.Mvc
             return new ResolverResult(assets, name)
                 {
                     Compress = compress,
-                    Version = version
+                    Version = version,
+                    Host = host
                 };
         }
     }

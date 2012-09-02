@@ -74,5 +74,19 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual("the-file", results[0].Name);
         }
+
+        [Test]
+        public void Should_Resolve_Host()
+        {
+            var group = new WebAssetGroup("Test", false);
+            group.Host = "1.1.1.1";
+
+            group.Assets.Add(new WebAsset("~/Files/test-file.css"));
+
+            var resolver = new VersionedWebAssetGroupResolver(group);
+            var results = resolver.Resolve();
+
+            Assert.AreEqual("1.1.1.1", results[0].Host);
+        }
     }
 }

@@ -24,7 +24,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class WebAssetGroupResolverTests
     {
-
         [Test]
         public void Should_Resolve_A_List_Of_Sources_For_Each_Item_In_Group()
         {
@@ -75,6 +74,20 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var results = resolver.Resolve();
 
             Assert.AreEqual("test-file", results[0].Name);
+        }
+
+        [Test]
+        public void Should_Resolve_Host()
+        {
+            var group = new WebAssetGroup("Test", false);
+            group.Host = "1.1.1.1";
+
+            group.Assets.Add(new WebAsset("~/Files/test-file.css"));
+
+            var resolver = new WebAssetGroupResolver(group);
+            var results = resolver.Resolve();
+
+            Assert.AreEqual("1.1.1.1", results[0].Host);
         }
     }
 }

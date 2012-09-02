@@ -41,7 +41,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             group = new WebAssetGroup("", false);
 
             assetFactory = new Mock<IAssetFactory>();
-            context = new BuilderContext(WebAssetType.None);
+            context = new BuilderContext();
             context.AssetFactory = assetFactory.Object;
             builder = new WebAssetGroupBuilder(group, sharedGroups, context);
         }
@@ -185,6 +185,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             builder.Enable(false);
             Assert.False(group.Enabled);
+        }
+
+        [Test]
+        public void Should_Set_Host()
+        {
+            builder.Host("192.168.1.1");
+
+            Assert.AreEqual("192.168.1.1", group.Host);
         }
     }
 }

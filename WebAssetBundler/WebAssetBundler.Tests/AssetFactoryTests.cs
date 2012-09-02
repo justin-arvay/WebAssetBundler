@@ -29,26 +29,28 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [SetUp]
         public void Setup()
         {
-            context = new BuilderContext(WebAssetType.None);
+            context = new BuilderContext();
             factory = new AssetFactory(context);
         }
 
         [Test]
         public void Should_Create_Asset_With_Contexts_Default_Path()
         {
+            context.DefaultPath = "~/test/";
             var asset = factory.CreateAsset("file.css", "");
 
             Assert.IsInstanceOf<WebAsset>(asset);
-            Assert.AreEqual(Path.Combine("~/Content", "file.css"), asset.Source);
+            Assert.AreEqual(Path.Combine("~/test/file.css"), asset.Source);
         }
 
         [Test]
         public void Should_Create_Asset_With_Default_Path()
         {
-            var asset = factory.CreateAsset("file.css", "~/test");
+            
+            var asset = factory.CreateAsset("file.css", "~/test/");
 
             Assert.IsInstanceOf<WebAsset>(asset);
-            Assert.AreEqual(Path.Combine("~/test", "file.css"), asset.Source);
+            Assert.AreEqual("~/test/file.css", asset.Source);
         }
 
         [Test]
@@ -68,6 +70,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.NotNull(group);
             Assert.AreEqual(context.Combine, group.Combine);
             Assert.AreEqual(context.Compress, group.Compress);
+            Assert.AreEqual(context.Host, group.Host);
         }
     }
 }

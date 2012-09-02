@@ -32,10 +32,13 @@ namespace WebAssetBundler.Web.Mvc
         public void Write(TextWriter writer, IList<WebAssetMergerResult> results)
         {
             var script = "<script type=\"text/javascript\" src=\"{0}\"></script>";
+            var path = "";
 
             foreach (var result in results)
             {
-                writer.WriteLine(script.FormatWith(urlResolver.Resolve(result.Path)));
+                path = urlResolver.Resolve(result.Path);
+
+                writer.WriteLine(script.FormatWith(WebAssetMergerResult.CreateUrl(path, result.Host)));
             }
         }
     }

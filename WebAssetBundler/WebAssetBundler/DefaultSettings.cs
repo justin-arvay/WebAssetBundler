@@ -179,5 +179,24 @@ namespace WebAssetBundler.Web.Mvc
                 styleSheetCompressor = value;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the javascript host.
+        /// </summary>
+        public static string ScriptHost
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the style sheet host.
+        /// </summary>
+        /// <returns></returns>
+        public static string StyleSheetHost
+        {
+            get;
+            set;
+        }
     }
 }

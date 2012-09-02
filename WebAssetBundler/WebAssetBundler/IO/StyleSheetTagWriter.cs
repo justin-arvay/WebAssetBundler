@@ -31,11 +31,13 @@ namespace WebAssetBundler.Web.Mvc
 
         public void Write(TextWriter writer, IList<WebAssetMergerResult> results)
         {
+            var path = "";
             var link = "<link type=\"text/css\" href=\"{0}\" rel=\"stylesheet\"/>";
 
             foreach (var result in results)
             {
-                writer.WriteLine(link.FormatWith(urlResolver.Resolve(result.Path)));                
+                path = urlResolver.Resolve(result.Path);
+                writer.WriteLine(link.FormatWith(WebAssetMergerResult.CreateUrl(path, result.Host)));                
             }
         }
     }

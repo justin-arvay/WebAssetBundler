@@ -16,43 +16,9 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
-    using System;
-
-    public class BuilderContext
+    public interface IBuilderContextFactory
     {
-
-        public BuilderContext()
-        {
-        }
-
-        public bool Compress
-        {
-            get;
-            set;
-        }
-
-        public bool Combine
-        {
-            get;
-            set;
-        }
-
-        public string Host
-        {
-            get;
-            set;
-        }
-
-        public string DefaultPath
-        {
-            get;
-            set;
-        }
-
-        public IAssetFactory AssetFactory
-        {
-            get;
-            set;
-        }
+        BuilderContext CreateScriptContext();
+        BuilderContext CreateStyleSheetContext();
     }
 }
