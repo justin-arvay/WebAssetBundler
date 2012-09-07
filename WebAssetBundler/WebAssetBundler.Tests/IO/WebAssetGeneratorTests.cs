@@ -24,19 +24,22 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class WebAssetGeneratorTests
     {
         private Mock<IMergedResultCache> cache;
+        private BuilderContext context;
+        private Mock<IWebAssetWriter> writer;
+        private WebAssetGenerator generator;
 
         [SetUp]
         public void Setup()
         {
             cache = new Mock<IMergedResultCache>();
+            context = new BuilderContext();
+            writer = new Mock<IWebAssetWriter>();
+            generator = new WebAssetGenerator(writer.Object, cache.Object, context);
         }
 
         [Test]
         public void Should_Generate_If_No_Cache_Exists()
-        {            
-            var writer = new Mock<IWebAssetWriter>();
-            var generator = new WebAssetGenerator(writer.Object, cache.Object);
-
+        {                        
             var results = new List<WebAssetMergerResult>();
             results.Add(new WebAssetMergerResult("", ""));
             results.Add(new WebAssetMergerResult("", ""));
@@ -48,10 +51,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
         [Test]
         public void Should_Cache_Merged_Result()
-        {            
-            var writer = new Mock<IWebAssetWriter>();
-            var generator = new WebAssetGenerator(writer.Object, cache.Object);
-
+        {                        
             var results = new List<WebAssetMergerResult>();
             results.Add(new WebAssetMergerResult("", ""));            
 
@@ -61,10 +61,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
         [Test]
         public void Should_Not_Cache_Result()
-        {           
-            var writer = new Mock<IWebAssetWriter>();
-            var generator = new WebAssetGenerator(writer.Object, cache.Object);
-
+        {                       
             var results = new List<WebAssetMergerResult>();
             results.Add(new WebAssetMergerResult("", ""));            
 
@@ -79,12 +76,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
         [Test]
         public void Should_Not_Generate_If_Cache_Exists()
-        {
-
-            var merger = new Mock<IWebAssetMerger>();
-            var writer = new Mock<IWebAssetWriter>();
-            var generator = new WebAssetGenerator(writer.Object, cache.Object);
-
+        {          
             var results = new List<WebAssetMergerResult>();
             results.Add(new WebAssetMergerResult("", ""));            
 
@@ -95,6 +87,25 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             //should not add it if it exists
             writer.Verify(w => w.Write(It.IsAny<WebAssetMergerResult>()), Times.Never());
+        }
+
+        [Test]
+        public void Should_Always_Generate_In_Debug_Mode()
+        {
+            context.DebugMode = true;
+
+            var results = new List<WebAssetMergerResult>();
+            results.Add(new WebAssetMergerResult("", ""));
+
+            //set this up make sure we can confirm it ignores cache (aka if cache exists it should not write)
+            cache.Setup(c => c.Exists(It.IsAny<WebAssetMergerResult>()))
+                .Returns(true);
+
+            generator.Generate(results);
+
+            //should not add it if it exists
+            writer.Verify(w => w.Write(It.IsAny<WebAssetMergerResult>()), Times.Once());
+            cache.Verify(c => c.Exists(It.IsAny<WebAssetMergerResult>()), Times.Never());
         }
     }
 }

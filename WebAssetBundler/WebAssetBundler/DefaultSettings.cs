@@ -198,5 +198,14 @@ namespace WebAssetBundler.Web.Mvc
             get;
             set;
         }
+
+        /// <summary>
+        /// Enables or disables debug mode.
+        /// </summary>
+        public static bool DebugMode
+        {
+            get;
+            set;
+        }
     }
 }

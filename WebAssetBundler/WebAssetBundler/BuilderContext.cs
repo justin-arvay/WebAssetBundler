@@ -49,6 +49,12 @@ namespace WebAssetBundler.Web.Mvc
             set;
         }
 
+        public bool DebugMode
+        {
+            get;
+            set;
+        }
+
         public IAssetFactory AssetFactory
         {
             get;

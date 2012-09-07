@@ -22,21 +22,30 @@ namespace WebAssetBundler.Web.Mvc
     {
         private IWebAssetWriter writer;        
         private IMergedResultCache cache;
+        private BuilderContext context;
 
-        public WebAssetGenerator(IWebAssetWriter writer, IMergedResultCache cache)
+        public WebAssetGenerator(IWebAssetWriter writer, IMergedResultCache cache, BuilderContext context)
         {
             this.writer = writer;            
             this.cache = cache;
+            this.context = context;
         }
 
         public void Generate(IList<WebAssetMergerResult> results)
         {
             foreach (var result in results)
-            {                
-                if (cache.Exists(result) == false)
+            {
+                if (context.DebugMode)
                 {
-                    cache.Add(result);
                     writer.Write(result);
+                }
+                else
+                {
+                    if (cache.Exists(result) == false)
+                    {
+                        cache.Add(result);
+                        writer.Write(result);
+                    }
                 }
             }
         }

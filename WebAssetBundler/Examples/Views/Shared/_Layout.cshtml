@@ -5,24 +5,14 @@
 
      @{Html.Bundler().StyleSheetManager()
         .StyleSheets(style => style
-            .Add("themes/base/jquery.ui.all.css")
-            .Add("themes/base/jquery.ui.all.css")
             .AddGroup("Test", g => g
-                .DefaultPath("~/Content/themes")
-                .Add("base/jquery.ui.all.css")
-                .Add("~/Content/Site.css")
+                .Add("Site.css")
                 .Version("1.2")))
         .Render();}
 
         @{Html.Bundler().ScriptManager()
-              .Scripts(s => s
-                  .AddSharedGroup("jQuery")                  
-                  .AddGroup("Test2", g => g
-                      .Host("1.1.1.1")                                           
-                      .Version("1.3333")
-                      ))
-            .Render();
-        }
+
+              .Render();}
 </head>
 <body>
     <div class="page">
