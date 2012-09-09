@@ -25,11 +25,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class WebAssetResolverFactoryTests
     {
         private IWebAssetResolverFactory factory;
+        private BuilderContext context;
+        private WebAssetGroup group;
 
         [SetUp]
         public void Setup()
         {
-            factory = new WebAssetResolverFactory();
+            group = new WebAssetGroup("", false);
+            context = new BuilderContext();
+            factory = new WebAssetResolverFactory(context);            
         }
 
         [Test]
@@ -57,6 +61,26 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var group = new WebAssetGroup("", false) { Enabled = false };
             Assert.IsInstanceOf<DoNothingWebAssetResolver>(factory.Create(group));
+        }
+
+        [Test]
+        public void Should_Return_Combined_Group_Resolver_When_In_Debug_Mode_And_Combined_Enabled()
+        {
+            context.DebugMode = true;
+            context.EnableCombining = true;
+            group.Combine = true;
+
+            Assert.IsInstanceOf<CombinedWebAssetGroupResolver>(factory.Create(group));
+        }
+
+        [Test]
+        public void Should_Not_Return_Combined_Resolver_When_In_Debug_Mode_And_Combined_Disabled()
+        {
+            context.DebugMode = true;
+            context.EnableCombining = false;
+            group.Combine = true;
+
+            Assert.IsNotInstanceOf<CombinedWebAssetGroupResolver>(factory.Create(group));
         }
     }
 }

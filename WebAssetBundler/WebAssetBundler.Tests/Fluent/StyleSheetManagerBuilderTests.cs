@@ -48,8 +48,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var server = new Mock<HttpServerUtilityBase>();
             var collection = new WebAssetGroupCollection();
-            var resolverFactory = new WebAssetResolverFactory();
-            var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
+            var collectionResolver = new Mock<IWebAssetGroupCollectionResolver>().Object;
             var writer = new Mock<IWebAssetWriter>();
             merger = new Mock<IWebAssetMerger>();
             generator = new Mock<IWebAssetGenerator>();

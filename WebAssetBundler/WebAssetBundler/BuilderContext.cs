@@ -55,6 +55,12 @@ namespace WebAssetBundler.Web.Mvc
             set;
         }
 
+        public bool EnableCombining
+        {
+            get;
+            set;
+        }
+
         public IAssetFactory AssetFactory
         {
             get;

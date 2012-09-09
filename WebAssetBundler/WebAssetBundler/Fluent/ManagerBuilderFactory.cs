@@ -40,7 +40,7 @@ namespace WebAssetBundler.Web.Mvc
 
             var pathResolver = new PathResolver(WebAssetType.StyleSheet);
             var urlResolver = new UrlResolver(viewContext.RequestContext);
-            var resolverFactory = new WebAssetResolverFactory();
+            var resolverFactory = new WebAssetResolverFactory(builderContext);
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
             var writer = new WebAssetWriter(new DirectoryWriter(), viewContext.HttpContext.Server);
             var merger = new StyleSheetWebAssetMerger(
@@ -69,7 +69,7 @@ namespace WebAssetBundler.Web.Mvc
             var pathResolver = new PathResolver(WebAssetType.Script);
 
             var urlResolver = new UrlResolver(viewContext.RequestContext);
-            var resolverFactory = new WebAssetResolverFactory();
+            var resolverFactory = new WebAssetResolverFactory(builderContext);
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
             var writer = new WebAssetWriter(new DirectoryWriter(), viewContext.HttpContext.Server);
             var merger = new ScriptWebAssetMerger(new WebAssetReader(viewContext.HttpContext.Server), pathResolver, DefaultSettings.ScriptCompressor);

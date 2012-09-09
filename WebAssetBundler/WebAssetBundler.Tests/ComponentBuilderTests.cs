@@ -37,8 +37,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var tagWriter = new Mock<ITagWriter>();
             var server = new Mock<HttpServerUtilityBase>();
             var collection = new WebAssetGroupCollection();            
-            var resolverFactory = new WebAssetResolverFactory();
-            var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
+            var resolverFactory = new Mock<IWebAssetResolverFactory>();
+            var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory.Object);
             var writer = new Mock<IWebAssetWriter>();
             var merger = new Mock<IWebAssetMerger>();
             var generator = new Mock<IWebAssetGenerator>();
@@ -62,8 +62,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var collection = new WebAssetGroupCollection();
             var pathResolver = new Mock<IPathResolver>();
             var merger = new Mock<IWebAssetMerger>();
-            var resolverFactory = new WebAssetResolverFactory();
-            var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
+            var resolverFactory = new Mock<IWebAssetResolverFactory>();
+            var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory.Object);
             var generator = new Mock<IWebAssetGenerator>();
 
             return new ScriptManagerBuilder(
