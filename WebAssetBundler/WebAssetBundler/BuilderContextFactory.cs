@@ -29,7 +29,8 @@ namespace WebAssetBundler.Web.Mvc
                 DefaultPath = DefaultSettings.ScriptFilesPath,
                 Host = DefaultSettings.ScriptHost,
                 DebugMode = DefaultSettings.DebugMode,
-                EnableCombining = DefaultSettings.DebugModeSettings.EnableCombining                                
+                EnableCombining = DefaultSettings.DebugModeSettings.EnableCombining,
+                EnableCompressing = DefaultSettings.DebugModeSettings.EnableCompressing               
             };
 
             context.AssetFactory = new AssetFactory(context);
@@ -46,7 +47,8 @@ namespace WebAssetBundler.Web.Mvc
                 DefaultPath = DefaultSettings.StyleSheetFilesPath,
                 Host = DefaultSettings.StyleSheetHost,
                 DebugMode = DefaultSettings.DebugMode,
-                EnableCombining = DefaultSettings.DebugModeSettings.EnableCombining
+                EnableCombining = DefaultSettings.DebugModeSettings.EnableCombining,
+                EnableCompressing = DefaultSettings.DebugModeSettings.EnableCompressing
             };
 
             context.AssetFactory = new AssetFactory(context);

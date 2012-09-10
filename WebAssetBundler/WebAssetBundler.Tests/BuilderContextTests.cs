@@ -23,12 +23,68 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class BuilderContextTests
     {
         private BuilderContext context;
+        private WebAssetGroup group;
 
         [SetUp]
         public void Setup()
         {            
             context = new BuilderContext();
-        }       
+            group = new WebAssetGroup("", false);
+        }
+
+        [Test]
+        public void Should_Be_Able_To_Combine()
+        {
+            group.Combine = true;
+            context.DebugMode = true;
+            context.EnableCombining = true;
+            Assert.IsTrue(context.CanCombine(group), "First");
+
+            group.Combine = true;
+            context.DebugMode = false;
+            context.EnableCombining = true;
+            Assert.IsTrue(context.CanCombine(group), "Second");
+        }
+
+        [Test]
+        public void Should_Not_Be_Able_To_Combine()
+        {
+            group.Combine = false;
+            Assert.IsFalse(context.CanCombine(group), "first");
+
+            group.Combine = true;
+            context.DebugMode = true;
+            context.EnableCombining = false;
+            Assert.IsFalse(context.CanCombine(group), "second");
+
+        }
+
+        [Test]
+        public void Should_Be_Able_To_Compress()
+        {
+            group.Compress = true;
+            context.DebugMode = true;
+            context.EnableCompressing = true;
+            Assert.IsTrue(context.CanCompress(group), "first");
+
+            group.Compress = true;
+            context.DebugMode = false;
+            context.EnableCompressing = true;
+            Assert.IsTrue(context.CanCompress(group), "second");
+        }
+
+        [Test]
+        public void Should_Not_Be_Able_To_Compress()
+        {
+            group.Compress = false;
+            Assert.IsFalse(context.CanCompress(group), "first");
+
+            group.Compress = true;
+            context.DebugMode = true;
+            context.EnableCompressing = false;
+            Assert.IsFalse(context.CanCompress(group), "second");
+
+        }
 
     }
 }

@@ -103,7 +103,7 @@ namespace WebAssetBundler.Web.Mvc
                 throw new InvalidOperationException(TextResource.Exceptions.YouCannotCallRenderMoreThanOnce);
             }
 
-            var results = merger.Merge(collectionResolver.Resolve(Manager.StyleSheets));
+            var results = merger.Merge(collectionResolver.Resolve(Manager.StyleSheets, context));
             var baseWriter = viewContext.Writer;
 
             generator.Generate(results);
@@ -122,7 +122,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public string ToHtmlString()
         {
-            var results = merger.Merge(collectionResolver.Resolve(Manager.StyleSheets));
+            var results = merger.Merge(collectionResolver.Resolve(Manager.StyleSheets, context));
 
             generator.Generate(results);
 

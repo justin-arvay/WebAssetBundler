@@ -18,24 +18,75 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System.Collections.Generic;
 
     [TestFixture]
     public class WebAssetGroupCollectionResolverTests
     {
+        private Mock<IWebAssetResolverFactory> factory;
+        private WebAssetGroupCollectionResolver resolver;
+        private WebAssetGroupCollection collection;
+        private BuilderContext context;
+
+        [SetUp]
+        public void Setup()
+        {
+            factory = new Mock<IWebAssetResolverFactory>();
+            resolver = new WebAssetGroupCollectionResolver(factory.Object);
+            collection = new WebAssetGroupCollection();
+            context = new BuilderContext();
+        }
+
         [Test]
         public void Should_Resolve_Collection_And_Return_Results()
         {
-            var factory = new WebAssetResolverFactory(new BuilderContext());
-            var resolver = new WebAssetGroupCollectionResolver(factory);
-            var collection = new WebAssetGroupCollection();
+            var internalResolver = new Mock<IWebAssetResolver>();            
+
             var group = new WebAssetGroup("test", false);
 
             group.Assets.Add(new WebAsset("path/test.css"));
             collection.Add(group);
 
-            var results = resolver.Resolve(collection);
+            internalResolver.Setup(f => f.Resolve()).Returns(new List<ResolverResult>());
+            factory.Setup(f => f.Create(It.IsAny<WebAssetGroup>())).Returns(internalResolver.Object);
 
-            Assert.AreEqual(1, results.Count);
+            var results = resolver.Resolve(collection, context);
+
+            internalResolver.Verify(i => i.Resolve(), Times.Once());
+            factory.Verify(f => f.Create(It.IsAny<WebAssetGroup>()), Times.Once());
+        }
+
+        [Test]
+        public void Should_Override_Group_Combined()
+        {
+            var group = new WebAssetGroup("test", false)
+            {
+                Combine = false
+            };
+
+            context.DebugMode = true;
+            context.EnableCombining = true;
+
+            resolver.Resolve(collection, context);
+
+            Assert.AreEqual(context.CanCombine(group), group.Combine);
+
+        }
+
+        [Test]
+        public void Should_Override_Group_Compress()
+        {
+            var group = new WebAssetGroup("test", false)
+            {
+                Compress = false
+            };
+
+            context.DebugMode = true;
+            context.EnableCompressing = true;
+
+            resolver.Resolve(collection, context);
+
+            Assert.AreEqual(context.CanCompress(group), group.Combine);
         }
     }
 }

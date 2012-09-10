@@ -212,9 +212,18 @@ namespace WebAssetBundler.Web.Mvc
         public static class DebugModeSettings
         {            
             /// <summary>
-            /// Allows combining to work when in debug mode. False by default.
+            /// Allows enabling or disabling of combining when in debug mode. False by default.
             /// </summary>
             public static bool EnableCombining
+            {
+                get;
+                set;
+            }
+
+            /// <summary>
+            /// Allows enabling or disabling of compressing when in debug mode. False by default.
+            /// </summary>
+            public static bool EnableCompressing
             {
                 get;
                 set;

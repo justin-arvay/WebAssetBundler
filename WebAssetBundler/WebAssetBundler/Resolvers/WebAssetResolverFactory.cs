@@ -21,13 +21,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public class WebAssetResolverFactory : IWebAssetResolverFactory
     {
-        private BuilderContext context;
-
-        public WebAssetResolverFactory(BuilderContext context)
-        {
-            this.context = context;
-        }
-
         public IWebAssetResolver Create(WebAssetGroup group)
         {
             if (group.Enabled == false)
@@ -37,14 +30,7 @@ namespace WebAssetBundler.Web.Mvc
 
             if (group.Combine)
             {
-                if (context.DebugMode && context.EnableCombining)
-                {
-                    return new CombinedWebAssetGroupResolver(group);
-                }
-                else if (context.DebugMode == false)
-                {
-                    return new CombinedWebAssetGroupResolver(group);
-                }
+                return new CombinedWebAssetGroupResolver(group);
             }
 
             if (group.Version.IsNotNullOrEmpty())

@@ -34,12 +34,15 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="groups"></param>
         /// <returns></returns>
-        public IList<ResolverResult> Resolve(WebAssetGroupCollection groups)
+        public IList<ResolverResult> Resolve(WebAssetGroupCollection groups, BuilderContext context)
         {
             var results = new List<ResolverResult>();
 
             foreach (var group in groups)
             {
+                group.Combine = context.CanCombine(group);
+                group.Compress = context.CanCompress(group);
+
                 var resolver = resolverFactory.Create(group);
                 results.AddRange(resolver.Resolve());
             }

@@ -39,6 +39,6 @@ namespace WebAssetBundler.Web.Mvc
             var result = new ResolverResult(webAssets, "Test");
 
             Assert.NotNull(result.Assets);
-        }
+        }        
     }
 }
