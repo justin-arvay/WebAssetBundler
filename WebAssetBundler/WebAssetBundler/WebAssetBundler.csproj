@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2AC03817-4112-47FE-AF34-44A8AE4717AB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebAssetBundler</RootNamespace>
+    <AssemblyName>WebAssetBundler</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxMin">
+      <HintPath>..\..\Library\Compressors\microsoft-ajax-minifer\AjaxMin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Yahoo.Yui.Compressor">
+      <HintPath>..\..\Library\Compressors\yui-compressor\Yahoo.Yui.Compressor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BuilderContext.cs" />
+    <Compile Include="AssetFactory.cs" />
+    <Compile Include="BuilderContextFactory.cs" />
+    <Compile Include="Caching\Cache.cs" />
+    <Compile Include="Caching\CacheFactory.cs" />
+    <Compile Include="Caching\CacheProvider.cs" />
+    <Compile Include="Caching\ICache.cs" />
+    <Compile Include="Caching\ICacheFactory.cs" />
+    <Compile Include="Caching\ICacheProvider.cs" />
+    <Compile Include="Caching\IMergedResultCache.cs" />
+    <Compile Include="Caching\MergedResultCache.cs" />
+    <Compile Include="ComponentBuilder.cs" />
+    <Compile Include="Compressors\IScriptCompressor.cs" />
+    <Compile Include="Compressors\IStyleSheetCompressor.cs" />
+    <Compile Include="Compressors\MsScriptCompressor.cs" />
+    <Compile Include="Compressors\MsStyleSheetCompressor.cs" />
+    <Compile Include="Compressors\YuiScriptCompressor.cs" />
+    <Compile Include="Compressors\YuiStyleSheetCompressor.cs" />
+    <Compile Include="Configuration\GroupConfigurationElementCollection.cs" />
+    <Compile Include="Configuration\ISharedGroupManagerLoader.cs" />
+    <Compile Include="Configuration\ScriptConfigurationElementCollection.cs" />
+    <Compile Include="Configuration\SharedGroupManagerLoader.cs" />
+    <Compile Include="Configuration\SharedGroupConfigurationSection.cs" />
+    <Compile Include="Configuration\AssetConfigurationElement.cs" />
+    <Compile Include="Configuration\StyleSheetConfigurationElementCollection.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Fluent\SharedGroups.cs" />
+    <Compile Include="Fluent\SharedWebAssetGroupCollectionBuilder.cs" />
+    <Compile Include="HtmlHelperExtension.cs" />
+    <Compile Include="IAssetFactory.cs" />
+    <Compile Include="IBuilderContextFactory.cs" />
+    <Compile Include="IO\ITagWriter.cs" />
+    <Compile Include="IO\ScriptTagWriter.cs" />
+    <Compile Include="IO\ScriptWebAssetMerger.cs" />
+    <Compile Include="IO\DirectoryWriter.cs" />
+    <Compile Include="IO\IWebAssetWriter.cs" />
+    <Compile Include="IO\IWebAssetReader.cs" />
+    <Compile Include="IO\StyleSheetTagWriter.cs" />
+    <Compile Include="IO\StyleSheetWebAssetMerger.cs" />
+    <Compile Include="IO\WebAssetGenerator.cs" />
+    <Compile Include="IO\WebAssetMergerResult.cs" />
+    <Compile Include="IO\WebAssetWriter.cs" />
+    <Compile Include="IO\WebAssetReader.cs" />
+    <Compile Include="Configuration\IAssetConfigurationFactory.cs" />
+    <Compile Include="Fluent\ManagerBuilderFactory.cs" />
+    <Compile Include="Fluent\ScriptManagerBuilder.cs" />
+    <Compile Include="Fluent\ScriptManager.cs" />
+    <Compile Include="Fluent\SharedGroupManager.cs" />
+    <Compile Include="Configuration\AssetConfigurationFactory.cs" />
+    <Compile Include="Resolvers\CombinedWebAssetGroupResolver.cs" />
+    <Compile Include="IO\IWebAssetMerger.cs" />
+    <Compile Include="IO\IDirectoryWriter.cs" />
+    <Compile Include="Resolvers\DoNothingWebAssetResolver.cs" />
+    <Compile Include="Resolvers\IPathResolver.cs" />
+    <Compile Include="Resolvers\PathResolver.cs" />
+    <Compile Include="Resolvers\VersionedWebAssetGroupResolver.cs" />
+    <Compile Include="Resolvers\WebAssetGroupResolver.cs" />
+    <Compile Include="Resolvers\WebAssetGroupCollectionResolver.cs" />
+    <Compile Include="Resolvers\IWebAssetGroupCollectionResolver.cs" />
+    <Compile Include="Resolvers\IWebAssetResolver.cs" />
+    <Compile Include="Resolvers\IWebAssetResolverFactory.cs" />
+    <Compile Include="Resolvers\IUrlResolver.cs" />
+    <Compile Include="Resolvers\WebAssetResolverFactory.cs" />
+    <Compile Include="Resolvers\UrlResolver.cs" />
+    <Compile Include="DefaultSettings.cs" />
+    <Compile Include="Fluent\WebAssetGroup.cs" />
+    <Compile Include="Fluent\WebAssetGroupBuilder.cs" />
+    <Compile Include="Fluent\WebAssetGroupCollection.cs" />
+    <Compile Include="Fluent\WebAssetGroupCollectionBuilder.cs" />
+    <Compile Include="Fluent\WebAssetType.cs" />
+    <Compile Include="Fluent\StyleSheetManager.cs" />
+    <Compile Include="Fluent\StyleSheetManagerBuilder.cs" />
+    <Compile Include="Fluent\IWebAsset.cs" />
+    <Compile Include="Fluent\WebAsset.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resolvers\ResolverResult.cs" />
+    <Compile Include="TextResource\Exceptions.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Exceptions.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\ImagePathContentFilter.cs" />
+    <Compile Include="Filters\IContentFilter.cs" />
+    <Compile Include="IO\IWebAssetGenerator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TextResource\Exceptions.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Exceptions.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configuration\readme.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

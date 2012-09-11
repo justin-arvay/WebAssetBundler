@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9FEF5FAF-C2E6-4943-ACCC-7B89C13013C0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebAssetBundler.Tests</RootNamespace>
+    <AssemblyName>WebAssetBundler.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxMin">
+      <HintPath>..\..\Library\Compressors\microsoft-ajax-minifer\AjaxMin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Moq, Version=4.0.10827.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.0.12051, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Yahoo.Yui.Compressor">
+      <HintPath>..\..\Library\Compressors\yui-compressor\Yahoo.Yui.Compressor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BuilderContextFactoryTests.cs" />
+    <Compile Include="BuilderContextTests.cs" />
+    <Compile Include="AssetFactoryTests.cs" />
+    <Compile Include="Caching\MergedResultCacheTests.cs" />
+    <Compile Include="ComponentBuilderTests.cs" />
+    <Compile Include="Configuration\AssetConfigurationFactoryTests.cs" />
+    <Compile Include="Configuration\ConfigurationTestHelper.cs" />
+    <Compile Include="Configuration\SharedGroupManagerLoaderTests.cs" />
+    <Compile Include="Extensions\StringExtensionsTests.cs" />
+    <Compile Include="Fluent\SharedGroupsTests.cs" />
+    <Compile Include="Fluent\SharedWebAssetGroupCollectionBuilderTests.cs" />
+    <Compile Include="HtmlHelperExtensionTests.cs" />
+    <Compile Include="IO\ScriptTagWriterTests.cs" />
+    <Compile Include="IO\ScriptWebAssetMergerTests.cs" />
+    <Compile Include="IO\DirectoryWriterTests.cs" />
+    <Compile Include="IO\StyleSheetTagWriterTests.cs" />
+    <Compile Include="IO\StyleSheetWebAssetMergerTests.cs" />
+    <Compile Include="IO\WebAssetGeneratorTests.cs" />
+    <Compile Include="IO\WebAssetMergerResultTest.cs" />
+    <Compile Include="IO\WebAssetWriterTests.cs" />
+    <Compile Include="IO\WebAssetReaderTests.cs" />
+    <Compile Include="Fluent\ManagerBuilderFactoryTests.cs" />
+    <Compile Include="Fluent\ScriptManagerBuilderTests.cs" />
+    <Compile Include="Fluent\ScriptManagerTests.cs" />
+    <Compile Include="Fluent\SharedGroupManagerTests.cs" />
+    <Compile Include="Resolvers\CombinedWebAssetGroupResolverTest.cs" />
+    <Compile Include="Resolvers\DoNothingWebAssetResolverTest.cs" />
+    <Compile Include="Resolvers\PathResolverTests.cs" />
+    <Compile Include="Resolvers\VersionedWebAssetGroupResolverTests.cs" />
+    <Compile Include="Resolvers\WebAssetGroupCollectionResolverTests.cs" />
+    <Compile Include="Resolvers\WebAssetGroupResolverTests.cs" />
+    <Compile Include="Resolvers\WebAssetResolverFactoryTests.cs" />
+    <Compile Include="Resolvers\UrlResolverTests.cs" />
+    <Compile Include="DefaultSettingsTests.cs" />
+    <Compile Include="Fluent\WebAssetGroupBuilderTests.cs" />
+    <Compile Include="Fluent\WebAssetGroupCollectionBuilderTests.cs" />
+    <Compile Include="Fluent\WebAssetGroupCollectionTests.cs" />
+    <Compile Include="Fluent\WebAssetTests.cs" />
+    <Compile Include="Fluent\WebAssetGroupTests.cs" />
+    <Compile Include="Fluent\StyleSheetManagerTests.cs" />
+    <Compile Include="Fluent\StyleSheetManagerBuilderTests.cs" />
+    <Compile Include="Resolvers\ResolverResultTests.cs" />
+    <Compile Include="TestHelper.cs" />
+    <Compile Include="Filters\ImagePathContentFilterTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebAssetBundler\WebAssetBundler.csproj">
+      <Project>{2AC03817-4112-47FE-AF34-44A8AE4717AB}</Project>
+      <Name>WebAssetBundler</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Files\read.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
