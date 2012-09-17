@@ -93,6 +93,7 @@
     <Compile Include="Fluent\ScriptManagerBuilderTests.cs" />
     <Compile Include="Fluent\ScriptManagerTests.cs" />
     <Compile Include="Fluent\SharedGroupManagerTests.cs" />
+    <Compile Include="Caching\MergedContentCacheTests.cs" />
     <Compile Include="Resolvers\CombinedWebAssetGroupResolverTest.cs" />
     <Compile Include="Resolvers\DoNothingWebAssetResolverTest.cs" />
     <Compile Include="Resolvers\PathResolverTests.cs" />

@@ -29,12 +29,14 @@ namespace WebAssetBundler.Web.Mvc
         private IWebAssetReader reader;
         private IScriptCompressor compressor;
         private IPathResolver pathResolver;
+        private IMergedContentCache cache;
 
-        public ScriptWebAssetMerger(IWebAssetReader reader, IPathResolver pathResolver, IScriptCompressor compressor)
+        public ScriptWebAssetMerger(IWebAssetReader reader, IPathResolver pathResolver, IScriptCompressor compressor, IMergedContentCache cache)
         {
             this.reader = reader;
             this.compressor = compressor;
             this.pathResolver = pathResolver;
+            this.cache = cache;
         }
 
         public IList<WebAssetMergerResult> Merge(IList<ResolverResult> results)
@@ -51,21 +53,26 @@ namespace WebAssetBundler.Web.Mvc
 
         private WebAssetMergerResult MergeSingle(ResolverResult result)
         {
-            string content = "";
+            string content = cache.Get(result.Name);
             string generatedPath = pathResolver.Resolve(DefaultSettings.GeneratedFilesPath, result.Version, result.Name);
 
-            foreach (var asset in result.Assets)
+            if (content.Length == 0)
             {
-                //combined the content with a (;) 
-                //(;) ensures we end each script in case the developer forgot
-                content += reader.Read(asset) + ";";
-            }
+                foreach (var asset in result.Assets)
+                {
+                    //combined the content with a (;) 
+                    //(;) ensures we end each script in case the developer forgot
+                    content += reader.Read(asset) + ";";
+                }
 
-            if (result.Compress)
-            {
-                //compress the merged content if we can
-                content = compressor.Compress(content);
-            }
+                if (result.Compress)
+                {
+                    //compress the merged content if we can
+                    content = compressor.Compress(content);
+                }
+
+                cache.Add(result.Name, content);
+            }            
 
             return new WebAssetMergerResult(generatedPath, content)
             {

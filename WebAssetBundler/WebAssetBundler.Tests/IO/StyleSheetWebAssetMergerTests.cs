@@ -29,6 +29,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IStyleSheetCompressor> compressor;
         private Mock<IPathResolver> resolver;
         private Mock<HttpServerUtilityBase> server;
+        private StyleSheetWebAssetMerger merger;
+        private Mock<IMergedContentCache> cache;
 
         [SetUp]
         public void Setup()
@@ -38,13 +40,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
             resolver = new Mock<IPathResolver>();
             server = new Mock<HttpServerUtilityBase>();
             compressor = new Mock<IStyleSheetCompressor>();
+            cache = new Mock<IMergedContentCache>();
+
+            merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, resolver.Object, server.Object, cache.Object);
+            
+            cache.Setup(c => c.Get(It.IsAny<string>())).Returns("");
         }
 
         [Test]
         public void Should_Merge_Content_From_Result_Assets()
         {
-            var content = "1";
-            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, resolver.Object, server.Object);
+            var content = "1";            
             var webAssets = new List<IWebAsset>();
             var results = new List<ResolverResult>();
 
@@ -67,8 +73,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Return_Merger_Result_Path_As_Result_Path()
         {
-            var path = "path/test.css";
-            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, resolver.Object, server.Object);
+            var path = "path/test.css";            
             var results = new List<ResolverResult>();            
 
             results.Add(new ResolverResult(new List<IWebAsset>(), "Test")
@@ -87,8 +92,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Filter_Each_WebAsset()
         {
-            var content = "1";
-            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, resolver.Object, server.Object);
+            var content = "1";            
             var webAssets = new List<IWebAsset>();
             var results = new List<ResolverResult>();
 
@@ -115,8 +119,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Map_Source_And_Output_Paths()
         {
             var outputPath = "~/Generated/File.css";
-            var sourcePath = "~/Content/File.css";
-            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, resolver.Object, server.Object);
+            var sourcePath = "~/Content/File.css";            
             var webAssets = new List<IWebAsset>();
             var results = new List<ResolverResult>();
 
@@ -135,8 +138,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
         [Test]
         public void Should_Compress_Content()
-        {
-            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, resolver.Object, server.Object);
+        {            
             var webAssets = new List<IWebAsset>();
             var results = new List<ResolverResult>();
 
@@ -151,8 +153,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
         [Test]
         public void Should_Not_Compress_Content()
-        {
-            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, resolver.Object, server.Object);
+        {            
             var webAssets = new List<IWebAsset>();
             var results = new List<ResolverResult>();
 
@@ -169,8 +170,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Pass_Correct_Values_To_Filter()
         {
             var content = "1";
-            var path ="~/Test/file.css";
-            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, resolver.Object, server.Object);
+            var path ="~/Test/file.css";            
             var webAssets = new List<IWebAsset>();
             var results = new List<ResolverResult>();
 
@@ -196,8 +196,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
         [Test]
         public void Should_Set_Host()
-        {
-            var merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, resolver.Object, server.Object);
+        {            
             var webAssets = new List<IWebAsset>();
             var results = new List<ResolverResult>();
             var result = new ResolverResult(webAssets, "Test");
@@ -211,5 +210,22 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreSame("192.168.1.1", mergedResults[0].Host);
         }
+
+        [Test]
+        public void Should_Not_Add_To_Cache()
+        {
+            var webAssets = new List<IWebAsset>();
+            var results = new List<ResolverResult>();
+            var result = new ResolverResult(webAssets, "Test");
+
+            results.Add(result);
+            webAssets.Add(new WebAsset(""));
+
+            cache.Setup(c => c.Get(It.IsAny<string>())).Returns("some content");
+
+            var mergedResults = merger.Merge(results);
+
+            cache.Verify(c => c.Add(It.IsAny<string>(), It.IsAny<string>()), Times.Never());
+        }   
     }
 }

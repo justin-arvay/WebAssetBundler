@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -16,8 +16,12 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
-    public interface ICacheFactory
+    using System;
+
+    public interface IMergedContentCache
     {
-        ICache Create(string prefix);
+
+        string Get(string name);
+        void Add(string name, string content);
     }
 }
