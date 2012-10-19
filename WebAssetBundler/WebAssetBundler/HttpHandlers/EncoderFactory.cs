@@ -17,11 +17,26 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Web;
 
-    public interface IMergedContentCache
+    public class EncoderFactory : IEncoderFactory
     {
 
-        string Get(string name);
-        void Add(string name, string content);
+        public IEncoder Create(HttpRequestBase request)
+        {
+            var encoding = request.Headers["Accept-Encoding"];
+
+            if (encoding.IndexOf("deflate", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return new DeflateEncoder();
+            }
+
+            if (encoding.IndexOf("gzip", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return new GZipEncoder();
+            }
+
+            return new DoNothingEncoder();
+        }
     }
 }

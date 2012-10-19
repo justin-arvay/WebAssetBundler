@@ -124,8 +124,6 @@ namespace WebAssetBundler.Web.Mvc
         {
             var results = merger.Merge(collectionResolver.Resolve(Manager.Scripts, context));
 
-            generator.Generate(results);
-
             using (var output = new StringWriter())
             {
                 tagWriter.Write(output, results);

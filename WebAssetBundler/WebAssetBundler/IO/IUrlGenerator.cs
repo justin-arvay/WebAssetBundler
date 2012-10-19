@@ -16,29 +16,17 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
-    using System.Web;
-    using System.Web.Routing;
-    using System.Web.Mvc;
+    using System;
 
-    public class UrlResolver : IUrlResolver
+    public interface IUrlGenerator
     {
-        private RequestContext context;
-
-        public UrlResolver(RequestContext context)
-        {
-            this.context = context;
-        }
-
         /// <summary>
-        /// Returns the relative path for the specified virtual path.
+        /// Generates a url to the asset.
         /// </summary>
-        /// <param name="url">The URL.</param>
+        /// <param name="hash"></param>
+        /// <param name="version"></param>
+        /// <param name="host"></param>
         /// <returns></returns>
-        public string Resolve(string url)
-        {
-            UrlHelper helper = new UrlHelper(context);
-
-            return helper.Content(url);
-        }
+        string Generate(string hash, string version, string host);
     }
 }

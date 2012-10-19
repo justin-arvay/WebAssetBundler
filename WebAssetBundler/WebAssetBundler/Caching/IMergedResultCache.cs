@@ -19,7 +19,7 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IMergedResultCache
     {
-        void Add(WebAssetMergerResult result);
-        bool Exists(WebAssetMergerResult result);
+        void Add(MergerResult result);
+        MergerResult Get(string name);
     }
 }

@@ -22,23 +22,23 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ScriptTagWriter : ITagWriter
     {
-        private IUrlResolver urlResolver;
+        private IUrlGenerator urlGenerator;
 
-        public ScriptTagWriter(IUrlResolver urlResolver)
+        public ScriptTagWriter(IUrlGenerator urlGenerator)
         {
-            this.urlResolver = urlResolver;
+            this.urlGenerator = urlGenerator;
         }
 
-        public void Write(TextWriter writer, IList<WebAssetMergerResult> results)
+        public void Write(TextWriter writer, IList<MergerResult> results)
         {
             var script = "<script type=\"text/javascript\" src=\"{0}\"></script>";
-            var path = "";
+            var url = "";
 
             foreach (var result in results)
             {
-                path = urlResolver.Resolve(result.Path);
+                url = urlGenerator.Generate(result.Name, result.Version, result.Host);
 
-                writer.WriteLine(script.FormatWith(WebAssetMergerResult.CreateUrl(path, result.Host)));
+                writer.WriteLine(script.FormatWith(url));
             }
         }
     }

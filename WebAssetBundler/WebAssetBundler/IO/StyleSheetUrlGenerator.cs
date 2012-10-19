@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,22 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc.Tests
+namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using NUnit.Framework;
-    using WebAssetBundler.Web.Mvc;
 
-    [TestFixture]
-    public class UrlResolverTests
+    public class StyleSheetUrlGenerator : IUrlGenerator
     {
-        [Test]
-        public void Resolve_Should_Throw_Excepton_When_Not_Running_In_Web_Server()
-        {
-            var resolver = new UrlResolver(TestHelper.CreateRequestContext());
 
-            //Assert.Throws<ArgumentNullException>(() => resolver.Resolve("~/scripts/jquery-1.3.2.min.js"));
+        public string Generate(string hash, string version, string host)
+        {
+            var path = "wab.axd/style-sheet/{0}/{1}";
+            if (host.EndsWith("/") == false)
+            {
+                host += "/";
+            }
+
+            return host + path.FormatWith(version, hash);
         }
-        
     }
 }

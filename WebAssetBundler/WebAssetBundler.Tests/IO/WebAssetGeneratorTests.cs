@@ -19,7 +19,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
     using System.Collections.Generic;
-
+/*
     [TestFixture]
     public class WebAssetGeneratorTests
     {
@@ -108,4 +108,5 @@ namespace WebAssetBundler.Web.Mvc.Tests
             cache.Verify(c => c.Exists(It.IsAny<WebAssetMergerResult>()), Times.Never());
         }
     }
+ */
 }

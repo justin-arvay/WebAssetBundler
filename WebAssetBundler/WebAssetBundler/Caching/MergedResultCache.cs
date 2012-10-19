@@ -21,7 +21,7 @@ namespace WebAssetBundler.Web.Mvc
     public class MergedResultCache : IMergedResultCache
     {
         private ICacheProvider provider;
-        private const string keyPrefix = "MergedResult->";
+        private const string keyPrefix = "MergedResult";
         private WebAssetType type;
 
         public MergedResultCache(WebAssetType type, ICacheProvider provider)
@@ -34,31 +34,14 @@ namespace WebAssetBundler.Web.Mvc
         /// Adds the result to the cache.
         /// </summary>
         /// <param name="result"></param>
-        public void Add(WebAssetMergerResult result)
+        public void Add(MergerResult result)
         {
-            if (result.Path.IsNotNullOrEmpty())
-            {
-                provider.Insert(GetKey(result), result);
-            }
-            else
-            {
-                throw new InvalidOperationException("Result path is not supplied");
-            }
+            provider.Insert(GetKey(result.Name), result);
         }
 
-        /// <summary>
-        /// Checks if the result has already been cached.
-        /// </summary>
-        /// <param name="result"></param>
-        /// <returns></returns>
-        public bool Exists(WebAssetMergerResult result)
+        public MergerResult Get(string name)
         {
-            if (provider.Get(GetKey(result)) == null)
-            {
-                return false;
-            }
-
-            return true;
+            return (MergerResult)provider.Get(GetKey(name));
         }
 
         /// <summary>
@@ -66,7 +49,7 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        private string GetKey(WebAssetMergerResult result)
+        private string GetKey(string name)
         {
             var typePrefix = "";
 
@@ -80,12 +63,7 @@ namespace WebAssetBundler.Web.Mvc
                     break;
             }
 
-            var keySuffix = result.Path
-                .Replace("~", "")
-                .Replace("\\", ".")
-                .Replace("/", ".");
-
-            return typePrefix + "->" + keyPrefix + keySuffix;
+            return keyPrefix + "->" + typePrefix + "->" + name;
         }
     }
 }

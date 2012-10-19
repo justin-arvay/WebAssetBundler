@@ -25,9 +25,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class ScriptWebAssetMergerTests
     {
         private Mock<IWebAssetReader> reader;
-        private Mock<IPathResolver> resolver;
         private Mock<IScriptCompressor> compressor;
-        private Mock<IMergedContentCache> cache;
+        private Mock<IMergedResultCache> cache;
         private ScriptWebAssetMerger merger;
         
         [SetUp]
@@ -35,15 +34,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             reader = new Mock<IWebAssetReader>();
             compressor = new Mock<IScriptCompressor>();
-            resolver = new Mock<IPathResolver>();
-            cache = new Mock<IMergedContentCache>();
+            cache = new Mock<IMergedResultCache>();
 
-            merger = new ScriptWebAssetMerger(reader.Object, resolver.Object, compressor.Object, cache.Object);
+            merger = new ScriptWebAssetMerger(reader.Object, compressor.Object, cache.Object);
 
             compressor.Setup(c => c.Compress(It.IsAny<string>()))
                 .Returns((string content) => content);
-
-            cache.Setup(c => c.Get(It.IsAny<string>())).Returns("");
         }
 
         [Test]
@@ -53,7 +49,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var assets = new List<IWebAsset>();
             var results = new List<ResolverResult>();
 
-            results.Add (new ResolverResult(assets, "Test"));
+            results.Add (new ResolverResult(assets, "Test")
+                {
+                    Version = "1.1",
+                    Host = "http://www.test.com"
+                });
 
             assets.Add(new WebAsset(""));
             assets.Add(new WebAsset(""));
@@ -62,27 +62,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
             reader.Setup(r => r.Read(It.IsAny<IWebAsset>()))
                 .Returns(content);
 
-            Assert.AreEqual(content + ";" + content + ";", merger.Merge(results)[0].Content);
-        }
+            var result = merger.Merge(results)[0];
 
-        [Test]
-        public void Should_Return_Merger_Result_Path_Resolved()
-        {
-            var path = "Generated/js/test.js";
-            var results = new List<ResolverResult>();
-
-            results.Add(new ResolverResult(new List<IWebAsset>(), "Test")
-                {
-                    Version = "1.1"                    
-                });
-
-            resolver.Setup(r => r.Resolve(
-                It.Is<string>(s => s.Equals(DefaultSettings.GeneratedFilesPath)),
-                It.Is<string>(s => s.Equals("1.1")),
-                It.Is<string>(s => s.Equals("Test")))).Returns(path);
-
-
-            Assert.AreEqual(path, merger.Merge(results)[0].Path);
+            Assert.AreEqual(content + ";" + content + ";", result.Content);
+            Assert.AreEqual("Test", result.Name);
+            Assert.AreEqual("1.1", result.Version);
+            Assert.AreEqual("http://www.test.com", result.Host);
         }
 
         [Test]
@@ -118,19 +103,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Set_Host()
+        public void Should_Cache_Result()
         {
-            var webAssets = new List<IWebAsset>();
             var results = new List<ResolverResult>();
-            var result = new ResolverResult(webAssets, "Test");
+            results.Add(new ResolverResult(new List<IWebAsset>(), "Test"));
 
-            result.Host = "192.168.1.1";
-            results.Add(result);
-            webAssets.Add(new WebAsset(""));
+            merger.Merge(results);
 
-            var mergedResults = merger.Merge(results);
-
-            Assert.AreSame("192.168.1.1", mergedResults[0].Host);
+            cache.Verify(c => c.Add(It.IsAny<MergerResult>()), Times.Once());
         }
 
         [Test]
@@ -143,11 +123,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
             results.Add(result);
             webAssets.Add(new WebAsset(""));
 
-            cache.Setup(c => c.Get(It.IsAny<string>())).Returns("some content");
+            cache.Setup(c => c.Get(It.IsAny<string>())).Returns(new MergerResult("", "", "", WebAssetType.None));
 
             var mergedResults = merger.Merge(results);
 
-            cache.Verify(c => c.Add(It.IsAny<string>(), It.IsAny<string>()), Times.Never());
+            cache.Verify(c => c.Add(It.IsAny<MergerResult>()), Times.Never());
         }        
     }
 }

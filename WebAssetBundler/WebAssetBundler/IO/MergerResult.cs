@@ -23,15 +23,25 @@ namespace WebAssetBundler.Web.Mvc
     using System.Security.Policy;
     using System.IO;
 
-    public class WebAssetMergerResult
+    public class MergerResult
     {
-        public WebAssetMergerResult(string generatedPath, string content)
+        private WebAssetType type;
+
+        public MergerResult(string name, string version, string content, WebAssetType type)
         {            
-            Path = generatedPath;
+            Name = name;
             Content = content;
+            Version = version;
+            this.type = type;
         }
 
-        public string Path
+        public string Version
+        {
+            get;
+            private set;
+        }
+
+        public string Name
         {
             get;
             private set;
@@ -47,27 +57,35 @@ namespace WebAssetBundler.Web.Mvc
         {
             get;
             set;
+        }               
+
+        public string ContentType
+        {
+            get
+            {
+                switch (type)
+                {
+                    case WebAssetType.Script:
+                        return "text/javascript";
+                    case WebAssetType.StyleSheet:
+                        return "text/css";
+                    default:
+                        return "text/unknown";
+                }
+            }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="result"></param>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        public static string CreateUrl(string path, string host)
+        public int GetHashCode()
         {
-            if (host != null && host.Length > 0)
+            unchecked
             {
-                if (path.StartsWith("/"))
-                {
-                    path = path.TrimStart('/');
-                }
+                int hash = 3;
+                hash = hash * 5 + Name.GetHashCode();
+                hash = hash * 5 + Version.GetHashCode();
+                hash = hash * 5 + ContentType.ToString().GetHashCode();
 
-                return System.IO.Path.Combine(host, path).Replace("\\", "/");
+                return hash;
             }
-
-            return path;
         }
     }
 }

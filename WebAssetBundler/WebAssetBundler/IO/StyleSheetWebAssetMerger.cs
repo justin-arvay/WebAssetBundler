@@ -29,10 +29,10 @@ namespace WebAssetBundler.Web.Mvc
         private IStyleSheetCompressor compressor;
         private IPathResolver pathResolver;
         private HttpServerUtilityBase server;
-        private IMergedContentCache cache;
+        private IMergedResultCache cache;
 
         public StyleSheetWebAssetMerger(IWebAssetReader reader, IContentFilter filter, IStyleSheetCompressor compressor, IPathResolver pathResolver, 
-            HttpServerUtilityBase server, IMergedContentCache cache)
+            HttpServerUtilityBase server, IMergedResultCache cache)
         {
             this.reader = reader;
             this.filter = filter;
@@ -42,9 +42,9 @@ namespace WebAssetBundler.Web.Mvc
             this.cache = cache;
         }
 
-        public IList<WebAssetMergerResult> Merge(IList<ResolverResult> results)
+        public IList<MergerResult> Merge(IList<ResolverResult> results)
         {
-            var mergedResults = new List<WebAssetMergerResult>();
+            var mergedResults = new List<MergerResult>();
 
             foreach (var result in results)
             {
@@ -54,13 +54,15 @@ namespace WebAssetBundler.Web.Mvc
             return mergedResults;
         }
 
-        private WebAssetMergerResult MergeSingle(ResolverResult result)
+        private MergerResult MergeSingle(ResolverResult result)
         {
-            string content = cache.Get(result.Name);
             string generatedPath = pathResolver.Resolve(DefaultSettings.GeneratedFilesPath, result.Version, result.Name);
+            var mergedResult = cache.Get(result.Name);
 
-            if (content.Length == 0)
+            if (mergedResult == null)
             {
+                var content = "";
+
                 foreach (var asset in result.Assets)
                 {
                     content += filter.Filter(server.MapPath(generatedPath), server.MapPath(asset.Source), reader.Read(asset));
@@ -71,13 +73,15 @@ namespace WebAssetBundler.Web.Mvc
                     content = compressor.Compress(content);
                 }
 
-                cache.Add(result.Name, content);
+                mergedResult = new MergerResult(result.Name, result.Version, content, WebAssetType.StyleSheet)
+                    {
+                        Host = result.Host
+                    };
+
+                cache.Add(mergedResult);
             }
 
-            return new WebAssetMergerResult(generatedPath, content)
-            {
-                Host = result.Host
-            };
+            return mergedResult;
         }
     }
 }

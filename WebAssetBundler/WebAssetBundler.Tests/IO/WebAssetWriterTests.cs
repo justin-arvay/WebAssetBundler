@@ -21,7 +21,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
     using System.IO;
     using System.Web;
-
+/*
     [TestFixture]
     public class WebAssetWriterTests
     {        
@@ -104,4 +104,5 @@ namespace WebAssetBundler.Web.Mvc.Tests
             dirWriter.Verify(d => d.Write(It.Is<string>(s => s.Equals(filePath))), Times.Exactly(1));
         }
     }
+ */
 }

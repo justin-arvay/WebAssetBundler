@@ -20,6 +20,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IWebAssetWriter
     {
-        void Write(WebAssetMergerResult result);
+        void Write(MergerResult result);
     }
 }

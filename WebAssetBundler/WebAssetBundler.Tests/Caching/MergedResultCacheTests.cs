@@ -26,45 +26,40 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class MergedResultCacheTests
     {
         private Mock<ICacheProvider> provider;
-        private IMergedResultCache cache;
+        private IMergedResultCache cssCache;
+        private IMergedResultCache jsCache;
 
         [SetUp]
         public void Setup()
         {
             provider = new Mock<ICacheProvider>();
-            cache = new MergedResultCache(WebAssetType.None, provider.Object);
+            cssCache = new MergedResultCache(WebAssetType.StyleSheet, provider.Object);
+            jsCache = new MergedResultCache(WebAssetType.Script, provider.Object);
         }
 
         [Test]
         public void Should_Add_Result_To_Cache()
         {
-            cache.Add(new WebAssetMergerResult("path/file.css", ""));
+            cssCache.Add(new MergerResult("Name", "", "", WebAssetType.StyleSheet));
 
-            provider.Verify(p => p.Insert(It.IsAny<string>(), It.IsAny<object>()), Times.Once());
-        }
+            provider.Verify(p => p.Insert(
+                "MergedResult->StyleSheet->Name", 
+                It.IsAny<MergerResult>()
+            ), Times.Once());
 
-        [Test]
-        public void Should_Exist_If_Result_In_Cache()
-        {
-            var result = new WebAssetMergerResult("", "");            
+            jsCache.Add(new MergerResult("Name", "", "", WebAssetType.Script));
 
-            provider.Setup(p => p.Get(It.IsAny<string>()))
-                .Returns(result);
-
-            Assert.IsTrue(cache.Exists(result));
-        }
-
-        [Test]
-        public void Should_Throw_Exception_If_Cannot_Add_To_Cache()
-        {
-            Assert.Throws<InvalidOperationException>(() => cache.Add(new WebAssetMergerResult("", "")));
+            provider.Verify(p => p.Insert(
+                "MergedResult->Script->Name",
+                It.IsAny<MergerResult>()
+            ), Times.Once());
         }
 
         [Test]
         public void Should_Add_Many_Different_Results_To_Cache()
         {
-            cache.Add(new WebAssetMergerResult("path/file.css", ""));
-            cache.Add(new WebAssetMergerResult("path/file2.css", ""));
+            cssCache.Add(new MergerResult("Name1", "", "", WebAssetType.None));
+            cssCache.Add(new MergerResult("Name2", "", "", WebAssetType.None));
 
             provider.Verify(p => p.Insert(It.IsAny<string>(), It.IsAny<object>()), Times.Exactly(2));
         }
@@ -72,22 +67,19 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Exist_In_Cache()
         {
-            var result = new WebAssetMergerResult("path/file.css", "");
+            var result = new MergerResult("Name", "", "", WebAssetType.None);
 
             provider.Setup(p => p.Get(It.IsAny<string>()))
                 .Returns(null);
 
-            Assert.IsFalse(cache.Exists(result));
+            Assert.IsNull(cssCache.Get("Name"));
 
         }
 
         [Test]
         public void Should_Add_To_Cache_With_Unique_Key_Per_Type()
         {
-            var result = new WebAssetMergerResult("path/file.ext", "");
-            var jsResultCache = new MergedResultCache(WebAssetType.Script, provider.Object);
-            var cssResultCache = new MergedResultCache(WebAssetType.StyleSheet, provider.Object);
-
+            var result = new MergerResult("Name", "", "", WebAssetType.None);
             var paths = new List<string>();
 
             provider.Setup(p => p.Insert(It.IsAny<string>(), It.IsAny<object>()))
@@ -95,11 +87,19 @@ namespace WebAssetBundler.Web.Mvc.Tests
                     paths.Add(path);
                 });
 
-            jsResultCache.Add(result);
-            cssResultCache.Add(result);
+            jsCache.Add(result);
+            cssCache.Add(result);
 
             //should return 1 path for each result added
             Assert.AreEqual(2, paths.Distinct().Count());
+        }
+
+        [Test]
+        public void Should_Get_Result()
+        {
+            var result = jsCache.Get("Name");
+
+            provider.Verify(p => p.Get("MergedResult->Script->Name"), Times.Once());
         }
     }
 }

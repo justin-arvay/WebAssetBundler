@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,13 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using WebAssetBundler.Web.Mvc;
-    using System.Collections.Generic;
+    using NUnit.Framework;
+    using Moq;
 
-    public interface IWebAssetGenerator
+    [TestFixture]
+    public class StyleSheetUrlGeneratorTests
     {
-        void Generate(IList<MergerResult> results);
+        private StyleSheetUrlGenerator generator;
+
+        [SetUp]
+        public void Setup()
+        {
+            generator = new StyleSheetUrlGenerator();
+        }
+
+        [Test]
+        public void Should_Generate_Url()
+        {
+            var url = generator.Generate("test", "1.1", "http://www.test.com");
+
+            Assert.AreEqual("http://www.test.com/wab.axd/style-sheet/1.1/test", url);
+        }
     }
 }

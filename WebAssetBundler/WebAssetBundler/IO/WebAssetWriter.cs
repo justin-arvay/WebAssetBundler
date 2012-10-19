@@ -31,9 +31,9 @@ namespace WebAssetBundler.Web.Mvc
             this.server = server;
         }
 
-        public void Write(WebAssetMergerResult result)
+        public void Write(MergerResult result)
         {
-            var filePath = server.MapPath(result.Path);            
+            var filePath = "";//server.MapPath(result.Path);            
 
             //ensure we create the directory structure to the asset
             //we need to be careful here as the version can look like a file

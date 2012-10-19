@@ -24,71 +24,54 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ScriptTagWriterTests
     {
-        private Mock<IUrlResolver> resolver;
+        private Mock<IUrlGenerator> urlGenerator;
         private Mock<TextWriter> textWriter;
         private ScriptTagWriter tagWriter;
 
         [SetUp]
         public void SetUp()
         {
-            resolver = new Mock<IUrlResolver>();
+            urlGenerator = new Mock<IUrlGenerator>();
             textWriter = new Mock<TextWriter>();
-            tagWriter = new ScriptTagWriter(resolver.Object);
+            tagWriter = new ScriptTagWriter(urlGenerator.Object);
         }
 
         [Test]
-        public void Should_Resole_Virtual_Path_To_Url()
+        public void Should_Generate_Url()
         {
-            var results = new List<WebAssetMergerResult>();
-            results.Add(new WebAssetMergerResult("", ""));
-            results.Add(new WebAssetMergerResult("", ""));
+            var results = new List<MergerResult>();
+            results.Add(new MergerResult("asdf", "1.1", "content", WebAssetType.None) { Host = "http://www.test.com" });
 
             tagWriter.Write(textWriter.Object, results);
 
-            resolver.Verify(m => m.Resolve(It.IsAny<string>()), Times.Exactly(2));
+            urlGenerator.Verify(m => m.Generate("asdf", "1.1", "http://www.test.com"), Times.Exactly(1));
         }
 
         [Test]
         public void Should_Write_To_Writer()
         {
-            var results = new List<WebAssetMergerResult>();
-            results.Add(new WebAssetMergerResult("", ""));
-            results.Add(new WebAssetMergerResult("", ""));
+            var results = new List<MergerResult>();
+            results.Add(new MergerResult("", "", "", WebAssetType.None));
+            results.Add(new MergerResult("", "", "", WebAssetType.None));
+
+            urlGenerator.Setup(u => u.Generate(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns("http://dev.test.com/");
 
             tagWriter.Write(textWriter.Object, results);
 
-            textWriter.Verify(m => m.WriteLine(It.IsAny<string>()), Times.Exactly(2));
+            textWriter.Verify(m => m.WriteLine("<script type=\"text/javascript\" src=\"http://dev.test.com/\"></script>"), Times.Exactly(2));   
         }
 
         [Test]
         public void Should_Format_Tag_Correctly()
         {
-            var results = new List<WebAssetMergerResult>();
-            results.Add(new WebAssetMergerResult("", ""));
-            results.Add(new WebAssetMergerResult("", ""));
+            var results = new List<MergerResult>();
+            results.Add(new MergerResult("", "", "", WebAssetType.None));
+            results.Add(new MergerResult("", "", "", WebAssetType.None));
 
             tagWriter.Write(textWriter.Object, results);
 
             var tag = "<script type=\"text/javascript\" src=\"\"></script>";
             textWriter.Verify(m => m.WriteLine(It.Is<string>(s => s.Equals(tag))), Times.Exactly(2));
-        }
-
-        [Test]
-        public void Should_Add_Host_To_Url()
-        {
-            var result = new WebAssetMergerResult("/test.js", "");
-            result.Host = "http://www.test.com";
-
-            var results = new List<WebAssetMergerResult>();
-            results.Add(result);
-
-            //return whatever url was passed
-            resolver.Setup(x => x.Resolve(It.IsAny<string>())).Returns((string url) => { return url; });
-
-            tagWriter.Write(textWriter.Object, results);
-
-            
-            textWriter.Verify(x => x.WriteLine(It.Is<string>(s => s.Contains("http://www.test.com/test.js"))), Times.Once());            
         }
     }
 }

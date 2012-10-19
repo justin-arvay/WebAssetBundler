@@ -100,12 +100,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             context.AssetFactory = new AssetFactory(context);
 
-            var results = new List<WebAssetMergerResult>();
-            results.Add(new WebAssetMergerResult("", ""));
+            var results = new List<MergerResult>();
+            results.Add(new MergerResult("", "", "", WebAssetType.None));
 
             builder.Render();
 
-            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), It.IsAny<IList<WebAssetMergerResult>>()), Times.Exactly(1));
+            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), It.IsAny<IList<MergerResult>>()), Times.Exactly(1));
         }
 
         [Test]
@@ -113,42 +113,42 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             context.AssetFactory = new AssetFactory(context);
 
-            var results = new List<WebAssetMergerResult>();
-            results.Add(new WebAssetMergerResult("", ""));
+            var results = new List<MergerResult>();
+            results.Add(new MergerResult("", "", "", WebAssetType.None));
 
             builder.ToHtmlString();
 
-            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), It.IsAny<IList<WebAssetMergerResult>>()), Times.Exactly(1));
+            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), It.IsAny<IList<MergerResult>>()), Times.Exactly(1));
         }
 
         [Test]
         public void Should_Generate_Merged_Results_On_Render()
         {                   
-            var results = new List<WebAssetMergerResult>();
-            results.Add(new WebAssetMergerResult("", ""));
-            results.Add(new WebAssetMergerResult("", ""));
+            var results = new List<MergerResult>();
+            results.Add(new MergerResult("", "", "", WebAssetType.None));
+            results.Add(new MergerResult("", "", "", WebAssetType.None));
 
             merger.Setup(m => m.Merge(It.IsAny<IList<ResolverResult>>())).Returns(results);
 
             builder.Render();
 
             //should call generate with 2 results passed
-            generator.Verify(g => g.Generate(It.Is<IList<WebAssetMergerResult>>(r => r.Count() == 2)), Times.Once());   
+            generator.Verify(g => g.Generate(It.Is<IList<MergerResult>>(r => r.Count() == 2)), Times.Once());   
         }
 
         [Test]
         public void Should_Generate_Merged_Results_On_ToString()
         {
-            var results = new List<WebAssetMergerResult>();
-            results.Add(new WebAssetMergerResult("", ""));
-            results.Add(new WebAssetMergerResult("", ""));
+            var results = new List<MergerResult>();
+            results.Add(new MergerResult("", "", "", WebAssetType.None));
+            results.Add(new MergerResult("", "", "", WebAssetType.None));
 
             merger.Setup(m => m.Merge(It.IsAny<IList<ResolverResult>>())).Returns(results);
 
             builder.ToHtmlString();
 
             //should call generate with 2 results passed
-            generator.Verify(g => g.Generate(It.Is<IList<WebAssetMergerResult>>(r => r.Count() == 2)), Times.Once());   
+            generator.Verify(g => g.Generate(It.Is<IList<MergerResult>>(r => r.Count() == 2)), Times.Once());   
         }
 
 

@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -16,11 +16,11 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
-    using WebAssetBundler.Web.Mvc;
-    using System.Collections.Generic;
-
-    public interface IWebAssetGenerator
+    public interface IResponseWriter
     {
-        void Generate(IList<MergerResult> results);
+        bool IsNotModified(MergerResult result);
+        void WriteAsset(MergerResult result, IEncoder encoder);
+        void WriteNotFound();
+        void WriteNotModified(string etag);
     }
 }

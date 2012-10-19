@@ -22,31 +22,46 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class WebAssetMergerResultTest
     {
         [Test]
-        public void Should_Set_Path_With_Constructor()
+        public void Should_Set_Version_With_Constructor()
         {
-            var path = "some/path/file.css";
-            var result = new WebAssetMergerResult(path, "");
+            var result = new MergerResult("", "1.1", "", WebAssetType.None);
 
-            Assert.AreSame(result.Path, path);
+            Assert.AreSame(result.Version, "1.1");
         }
 
         [Test]
         public void Should_Set_Content_With_Constructor()
         {
             var content = "some content";
-            var result = new WebAssetMergerResult("", content);
+            var result = new MergerResult("", "", content, WebAssetType.None);
 
             Assert.AreSame(result.Content, content);
         }
 
         [Test]
-        public void Should_Create_Url()
-        {                    
-            Assert.AreEqual("192.168.1.1/test.css", WebAssetMergerResult.CreateUrl("/test.css", "192.168.1.1/"), "Ip");
-            Assert.AreEqual("http://www.test.com/test.css", WebAssetMergerResult.CreateUrl("test.css", "http://www.test.com/"), "domain");
-            Assert.AreEqual("/test.css", WebAssetMergerResult.CreateUrl("/test.css", null), "null host");
-            Assert.AreEqual("/test.css", WebAssetMergerResult.CreateUrl("/test.css", ""), "length 0 host");
-            Assert.AreEqual("http://www.test.com/test.css", WebAssetMergerResult.CreateUrl("/test.css", "http://www.test.com"), "with \\ to /");
+        public void Should_Set_Name_With_Constructor()
+        {
+            var result = new MergerResult("name", "", "", WebAssetType.None);
+
+            Assert.AreSame(result.Name, "name");
+        }
+
+        [Test]
+        public void Should_Return_Correct_Content_Type()
+        {
+            var result = new MergerResult("", "", "", WebAssetType.StyleSheet);
+            Assert.AreSame(result.ContentType, "text/css");
+
+            result = new MergerResult("", "", "", WebAssetType.Script);
+            Assert.AreSame(result.ContentType, "text/javascript");
+        }
+
+        [Test]
+        public void Should_Get_Hash_Code()
+        {
+            var result = new MergerResult("test", "1.1", "", WebAssetType.None);
+
+            Assert.AreEqual(449337885, result.GetHashCode());
         }
     }
 }

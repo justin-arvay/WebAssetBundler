@@ -30,7 +30,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IPathResolver> resolver;
         private Mock<HttpServerUtilityBase> server;
         private StyleSheetWebAssetMerger merger;
-        private Mock<IMergedContentCache> cache;
+        private Mock<IMergedResultCache> cache;
 
         [SetUp]
         public void Setup()
@@ -40,11 +40,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
             resolver = new Mock<IPathResolver>();
             server = new Mock<HttpServerUtilityBase>();
             compressor = new Mock<IStyleSheetCompressor>();
-            cache = new Mock<IMergedContentCache>();
+            cache = new Mock<IMergedResultCache>();
 
-            merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, resolver.Object, server.Object, cache.Object);
-            
-            cache.Setup(c => c.Get(It.IsAny<string>())).Returns("");
+            merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, resolver.Object, server.Object, cache.Object);            
         }
 
         [Test]
@@ -54,7 +52,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var webAssets = new List<IWebAsset>();
             var results = new List<ResolverResult>();
 
-            results.Add(new ResolverResult(webAssets, "Test"));
+            results.Add(new ResolverResult(webAssets, "Test") { 
+                Version = "1.1",
+                Host = "http://www.test.com"
+            });
 
             webAssets.Add(new WebAsset(""));
             webAssets.Add(new WebAsset(""));
@@ -67,7 +68,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
             reader.Setup(r => r.Read(It.IsAny<IWebAsset>()))
                 .Returns(content);
 
-            Assert.AreEqual(content + content, merger.Merge(results)[0].Content);
+            var result = merger.Merge(results)[0];
+            Assert.AreEqual(content + content, result.Content);
+            Assert.AreEqual("1.1", result.Version);
+            Assert.AreEqual("Test", result.Name);
+            Assert.AreEqual("http://www.test.com", result.Host);
         }
 
         [Test]
@@ -85,8 +90,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 It.Is<string>(s => s.Equals(DefaultSettings.GeneratedFilesPath)),
                 It.Is<string>(s => s.Equals("1.1")),
                 It.Is<string>(s => s.Equals("Test")))).Returns(path);
-
-            Assert.AreEqual(path, merger.Merge(results)[0].Path);
         }
 
         [Test]
@@ -195,20 +198,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Set_Host()
-        {            
-            var webAssets = new List<IWebAsset>();
+        public void Should_Cache_Result()
+        {
             var results = new List<ResolverResult>();
-            var result = new ResolverResult(webAssets, "Test");
+            results.Add(new ResolverResult(new List<IWebAsset>(), "Test"));
 
+            merger.Merge(results);
 
-            result.Host = "192.168.1.1";
-            results.Add(result);
-            webAssets.Add(new WebAsset(""));
-
-            var mergedResults = merger.Merge(results);
-
-            Assert.AreSame("192.168.1.1", mergedResults[0].Host);
+            cache.Verify(c => c.Add(It.IsAny<MergerResult>()), Times.Once());
         }
 
         [Test]
@@ -221,11 +218,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
             results.Add(result);
             webAssets.Add(new WebAsset(""));
 
-            cache.Setup(c => c.Get(It.IsAny<string>())).Returns("some content");
+            cache.Setup(c => c.Get(It.IsAny<string>())).Returns(new MergerResult("", "", "", WebAssetType.None));
 
             var mergedResults = merger.Merge(results);
 
-            cache.Verify(c => c.Add(It.IsAny<string>(), It.IsAny<string>()), Times.Never());
+            cache.Verify(c => c.Add(It.IsAny<MergerResult>()), Times.Never());
         }   
     }
 }

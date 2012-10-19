@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,17 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
+    using NUnit.Framework;
+    using Moq;
 
-    public interface IUrlResolver
+    [TestFixture]
+    public class ScriptUrlGeneratorTests
     {
-        /// <summary>
-        /// Returns the path for the sepcified virtual path.
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        string Resolve(string url);
+        private ScriptUrlGenerator generator;
+
+        [SetUp]
+        public void Setup()
+        {
+            generator = new ScriptUrlGenerator();
+        }
+
+        [Test]
+        public void Should_Generate_Url()
+        {
+            var url = generator.Generate("test", "1.1", "http://www.test.com");
+
+            Assert.AreEqual("http://www.test.com/wab.axd/script/1.1/test", url);
+        }
     }
 }

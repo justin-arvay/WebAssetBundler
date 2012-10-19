@@ -31,7 +31,7 @@ namespace WebAssetBundler.Web.Mvc
             this.context = context;
         }
 
-        public void Generate(IList<WebAssetMergerResult> results)
+        public void Generate(IList<MergerResult> results)
         {
             foreach (var result in results)
             {
@@ -41,7 +41,7 @@ namespace WebAssetBundler.Web.Mvc
                 }
                 else
                 {
-                    if (cache.Exists(result) == false)
+                    if (cache.Get(result.Name) == null)
                     {
                         cache.Add(result);
                         writer.Write(result);

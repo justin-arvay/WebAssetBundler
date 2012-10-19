@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -17,28 +17,17 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.IO;
-    using System.Collections.Generic;
+    using System.Web;
+    using System.IO.Compression;
 
-    public class StyleSheetTagWriter : ITagWriter
+    public class DeflateEncoder : IEncoder
     {
-        private IUrlGenerator urlGenerator;
 
-        public StyleSheetTagWriter(IUrlGenerator urlGenerator)
+        public void Encode(HttpResponseBase response)
         {
-            this.urlGenerator = urlGenerator;
-        }
-
-        public void Write(TextWriter writer, IList<MergerResult> results)
-        {
-            var url = "";
-            var link = "<link type=\"text/css\" href=\"{0}\" rel=\"stylesheet\"/>";
-
-            foreach (var result in results)
-            {
-                url = urlGenerator.Generate(result.Name, result.Version, result.Host);
-                writer.WriteLine(link.FormatWith(url));                
-            }
+            response.AppendHeader("Content-Encoding", "deflate");
+            response.AppendHeader("Vary", "Accept-Encoding");
+            response.Filter = new DeflateStream(response.Filter, CompressionMode.Compress, true);
         }
     }
 }
