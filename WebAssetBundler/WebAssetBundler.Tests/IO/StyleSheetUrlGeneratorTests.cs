@@ -37,5 +37,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual("http://www.test.com/wab.axd/style-sheet/1.1/test", url);
         }
+
+        [Test]
+        public void Should_Generate_Url_Without_Host()
+        {
+            var url = generator.Generate("test", "1.1", null);
+
+            Assert.AreEqual("/wab.axd/style-sheet/1.1/test", url);
+        }
     }
 }

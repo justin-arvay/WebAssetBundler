@@ -23,7 +23,9 @@ namespace WebAssetBundler.Web.Mvc
 
         public string Generate(string hash, string version, string host)
         {
+            host = host ?? "";
             var path = "wab.axd/script/{0}/{1}";
+
             if (host.EndsWith("/") == false)
             {
                 host += "/";

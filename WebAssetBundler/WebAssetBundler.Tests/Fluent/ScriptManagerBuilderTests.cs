@@ -30,7 +30,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private Mock<ITagWriter> tagWriter;
         private Mock<IWebAssetMerger> merger;
-        private Mock<IWebAssetGenerator> generator;
         private ScriptManagerBuilder builder;
         private Mock<IAssetFactory> assetFactory;
         private BuilderContext context;
@@ -45,7 +44,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var collection = new WebAssetGroupCollection();
             var pathResolver = new Mock<IPathResolver>();
             var collectionResolver = new Mock<IWebAssetGroupCollectionResolver>().Object;
-            generator = new Mock<IWebAssetGenerator>();
             merger = new Mock<IWebAssetMerger>();
             tagWriter = new Mock<ITagWriter>();
 
@@ -56,7 +54,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 collectionResolver,
                 tagWriter.Object,
                 merger.Object,
-                generator.Object,
                 context);
         }
 
@@ -132,36 +129,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             builder.ToHtmlString();
 
             tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), It.IsAny<IList<MergerResult>>()), Times.Exactly(1));
-        }
-
-        [Test]
-        public void Should_Generate_On_Render()
-        {
-            var results = new List<MergerResult>();
-            results.Add(new MergerResult("", "", "", WebAssetType.None));
-            results.Add(new MergerResult("", "", "", WebAssetType.None));
-
-            merger.Setup(m => m.Merge(It.IsAny<IList<ResolverResult>>())).Returns(results);
-
-            builder.Render();
-
-            //should call generate with 2 results passed
-            generator.Verify(g => g.Generate(It.Is<IList<MergerResult>>(r => r.Count == 2)), Times.Once());   
-        }
-
-        [Test]
-        public void Should_Generate_On_ToString()
-        {
-            var results = new List<MergerResult>();
-            results.Add(new MergerResult("", "", "", WebAssetType.None));
-            results.Add(new MergerResult("", "", "", WebAssetType.None));
-
-            merger.Setup(m => m.Merge(It.IsAny<IList<ResolverResult>>())).Returns(results);
-
-            builder.ToHtmlString();
-
-            //should call generate with 2 results passed
-            generator.Verify(g => g.Generate(It.Is<IList<MergerResult>>(r => r.Count == 2)), Times.Once());   
         }
     }
 }

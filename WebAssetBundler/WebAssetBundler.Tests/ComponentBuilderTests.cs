@@ -39,9 +39,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var collection = new WebAssetGroupCollection();            
             var resolverFactory = new Mock<IWebAssetResolverFactory>();
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory.Object);
-            var writer = new Mock<IWebAssetWriter>();
             var merger = new Mock<IWebAssetMerger>();
-            var generator = new Mock<IWebAssetGenerator>();
 
             return new StyleSheetManagerBuilder(
                 new StyleSheetManager(collection),
@@ -50,7 +48,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 collectionResolver,
                 tagWriter.Object,
                 merger.Object,
-                generator.Object,
                 builderContext);
         }
 
@@ -64,7 +61,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var merger = new Mock<IWebAssetMerger>();
             var resolverFactory = new Mock<IWebAssetResolverFactory>();
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory.Object);
-            var generator = new Mock<IWebAssetGenerator>();
 
             return new ScriptManagerBuilder(
                 new ScriptManager(collection),
@@ -73,7 +69,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 collectionResolver,
                 tagWriter.Object,
                 merger.Object,
-                generator.Object,
                 builderContext);
         }
 

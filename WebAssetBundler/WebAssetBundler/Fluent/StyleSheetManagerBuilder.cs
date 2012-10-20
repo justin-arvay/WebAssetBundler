@@ -32,7 +32,6 @@ namespace WebAssetBundler.Web.Mvc
         private ViewContext viewContext;
         private ITagWriter tagWriter;
         private IWebAssetMerger merger;
-        private IWebAssetGenerator generator;
         private WebAssetGroupCollection sharedGroups;
         private BuilderContext context;
 
@@ -49,7 +48,6 @@ namespace WebAssetBundler.Web.Mvc
             IWebAssetGroupCollectionResolver resolver,
             ITagWriter tagWriter,                   
             IWebAssetMerger merger,
-            IWebAssetGenerator generator,
             BuilderContext context)
         {
             Manager = manager;
@@ -57,7 +55,6 @@ namespace WebAssetBundler.Web.Mvc
             this.tagWriter = tagWriter;
             this.viewContext = viewContext;
             this.merger = merger;         
-            this.generator = generator;
             this.sharedGroups = sharedGroups;
             this.context = context;
         }
@@ -105,8 +102,6 @@ namespace WebAssetBundler.Web.Mvc
 
             var results = merger.Merge(collectionResolver.Resolve(Manager.StyleSheets, context));
             var baseWriter = viewContext.Writer;
-
-            generator.Generate(results);
 
             using (HtmlTextWriter textWriter = new HtmlTextWriter(baseWriter))
             {

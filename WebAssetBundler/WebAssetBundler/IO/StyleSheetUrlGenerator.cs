@@ -24,6 +24,9 @@ namespace WebAssetBundler.Web.Mvc
         public string Generate(string hash, string version, string host)
         {
             var path = "wab.axd/style-sheet/{0}/{1}";
+
+            host = host ?? "";
+
             if (host.EndsWith("/") == false)
             {
                 host += "/";

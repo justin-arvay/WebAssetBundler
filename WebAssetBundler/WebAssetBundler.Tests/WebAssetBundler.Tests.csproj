@@ -89,13 +89,10 @@
     <Compile Include="IO\ScriptTagWriterTests.cs" />
     <Compile Include="IO\ScriptUrlGeneratorTests.cs" />
     <Compile Include="IO\ScriptWebAssetMergerTests.cs" />
-    <Compile Include="IO\DirectoryWriterTests.cs" />
     <Compile Include="IO\StyleSheetTagWriterTests.cs" />
     <Compile Include="IO\StyleSheetUrlGeneratorTests.cs" />
     <Compile Include="IO\StyleSheetWebAssetMergerTests.cs" />
-    <Compile Include="IO\WebAssetGeneratorTests.cs" />
     <Compile Include="IO\MergerResultTest.cs" />
-    <Compile Include="IO\WebAssetWriterTests.cs" />
     <Compile Include="IO\WebAssetReaderTests.cs" />
     <Compile Include="Fluent\ManagerBuilderFactoryTests.cs" />
     <Compile Include="Fluent\ScriptManagerBuilderTests.cs" />
