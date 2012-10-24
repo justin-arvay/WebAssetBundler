@@ -97,7 +97,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             context.AssetFactory = new AssetFactory(context);
 
             var results = new List<MergerResult>();
-            results.Add(new MergerResult("", "", "", WebAssetType.None));
+            results.Add(new MergerResult("", "", WebAssetType.None));
 
             builder.Render();
 
@@ -110,7 +110,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             context.AssetFactory = new AssetFactory(context);
 
             var results = new List<MergerResult>();
-            results.Add(new MergerResult("", "", "", WebAssetType.None));
+            results.Add(new MergerResult("", "", WebAssetType.None));
 
             builder.ToHtmlString();
 

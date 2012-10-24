@@ -36,7 +36,7 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (var result in results)
             {
-                url = urlGenerator.Generate(result.Name, result.Version, result.Host);
+                url = urlGenerator.Generate(result.Name, result.Hash.ToHexString(), result.Host);
                 writer.WriteLine(link.FormatWith(url));                
             }
         }

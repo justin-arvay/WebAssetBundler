@@ -30,7 +30,6 @@ namespace WebAssetBundler.Web.Mvc
         private static string scriptFilesPath = "~/Scripts";
         private static string generatedFilesPath = "~/Generated";
 
-        private static string version = new AssemblyName(typeof(DefaultSettings).Assembly.FullName).Version.ToString(3);
         private static bool compressed = true;
         private static bool combined = true;
 
@@ -84,22 +83,6 @@ namespace WebAssetBundler.Web.Mvc
             set
             {
                 generatedFilesPath = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the version.
-        /// </summary>
-        /// <value>The version.</value>
-        public static string Version
-        {
-            get
-            {
-                return version;
-            }
-            set
-            {
-                version = value;
             }
         }
 

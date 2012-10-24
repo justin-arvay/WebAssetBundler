@@ -64,15 +64,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Map_Version()
-        {
-            var collection = new GroupConfigurationElementCollection();
-            collection.Version = "1.1";
-
-            Assert.AreEqual("1.1", factory.CreateGroup(collection).Version);
-        }
-
-        [Test]
         public void Should_Map_Combine()
         {
             var collection = new GroupConfigurationElementCollection();

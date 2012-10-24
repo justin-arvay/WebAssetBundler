@@ -30,16 +30,11 @@ namespace WebAssetBundler.Web.Mvc
             this.type = type;
         }
 
-        public string Resolve(string path, string version, string name)
+        public string Resolve(string path, string name)
         {
             var fileName = name + "." + GetExtension();
 
-            if (String.IsNullOrEmpty(version))
-            {
-                return Path.Combine(path, fileName);
-            }
-
-            return Path.Combine(path, version, fileName);
+            return Path.Combine(path, fileName);
         }
 
         private string GetExtension()

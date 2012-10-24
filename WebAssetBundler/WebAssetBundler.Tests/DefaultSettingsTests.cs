@@ -61,17 +61,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Can_Set_Version()
-        {
-            DefaultSettings.Version = "1.0";
-
-            Assert.AreEqual("1.0", DefaultSettings.Version);
-
-            //re-set the defualt
-            DefaultSettings.Version = typeof(DefaultSettings).Assembly.GetName().Version.ToString(3);
-        }
-
-        [Test]
         public void Compressed_Should_Be_True_By_Default()
         {
             Assert.True(DefaultSettings.Compressed);
@@ -81,13 +70,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Combined_Should_Be_True_By_Default()
         {
             Assert.True(DefaultSettings.Combined);
-        }
-
-        [Test]
-        public void Version_Should_Use_Assembly_For_Version_By_Default()
-        {
-            var version = new AssemblyName(typeof(DefaultSettings).Assembly.FullName).Version.ToString(3);
-            Assert.AreEqual(version, DefaultSettings.Version);
         }
 
         [Test]

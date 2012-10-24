@@ -71,7 +71,7 @@ namespace WebAssetBundler.Web.Mvc
                     content = compressor.Compress(content);
                 }
 
-                mergedResult = new MergerResult(result.Name, result.Version, content, WebAssetType.Script)
+                mergedResult = new MergerResult(result.Name, content, WebAssetType.Script)
                     {
                         Host = result.Host
                     };

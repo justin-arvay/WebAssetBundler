@@ -119,20 +119,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Can_Set_Version()
-        {
-            builder.Version("1.1.1");
-
-            Assert.AreEqual("1.1.1", group.Version);
-        }
-
-        [Test]
-        public void Version_Returns_Self_For_Chaining()
-        {
-            Assert.IsInstanceOf<WebAssetGroupBuilder>(builder.Version("1.1"));
-        }
-
-        [Test]
         public void Should_Add_Assets_From_Shared()
         {
             var sharedGroup = new WebAssetGroup("Test", true);

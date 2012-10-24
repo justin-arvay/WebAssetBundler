@@ -22,23 +22,17 @@ namespace WebAssetBundler.Web.Mvc
     using System.Text;
     using System.Security.Policy;
     using System.IO;
+    using System.Security.Cryptography;
 
     public class MergerResult
     {
         private WebAssetType type;
 
-        public MergerResult(string name, string version, string content, WebAssetType type)
+        public MergerResult(string name, string content, WebAssetType type)
         {            
             Name = name;
             Content = content;
-            Version = version;
             this.type = type;
-        }
-
-        public string Version
-        {
-            get;
-            private set;
         }
 
         public string Name
@@ -75,16 +69,13 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public int GetHashCode()
+        public byte[] Hash
         {
-            unchecked
+            get
             {
-                int hash = 3;
-                hash = hash * 5 + Name.GetHashCode();
-                hash = hash * 5 + Version.GetHashCode();
-                hash = hash * 5 + ContentType.ToString().GetHashCode();
-
-                return hash;
+                MD5CryptoServiceProvider x = new MD5CryptoServiceProvider();
+                byte[] bs = Encoding.UTF8.GetBytes(Content);
+                return  x.ComputeHash(bs);
             }
         }
     }

@@ -37,7 +37,6 @@ namespace WebAssetBundler.Web.Mvc
             results.Add(new ResolverResult(group.Assets, group.Name)
                 {
                     Compress = group.Compress,
-                    Version = group.Version,
                     Host = group.Host
                 });
 

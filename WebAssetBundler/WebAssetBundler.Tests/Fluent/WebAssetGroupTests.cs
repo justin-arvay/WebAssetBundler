@@ -70,16 +70,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Can_Set_Version()
-        {
-            var group = new WebAssetGroup("", false);
-
-            group.Version = "2.0";
-
-            Assert.AreEqual("2.0", group.Version);
-        }
-
-        [Test]
         public void Can_Set_Enabled()
         {
             var group = new WebAssetGroup("", false);

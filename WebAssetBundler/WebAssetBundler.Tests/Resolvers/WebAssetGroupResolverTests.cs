@@ -50,18 +50,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.IsTrue(results[0].Compress);
         }
 
-        [Test]
-        public void Should_Resolve_Version_For_Result()
-        {
-            var group = new WebAssetGroup("Test", false) { Version = "1.2" };
-
-            group.Assets.Add(new WebAsset(""));
-
-            var resolver = new WebAssetGroupResolver(group);
-            var results = resolver.Resolve();
-
-            Assert.AreEqual("1.2", results[0].Version);
-        }
 
         [Test]
         public void Should_Resolve_Name_For_Result()

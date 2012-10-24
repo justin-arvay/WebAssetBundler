@@ -56,18 +56,6 @@ namespace WebAssetBundler.Web.Mvc
             return this;
         }
 
-
-        /// <summary>
-        /// Sets the version for the group. Overrides all other versioning.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public WebAssetGroupBuilder Version(string value)
-        {
-            group.Version = value;
-            return this;
-        }
-
         /// <summary>
         /// Compresses the group.
         /// </summary>

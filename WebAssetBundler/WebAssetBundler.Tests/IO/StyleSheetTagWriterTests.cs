@@ -40,20 +40,20 @@ namespace WebAssetBundler.Web.Mvc
         public void Should_Generate_Url()
         {            
             var results = new List<MergerResult>();
-            var merger = new MergerResult("asdf", "1.1", "", WebAssetType.None) { Host = "http://www.test.com" };
+            var merger = new MergerResult("asdf", "", WebAssetType.None) { Host = "http://www.test.com" };
             results.Add(merger);
 
             tagWriter.Write(textWriter.Object, results);
 
-            urlGenerator.Verify(m => m.Generate("asdf", "1.1", "http://www.test.com"), Times.Exactly(1));
+            urlGenerator.Verify(m => m.Generate("asdf", "", "http://www.test.com"), Times.Exactly(1));
         }
 
         [Test]
         public void Should_Write_To_Writer()
         {
             var results = new List<MergerResult>();
-            results.Add(new MergerResult("", "", "", WebAssetType.None));
-            results.Add(new MergerResult("", "", "", WebAssetType.None));
+            results.Add(new MergerResult("", "", WebAssetType.None));
+            results.Add(new MergerResult("", "", WebAssetType.None));
 
             urlGenerator.Setup(u => u.Generate(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns("http://dev.test.com/");
 
@@ -66,8 +66,8 @@ namespace WebAssetBundler.Web.Mvc
         public void Should_Format_Tag_Correctly()
         {
             var results = new List<MergerResult>();
-            results.Add(new MergerResult("", "", "", WebAssetType.None));
-            results.Add(new MergerResult("", "", "", WebAssetType.None));
+            results.Add(new MergerResult("", "", WebAssetType.None));
+            results.Add(new MergerResult("", "", WebAssetType.None));
 
             tagWriter.Write(textWriter.Object, results);
 

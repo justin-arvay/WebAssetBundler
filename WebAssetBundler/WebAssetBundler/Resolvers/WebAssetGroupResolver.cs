@@ -35,20 +35,19 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (var asset in group.Assets)
             {
-                results.Add(ResolveWebAsset(asset.Name, group.Version, group.Compress, group.Host, asset));
+                results.Add(ResolveWebAsset(asset.Name, group.Compress, group.Host, asset));
             }
 
             return results;
         }
 
-        private ResolverResult ResolveWebAsset(string name, string version, bool compress, string host, IWebAsset webAsset)
+        private ResolverResult ResolveWebAsset(string name, bool compress, string host, IWebAsset webAsset)
         {
             var assets = new List<IWebAsset>();
             assets.Add(webAsset);
 
             return new ResolverResult(assets, name)
                 {
-                    Version = version,
                     Compress = compress,
                     Host = host
                 };

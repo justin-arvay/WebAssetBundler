@@ -21,19 +21,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class WebAssetMergerResultTest
     {
-        [Test]
-        public void Should_Set_Version_With_Constructor()
-        {
-            var result = new MergerResult("", "1.1", "", WebAssetType.None);
-
-            Assert.AreSame(result.Version, "1.1");
-        }
 
         [Test]
         public void Should_Set_Content_With_Constructor()
         {
             var content = "some content";
-            var result = new MergerResult("", "", content, WebAssetType.None);
+            var result = new MergerResult("", content, WebAssetType.None);
 
             Assert.AreSame(result.Content, content);
         }
@@ -41,7 +34,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Set_Name_With_Constructor()
         {
-            var result = new MergerResult("name", "", "", WebAssetType.None);
+            var result = new MergerResult("name", "", WebAssetType.None);
 
             Assert.AreSame(result.Name, "name");
         }
@@ -49,19 +42,19 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Return_Correct_Content_Type()
         {
-            var result = new MergerResult("", "", "", WebAssetType.StyleSheet);
+            var result = new MergerResult("", "", WebAssetType.StyleSheet);
             Assert.AreSame(result.ContentType, "text/css");
 
-            result = new MergerResult("", "", "", WebAssetType.Script);
+            result = new MergerResult("", "", WebAssetType.Script);
             Assert.AreSame(result.ContentType, "text/javascript");
         }
 
         [Test]
-        public void Should_Get_Hash_Code()
+        public void Should_Get_Hash()
         {
-            var result = new MergerResult("test", "1.1", "", WebAssetType.None);
+            var result = new MergerResult("test", "asdf", WebAssetType.None);
 
-            Assert.AreEqual(449337885, result.GetHashCode());
+            Assert.AreEqual(16, result.Hash.Length);
         }
     }
 }

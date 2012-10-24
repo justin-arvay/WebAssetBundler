@@ -56,7 +56,7 @@ namespace WebAssetBundler.Web.Mvc
 
         private MergerResult MergeSingle(ResolverResult result)
         {
-            string generatedPath = pathResolver.Resolve(DefaultSettings.GeneratedFilesPath, result.Version, result.Name);
+            string generatedPath = pathResolver.Resolve(DefaultSettings.GeneratedFilesPath, result.Name);
             var mergedResult = cache.Get(result.Name);
 
             if (mergedResult == null)
@@ -73,7 +73,7 @@ namespace WebAssetBundler.Web.Mvc
                     content = compressor.Compress(content);
                 }
 
-                mergedResult = new MergerResult(result.Name, result.Version, content, WebAssetType.StyleSheet)
+                mergedResult = new MergerResult(result.Name, content, WebAssetType.StyleSheet)
                     {
                         Host = result.Host
                     };

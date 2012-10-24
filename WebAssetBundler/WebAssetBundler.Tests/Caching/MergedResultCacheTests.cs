@@ -40,14 +40,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Add_Result_To_Cache()
         {
-            cssCache.Add(new MergerResult("Name", "", "", WebAssetType.StyleSheet));
+            cssCache.Add(new MergerResult("Name", "", WebAssetType.StyleSheet));
 
             provider.Verify(p => p.Insert(
                 "MergedResult->StyleSheet->Name", 
                 It.IsAny<MergerResult>()
             ), Times.Once());
 
-            jsCache.Add(new MergerResult("Name", "", "", WebAssetType.Script));
+            jsCache.Add(new MergerResult("Name", "", WebAssetType.Script));
 
             provider.Verify(p => p.Insert(
                 "MergedResult->Script->Name",
@@ -58,8 +58,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Add_Many_Different_Results_To_Cache()
         {
-            cssCache.Add(new MergerResult("Name1", "", "", WebAssetType.None));
-            cssCache.Add(new MergerResult("Name2", "", "", WebAssetType.None));
+            cssCache.Add(new MergerResult("Name1", "", WebAssetType.None));
+            cssCache.Add(new MergerResult("Name2", "", WebAssetType.None));
 
             provider.Verify(p => p.Insert(It.IsAny<string>(), It.IsAny<object>()), Times.Exactly(2));
         }
@@ -67,7 +67,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Exist_In_Cache()
         {
-            var result = new MergerResult("Name", "", "", WebAssetType.None);
+            var result = new MergerResult("Name", "", WebAssetType.None);
 
             provider.Setup(p => p.Get(It.IsAny<string>()))
                 .Returns(null);
@@ -79,7 +79,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Add_To_Cache_With_Unique_Key_Per_Type()
         {
-            var result = new MergerResult("Name", "", "", WebAssetType.None);
+            var result = new MergerResult("Name", "", WebAssetType.None);
             var paths = new List<string>();
 
             provider.Setup(p => p.Insert(It.IsAny<string>(), It.IsAny<object>()))

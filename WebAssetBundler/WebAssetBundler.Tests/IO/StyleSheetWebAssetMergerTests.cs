@@ -53,7 +53,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var results = new List<ResolverResult>();
 
             results.Add(new ResolverResult(webAssets, "Test") { 
-                Version = "1.1",
                 Host = "http://www.test.com"
             });
 
@@ -70,7 +69,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var result = merger.Merge(results)[0];
             Assert.AreEqual(content + content, result.Content);
-            Assert.AreEqual("1.1", result.Version);
             Assert.AreEqual("Test", result.Name);
             Assert.AreEqual("http://www.test.com", result.Host);
         }
@@ -81,14 +79,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var path = "path/test.css";            
             var results = new List<ResolverResult>();            
 
-            results.Add(new ResolverResult(new List<IWebAsset>(), "Test")
-            {
-                Version = "1.1"
-            });
+            results.Add(new ResolverResult(new List<IWebAsset>(), "Test"));
 
             resolver.Setup(r => r.Resolve(
-                It.Is<string>(s => s.Equals(DefaultSettings.GeneratedFilesPath)),
-                It.Is<string>(s => s.Equals("1.1")),
+                It.Is<string>(s => s.Equals(DefaultSettings.GeneratedFilesPath)),                
                 It.Is<string>(s => s.Equals("Test")))).Returns(path);
         }
 
@@ -128,7 +122,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             results.Add(new ResolverResult(webAssets, "Test"));
 
-            webAssets.Add(new WebAsset(sourcePath)); resolver.Setup(r => r.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(outputPath);
+            webAssets.Add(new WebAsset(sourcePath)); resolver.Setup(r => r.Resolve(It.IsAny<string>(), It.IsAny<string>())).Returns(outputPath);
 
             merger.Merge(results);
            
@@ -182,7 +176,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             webAssets.Add(new WebAsset(""));
             webAssets.Add(new WebAsset(""));
 
-            resolver.Setup(r => r.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(path);
+            resolver.Setup(r => r.Resolve(It.IsAny<string>(), It.IsAny<string>())).Returns(path);
 
             server.Setup(r => r.MapPath(path)).Returns(path);
 
@@ -218,7 +212,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             results.Add(result);
             webAssets.Add(new WebAsset(""));
 
-            cache.Setup(c => c.Get(It.IsAny<string>())).Returns(new MergerResult("", "", "", WebAssetType.None));
+            cache.Setup(c => c.Get(It.IsAny<string>())).Returns(new MergerResult("", "", WebAssetType.None));
 
             var mergedResults = merger.Merge(results);
 

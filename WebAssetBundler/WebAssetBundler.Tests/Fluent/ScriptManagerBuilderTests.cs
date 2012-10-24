@@ -110,7 +110,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             context.AssetFactory = new AssetFactory(context);
 
             var results = new List<MergerResult>();
-            results.Add(new MergerResult("", "", "", WebAssetType.None));
+            results.Add(new MergerResult("", "", WebAssetType.None));
             merger.Setup(m => m.Merge(It.IsAny<IList<ResolverResult>>())).Returns(results);
 
             builder.Render();
@@ -124,7 +124,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             context.AssetFactory = new AssetFactory(context);
 
             var results = new List<MergerResult>();
-            results.Add(new MergerResult("", "", "", WebAssetType.None));
+            results.Add(new MergerResult("", "", WebAssetType.None));
 
             builder.ToHtmlString();
 

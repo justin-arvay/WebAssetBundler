@@ -52,12 +52,6 @@ namespace WebAssetBundler.Web.Mvc
             set;
         }
 
-        public string Version
-        {
-            get;
-            set;
-        }
-
         public bool Compress
         {
             get;

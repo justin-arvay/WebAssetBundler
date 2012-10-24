@@ -33,17 +33,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Generate_Url()
         {
-            var url = generator.Generate("test", "1.1", "http://www.test.com");
+            var url = generator.Generate("test", "abc", "http://www.test.com");
 
-            Assert.AreEqual("http://www.test.com/wab.axd/script/1.1/test", url);
+            Assert.AreEqual("http://www.test.com/wab.axd/script/abc/test", url);
         }
 
         [Test]
         public void Should_Generate_Url_Without_Host()
         {
-            var url = generator.Generate("test", "1.1", null);
+            var url = generator.Generate("test", "abc", null);
 
-            Assert.AreEqual("/wab.axd/script/1.1/test", url);
+            Assert.AreEqual("/wab.axd/script/abc/test", url);
         }
     }
 }

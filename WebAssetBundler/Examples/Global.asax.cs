@@ -46,8 +46,7 @@ namespace Examples
 
             SharedGroups.Scripts(s =>s
                 .AddGroup("jQuery2", g => g
-                    .Add("jquery-1.5.1.js")
-                    .Version("YEAH")));
+                    .Add("jquery-1.5.1.js")));
         }
     }
 }

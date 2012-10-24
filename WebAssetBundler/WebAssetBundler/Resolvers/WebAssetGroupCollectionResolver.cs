@@ -44,11 +44,6 @@ namespace WebAssetBundler.Web.Mvc
                 group.Combine = context.CanCombine(group);
                 group.Compress = context.CanCompress(group);
 
-                if (context.DebugMode && context.EnableCacheBreaker)
-                {
-                    group.Version = context.CreateCacheBreakerVersion();
-                }
-
                 var resolver = resolverFactory.Create(group);
                 results.AddRange(resolver.Resolve());
             }

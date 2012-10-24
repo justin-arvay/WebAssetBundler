@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,26 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System.Linq;
-    using WebAssetBundler.Web.Mvc;
+    using NUnit.Framework;
+    using Moq;
+    using System.Security.Cryptography;
+    using System.IO;
+    using System.Text;    
 
-    public class WebAssetResolverFactory : IWebAssetResolverFactory
+    [TestFixture]
+    public class ByteArrayExtensionTests
     {
-        public IWebAssetResolver Create(WebAssetGroup group)
+
+        [Test]
+        public void Should_Convert_To_Lower_Case_Hex_String()
         {
-            if (group.Enabled == false)
-            {
-                return new DoNothingWebAssetResolver();
-            }
+            UTF8Encoding encoding = new UTF8Encoding();
+            byte[] bytes = new byte[] {123, 46, 200, 3, 178, 206, 73, 228, 165, 65, 6, 141, 73, 90, 181, 112};
 
-            if (group.Combine)
-            {
-                return new CombinedWebAssetGroupResolver(group);
-            }
-
-            return new WebAssetGroupResolver(group);
+            Assert.AreEqual("7b2ec803b2ce49e4a541068d495ab570", bytes.ToHexString());
         }
     }
 }

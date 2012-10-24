@@ -39,7 +39,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Write_Not_Modified()
         {
-            var result = new MergerResult("name", "1.1", "", WebAssetType.None);
+            var result = new MergerResult("name", "", WebAssetType.None);
             cache.Setup(c => c.Get(It.IsAny<string>())).Returns(result);
             writer.Setup(w => w.IsNotModified(result)).Returns(true);
 
@@ -52,7 +52,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Write_Asset()
         {
-            var result = new MergerResult("name", "1.1", "", WebAssetType.None);
+            var result = new MergerResult("name", "", WebAssetType.None);
             cache.Setup(c => c.Get(It.IsAny<string>())).Returns(result);
             writer.Setup(w => w.IsNotModified(result)).Returns(false);
 

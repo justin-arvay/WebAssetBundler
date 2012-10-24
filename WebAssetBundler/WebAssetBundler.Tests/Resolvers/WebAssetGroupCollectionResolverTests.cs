@@ -90,22 +90,5 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual(false, group.Combine);
         }
-
-        [Test]
-        public void Should_Override_Group_Version()
-        {
-            var group = new WebAssetGroup("test", false)
-            {
-                Version = "1.1"
-            };
-
-            context.DebugMode = true;
-            context.EnableCacheBreaker = true;
-            collection.Add(group);
-
-            resolver.Resolve(collection, context);
-
-            Assert.AreNotEqual("1.1", group.Version);
-        }
     }
 }

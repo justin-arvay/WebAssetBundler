@@ -41,7 +41,7 @@ namespace WebAssetBundler.Web.Mvc
             {
                 if (writer.IsNotModified(result))
                 {
-                    writer.WriteNotModified(result.GetHashCode().ToString());
+                    writer.WriteNotModified(result.Hash.ToHexString());
                 }
                 else
                 {

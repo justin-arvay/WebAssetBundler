@@ -54,7 +54,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Set_Headers_For_Asset()
         {
-            var result = new MergerResult("name", "1.1", "content", WebAssetType.None);
+            var result = new MergerResult("name", "content", WebAssetType.None);
             var collection = new NameValueCollection();
             collection.Add("Accept-Encoding", "some encoding");
 
@@ -91,7 +91,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Be_Modified()
         {
-            var result = new MergerResult("name", "1.1", "", WebAssetType.None);
+            var result = new MergerResult("name", "", WebAssetType.None);
             var collection = new NameValueCollection();
             collection.Add("If-None-Match", "");
 
@@ -103,7 +103,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Be_Modified()
         {
-            var result = new MergerResult("name", "1.1", "", WebAssetType.None);
+            var result = new MergerResult("name", "", WebAssetType.None);
             var collection = new NameValueCollection();
             collection.Add("If-None-Match", result.GetHashCode().ToString());
 

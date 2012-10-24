@@ -49,12 +49,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Return_Versioned_Group_Resolver()
-        {
-            Assert.IsInstanceOf<VersionedWebAssetGroupResolver>(factory.Create(new WebAssetGroup("", false) { Combine = false, Version = "1.1" }));
-        }
-
-        [Test]
         public void Should_Return_Do_Nothing_Resolver()
         {
             var group = new WebAssetGroup("", false) { Enabled = false };

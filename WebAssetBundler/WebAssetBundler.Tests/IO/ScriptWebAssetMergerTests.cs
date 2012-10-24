@@ -51,7 +51,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             results.Add (new ResolverResult(assets, "Test")
                 {
-                    Version = "1.1",
                     Host = "http://www.test.com"
                 });
 
@@ -66,7 +65,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual(content + ";" + content + ";", result.Content);
             Assert.AreEqual("Test", result.Name);
-            Assert.AreEqual("1.1", result.Version);
             Assert.AreEqual("http://www.test.com", result.Host);
         }
 
@@ -123,7 +121,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             results.Add(result);
             webAssets.Add(new WebAsset(""));
 
-            cache.Setup(c => c.Get(It.IsAny<string>())).Returns(new MergerResult("", "", "", WebAssetType.None));
+            cache.Setup(c => c.Get(It.IsAny<string>())).Returns(new MergerResult("", "", WebAssetType.None));
 
             var mergedResults = merger.Merge(results);
 

@@ -76,6 +76,7 @@
     <Compile Include="Configuration\AssetConfigurationFactoryTests.cs" />
     <Compile Include="Configuration\ConfigurationTestHelper.cs" />
     <Compile Include="Configuration\SharedGroupManagerLoaderTests.cs" />
+    <Compile Include="Extensions\ByteArrayExtensionTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
     <Compile Include="Fluent\SharedGroupsTests.cs" />
     <Compile Include="Fluent\SharedWebAssetGroupCollectionBuilderTests.cs" />
@@ -101,7 +102,6 @@
     <Compile Include="Resolvers\CombinedWebAssetGroupResolverTest.cs" />
     <Compile Include="Resolvers\DoNothingWebAssetResolverTest.cs" />
     <Compile Include="Resolvers\PathResolverTests.cs" />
-    <Compile Include="Resolvers\VersionedWebAssetGroupResolverTests.cs" />
     <Compile Include="Resolvers\WebAssetGroupCollectionResolverTests.cs" />
     <Compile Include="Resolvers\WebAssetGroupResolverTests.cs" />
     <Compile Include="Resolvers\WebAssetResolverFactoryTests.cs" />

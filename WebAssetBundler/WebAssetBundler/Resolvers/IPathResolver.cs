@@ -20,6 +20,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IPathResolver
     {
-        string Resolve(string path, string version, string name);
+        string Resolve(string path, string name);
     }
 }

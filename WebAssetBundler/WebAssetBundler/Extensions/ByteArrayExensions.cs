@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -17,29 +17,16 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.IO;
     using System.Collections.Generic;
+    using System.Text;
+    using System.Security.Cryptography;
 
-    public class ScriptTagWriter : ITagWriter
+    public static class ByteArrayExtensions
     {
-        private IUrlGenerator urlGenerator;
 
-        public ScriptTagWriter(IUrlGenerator urlGenerator)
+        public static string ToHexString(this byte[] bytes)
         {
-            this.urlGenerator = urlGenerator;
-        }
-
-        public void Write(TextWriter writer, IList<MergerResult> results)
-        {
-            var script = "<script type=\"text/javascript\" src=\"{0}\"></script>";
-            var url = "";
-
-            foreach (var result in results)
-            {
-                url = urlGenerator.Generate(result.Name, result.Hash.ToHexString(), result.Host);
-
-                writer.WriteLine(script.FormatWith(url));
-            }
+            return BitConverter.ToString(bytes).Replace("-", String.Empty).ToLower();
         }
     }
 }

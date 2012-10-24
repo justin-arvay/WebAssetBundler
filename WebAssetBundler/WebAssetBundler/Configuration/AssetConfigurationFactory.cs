@@ -26,8 +26,7 @@ namespace WebAssetBundler.Web.Mvc
             return new WebAssetGroup(collection.Name, true)
             {
                 Combine = collection.Combine,
-                Compress = collection.Compress,
-                Version = collection.Version
+                Compress = collection.Compress
             };
         }
 
