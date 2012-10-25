@@ -35,7 +35,7 @@ namespace WebAssetBundler.Web.Mvc
         public void WriteAsset(MergerResult result, IEncoder encoder)
         {
             response.ContentType = result.ContentType;
-            CacheLongTime(result.GetHashCode().ToString());
+            CacheLongTime(result.Hash.ToHexString());
 
             response.Write(result.Content);
 
@@ -44,7 +44,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public bool IsNotModified(MergerResult result)
         {
-            var actualETag = result.GetHashCode().ToString();
+            var actualETag = result.Hash.ToHexString();
             var givenETag = request.Headers["If-None-Match"];
             return givenETag == actualETag;
         }

@@ -38,7 +38,6 @@ namespace WebAssetBundler.Web.Mvc
         {
             var builderContext = contextFactory.CreateStyleSheetContext();
 
-            var pathResolver = new PathResolver(WebAssetType.StyleSheet);
             var urlGenerator = new StyleSheetUrlGenerator();
             var resolverFactory = new WebAssetResolverFactory();
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);            
@@ -46,7 +45,6 @@ namespace WebAssetBundler.Web.Mvc
                 new WebAssetReader(viewContext.HttpContext.Server),
                 new ImagePathContentFilter(),
                 DefaultSettings.StyleSheetCompressor,
-                pathResolver,
                 viewContext.HttpContext.Server,
                 new MergedResultCache(WebAssetType.StyleSheet, cacheProvider));            
             var tagWriter = new StyleSheetTagWriter(urlGenerator);
@@ -63,8 +61,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public ScriptManagerBuilder CreateScriptManagerBuilder()
         {
-            var builderContext = contextFactory.CreateScriptContext();     
-            var pathResolver = new PathResolver(WebAssetType.Script);
+            var builderContext = contextFactory.CreateScriptContext();                 
 
             var urlGenerator = new ScriptUrlGenerator();
             var resolverFactory = new WebAssetResolverFactory();

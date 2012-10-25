@@ -46,7 +46,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             handler.ProcessRequest("/asset/1.1/name", writer.Object, encoder.Object);
 
             cache.Verify(c => c.Get(It.Is<string>(s => s.Equals("name"))), Times.Once());
-            writer.Verify(w => w.WriteNotModified(It.Is<string>(e => e.Equals(result.GetHashCode().ToString()))), Times.Once());
+            writer.Verify(w => w.WriteNotModified(result.Hash.ToHexString()), Times.Once());
         }
 
         [Test]

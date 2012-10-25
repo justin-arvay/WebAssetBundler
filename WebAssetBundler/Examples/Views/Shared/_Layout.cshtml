@@ -7,7 +7,9 @@
         .StyleSheets(style => style
             .AddGroup("Test", g => g
                 .Add("Site.css")
-                .Add("themes/base/jquery.ui.all.css")))
+                .Add("themes/base/jquery.ui.all.css"))
+            .AddGroup("Test2", g => g
+                .Add("Test.css")))
         .Render();}
 
         @{Html.Bundler().ScriptManager()

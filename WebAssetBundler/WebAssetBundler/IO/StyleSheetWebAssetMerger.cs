@@ -27,17 +27,15 @@ namespace WebAssetBundler.Web.Mvc
         private IWebAssetReader reader;
         private IContentFilter filter;
         private IStyleSheetCompressor compressor;
-        private IPathResolver pathResolver;
         private HttpServerUtilityBase server;
         private IMergedResultCache cache;
 
-        public StyleSheetWebAssetMerger(IWebAssetReader reader, IContentFilter filter, IStyleSheetCompressor compressor, IPathResolver pathResolver, 
+        public StyleSheetWebAssetMerger(IWebAssetReader reader, IContentFilter filter, IStyleSheetCompressor compressor,
             HttpServerUtilityBase server, IMergedResultCache cache)
         {
             this.reader = reader;
             this.filter = filter;
             this.server = server;
-            this.pathResolver = pathResolver;
             this.compressor = compressor;
             this.cache = cache;
         }
@@ -56,7 +54,6 @@ namespace WebAssetBundler.Web.Mvc
 
         private MergerResult MergeSingle(ResolverResult result)
         {
-            string generatedPath = pathResolver.Resolve(DefaultSettings.GeneratedFilesPath, result.Name);
             var mergedResult = cache.Get(result.Name);
 
             if (mergedResult == null)
@@ -65,7 +62,7 @@ namespace WebAssetBundler.Web.Mvc
 
                 foreach (var asset in result.Assets)
                 {
-                    content += filter.Filter(server.MapPath(generatedPath), server.MapPath(asset.Source), reader.Read(asset));
+                    content += filter.Filter(server.MapPath("/a/a/a/a"), server.MapPath(asset.Source), reader.Read(asset));
                 }
 
                 if (result.Compress)

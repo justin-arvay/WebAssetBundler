@@ -57,7 +57,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var tagWriter = new Mock<ITagWriter>();
             var server = new Mock<HttpServerUtilityBase>();
             var collection = new WebAssetGroupCollection();
-            var pathResolver = new Mock<IPathResolver>();
             var merger = new Mock<IWebAssetMerger>();
             var resolverFactory = new Mock<IWebAssetResolverFactory>();
             var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory.Object);

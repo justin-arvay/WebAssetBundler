@@ -44,7 +44,7 @@ namespace WebAssetBundler.Web.Mvc
 
             tagWriter.Write(textWriter.Object, results);
 
-            urlGenerator.Verify(m => m.Generate("asdf", "", "http://www.test.com"), Times.Exactly(1));
+            urlGenerator.Verify(m => m.Generate("asdf", results[0].Hash.ToHexString(), "http://www.test.com"), Times.Exactly(1));
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace WebAssetBundler.Web.Mvc
             tagWriter.Write(textWriter.Object, results);
 
             var tag = "<script type=\"text/javascript\" src=\"\"></script>";
-            textWriter.Verify(m => m.WriteLine(It.Is<string>(s => s.Equals(tag))), Times.Exactly(2));
+            textWriter.Verify(m => m.WriteLine(tag), Times.Exactly(2));
         }
     }
 }

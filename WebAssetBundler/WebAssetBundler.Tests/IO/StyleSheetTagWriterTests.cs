@@ -45,7 +45,7 @@ namespace WebAssetBundler.Web.Mvc
 
             tagWriter.Write(textWriter.Object, results);
 
-            urlGenerator.Verify(m => m.Generate("asdf", "", "http://www.test.com"), Times.Exactly(1));
+            urlGenerator.Verify(m => m.Generate("asdf", results[0].Hash.ToHexString(), "http://www.test.com"), Times.Exactly(1));
         }
 
         [Test]

@@ -61,7 +61,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             request.Setup(r => r.Headers).Returns(collection);
             writer.WriteAsset(result, encoder.Object);
 
-            cache.Verify(c => c.SetETag("-2012792703"));
+            cache.Verify(c => c.SetETag(result.Hash.ToHexString()));
             cache.Verify(c => c.SetExpires(It.Is<DateTime>(e => e.ToShortDateString() == DateTime.UtcNow.AddYears(1).ToShortDateString())));
             cache.Verify(c => c.SetCacheability(HttpCacheability.Public));
             response.Verify(r => r.Write("content"));
@@ -105,7 +105,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var result = new MergerResult("name", "", WebAssetType.None);
             var collection = new NameValueCollection();
-            collection.Add("If-None-Match", result.GetHashCode().ToString());
+            collection.Add("If-None-Match", result.Hash.ToHexString());
 
             request.Setup(r => r.Headers).Returns(collection);
 

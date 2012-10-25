@@ -28,7 +28,6 @@ namespace WebAssetBundler.Web.Mvc
     {
         private IWebAssetReader reader;
         private IScriptCompressor compressor;
-        private IPathResolver pathResolver;
         private IMergedResultCache cache;
 
         public ScriptWebAssetMerger(IWebAssetReader reader, IScriptCompressor compressor, IMergedResultCache cache)

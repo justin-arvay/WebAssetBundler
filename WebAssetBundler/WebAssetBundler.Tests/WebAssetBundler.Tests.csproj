@@ -101,7 +101,6 @@
     <Compile Include="Fluent\SharedGroupManagerTests.cs" />
     <Compile Include="Resolvers\CombinedWebAssetGroupResolverTest.cs" />
     <Compile Include="Resolvers\DoNothingWebAssetResolverTest.cs" />
-    <Compile Include="Resolvers\PathResolverTests.cs" />
     <Compile Include="Resolvers\WebAssetGroupCollectionResolverTests.cs" />
     <Compile Include="Resolvers\WebAssetGroupResolverTests.cs" />
     <Compile Include="Resolvers\WebAssetResolverFactoryTests.cs" />
