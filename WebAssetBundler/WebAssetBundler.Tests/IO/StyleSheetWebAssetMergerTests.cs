@@ -100,7 +100,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Map_Source_And_Output_Paths()
         {
-            var outputPath = "~/Generated/File.css";
+            var outputPath = "/wab.axd/css/a/a";
             var sourcePath = "~/Content/File.css";            
             var webAssets = new List<IWebAsset>();
             var results = new List<ResolverResult>();
@@ -112,10 +112,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
             merger.Merge(results);
            
             //Verify it calles mappath once with the outputPath as a param
-            server.Verify(r => r.MapPath(It.Is<string>(s => s.Equals(outputPath))), Times.Exactly(1));
+            server.Verify(r => r.MapPath(outputPath), Times.Exactly(1));
 
             //Verify it calls mappaath once with the sourcePath as a param
-            server.Verify(r => r.MapPath(It.Is<string>(s => s.Equals(sourcePath))), Times.Exactly(1));
+            server.Verify(r => r.MapPath(sourcePath), Times.Exactly(1));
         }
 
         [Test]

@@ -26,9 +26,9 @@ namespace WebAssetBundler.Web.Mvc
         [Test]
         public void Should_Set_Name_In_Constructor()
         {            
-            var result = new ResolverResult(null, "Test");
+            var result = new ResolverResult(null, "Test.ext");
 
-            Assert.AreEqual("Test", result.Name);
+            Assert.AreEqual("Test-ext", result.Name);
         }
         
 

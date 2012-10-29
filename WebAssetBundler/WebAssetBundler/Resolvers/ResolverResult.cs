@@ -25,8 +25,8 @@ namespace WebAssetBundler.Web.Mvc
 
         public ResolverResult(ICollection<IWebAsset> webAssets, string name)
         {
-            Name = name;            
-            Assets = webAssets;            
+            Name = name.Replace(".", "-");       
+            Assets = webAssets;                        
         }
 
         public string Name

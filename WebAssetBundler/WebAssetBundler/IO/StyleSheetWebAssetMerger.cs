@@ -59,10 +59,11 @@ namespace WebAssetBundler.Web.Mvc
             if (mergedResult == null)
             {
                 var content = "";
+                var url = (new StyleSheetUrlGenerator()).Generate("a", "a", "");
 
                 foreach (var asset in result.Assets)
                 {
-                    content += filter.Filter(server.MapPath("/a/a/a/a"), server.MapPath(asset.Source), reader.Read(asset));
+                    content += filter.Filter(server.MapPath(url), server.MapPath(asset.Source), reader.Read(asset));
                 }
 
                 if (result.Compress)

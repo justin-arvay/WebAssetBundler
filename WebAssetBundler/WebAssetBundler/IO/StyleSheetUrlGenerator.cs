@@ -23,7 +23,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public string Generate(string hash, string version, string host)
         {
-            var path = "wab.axd/style-sheet/{0}/{1}";
+            var path = "wab.axd/css/{0}/{1}";
 
             host = host ?? "";
 

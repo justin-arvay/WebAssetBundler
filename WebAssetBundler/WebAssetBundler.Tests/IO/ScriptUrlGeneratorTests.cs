@@ -35,7 +35,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var url = generator.Generate("test", "abc", "http://www.test.com");
 
-            Assert.AreEqual("http://www.test.com/wab.axd/script/abc/test", url);
+            Assert.AreEqual("http://www.test.com/wab.axd/js/abc/test", url);
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var url = generator.Generate("test", "abc", null);
 
-            Assert.AreEqual("/wab.axd/script/abc/test", url);
+            Assert.AreEqual("/wab.axd/js/abc/test", url);
         }
     }
 }
