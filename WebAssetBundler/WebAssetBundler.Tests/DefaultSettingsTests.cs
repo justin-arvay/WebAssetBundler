@@ -50,17 +50,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Can_Set_Generated_Files_Path()
-        {
-            DefaultSettings.GeneratedFilesPath = "~/test/";
-
-            Assert.AreEqual("~/test/", DefaultSettings.GeneratedFilesPath);
-
-            //re-set the default
-            DefaultSettings.GeneratedFilesPath = "~/Generated";
-        }
-
-        [Test]
         public void Compressed_Should_Be_True_By_Default()
         {
             Assert.True(DefaultSettings.Compressed);
