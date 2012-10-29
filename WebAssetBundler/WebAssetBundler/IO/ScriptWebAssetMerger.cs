@@ -37,23 +37,23 @@ namespace WebAssetBundler.Web.Mvc
             this.cache = cache;
         }
 
-        public IList<MergerResult> Merge(IList<ResolverResult> results)
+        public IList<MergerResult> Merge(IList<ResolverResult> results, BuilderContext context)
         {
             var mergedResults = new List<MergerResult>();
 
             foreach (var result in results)
             {
-                mergedResults.Add(MergeSingle(result));
+                mergedResults.Add(MergeSingle(result, context));
             }
 
             return mergedResults;
         }
 
-        private MergerResult MergeSingle(ResolverResult result)
+        private MergerResult MergeSingle(ResolverResult result, BuilderContext context)
         {
             var mergedResult = cache.Get(result.Name);
 
-            if (mergedResult == null)
+            if (mergedResult == null || context.DebugMode)
             {
                 var content = "";
 
