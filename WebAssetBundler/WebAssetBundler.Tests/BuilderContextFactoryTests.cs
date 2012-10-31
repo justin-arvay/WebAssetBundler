@@ -43,8 +43,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual("~/Scripts", context.DefaultPath);
             Assert.IsInstanceOf<IAssetFactory>(context.AssetFactory);
             Assert.AreEqual(false, context.DebugMode);
-            Assert.AreEqual(false, context.EnableCombining);
-            Assert.AreEqual(false, context.EnableCompressing);
         }
 
         [Test]
@@ -60,8 +58,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual("~/Content", context.DefaultPath);
             Assert.IsInstanceOf<IAssetFactory>(context.AssetFactory);
             Assert.AreEqual(false, context.DebugMode);
-            Assert.AreEqual(false, context.EnableCombining);
-            Assert.AreEqual(false, context.EnableCompressing);
         }
     }
 }

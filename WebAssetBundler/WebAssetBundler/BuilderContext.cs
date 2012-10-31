@@ -55,76 +55,14 @@ namespace WebAssetBundler.Web.Mvc
             set;
         }
 
-        public bool EnableCombining
-        {
-            get;
-            set;
-        }
-
-        public bool EnableCompressing
-        {
-            get;
-            set;
-        }
-
-        public bool EnableCacheBreaker
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Checks if a group can be combined.
-        /// </summary>
-        /// <param name="group"></param>
-        /// <returns></returns>
-        public bool CanCombine(WebAssetGroup group)
-        {
-            if (group.Combine)
-            {
-                if (DebugMode && EnableCombining)
-                {
-                    return true;
-                }
-                else if (DebugMode == false)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-
-        }
-
-        /// <summary>
-        /// Checks if a group can be compressed.
-        /// </summary>
-        /// <param name="group"></param>
-        /// <returns></returns>
-        public bool CanCompress(WebAssetGroup group)
-        {
-            if (group.Compress)
-            {
-                if (DebugMode && EnableCompressing)
-                {
-                    return true;
-                }
-                else if (DebugMode == false)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
 
         /// <summary>
         /// Creates the cache breaker version.
         /// </summary>
         /// <returns></returns>
-        public string CreateCacheBreakerVersion()
+        public string CreateCacheBreakerVersion(string version)
         {
-            return DateTime.Now.ToString("MM_dd_yy_H_mm_ss_fff");
+            return version + DateTime.Now.ToString("MMddyyHmmss");
         }
 
         public IAssetFactory AssetFactory

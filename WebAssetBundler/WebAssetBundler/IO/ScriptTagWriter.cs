@@ -29,14 +29,14 @@ namespace WebAssetBundler.Web.Mvc
             this.urlGenerator = urlGenerator;
         }
 
-        public void Write(TextWriter writer, IList<MergerResult> results)
+        public void Write(TextWriter writer, IList<MergerResult> results, BuilderContext context)
         {
             var script = "<script type=\"text/javascript\" src=\"{0}\"></script>";
             var url = "";
 
             foreach (var result in results)
             {
-                url = urlGenerator.Generate(result.Name, result.Hash.ToHexString(), result.Host);
+                url = urlGenerator.Generate(result.Name, result.Hash.ToHexString(), result.Host, context);
 
                 writer.WriteLine(script.FormatWith(url));
             }

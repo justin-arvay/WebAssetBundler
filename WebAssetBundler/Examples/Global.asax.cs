@@ -40,9 +40,6 @@ namespace Examples
             //DefaultSettings.StyleSheetHost = "192.168.1.69";
            // DefaultSettings.ScriptHost = "6.6.6.6";
             DefaultSettings.DebugMode = true;
-            DefaultSettings.DebugModeSettings.EnableCombining = false;
-            DefaultSettings.DebugModeSettings.EnableCompressing = true;
-            DefaultSettings.DebugModeSettings.EnableCacheBreaker = true;
 
             SharedGroups.Scripts(s =>s
                 .AddGroup("jQuery2", g => g

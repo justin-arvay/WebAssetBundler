@@ -22,6 +22,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface ITagWriter
     {
-        void Write(TextWriter writer, IList<MergerResult> results);
+        void Write(TextWriter writer, IList<MergerResult> results, BuilderContext context);
     }
 }

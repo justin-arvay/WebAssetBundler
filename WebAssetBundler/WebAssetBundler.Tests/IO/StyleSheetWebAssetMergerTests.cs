@@ -30,6 +30,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<HttpServerUtilityBase> server;
         private StyleSheetWebAssetMerger merger;
         private Mock<IMergedResultCache> cache;
+        private BuilderContext context;
 
         [SetUp]
         public void Setup()
@@ -39,6 +40,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             server = new Mock<HttpServerUtilityBase>();
             compressor = new Mock<IStyleSheetCompressor>();
             cache = new Mock<IMergedResultCache>();
+            context = new BuilderContext();
 
             merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, server.Object, cache.Object);            
         }
@@ -65,7 +67,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             reader.Setup(r => r.Read(It.IsAny<IWebAsset>()))
                 .Returns(content);
 
-            var result = merger.Merge(results)[0];
+            var result = merger.Merge(results, context)[0];
             Assert.AreEqual(content + content, result.Content);
             Assert.AreEqual("Test", result.Name);
             Assert.AreEqual("http://www.test.com", result.Host);
@@ -91,7 +93,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             reader.Setup(r => r.Read(It.IsAny<IWebAsset>()))
                 .Returns(content);
 
-            merger.Merge(results);
+            merger.Merge(results, context);
 
             //verify that we called the filter twice
             filter.Verify(f => f.Filter(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(2));
@@ -109,7 +111,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             webAssets.Add(new WebAsset(sourcePath));
 
-            merger.Merge(results);
+            merger.Merge(results, context);
            
             //Verify it calles mappath once with the outputPath as a param
             server.Verify(r => r.MapPath(outputPath), Times.Exactly(1));
@@ -128,7 +130,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             webAssets.Add(new WebAsset(""));
 
-            merger.Merge(results);
+            merger.Merge(results, context);
 
             compressor.Verify(c => c.Compress(It.IsAny<string>()), Times.Once());
         }
@@ -143,7 +145,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             webAssets.Add(new WebAsset(""));
 
-            merger.Merge(results);
+            merger.Merge(results, context);
 
             compressor.Verify(c => c.Compress(It.IsAny<string>()), Times.Never());
         }
@@ -171,7 +173,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             reader.Setup(r => r.Read(It.IsAny<IWebAsset>()))
                 .Returns(content);
 
-            merger.Merge(results);
+            merger.Merge(results, context);
         }
 
         [Test]
@@ -180,7 +182,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var results = new List<ResolverResult>();
             results.Add(new ResolverResult(new List<IWebAsset>(), "Test"));
 
-            merger.Merge(results);
+            merger.Merge(results, context);
 
             cache.Verify(c => c.Add(It.IsAny<MergerResult>()), Times.Once());
         }
@@ -197,9 +199,28 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             cache.Setup(c => c.Get(It.IsAny<string>())).Returns(new MergerResult("", "", WebAssetType.None));
 
-            var mergedResults = merger.Merge(results);
+            var mergedResults = merger.Merge(results, context);
 
             cache.Verify(c => c.Add(It.IsAny<MergerResult>()), Times.Never());
-        }   
+        }
+
+        [Test]
+        public void Should_Always_Cache_In_Debug_Mode()
+        {
+            context.DebugMode = true;
+
+            var webAssets = new List<IWebAsset>();
+            var results = new List<ResolverResult>();
+            var result = new ResolverResult(webAssets, "Test");
+
+            results.Add(result);
+            webAssets.Add(new WebAsset(""));
+
+            cache.Setup(c => c.Get(It.IsAny<string>())).Returns(new MergerResult("", "", WebAssetType.None));
+
+            var mergedResults = merger.Merge(results, context);
+
+            cache.Verify(c => c.Add(It.IsAny<MergerResult>()), Times.Once());
+        } 
     }
 }

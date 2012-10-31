@@ -18,22 +18,25 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System;
 
     [TestFixture]
     public class ScriptUrlGeneratorTests
     {
         private ScriptUrlGenerator generator;
+        private BuilderContext context;
 
         [SetUp]
         public void Setup()
         {
             generator = new ScriptUrlGenerator();
+            context = new BuilderContext();
         }
 
         [Test]
         public void Should_Generate_Url()
         {
-            var url = generator.Generate("test", "abc", "http://www.test.com");
+            var url = generator.Generate("test", "abc", "http://www.test.com", context);
 
             Assert.AreEqual("http://www.test.com/wab.axd/js/abc/test", url);
         }
@@ -41,9 +44,18 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Generate_Url_Without_Host()
         {
-            var url = generator.Generate("test", "abc", null);
+            var url = generator.Generate("test", "abc", null, context);
 
             Assert.AreEqual("/wab.axd/js/abc/test", url);
+        }
+
+        [Test]
+        public void Should_Generate_Cache_Breaker_Url()
+        {
+            context.DebugMode = true;
+            var url = generator.Generate("test", "abc", null, context);
+
+            Assert.AreEqual("/wab.axd/js/abc" + DateTime.Now.ToString("MMddyyHmmss") + "/test", url);
         }
     }
 }

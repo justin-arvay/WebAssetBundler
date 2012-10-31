@@ -100,12 +100,12 @@ namespace WebAssetBundler.Web.Mvc
                 throw new InvalidOperationException(TextResource.Exceptions.YouCannotCallRenderMoreThanOnce);
             }
 
-            var results = merger.Merge(collectionResolver.Resolve(Manager.Scripts, context));
+            var results = merger.Merge(collectionResolver.Resolve(Manager.Scripts, context), context);
             var baseWriter = viewContext.Writer;
 
             using (HtmlTextWriter textWriter = new HtmlTextWriter(baseWriter))
             {
-                tagWriter.Write(textWriter, results);
+                tagWriter.Write(textWriter, results, context);
             }
 
             hasRendered = true;
@@ -117,11 +117,11 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public string ToHtmlString()
         {
-            var results = merger.Merge(collectionResolver.Resolve(Manager.Scripts, context));
+            var results = merger.Merge(collectionResolver.Resolve(Manager.Scripts, context), context);
 
             using (var output = new StringWriter())
             {
-                tagWriter.Write(output, results);
+                tagWriter.Write(output, results, context);
 
                 return output.ToString();
             }

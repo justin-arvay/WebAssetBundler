@@ -18,22 +18,25 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System;
 
     [TestFixture]
     public class StyleSheetUrlGeneratorTests
     {
         private StyleSheetUrlGenerator generator;
+        private BuilderContext context;
 
         [SetUp]
         public void Setup()
         {
             generator = new StyleSheetUrlGenerator();
+            context = new BuilderContext();
         }
 
         [Test]
         public void Should_Generate_Url()
         {
-            var url = generator.Generate("test", "a12sd11", "http://www.test.com");
+            var url = generator.Generate("test", "a12sd11", "http://www.test.com", context);
 
             Assert.AreEqual("http://www.test.com/wab.axd/css/a12sd11/test", url);
         }
@@ -41,9 +44,18 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Generate_Url_Without_Host()
         {
-            var url = generator.Generate("test", "a12sd11", null);
+            var url = generator.Generate("test", "a12sd11", null, context);
 
             Assert.AreEqual("/wab.axd/css/a12sd11/test", url);
+        }
+
+        [Test]
+        public void Should_Generate_Cache_Breaker_Url()
+        {
+            context.DebugMode = true;
+            var url = generator.Generate("test", "a12sd11", null, context);
+
+            Assert.AreEqual("/wab.axd/css/a12sd11" + DateTime.Now.ToString("MMddyyHmmss") + "/test", url);
         }
     }
 }

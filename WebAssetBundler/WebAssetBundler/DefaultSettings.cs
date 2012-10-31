@@ -173,36 +173,5 @@ namespace WebAssetBundler.Web.Mvc
             get;
             set;
         }
-
-
-        public static class DebugModeSettings
-        {            
-            /// <summary>
-            /// Allows enabling or disabling of combining when in debug mode. False by default.
-            /// </summary>
-            public static bool EnableCombining
-            {
-                get;
-                set;
-            }
-
-            /// <summary>
-            /// Allows enabling or disabling of compressing when in debug mode. False by default.
-            /// </summary>
-            public static bool EnableCompressing
-            {
-                get;
-                set;
-            }
-
-            /// <summary>
-            /// Forces client side cache breaking when enabled. False by default. Note: Overrides all versioning for all groups.
-            /// </summary>
-            public static bool EnableCacheBreaker
-            {
-                get;
-                set;
-            }
-        }
     }
 }

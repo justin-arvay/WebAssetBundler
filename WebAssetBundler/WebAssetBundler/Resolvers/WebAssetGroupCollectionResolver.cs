@@ -40,10 +40,6 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (var group in groups)
             {
-                //@TODO:: this feels like the wrong place for this, but these need to happen before we resolve
-                group.Combine = context.CanCombine(group);
-                group.Compress = context.CanCompress(group);
-
                 var resolver = resolverFactory.Create(group);
                 results.AddRange(resolver.Resolve());
             }

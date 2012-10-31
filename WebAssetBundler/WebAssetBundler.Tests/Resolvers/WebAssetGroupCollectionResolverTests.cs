@@ -55,40 +55,5 @@ namespace WebAssetBundler.Web.Mvc.Tests
             internalResolver.Verify(i => i.Resolve(), Times.Once());
             factory.Verify(f => f.Create(It.IsAny<WebAssetGroup>()), Times.Once());
         }
-
-        [Test]
-        public void Should_Override_Group_Combined()
-        {
-            var group = new WebAssetGroup("test", false)
-            {
-                Combine = true
-            };
-
-            context.DebugMode = true;
-            context.EnableCombining = false;
-            collection.Add(group);
-            
-            resolver.Resolve(collection, context);
-
-            Assert.AreEqual(false, group.Combine);
-
-        }
-
-        [Test]
-        public void Should_Override_Group_Compress()
-        {
-            var group = new WebAssetGroup("test", false)
-            {
-                Compress = true
-            };
-
-            context.DebugMode = true;
-            context.EnableCompressing = false;
-            collection.Add(group);
-
-            resolver.Resolve(collection, context);
-
-            Assert.AreEqual(false, group.Combine);
-        }
     }
 }

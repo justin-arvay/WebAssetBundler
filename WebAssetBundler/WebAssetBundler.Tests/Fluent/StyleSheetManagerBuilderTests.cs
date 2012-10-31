@@ -101,7 +101,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             builder.Render();
 
-            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), It.IsAny<IList<MergerResult>>()), Times.Exactly(1));
+            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), It.IsAny<IList<MergerResult>>(), context), Times.Exactly(1));
         }
 
         [Test]
@@ -114,7 +114,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             builder.ToHtmlString();
 
-            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), It.IsAny<IList<MergerResult>>()), Times.Exactly(1));
+            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), It.IsAny<IList<MergerResult>>(), context), Times.Exactly(1));
         }      
 
         [Test]

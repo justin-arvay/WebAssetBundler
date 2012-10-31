@@ -21,8 +21,13 @@ namespace WebAssetBundler.Web.Mvc
     public class StyleSheetUrlGenerator : IUrlGenerator
     {
 
-        public string Generate(string hash, string version, string host)
+        public string Generate(string hash, string version, string host, BuilderContext context)
         {
+            if (context.DebugMode)
+            {
+                version = context.CreateCacheBreakerVersion(version);
+            }
+
             var path = "wab.axd/css/{0}/{1}";
 
             host = host ?? "";

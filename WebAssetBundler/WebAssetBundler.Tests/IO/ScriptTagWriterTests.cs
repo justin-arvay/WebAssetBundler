@@ -27,6 +27,7 @@ namespace WebAssetBundler.Web.Mvc
         private Mock<IUrlGenerator> urlGenerator;
         private Mock<TextWriter> textWriter;
         private ScriptTagWriter tagWriter;
+        private BuilderContext context;
 
         [SetUp]
         public void SetUp()
@@ -34,6 +35,7 @@ namespace WebAssetBundler.Web.Mvc
             urlGenerator = new Mock<IUrlGenerator>();
             textWriter = new Mock<TextWriter>();
             tagWriter = new ScriptTagWriter(urlGenerator.Object);
+            context = new BuilderContext();
         }
 
         [Test]
@@ -42,9 +44,9 @@ namespace WebAssetBundler.Web.Mvc
             var results = new List<MergerResult>();
             results.Add(new MergerResult("asdf", "content", WebAssetType.None) { Host = "http://www.test.com" });
 
-            tagWriter.Write(textWriter.Object, results);
+            tagWriter.Write(textWriter.Object, results, context);
 
-            urlGenerator.Verify(m => m.Generate("asdf", results[0].Hash.ToHexString(), "http://www.test.com"), Times.Exactly(1));
+            urlGenerator.Verify(m => m.Generate("asdf", results[0].Hash.ToHexString(), "http://www.test.com", context), Times.Exactly(1));
         }
 
         [Test]
@@ -54,9 +56,9 @@ namespace WebAssetBundler.Web.Mvc
             results.Add(new MergerResult("", "", WebAssetType.None));
             results.Add(new MergerResult("", "", WebAssetType.None));
 
-            urlGenerator.Setup(u => u.Generate(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns("http://dev.test.com/");
+            urlGenerator.Setup(u => u.Generate(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<BuilderContext>())).Returns("http://dev.test.com/");
 
-            tagWriter.Write(textWriter.Object, results);
+            tagWriter.Write(textWriter.Object, results, context);
 
             textWriter.Verify(m => m.WriteLine("<script type=\"text/javascript\" src=\"http://dev.test.com/\"></script>"), Times.Exactly(2));   
         }
@@ -68,7 +70,7 @@ namespace WebAssetBundler.Web.Mvc
             results.Add(new MergerResult("", "", WebAssetType.None));
             results.Add(new MergerResult("", "", WebAssetType.None));
 
-            tagWriter.Write(textWriter.Object, results);
+            tagWriter.Write(textWriter.Object, results, context);
 
             var tag = "<script type=\"text/javascript\" src=\"\"></script>";
             textWriter.Verify(m => m.WriteLine(tag), Times.Exactly(2));
