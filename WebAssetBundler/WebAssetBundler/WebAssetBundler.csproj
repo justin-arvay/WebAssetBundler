@@ -73,7 +73,7 @@
     <Compile Include="Extensions\ByteArrayExensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Fluent\DefaultConfigurationFactory.cs" />
-    <Compile Include="Fluent\IConfiguration.cs" />
+    <Compile Include="Fluent\Configuration.cs" />
     <Compile Include="Fluent\IConfigurationFactory.cs" />
     <Compile Include="Fluent\SharedGroups.cs" />
     <Compile Include="Fluent\SharedWebAssetGroupCollectionBuilder.cs" />
