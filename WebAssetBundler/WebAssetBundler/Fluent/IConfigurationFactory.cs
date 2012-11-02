@@ -21,6 +21,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IConfigurationFactory
     {
-        IList<IConfiguration> Create(BuilderContext context);
+        IList<Configuration> Create(BuilderContext context);
     }
 }

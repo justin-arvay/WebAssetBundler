@@ -18,8 +18,9 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public interface IConfiguration
+    public class Configuration
     {
-
+        Configuration Add(string source);
+        Configuration Name(string name);
     }
 }
