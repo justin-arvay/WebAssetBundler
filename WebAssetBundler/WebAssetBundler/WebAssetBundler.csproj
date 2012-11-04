@@ -72,8 +72,9 @@
     <Compile Include="Configuration\StyleSheetConfigurationElementCollection.cs" />
     <Compile Include="Extensions\ByteArrayExensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Fluent\BundleConfigurationDictionary.cs" />
     <Compile Include="Fluent\DefaultConfigurationFactory.cs" />
-    <Compile Include="Fluent\Configuration.cs" />
+    <Compile Include="Fluent\BundleConfiguration.cs" />
     <Compile Include="Fluent\IConfigurationFactory.cs" />
     <Compile Include="Fluent\SharedGroups.cs" />
     <Compile Include="Fluent\SharedWebAssetGroupCollectionBuilder.cs" />

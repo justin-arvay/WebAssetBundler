@@ -18,9 +18,11 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class Configuration
+    public class BundleConfiguration
     {
-        Configuration Add(string source);
-        Configuration Name(string name);
+        BundleConfiguration Add(string source);
+        BundleConfiguration Name(string name);
+        BundleConfiguration Combine(bool combine);
+        BundleConfiguration Compress(bool compress);
     }
 }

@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// WebAssetBundler - Compiles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -18,9 +18,11 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
 
-    public interface IConfigurationFactory
+    class BundleDictionary : Dictionary<string, BundleConfiguration>
     {
-        IList<BundleConfiguration> Create(BuilderContext context);
+
     }
 }
