@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+
+     @{Html.Bundler().StyleSheetManager()
+        .StyleSheets(style => style
+            .AddGroup("Test", g => g
+                .Add("Site.css")
+                .Add("themes/base/jquery.ui.all.css"))
+            .AddGroup("Test2", g => g
+                .Add("Test.css.css")))
+        .Render();}
+
+        @{Html.Bundler().ScriptManager()
+
+              .Render();}
+</head>
+<body>
+    <div class="page">
+        <div id="header">
+            <div id="title">
+                <h1>My MVC Application</h1>
+            </div>
+
+            <div id="menucontainer">
+                <ul id="menu">
+                    <li>@Html.ActionLink("DefaultGroup", "DefaultGroup", "Example")</li>                    
+                </ul>
+            </div>
+        </div>
+        <div id="main">
+            @RenderBody()
+        </div>
+        <div id="footer">
+        </div>
+    </div>
+</body>
+</html>
