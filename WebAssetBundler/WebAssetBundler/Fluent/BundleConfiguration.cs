@@ -17,12 +17,40 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Collections.Generic;
 
-    public class BundleConfiguration
+    public class BundleConfiguration<T> where T : WebAssetType
     {
-        BundleConfiguration Add(string source);
-        BundleConfiguration Name(string name);
-        BundleConfiguration Combine(bool combine);
-        BundleConfiguration Compress(bool compress);
+        private Bundle bundle;
+
+        public BundleConfiguration()
+        {
+            bundle = new Bundle();
+            bundle.Type = new T;
+        }
+
+        BundleConfiguration<T> Add(string source)
+        {
+            return this;
+        }
+
+        void Name(string name)
+        {
+            bundle.Name = name;
+        }
+
+        BundleConfiguration<T> Combine(bool combine)
+        {
+            return this;
+        }
+
+        BundleConfiguration<T> Compress(bool compress)
+        {
+        }
+
+        internal Bundle GetBundle()
+        {
+            return bundle;
+        }
     }
 }

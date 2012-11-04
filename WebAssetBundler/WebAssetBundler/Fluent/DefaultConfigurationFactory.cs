@@ -31,7 +31,7 @@ namespace WebAssetBundler.Web.Mvc
                           where typeof(BundleConfiguration).IsAssignableFrom(t)
                           select t;
 
-            foreach (Type type in configs)
+            foreach (Type type in configTypes)
             {
                 configs.Add((BundleConfiguration)Activator.CreateInstance(type));
             }

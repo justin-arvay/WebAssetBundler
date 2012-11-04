@@ -21,8 +21,11 @@ namespace WebAssetBundler.Web.Mvc
     using System.Linq;
     using System.Text;
 
-    class BundleDictionary : Dictionary<string, BundleConfiguration>
+    class BundleConfigurationCollection : Dictionary<string, BundleConfiguration>
     {
+        public IList<Bundle> GetBundles()
+        {
 
+        }
     }
 }
