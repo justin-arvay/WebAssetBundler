@@ -73,7 +73,6 @@
     <Compile Include="Extensions\ByteArrayExensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Fluent\Bundle.cs" />
-    <Compile Include="Fluent\BundleConfigurationCollection.cs" />
     <Compile Include="Fluent\DefaultConfigurationFactory.cs" />
     <Compile Include="Fluent\BundleConfiguration.cs" />
     <Compile Include="Fluent\IConfigurationFactory.cs" />

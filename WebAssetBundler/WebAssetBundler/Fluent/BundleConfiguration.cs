@@ -19,19 +19,20 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public class BundleConfiguration<T> where T : WebAssetType
+    public abstract class BundleConfiguration<T, TBundle>
+        where T : BundleConfiguration<T, TBundle>
+        where TBundle : Bundle
     {
-        private Bundle bundle;
+        private TBundle bundle;
 
-        public BundleConfiguration()
+        public BundleConfiguration(TBundle bundle)
         {
-            bundle = new Bundle();
-            bundle.Type = new T;
+            this.bundle = bundle;
         }
 
-        BundleConfiguration<T> Add(string source)
+        void Add(string source)
         {
-            return this;
+            bundle.Assets.Add(new WebAsset(source));
         }
 
         void Name(string name)
@@ -39,16 +40,22 @@ namespace WebAssetBundler.Web.Mvc
             bundle.Name = name;
         }
 
-        BundleConfiguration<T> Combine(bool combine)
+        void Combine(bool combine)
         {
-            return this;
+            bundle.Combine = combine;
         }
 
-        BundleConfiguration<T> Compress(bool compress)
+        void Compress(bool compress)
         {
+            bundle.Compress = compress;
         }
 
-        internal Bundle GetBundle()
+        void Host(string host)
+        {
+            bundle.Host = host;
+        }
+
+        internal TBundle GetBundle()
         {
             return bundle;
         }

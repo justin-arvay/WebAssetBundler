@@ -75,6 +75,10 @@
     <Compile Include="ComponentBuilderTests.cs" />
     <Compile Include="Configuration\AssetConfigurationFactoryTests.cs" />
     <Compile Include="Configuration\ConfigurationTestHelper.cs" />
+    <Compile Include="Fluent\BundleConfigurationImpl.cs" />
+    <Compile Include="Fluent\BundleConfigurationTests.cs" />
+    <Compile Include="Fluent\BundleImpl.cs" />
+    <Compile Include="Fluent\BundleTests.cs" />
     <Compile Include="Fluent\IConfigurationFactory.cs" />
     <Compile Include="Configuration\SharedGroupManagerLoaderTests.cs" />
     <Compile Include="Extensions\ByteArrayExtensionTests.cs" />
