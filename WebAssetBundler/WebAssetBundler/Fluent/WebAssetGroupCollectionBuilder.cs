@@ -31,25 +31,6 @@ namespace WebAssetBundler.Web.Mvc
             this.context = context;
         }
 
-
-        public WebAssetGroupCollectionBuilder AddGroup(string name, Action<WebAssetGroupBuilder> configureAction)
-        {
-            //ensure that we cannot add the same group twice
-            if (groups.FindGroupByName(name) != null) 
-            {
-                throw new ArgumentException(string.Format(TextResource.Exceptions.GroupWithSpecifiedNameAlreadyExists, name));
-            }
-
-            var group = context.AssetFactory.CreateGroup(name, false);
-
-            //add to collection
-            groups.Add(group);
-
-            //call action
-            configureAction(new WebAssetGroupBuilder(group, sharedGroups, context));
-            return this;
-        }
-
         /// <summary>
         /// Adds a file to the collection.
         /// </summary>
@@ -66,57 +47,6 @@ namespace WebAssetBundler.Web.Mvc
             groups.Add(group);
 
             return this;
-        }
-
-        /// <summary>
-        /// Adds a shared group.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public WebAssetGroupCollectionBuilder AddSharedGroup(string name)
-        {
-            //ensure that we cannot add the same group twice
-            if (groups.FindGroupByName(name) != null)
-            {
-                throw new ArgumentException(string.Format(TextResource.Exceptions.GroupWithSpecifiedNameAlreadyExists, name));
-            }
-
-            var group = sharedGroups.FindGroupByName(name);
-
-            if (group == null)
-            {
-                throw new ArgumentException(string.Format(TextResource.Exceptions.SharedGroupDoesNotExist, name));
-            }
-
-            groups.Add(group);
-            return this;
-        }
-
-        /// <summary>
-        /// Adds a shared group and allows to override configuration.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="configureAction">Allows overriding of shared configuration if needed.</param>
-        /// <returns></returns>
-        public WebAssetGroupCollectionBuilder AddSharedGroup(string name, Action<WebAssetGroupBuilder> configureAction)
-        {
-            //ensure that we cannot add the same group twice
-            if (groups.FindGroupByName(name) != null)
-            {
-                throw new ArgumentException(string.Format(TextResource.Exceptions.GroupWithSpecifiedNameAlreadyExists, name));
-            }
-
-            var group = sharedGroups.FindGroupByName(name);
-
-            if (group == null)
-            {
-                throw new ArgumentException(string.Format(TextResource.Exceptions.SharedGroupDoesNotExist, name));
-            }
-
-            groups.Add(group);
-            configureAction(new WebAssetGroupBuilder(group, sharedGroups, context));
-            
-            return this;
-        }
+        }A
     }
 }

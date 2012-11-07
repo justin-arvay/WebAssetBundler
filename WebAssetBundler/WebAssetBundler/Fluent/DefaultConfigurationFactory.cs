@@ -23,17 +23,17 @@ namespace WebAssetBundler.Web.Mvc
 
     public class DefaultConfigurationFactory : IConfigurationFactory
     {
-        public IList<BundleConfiguration<T, TBundle>> Create<T, TBundle>(BuilderContext context)
+        public IList<T> Create<T, TBundle>(BuilderContext context)
         {
-            var configs = new List<BundleConfiguration<T, TBundle>>();
+            var configs = new List<T>();
 
             var configTypes = from t in Assembly.GetExecutingAssembly().GetTypes()
-                          where typeof(BundleConfiguration<T, TBundle>).IsAssignableFrom(t)
+                          where typeof(T).IsAssignableFrom(t)
                           select t;
 
             foreach (Type type in configTypes)
             {
-                configs.Add((BundleConfiguration<T, TBundle>)Activator.CreateInstance(type));
+                configs.Add((T)Activator.CreateInstance(type));
             }
 
             return configs;

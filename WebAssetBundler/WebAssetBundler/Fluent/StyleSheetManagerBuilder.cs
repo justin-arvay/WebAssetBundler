@@ -60,17 +60,6 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
-        /// Allows building of the default group.
-        /// </summary>
-        /// <param name="action"></param>
-        /// <returns></returns>
-        public StyleSheetManagerBuilder DefaultGroup(Action<WebAssetGroupBuilder> action)
-        {
-            action(new WebAssetGroupBuilder(Manager.DefaultGroup, sharedGroups, context));
-            return this;
-        }
-
-        /// <summary>
         /// Allows building of stylesheets for the page.
         /// </summary>
         /// <param name="action"></param>

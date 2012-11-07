@@ -76,7 +76,6 @@
     <Compile Include="Fluent\DefaultConfigurationFactory.cs" />
     <Compile Include="Fluent\BundleConfiguration.cs" />
     <Compile Include="Fluent\IConfigurationFactory.cs" />
-    <Compile Include="Fluent\SharedGroups.cs" />
     <Compile Include="Fluent\SharedWebAssetGroupCollectionBuilder.cs" />
     <Compile Include="HtmlHelperExtension.cs" />
     <Compile Include="HttpHandlers\DeflateEncoder.cs" />
@@ -107,7 +106,6 @@
     <Compile Include="Fluent\ManagerBuilderFactory.cs" />
     <Compile Include="Fluent\ScriptManagerBuilder.cs" />
     <Compile Include="Fluent\ScriptManager.cs" />
-    <Compile Include="Fluent\SharedGroupManager.cs" />
     <Compile Include="Configuration\AssetConfigurationFactory.cs" />
     <Compile Include="Resolvers\CombinedWebAssetGroupResolver.cs" />
     <Compile Include="IO\IWebAssetMerger.cs" />
@@ -121,8 +119,6 @@
     <Compile Include="IO\IUrlGenerator.cs" />
     <Compile Include="Resolvers\WebAssetResolverFactory.cs" />
     <Compile Include="DefaultSettings.cs" />
-    <Compile Include="Fluent\WebAssetGroup.cs" />
-    <Compile Include="Fluent\WebAssetGroupBuilder.cs" />
     <Compile Include="Fluent\WebAssetGroupCollection.cs" />
     <Compile Include="Fluent\WebAssetGroupCollectionBuilder.cs" />
     <Compile Include="Fluent\WebAssetType.cs" />

@@ -22,7 +22,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class BundleConfigurationTests
     {
-        private BundleConfiguration<BundleConfigurationImpl, BundleImpl> bundleConfig;
+        private BundleConfigurationImpl bundleConfig;
 
         [SetUp]
         public void Setup()
@@ -35,7 +35,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundleConfig.Add("");
 
-            Assert.AreEqual(1, bundleConfig.GetBundle().Assets.Count());
+            Assert.AreEqual(1, bundleConfig.GetBundle().Assets.Count);
         }
 
         [Test]

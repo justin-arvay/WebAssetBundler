@@ -30,32 +30,32 @@ namespace WebAssetBundler.Web.Mvc
             this.bundle = bundle;
         }
 
-        void Add(string source)
+        public void Add(string source)
         {
             bundle.Assets.Add(new WebAsset(source));
         }
 
-        void Name(string name)
+        public void Name(string name)
         {
             bundle.Name = name;
         }
 
-        void Combine(bool combine)
+        public void Combine(bool combine)
         {
             bundle.Combine = combine;
         }
 
-        void Compress(bool compress)
+        public void Compress(bool compress)
         {
             bundle.Compress = compress;
         }
 
-        void Host(string host)
+        public void Host(string host)
         {
             bundle.Host = host;
         }
 
-        internal TBundle GetBundle()
+        public TBundle GetBundle()
         {
             return bundle;
         }

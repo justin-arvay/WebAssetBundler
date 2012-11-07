@@ -79,6 +79,7 @@
     <Compile Include="Fluent\BundleConfigurationTests.cs" />
     <Compile Include="Fluent\BundleImpl.cs" />
     <Compile Include="Fluent\BundleTests.cs" />
+    <Compile Include="Fluent\DefaultConfigurationFactoryTests.cs" />
     <Compile Include="Fluent\IConfigurationFactory.cs" />
     <Compile Include="Configuration\SharedGroupManagerLoaderTests.cs" />
     <Compile Include="Extensions\ByteArrayExtensionTests.cs" />
