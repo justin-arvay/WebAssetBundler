@@ -25,34 +25,34 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class WebAssetResolverFactoryTests
     {
         private IWebAssetResolverFactory factory;
-        private WebAssetGroup group;
+        private BundleImpl bundle;
 
         [SetUp]
         public void Setup()
         {
-            group = new WebAssetGroup("", false);
+            bundle = new BundleImpl();
             factory = new WebAssetResolverFactory();            
         }
 
         [Test]
-        public void Should_Return_Group_Resolver()
+        public void Should_Return_Bundle_Resolver()
         {
-            Assert.IsInstanceOf<WebAssetGroupResolver>(factory.Create(new WebAssetGroup("", false) { Combine = false }));
+            bundle.Combine = false;
+            Assert.IsInstanceOf<WebAssetBundleResolver>(factory.Create(bundle));
         }
 
         [Test]
-        public void Should_Return_Combined_Group_Resolver()
+        public void Should_Return_Combined_Bundle_Resolver()
         {
-            var group = new WebAssetGroup("", false) { Combine = true };
-
-            Assert.IsInstanceOf<CombinedWebAssetGroupResolver>(factory.Create(group));
+            bundle.Combine = true;
+            Assert.IsInstanceOf<CombinedWebAssetBundleResolver>(factory.Create(bundle));
         }
 
         [Test]
         public void Should_Return_Do_Nothing_Resolver()
         {
-            var group = new WebAssetGroup("", false) { Enabled = false };
-            Assert.IsInstanceOf<DoNothingWebAssetResolver>(factory.Create(group));
+            bundle.Enabled = true;
+            Assert.IsInstanceOf<DoNothingWebAssetResolver>(factory.Create(bundle));
         }       
     }
 }

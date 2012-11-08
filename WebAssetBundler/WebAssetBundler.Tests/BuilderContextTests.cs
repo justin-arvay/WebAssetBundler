@@ -24,13 +24,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class BuilderContextTests
     {
         private BuilderContext context;
-        private WebAssetGroup group;
 
         [SetUp]
         public void Setup()
         {            
             context = new BuilderContext();
-            group = new WebAssetGroup("", false);
         }
 
         [Test]

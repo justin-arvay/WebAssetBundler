@@ -21,19 +21,19 @@ namespace WebAssetBundler.Web.Mvc
 
     public class WebAssetResolverFactory : IWebAssetResolverFactory
     {
-        public IWebAssetResolver Create(WebAssetGroup group)
+        public IWebAssetResolver Create(Bundle bundle)
         {
-            if (group.Enabled == false)
+            if (bundle.Enabled == false)
             {
                 return new DoNothingWebAssetResolver();
             }
 
-            if (group.Combine)
+            if (bundle.Combine)
             {
-                return new CombinedWebAssetGroupResolver(group);
+                return new CombinedWebAssetBundleResolver(bundle);
             }
 
-            return new WebAssetGroupResolver(group);
+            return new WebAssetBundleResolver(bundle);
         }
     }
 }

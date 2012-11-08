@@ -36,7 +36,7 @@ namespace WebAssetBundler.Web.Mvc
             //per request variables
             var builderFactory = (HttpContext.Current.Items["builderFactory"] ??
                         (HttpContext.Current.Items["builderFactory"] =
-                        new ManagerBuilderFactory(viewContext, cacheProvider, builderContextFactory, SharedGroups.Manager))) as ManagerBuilderFactory;
+                        new ManagerBuilderFactory(viewContext, cacheProvider, builderContextFactory))) as ManagerBuilderFactory;
 
             //per request variables
             var styleSheetManagerBuilder = (HttpContext.Current.Items["StyleSheetManagerBuilder"] ??

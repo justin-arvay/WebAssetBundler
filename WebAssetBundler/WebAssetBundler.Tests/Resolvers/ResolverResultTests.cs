@@ -35,7 +35,7 @@ namespace WebAssetBundler.Web.Mvc
         [Test]
         public void Should_Set_Web_Assets_In_Constructor()
         {
-            var webAssets = new List<IWebAsset>();
+            var webAssets = new List<WebAsset>();
             var result = new ResolverResult(webAssets, "Test");
 
             Assert.NotNull(result.Assets);

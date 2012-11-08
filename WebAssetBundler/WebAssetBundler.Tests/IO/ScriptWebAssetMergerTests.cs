@@ -48,7 +48,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Merge_Content_From_Result_Assets_With_Delimeter()
         {
             var content = "function(){}";            
-            var assets = new List<IWebAsset>();
+            var assets = new List<WebAsset>();
             var results = new List<ResolverResult>();
 
             results.Add (new ResolverResult(assets, "Test")
@@ -73,7 +73,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Compress_Merged_Content()
         {
-            var webAssets = new List<IWebAsset>();
+            var webAssets = new List<WebAsset>();
             var results = new List<ResolverResult>();
 
             results.Add(new ResolverResult(webAssets, "Test") { Compress = true });
@@ -89,7 +89,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Compress_Merged_Content()
         {
-            var webAssets = new List<IWebAsset>();
+            var webAssets = new List<WebAsset>();
             var results = new List<ResolverResult>();
 
             results.Add(new ResolverResult(webAssets, "Test"));
@@ -106,7 +106,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Cache_Result()
         {
             var results = new List<ResolverResult>();
-            results.Add(new ResolverResult(new List<IWebAsset>(), "Test"));
+            results.Add(new ResolverResult(new List<WebAsset>(), "Test"));
 
             merger.Merge(results, context);
 
@@ -116,7 +116,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Add_To_Cache()
         {
-            var webAssets = new List<IWebAsset>();
+            var webAssets = new List<WebAsset>();
             var results = new List<ResolverResult>();
             var result = new ResolverResult(webAssets, "Test");
 
@@ -135,7 +135,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             context.DebugMode = true;
 
-            var webAssets = new List<IWebAsset>();
+            var webAssets = new List<WebAsset>();
             var results = new List<ResolverResult>();
             var result = new ResolverResult(webAssets, "Test");
 

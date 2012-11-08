@@ -20,32 +20,37 @@ namespace WebAssetBundler.Web.Mvc
     using WebAssetBundler.Web.Mvc;
     using System.Linq;
 
-    public class WebAssetGroupCollectionResolver : IWebAssetGroupCollectionResolver
+    public class WebAssetBundleResolver : IWebAssetResolver
     {
-        private IWebAssetResolverFactory resolverFactory;
+        private Bundle bundle;        
 
-        public WebAssetGroupCollectionResolver(IWebAssetResolverFactory resolverFactory)
+        public WebAssetBundleResolver(Bundle bundle)
         {
-            this.resolverFactory = resolverFactory;
+            this.bundle = bundle;            
         }
 
-        /// <summary>
-        /// Resolves all the asset groups into a collection of urls.
-        /// </summary>
-        /// <param name="groups"></param>
-        /// <returns></returns>
-        public IList<ResolverResult> Resolve(WebAssetGroupCollection groups, BuilderContext context)
+        public IList<ResolverResult> Resolve()
         {
             var results = new List<ResolverResult>();
 
-            foreach (var group in groups)
+            foreach (var asset in bundle.Assets)
             {
-                var resolver = resolverFactory.Create(group);
-                results.AddRange(resolver.Resolve());
+                results.Add(ResolveWebAsset(asset.Name, bundle.Compress, bundle.Host, asset));
             }
 
-
             return results;
+        }
+
+        private ResolverResult ResolveWebAsset(string name, bool compress, string host, WebAsset webAsset)
+        {
+            var assets = new List<WebAsset>();
+            assets.Add(webAsset);
+
+            return new ResolverResult(assets, name)
+                {
+                    Compress = compress,
+                    Host = host
+                };
         }
     }
 }

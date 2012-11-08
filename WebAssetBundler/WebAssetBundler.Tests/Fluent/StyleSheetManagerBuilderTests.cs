@@ -46,14 +46,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
             context.AssetFactory = assetFactory.Object;
 
             var server = new Mock<HttpServerUtilityBase>();
-            var collection = new WebAssetGroupCollection();
-            var collectionResolver = new Mock<IWebAssetGroupCollectionResolver>().Object;
+            var collection = new WebAssetBundleCollection();
+            var collectionResolver = new Mock<IWebAssetBundleCollectionResolver>().Object;
             merger = new Mock<IWebAssetMerger>();
             tagWriter = new Mock<ITagWriter>();
 
             builder = new StyleSheetManagerBuilder(
                 new StyleSheetManager(collection),
-                collection,
                 TestHelper.CreateViewContext(),
                 collectionResolver,
                 tagWriter.Object,
@@ -63,33 +62,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
  
 
         [Test]
-        public void Default_Group_Returns_Self_For_Chaining()
-        {
-            Assert.IsInstanceOf<StyleSheetManagerBuilder>(builder.DefaultGroup(g => g.ToString()));
-        }
-
-        [Test]
         public void StyleSheets_Return_Self_For_Chaining()
         {
             Assert.IsInstanceOf<StyleSheetManagerBuilder>(builder.StyleSheets(s => s.ToString()));
         }
 
-        [Test]
-        public void Can_Configure_Default_Group()
-        {
-            builder.DefaultGroup(g => g.Add("test/test.css"));
 
-            Assert.AreEqual(1, builder.Manager.DefaultGroup.Assets.Count);
-        }
-
-        [Test]
-        public void Can_Configure_Style_Sheets()
-        {
-            builder.StyleSheets(style => style.AddGroup("test", group => group.ToString()));
-
-            //there is 2 because of default group
-            Assert.AreEqual(2, builder.Manager.StyleSheets.Count);
-        }
 
         [Test]
         public void Should_Write_Tags_On_Render()
@@ -120,8 +98,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Throw_Exception_When_Render_Called_More_Than_Once()
         {
-
-
             builder.Render();
 
             Assert.Throws<InvalidOperationException>(() => builder.Render());

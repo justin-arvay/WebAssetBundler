@@ -1,4 +1,4 @@
-﻿// Web Asset Bundler - Bundles web assets so you dont have to.
+﻿// WebAssetBundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -18,33 +18,32 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class SharedWebAssetGroupCollectionBuilder
-    {
-        private WebAssetGroupCollection groups;
+    public class WebAssetBundleCollectionBuilder
+    {        
+        private WebAssetBundleCollection bundles;
         private BuilderContext context;
 
-        public SharedWebAssetGroupCollectionBuilder(WebAssetGroupCollection groups, BuilderContext context)
-        {
-            this.groups = groups;
+        public WebAssetBundleCollectionBuilder(WebAssetBundleCollection bundles, BuilderContext context)
+        {            
+            this.bundles = bundles;            
             this.context = context;
-
         }
 
-        public SharedWebAssetGroupCollectionBuilder AddGroup(string name, Action<WebAssetGroupBuilder> action)
+        /// <summary>
+        /// Adds a file to the collection.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public WebAssetBundleCollectionBuilder Add(string source)
         {
-            //ensure that we cannot add the same group twice
-            if (groups.FindGroupByName(name) != null)
-            {
-                throw new ArgumentException(TextResource.Exceptions.GroupWithSpecifiedNameAlreadyExists);
-            }
+            var asset = context.AssetFactory.CreateAsset(source, "");
+            var group = context.AssetFactory.CreateBundle(asset.Name);
 
-            var group = context.AssetFactory.CreateGroup(name, false);
+            group.Assets.Add(asset);
 
             //add to collection
-            groups.Add(group);
+            bundles.Add(group);
 
-            //call action
-            action(new WebAssetGroupBuilder(group, groups, context));
             return this;
         }
     }

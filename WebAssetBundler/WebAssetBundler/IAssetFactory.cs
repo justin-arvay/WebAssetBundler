@@ -29,11 +29,10 @@ namespace WebAssetBundler.Web.Mvc
         WebAsset CreateAsset(string source, string path);
 
         /// <summary>
-        /// Creates a group.
+        /// Creates a bundle.
         /// </summary>
         /// <param name="name"></param>
-        /// <param name="isShared"></param>
         /// <returns></returns>
-        WebAssetGroup CreateGroup(string name, bool isShared);
+        Bundle CreateBundle(string name);
     }
 }

@@ -35,8 +35,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             factory = new ManagerBuilderFactory(
                 TestHelper.CreateViewContext(),
                 cacheProvider.Object,
-                contextFactory.Object,
-                new SharedGroupManager());
+                contextFactory.Object);
         }
 
         [Test]

@@ -17,27 +17,31 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.Configuration;
-    
-    public class AssetConfigurationElement : ConfigurationElement
+    using System.Collections.Generic;
+    using WebAssetBundler.Web.Mvc;
+    using System.Linq;
+
+    public class CombinedWebAssetBundleResolver : IWebAssetResolver
     {
+        private Bundle bundle;        
 
-        /// <summary>
-        /// Gets or sets the source.
-        /// </summary>
-        /// <value>The source.</value>
-        [ConfigurationProperty("source", IsRequired = false, IsKey = false)]
-        public string Source
+        public CombinedWebAssetBundleResolver(Bundle bundle)
         {
-            get
-            {
-                return (string)this["source"];
-            }
-
-            set
-            {
-                this["source"] = value;
-            }
+            this.bundle = bundle;            
         }
+
+        public IList<ResolverResult> Resolve()
+        {            
+            var results = new List<ResolverResult>();
+
+            results.Add(new ResolverResult(bundle.Assets, bundle.Name)
+                {
+                    Compress = bundle.Compress,
+                    Host = bundle.Host
+                });
+
+            return results;
+        }
+
     }
 }

@@ -26,23 +26,20 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class ScriptManagerTests
     {
-        [Test]
-        public void Can_Get_Default_Group()
+        private WebAssetBundleCollection collection;
+        private ScriptManager manager;
+
+        [SetUp]
+        public void Setup()
         {
-            var manager = new ScriptManager(new WebAssetGroupCollection());
-
-            Assert.IsInstanceOf<WebAssetGroup>(manager.DefaultGroup);
-        }       
-
-        [Test]
-        public void Should_Add_Default_Group_To_Collection()
-        {
-            var collection = new WebAssetGroupCollection();
-            var manager = new ScriptManager(collection);
-
-            Assert.AreEqual(1, collection.Count);
-            Assert.True(collection.FindGroupByName(DefaultSettings.DefaultGroupName).Name.IsCaseSensitiveEqual(DefaultSettings.DefaultGroupName));
+            collection = new WebAssetBundleCollection();
+            manager = new ScriptManager(collection);
         }
 
+        [Test]
+        public void Should_Set_Bundles()
+        {
+            Assert.NotNull(manager.ScriptBundles);
+        }
     }
 }

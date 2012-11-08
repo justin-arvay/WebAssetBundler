@@ -27,12 +27,12 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ScriptManagerBuilder : IHtmlString
     {
-        private readonly IWebAssetGroupCollectionResolver collectionResolver;
+        private readonly IWebAssetBundleCollectionResolver collectionResolver;
         private bool hasRendered;
         private ViewContext viewContext;    
         private ITagWriter tagWriter;
         private IWebAssetMerger merger;
-        private WebAssetGroupCollection sharedGroups;
+        private WebAssetBundleCollection sharedGroups;
         private BuilderContext context;
 
         /// <summary>
@@ -43,9 +43,8 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="resolver"></param>
         public ScriptManagerBuilder(
             ScriptManager manager, 
-            WebAssetGroupCollection sharedGroups,
             ViewContext viewContext, 
-            IWebAssetGroupCollectionResolver resolver,
+            IWebAssetBundleCollectionResolver resolver,
             ITagWriter tagWriter,
             IWebAssetMerger merger,
             BuilderContext context)
@@ -55,19 +54,7 @@ namespace WebAssetBundler.Web.Mvc
             this.tagWriter = tagWriter;
             this.viewContext = viewContext;
             this.merger = merger;
-            this.sharedGroups = sharedGroups;
             this.context = context;
-        }
-
-        /// <summary>
-        /// Allows building of the default group.
-        /// </summary>
-        /// <param name="action"></param>
-        /// <returns></returns>
-        public ScriptManagerBuilder DefaultGroup(Action<WebAssetGroupBuilder> action)
-        {
-            action(new WebAssetGroupBuilder(Manager.DefaultGroup, sharedGroups, context));
-            return this;
         }
 
         /// <summary>
@@ -75,9 +62,9 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="action"></param>
         /// <returns></returns>
-        public ScriptManagerBuilder Scripts(Action<WebAssetGroupCollectionBuilder> action)
+        public ScriptManagerBuilder Scripts(Action<WebAssetBundleCollectionBuilder> action)
         {
-            action(new WebAssetGroupCollectionBuilder(Manager.Scripts, sharedGroups, context));
+            action(new WebAssetBundleCollectionBuilder(Manager.ScriptBundles, context));
             return this;
         }
 
@@ -100,7 +87,7 @@ namespace WebAssetBundler.Web.Mvc
                 throw new InvalidOperationException(TextResource.Exceptions.YouCannotCallRenderMoreThanOnce);
             }
 
-            var results = merger.Merge(collectionResolver.Resolve(Manager.Scripts, context), context);
+            var results = merger.Merge(collectionResolver.Resolve(Manager.ScriptBundles, context), context);
             var baseWriter = viewContext.Writer;
 
             using (HtmlTextWriter textWriter = new HtmlTextWriter(baseWriter))
@@ -117,7 +104,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public string ToHtmlString()
         {
-            var results = merger.Merge(collectionResolver.Resolve(Manager.Scripts, context), context);
+            var results = merger.Merge(collectionResolver.Resolve(Manager.ScriptBundles, context), context);
 
             using (var output = new StringWriter())
             {

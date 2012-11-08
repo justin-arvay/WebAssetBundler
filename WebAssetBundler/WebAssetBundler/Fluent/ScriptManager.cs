@@ -20,22 +20,12 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ScriptManager
     {
-        public ScriptManager(WebAssetGroupCollection scripts)
+        public ScriptManager(WebAssetBundleCollection bundles)
         {
-            Scripts = scripts;
-
-            DefaultGroup = new WebAssetGroup("Default", false);                                     
-
-            Scripts.Add(DefaultGroup);
+            ScriptBundles = bundles;
         }
 
-        public WebAssetGroup DefaultGroup
-        {
-            get;
-            private set;
-        }
-
-        public WebAssetGroupCollection Scripts
+        public WebAssetBundleCollection ScriptBundles
         {
             get;
             private set;

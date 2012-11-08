@@ -21,39 +21,40 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System.Collections.Generic;
 
     [TestFixture]
-    public class WebAssetGroupCollectionResolverTests
+    public class WebAssetBundleCollectionResolverTests
     {
         private Mock<IWebAssetResolverFactory> factory;
-        private WebAssetGroupCollectionResolver resolver;
-        private WebAssetGroupCollection collection;
+        private WebAssetBundleCollectionResolver resolver;
+        private WebAssetBundleCollection collection;
         private BuilderContext context;
         private Mock<IWebAssetResolver> internalResolver;
+        private Bundle bundle;
 
         [SetUp]
         public void Setup()
         {
             factory = new Mock<IWebAssetResolverFactory>();
-            resolver = new WebAssetGroupCollectionResolver(factory.Object);
-            collection = new WebAssetGroupCollection();
+            resolver = new WebAssetBundleCollectionResolver(factory.Object);
+            collection = new WebAssetBundleCollection();
             context = new BuilderContext();
 
             internalResolver = new Mock<IWebAssetResolver>();
             internalResolver.Setup(f => f.Resolve()).Returns(new List<ResolverResult>());
-            factory.Setup(f => f.Create(It.IsAny<WebAssetGroup>())).Returns(internalResolver.Object);
+            factory.Setup(f => f.Create(It.IsAny<Bundle>())).Returns(internalResolver.Object);
+            bundle = new BundleImpl();
         }
 
         [Test]
         public void Should_Resolve_Collection_And_Return_Results()
-        {                     
-            var group = new WebAssetGroup("test", false);
+        {
 
-            group.Assets.Add(new WebAsset("path/test.css"));
-            collection.Add(group);
+            bundle.Assets.Add(new WebAsset("path/test.css"));
+            collection.Add(bundle);
 
             var results = resolver.Resolve(collection, context);
 
             internalResolver.Verify(i => i.Resolve(), Times.Once());
-            factory.Verify(f => f.Create(It.IsAny<WebAssetGroup>()), Times.Once());
+            factory.Verify(f => f.Create(It.IsAny<Bundle>()), Times.Once());
         }
     }
 }

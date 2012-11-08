@@ -65,7 +65,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Create_Group()
         {
-            var group = factory.CreateGroup("test", false);
+            var group = factory.CreateBundle("test");
 
             Assert.NotNull(group);
             Assert.AreEqual(context.Combine, group.Combine);

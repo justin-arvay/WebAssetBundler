@@ -46,14 +46,9 @@ namespace WebAssetBundler.Web.Mvc
         }
 
 
-        public WebAssetGroup CreateGroup(string name, bool isShared)
+        public Bundle CreateBundle(string name)
         {
-            return new WebAssetGroup(name, isShared)
-            {
-                Combine = context.Combine,
-                Compress = context.Compress,
-                Host = context.Host       
-            };
+            throw new NotImplementedException();
         }
     }
 }

@@ -23,14 +23,12 @@ namespace WebAssetBundler.Web.Mvc
     {
         private ViewContext viewContext;
         private ICacheProvider cacheProvider;
-        private SharedGroupManager sharedManager;
         private IBuilderContextFactory contextFactory;
 
-        public ManagerBuilderFactory(ViewContext viewContext, ICacheProvider cacheProvider, IBuilderContextFactory contextFactory, SharedGroupManager sharedManager)
+        public ManagerBuilderFactory(ViewContext viewContext, ICacheProvider cacheProvider, IBuilderContextFactory contextFactory)
         {
             this.viewContext = viewContext;
             this.cacheProvider = cacheProvider;
-            this.sharedManager = sharedManager;
             this.contextFactory = contextFactory;
         }
 
@@ -40,7 +38,7 @@ namespace WebAssetBundler.Web.Mvc
 
             var urlGenerator = new StyleSheetUrlGenerator();
             var resolverFactory = new WebAssetResolverFactory();
-            var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);            
+            var collectionResolver = new WebAssetBundleCollectionResolver(resolverFactory);            
             var merger = new StyleSheetWebAssetMerger(
                 new WebAssetReader(viewContext.HttpContext.Server),
                 new ImagePathContentFilter(),
@@ -50,8 +48,7 @@ namespace WebAssetBundler.Web.Mvc
             var tagWriter = new StyleSheetTagWriter(urlGenerator);
 
             return new StyleSheetManagerBuilder(
-                new StyleSheetManager(new WebAssetGroupCollection()),
-                sharedManager.StyleSheets,
+                new StyleSheetManager(new WebAssetBundleCollection()),
                 viewContext,
                 collectionResolver,
                 tagWriter,
@@ -65,7 +62,7 @@ namespace WebAssetBundler.Web.Mvc
 
             var urlGenerator = new ScriptUrlGenerator();
             var resolverFactory = new WebAssetResolverFactory();
-            var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory);
+            var collectionResolver = new WebAssetBundleCollectionResolver(resolverFactory);
             var merger = new ScriptWebAssetMerger(
                 new WebAssetReader(viewContext.HttpContext.Server),
                 DefaultSettings.ScriptCompressor, 
@@ -73,8 +70,7 @@ namespace WebAssetBundler.Web.Mvc
             var tagWriter = new ScriptTagWriter(urlGenerator);
 
             return new ScriptManagerBuilder(
-                new ScriptManager(new WebAssetGroupCollection()),
-                sharedManager.Scripts,
+                new ScriptManager(new WebAssetBundleCollection()),
                 viewContext,
                 collectionResolver,
                 tagWriter,

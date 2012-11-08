@@ -22,37 +22,39 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using WebAssetBundler.Web.Mvc;
 
     [TestFixture]
-    public class WebAssetGroupCollectionTests
+    public class WebAssetBundleCollectionTests
     {
-        private WebAssetGroupCollection collection;
+        private WebAssetBundleCollection collection;
+        private Bundle bundle;
 
         [SetUp]
         public void Setup()
         {
-            collection = new WebAssetGroupCollection();
+            bundle = new BundleImpl();
+            collection = new WebAssetBundleCollection();
         }
 
         [Test]
         public void Should_Find_Group_By_Name()
         {
             
-            collection.Add(new WebAssetGroup("test", false));
+            collection.Add(bundle);
 
-            Assert.NotNull(collection.FindGroupByName("test"));
+            Assert.NotNull(collection.FindBundleByName("test"));
         }
 
         [Test]
         public void Should_Find_Group_By_Name_Regardless_Of_Case()
         {
-            collection.Add(new WebAssetGroup("Test", false));
+            collection.Add(bundle);
 
-            Assert.NotNull(collection.FindGroupByName("tEST"));
+            Assert.NotNull(collection.FindBundleByName("tEST"));
         }
 
         [Test]
         public void Should_Return_Null_If_Not_Group_Not_Found()
         {
-            Assert.Null(collection.FindGroupByName("Foo"));
+            Assert.Null(collection.FindBundleByName("Foo"));
         }
     }
 }

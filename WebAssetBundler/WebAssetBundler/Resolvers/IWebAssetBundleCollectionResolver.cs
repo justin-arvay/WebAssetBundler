@@ -16,32 +16,11 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
-    using System;
-    using System.Collections.Generic;
     using WebAssetBundler.Web.Mvc;
-    using System.Linq;
+    using System.Collections.Generic;
 
-    public class CombinedWebAssetGroupResolver : IWebAssetResolver
+    public interface IWebAssetBundleCollectionResolver
     {
-        private WebAssetGroup group;        
-
-        public CombinedWebAssetGroupResolver(WebAssetGroup group)
-        {
-            this.group = group;            
-        }
-
-        public IList<ResolverResult> Resolve()
-        {            
-            var results = new List<ResolverResult>();
-
-            results.Add(new ResolverResult(group.Assets, group.Name)
-                {
-                    Compress = group.Compress,
-                    Host = group.Host
-                });
-
-            return results;
-        }
-
+        IList<ResolverResult> Resolve(WebAssetBundleCollection groups, BuilderContext context);
     }
 }

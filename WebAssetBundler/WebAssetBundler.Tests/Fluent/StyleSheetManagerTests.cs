@@ -27,27 +27,20 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class StyleSheetManagerTests
     {
-        private WebAssetGroupCollection collection;
+        private WebAssetBundleCollection collection;
         private StyleSheetManager manager;
 
         [SetUp]
         public void Setup()
         {
-            collection = new WebAssetGroupCollection();
+            collection = new WebAssetBundleCollection();
             manager = new StyleSheetManager(collection);
         }
 
         [Test]
-        public void Can_Get_Default_Group()
+        public void Should_Set_Bundles()
         {
-            Assert.IsInstanceOf<WebAssetGroup>(manager.DefaultGroup);
-        }       
-
-        [Test]
-        public void Should_Add_Default_Group_To_Collection()
-        {
-            Assert.AreEqual(1, collection.Count);
-            Assert.True(collection.FindGroupByName(DefaultSettings.DefaultGroupName).Name.IsCaseSensitiveEqual(DefaultSettings.DefaultGroupName));
+            Assert.NotNull(manager.StyleSheetBundles);
         }
     }
 }

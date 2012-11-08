@@ -17,62 +17,61 @@
 namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
-    using System;
-    using WebAssetBundler.Web.Mvc;
+    using Moq;
     using System.Collections.Generic;
 
     [TestFixture]
-    public class WebAssetGroupResolverTests
+    public class CombinedWebAssetBundleResolverTest
     {
-        [Test]
-        public void Should_Resolve_A_List_Of_Sources_For_Each_Item_In_Group()
+        private CombinedWebAssetBundleResolver resolver;
+        private Bundle bundle;
+
+        [SetUp]
+        public void Setup()
         {
-            var group = new WebAssetGroup("Test", false);
-            group.Assets.Add(new WebAsset("~/Files/test.css"));
-            group.Assets.Add(new WebAsset("~/Files/test2.css"));
-
-            var resolver = new WebAssetGroupResolver(group);
-
-            Assert.AreEqual(2, resolver.Resolve().Count);
+            bundle = new BundleImpl();
+            resolver = new CombinedWebAssetBundleResolver(bundle);
         }
-        
+
+        [Test]
+        public void Should_Return_A_List_Of_Results()
+        {
+            bundle.Assets.Add(new WebAsset("~/Files/test.css"));
+            bundle.Assets.Add(new WebAsset("~/Files/test2.css"));
+
+            Assert.AreEqual(1, resolver.Resolve().Count);
+        }        
 
         [Test]
         public void Should_Resolve_Compress_For_Result()
         {
-            var group = new WebAssetGroup("Test", false) { Compress = true };
-            
-            group.Assets.Add(new WebAsset(""));
 
-            var resolver = new WebAssetGroupResolver(group);
+            bundle.Compress = true;
+            bundle.Assets.Add(new WebAsset("~/Files/test.css"));
+
             var results = resolver.Resolve();
 
             Assert.IsTrue(results[0].Compress);
         }
 
-
         [Test]
         public void Should_Resolve_Name_For_Result()
         {
-            var group = new WebAssetGroup("Test", false);
 
-            group.Assets.Add(new WebAsset("~/Files/test-file.css"));
+            bundle.Assets.Add(new WebAsset("~/Files/test.css"));
 
-            var resolver = new WebAssetGroupResolver(group);
             var results = resolver.Resolve();
 
-            Assert.AreEqual("test-file", results[0].Name);
+            Assert.AreEqual("Test", results[0].Name);
         }
 
         [Test]
         public void Should_Resolve_Host()
         {
-            var group = new WebAssetGroup("Test", false);
-            group.Host = "1.1.1.1";
+            bundle.Host = "1.1.1.1";
 
-            group.Assets.Add(new WebAsset("~/Files/test-file.css"));
+            bundle.Assets.Add(new WebAsset("~/Files/test-file.css"));
 
-            var resolver = new WebAssetGroupResolver(group);
             var results = resolver.Resolve();
 
             Assert.AreEqual("1.1.1.1", results[0].Host);

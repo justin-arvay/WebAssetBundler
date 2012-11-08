@@ -20,6 +20,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IWebAssetResolverFactory
     {
-        IWebAssetResolver Create(WebAssetGroup group);
+        IWebAssetResolver Create(Bundle bundle);
     }
 }

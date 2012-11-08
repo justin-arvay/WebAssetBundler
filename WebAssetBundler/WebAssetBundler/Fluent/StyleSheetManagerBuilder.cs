@@ -27,12 +27,12 @@ namespace WebAssetBundler.Web.Mvc
 
     public class StyleSheetManagerBuilder : IHtmlString
     {
-        private readonly IWebAssetGroupCollectionResolver collectionResolver;
+        private readonly IWebAssetBundleCollectionResolver collectionResolver;
         private bool hasRendered;
         private ViewContext viewContext;
         private ITagWriter tagWriter;
         private IWebAssetMerger merger;
-        private WebAssetGroupCollection sharedGroups;
+        private WebAssetBundleCollection sharedGroups;
         private BuilderContext context;
 
         /// <summary>
@@ -43,9 +43,8 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="resolver"></param>
         public StyleSheetManagerBuilder(
             StyleSheetManager manager, 
-            WebAssetGroupCollection sharedGroups,
             ViewContext viewContext, 
-            IWebAssetGroupCollectionResolver resolver,
+            IWebAssetBundleCollectionResolver resolver,
             ITagWriter tagWriter,                   
             IWebAssetMerger merger,
             BuilderContext context)
@@ -55,7 +54,6 @@ namespace WebAssetBundler.Web.Mvc
             this.tagWriter = tagWriter;
             this.viewContext = viewContext;
             this.merger = merger;         
-            this.sharedGroups = sharedGroups;
             this.context = context;
         }
 
@@ -64,9 +62,9 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="action"></param>
         /// <returns></returns>
-        public StyleSheetManagerBuilder StyleSheets(Action<WebAssetGroupCollectionBuilder> action)
+        public StyleSheetManagerBuilder StyleSheets(Action<WebAssetBundleCollectionBuilder> action)
         {
-            action(new WebAssetGroupCollectionBuilder(Manager.StyleSheets, sharedGroups, context));
+            action(new WebAssetBundleCollectionBuilder(Manager.StyleSheetBundles, context));
             return this;
         }
 
@@ -89,7 +87,7 @@ namespace WebAssetBundler.Web.Mvc
                 throw new InvalidOperationException(TextResource.Exceptions.YouCannotCallRenderMoreThanOnce);
             }
 
-            var results = merger.Merge(collectionResolver.Resolve(Manager.StyleSheets, context), context);
+            var results = merger.Merge(collectionResolver.Resolve(Manager.StyleSheetBundles, context), context);
             var baseWriter = viewContext.Writer;
 
             using (HtmlTextWriter textWriter = new HtmlTextWriter(baseWriter))
@@ -106,7 +104,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public string ToHtmlString()
         {
-            var results = merger.Merge(collectionResolver.Resolve(Manager.StyleSheets, context), context);
+            var results = merger.Merge(collectionResolver.Resolve(Manager.StyleSheetBundles, context), context);
 
             using (var output = new StringWriter())
             {

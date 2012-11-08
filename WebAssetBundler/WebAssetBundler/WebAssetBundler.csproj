@@ -63,20 +63,12 @@
     <Compile Include="Compressors\MsStyleSheetCompressor.cs" />
     <Compile Include="Compressors\YuiScriptCompressor.cs" />
     <Compile Include="Compressors\YuiStyleSheetCompressor.cs" />
-    <Compile Include="Configuration\GroupConfigurationElementCollection.cs" />
-    <Compile Include="Configuration\ISharedGroupManagerLoader.cs" />
-    <Compile Include="Configuration\ScriptConfigurationElementCollection.cs" />
-    <Compile Include="Configuration\SharedGroupManagerLoader.cs" />
-    <Compile Include="Configuration\SharedGroupConfigurationSection.cs" />
-    <Compile Include="Configuration\AssetConfigurationElement.cs" />
-    <Compile Include="Configuration\StyleSheetConfigurationElementCollection.cs" />
     <Compile Include="Extensions\ByteArrayExensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Fluent\Bundle.cs" />
     <Compile Include="Fluent\DefaultConfigurationFactory.cs" />
     <Compile Include="Fluent\BundleConfiguration.cs" />
     <Compile Include="Fluent\IConfigurationFactory.cs" />
-    <Compile Include="Fluent\SharedWebAssetGroupCollectionBuilder.cs" />
     <Compile Include="HtmlHelperExtension.cs" />
     <Compile Include="HttpHandlers\DeflateEncoder.cs" />
     <Compile Include="HttpHandlers\DoNothingEncoder.cs" />
@@ -102,25 +94,23 @@
     <Compile Include="IO\StyleSheetWebAssetMerger.cs" />
     <Compile Include="IO\MergerResult.cs" />
     <Compile Include="IO\WebAssetReader.cs" />
-    <Compile Include="Configuration\IAssetConfigurationFactory.cs" />
     <Compile Include="Fluent\ManagerBuilderFactory.cs" />
     <Compile Include="Fluent\ScriptManagerBuilder.cs" />
     <Compile Include="Fluent\ScriptManager.cs" />
-    <Compile Include="Configuration\AssetConfigurationFactory.cs" />
-    <Compile Include="Resolvers\CombinedWebAssetGroupResolver.cs" />
+    <Compile Include="Resolvers\CombinedWebAssetBundleResolver.cs" />
     <Compile Include="IO\IWebAssetMerger.cs" />
     <Compile Include="Resolvers\DoNothingWebAssetResolver.cs" />
     <Compile Include="Resolvers\ResolverResult.cs" />
-    <Compile Include="Resolvers\WebAssetGroupResolver.cs" />
-    <Compile Include="Resolvers\WebAssetGroupCollectionResolver.cs" />
-    <Compile Include="Resolvers\IWebAssetGroupCollectionResolver.cs" />
+    <Compile Include="Resolvers\WebAssetBundleResolver.cs" />
+    <Compile Include="Resolvers\WebAssetBundleCollectionResolver.cs" />
+    <Compile Include="Resolvers\IWebAssetBundleCollectionResolver.cs" />
     <Compile Include="Resolvers\IWebAssetResolver.cs" />
     <Compile Include="Resolvers\IWebAssetResolverFactory.cs" />
     <Compile Include="IO\IUrlGenerator.cs" />
     <Compile Include="Resolvers\WebAssetResolverFactory.cs" />
     <Compile Include="DefaultSettings.cs" />
-    <Compile Include="Fluent\WebAssetGroupCollection.cs" />
-    <Compile Include="Fluent\WebAssetGroupCollectionBuilder.cs" />
+    <Compile Include="Fluent\WebAssetBundleCollection.cs" />
+    <Compile Include="Fluent\WebAssetBundleCollectionBuilder.cs" />
     <Compile Include="Fluent\WebAssetType.cs" />
     <Compile Include="Fluent\StyleSheetManager.cs" />
     <Compile Include="Fluent\StyleSheetManagerBuilder.cs" />
@@ -141,9 +131,6 @@
       <LastGenOutput>Exceptions.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Configuration\readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

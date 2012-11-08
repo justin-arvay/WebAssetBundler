@@ -20,22 +20,12 @@ namespace WebAssetBundler.Web.Mvc
 
     public class StyleSheetManager
     {
-        public StyleSheetManager(WebAssetGroupCollection styleSheets)
+        public StyleSheetManager(WebAssetBundleCollection bundles)
         {
-            StyleSheets = styleSheets;
-
-            DefaultGroup = new WebAssetGroup("Default", false);
-
-            StyleSheets.Add(DefaultGroup);
+            StyleSheetBundles = bundles;
         }
 
-        public WebAssetGroup DefaultGroup 
-        { 
-            get; 
-            private set; 
-        }
-
-        public WebAssetGroupCollection StyleSheets
+        public WebAssetBundleCollection StyleSheetBundles
         {
             get;
             private set;

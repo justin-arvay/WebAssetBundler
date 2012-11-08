@@ -41,14 +41,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var server = new Mock<HttpServerUtilityBase>();
             context = new BuilderContext();
             context.AssetFactory = assetFactory.Object;
-            var collection = new WebAssetGroupCollection();
-            var collectionResolver = new Mock<IWebAssetGroupCollectionResolver>().Object;
+            var collection = new WebAssetBundleCollection();
+            var collectionResolver = new Mock<IWebAssetBundleCollectionResolver>().Object;
             merger = new Mock<IWebAssetMerger>();
             tagWriter = new Mock<ITagWriter>();
 
             builder = new ScriptManagerBuilder(
                 new ScriptManager(collection),
-                collection,
                 TestHelper.CreateViewContext(),
                 collectionResolver,
                 tagWriter.Object,
@@ -57,36 +56,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Default_Group_Returns_Self_For_Chaining()
-        {
-            Assert.IsInstanceOf<ScriptManagerBuilder>(builder.DefaultGroup(g => g.ToString()));
-        }
-
-        [Test]
         public void Scripts_Return_Self_For_Chaining()
         {
             Assert.IsInstanceOf<ScriptManagerBuilder>(builder.Scripts(s => s.ToString()));
-        }
-
-        [Test]
-        public void Can_Configure_Default_Group()
-        {
-            assetFactory.Setup(f => f.CreateAsset(It.IsAny<string>(), It.IsAny<string>())).Returns(new WebAsset("test/test.js"));
-
-            builder.DefaultGroup(g => g.Add("test/test.js"));
-
-            Assert.AreEqual(1, builder.Manager.DefaultGroup.Assets.Count);
-        }
-
-        [Test]
-        public void Can_Configure_Scripts()
-        {
-            assetFactory.Setup(f => f.CreateGroup(It.IsAny<string>(), It.IsAny<bool>()));
-
-            builder.Scripts(s => s.AddGroup("test", group => group.ToString()));
-
-            //there is 2 because of default group
-            Assert.AreEqual(2, builder.Manager.Scripts.Count);
         }
 
         [Test]
