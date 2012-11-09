@@ -18,12 +18,13 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class BundleProvider : WebAssetBundler.Configuration.IBundleProvider
+    public class BundleProvider : IBundleProvider
     {
         public BundleProvider()
         {
-            public BundleCollection<T> GetBundles<T>()
+            public BundleCollection<TBundle> GetBundles<TBundle>()
             {
+                return new DefaultConfigurationFactory().Create<
             }
         }
 
