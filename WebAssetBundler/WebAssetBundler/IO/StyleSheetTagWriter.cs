@@ -29,7 +29,7 @@ namespace WebAssetBundler.Web.Mvc
             this.urlGenerator = urlGenerator;
         }
 
-        public void Write(TextWriter writer, IList<MergerResult> results, BuilderContext context)
+        public void Write(TextWriter writer, IList<MergedBundle> results, BuilderContext context)
         {
             var url = "";
             var link = "<link type=\"text/css\" href=\"{0}\" rel=\"stylesheet\"/>";

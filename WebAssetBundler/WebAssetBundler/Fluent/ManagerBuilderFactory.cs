@@ -44,7 +44,7 @@ namespace WebAssetBundler.Web.Mvc
                 new ImagePathContentFilter(),
                 DefaultSettings.StyleSheetCompressor,
                 viewContext.HttpContext.Server,
-                new MergedResultCache(WebAssetType.StyleSheet, cacheProvider));            
+                new MergedBundleCache(WebAssetType.StyleSheet, cacheProvider));            
             var tagWriter = new StyleSheetTagWriter(urlGenerator);
 
             return new StyleSheetManagerBuilder(
@@ -66,7 +66,7 @@ namespace WebAssetBundler.Web.Mvc
             var merger = new ScriptWebAssetMerger(
                 new WebAssetReader(viewContext.HttpContext.Server),
                 DefaultSettings.ScriptCompressor, 
-                new MergedResultCache(WebAssetType.Script, cacheProvider));            
+                new MergedBundleCache(WebAssetType.Script, cacheProvider));            
             var tagWriter = new ScriptTagWriter(urlGenerator);
 
             return new ScriptManagerBuilder(

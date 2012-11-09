@@ -22,9 +22,9 @@ namespace WebAssetBundler.Web.Mvc
 
     public class AssetHttpHandler : IWabHttpHandler
     {
-        private IMergedResultCache cache;
+        private IMergedBundleCache cache;
 
-        public AssetHttpHandler(IMergedResultCache cache)
+        public AssetHttpHandler(IMergedBundleCache cache)
         {
             this.cache = cache;
         }

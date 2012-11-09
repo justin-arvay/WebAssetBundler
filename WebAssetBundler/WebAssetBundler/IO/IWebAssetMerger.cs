@@ -21,6 +21,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IWebAssetMerger
     {
-        IList<MergerResult> Merge(IList<ResolverResult> results, BuilderContext context);
+        IList<MergedBundle> Merge(IList<ResolvedBundle> results, BuilderContext context);
     }
 }

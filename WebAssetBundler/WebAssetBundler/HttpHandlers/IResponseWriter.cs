@@ -18,8 +18,8 @@ namespace WebAssetBundler.Web.Mvc
 {
     public interface IResponseWriter
     {
-        bool IsNotModified(MergerResult result);
-        void WriteAsset(MergerResult result, IEncoder encoder);
+        bool IsNotModified(MergedBundle result);
+        void WriteAsset(MergedBundle result, IEncoder encoder);
         void WriteNotFound();
         void WriteNotModified(string etag);
     }

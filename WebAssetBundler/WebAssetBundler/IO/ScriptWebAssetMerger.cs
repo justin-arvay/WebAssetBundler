@@ -28,18 +28,18 @@ namespace WebAssetBundler.Web.Mvc
     {
         private IWebAssetReader reader;
         private IScriptCompressor compressor;
-        private IMergedResultCache cache;
+        private IMergedBundleCache cache;
 
-        public ScriptWebAssetMerger(IWebAssetReader reader, IScriptCompressor compressor, IMergedResultCache cache)
+        public ScriptWebAssetMerger(IWebAssetReader reader, IScriptCompressor compressor, IMergedBundleCache cache)
         {
             this.reader = reader;
             this.compressor = compressor;
             this.cache = cache;
         }
 
-        public IList<MergerResult> Merge(IList<ResolverResult> results, BuilderContext context)
+        public IList<MergedBundle> Merge(IList<ResolvedBundle> results, BuilderContext context)
         {
-            var mergedResults = new List<MergerResult>();
+            var mergedResults = new List<MergedBundle>();
 
             foreach (var result in results)
             {
@@ -49,7 +49,7 @@ namespace WebAssetBundler.Web.Mvc
             return mergedResults;
         }
 
-        private MergerResult MergeSingle(ResolverResult result, BuilderContext context)
+        private MergedBundle MergeSingle(ResolvedBundle result, BuilderContext context)
         {
             var mergedResult = cache.Get(result.Name);
 
@@ -70,7 +70,7 @@ namespace WebAssetBundler.Web.Mvc
                     content = compressor.Compress(content);
                 }
 
-                mergedResult = new MergerResult(result.Name, content, WebAssetType.Script)
+                mergedResult = new MergedBundle(result.Name, content, WebAssetType.Script)
                     {
                         Host = result.Host
                     };

@@ -22,9 +22,9 @@ namespace WebAssetBundler.Web.Mvc
     public class DoNothingWebAssetResolver : IWebAssetResolver
     {
 
-        public IList<ResolverResult> Resolve()
+        public IList<ResolvedBundle> Resolve()
         {
-            return new List<ResolverResult>();
+            return new List<ResolvedBundle>();
         }
     }
 }

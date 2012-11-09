@@ -33,6 +33,6 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        Bundle CreateBundle(string name);
+        T CreateBundle<T>(string name) where T : Bundle;
     }
 }

@@ -30,11 +30,11 @@ namespace WebAssetBundler.Web.Mvc
             this.bundle = bundle;            
         }
 
-        public IList<ResolverResult> Resolve()
+        public IList<ResolvedBundle> Resolve()
         {            
-            var results = new List<ResolverResult>();
+            var results = new List<ResolvedBundle>();
 
-            results.Add(new ResolverResult(bundle.Assets, bundle.Name)
+            results.Add(new ResolvedBundle(bundle.Assets, bundle.Name)
                 {
                     Compress = bundle.Compress,
                     Host = bundle.Host

@@ -32,7 +32,7 @@ namespace WebAssetBundler.Web.Mvc
             this.request = httpContext.Request;
         }
 
-        public void WriteAsset(MergerResult result, IEncoder encoder)
+        public void WriteAsset(MergedBundle result, IEncoder encoder)
         {
             response.ContentType = result.ContentType;
             CacheLongTime(result.Hash.ToHexString());
@@ -42,7 +42,7 @@ namespace WebAssetBundler.Web.Mvc
             encoder.Encode(response);                                             
         }
 
-        public bool IsNotModified(MergerResult result)
+        public bool IsNotModified(MergedBundle result)
         {
             var actualETag = result.Hash.ToHexString();
             var givenETag = request.Headers["If-None-Match"];

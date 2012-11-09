@@ -24,11 +24,11 @@ namespace WebAssetBundler.Web.Mvc
     using System.IO;
     using System.Security.Cryptography;
 
-    public class MergerResult
+    public class MergedBundle
     {
         private WebAssetType type;
 
-        public MergerResult(string name, string content, WebAssetType type)
+        public MergedBundle(string name, string content, WebAssetType type)
         {            
             Name = name;
             Content = content;

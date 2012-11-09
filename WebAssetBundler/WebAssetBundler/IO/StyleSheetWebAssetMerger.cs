@@ -28,10 +28,10 @@ namespace WebAssetBundler.Web.Mvc
         private IContentFilter filter;
         private IStyleSheetCompressor compressor;
         private HttpServerUtilityBase server;
-        private IMergedResultCache cache;
+        private IMergedBundleCache cache;
 
         public StyleSheetWebAssetMerger(IWebAssetReader reader, IContentFilter filter, IStyleSheetCompressor compressor,
-            HttpServerUtilityBase server, IMergedResultCache cache)
+            HttpServerUtilityBase server, IMergedBundleCache cache)
         {
             this.reader = reader;
             this.filter = filter;
@@ -40,9 +40,9 @@ namespace WebAssetBundler.Web.Mvc
             this.cache = cache;
         }
 
-        public IList<MergerResult> Merge(IList<ResolverResult> results, BuilderContext context)
+        public IList<MergedBundle> Merge(IList<ResolvedBundle> results, BuilderContext context)
         {
-            var mergedResults = new List<MergerResult>();
+            var mergedResults = new List<MergedBundle>();
 
             foreach (var result in results)
             {
@@ -52,7 +52,7 @@ namespace WebAssetBundler.Web.Mvc
             return mergedResults;
         }
 
-        private MergerResult MergeSingle(ResolverResult result, BuilderContext context)
+        private MergedBundle MergeSingle(ResolvedBundle result, BuilderContext context)
         {
             var mergedResult = cache.Get(result.Name);
 
@@ -71,7 +71,7 @@ namespace WebAssetBundler.Web.Mvc
                     content = compressor.Compress(content);
                 }
 
-                mergedResult = new MergerResult(result.Name, content, WebAssetType.StyleSheet)
+                mergedResult = new MergedBundle(result.Name, content, WebAssetType.StyleSheet)
                     {
                         Host = result.Host
                     };

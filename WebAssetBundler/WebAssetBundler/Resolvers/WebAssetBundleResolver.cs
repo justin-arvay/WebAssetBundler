@@ -29,9 +29,9 @@ namespace WebAssetBundler.Web.Mvc
             this.bundle = bundle;            
         }
 
-        public IList<ResolverResult> Resolve()
+        public IList<ResolvedBundle> Resolve()
         {
-            var results = new List<ResolverResult>();
+            var results = new List<ResolvedBundle>();
 
             foreach (var asset in bundle.Assets)
             {
@@ -41,12 +41,12 @@ namespace WebAssetBundler.Web.Mvc
             return results;
         }
 
-        private ResolverResult ResolveWebAsset(string name, bool compress, string host, WebAsset webAsset)
+        private ResolvedBundle ResolveWebAsset(string name, bool compress, string host, WebAsset webAsset)
         {
             var assets = new List<WebAsset>();
             assets.Add(webAsset);
 
-            return new ResolverResult(assets, name)
+            return new ResolvedBundle(assets, name)
                 {
                     Compress = compress,
                     Host = host

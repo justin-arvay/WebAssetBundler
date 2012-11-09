@@ -16,29 +16,10 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
-    using NUnit.Framework;
-    using Moq;
-    using System.Collections.Generic;
 
-    [TestFixture]
-    public class ResolverResultTests
+    public interface IMergedBundleCache
     {
-        [Test]
-        public void Should_Set_Name_In_Constructor()
-        {            
-            var result = new ResolverResult(null, "Test.ext");
-
-            Assert.AreEqual("Test-ext", result.Name);
-        }
-        
-
-        [Test]
-        public void Should_Set_Web_Assets_In_Constructor()
-        {
-            var webAssets = new List<WebAsset>();
-            var result = new ResolverResult(webAssets, "Test");
-
-            Assert.NotNull(result.Assets);
-        }        
+        void Add(MergedBundle bundle);
+        MergedBundle Get(string name);
     }
 }

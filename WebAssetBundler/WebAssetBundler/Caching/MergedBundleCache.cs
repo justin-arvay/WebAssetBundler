@@ -18,36 +18,36 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class MergedResultCache : IMergedResultCache
+    public class MergedBundleCache : IMergedBundleCache
     {
         private ICacheProvider provider;
         private const string keyPrefix = "MergedResult";
         private WebAssetType type;
 
-        public MergedResultCache(WebAssetType type, ICacheProvider provider)
+        public MergedBundleCache(WebAssetType type, ICacheProvider provider)
         {
             this.provider = provider;
             this.type = type;
         }
 
         /// <summary>
-        /// Adds the result to the cache.
+        /// Adds the bundle to the cache.
         /// </summary>
-        /// <param name="result"></param>
-        public void Add(MergerResult result)
+        /// <param name="bundle"></param>
+        public void Add(MergedBundle result)
         {
             provider.Insert(GetKey(result.Name), result);
         }
 
-        public MergerResult Get(string name)
+        public MergedBundle Get(string name)
         {
-            return (MergerResult)provider.Get(GetKey(name));
+            return (MergedBundle)provider.Get(GetKey(name));
         }
 
         /// <summary>
-        /// Creates the key for the given result.
+        /// Creates the key for the given bundle.
         /// </summary>
-        /// <param name="result"></param>
+        /// <param name="bundle"></param>
         /// <returns></returns>
         private string GetKey(string name)
         {

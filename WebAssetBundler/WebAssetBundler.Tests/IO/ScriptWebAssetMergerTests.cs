@@ -26,7 +26,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private Mock<IWebAssetReader> reader;
         private Mock<IScriptCompressor> compressor;
-        private Mock<IMergedResultCache> cache;
+        private Mock<IMergedBundleCache> cache;
         private ScriptWebAssetMerger merger;
         private BuilderContext context;
         
@@ -35,7 +35,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             reader = new Mock<IWebAssetReader>();
             compressor = new Mock<IScriptCompressor>();
-            cache = new Mock<IMergedResultCache>();
+            cache = new Mock<IMergedBundleCache>();
             context = new BuilderContext();
 
             merger = new ScriptWebAssetMerger(reader.Object, compressor.Object, cache.Object);
@@ -49,9 +49,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var content = "function(){}";            
             var assets = new List<WebAsset>();
-            var results = new List<ResolverResult>();
+            var results = new List<ResolvedBundle>();
 
-            results.Add (new ResolverResult(assets, "Test")
+            results.Add (new ResolvedBundle(assets, "Test")
                 {
                     Host = "http://www.test.com"
                 });
@@ -74,9 +74,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Compress_Merged_Content()
         {
             var webAssets = new List<WebAsset>();
-            var results = new List<ResolverResult>();
+            var results = new List<ResolvedBundle>();
 
-            results.Add(new ResolverResult(webAssets, "Test") { Compress = true });
+            results.Add(new ResolvedBundle(webAssets, "Test") { Compress = true });
 
             webAssets.Add(new WebAsset(""));
             webAssets.Add(new WebAsset(""));
@@ -90,9 +90,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Not_Compress_Merged_Content()
         {
             var webAssets = new List<WebAsset>();
-            var results = new List<ResolverResult>();
+            var results = new List<ResolvedBundle>();
 
-            results.Add(new ResolverResult(webAssets, "Test"));
+            results.Add(new ResolvedBundle(webAssets, "Test"));
 
             webAssets.Add(new WebAsset(""));
             webAssets.Add(new WebAsset(""));
@@ -105,29 +105,29 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Cache_Result()
         {
-            var results = new List<ResolverResult>();
-            results.Add(new ResolverResult(new List<WebAsset>(), "Test"));
+            var results = new List<ResolvedBundle>();
+            results.Add(new ResolvedBundle(new List<WebAsset>(), "Test"));
 
             merger.Merge(results, context);
 
-            cache.Verify(c => c.Add(It.IsAny<MergerResult>()), Times.Once());
+            cache.Verify(c => c.Add(It.IsAny<MergedBundle>()), Times.Once());
         }
 
         [Test]
         public void Should_Not_Add_To_Cache()
         {
             var webAssets = new List<WebAsset>();
-            var results = new List<ResolverResult>();
-            var result = new ResolverResult(webAssets, "Test");
+            var results = new List<ResolvedBundle>();
+            var result = new ResolvedBundle(webAssets, "Test");
 
             results.Add(result);
             webAssets.Add(new WebAsset(""));
 
-            cache.Setup(c => c.Get(It.IsAny<string>())).Returns(new MergerResult("", "", WebAssetType.None));
+            cache.Setup(c => c.Get(It.IsAny<string>())).Returns(new MergedBundle("", "", WebAssetType.None));
 
             var mergedResults = merger.Merge(results, context);
 
-            cache.Verify(c => c.Add(It.IsAny<MergerResult>()), Times.Never());
+            cache.Verify(c => c.Add(It.IsAny<MergedBundle>()), Times.Never());
         }
 
         [Test]
@@ -136,17 +136,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
             context.DebugMode = true;
 
             var webAssets = new List<WebAsset>();
-            var results = new List<ResolverResult>();
-            var result = new ResolverResult(webAssets, "Test");
+            var results = new List<ResolvedBundle>();
+            var result = new ResolvedBundle(webAssets, "Test");
 
             results.Add(result);
             webAssets.Add(new WebAsset(""));
 
-            cache.Setup(c => c.Get(It.IsAny<string>())).Returns(new MergerResult("", "", WebAssetType.None));
+            cache.Setup(c => c.Get(It.IsAny<string>())).Returns(new MergedBundle("", "", WebAssetType.None));
 
             var mergedResults = merger.Merge(results, context);
 
-            cache.Verify(c => c.Add(It.IsAny<MergerResult>()), Times.Once());
+            cache.Verify(c => c.Add(It.IsAny<MergedBundle>()), Times.Once());
         }
     }
 }

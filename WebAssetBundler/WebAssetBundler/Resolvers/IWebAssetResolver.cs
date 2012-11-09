@@ -20,6 +20,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IWebAssetResolver
     {
-        IList<ResolverResult> Resolve();
+        IList<ResolvedBundle> Resolve();
     }
 }

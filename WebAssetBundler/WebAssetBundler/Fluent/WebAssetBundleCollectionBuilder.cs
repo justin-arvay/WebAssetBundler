@@ -18,7 +18,7 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class WebAssetBundleCollectionBuilder
+    public class WebAssetBundleCollectionBuilder<T> where T : Bundle
     {        
         private WebAssetBundleCollection bundles;
         private BuilderContext context;
@@ -34,10 +34,10 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
-        public WebAssetBundleCollectionBuilder Add(string source)
+        public WebAssetBundleCollectionBuilder<T> Add(string source)
         {
             var asset = context.AssetFactory.CreateAsset(source, "");
-            var group = context.AssetFactory.CreateBundle(asset.Name);
+            var group = context.AssetFactory.CreateBundle<T>(asset.Name);
 
             group.Assets.Add(asset);
 

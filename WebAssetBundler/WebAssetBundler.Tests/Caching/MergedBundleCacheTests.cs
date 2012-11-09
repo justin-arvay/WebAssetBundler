@@ -23,43 +23,43 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System.Linq;
 
     [TestFixture]
-    public class MergedResultCacheTests
+    public class MergedBundleCacheTests
     {
         private Mock<ICacheProvider> provider;
-        private IMergedResultCache cssCache;
-        private IMergedResultCache jsCache;
+        private IMergedBundleCache cssCache;
+        private IMergedBundleCache jsCache;
 
         [SetUp]
         public void Setup()
         {
             provider = new Mock<ICacheProvider>();
-            cssCache = new MergedResultCache(WebAssetType.StyleSheet, provider.Object);
-            jsCache = new MergedResultCache(WebAssetType.Script, provider.Object);
+            cssCache = new MergedBundleCache(WebAssetType.StyleSheet, provider.Object);
+            jsCache = new MergedBundleCache(WebAssetType.Script, provider.Object);
         }
 
         [Test]
         public void Should_Add_Result_To_Cache()
         {
-            cssCache.Add(new MergerResult("Name", "", WebAssetType.StyleSheet));
+            cssCache.Add(new MergedBundle("Name", "", WebAssetType.StyleSheet));
 
             provider.Verify(p => p.Insert(
                 "MergedResult->StyleSheet->Name", 
-                It.IsAny<MergerResult>()
+                It.IsAny<MergedBundle>()
             ), Times.Once());
 
-            jsCache.Add(new MergerResult("Name", "", WebAssetType.Script));
+            jsCache.Add(new MergedBundle("Name", "", WebAssetType.Script));
 
             provider.Verify(p => p.Insert(
                 "MergedResult->Script->Name",
-                It.IsAny<MergerResult>()
+                It.IsAny<MergedBundle>()
             ), Times.Once());
         }
 
         [Test]
         public void Should_Add_Many_Different_Results_To_Cache()
         {
-            cssCache.Add(new MergerResult("Name1", "", WebAssetType.None));
-            cssCache.Add(new MergerResult("Name2", "", WebAssetType.None));
+            cssCache.Add(new MergedBundle("Name1", "", WebAssetType.None));
+            cssCache.Add(new MergedBundle("Name2", "", WebAssetType.None));
 
             provider.Verify(p => p.Insert(It.IsAny<string>(), It.IsAny<object>()), Times.Exactly(2));
         }
@@ -67,7 +67,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Exist_In_Cache()
         {
-            var result = new MergerResult("Name", "", WebAssetType.None);
+            var result = new MergedBundle("Name", "", WebAssetType.None);
 
             provider.Setup(p => p.Get(It.IsAny<string>()))
                 .Returns(null);
@@ -79,7 +79,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Add_To_Cache_With_Unique_Key_Per_Type()
         {
-            var result = new MergerResult("Name", "", WebAssetType.None);
+            var result = new MergedBundle("Name", "", WebAssetType.None);
             var paths = new List<string>();
 
             provider.Setup(p => p.Insert(It.IsAny<string>(), It.IsAny<object>()))
@@ -90,7 +90,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             jsCache.Add(result);
             cssCache.Add(result);
 
-            //should return 1 path for each result added
+            //should return 1 path for each bundle added
             Assert.AreEqual(2, paths.Distinct().Count());
         }
 

@@ -19,14 +19,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
 
     [TestFixture]
-    public class WebAssetMergerResultTest
+    public class MergedBundleTest
     {
 
         [Test]
         public void Should_Set_Content_With_Constructor()
         {
             var content = "some content";
-            var result = new MergerResult("", content, WebAssetType.None);
+            var result = new MergedBundle("", content, WebAssetType.None);
 
             Assert.AreSame(result.Content, content);
         }
@@ -34,7 +34,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Set_Name_With_Constructor()
         {
-            var result = new MergerResult("name", "", WebAssetType.None);
+            var result = new MergedBundle("name", "", WebAssetType.None);
 
             Assert.AreSame(result.Name, "name");
         }
@@ -42,17 +42,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Return_Correct_Content_Type()
         {
-            var result = new MergerResult("", "", WebAssetType.StyleSheet);
+            var result = new MergedBundle("", "", WebAssetType.StyleSheet);
             Assert.AreSame(result.ContentType, "text/css");
 
-            result = new MergerResult("", "", WebAssetType.Script);
+            result = new MergedBundle("", "", WebAssetType.Script);
             Assert.AreSame(result.ContentType, "text/javascript");
         }
 
         [Test]
         public void Should_Get_Hash()
         {
-            var result = new MergerResult("test", "asdf", WebAssetType.None);
+            var result = new MergedBundle("test", "asdf", WebAssetType.None);
 
             Assert.AreEqual(16, result.Hash.Length);
         }

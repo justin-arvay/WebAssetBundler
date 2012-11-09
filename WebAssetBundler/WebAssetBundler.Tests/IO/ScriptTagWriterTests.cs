@@ -41,8 +41,8 @@ namespace WebAssetBundler.Web.Mvc
         [Test]
         public void Should_Generate_Url()
         {
-            var results = new List<MergerResult>();
-            results.Add(new MergerResult("asdf", "content", WebAssetType.None) { Host = "http://www.test.com" });
+            var results = new List<MergedBundle>();
+            results.Add(new MergedBundle("asdf", "content", WebAssetType.None) { Host = "http://www.test.com" });
 
             tagWriter.Write(textWriter.Object, results, context);
 
@@ -52,9 +52,9 @@ namespace WebAssetBundler.Web.Mvc
         [Test]
         public void Should_Write_To_Writer()
         {
-            var results = new List<MergerResult>();
-            results.Add(new MergerResult("", "", WebAssetType.None));
-            results.Add(new MergerResult("", "", WebAssetType.None));
+            var results = new List<MergedBundle>();
+            results.Add(new MergedBundle("", "", WebAssetType.None));
+            results.Add(new MergedBundle("", "", WebAssetType.None));
 
             urlGenerator.Setup(u => u.Generate(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<BuilderContext>())).Returns("http://dev.test.com/");
 
@@ -66,9 +66,9 @@ namespace WebAssetBundler.Web.Mvc
         [Test]
         public void Should_Format_Tag_Correctly()
         {
-            var results = new List<MergerResult>();
-            results.Add(new MergerResult("", "", WebAssetType.None));
-            results.Add(new MergerResult("", "", WebAssetType.None));
+            var results = new List<MergedBundle>();
+            results.Add(new MergedBundle("", "", WebAssetType.None));
+            results.Add(new MergedBundle("", "", WebAssetType.None));
 
             tagWriter.Write(textWriter.Object, results, context);
 

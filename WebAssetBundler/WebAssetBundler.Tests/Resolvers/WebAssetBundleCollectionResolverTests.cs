@@ -39,7 +39,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             context = new BuilderContext();
 
             internalResolver = new Mock<IWebAssetResolver>();
-            internalResolver.Setup(f => f.Resolve()).Returns(new List<ResolverResult>());
+            internalResolver.Setup(f => f.Resolve()).Returns(new List<ResolvedBundle>());
             factory.Setup(f => f.Create(It.IsAny<Bundle>())).Returns(internalResolver.Object);
             bundle = new BundleImpl();
         }

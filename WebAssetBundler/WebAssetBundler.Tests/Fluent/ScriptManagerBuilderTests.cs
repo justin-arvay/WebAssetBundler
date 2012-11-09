@@ -80,13 +80,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             context.AssetFactory = new AssetFactory(context);
 
-            var results = new List<MergerResult>();
-            results.Add(new MergerResult("", "", WebAssetType.None));
-            merger.Setup(m => m.Merge(It.IsAny<IList<ResolverResult>>(), It.IsAny<BuilderContext>())).Returns(results);
+            var results = new List<MergedBundle>();
+            results.Add(new MergedBundle("", "", WebAssetType.None));
+            merger.Setup(m => m.Merge(It.IsAny<IList<ResolvedBundle>>(), It.IsAny<BuilderContext>())).Returns(results);
 
             builder.Render();
 
-            tagWriter.Verify(t => t.Write(It.IsAny<HtmlTextWriter>(), It.IsAny<IList<MergerResult>>(), context), Times.Once());
+            tagWriter.Verify(t => t.Write(It.IsAny<HtmlTextWriter>(), It.IsAny<IList<MergedBundle>>(), context), Times.Once());
         }
 
         [Test]
@@ -94,12 +94,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             context.AssetFactory = new AssetFactory(context);
 
-            var results = new List<MergerResult>();
-            results.Add(new MergerResult("", "", WebAssetType.None));
+            var results = new List<MergedBundle>();
+            results.Add(new MergedBundle("", "", WebAssetType.None));
 
             builder.ToHtmlString();
 
-            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), It.IsAny<IList<MergerResult>>(), context), Times.Exactly(1));
+            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), It.IsAny<IList<MergedBundle>>(), context), Times.Exactly(1));
         }
     }
 }

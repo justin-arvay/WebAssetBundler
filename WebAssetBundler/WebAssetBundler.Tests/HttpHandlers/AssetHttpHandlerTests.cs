@@ -23,7 +23,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class AssetHttpHandlerTests
     {
         private Mock<IResponseWriter> writer;
-        private Mock<IMergedResultCache> cache;
+        private Mock<IMergedBundleCache> cache;
         private Mock<IEncoder> encoder;
         private AssetHttpHandler handler;
 
@@ -31,7 +31,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Setup()
         {
             writer = new Mock<IResponseWriter>();
-            cache = new Mock<IMergedResultCache>();
+            cache = new Mock<IMergedBundleCache>();
             encoder = new Mock<IEncoder>();
             handler = new AssetHttpHandler(cache.Object);
         }
@@ -39,7 +39,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Write_Not_Modified()
         {
-            var result = new MergerResult("name", "", WebAssetType.None);
+            var result = new MergedBundle("name", "", WebAssetType.None);
             cache.Setup(c => c.Get(It.IsAny<string>())).Returns(result);
             writer.Setup(w => w.IsNotModified(result)).Returns(true);
 
@@ -52,7 +52,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Write_Asset()
         {
-            var result = new MergerResult("name", "", WebAssetType.None);
+            var result = new MergedBundle("name", "", WebAssetType.None);
             cache.Setup(c => c.Get(It.IsAny<string>())).Returns(result);
             writer.Setup(w => w.IsNotModified(result)).Returns(false);
 

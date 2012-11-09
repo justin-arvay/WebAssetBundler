@@ -20,10 +20,10 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
 
 
-    public class ResolverResult
+    public class ResolvedBundle
     {
 
-        public ResolverResult(ICollection<WebAsset> webAssets, string name)
+        public ResolvedBundle(ICollection<WebAsset> webAssets, string name)
         {
             Name = name.Replace(".", "-");       
             Assets = webAssets;                        

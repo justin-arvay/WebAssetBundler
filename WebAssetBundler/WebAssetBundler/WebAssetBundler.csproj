@@ -54,8 +54,8 @@
     <Compile Include="BuilderContextFactory.cs" />
     <Compile Include="Caching\CacheProvider.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
-    <Compile Include="Caching\IMergedResultCache.cs" />
-    <Compile Include="Caching\MergedResultCache.cs" />
+    <Compile Include="Caching\IMergedBundleCache.cs" />
+    <Compile Include="Caching\MergedBundleCache.cs" />
     <Compile Include="ComponentBuilder.cs" />
     <Compile Include="Compressors\IScriptCompressor.cs" />
     <Compile Include="Compressors\IStyleSheetCompressor.cs" />
@@ -92,7 +92,7 @@
     <Compile Include="IO\StyleSheetTagWriter.cs" />
     <Compile Include="IO\StyleSheetUrlGenerator.cs" />
     <Compile Include="IO\StyleSheetWebAssetMerger.cs" />
-    <Compile Include="IO\MergerResult.cs" />
+    <Compile Include="IO\MergedBundle.cs" />
     <Compile Include="IO\WebAssetReader.cs" />
     <Compile Include="Fluent\ManagerBuilderFactory.cs" />
     <Compile Include="Fluent\ScriptManagerBuilder.cs" />
@@ -100,7 +100,7 @@
     <Compile Include="Resolvers\CombinedWebAssetBundleResolver.cs" />
     <Compile Include="IO\IWebAssetMerger.cs" />
     <Compile Include="Resolvers\DoNothingWebAssetResolver.cs" />
-    <Compile Include="Resolvers\ResolverResult.cs" />
+    <Compile Include="Resolvers\ResolvedBundle.cs" />
     <Compile Include="Resolvers\WebAssetBundleResolver.cs" />
     <Compile Include="Resolvers\WebAssetBundleCollectionResolver.cs" />
     <Compile Include="Resolvers\IWebAssetBundleCollectionResolver.cs" />

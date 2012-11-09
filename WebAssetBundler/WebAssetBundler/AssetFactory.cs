@@ -46,9 +46,15 @@ namespace WebAssetBundler.Web.Mvc
         }
 
 
-        public Bundle CreateBundle(string name)
+        public T CreateBundle<T>(string name) where T : Bundle
         {
-            throw new NotImplementedException();
+            var bundle = Activator.CreateInstance<T>();
+            bundle.Name = name;
+            bundle.Combine = true;
+            bundle.Compress = true;
+            bundle.Host = context.Host;
+
+            return bundle;
         }
     }
 }

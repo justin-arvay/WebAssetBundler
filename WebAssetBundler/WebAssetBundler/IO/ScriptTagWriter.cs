@@ -29,7 +29,7 @@ namespace WebAssetBundler.Web.Mvc
             this.urlGenerator = urlGenerator;
         }
 
-        public void Write(TextWriter writer, IList<MergerResult> results, BuilderContext context)
+        public void Write(TextWriter writer, IList<MergedBundle> results, BuilderContext context)
         {
             var script = "<script type=\"text/javascript\" src=\"{0}\"></script>";
             var url = "";

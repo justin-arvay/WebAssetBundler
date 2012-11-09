@@ -28,13 +28,13 @@ namespace WebAssetBundler.Web.Mvc
 
             if (urlExtension.StartsWith("/js"))
             {
-                var cache = new MergedResultCache(WebAssetType.Script, cacheProvider); 
+                var cache = new MergedBundleCache(WebAssetType.Script, cacheProvider); 
                 return new AssetHttpHandler(cache);
             }
 
             if (urlExtension.StartsWith("/css"))
             {
-                var cache = new MergedResultCache(WebAssetType.StyleSheet, cacheProvider);
+                var cache = new MergedBundleCache(WebAssetType.StyleSheet, cacheProvider);
                 return new AssetHttpHandler(cache);
             }
 
