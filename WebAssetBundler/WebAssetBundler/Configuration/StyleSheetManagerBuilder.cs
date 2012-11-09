@@ -25,14 +25,14 @@ namespace WebAssetBundler.Web.Mvc
     using WebAssetBundler.Web.Mvc;
     using System.Collections.Generic;
 
-    public class ScriptManagerBuilder : IHtmlString
+    public class StyleSheetManagerBuilder : IHtmlString
     {
         private readonly IWebAssetBundleCollectionResolver collectionResolver;
         private bool hasRendered;
-        private ViewContext viewContext;    
+        private ViewContext viewContext;
         private ITagWriter tagWriter;
         private IWebAssetMerger merger;
-        private WebAssetBundleCollection sharedGroups;
+        private BundleCollection sharedGroups;
         private BuilderContext context;
 
         /// <summary>
@@ -41,11 +41,11 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="manager"></param>
         /// <param name="viewContext"></param>
         /// <param name="resolver"></param>
-        public ScriptManagerBuilder(
-            ScriptManager manager, 
+        public StyleSheetManagerBuilder(
+            StyleSheetManager manager, 
             ViewContext viewContext, 
             IWebAssetBundleCollectionResolver resolver,
-            ITagWriter tagWriter,
+            ITagWriter tagWriter,                   
             IWebAssetMerger merger,
             BuilderContext context)
         {
@@ -53,7 +53,7 @@ namespace WebAssetBundler.Web.Mvc
             this.collectionResolver = resolver;
             this.tagWriter = tagWriter;
             this.viewContext = viewContext;
-            this.merger = merger;
+            this.merger = merger;         
             this.context = context;
         }
 
@@ -62,16 +62,16 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="action"></param>
         /// <returns></returns>
-        public ScriptManagerBuilder Scripts(Action<WebAssetBundleCollectionBuilder> action)
+        public StyleSheetManagerBuilder StyleSheets(Action<WebAssetBundleCollectionBuilder> action)
         {
-            action(new WebAssetBundleCollectionBuilder(Manager.ScriptBundles, context));
+            action(new WebAssetBundleCollectionBuilder(Manager.StyleSheetBundles, context));
             return this;
         }
 
         /// <summary>
         /// A manager of all the stylesheets. 
         /// </summary>
-        public ScriptManager Manager 
+        public StyleSheetManager Manager 
         { 
             get; 
             private set; 
@@ -87,7 +87,7 @@ namespace WebAssetBundler.Web.Mvc
                 throw new InvalidOperationException(TextResource.Exceptions.YouCannotCallRenderMoreThanOnce);
             }
 
-            var results = merger.Merge(collectionResolver.Resolve(Manager.ScriptBundles, context), context);
+            var results = merger.Merge(collectionResolver.Resolve(Manager.StyleSheetBundles, context), context);
             var baseWriter = viewContext.Writer;
 
             using (HtmlTextWriter textWriter = new HtmlTextWriter(baseWriter))
@@ -104,7 +104,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public string ToHtmlString()
         {
-            var results = merger.Merge(collectionResolver.Resolve(Manager.ScriptBundles, context), context);
+            var results = merger.Merge(collectionResolver.Resolve(Manager.StyleSheetBundles, context), context);
 
             using (var output = new StringWriter())
             {

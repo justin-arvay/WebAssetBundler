@@ -41,7 +41,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var server = new Mock<HttpServerUtilityBase>();
             context = new BuilderContext();
             context.AssetFactory = assetFactory.Object;
-            var collection = new WebAssetBundleCollection();
+            var collection = new BundleCollection();
             var collectionResolver = new Mock<IWebAssetBundleCollectionResolver>().Object;
             merger = new Mock<IWebAssetMerger>();
             tagWriter = new Mock<ITagWriter>();

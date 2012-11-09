@@ -24,14 +24,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class WebAssetBundleCollectionTests
     {
-        private WebAssetBundleCollection collection;
+        private BundleCollection collection;
         private Bundle bundle;
 
         [SetUp]
         public void Setup()
         {
             bundle = new BundleImpl();
-            collection = new WebAssetBundleCollection();
+            collection = new BundleCollection();
         }
 
         [Test]

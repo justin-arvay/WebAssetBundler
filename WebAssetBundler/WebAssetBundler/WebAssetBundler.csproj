@@ -109,7 +109,7 @@
     <Compile Include="IO\IUrlGenerator.cs" />
     <Compile Include="Resolvers\WebAssetResolverFactory.cs" />
     <Compile Include="DefaultSettings.cs" />
-    <Compile Include="Fluent\WebAssetBundleCollection.cs" />
+    <Compile Include="Fluent\BundleCollection.cs" />
     <Compile Include="Fluent\WebAssetBundleCollectionBuilder.cs" />
     <Compile Include="Fluent\WebAssetType.cs" />
     <Compile Include="Fluent\StyleSheetManager.cs" />

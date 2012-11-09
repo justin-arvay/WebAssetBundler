@@ -14,13 +14,33 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
     using WebAssetBundler.Web.Mvc;
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using NUnit.Framework;
+    using Moq;
 
-    public interface IWebAssetBundleCollectionResolver
+    [TestFixture]
+    public class StyleSheetManagerTests
     {
-        IList<ResolvedBundle> Resolve(BundleCollection groups, BuilderContext context);
+        private BundleCollection collection;
+        private StyleSheetManager manager;
+
+        [SetUp]
+        public void Setup()
+        {
+            collection = new BundleCollection();
+            manager = new StyleSheetManager(collection);
+        }
+
+        [Test]
+        public void Should_Set_Bundles()
+        {
+            Assert.NotNull(manager.StyleSheetBundles);
+        }
     }
 }

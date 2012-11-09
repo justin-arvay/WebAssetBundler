@@ -34,7 +34,7 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="groups"></param>
         /// <returns></returns>
-        public IList<ResolvedBundle> Resolve(WebAssetBundleCollection groups, BuilderContext context)
+        public IList<ResolvedBundle> Resolve(BundleCollection groups, BuilderContext context)
         {
             var results = new List<ResolvedBundle>();
 

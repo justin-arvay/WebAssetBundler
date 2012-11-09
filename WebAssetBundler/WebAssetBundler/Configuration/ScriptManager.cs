@@ -14,32 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc.Tests
+namespace WebAssetBundler.Web.Mvc
 {
     using WebAssetBundler.Web.Mvc;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using NUnit.Framework;
 
-    [TestFixture]
-    public class ScriptManagerTests
+    public class ScriptManager
     {
-        private WebAssetBundleCollection collection;
-        private ScriptManager manager;
-
-        [SetUp]
-        public void Setup()
+        public ScriptManager(BundleCollection bundles)
         {
-            collection = new WebAssetBundleCollection();
-            manager = new ScriptManager(collection);
+            ScriptBundles = bundles;
         }
 
-        [Test]
-        public void Should_Set_Bundles()
+        public BundleCollection ScriptBundles
         {
-            Assert.NotNull(manager.ScriptBundles);
+            get;
+            private set;
         }
     }
 }

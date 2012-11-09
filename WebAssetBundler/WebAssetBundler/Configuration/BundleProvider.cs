@@ -14,33 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc.Tests
+namespace WebAssetBundler.Web.Mvc
 {
-    using WebAssetBundler.Web.Mvc;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using NUnit.Framework;
-    using Moq;
 
-    [TestFixture]
-    public class StyleSheetManagerTests
+    public class BundleProvider : WebAssetBundler.Configuration.IBundleProvider
     {
-        private WebAssetBundleCollection collection;
-        private StyleSheetManager manager;
-
-        [SetUp]
-        public void Setup()
+        public BundleProvider()
         {
-            collection = new WebAssetBundleCollection();
-            manager = new StyleSheetManager(collection);
+            public BundleCollection<T> GetBundles<T>()
+            {
+            }
         }
 
-        [Test]
-        public void Should_Set_Bundles()
-        {
-            Assert.NotNull(manager.StyleSheetBundles);
-        }
     }
 }

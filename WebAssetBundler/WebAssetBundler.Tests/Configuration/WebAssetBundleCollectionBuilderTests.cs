@@ -24,7 +24,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class WebAssetBundleCollectionBuilderTests
     {
-        private WebAssetBundleCollection collection;
+        private BundleCollection collection;
         private WebAssetBundleCollectionBuilder builder;
         private BuilderContext context;
         private Mock<IAssetFactory> assetFactory;
@@ -36,7 +36,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             context = new BuilderContext();
             context.AssetFactory = assetFactory.Object;
 
-            collection = new WebAssetBundleCollection();
+            collection = new BundleCollection();
             builder = new WebAssetBundleCollectionBuilder(collection, context);
 
         }

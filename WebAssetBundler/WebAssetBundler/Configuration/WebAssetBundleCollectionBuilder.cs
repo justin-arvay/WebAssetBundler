@@ -17,29 +17,34 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.Collections.ObjectModel;
-    using System.Collections.Generic;
-    using System.Linq;
 
-    public class WebAssetBundleCollection : Collection<Bundle>
-    {
+    public class WebAssetBundleCollectionBuilder<T> where T : Bundle
+    {        
+        private BundleCollection bundles;
+        private BuilderContext context;
 
-        /// <summary>
-        /// The default Constructor.
-        /// </summary>
-        public WebAssetBundleCollection()
-        {
-
+        public WebAssetBundleCollectionBuilder(BundleCollection bundles, BuilderContext context)
+        {            
+            this.bundles = bundles;            
+            this.context = context;
         }
 
         /// <summary>
-        /// Finds a asset group by name. If none is found returns null.
+        /// Adds a file to the collection.
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="source"></param>
         /// <returns></returns>
-        public Bundle FindBundleByName(string name)
+        public WebAssetBundleCollectionBuilder<T> Add(string source)
         {
-            return Items.SingleOrDefault(g => g.Name.IsCaseInsensitiveEqual(name));
+            var asset = context.AssetFactory.CreateAsset(source, "");
+            var group = context.AssetFactory.CreateBundle<T>(asset.Name);
+
+            group.Assets.Add(asset);
+
+            //add to collection
+            bundles.Add(group);
+
+            return this;
         }
     }
 }

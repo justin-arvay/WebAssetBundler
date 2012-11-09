@@ -16,19 +16,13 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
-    using WebAssetBundler.Web.Mvc;
-
-    public class ScriptManager
+    public interface IBundleProvider
     {
-        public ScriptManager(WebAssetBundleCollection bundles)
-        {
-            ScriptBundles = bundles;
-        }
-
-        public WebAssetBundleCollection ScriptBundles
-        {
-            get;
-            private set;
-        }
+        /// <summary>
+        /// Provides the bundles for T
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        BundleCollection<T> GetBundles<T>() where T : Bundle;
     }
 }

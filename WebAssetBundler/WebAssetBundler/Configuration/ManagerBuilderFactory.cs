@@ -48,7 +48,7 @@ namespace WebAssetBundler.Web.Mvc
             var tagWriter = new StyleSheetTagWriter(urlGenerator);
 
             return new StyleSheetManagerBuilder(
-                new StyleSheetManager(new WebAssetBundleCollection()),
+                new StyleSheetManager(new BundleCollection()),
                 viewContext,
                 collectionResolver,
                 tagWriter,
@@ -70,7 +70,7 @@ namespace WebAssetBundler.Web.Mvc
             var tagWriter = new ScriptTagWriter(urlGenerator);
 
             return new ScriptManagerBuilder(
-                new ScriptManager(new WebAssetBundleCollection()),
+                new ScriptManager(new BundleCollection()),
                 viewContext,
                 collectionResolver,
                 tagWriter,
