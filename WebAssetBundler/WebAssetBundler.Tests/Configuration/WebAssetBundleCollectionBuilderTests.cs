@@ -24,8 +24,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class WebAssetBundleCollectionBuilderTests
     {
-        private BundleCollection collection;
-        private WebAssetBundleCollectionBuilder builder;
+        private BundleCollection<BundleImpl> collection;
+        private WebAssetBundleCollectionBuilder<BundleImpl> builder;
         private BuilderContext context;
         private Mock<IAssetFactory> assetFactory;
 
@@ -36,8 +36,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             context = new BuilderContext();
             context.AssetFactory = assetFactory.Object;
 
-            collection = new BundleCollection();
-            builder = new WebAssetBundleCollectionBuilder(collection, context);
+            collection = new BundleCollection<BundleImpl>();
+            builder = new WebAssetBundleCollectionBuilder<BundleImpl>(collection, context);
 
         }
              
@@ -51,15 +51,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Adding_File_Should_Add_New_Group_With_Asset()
         {
-            assetFactory.Setup(f => f.CreateBundle(It.IsAny<string>())).Returns(new BundleImpl());
+            assetFactory.Setup(f => f.CreateBundle<BundleImpl>(It.IsAny<string>())).Returns(new BundleImpl());
             assetFactory.Setup(f => f.CreateAsset(It.IsAny<string>(), It.IsAny<string>())).Returns(new WebAsset("~/Files/test.css"));
 
             builder.Add("~/Files/test.css");
 
-            assetFactory.Verify(f => f.CreateBundle("test"), Times.Exactly(1));
+            assetFactory.Verify(f => f.CreateBundle<BundleImpl>("test"), Times.Exactly(1));
             assetFactory.Verify(f => f.CreateAsset("~/Files/test.css", ""), Times.Exactly(1));
 
-            //should be 2 items in the collection, and 1 item in each collections group
+            //should be 2 items in the collection, and 1 item in each collections bundle
             Assert.AreEqual(1, collection.Count);
             foreach (var group in collection) 
             {
@@ -71,9 +71,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Add_Should_Return_Self_For_Chaining()
         {
             assetFactory.Setup(f =>f.CreateAsset(It.IsAny<string>(), It.IsAny<string>())).Returns(new WebAsset("test.css"));
-            assetFactory.Setup(f => f.CreateBundle(It.IsAny<string>())).Returns(new BundleImpl());
+            assetFactory.Setup(f => f.CreateBundle<BundleImpl>(It.IsAny<string>())).Returns(new BundleImpl());
 
-            Assert.IsInstanceOf<WebAssetBundleCollectionBuilder>(builder.Add("~/Files/test.css"));
+            Assert.IsInstanceOf<WebAssetBundleCollectionBuilder<BundleImpl>>(builder.Add("~/Files/test.css"));
         }            
     }
 }

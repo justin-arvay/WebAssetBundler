@@ -27,12 +27,12 @@ namespace WebAssetBundler.Web.Mvc
 
     public class StyleSheetManagerBuilder : IHtmlString
     {
-        private readonly IWebAssetBundleCollectionResolver collectionResolver;
+        private readonly IWebAssetBundleCollectionResolver<StyleSheetBundle> collectionResolver;
         private bool hasRendered;
         private ViewContext viewContext;
         private ITagWriter tagWriter;
         private IWebAssetMerger merger;
-        private BundleCollection sharedGroups;
+        private BundleCollection<StyleSheetBundle> sharedGroups;
         private BuilderContext context;
 
         /// <summary>
@@ -43,8 +43,8 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="resolver"></param>
         public StyleSheetManagerBuilder(
             StyleSheetManager manager, 
-            ViewContext viewContext, 
-            IWebAssetBundleCollectionResolver resolver,
+            ViewContext viewContext,
+            IWebAssetBundleCollectionResolver<StyleSheetBundle> resolver,
             ITagWriter tagWriter,                   
             IWebAssetMerger merger,
             BuilderContext context)
@@ -62,9 +62,9 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="action"></param>
         /// <returns></returns>
-        public StyleSheetManagerBuilder StyleSheets(Action<WebAssetBundleCollectionBuilder> action)
+        public StyleSheetManagerBuilder StyleSheets(Action<WebAssetBundleCollectionBuilder<StyleSheetBundle>> action)
         {
-            action(new WebAssetBundleCollectionBuilder(Manager.StyleSheetBundles, context));
+            action(new WebAssetBundleCollectionBuilder<StyleSheetBundle>(Manager.StyleSheetBundles, context));
             return this;
         }
 

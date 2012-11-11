@@ -20,14 +20,18 @@ namespace WebAssetBundler.Web.Mvc
 
     public class BundleProvider : IBundleProvider
     {
-        public BundleProvider()
+
+        public BundleCollection<TBundle> GetBundles<TBundle>()
         {
-            public BundleCollection<TBundle> GetBundles<TBundle>()
+
+            if ((new StyleSheetBundle()) is TBundle)
             {
+                return DefaultSettings.ConfigurationFactory.Create<StyleSheetBundleConfiguration, TBundle>();
+            }
 
-
-
-                return DefaultSettings.
+            if ((new ScriptBundle()) is TBundle)
+            {
+                return DefaultSettings.ConfigurationFactory.Create<ScriptBundleConfiguration, TBundle>();
             }
         }
 

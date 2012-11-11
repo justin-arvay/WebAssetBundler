@@ -19,8 +19,8 @@ namespace WebAssetBundler.Web.Mvc
     using WebAssetBundler.Web.Mvc;
     using System.Collections.Generic;
 
-    public interface IWebAssetBundleCollectionResolver
+    public interface IWebAssetBundleCollectionResolver<T> where T : Bundle
     {
-        IList<ResolvedBundle> Resolve(BundleCollection groups, BuilderContext context);
+        IList<ResolvedBundle> Resolve(BundleCollection<T> bundles, BuilderContext context);
     }
 }

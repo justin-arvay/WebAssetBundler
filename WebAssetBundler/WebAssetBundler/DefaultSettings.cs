@@ -104,7 +104,7 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
-        /// Gets or sets the default group name.
+        /// Gets or sets the default bundle name.
         /// </summary>
         public static string DefaultGroupName
         {
@@ -179,7 +179,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Sets the configuration factory to be used when loading the bundles.
         /// </summary>
-        public IConfigurationFactory ConfigurationFactory
+        public static IConfigurationFactory ConfigurationFactory
         {
             get
             {

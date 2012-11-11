@@ -20,7 +20,7 @@ namespace WebAssetBundler.Web.Mvc
     using WebAssetBundler.Web.Mvc;
     using System.Linq;
 
-    public class WebAssetBundleCollectionResolver : IWebAssetBundleCollectionResolver
+    public class WebAssetBundleCollectionResolver<T> : IWebAssetBundleCollectionResolver<T>
     {
         private IWebAssetResolverFactory resolverFactory;
 
@@ -30,17 +30,17 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
-        /// Resolves all the asset groups into a collection of urls.
+        /// Resolves all the asset bundles into a collection of urls.
         /// </summary>
-        /// <param name="groups"></param>
+        /// <param name="bundles"></param>
         /// <returns></returns>
-        public IList<ResolvedBundle> Resolve(BundleCollection groups, BuilderContext context)
+        public IList<ResolvedBundle> Resolve(BundleCollection<T> bundles, BuilderContext context)
         {
             var results = new List<ResolvedBundle>();
 
-            foreach (var group in groups)
+            foreach (var bundle in bundles)
             {
-                var resolver = resolverFactory.Create(group);
+                var resolver = resolverFactory.Create(bundle);
                 results.AddRange(resolver.Resolve());
             }
 

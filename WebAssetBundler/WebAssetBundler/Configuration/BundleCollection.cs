@@ -33,7 +33,7 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
-        /// Finds a asset group by name. If none is found returns null.
+        /// Finds a asset bundle by name. If none is found returns null.
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>

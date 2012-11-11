@@ -20,10 +20,10 @@ namespace WebAssetBundler.Web.Mvc
 
     public class WebAssetBundleCollectionBuilder<T> where T : Bundle
     {        
-        private BundleCollection bundles;
+        private BundleCollection<T> bundles;
         private BuilderContext context;
 
-        public WebAssetBundleCollectionBuilder(BundleCollection bundles, BuilderContext context)
+        public WebAssetBundleCollectionBuilder(BundleCollection<T> bundles, BuilderContext context)
         {            
             this.bundles = bundles;            
             this.context = context;
