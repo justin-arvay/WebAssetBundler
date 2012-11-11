@@ -27,7 +27,7 @@ namespace WebAssetBundler.Web.Mvc
 
 
 
-                return DefaultSettings.ConfigurationFactory.
+                return DefaultSettings.
             }
         }
 
