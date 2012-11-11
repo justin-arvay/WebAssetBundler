@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -18,18 +18,8 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class BundleProvider : IBundleProvider
+    public class StyleSheetBundleConfiguration : BundleConfiguration<StyleSheetBundleConfiguration, StyleSheetBundle>
     {
-        public BundleProvider()
-        {
-            public BundleCollection<TBundle> GetBundles<TBundle>()
-            {
-
-
-
-                return DefaultSettings.ConfigurationFactory.
-            }
-        }
 
     }
 }
