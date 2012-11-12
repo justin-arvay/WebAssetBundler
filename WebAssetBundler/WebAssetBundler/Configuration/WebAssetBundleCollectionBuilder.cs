@@ -37,12 +37,12 @@ namespace WebAssetBundler.Web.Mvc
         public WebAssetBundleCollectionBuilder Add<T>(string source) where T : Bundle
         {
             var asset = context.AssetFactory.CreateAsset(source, "");
-            var group = context.AssetFactory.CreateBundle<T>(asset.Name);
+            var bundle = context.AssetFactory.CreateBundle<T>(asset.Name);
 
-            group.Assets.Add(asset);
+            bundle.Assets.Add(asset);
 
             //add to collection
-            bundles.Add(group);
+            bundles.Add(bundle);
 
             return this;
         }

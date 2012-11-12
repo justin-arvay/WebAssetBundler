@@ -46,8 +46,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var bundles = provider.GetBundles<StyleSheetBundle>();
 
-            Assert.AreEqual(1, bundles.Count);
-    
+            Assert.AreEqual(1, bundles.Count);    
         }
 
         [Test]

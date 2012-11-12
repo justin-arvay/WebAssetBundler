@@ -50,8 +50,8 @@ namespace WebAssetBundler.Web.Mvc
         {
             var bundle = Activator.CreateInstance<T>();
             bundle.Name = name;
-            bundle.Combine = true;
-            bundle.Compress = true;
+            bundle.Combine = context.Combine;
+            bundle.Compress = context.Compress;
             bundle.Host = context.Host;
 
             return bundle;

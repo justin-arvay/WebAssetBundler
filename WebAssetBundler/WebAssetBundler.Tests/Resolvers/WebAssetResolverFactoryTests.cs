@@ -18,7 +18,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using WebAssetBundler.Web.Mvc;
-    using WebAssetBundler.Web.Mvc;
     using Moq;
 
     [TestFixture]
@@ -51,7 +50,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Return_Do_Nothing_Resolver()
         {
-            bundle.Enabled = true;
+            bundle.Enabled = false;
             Assert.IsInstanceOf<DoNothingWebAssetResolver>(factory.Create(bundle));
         }       
     }

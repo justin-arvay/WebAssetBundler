@@ -63,14 +63,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Create_Group()
+        public void Should_Create_Bundle()
         {
-            var group = factory.CreateBundle<BundleImpl>("test");
+            var bundle = factory.CreateBundle<BundleImpl>("test");
 
-            Assert.NotNull(group);
-            Assert.AreEqual(context.Combine, group.Combine);
-            Assert.AreEqual(context.Compress, group.Compress);
-            Assert.AreEqual(context.Host, group.Host);
+            Assert.NotNull(bundle);
+            Assert.AreEqual(context.Combine, bundle.Combine);
+            Assert.AreEqual(context.Compress, bundle.Compress);
+            Assert.AreEqual(context.Host, bundle.Host);
         }
     }
 }

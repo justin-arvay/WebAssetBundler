@@ -47,6 +47,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Resolve_Compress_For_Result()
         {
+            bundle.Compress = true;
             bundle.Assets.Add(new WebAsset(""));
 
             var results = resolver.Resolve();

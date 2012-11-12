@@ -36,6 +36,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Return_A_List_Of_Results()
         {
+            bundle.Name = "test.ext";
             bundle.Assets.Add(new WebAsset("~/Files/test.css"));
             bundle.Assets.Add(new WebAsset("~/Files/test2.css"));
 
@@ -47,6 +48,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
 
             bundle.Compress = true;
+            bundle.Name = "test.ext";
             bundle.Assets.Add(new WebAsset("~/Files/test.css"));
 
             var results = resolver.Resolve();
@@ -57,19 +59,19 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Resolve_Name_For_Result()
         {
-
+            bundle.Name = "test.ext";
             bundle.Assets.Add(new WebAsset("~/Files/test.css"));
 
             var results = resolver.Resolve();
 
-            Assert.AreEqual("Test", results[0].Name);
+            Assert.AreEqual("test-ext", results[0].Name);
         }
 
         [Test]
         public void Should_Resolve_Host()
         {
             bundle.Host = "1.1.1.1";
-
+            bundle.Name = "test.ext";
             bundle.Assets.Add(new WebAsset("~/Files/test-file.css"));
 
             var results = resolver.Resolve();

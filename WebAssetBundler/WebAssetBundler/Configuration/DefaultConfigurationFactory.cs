@@ -26,10 +26,10 @@ namespace WebAssetBundler.Web.Mvc
         public IList<T> Create<T, TBundle>(BuilderContext context)
         {
             var configs = new List<T>();
+            var baseType = typeof(T);
 
-            var configTypes = from t in Assembly.GetExecutingAssembly().GetTypes()
-                          where typeof(T).IsAssignableFrom(t)
-                          select t;
+            var configTypes = Assembly.GetExecutingAssembly().GetTypes()
+                          .Where(t => t != baseType && baseType.IsAssignableFrom(t));
 
             foreach (Type type in configTypes)
             {

@@ -37,7 +37,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Find_Group_By_Name()
         {
-            
+            bundle.Name = "test";
             collection.Add(bundle);
 
             Assert.NotNull(collection.FindBundleByName("test"));
@@ -46,6 +46,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Find_Group_By_Name_Regardless_Of_Case()
         {
+            bundle.Name = "Test";
             collection.Add(bundle);
 
             Assert.NotNull(collection.FindBundleByName("tEST"));
