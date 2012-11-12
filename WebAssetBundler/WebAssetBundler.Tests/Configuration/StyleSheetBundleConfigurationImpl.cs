@@ -16,18 +16,14 @@
 
 namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
+    using NUnit.Framework;
+    using Moq;
 
-    public class BundleConfigurationImpl : BundleConfiguration<BundleConfigurationImpl, BundleImpl>
+    public class StyleSheetBundleConfigurationImpl : StyleSheetBundleConfiguration
     {
-        public BundleConfigurationImpl()
-            : base(new BundleImpl())
-        {
-        }
-
         public override void Configure()
         {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -79,6 +79,8 @@
     <Compile Include="Configuration\BundleTests.cs" />
     <Compile Include="Configuration\DefaultConfigurationFactoryTests.cs" />
     <Compile Include="Configuration\IConfigurationFactory.cs" />
+    <Compile Include="Configuration\ScriptBundleConfigurationImpl.cs" />
+    <Compile Include="Configuration\StyleSheetBundleConfigurationImpl.cs" />
     <Compile Include="Extensions\ByteArrayExtensionTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
     <Compile Include="HtmlHelperExtensionTests.cs" />

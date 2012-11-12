@@ -18,10 +18,11 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class StyleSheetBundleConfiguration : BundleConfiguration<StyleSheetBundleConfiguration, StyleSheetBundle>
+    public abstract class StyleSheetBundleConfiguration : BundleConfiguration<StyleSheetBundleConfiguration, StyleSheetBundle>
     {
         public StyleSheetBundleConfiguration() : base (new StyleSheetBundle())
         {
+            
         }
     }
 }

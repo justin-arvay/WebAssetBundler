@@ -54,7 +54,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             assetFactory.Setup(f => f.CreateBundle<BundleImpl>(It.IsAny<string>())).Returns(new BundleImpl());
             assetFactory.Setup(f => f.CreateAsset(It.IsAny<string>(), It.IsAny<string>())).Returns(new WebAsset("~/Files/test.css"));
 
-            builder.Add<StyleSheetBundle>("~/Files/test.css");
+            builder.Add<BundleImpl>("~/Files/test.css");
 
             assetFactory.Verify(f => f.CreateBundle<BundleImpl>("test"), Times.Exactly(1));
             assetFactory.Verify(f => f.CreateAsset("~/Files/test.css", ""), Times.Exactly(1));

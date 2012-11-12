@@ -28,10 +28,10 @@ namespace WebAssetBundler.Web.Mvc
             var configs = new List<T>();
             var baseType = typeof(T);
 
-            var configTypes = Assembly.GetExecutingAssembly().GetTypes()
-                          .Where(t => t != baseType && baseType.IsAssignableFrom(t));
+            var types = Assembly.GetCallingAssembly().GetTypes();
+                //.Where(myType => myType.IsClass && myType.IsAbstract && myType.IsSubclassOf(typeof(T)));
 
-            foreach (Type type in configTypes)
+            foreach (Type type in types)
             {
                 configs.Add((T)Activator.CreateInstance(type));
             }

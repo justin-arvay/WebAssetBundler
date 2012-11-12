@@ -34,7 +34,10 @@ namespace WebAssetBundler.Web.Mvc
 
         public StyleSheetManagerBuilder CreateStyleSheetManagerBuilder()
         {
+
             var builderContext = contextFactory.CreateStyleSheetContext();
+            var bundleProvider = new BundleProvider(builderContext, DefaultSettings.ConfigurationFactory);
+            var bundleCollection = bundleProvider.GetBundles<StyleSheetBundle>();
 
             var urlGenerator = new StyleSheetUrlGenerator();
             var resolverFactory = new WebAssetResolverFactory();
@@ -48,7 +51,7 @@ namespace WebAssetBundler.Web.Mvc
             var tagWriter = new StyleSheetTagWriter(urlGenerator);
 
             return new StyleSheetManagerBuilder(
-                new StyleSheetManager(new BundleCollection()),
+                new StyleSheetManager(bundleCollection),
                 viewContext,
                 collectionResolver,
                 tagWriter,
@@ -58,7 +61,9 @@ namespace WebAssetBundler.Web.Mvc
 
         public ScriptManagerBuilder CreateScriptManagerBuilder()
         {
-            var builderContext = contextFactory.CreateScriptContext();                 
+            var builderContext = contextFactory.CreateScriptContext();
+            var bundleProvider = new BundleProvider(builderContext, DefaultSettings.ConfigurationFactory);
+            var bundleCollection = bundleProvider.GetBundles<ScriptBundle>();
 
             var urlGenerator = new ScriptUrlGenerator();
             var resolverFactory = new WebAssetResolverFactory();
@@ -70,7 +75,7 @@ namespace WebAssetBundler.Web.Mvc
             var tagWriter = new ScriptTagWriter(urlGenerator);
 
             return new ScriptManagerBuilder(
-                new ScriptManager(new BundleCollection()),
+                new ScriptManager(bundleCollection),
                 viewContext,
                 collectionResolver,
                 tagWriter,

@@ -14,20 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc.Tests
+namespace Examples
 {
     using System;
+    using WebAssetBundler.Web.Mvc;
 
-    public class BundleConfigurationImpl : BundleConfiguration<BundleConfigurationImpl, BundleImpl>
+    public class LayoutBundle : StyleSheetBundleConfiguration
     {
-        public BundleConfigurationImpl()
-            : base(new BundleImpl())
-        {
-        }
-
         public override void Configure()
         {
-            throw new NotImplementedException();
+            Add("~/Content/Site.css");
+            Add("~/Content/Test.css.css");
         }
     }
 }

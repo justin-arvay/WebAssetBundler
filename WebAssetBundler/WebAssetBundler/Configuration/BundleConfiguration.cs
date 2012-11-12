@@ -25,6 +25,8 @@ namespace WebAssetBundler.Web.Mvc
     {
         private TBundle bundle;
 
+        public abstract void Configure();
+
         public BundleConfiguration(TBundle bundle)
         {
             this.bundle = bundle;

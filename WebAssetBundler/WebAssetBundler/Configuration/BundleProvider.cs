@@ -40,6 +40,7 @@ namespace WebAssetBundler.Web.Mvc
             
                 foreach(StyleSheetBundleConfiguration config in configs)
                 {
+                    config.Configure();
                     bundles.Add(config.GetBundle());
                 }
 
@@ -52,6 +53,7 @@ namespace WebAssetBundler.Web.Mvc
             
                 foreach(ScriptBundleConfiguration config in configs)
                 {
+                    config.Configure();
                     bundles.Add(config.GetBundle());
                 }
 

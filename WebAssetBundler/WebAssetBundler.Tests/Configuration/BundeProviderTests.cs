@@ -39,7 +39,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Provide_Style_Sheet_Bundles()
         {
             var configs = new List<StyleSheetBundleConfiguration>();
-            configs.Add(new StyleSheetBundleConfiguration());
+            configs.Add(new StyleSheetBundleConfigurationImpl());
 
             factory.Setup(f => f.Create<StyleSheetBundleConfiguration, StyleSheetBundle>(context))
                 .Returns(configs);
@@ -53,7 +53,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Provide_Script_Bundles()
         {
             var configs = new List<ScriptBundleConfiguration>();
-            configs.Add(new ScriptBundleConfiguration());
+            configs.Add(new ScriptBundleConfigurationImpl());
 
             factory.Setup(f => f.Create<ScriptBundleConfiguration, ScriptBundle>(context))
                 .Returns(configs);
