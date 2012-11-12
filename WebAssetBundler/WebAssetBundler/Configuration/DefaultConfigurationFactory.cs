@@ -28,7 +28,11 @@ namespace WebAssetBundler.Web.Mvc
             var configs = new List<T>();
             var baseType = typeof(T);
 
-            var types = Assembly.GetCallingAssembly().GetTypes();
+            //TODO:: improve this to ignore obvious assemblies
+            //TODO::improve this by caching so we dont run it every request
+            var types = AppDomain.CurrentDomain.GetAssemblies().ToList()
+                .SelectMany(s => s.GetTypes())
+                .Where(p => typeof(T).IsAssignableFrom(p) && p.IsAbstract == false);
                 //.Where(myType => myType.IsClass && myType.IsAbstract && myType.IsSubclassOf(typeof(T)));
 
             foreach (Type type in types)
