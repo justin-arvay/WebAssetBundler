@@ -20,18 +20,24 @@ namespace WebAssetBundler.Web.Mvc
 
     public class BundleProvider : IBundleProvider
     {
+        private BuilderContext context;
+
+        public BundleProvider(BuilderContext context)
+        {
+            this.context = context;
+        }
 
         public BundleCollection<TBundle> GetBundles<TBundle>()
         {
 
             if ((new StyleSheetBundle()) is TBundle)
             {
-                return DefaultSettings.ConfigurationFactory.Create<StyleSheetBundleConfiguration, TBundle>();
+                return DefaultSettings.ConfigurationFactory.Create<StyleSheetBundleConfiguration, TBundle>(context);
             }
 
             if ((new ScriptBundle()) is TBundle)
             {
-                return DefaultSettings.ConfigurationFactory.Create<ScriptBundleConfiguration, TBundle>();
+                return DefaultSettings.ConfigurationFactory.Create<ScriptBundleConfiguration, TBundle>(context);
             }
         }
 
