@@ -21,25 +21,17 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.Linq;
 
-    public class BundleCollection<T> : Collection<T> where T : Bundle
+    public class BundleCollection : List<Bundle>
     {
-
-        /// <summary>
-        /// The default Constructor.
-        /// </summary>
-        public BundleCollection()
-        {
-
-        }
 
         /// <summary>
         /// Finds a asset bundle by name. If none is found returns null.
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public T FindBundleByName(string name) 
+        public Bundle FindBundleByName(string name) 
         {
-            return Items.SingleOrDefault(g => g.Name.IsCaseInsensitiveEqual(name));
+            return this.SingleOrDefault(g => g.Name.IsCaseInsensitiveEqual(name));
         }
     }
 }

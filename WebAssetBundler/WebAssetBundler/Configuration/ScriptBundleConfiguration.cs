@@ -20,6 +20,9 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ScriptBundleConfiguration : BundleConfiguration<ScriptBundleConfiguration, ScriptBundle>
     {
-
+        public ScriptBundleConfiguration()
+            : base(new ScriptBundle())
+        {
+        }
     }
 }

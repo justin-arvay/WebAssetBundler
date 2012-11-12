@@ -20,6 +20,8 @@ namespace WebAssetBundler.Web.Mvc
 
     public class StyleSheetBundleConfiguration : BundleConfiguration<StyleSheetBundleConfiguration, StyleSheetBundle>
     {
-
+        public StyleSheetBundleConfiguration() : base (new StyleSheetBundle())
+        {
+        }
     }
 }

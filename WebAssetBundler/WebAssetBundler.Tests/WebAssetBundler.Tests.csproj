@@ -72,6 +72,7 @@
     <Compile Include="AssetFactoryTests.cs" />
     <Compile Include="Caching\MergedBundleCacheTests.cs" />
     <Compile Include="ComponentBuilderTests.cs" />
+    <Compile Include="Configuration\BundeProviderTests.cs" />
     <Compile Include="Configuration\BundleConfigurationImpl.cs" />
     <Compile Include="Configuration\BundleConfigurationTests.cs" />
     <Compile Include="Configuration\BundleImpl.cs" />

@@ -20,7 +20,8 @@ namespace WebAssetBundler.Web.Mvc
     using WebAssetBundler.Web.Mvc;
     using System.Linq;
 
-    public class WebAssetBundleCollectionResolver<T> : IWebAssetBundleCollectionResolver<T>
+    public class WebAssetBundleCollectionResolver : IWebAssetBundleCollectionResolver
+        
     {
         private IWebAssetResolverFactory resolverFactory;
 
@@ -34,7 +35,7 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="bundles"></param>
         /// <returns></returns>
-        public IList<ResolvedBundle> Resolve(BundleCollection<T> bundles, BuilderContext context)
+        public IList<ResolvedBundle> Resolve(BundleCollection bundles, BuilderContext context)
         {
             var results = new List<ResolvedBundle>();
 

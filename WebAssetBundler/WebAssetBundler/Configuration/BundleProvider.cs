@@ -17,29 +17,49 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Collections.Generic;
 
     public class BundleProvider : IBundleProvider
     {
         private BuilderContext context;
+        private IConfigurationFactory factory;
 
-        public BundleProvider(BuilderContext context)
+        public BundleProvider(BuilderContext context, IConfigurationFactory factory)
         {
             this.context = context;
+            this.factory = factory;
         }
 
-        public BundleCollection<TBundle> GetBundles<TBundle>()
+        public BundleCollection GetBundles<TBundle>() where TBundle : Bundle
         {
+            var bundles = new BundleCollection();
 
             if ((new StyleSheetBundle()) is TBundle)
             {
-                return DefaultSettings.ConfigurationFactory.Create<StyleSheetBundleConfiguration, TBundle>(context);
+                IList<StyleSheetBundleConfiguration> configs = factory.Create<StyleSheetBundleConfiguration, TBundle>(context);                
+            
+                foreach(StyleSheetBundleConfiguration config in configs)
+                {
+                    bundles.Add(config.GetBundle());
+                }
+
+                return bundles;
             }
 
             if ((new ScriptBundle()) is TBundle)
             {
-                return DefaultSettings.ConfigurationFactory.Create<ScriptBundleConfiguration, TBundle>(context);
-            }
-        }
+                IList<ScriptBundleConfiguration> configs = factory.Create<ScriptBundleConfiguration, TBundle>(context);
+            
+                foreach(ScriptBundleConfiguration config in configs)
+                {
+                    bundles.Add(config.GetBundle());
+                }
 
+                return bundles;
+                
+            }
+
+            return new BundleCollection();
+        }
     }
 }

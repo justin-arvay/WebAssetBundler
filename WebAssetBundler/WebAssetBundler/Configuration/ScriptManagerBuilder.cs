@@ -27,12 +27,11 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ScriptManagerBuilder : IHtmlString
     {
-        private readonly IWebAssetBundleCollectionResolver<ScriptBundle> collectionResolver;
+        private readonly IWebAssetBundleCollectionResolver collectionResolver;
         private bool hasRendered;
         private ViewContext viewContext;    
         private ITagWriter tagWriter;
-        private IWebAssetMerger merger;
-        private BundleCollection<ScriptBundle> sharedGroups;
+        private IWebAssetMerger merger;        
         private BuilderContext context;
 
         /// <summary>
@@ -44,7 +43,7 @@ namespace WebAssetBundler.Web.Mvc
         public ScriptManagerBuilder(
             ScriptManager manager, 
             ViewContext viewContext, 
-            IWebAssetBundleCollectionResolver<ScriptBundle> resolver,
+            IWebAssetBundleCollectionResolver resolver,
             ITagWriter tagWriter,
             IWebAssetMerger merger,
             BuilderContext context)
@@ -62,9 +61,9 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="action"></param>
         /// <returns></returns>
-        public ScriptManagerBuilder Scripts(Action<WebAssetBundleCollectionBuilder<ScriptBundle>> action)
+        public ScriptManagerBuilder Scripts(Action<WebAssetBundleCollectionBuilder> action)
         {
-            action(new WebAssetBundleCollectionBuilder<ScriptBundle>(Manager.ScriptBundles, context));
+            action(new WebAssetBundleCollectionBuilder(Manager.ScriptBundles, context));
             return this;
         }
 
