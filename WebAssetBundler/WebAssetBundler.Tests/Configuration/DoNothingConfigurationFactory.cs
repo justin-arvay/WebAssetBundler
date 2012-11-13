@@ -14,16 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
 namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using NUnit.Framework;
-    using Moq;
 
-    public class ScriptBundleConfigurationImpl : ScriptBundleConfiguration
+    public class DoNothingConfigurationFactory : IConfigurationFactory
     {
-        public override void Configure()
-        {
 
+        public IList<T> Create<T, TBundle>(BuilderContext context)
+        {
+            return new List<T>();
         }
     }
 }

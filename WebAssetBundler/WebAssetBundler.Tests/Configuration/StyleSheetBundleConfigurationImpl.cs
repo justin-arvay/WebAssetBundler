@@ -23,7 +23,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         public override void Configure()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

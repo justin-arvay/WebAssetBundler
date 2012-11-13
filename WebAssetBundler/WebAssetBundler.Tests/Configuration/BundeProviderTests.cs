@@ -38,28 +38,32 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Provide_Style_Sheet_Bundles()
         {
+            var bundleConfig = new Mock<StyleSheetBundleConfigurationImpl>();            
             var configs = new List<StyleSheetBundleConfiguration>();
-            configs.Add(new StyleSheetBundleConfigurationImpl());
+            configs.Add(bundleConfig.Object);
 
             factory.Setup(f => f.Create<StyleSheetBundleConfiguration, StyleSheetBundle>(context))
                 .Returns(configs);
 
             var bundles = provider.GetBundles<StyleSheetBundle>();
 
+            bundleConfig.Verify(bc => bc.Configure(), Times.Once());
             Assert.AreEqual(1, bundles.Count);    
         }
 
         [Test]
         public void Should_Provide_Script_Bundles()
         {
+            var bundleConfig = new Mock<ScriptBundleConfiguration>();  
             var configs = new List<ScriptBundleConfiguration>();
-            configs.Add(new ScriptBundleConfigurationImpl());
+            configs.Add(bundleConfig.Object);
 
             factory.Setup(f => f.Create<ScriptBundleConfiguration, ScriptBundle>(context))
                 .Returns(configs);
 
             var bundles = provider.GetBundles<ScriptBundle>();
 
+            bundleConfig.Verify(bc => bc.Configure(), Times.Once());
             Assert.AreEqual(1, bundles.Count);
         }
     }

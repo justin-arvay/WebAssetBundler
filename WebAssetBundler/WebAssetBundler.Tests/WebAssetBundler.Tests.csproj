@@ -78,6 +78,7 @@
     <Compile Include="Configuration\BundleImpl.cs" />
     <Compile Include="Configuration\BundleTests.cs" />
     <Compile Include="Configuration\DefaultConfigurationFactoryTests.cs" />
+    <Compile Include="Configuration\DoNothingConfigurationFactory.cs" />
     <Compile Include="Configuration\IConfigurationFactory.cs" />
     <Compile Include="Configuration\ScriptBundleConfigurationImpl.cs" />
     <Compile Include="Configuration\StyleSheetBundleConfigurationImpl.cs" />

@@ -32,6 +32,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Return_Instance()
         {
+            DefaultSettings.ConfigurationFactory = new DoNothingConfigurationFactory();
             HttpRequest httpRequest = new HttpRequest("", "http://mySomething/", "");
             StringWriter stringWriter = new StringWriter();
             HttpResponse httpResponce = new HttpResponse(stringWriter);            
