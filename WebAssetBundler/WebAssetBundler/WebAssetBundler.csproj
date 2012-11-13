@@ -53,6 +53,7 @@
     <Compile Include="AssetFactory.cs" />
     <Compile Include="BuilderContextFactory.cs" />
     <Compile Include="Caching\CacheProvider.cs" />
+    <Compile Include="Caching\IBundleCache.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
     <Compile Include="Caching\IMergedBundleCache.cs" />
     <Compile Include="Caching\MergedBundleCache.cs" />
