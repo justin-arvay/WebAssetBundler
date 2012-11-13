@@ -20,6 +20,9 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ScriptBundle : Bundle
     {
-
+        public ScriptBundle()
+        {
+            Type = WebAssetType.Script;
+        }
     }
 }

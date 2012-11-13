@@ -17,12 +17,11 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Collections.Generic;
 
-    public class StyleSheetBundle : Bundle
+    public interface IBundlesCache
     {
-        public StyleSheetBundle()
-        {
-            Type = WebAssetType.StyleSheet;
-        }
+        void Set(IList<Bundle> bundles);
+        IList<Bundle> Get();
     }
 }

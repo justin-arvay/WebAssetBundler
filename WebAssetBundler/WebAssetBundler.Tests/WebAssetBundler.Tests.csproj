@@ -70,6 +70,7 @@
     <Compile Include="BuilderContextFactoryTests.cs" />
     <Compile Include="BuilderContextTests.cs" />
     <Compile Include="AssetFactoryTests.cs" />
+    <Compile Include="Caching\BundlesCacheTests.cs" />
     <Compile Include="Caching\MergedBundleCacheTests.cs" />
     <Compile Include="ComponentBuilderTests.cs" />
     <Compile Include="Configuration\BundeProviderTests.cs" />
@@ -81,7 +82,9 @@
     <Compile Include="Configuration\DoNothingConfigurationFactory.cs" />
     <Compile Include="Configuration\IConfigurationFactory.cs" />
     <Compile Include="Configuration\ScriptBundleConfigurationImpl.cs" />
+    <Compile Include="Configuration\ScriptBundleTests.cs" />
     <Compile Include="Configuration\StyleSheetBundleConfigurationImpl.cs" />
+    <Compile Include="Configuration\StyleSheetBundleTests.cs" />
     <Compile Include="Extensions\ByteArrayExtensionTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
     <Compile Include="HtmlHelperExtensionTests.cs" />

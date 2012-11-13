@@ -14,15 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
+    using NUnit.Framework;
+    using Moq;
 
-    public class StyleSheetBundle : Bundle
+    [TestFixture]
+    public class ScriptBundleTests
     {
-        public StyleSheetBundle()
+        private ScriptBundle bundle;
+
+        [SetUp]
+        public void Setup()
         {
-            Type = WebAssetType.StyleSheet;
+            bundle = new ScriptBundle();
+        }
+
+        [Test]
+        public void Should_Set_Type_When_Instantiated()
+        {
+            Assert.AreEqual(WebAssetType.Script, bundle.Type);
         }
     }
 }

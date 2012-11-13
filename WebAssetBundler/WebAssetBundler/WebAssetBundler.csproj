@@ -52,9 +52,9 @@
     <Compile Include="BuilderContext.cs" />
     <Compile Include="AssetFactory.cs" />
     <Compile Include="BuilderContextFactory.cs" />
-    <Compile Include="Caching\BundleCache.cs" />
+    <Compile Include="Caching\BundlesCache.cs" />
     <Compile Include="Caching\CacheProvider.cs" />
-    <Compile Include="Caching\IBundleCache.cs" />
+    <Compile Include="Caching\IBundlesCache.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
     <Compile Include="Caching\IMergedBundleCache.cs" />
     <Compile Include="Caching\MergedBundleCache.cs" />

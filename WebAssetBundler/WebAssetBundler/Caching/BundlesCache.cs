@@ -17,18 +17,33 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Collections.Generic;
 
-    public class BundleCache : IBundleCache
+    public class BundlesCache : IBundlesCache
     {
+        private ICacheProvider provider;
 
-        public void Add(Bundle bundle)
+        public BundlesCache(ICacheProvider provider)
         {
-            throw new NotImplementedException();
+            this.provider = provider;
         }
 
-        public Bundle Get(string name)
+        public void Set(IList<Bundle> bundleCollection)
         {
-            throw new NotImplementedException();
+            if (Get() == null)
+            {
+                provider.Insert(GetKey(), bundleCollection);
+            }
+        }
+
+        public IList<Bundle> Get()
+        {
+            return (IList<Bundle>)provider.Get(GetKey());
+        }
+
+        public string GetKey()
+        {
+            return "Bundles";
         }
     }
 }

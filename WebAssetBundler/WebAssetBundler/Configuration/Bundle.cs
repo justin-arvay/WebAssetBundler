@@ -18,7 +18,7 @@
         public bool Combine { get; set; }
         public bool Compress { get; set; }
         public bool Enabled { get; set; }
-        public WebAssetType Type { get; set; }
+        public WebAssetType Type { get; protected set; }
         public string Host { get; set; }
 
         public IList<WebAsset> Assets { get; set; }
