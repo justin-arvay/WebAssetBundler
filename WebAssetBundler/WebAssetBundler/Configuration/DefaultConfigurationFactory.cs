@@ -21,12 +21,12 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.Linq;
 
-    public class DefaultConfigurationFactory : IConfigurationFactory
+    public class DefaultConfigurationFactory<T, TBundle> : IConfigurationFactory
     {
-        public IList<T> Create<T, TBundle>(BuilderContext context)
+
+        public IList<T> Create(BuilderContext context)
         {
             var configs = new List<T>();
-            var baseType = typeof(T);
 
             //TODO:: improve this to ignore obvious assemblies
             //TODO::improve this by caching so we dont run it every request

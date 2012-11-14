@@ -19,7 +19,9 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public interface IConfigurationFactory
+    public interface IConfigurationFactory<T, TBundle>
+        where T : BundleConfiguration<T, TBundle>
+        where TBundle : Bundle
     {
         IList<T> Create<T, TBundle>(BuilderContext context);
     }

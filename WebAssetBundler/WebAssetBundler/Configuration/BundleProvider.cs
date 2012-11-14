@@ -19,49 +19,32 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public class BundleProvider : IBundleProvider
+    public class BundleProvider<TBundle> : IBundleProvider<TBundle> where TBundle : Bundle
     {
         private BuilderContext context;
         private IConfigurationFactory factory;
+        private IBundlesCache<TBundle> bundlesCache;
 
-        public BundleProvider(BuilderContext context, IConfigurationFactory factory)
+        public BundleProvider(BuilderContext context, IConfigurationFactory factory, IBundlesCache<TBundle> bundlesCache)
         {
             this.context = context;
+            this.bundlesCache = bundlesCache;
             this.factory = factory;
         }
 
-        public BundleCollection GetBundles<TBundle>() where TBundle : Bundle
+        public BundleCollection GetBundles() 
         {
-            var bundles = new BundleCollection();
+            var bundles = new List<TBundle>();
 
-            if ((new StyleSheetBundle()) is TBundle)
-            {
-                IList<StyleSheetBundleConfiguration> configs = factory.Create<StyleSheetBundleConfiguration, TBundle>(context);                
+            IList<StyleSheetBundleConfiguration> configs = factory.Create<StyleSheetBundleConfiguration, TBundle>(context);                
             
-                foreach(StyleSheetBundleConfiguration config in configs)
-                {
-                    config.Configure();
-                    bundles.Add(config.GetBundle());
-                }
-
-                return bundles;
+            foreach(var config in configs)
+            {
+                config.Configure();
+                bundles.Add(config.GetBundle());
             }
 
-            if ((new ScriptBundle()) is TBundle)
-            {
-                IList<ScriptBundleConfiguration> configs = factory.Create<ScriptBundleConfiguration, TBundle>(context);
-            
-                foreach(ScriptBundleConfiguration config in configs)
-                {
-                    config.Configure();
-                    bundles.Add(config.GetBundle());
-                }
-
-                return bundles;
-                
-            }
-
-            return new BundleCollection();
+            return new BundleCollection(bundles);
         }
     }
 }

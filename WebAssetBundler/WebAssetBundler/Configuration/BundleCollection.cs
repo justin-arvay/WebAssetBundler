@@ -23,6 +23,14 @@ namespace WebAssetBundler.Web.Mvc
 
     public class BundleCollection : List<Bundle>
     {
+        public BundleCollection()
+        {
+        }
+
+        public BundleCollection(IList<Bundle> bundles)
+        {
+            this.AddRange(bundles);
+        }
 
         /// <summary>
         /// Finds a asset bundle by name. If none is found returns null.

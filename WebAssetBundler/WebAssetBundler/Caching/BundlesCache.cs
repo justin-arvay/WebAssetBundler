@@ -19,7 +19,7 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public class BundlesCache : IBundlesCache
+    public class BundlesCache<TBundle> : IBundlesCache<TBundle> where TBundle : Bundle
     {
         private ICacheProvider provider;
 
@@ -28,7 +28,7 @@ namespace WebAssetBundler.Web.Mvc
             this.provider = provider;
         }
 
-        public void Set(IList<Bundle> bundleCollection)
+        public void Set(IList<TBundle> bundleCollection)
         {
             if (Get() == null)
             {
@@ -36,9 +36,9 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public IList<Bundle> Get()
+        public IList<TBundle> Get()
         {
-            return (IList<Bundle>)provider.Get(GetKey());
+            return (IList<TBundle>)provider.Get(GetKey());
         }
 
         public string GetKey()

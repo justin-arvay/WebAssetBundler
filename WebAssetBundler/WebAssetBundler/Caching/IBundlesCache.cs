@@ -19,9 +19,9 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public interface IBundlesCache
+    public interface IBundlesCache<TBundle> where TBundle : Bundle
     {
-        void Set(IList<Bundle> bundles);
-        IList<Bundle> Get();
+        void Set(IList<TBundle> bundles);
+        IList<TBundle> Get();
     }
 }

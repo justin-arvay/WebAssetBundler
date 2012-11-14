@@ -16,13 +16,13 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
-    public interface IBundleProvider
+    public interface IBundleProvider<TBundle> where TBundle : Bundle;
     {
         /// <summary>
-        /// Provides the bundles for T
+        /// Provides the bundles for TBundle
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        BundleCollection GetBundles<TBundle>() where TBundle : Bundle;
+        BundleCollection GetBundles();
     }
 }
