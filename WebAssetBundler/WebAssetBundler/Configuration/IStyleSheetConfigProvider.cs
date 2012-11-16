@@ -19,10 +19,14 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public interface IConfigurationFactory<T, TBundle>
-        where T : BundleConfiguration<T, TBundle>
-        where TBundle : Bundle
+    public interface IStyleSheetConfigProvider
     {
-        IList<T> Create<T, TBundle>(BuilderContext context);
+        /// <summary>
+        /// Gets all style sheet bundle configuration classes.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        IList<StyleSheetBundleConfiguration> GetConfigs(BuilderContext context);
+
     }
 }

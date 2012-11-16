@@ -17,34 +17,37 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Collections.ObjectModel;
     using System.Collections.Generic;
 
-    public class BundlesCache<TBundle> : IBundlesCache<TBundle> where TBundle : Bundle
+    public class BundleConfigurationCollection<TConfig, TBundle> : Collection<TConfig>, IConfigurable, IBundleProvider<TBundle>
+        where TConfig : BundleConfiguration<TConfig, TBundle>
+        where TBundle : Bundle
     {
-        private ICacheProvider provider;
-
-        public BundlesCache(ICacheProvider provider)
+        public BundleConfigurationCollection(IList<TConfig> collection) : base(collection)
         {
-            this.provider = provider;
+
         }
 
-        public void Set(IList<TBundle> bundleCollection)
+        public void Configure()
         {
-            if (Get() == null)
+            foreach (IConfigurable item in this)
             {
-                provider.Insert(GetKey<TBundle>(), bundleCollection);
+                item.Configure();
             }
         }
 
-        public IList<TBundle> Get()
-        {
-            return (IList<TBundle>)provider.Get(GetKey<TBundle>());
-        }
 
-        public string GetKey<TBundle>()
+        public BundleCollection GetBundles()
         {
-            Type typeOfBundle = typeof(TBundle);
-            return typeOfBundle.Name + "-Bundles";
+            var bundles = new BundleCollection();
+
+            foreach (TConfig item in this)
+            {
+                bundles.Add((TBundle)item.GetBundle());    
+            }
+
+            return bundles;
         }
     }
 }

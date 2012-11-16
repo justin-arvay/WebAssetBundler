@@ -14,16 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
 namespace WebAssetBundler.Web.Mvc.Tests
 {
+    using System.Collections.Generic;
 
-    public class DoNothingConfigurationFactory : IConfigurationFactory
+    public class DoNothingStyleSheetConfigurationProvider : IStyleSheetConfigProvider
     {
 
-        public IList<T> Create<T, TBundle>(BuilderContext context)
+        public IList<StyleSheetBundleConfiguration> GetConfigs(BuilderContext context)
         {
-            return new List<T>();
+            return new List<StyleSheetBundleConfiguration>();
         }
     }
 }

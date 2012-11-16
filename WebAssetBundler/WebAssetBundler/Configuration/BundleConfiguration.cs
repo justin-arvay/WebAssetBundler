@@ -19,13 +19,11 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public abstract class BundleConfiguration<T, TBundle>
+    public abstract class BundleConfiguration<T, TBundle> : IConfigurable
         where T : BundleConfiguration<T, TBundle>
         where TBundle : Bundle
     {
         private TBundle bundle;
-
-        public abstract void Configure();
 
         public BundleConfiguration(TBundle bundle)
         {
@@ -61,5 +59,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             return bundle;
         }
+
+        public abstract void Configure();
     }
 }

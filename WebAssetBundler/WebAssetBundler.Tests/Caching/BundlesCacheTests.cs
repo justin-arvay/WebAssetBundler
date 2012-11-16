@@ -24,13 +24,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class BundlesCacheTests
     {
         private Mock<ICacheProvider> provider;
-        private BundlesCache cache;
+        private BundlesCache<BundleImpl> cache;        
 
         [SetUp]
         public void Setup()
         {
             provider = new Mock<ICacheProvider>();
-            cache = new BundlesCache(provider.Object);
+            cache = new BundlesCache<BundleImpl>(provider.Object);
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void SHould_Set_Bundles()
         {
-            var bundles = new List<Bundle>();
+            var bundles = new List<BundleImpl>();
             bundles.Add(new BundleImpl());
 
             cache.Set(bundles);

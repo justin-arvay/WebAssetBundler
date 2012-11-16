@@ -65,7 +65,9 @@
     <Compile Include="Compressors\MsStyleSheetCompressor.cs" />
     <Compile Include="Compressors\YuiScriptCompressor.cs" />
     <Compile Include="Compressors\YuiStyleSheetCompressor.cs" />
+    <Compile Include="Configuration\BundleConfigurationCollection.cs" />
     <Compile Include="Configuration\IBundleProvider.cs" />
+    <Compile Include="Configuration\IConfigurable.cs" />
     <Compile Include="Configuration\ScriptBundle.cs" />
     <Compile Include="Configuration\ScriptBundleConfiguration.cs" />
     <Compile Include="Configuration\StyleSheetBundle.cs" />
@@ -73,10 +75,9 @@
     <Compile Include="Extensions\ByteArrayExensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Configuration\Bundle.cs" />
-    <Compile Include="Configuration\BundleProvider.cs" />
-    <Compile Include="Configuration\DefaultConfigurationFactory.cs" />
+    <Compile Include="Configuration\DefaultStyleSheetConfigProvider.cs" />
     <Compile Include="Configuration\BundleConfiguration.cs" />
-    <Compile Include="Configuration\IConfigurationFactory.cs" />
+    <Compile Include="Configuration\IStyleSheetConfigProvider.cs" />
     <Compile Include="HtmlHelperExtension.cs" />
     <Compile Include="HttpHandlers\DeflateEncoder.cs" />
     <Compile Include="HttpHandlers\DoNothingEncoder.cs" />
