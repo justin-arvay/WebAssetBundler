@@ -38,7 +38,6 @@ namespace WebAssetBundler.Web.Mvc
             var builderContext = contextFactory.CreateStyleSheetContext();
 
             var configs = new BundleConfigurationCollection<StyleSheetBundleConfiguration, StyleSheetBundle>(DefaultSettings.StyleSheetConfigProvider.GetConfigs(builderContext));
-            configs.Configure();
 
             var urlGenerator = new StyleSheetUrlGenerator();
             var resolverFactory = new WebAssetResolverFactory();
@@ -75,7 +74,7 @@ namespace WebAssetBundler.Web.Mvc
             var tagWriter = new ScriptTagWriter(urlGenerator);
 
             return new ScriptManagerBuilder(
-                new ScriptManager(new BundleCollection()),
+                new ScriptManager(configs.GetBundles()),
                 viewContext,
                 collectionResolver,
                 tagWriter,

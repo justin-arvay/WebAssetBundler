@@ -19,12 +19,12 @@ namespace Examples
     using System;
     using WebAssetBundler.Web.Mvc;
 
-    public class LayoutBundle : StyleSheetBundleConfiguration
+    public class LayoutScriptBundle : ScriptBundleConfiguration
     {
         public override void Configure()
         {
-            Add("~/Content/Site.css");
-            Add("~/Content/Test.css.css");
+            //Add("~/Content/Site.css");
+            //Add("~/Content/Test.css.css");
         }
     }
 }

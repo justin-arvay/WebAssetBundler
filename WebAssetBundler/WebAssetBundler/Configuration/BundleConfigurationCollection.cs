@@ -20,7 +20,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.ObjectModel;
     using System.Collections.Generic;
 
-    public class BundleConfigurationCollection<TConfig, TBundle> : Collection<TConfig>, IConfigurable, IBundleProvider<TBundle>
+    public class BundleConfigurationCollection<TConfig, TBundle> : Collection<TConfig>, IBundleProvider<TBundle>
         where TConfig : BundleConfiguration<TConfig, TBundle>
         where TBundle : Bundle
     {
@@ -28,22 +28,14 @@ namespace WebAssetBundler.Web.Mvc
         {
 
         }
-
-        public void Configure()
-        {
-            foreach (IConfigurable item in this)
-            {
-                item.Configure();
-            }
-        }
-
-
+    
         public BundleCollection GetBundles()
         {
             var bundles = new BundleCollection();
 
             foreach (TConfig item in this)
             {
+                item.Configure();
                 bundles.Add((TBundle)item.GetBundle());    
             }
 

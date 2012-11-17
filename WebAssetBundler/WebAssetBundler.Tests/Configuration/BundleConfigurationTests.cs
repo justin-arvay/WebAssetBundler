@@ -69,5 +69,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual("http://www.test.com", bundleConfig.GetBundle().Host);
         }
+
+        [Test]
+        public void Should_Set_Name_Of_Class()
+        {
+            Assert.AreEqual("BundleConfigurationImpl", bundleConfig.GetBundle().Name);
+        }
     }
 }

@@ -27,6 +27,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public BundleConfiguration(TBundle bundle)
         {
+            bundle.Name = this.GetType().Name;
             this.bundle = bundle;
         }
 

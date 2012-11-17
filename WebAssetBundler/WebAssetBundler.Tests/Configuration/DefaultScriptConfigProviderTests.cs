@@ -20,15 +20,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
 
     [TestFixture]
-    public class DefaultStyleSheetConfigProviderTests
+    public class DefaultScriptConfigProviderTests
     {
-        private DefaultStyleSheetConfigProvider provider;
+        private DefaultScriptConfigProvider provider;
         private BuilderContext context;
 
         [SetUp]
         public void Setup()
         {
-            provider = new DefaultStyleSheetConfigProvider();
+            provider = new DefaultScriptConfigProvider();
             context = new BuilderContext();
         }
 
