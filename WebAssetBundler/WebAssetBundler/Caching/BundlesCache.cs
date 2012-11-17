@@ -32,16 +32,30 @@ namespace WebAssetBundler.Web.Mvc
         {
             if (Get() == null)
             {
-                provider.Insert(GetKey<TBundle>(), bundleCollection);
+                provider.Insert(GetKey(), bundleCollection);
             }
         }
 
         public IList<TBundle> Get()
         {
-            return (IList<TBundle>)provider.Get(GetKey<TBundle>());
+            var dirtyBundles = provider.Get(GetKey());
+            var bundles = new List<TBundle>();
+
+            if (dirtyBundles != null)
+            {
+                //cast to correct type, not sure how to do this without looping
+                foreach (var dirtyBundle in (IList<Bundle>)dirtyBundles)
+                {
+                    bundles.Add((TBundle)dirtyBundle);
+                }
+
+                return bundles;
+            }
+
+            return null;
         }
 
-        public string GetKey<TBundle>()
+        public string GetKey()
         {
             Type typeOfBundle = typeof(TBundle);
             return typeOfBundle.Name + "-Bundles";

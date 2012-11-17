@@ -72,8 +72,10 @@
     <Compile Include="Configuration\IScriptConfigProvider.cs" />
     <Compile Include="Configuration\ScriptBundle.cs" />
     <Compile Include="Configuration\ScriptBundleConfiguration.cs" />
+    <Compile Include="Configuration\ScriptBundleProvider.cs" />
     <Compile Include="Configuration\StyleSheetBundle.cs" />
     <Compile Include="Configuration\StyleSheetBundleConfiguration.cs" />
+    <Compile Include="Configuration\StyleSheetBundleProvider.cs" />
     <Compile Include="Extensions\ByteArrayExensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Configuration\Bundle.cs" />
@@ -105,7 +107,7 @@
     <Compile Include="IO\StyleSheetWebAssetMerger.cs" />
     <Compile Include="IO\MergedBundle.cs" />
     <Compile Include="IO\WebAssetReader.cs" />
-    <Compile Include="Configuration\ManagerBuilderFactory.cs" />
+    <Compile Include="Properties\ManagerBuilderFactory.cs" />
     <Compile Include="Configuration\ScriptManagerBuilder.cs" />
     <Compile Include="Configuration\ScriptManager.cs" />
     <Compile Include="Resolvers\CombinedWebAssetBundleResolver.cs" />

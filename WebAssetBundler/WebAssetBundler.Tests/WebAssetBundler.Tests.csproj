@@ -82,8 +82,10 @@
     <Compile Include="Configuration\DoNothingConfigurationFactory.cs" />
     <Compile Include="Configuration\IConfigurationFactory.cs" />
     <Compile Include="Configuration\ScriptBundleConfigurationImpl.cs" />
+    <Compile Include="Configuration\ScriptBundleProviderTests.cs" />
     <Compile Include="Configuration\ScriptBundleTests.cs" />
     <Compile Include="Configuration\StyleSheetBundleConfigurationImpl.cs" />
+    <Compile Include="Configuration\StyleSheetBundleProviderTests.cs" />
     <Compile Include="Configuration\StyleSheetBundleTests.cs" />
     <Compile Include="Extensions\ByteArrayExtensionTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
@@ -102,7 +104,7 @@
     <Compile Include="IO\StyleSheetWebAssetMergerTests.cs" />
     <Compile Include="IO\MergedBundleTests.cs" />
     <Compile Include="IO\WebAssetReaderTests.cs" />
-    <Compile Include="Configuration\ManagerBuilderFactoryTests.cs" />
+    <Compile Include="ManagerBuilderFactoryTests.cs" />
     <Compile Include="Configuration\ScriptManagerBuilderTests.cs" />
     <Compile Include="Configuration\ScriptManagerTests.cs" />
     <Compile Include="Resolvers\CombinedWebAssetBundleResolverTest.cs" />

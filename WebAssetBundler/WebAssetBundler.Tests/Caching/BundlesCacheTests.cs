@@ -39,21 +39,42 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var bundles = new List<Bundle>();
             bundles.Add(new BundleImpl());
 
-            provider.Setup(p => p.Get("Bundles")).Returns(bundles);
+            provider.Setup(p => p.Get("BundleImpl-Bundles")).Returns((object)bundles);
 
             Assert.AreEqual(1, cache.Get().Count);
 
         }
 
         [Test]
-        public void SHould_Set_Bundles()
+        public void Should_Get_Null()
+        {
+            provider.Setup(p => p.Get("BundleImpl-Bundles")).Returns(null);
+
+            Assert.IsNull(cache.Get());
+        }
+
+        [Test]
+        public void Should_Set_Bundles()
         {
             var bundles = new List<BundleImpl>();
             bundles.Add(new BundleImpl());
 
             cache.Set(bundles);
 
-            provider.Verify(p => p.Insert("Bundles", bundles));
+            provider.Verify(p => p.Insert("BundleImpl-Bundles", bundles));
+        }
+
+        [Test]
+        public void Should_Not_Insert()
+        {
+            var bundles = new List<BundleImpl>();
+            bundles.Add(new BundleImpl());
+
+            provider.Setup(p => p.Get("BundleImpl-Bundles")).Returns(new List<Bundle>());
+
+            cache.Set(bundles);
+
+            provider.Verify(p => p.Insert("BundleImpl-Bundles", bundles), Times.Never());
         }
     }
 }
