@@ -38,6 +38,8 @@ namespace WebAssetBundler.Web.Mvc
         private static IStyleSheetCompressor styleSheetCompressor = new MsStyleSheetCompressor();
 
         private static IStyleSheetConfigProvider styleSheetConfigProvider = new DefaultStyleSheetConfigProvider();
+        private static IScriptConfigProvider scriptConfigProvider = new DefaultScriptConfigProvider();
+
         /// <summary>
         /// Gets or sets the style sheet files path. Path must be a virtual path.
         /// </summary>
@@ -176,7 +178,7 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
-        /// Sets the configuration factory to be used when loading the bundles.
+        /// Sets the configuration factory to be used when loading the style sheet bundles.
         /// </summary>
         public static IStyleSheetConfigProvider StyleSheetConfigProvider
         {
@@ -187,6 +189,21 @@ namespace WebAssetBundler.Web.Mvc
             set
             {
                 styleSheetConfigProvider = value;
+            }
+        }
+
+        /// <summary>
+        /// Sets the configuration factory to be used when loading the script bundles.
+        /// </summary>
+        public static IScriptConfigProvider ScriptConfigProvider
+        {
+            get
+            {
+                return scriptConfigProvider;
+            }
+            set
+            {
+                scriptConfigProvider = value;
             }
         }
     }

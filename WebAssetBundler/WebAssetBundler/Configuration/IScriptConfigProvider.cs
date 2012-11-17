@@ -14,30 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc.Tests
+namespace WebAssetBundler.Web.Mvc
 {
-    using NUnit.Framework;
-    using Moq;
+    using System;
+    using System.Collections.Generic;
 
-    [TestFixture]
-    public class DefaultStyleSheetConfigProviderTests
+    public interface IScriptConfigProvider
     {
-        private DefaultStyleSheetConfigProvider provider;
-        private BuilderContext context;
-
-        [SetUp]
-        public void Setup()
-        {
-            provider = new DefaultStyleSheetConfigProvider();
-            context = new BuilderContext();
-        }
-
-        [Test]
-        public void Should_Get_Configuration()
-        {
-            var configs = provider.Create<BundleConfigurationImpl, BundleImpl>(context);
-
-            Assert.AreEqual(1, configs.Count);
-        }
+        /// <summary>
+        /// Gets all style sheet bundle configuration classes.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        IList<ScriptBundleConfiguration> GetConfigs(BuilderContext context);
     }
 }

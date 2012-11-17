@@ -146,5 +146,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
             DefaultSettings.StyleSheetCompressor = previous;
         }
 
+        [Test]
+        public void Should_Be_Default_Style_Sheet_Config_Provider()
+        {
+            Assert.IsInstanceOf<DefaultStyleSheetConfigProvider>(DefaultSettings.StyleSheetConfigProvider);
+        }
+
+        [Test]
+        public void Should_Be_Default_Script_Config_Provider()
+        {
+            Assert.IsInstanceOf<DefaultScriptConfigProvider>(DefaultSettings.ScriptConfigProvider);
+        }
+
     }
 }

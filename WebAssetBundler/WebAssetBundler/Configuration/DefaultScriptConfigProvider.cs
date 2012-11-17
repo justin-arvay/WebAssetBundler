@@ -21,23 +21,23 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.Linq;
 
-    public class DefaultStyleSheetConfigProvider : IStyleSheetConfigProvider
+    public class DefaultScriptConfigProvider : IScriptConfigProvider
     {
 
 
-        public IList<StyleSheetBundleConfiguration> GetConfigs(BuilderContext context)
+        public IList<ScriptBundleConfiguration> GetConfigs(BuilderContext context)
         {
-            var configs = new List<StyleSheetBundleConfiguration>();
+            var configs = new List<ScriptBundleConfiguration>();
 
             //TODO:: improve this to ignore obvious assemblies
             var types = AppDomain.CurrentDomain.GetAssemblies().ToList()
                 .SelectMany(s => s.GetTypes())
-                .Where(p => typeof(StyleSheetBundleConfiguration).IsAssignableFrom(p) && p.IsAbstract == false);
+                .Where(p => typeof(ScriptBundleConfiguration).IsAssignableFrom(p) && p.IsAbstract == false);
             //.Where(myType => myType.IsClass && myType.IsAbstract && myType.IsSubclassOf(typeof(T)));
 
             foreach (Type type in types)
             {
-                configs.Add((StyleSheetBundleConfiguration)Activator.CreateInstance(type));
+                configs.Add((ScriptBundleConfiguration)Activator.CreateInstance(type));
             }
 
             return configs;

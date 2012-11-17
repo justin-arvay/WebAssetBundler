@@ -63,7 +63,7 @@ namespace WebAssetBundler.Web.Mvc
         public ScriptManagerBuilder CreateScriptManagerBuilder()
         {
             var builderContext = contextFactory.CreateScriptContext();
-
+            var configs = new BundleConfigurationCollection<ScriptBundleConfiguration, ScriptBundle>(DefaultSettings.ScriptConfigProvider.GetConfigs(builderContext));
 
             var urlGenerator = new ScriptUrlGenerator();
             var resolverFactory = new WebAssetResolverFactory();
