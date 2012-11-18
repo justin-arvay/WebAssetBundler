@@ -45,7 +45,25 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             configProvider.Setup(c => c.GetConfigs(context)).Returns(configs);
 
-            Assert.AreEqual(1, provider.GetBundles().Count);
+            var bundles = provider.GetBundles();
+            Assert.AreEqual(1, bundles.Count);
+            cache.Verify(c => c.Get(), Times.Once());
+            cache.Verify(c => c.Set(bundles), Times.Once());
+        }
+
+        [Test]
+        public void Should_Get_Bundles_From_Cache()
+        {
+            var collection = new BundleCollection<ScriptBundle>();
+            collection.Add(new ScriptBundle());
+
+            cache.Setup(c => c.Get()).Returns(collection);
+
+            var bundles = provider.GetBundles();
+
+            Assert.AreEqual(1, bundles.Count);
+            cache.Verify(c => c.Set(collection), Times.Never());
+
         }
     }
 }

@@ -35,7 +35,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             var bundles = cache.Get();
 
-            if (bundles != null)
+            if (bundles == null)
             {
                 var configCollection = new BundleConfigurationCollection<StyleSheetBundleConfiguration, StyleSheetBundle>(configProvider.GetConfigs(context));
                 bundles = configCollection.GetBundles();
