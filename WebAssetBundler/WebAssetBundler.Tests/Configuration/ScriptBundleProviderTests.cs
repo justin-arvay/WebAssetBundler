@@ -26,13 +26,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private ScriptBundleProvider provider;
         private Mock<IScriptConfigProvider> configProvider;
         private BuilderContext context;
+        private Mock<IBundlesCache<ScriptBundle>> cache;
 
         [SetUp]
         public void Setup()
         {
             context = new BuilderContext();
             configProvider = new Mock<IScriptConfigProvider>();
-            provider = new ScriptBundleProvider(configProvider.Object, context);
+            cache = new Mock<IBundlesCache<ScriptBundle>>();
+            provider = new ScriptBundleProvider(configProvider.Object, cache.Object, context);
         }
 
         [Test]

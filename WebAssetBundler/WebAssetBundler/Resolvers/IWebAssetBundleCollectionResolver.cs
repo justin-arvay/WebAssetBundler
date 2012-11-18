@@ -21,6 +21,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IWebAssetBundleCollectionResolver
     {
-        IList<ResolvedBundle> Resolve(BundleCollection bundles, BuilderContext context);
+        IList<ResolvedBundle> Resolve<TBundle>(BundleCollection<TBundle> bundles, BuilderContext context) where TBundle : Bundle;
     }
 }

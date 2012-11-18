@@ -26,13 +26,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private StyleSheetBundleProvider provider;
         private Mock<IStyleSheetConfigProvider> configProvider;
         private BuilderContext context;
+        private Mock<IBundlesCache<StyleSheetBundle>> cache;
 
         [SetUp]
         public void Setup()
         {
             context = new BuilderContext();
             configProvider = new Mock<IStyleSheetConfigProvider>();
-            provider = new StyleSheetBundleProvider(configProvider.Object, context);
+            cache = new Mock<IBundlesCache<StyleSheetBundle>>();
+            provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, context);
         }
 
         [Test]

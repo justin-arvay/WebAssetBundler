@@ -46,7 +46,7 @@ namespace WebAssetBundler.Web.Mvc
         }
 
 
-        public Bundle CreateBundle<T>(string name) where T : Bundle
+        public T CreateBundle<T>(string name) where T : Bundle
         {
             var bundle = Activator.CreateInstance<T>();
             bundle.Name = name;

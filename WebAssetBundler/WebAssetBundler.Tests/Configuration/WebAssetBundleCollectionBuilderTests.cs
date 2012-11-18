@@ -24,8 +24,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class WebAssetBundleCollectionBuilderTests
     {
-        private BundleCollection collection;
-        private WebAssetBundleCollectionBuilder builder;
+        private BundleCollection<BundleImpl> collection;
+        private WebAssetBundleCollectionBuilder<BundleImpl> builder;
         private BuilderContext context;
         private Mock<IAssetFactory> assetFactory;
 
@@ -36,8 +36,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             context = new BuilderContext();
             context.AssetFactory = assetFactory.Object;
 
-            collection = new BundleCollection();
-            builder = new WebAssetBundleCollectionBuilder(collection, context);
+            collection = new BundleCollection<BundleImpl>();
+            builder = new WebAssetBundleCollectionBuilder<BundleImpl>(collection, context);
 
         }
              
@@ -54,7 +54,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             assetFactory.Setup(f => f.CreateBundle<BundleImpl>(It.IsAny<string>())).Returns(new BundleImpl());
             assetFactory.Setup(f => f.CreateAsset(It.IsAny<string>(), It.IsAny<string>())).Returns(new WebAsset("~/Files/test.css"));
 
-            builder.Add<BundleImpl>("~/Files/test.css");
+            builder.Add("~/Files/test.css");
 
             assetFactory.Verify(f => f.CreateBundle<BundleImpl>("test"), Times.Exactly(1));
             assetFactory.Verify(f => f.CreateAsset("~/Files/test.css", ""), Times.Exactly(1));
@@ -73,7 +73,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             assetFactory.Setup(f =>f.CreateAsset(It.IsAny<string>(), It.IsAny<string>())).Returns(new WebAsset("test.css"));
             assetFactory.Setup(f => f.CreateBundle<BundleImpl>(It.IsAny<string>())).Returns(new BundleImpl());
 
-            Assert.IsInstanceOf<WebAssetBundleCollectionBuilder>(builder.Add<BundleImpl>("~/Files/test.css"));
+            Assert.IsInstanceOf<WebAssetBundleCollectionBuilder<BundleImpl>>(builder.Add("~/Files/test.css"));
         }            
     }
 }

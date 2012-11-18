@@ -22,18 +22,27 @@ namespace WebAssetBundler.Web.Mvc
     {
         private IScriptConfigProvider configProvider;
         private BuilderContext context;
+        private IBundlesCache<ScriptBundle> cache;
 
-        public ScriptBundleProvider(IScriptConfigProvider configProvider, BuilderContext context)
+        public ScriptBundleProvider(IScriptConfigProvider configProvider, IBundlesCache<ScriptBundle> cache, BuilderContext context)
         {
             this.configProvider = configProvider;
             this.context = context;
+            this.cache = cache;
         }
         
-        public BundleCollection GetBundles()
+        public BundleCollection<ScriptBundle> GetBundles()
         {
-            var configCollection = new BundleConfigurationCollection<ScriptBundleConfiguration, ScriptBundle>(configProvider.GetConfigs(context));
+            var bundles = cache.Get();
 
-            return configCollection.GetBundles();
+            if (bundles != null)
+            {
+                var configCollection = new BundleConfigurationCollection<ScriptBundleConfiguration, ScriptBundle>(configProvider.GetConfigs(context));
+                bundles = configCollection.GetBundles();
+                cache.Set(bundles);
+            }
+
+            return bundles;
         }
     }
 }

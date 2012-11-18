@@ -25,7 +25,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private Mock<IWebAssetResolverFactory> factory;
         private WebAssetBundleCollectionResolver resolver;
-        private BundleCollection collection;
+        private BundleCollection<Bundle> collection;
         private BuilderContext context;
         private Mock<IWebAssetResolver> internalResolver;
         private Bundle bundle;
@@ -35,7 +35,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             factory = new Mock<IWebAssetResolverFactory>();
             resolver = new WebAssetBundleCollectionResolver(factory.Object);
-            collection = new BundleCollection();
+            collection = new BundleCollection<Bundle>();
             context = new BuilderContext();
 
             internalResolver = new Mock<IWebAssetResolver>();

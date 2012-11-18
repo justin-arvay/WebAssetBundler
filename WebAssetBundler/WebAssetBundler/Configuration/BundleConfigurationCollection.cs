@@ -29,9 +29,9 @@ namespace WebAssetBundler.Web.Mvc
 
         }
     
-        public BundleCollection GetBundles()
+        public BundleCollection<TBundle> GetBundles()
         {
-            var bundles = new BundleCollection();
+            var bundles = new BundleCollection<TBundle>();
 
             foreach (TConfig item in this)
             {

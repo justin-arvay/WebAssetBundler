@@ -61,9 +61,9 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="action"></param>
         /// <returns></returns>
-        public StyleSheetManagerBuilder StyleSheets(Action<WebAssetBundleCollectionBuilder> action)
+        public StyleSheetManagerBuilder StyleSheets(Action<WebAssetBundleCollectionBuilder<StyleSheetBundle>> action)
         {
-            action(new WebAssetBundleCollectionBuilder(Manager.StyleSheetBundles, context));
+            action(new WebAssetBundleCollectionBuilder<StyleSheetBundle>(Manager.StyleSheetBundles, context));
             return this;
         }
 

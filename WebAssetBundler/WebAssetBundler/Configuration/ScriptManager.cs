@@ -20,12 +20,12 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ScriptManager
     {
-        public ScriptManager(BundleCollection bundles)
+        public ScriptManager(BundleCollection<ScriptBundle> bundles)
         {
             ScriptBundles = bundles;
         }
 
-        public BundleCollection ScriptBundles
+        public BundleCollection<ScriptBundle> ScriptBundles
         {
             get;
             private set;

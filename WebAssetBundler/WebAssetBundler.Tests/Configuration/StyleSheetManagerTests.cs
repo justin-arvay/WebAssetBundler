@@ -27,13 +27,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class StyleSheetManagerTests
     {
-        private BundleCollection collection;
+        private BundleCollection<StyleSheetBundle> collection;
         private StyleSheetManager manager;
 
         [SetUp]
         public void Setup()
         {
-            collection = new BundleCollection();
+            collection = new BundleCollection<StyleSheetBundle>();
             manager = new StyleSheetManager(collection);
         }
 

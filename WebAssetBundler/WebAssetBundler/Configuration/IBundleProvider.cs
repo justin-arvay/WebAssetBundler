@@ -23,6 +23,6 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        BundleCollection GetBundles();
+        BundleCollection<TBundle> GetBundles();
     }
 }

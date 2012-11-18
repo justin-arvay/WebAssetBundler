@@ -56,7 +56,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Set_Bundles()
         {
-            var bundles = new List<BundleImpl>();
+            var bundles = new BundleCollection<BundleImpl>();
             bundles.Add(new BundleImpl());
 
             cache.Set(bundles);
@@ -67,7 +67,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Insert()
         {
-            var bundles = new List<BundleImpl>();
+            var bundles = new BundleCollection<BundleImpl>();
             bundles.Add(new BundleImpl());
 
             provider.Setup(p => p.Get("BundleImpl-Bundles")).Returns(new List<Bundle>());

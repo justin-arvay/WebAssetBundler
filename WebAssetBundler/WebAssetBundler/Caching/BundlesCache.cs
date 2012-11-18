@@ -28,7 +28,7 @@ namespace WebAssetBundler.Web.Mvc
             this.provider = provider;
         }
 
-        public void Set(IList<TBundle> bundleCollection)
+        public void Set(BundleCollection<TBundle> bundleCollection)
         {
             if (Get() == null)
             {
@@ -36,10 +36,10 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public IList<TBundle> Get()
+        public BundleCollection<TBundle> Get()
         {
             var dirtyBundles = provider.Get(GetKey());
-            var bundles = new List<TBundle>();
+            var bundles = new BundleCollection<TBundle>();
 
             if (dirtyBundles != null)
             {

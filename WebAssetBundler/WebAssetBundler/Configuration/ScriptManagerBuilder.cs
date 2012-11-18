@@ -61,9 +61,9 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="action"></param>
         /// <returns></returns>
-        public ScriptManagerBuilder Scripts(Action<WebAssetBundleCollectionBuilder> action)
+        public ScriptManagerBuilder Scripts(Action<WebAssetBundleCollectionBuilder<ScriptBundle>> action)
         {
-            action(new WebAssetBundleCollectionBuilder(Manager.ScriptBundles, context));
+            action(new WebAssetBundleCollectionBuilder<ScriptBundle>(Manager.ScriptBundles, context));
             return this;
         }
 
@@ -86,7 +86,9 @@ namespace WebAssetBundler.Web.Mvc
                 throw new InvalidOperationException(TextResource.Exceptions.YouCannotCallRenderMoreThanOnce);
             }
 
-            var results = merger.Merge(collectionResolver.Resolve(Manager.ScriptBundles, context), context);
+            BundleCollection<ScriptBundle> bundles = Manager.ScriptBundles;
+
+            var results = merger.Merge(collectionResolver.Resolve(bundles, context), context);
             var baseWriter = viewContext.Writer;
 
             using (HtmlTextWriter textWriter = new HtmlTextWriter(baseWriter))

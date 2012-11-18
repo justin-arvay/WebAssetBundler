@@ -26,13 +26,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class ScriptManagerTests
     {
-        private BundleCollection collection;
+        private BundleCollection<ScriptBundle> collection;
         private ScriptManager manager;
 
         [SetUp]
         public void Setup()
         {
-            collection = new BundleCollection();
+            collection = new BundleCollection<ScriptBundle>();
             manager = new ScriptManager(collection);
         }
 

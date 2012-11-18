@@ -36,7 +36,7 @@ namespace WebAssetBundler.Web.Mvc
         {
 
             var builderContext = contextFactory.CreateStyleSheetContext();
-            var bundleProvider = new StyleSheetBundleProvider(DefaultSettings.StyleSheetConfigProvider, builderContext);            
+            var bundleProvider = new StyleSheetBundleProvider(DefaultSettings.StyleSheetConfigProvider, new BundlesCache<StyleSheetBundle>(cacheProvider), builderContext);            
 
             var urlGenerator = new StyleSheetUrlGenerator();
             var resolverFactory = new WebAssetResolverFactory();
@@ -61,7 +61,7 @@ namespace WebAssetBundler.Web.Mvc
         public ScriptManagerBuilder CreateScriptManagerBuilder()
         {
             var builderContext = contextFactory.CreateScriptContext();
-            var bundleProvider = new ScriptBundleProvider(DefaultSettings.ScriptConfigProvider, builderContext);
+            var bundleProvider = new ScriptBundleProvider(DefaultSettings.ScriptConfigProvider, new BundlesCache<ScriptBundle>(cacheProvider), builderContext);
 
             var urlGenerator = new ScriptUrlGenerator();
             var resolverFactory = new WebAssetResolverFactory();

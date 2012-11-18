@@ -21,13 +21,14 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.Linq;
 
-    public class BundleCollection : List<Bundle>
+    public class BundleCollection<TBundle> : List<TBundle> 
+        where TBundle : Bundle
     {
         public BundleCollection()
         {
         }
 
-        public BundleCollection(IList<Bundle> bundles)
+        public BundleCollection(IList<TBundle> bundles)
         {
             this.AddRange(bundles);
         }
@@ -37,7 +38,7 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public Bundle FindBundleByName(string name) 
+        public TBundle FindBundleByName(string name) 
         {
             return this.SingleOrDefault(g => g.Name.IsCaseInsensitiveEqual(name));
         }

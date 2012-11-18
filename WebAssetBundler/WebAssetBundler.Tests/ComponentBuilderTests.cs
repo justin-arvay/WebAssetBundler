@@ -36,7 +36,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var builderContext = new BuilderContext();
             var tagWriter = new Mock<ITagWriter>();
             var server = new Mock<HttpServerUtilityBase>();
-            var collection = new BundleCollection();            
+            var collection = new BundleCollection<StyleSheetBundle>();            
             var resolverFactory = new Mock<IWebAssetResolverFactory>();
             var collectionResolver = new WebAssetBundleCollectionResolver(resolverFactory.Object);
             var merger = new Mock<IWebAssetMerger>();
@@ -55,7 +55,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var builderContext = new BuilderContext();
             var tagWriter = new Mock<ITagWriter>();
             var server = new Mock<HttpServerUtilityBase>();
-            var collection = new BundleCollection();
+            var collection = new BundleCollection<ScriptBundle>();
             var merger = new Mock<IWebAssetMerger>();
             var resolverFactory = new Mock<IWebAssetResolverFactory>();
             var collectionResolver = new WebAssetBundleCollectionResolver(resolverFactory.Object);
