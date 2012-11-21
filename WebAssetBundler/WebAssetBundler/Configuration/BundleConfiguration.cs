@@ -26,31 +26,68 @@ namespace WebAssetBundler.Web.Mvc
         private TBundle bundle;
 
         public BundleConfiguration(TBundle bundle)
-        {
+        {            
             bundle.Name = this.GetType().Name;
             this.bundle = bundle;
         }
 
+        /// <summary>
+        /// Add an asset to the bundle
+        /// </summary>
+        /// <param name="source"></param>
         public void Add(string source)
         {
             bundle.Assets.Add(new WebAsset(source));
         }
 
+        /// <summary>
+        /// Adds all files in a directory of the correct file type.
+        /// </summary>
+        /// <param name="path"></param>
+        public void AddFromDirectory(string path)
+        {
+        }
+
+        /// <summary>
+        /// Adds files from a directory based on rulesets. Only looks at files of the correct type.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="builder"></param>
+        public void AddFromDirectory(string path, Action<FromDirectoryBuilder> builder)
+        {
+        }
+
+        /// <summary>
+        /// Configure the bundle name. The bundle name is used in the url.
+        /// </summary>
+        /// <param name="name"></param>
         public void Name(string name)
         {
             bundle.Name = name;
         }
 
+        /// <summary>
+        /// Informs the bundling process to combine all assets into one bundle.
+        /// </summary>
+        /// <param name="combine"></param>
         public void Combine(bool combine)
         {
             bundle.Combine = combine;
         }
 
+        /// <summary>
+        /// Informs the bundling process to compress all assets when bundling.
+        /// </summary>
+        /// <param name="compress"></param>
         public void Compress(bool compress)
         {
             bundle.Compress = compress;
         }
 
+        /// <summary>
+        /// Sets a specific host for the bundle.s
+        /// </summary>
+        /// <param name="host"></param>
         public void Host(string host)
         {
             bundle.Host = host;

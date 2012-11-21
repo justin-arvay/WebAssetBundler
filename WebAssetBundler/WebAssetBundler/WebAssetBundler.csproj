@@ -67,12 +67,17 @@
     <Compile Include="Compressors\YuiStyleSheetCompressor.cs" />
     <Compile Include="Configuration\BundleConfigurationCollection.cs" />
     <Compile Include="Configuration\DefaultScriptConfigProvider.cs" />
+    <Compile Include="Configuration\FromDirectoryAssetLocator.cs" />
+    <Compile Include="Configuration\FromDirectoryBuilder.cs" />
+    <Compile Include="Configuration\FromDirectoryComponent.cs" />
+    <Compile Include="Configuration\IAssetLocator.cs" />
     <Compile Include="Configuration\IBundleProvider.cs" />
     <Compile Include="Configuration\IConfigurable.cs" />
     <Compile Include="Configuration\IScriptConfigProvider.cs" />
     <Compile Include="Configuration\ScriptBundle.cs" />
     <Compile Include="Configuration\ScriptBundleConfiguration.cs" />
     <Compile Include="Configuration\ScriptBundleProvider.cs" />
+    <Compile Include="Configuration\StartsWithAssetLocator.cs" />
     <Compile Include="Configuration\StyleSheetBundle.cs" />
     <Compile Include="Configuration\StyleSheetBundleConfiguration.cs" />
     <Compile Include="Configuration\StyleSheetBundleProvider.cs" />
