@@ -14,23 +14,35 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
-    using System.Collections.Generic;
+    using NUnit.Framework;
+    using Moq;
 
-    public class StartsWithAssetLocator : IAssetLocator<FromDirectoryComponent>
+    [TestFixture]
+    public class FromDirectoryAssetLocatorTests
     {
-        private string path;
+        private FromDirectoryAssetLocator locator;
 
-        public StartsWithAssetLocator(string path)
+        [SetUp]
+        public void Setup()
         {
-            this.path = path;
+            locator = new FromDirectoryAssetLocator();
         }
 
-        public ICollection<WebAsset> Locate(FromDirectoryComponent component)
+        [Test]
+        public void Should_Get_Files_That_Start_With()
         {
-            throw new NotImplementedException();
+        }
+
+        [Test]
+        public void Should_Get_Files_That_End_With()
+        {
+        }
+
+        [Test]
+        public void Should_Get_Files_That_Contain()
+        {
         }
     }
 }

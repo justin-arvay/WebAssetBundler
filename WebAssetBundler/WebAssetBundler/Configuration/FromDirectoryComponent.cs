@@ -21,6 +21,12 @@ namespace WebAssetBundler.Web.Mvc
 
     public class FromDirectoryComponent
     {
+        public FromDirectoryComponent(string path)
+        {
+            Path = path;
+        }
+
+        public string Path { get; private set; }
         public ICollection<string> StartsWithCollection { get; set; }
         public ICollection<string> EndsWithCollection { get; set; }
         public ICollection<string> ContainsCollection { get; set; }

@@ -18,21 +18,44 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
 
     public class FromDirectoryAssetLocator : IAssetLocator<FromDirectoryComponent>
     {
 
+
         public ICollection<WebAsset> Locate(FromDirectoryComponent component)
         {
-            throw new NotImplementedException();
+            var collecton = new List<WebAsset>();
+            var directoryInfo = new DirectoryInfo(component.Path);
+
+            var fileInfos = directoryInfo.GetFiles()
+                .Where((fileInfo) => IsStartsWith(component.StartsWithCollection, fileInfo.Name))
+                .Where((fileInfo) => IsEndsWith(component.StartsWithCollection, fileInfo.Name))
+                .Where((fileInfo) => IsContaining(component.StartsWithCollection, fileInfo.Name));
+
+            foreach (var fileInfo in fileInfos)
+            {
+                collecton.Add(new WebAsset(fileInfo.FullName));
+            }
+
+            return collecton;
         }
 
-        public ICollection<IAssetLocator<FromDirectoryComponent>> GetLocators(string path)
+        public bool IsStartsWith(ICollection<string> startsWith, string fileName)
         {
-            return new List<IAssetLocator<FromDirectoryComponent>>()
-            {
-                new StartsWithAssetLocator(path)
-            };
+            return startsWith.Where(s => s.StartsWith(fileName)).Count() > 0;
+        }
+
+        public bool IsEndsWith(ICollection<string> endsWith, string fileName)
+        {
+            return endsWith.Where(s => s.EndsWith(fileName)).Count() > 0;
+        }
+
+        public bool IsContaining(ICollection<string> containing, string fileName)
+        {
+            return containing.Where(s => s.Contains(fileName)).Count() > 0;
         }
     }
 }
