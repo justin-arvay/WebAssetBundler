@@ -80,6 +80,7 @@
     <Compile Include="Configuration\DefaultScriptConfigProviderTests.cs" />
     <Compile Include="Configuration\DefaultStyleSheetConfigProviderTests.cs" />
     <Compile Include="Configuration\DoNothingConfigurationFactory.cs" />
+    <Compile Include="Configuration\FromDirectoryAssetLocatorTests.cs" />
     <Compile Include="Configuration\IConfigurationFactory.cs" />
     <Compile Include="Configuration\ScriptBundleConfigurationImpl.cs" />
     <Compile Include="Configuration\ScriptBundleProviderTests.cs" />
@@ -129,6 +130,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Files\File1.css" />
     <Content Include="Files\read.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

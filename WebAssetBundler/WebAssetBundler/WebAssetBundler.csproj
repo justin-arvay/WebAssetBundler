@@ -77,7 +77,6 @@
     <Compile Include="Configuration\ScriptBundle.cs" />
     <Compile Include="Configuration\ScriptBundleConfiguration.cs" />
     <Compile Include="Configuration\ScriptBundleProvider.cs" />
-    <Compile Include="Configuration\StartsWithAssetLocator.cs" />
     <Compile Include="Configuration\StyleSheetBundle.cs" />
     <Compile Include="Configuration\StyleSheetBundleConfiguration.cs" />
     <Compile Include="Configuration\StyleSheetBundleProvider.cs" />
