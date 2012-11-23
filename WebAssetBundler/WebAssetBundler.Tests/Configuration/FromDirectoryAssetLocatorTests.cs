@@ -56,17 +56,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var assets = locator.Locate(component);
 
-            Assert.AreEqual(3, assets.Count);
+            Assert.AreEqual(2, assets.Count);
         }
 
         [Test]
         public void Should_Get_Files_That_Contain()
         {
-            component.ContainsCollection.Add("d");
+            component.ContainsCollection.Add("File.min");
 
             var assets = locator.Locate(component);
 
-            Assert.AreEqual(2, assets.Count);
+            Assert.AreEqual(1, assets.Count);
         }
     }
 }

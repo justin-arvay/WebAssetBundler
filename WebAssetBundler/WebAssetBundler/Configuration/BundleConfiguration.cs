@@ -55,6 +55,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="builder"></param>
         public void AddFromDirectory(string path, Action<FromDirectoryBuilder> builder)
         {
+
         }
 
         /// <summary>

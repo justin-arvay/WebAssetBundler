@@ -133,7 +133,7 @@
     <Content Include="Files\Configuration\SecondFile.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\Configuration\ThirdFile.css">
+    <Content Include="Files\Configuration\ThirdFile.min.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Files\Configuration\FirstFile.css">

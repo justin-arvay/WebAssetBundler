@@ -34,21 +34,38 @@ namespace WebAssetBundler.Web.Mvc
         public ICollection<WebAsset> Locate(FromDirectoryComponent component)
         {
             var collecton = new List<WebAsset>();
-            var directoryInfo = new DirectoryInfo(server.MapPath(component.Path));
+            IEnumerable<string> fileNames = new List<string>(Directory.GetFiles(server.MapPath(component.Path)));
 
-            var fileInfos = directoryInfo.GetFiles()
-                .Where(
-                    (fileInfo) => CompareAgainstCollection(component.StartsWithCollection, (x) => fileInfo.Name.StartsWith(x)) ||
-                    CompareAgainstCollection(component.EndsWithCollection, (x) => fileInfo.Name.EndsWith(x)) ||
-                    CompareAgainstCollection(component.ContainsCollection, (x) => fileInfo.Name.Contains(x))
-            );
-
-            foreach (var fileInfo in fileInfos)
+            if (IsFilteringRequired(component))
             {
-                collecton.Add(new WebAsset(fileInfo.FullName));
+                fileNames = FilterFiles(fileNames, component);
+            }
+
+
+            foreach (var fileName in fileNames)
+            {
+                collecton.Add(new WebAsset(fileName));
             }
 
             return collecton;
+        }
+
+        public bool IsFilteringRequired(FromDirectoryComponent component)
+        {
+            return component.StartsWithCollection.Count > 0 ||
+                component.EndsWithCollection.Count > 0 ||
+                component.ContainsCollection.Count > 0;
+        }
+
+        public IEnumerable<string> FilterFiles(IEnumerable<string> fileNames, FromDirectoryComponent component)
+        {
+            var filteredFileNames = fileNames.Where(
+                    (name) => CompareAgainstCollection(component.StartsWithCollection, (x) => Path.GetFileNameWithoutExtension(name).StartsWith(x)) ||
+                    CompareAgainstCollection(component.EndsWithCollection, (x) => Path.GetFileNameWithoutExtension(name).EndsWith(x)) ||
+                    CompareAgainstCollection(component.ContainsCollection, (x) => Path.GetFileNameWithoutExtension(name).Contains(x))
+            );
+
+            return filteredFileNames;
         }
 
         public bool CompareAgainstCollection(ICollection<string> strings, Func<string, bool> callback)
