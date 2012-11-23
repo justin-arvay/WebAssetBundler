@@ -20,20 +20,28 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Web;
 
     public class FromDirectoryAssetLocator : IAssetLocator<FromDirectoryComponent>
     {
+        private HttpServerUtilityBase server;
 
+        public FromDirectoryAssetLocator(HttpServerUtilityBase server)
+        {
+            this.server = server;
+        }
 
         public ICollection<WebAsset> Locate(FromDirectoryComponent component)
         {
             var collecton = new List<WebAsset>();
-            var directoryInfo = new DirectoryInfo(component.Path);
+            var directoryInfo = new DirectoryInfo(server.MapPath(component.Path));
 
             var fileInfos = directoryInfo.GetFiles()
-                .Where((fileInfo) => IsStartsWith(component.StartsWithCollection, fileInfo.Name))
-                .Where((fileInfo) => IsEndsWith(component.StartsWithCollection, fileInfo.Name))
-                .Where((fileInfo) => IsContaining(component.StartsWithCollection, fileInfo.Name));
+                .Where(
+                    (fileInfo) => CompareAgainstCollection(component.StartsWithCollection, (x) => fileInfo.Name.StartsWith(x)) ||
+                    CompareAgainstCollection(component.EndsWithCollection, (x) => fileInfo.Name.EndsWith(x)) ||
+                    CompareAgainstCollection(component.ContainsCollection, (x) => fileInfo.Name.Contains(x))
+            );
 
             foreach (var fileInfo in fileInfos)
             {
@@ -43,19 +51,17 @@ namespace WebAssetBundler.Web.Mvc
             return collecton;
         }
 
-        public bool IsStartsWith(ICollection<string> startsWith, string fileName)
+        public bool CompareAgainstCollection(ICollection<string> strings, Func<string, bool> callback)
         {
-            return startsWith.Where(s => s.StartsWith(fileName)).Count() > 0;
-        }
+            foreach (var str in strings)
+            {
+                if (callback(str))
+                {
+                    return true;
+                }
+            }
 
-        public bool IsEndsWith(ICollection<string> endsWith, string fileName)
-        {
-            return endsWith.Where(s => s.EndsWith(fileName)).Count() > 0;
-        }
-
-        public bool IsContaining(ICollection<string> containing, string fileName)
-        {
-            return containing.Where(s => s.Contains(fileName)).Count() > 0;
+            return false;
         }
     }
 }

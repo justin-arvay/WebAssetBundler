@@ -18,31 +18,55 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System.Web;
 
     [TestFixture]
     public class FromDirectoryAssetLocatorTests
     {
         private FromDirectoryAssetLocator locator;
+        private FromDirectoryComponent component;
+        private Mock<HttpServerUtilityBase> server;
 
         [SetUp]
         public void Setup()
         {
-            locator = new FromDirectoryAssetLocator();
+            server = new Mock<HttpServerUtilityBase>();
+            locator = new FromDirectoryAssetLocator(server.Object);
+            component = new FromDirectoryComponent("Files/Configuration");
+
+            server.Setup(m => m.MapPath(It.IsAny<string>()))
+               .Returns((string mappedPath) => mappedPath);
         }
 
         [Test]
         public void Should_Get_Files_That_Start_With()
         {
+            component.StartsWithCollection.Add("First");
+            component.StartsWithCollection.Add("Second");
+
+            var assets = locator.Locate(component);
+
+            Assert.AreEqual(2, assets.Count);
         }
 
         [Test]
         public void Should_Get_Files_That_End_With()
         {
+            component.EndsWithCollection.Add("File");
+
+            var assets = locator.Locate(component);
+
+            Assert.AreEqual(3, assets.Count);
         }
 
         [Test]
         public void Should_Get_Files_That_Contain()
         {
+            component.ContainsCollection.Add("d");
+
+            var assets = locator.Locate(component);
+
+            Assert.AreEqual(2, assets.Count);
         }
     }
 }

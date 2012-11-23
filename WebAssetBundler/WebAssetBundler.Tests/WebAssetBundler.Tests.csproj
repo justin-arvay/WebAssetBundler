@@ -130,7 +130,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Files\File1.css" />
+    <Content Include="Files\Configuration\SecondFile.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\Configuration\ThirdFile.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\Configuration\FirstFile.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Files\read.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

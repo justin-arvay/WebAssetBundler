@@ -24,6 +24,9 @@ namespace WebAssetBundler.Web.Mvc
         public FromDirectoryComponent(string path)
         {
             Path = path;
+            StartsWithCollection = new List<string>();
+            EndsWithCollection = new List<string>();
+            ContainsCollection = new List<string>();
         }
 
         public string Path { get; private set; }
