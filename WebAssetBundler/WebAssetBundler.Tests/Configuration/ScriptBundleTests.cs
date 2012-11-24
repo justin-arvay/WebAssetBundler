@@ -35,5 +35,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             Assert.AreEqual(WebAssetType.Script, bundle.Type);
         }
+
+        [Test]
+        public void Should_Set_Extension_When_Instantiated()
+        {
+            Assert.AreEqual("js", bundle.Extension);
+        }
     }
 }

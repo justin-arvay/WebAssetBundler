@@ -23,6 +23,7 @@ namespace WebAssetBundler.Web.Mvc
         public StyleSheetBundle()
         {
             Type = WebAssetType.StyleSheet;
+            Extension = "css";
         }
     }
 }

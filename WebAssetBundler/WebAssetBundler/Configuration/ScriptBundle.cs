@@ -23,6 +23,7 @@ namespace WebAssetBundler.Web.Mvc
         public ScriptBundle()
         {
             Type = WebAssetType.Script;
+            Extension = "js";
         }
     }
 }

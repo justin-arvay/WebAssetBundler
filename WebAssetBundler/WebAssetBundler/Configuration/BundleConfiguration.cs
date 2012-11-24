@@ -55,7 +55,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="builder"></param>
         public void AddFromDirectory(string path, Action<FromDirectoryBuilder> builder)
         {
-            var component = new FromDirectoryComponent(path);
+            var component = new FromDirectoryComponent(path, bundle.Extension);
             builder(new FromDirectoryBuilder(component));
 
             var assets = AssetLocator.Locate(component);

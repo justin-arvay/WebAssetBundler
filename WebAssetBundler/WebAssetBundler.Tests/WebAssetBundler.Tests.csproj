@@ -130,6 +130,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Files\Configuration\NotCorrectExt.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Files\Configuration\SecondFile.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

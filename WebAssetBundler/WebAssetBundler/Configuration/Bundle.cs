@@ -20,6 +20,7 @@
         public bool Enabled { get; set; }
         public WebAssetType Type { get; protected set; }
         public string Host { get; set; }
+        public string Extension { get; protected set; }
 
         public IList<WebAsset> Assets { get; set; }
 

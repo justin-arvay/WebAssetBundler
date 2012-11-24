@@ -32,10 +32,18 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             server = new Mock<HttpServerUtilityBase>();
             locator = new FromDirectoryAssetLocator(server.Object);
-            component = new FromDirectoryComponent("Files/Configuration");
+            component = new FromDirectoryComponent("Files/Configuration", "css");
 
             server.Setup(m => m.MapPath(It.IsAny<string>()))
                .Returns((string mappedPath) => mappedPath);
+        }
+
+        [Test]
+        public void Should_Get_All_Files_With_Correct_Extension()
+        {
+            var assets = locator.Locate(component);
+            Assert.AreEqual(3, assets.Count);
+
         }
 
         [Test]

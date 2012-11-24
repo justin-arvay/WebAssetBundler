@@ -19,6 +19,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
     using System.Runtime.CompilerServices;
+    using System.Collections.Generic;
 
     [TestFixture]    
     public class BundleConfigurationTests
@@ -84,7 +85,20 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Locate_Filtered_Assets_In_Directory()
         {
+            var assets = new List<WebAsset>();
+            assets.Add(new WebAsset("~/something"));
 
+            assetLocator.Setup(l => l.Locate(It.IsAny<FromDirectoryComponent>()))
+                .Returns(assets);
+
+            bundleConfig.AddFromDirectory("~/Files/Configration", b => b.ToString());
+
+            Assert.AreEqual(1, bundleConfig.GetBundle().Assets.Count);
+        }
+
+        [Test]
+        public void Should_Add_All_Assets_In_Directory()
+        {
         }
     }
 }
