@@ -18,16 +18,21 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System.Runtime.CompilerServices;
 
-    [TestFixture]
+    [TestFixture]    
     public class BundleConfigurationTests
     {
         private BundleConfigurationImpl bundleConfig;
+        private Mock<IAssetLocator<FromDirectoryComponent>> assetLocator;
 
         [SetUp]
         public void Setup()
         {
+            assetLocator = new Mock<IAssetLocator<FromDirectoryComponent>>();
             bundleConfig = new BundleConfigurationImpl();
+
+            bundleConfig.AssetLocator = assetLocator.Object;
         }
 
         [Test]
@@ -74,6 +79,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Set_Name_Of_Class()
         {
             Assert.AreEqual("BundleConfigurationImpl", bundleConfig.GetBundle().Name);
+        }
+
+        [Test]
+        public void Should_Locate_Filtered_Assets_In_Directory()
+        {
+
         }
     }
 }
