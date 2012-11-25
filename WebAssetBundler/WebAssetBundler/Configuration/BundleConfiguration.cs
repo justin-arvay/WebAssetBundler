@@ -46,6 +46,12 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="path"></param>
         public void AddFromDirectory(string path)
         {
+            var assets = AssetLocator.Locate(new FromDirectoryComponent(path, bundle.Extension));
+
+            foreach (var asset in assets)
+            {
+                bundle.Assets.Add(asset);
+            }
         }
 
         /// <summary>

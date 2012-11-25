@@ -24,9 +24,13 @@ namespace WebAssetBundler.Web.Mvc
         where TConfig : BundleConfiguration<TConfig, TBundle>
         where TBundle : Bundle
     {
-        public BundleConfigurationCollection(IList<TConfig> collection) : base(collection)
-        {
 
+        private IAssetLocator<FromDirectoryComponent> assetLocator;
+
+        public BundleConfigurationCollection(IList<TConfig> collection, IAssetLocator<FromDirectoryComponent> assetLocator)
+            : base(collection)
+        {
+            this.assetLocator = assetLocator;
         }
     
         public BundleCollection<TBundle> GetBundles()
@@ -35,6 +39,7 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (TConfig item in this)
             {
+                item.AssetLocator = assetLocator;
                 item.Configure();
                 bundles.Add((TBundle)item.GetBundle());    
             }

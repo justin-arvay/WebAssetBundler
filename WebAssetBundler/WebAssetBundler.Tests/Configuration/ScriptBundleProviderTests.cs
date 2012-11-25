@@ -27,6 +27,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IScriptConfigProvider> configProvider;
         private BuilderContext context;
         private Mock<IBundlesCache<ScriptBundle>> cache;
+        private Mock<IAssetLocator<FromDirectoryComponent>> locator;
 
         [SetUp]
         public void Setup()
@@ -34,7 +35,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             context = new BuilderContext();
             configProvider = new Mock<IScriptConfigProvider>();
             cache = new Mock<IBundlesCache<ScriptBundle>>();
-            provider = new ScriptBundleProvider(configProvider.Object, cache.Object, context);
+            locator = new Mock<IAssetLocator<FromDirectoryComponent>>();
+            provider = new ScriptBundleProvider(configProvider.Object, cache.Object, locator.Object, context);
         }
 
         [Test]
@@ -64,6 +66,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual(1, bundles.Count);
             cache.Verify(c => c.Set(collection), Times.Never());
 
+        }
+
+        [Test]
+        public void Should_Inject_Asset_Locator()
+        {
+            Assert.Fail();
         }
     }
 }

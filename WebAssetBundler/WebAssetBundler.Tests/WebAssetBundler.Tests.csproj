@@ -73,6 +73,7 @@
     <Compile Include="Caching\BundlesCacheTests.cs" />
     <Compile Include="Caching\MergedBundleCacheTests.cs" />
     <Compile Include="ComponentBuilderTests.cs" />
+    <Compile Include="Configuration\BundleConfigurationCollectionTests.cs" />
     <Compile Include="Configuration\BundleConfigurationImpl.cs" />
     <Compile Include="Configuration\BundleConfigurationTests.cs" />
     <Compile Include="Configuration\BundleImpl.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Configuration\DefaultStyleSheetConfigProviderTests.cs" />
     <Compile Include="Configuration\DoNothingConfigurationFactory.cs" />
     <Compile Include="Configuration\FromDirectoryAssetLocatorTests.cs" />
+    <Compile Include="Configuration\FromDirectoryBuilderTests.cs" />
     <Compile Include="Configuration\IConfigurationFactory.cs" />
     <Compile Include="Configuration\ScriptBundleConfigurationImpl.cs" />
     <Compile Include="Configuration\ScriptBundleProviderTests.cs" />

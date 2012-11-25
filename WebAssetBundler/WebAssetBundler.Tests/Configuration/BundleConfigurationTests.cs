@@ -99,6 +99,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Add_All_Assets_In_Directory()
         {
+            var assets = new List<WebAsset>();
+            assets.Add(new WebAsset("~/something"));
+
+            assetLocator.Setup(l => l.Locate(It.IsAny<FromDirectoryComponent>()))
+                .Returns(assets);
+
+            bundleConfig.AddFromDirectory("~/Files/Configration");
+
+            Assert.AreEqual(1, bundleConfig.GetBundle().Assets.Count);
         }
     }
 }

@@ -23,12 +23,15 @@ namespace WebAssetBundler.Web.Mvc
         private IScriptConfigProvider configProvider;
         private BuilderContext context;
         private IBundlesCache<ScriptBundle> cache;
+        private IAssetLocator<FromDirectoryComponent> assetLocator;
 
-        public ScriptBundleProvider(IScriptConfigProvider configProvider, IBundlesCache<ScriptBundle> cache, BuilderContext context)
+        public ScriptBundleProvider(IScriptConfigProvider configProvider, IBundlesCache<ScriptBundle> cache, 
+            IAssetLocator<FromDirectoryComponent> assetLocator, BuilderContext context)
         {
             this.configProvider = configProvider;
             this.context = context;
             this.cache = cache;
+            this.assetLocator = assetLocator;
         }
         
         public BundleCollection<ScriptBundle> GetBundles()
@@ -37,7 +40,7 @@ namespace WebAssetBundler.Web.Mvc
 
             if (bundles == null)
             {
-                var configCollection = new BundleConfigurationCollection<ScriptBundleConfiguration, ScriptBundle>(configProvider.GetConfigs(context));
+                var configCollection = new BundleConfigurationCollection<ScriptBundleConfiguration, ScriptBundle>(configProvider.GetConfigs(context), assetLocator);
                 bundles = configCollection.GetBundles();
                 cache.Set(bundles);
             }
