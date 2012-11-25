@@ -25,10 +25,12 @@ namespace WebAssetBundler.Web.Mvc
     public class FromDirectoryAssetLocator : IAssetLocator<FromDirectoryComponent>
     {
         private HttpServerUtilityBase server;
+        private string applicationPath;
 
-        public FromDirectoryAssetLocator(HttpServerUtilityBase server)
+        public FromDirectoryAssetLocator(HttpServerUtilityBase server, string applicationPath)
         {
             this.server = server;
+            this.applicationPath = applicationPath;
         }
 
         public ICollection<WebAsset> Locate(FromDirectoryComponent component)
@@ -47,7 +49,9 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (var fileName in fileNames)
             {
-                collecton.Add(new WebAsset(fileName));
+                var source = "~/" + fileName.Substring(applicationPath.Length)
+                            .Replace("\\", "/");
+                collecton.Add(new WebAsset(source));
             }
 
             return collecton;

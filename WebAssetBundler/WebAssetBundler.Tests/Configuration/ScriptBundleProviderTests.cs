@@ -68,10 +68,5 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
         }
 
-        [Test]
-        public void Should_Inject_Asset_Locator()
-        {
-            Assert.Fail();
-        }
     }
 }

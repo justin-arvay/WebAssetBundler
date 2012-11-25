@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Web.Mvc;
+    using System.Web;
 
     public class ManagerBuilderFactory
     {
@@ -34,7 +35,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public StyleSheetManagerBuilder CreateStyleSheetManagerBuilder()
         {
-            var assetLocator = new FromDirectoryAssetLocator(viewContext.HttpContext.Server);
+            var assetLocator = new FromDirectoryAssetLocator(viewContext.HttpContext.Server, HttpContext.Current.Request.PhysicalApplicationPath);
             var builderContext = contextFactory.CreateStyleSheetContext();
             var bundleProvider = new StyleSheetBundleProvider(DefaultSettings.StyleSheetConfigProvider, new BundlesCache<StyleSheetBundle>(cacheProvider), assetLocator, builderContext);            
 
@@ -60,7 +61,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public ScriptManagerBuilder CreateScriptManagerBuilder()
         {
-            var assetLocator = new FromDirectoryAssetLocator(viewContext.HttpContext.Server);
+            var assetLocator = new FromDirectoryAssetLocator(viewContext.HttpContext.Server, HttpContext.Current.Request.PhysicalApplicationPath);
             var builderContext = contextFactory.CreateScriptContext();
             var bundleProvider = new ScriptBundleProvider(DefaultSettings.ScriptConfigProvider, new BundlesCache<ScriptBundle>(cacheProvider), assetLocator, builderContext);
 

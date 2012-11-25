@@ -25,8 +25,7 @@ namespace Examples
         {
             Combine(true);
             Compress(true);
-            Add("~/Content/Site.css");
-            Add("~/Content/Test.css.css");
+            AddFromDirectory("~/Content/");
         }
     }
 }

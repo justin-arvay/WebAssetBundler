@@ -67,11 +67,5 @@ namespace WebAssetBundler.Web.Mvc.Tests
             cache.Verify(c => c.Set(collection), Times.Never());
 
         }
-
-        [Test]
-        public void Should_Inject_Asset_Locator()
-        {
-            Assert.Fail();
-        }
     }
 }

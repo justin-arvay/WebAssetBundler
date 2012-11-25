@@ -31,7 +31,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Setup()
         {
             server = new Mock<HttpServerUtilityBase>();
-            locator = new FromDirectoryAssetLocator(server.Object);
+            locator = new FromDirectoryAssetLocator(server.Object, "");
             component = new FromDirectoryComponent("Files/Configuration", "css");
 
             server.Setup(m => m.MapPath(It.IsAny<string>()))

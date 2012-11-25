@@ -23,8 +23,8 @@ namespace Examples
     {
         public override void Configure()
         {
-            //Add("~/Content/Site.css");
-            //Add("~/Content/Test.css.css");
+            Name("Scripts");
+            AddFromDirectory("~/Scripts");
         }
     }
 }

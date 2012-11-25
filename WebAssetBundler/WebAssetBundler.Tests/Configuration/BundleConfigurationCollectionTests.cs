@@ -18,19 +18,36 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System.Collections.Generic;
 
     [TestFixture]
     public class BundleConfigurationCollectionTests
     {
+        private BundleConfigurationCollection<BundleConfigurationImpl, BundleImpl> collection;
+        private IList<BundleConfigurationImpl> list;
+        private Mock<IAssetLocator<FromDirectoryComponent>> locator;
+
+
         [SetUp]
         public void Setup()
         {
+            list = new List<BundleConfigurationImpl>();
+            locator = new Mock<IAssetLocator<FromDirectoryComponent>>();
+            collection = new BundleConfigurationCollection<BundleConfigurationImpl, BundleImpl>(list, locator.Object);
         }
 
         [Test]
-        public void test()
+        public void Should_Get_Bundles()
         {
-            Assert.Fail();
+            var config = new Mock<BundleConfigurationImpl>();
+
+            list.Add(config.Object);
+
+            var bundles = collection.GetBundles();
+
+            Assert.AreEqual(1, bundles.Count);
+            Assert.AreEqual(locator.Object, config.Object.AssetLocator);
+            config.Verify(c => c.Configure(), Times.Once());
         }
     }
 }
