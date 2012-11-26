@@ -49,7 +49,8 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (var fileName in fileNames)
             {
-                var source = "~/" + fileName.Substring(applicationPath.Length)
+                //string char = fileName.Substring(applicationPath.Length);               
+                var source = "~/" + fileName.TrimStart(applicationPath.ToArray<char>())
                             .Replace("\\", "/");
                 collecton.Add(new WebAsset(source));
             }

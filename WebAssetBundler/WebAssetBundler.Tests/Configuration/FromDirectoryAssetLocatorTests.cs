@@ -19,6 +19,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
     using System.Web;
+    using System.Collections.Generic;
 
     [TestFixture]
     public class FromDirectoryAssetLocatorTests
@@ -31,7 +32,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Setup()
         {
             server = new Mock<HttpServerUtilityBase>();
-            locator = new FromDirectoryAssetLocator(server.Object, "");
+            locator = new FromDirectoryAssetLocator(server.Object, "/");
             component = new FromDirectoryComponent("Files/Configuration", "css");
 
             server.Setup(m => m.MapPath(It.IsAny<string>()))
@@ -39,9 +40,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Get_All_Files_With_Correct_Extension()
+        public void Should_Get_All_Files_With_Correct_Extension_As_Virtual_Paths()
         {
-            var assets = locator.Locate(component);
+            var assets = (IList<WebAsset>)locator.Locate(component);
+
+            Assert.AreEqual("~/Files/Configuration/FirstFile.css", assets[0].Source, "0 index");
             Assert.AreEqual(3, assets.Count);
 
         }
