@@ -14,18 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace Examples
+namespace WebAssetBundler.Web.Mvc.Tests
 {
+    using NUnit.Framework;
+    using Moq;
     using System;
-    using WebAssetBundler.Web.Mvc;
 
-    public class LayoutScriptBundle : ScriptBundleConfiguration
+    [TestFixture]
+    public class FromDirectoryComponentTests
     {
-        public override void Configure()
+
+        [SetUp]
+        public void Setup()
         {
-            Name("Scripts");
-            AddFromDirectory("Scripts", d => d
-                .StartsWith("jquery"));
+            
+        }
+
+        [Test]
+        public void Should_Throw_Exception_If_Path_Is_Rooted()
+        {
+            Assert.Throws<FormatException>(() => new FromDirectoryComponent(@"\foo", "css"));
+            Assert.Throws<FormatException>(() => new FromDirectoryComponent(@"c:\foo", "css"));
         }
     }
 }

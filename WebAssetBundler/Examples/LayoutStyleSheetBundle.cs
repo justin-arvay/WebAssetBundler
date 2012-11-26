@@ -25,7 +25,7 @@ namespace Examples
         {
             Combine(true);
             Compress(true);
-            AddFromDirectory("~/Content/");
+            AddFromDirectory("~/Content");
         }
     }
 }

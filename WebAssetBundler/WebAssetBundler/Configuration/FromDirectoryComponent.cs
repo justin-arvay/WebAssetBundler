@@ -23,6 +23,11 @@ namespace WebAssetBundler.Web.Mvc
     {
         public FromDirectoryComponent(string path, string extension)
         {
+            if (System.IO.Path.IsPathRooted(path))
+            {
+                throw new FormatException("Path ({0}) must be virtual or relative.".FormatWith(path));
+            }
+
             Path = path;
             Extension = extension;
             StartsWithCollection = new List<string>();

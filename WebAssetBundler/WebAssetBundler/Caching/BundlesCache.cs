@@ -44,7 +44,7 @@ namespace WebAssetBundler.Web.Mvc
             if (dirtyBundles != null)
             {
                 //cast to correct type, not sure how to do this without looping
-                foreach (var dirtyBundle in (IList<Bundle>)dirtyBundles)
+                foreach (var dirtyBundle in (IList<TBundle>)dirtyBundles)
                 {
                     bundles.Add((TBundle)dirtyBundle);
                 }

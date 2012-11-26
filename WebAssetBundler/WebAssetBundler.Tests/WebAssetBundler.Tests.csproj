@@ -83,6 +83,7 @@
     <Compile Include="Configuration\DoNothingConfigurationFactory.cs" />
     <Compile Include="Configuration\FromDirectoryAssetLocatorTests.cs" />
     <Compile Include="Configuration\FromDirectoryBuilderTests.cs" />
+    <Compile Include="Configuration\FromDirectoryComponentTests.cs" />
     <Compile Include="Configuration\IConfigurationFactory.cs" />
     <Compile Include="Configuration\ScriptBundleConfigurationImpl.cs" />
     <Compile Include="Configuration\ScriptBundleProviderTests.cs" />

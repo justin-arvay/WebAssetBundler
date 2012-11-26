@@ -80,13 +80,13 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
-        /// 
+        /// Replaces the first occurance of the search param with the replace param.
         /// </summary>
         /// <param name="text"></param>
         /// <param name="search"></param>
         /// <param name="replace"></param>
         /// <returns></returns>
-        public string ReplaceFirst(string text, string search, string replace)
+        public static string ReplaceFirst(this string text, string search, string replace)
         {
             int pos = text.IndexOf(search);
             if (pos < 0)

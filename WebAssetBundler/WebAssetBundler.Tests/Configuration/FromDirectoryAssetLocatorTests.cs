@@ -32,7 +32,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Setup()
         {
             server = new Mock<HttpServerUtilityBase>();
-            locator = new FromDirectoryAssetLocator(server.Object, "/");
+            locator = new FromDirectoryAssetLocator(server.Object, "");
             component = new FromDirectoryComponent("Files/Configuration", "css");
 
             server.Setup(m => m.MapPath(It.IsAny<string>()))
@@ -45,6 +45,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var assets = (IList<WebAsset>)locator.Locate(component);
 
             Assert.AreEqual("~/Files/Configuration/FirstFile.css", assets[0].Source, "0 index");
+            Assert.AreEqual("~/Files/Configuration/SecondFile.css", assets[1].Source, "0 index");
+            Assert.AreEqual("~/Files/Configuration/ThirdFile.min.css", assets[2].Source, "0 index");
             Assert.AreEqual(3, assets.Count);
 
         }

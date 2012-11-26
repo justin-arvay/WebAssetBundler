@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
 
     public abstract class BundleConfiguration<T, TBundle> : IConfigurable
         where T : BundleConfiguration<T, TBundle>

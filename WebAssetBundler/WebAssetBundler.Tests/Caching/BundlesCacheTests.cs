@@ -36,7 +36,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Bundles()
         {
-            var bundles = new List<Bundle>();
+            var bundles = new List<BundleImpl>();
             bundles.Add(new BundleImpl());
 
             provider.Setup(p => p.Get("BundleImpl-Bundles")).Returns((object)bundles);
@@ -70,7 +70,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var bundles = new BundleCollection<BundleImpl>();
             bundles.Add(new BundleImpl());
 
-            provider.Setup(p => p.Get("BundleImpl-Bundles")).Returns(new List<Bundle>());
+            provider.Setup(p => p.Get("BundleImpl-Bundles")).Returns(new List<BundleImpl>());
 
             cache.Set(bundles);
 
