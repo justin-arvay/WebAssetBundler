@@ -87,6 +87,7 @@
     <Compile Include="Configuration\BundleConfiguration.cs" />
     <Compile Include="Configuration\IStyleSheetConfigProvider.cs" />
     <Compile Include="HtmlHelperExtension.cs" />
+    <Compile Include="HttpContextLifetimeProvider.cs" />
     <Compile Include="HttpHandlers\DeflateEncoder.cs" />
     <Compile Include="HttpHandlers\DoNothingEncoder.cs" />
     <Compile Include="HttpHandlers\EncoderFactory.cs" />
@@ -141,6 +142,9 @@
     </Compile>
     <Compile Include="Filters\ImagePathContentFilter.cs" />
     <Compile Include="Filters\IContentFilter.cs" />
+    <Compile Include="TinyIoC\TinyIoC.cs" />
+    <Compile Include="WebAssetBundleHttpModule.cs" />
+    <Compile Include="WebHost.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TextResource\Exceptions.resx">
