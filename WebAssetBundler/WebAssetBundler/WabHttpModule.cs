@@ -19,7 +19,7 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Web;
 
-    public class WebAssetBundleHttpModule : IHttpModule
+    public class WabHttpModule : IHttpModule
     {
         private static readonly object locker = new object();
         private static WebHost host;
@@ -31,6 +31,7 @@ namespace WebAssetBundler.Web.Mvc
                 if (host == null)
                 {
                     host = new WebHost();
+                    host.ConfigureContainer();
                 }
             }
         }

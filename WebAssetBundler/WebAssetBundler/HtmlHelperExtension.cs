@@ -25,18 +25,21 @@ namespace WebAssetBundler.Web.Mvc
 
     public static class HtmlHelperExtension
     {
-        private static IBuilderContextFactory builderContextFactory  = new BuilderContextFactory();
+        private static IBuilderContextFactory builderContextFactory;
         private static ManagerBuilderFactory builderFactory;
         private static ICacheProvider cacheProvider = new CacheProvider();
 
         public static ComponentBuilder Bundler(this HtmlHelper helper)
-        {                                    
-            var viewContext = helper.ViewContext;
+        {
+            if (builderContextFactory == null)
+            {
+                builderContextFactory = new BuilderContextFactory(helper.ViewContext);
+            }
 
             //per request variables
             var builderFactory = (HttpContext.Current.Items["builderFactory"] ??
                         (HttpContext.Current.Items["builderFactory"] =
-                        new ManagerBuilderFactory(viewContext, cacheProvider, builderContextFactory))) as ManagerBuilderFactory;
+                        new ManagerBuilderFactory(helper.ViewContext, cacheProvider, builderContextFactory))) as ManagerBuilderFactory;
 
             //per request variables
             var styleSheetManagerBuilder = (HttpContext.Current.Items["StyleSheetManagerBuilder"] ??

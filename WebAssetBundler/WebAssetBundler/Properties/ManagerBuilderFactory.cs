@@ -22,20 +22,20 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ManagerBuilderFactory
     {
-        private ViewContext viewContext;
+        private HttpContextBase httpContext;
         private ICacheProvider cacheProvider;
         private IBuilderContextFactory contextFactory;
 
-        public ManagerBuilderFactory(ViewContext viewContext, ICacheProvider cacheProvider, IBuilderContextFactory contextFactory)
+        public ManagerBuilderFactory(HttpContextBase httpContext, ICacheProvider cacheProvider, IBuilderContextFactory contextFactory)
         {
-            this.viewContext = viewContext;
+            this.httpContext = httpContext;
             this.cacheProvider = cacheProvider;
             this.contextFactory = contextFactory;
         }
 
         public StyleSheetManagerBuilder CreateStyleSheetManagerBuilder()
         {
-            var assetLocator = new FromDirectoryAssetLocator(viewContext.HttpContext.Server, viewContext.HttpContext.Request.PhysicalApplicationPath);
+            var assetLocator = new FromDirectoryAssetLocator(httpContext.Server, httpContext.Request.PhysicalApplicationPath);
             var builderContext = contextFactory.CreateStyleSheetContext();
             var bundleProvider = new StyleSheetBundleProvider(DefaultSettings.StyleSheetConfigProvider, new BundlesCache<StyleSheetBundle>(cacheProvider), assetLocator, builderContext);            
 
@@ -43,10 +43,10 @@ namespace WebAssetBundler.Web.Mvc
             var resolverFactory = new WebAssetResolverFactory();
             var collectionResolver = new WebAssetBundleCollectionResolver(resolverFactory);            
             var merger = new StyleSheetWebAssetMerger(
-                new WebAssetReader(viewContext.HttpContext.Server),
+                new WebAssetReader(httpContext.Server),
                 new ImagePathContentFilter(),
                 DefaultSettings.StyleSheetCompressor,
-                viewContext.HttpContext.Server,
+                httpContext.Server,
                 new MergedBundleCache(WebAssetType.StyleSheet, cacheProvider));            
             var tagWriter = new StyleSheetTagWriter(urlGenerator);
 

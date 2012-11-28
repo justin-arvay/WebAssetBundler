@@ -19,36 +19,15 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Web;
 
-    public class HttpContextLifetimeProvider : TinyIoCContainer.ITinyIoCObjectLifetimeProvider
+    public static class TinyIoCExtensions
     {
-        private readonly HttpContextBase httpContext;
-        private readonly string keyName = String.Format("WebAssetBundler.TinyIoC.HttpContext.{0}", Guid.NewGuid());
-
-
-        public HttpContextLifetimeProvider(HttpContextBase httpContext)
+        public static TinyIoCContainer.RegisterOptions AsPerRequestSingleton(this TinyIoCContainer.RegisterOptions registerOptions, HttpContextBase httpContext)
         {
-            this.httpContext = httpContext;
-
+            return TinyIoCContainer.RegisterOptions.ToCustomLifetimeManager(
+                registerOptions,
+                new HttpContextLifetimeProvider(httpContext),
+                "per request singleton"
+            );
         }
-
-        public object GetObject()
-        {
-            return httpContext.Items[keyName];
-        }
-
-        public void SetObject(object value)
-        {
-            httpContext.Items[keyName] = value;
-        }
-
-        public void ReleaseObject()
-        {
-            var item = GetObject() as IDisposable;
-            if (item != null)
-            {
-                item.Dispose();
-            }
-            SetObject(null);
-        }        
     }
 }

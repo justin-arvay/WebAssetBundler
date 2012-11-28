@@ -39,6 +39,8 @@ namespace WebAssetBundler.Web.Mvc
         public void ConfigureContainer()
         {
             container.Register((c, p) => HttpContext());
+            container.Register((c, p) => HttpContext().Request);
+            container.Register((c, p) => HttpContext().Response);
         }
 
 

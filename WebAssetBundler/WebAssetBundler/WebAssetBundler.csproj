@@ -143,7 +143,8 @@
     <Compile Include="Filters\ImagePathContentFilter.cs" />
     <Compile Include="Filters\IContentFilter.cs" />
     <Compile Include="TinyIoC\TinyIoC.cs" />
-    <Compile Include="WebAssetBundleHttpModule.cs" />
+    <Compile Include="TinyIoC\TinyIoCExtensions.cs" />
+    <Compile Include="WabHttpModule.cs" />
     <Compile Include="WebHost.cs" />
   </ItemGroup>
   <ItemGroup>

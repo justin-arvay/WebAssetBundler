@@ -17,6 +17,7 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Web.Mvc;
 
     public class BuilderContext
     {
@@ -24,6 +25,13 @@ namespace WebAssetBundler.Web.Mvc
         public BuilderContext()
         {
         }
+
+        public ViewContext ViewContext
+        {
+            get; 
+            set;
+        }
+
 
         public bool Compress
         {
