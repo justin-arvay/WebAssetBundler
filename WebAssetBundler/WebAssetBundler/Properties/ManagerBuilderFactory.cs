@@ -35,13 +35,16 @@ namespace WebAssetBundler.Web.Mvc
 
         public StyleSheetManagerBuilder CreateStyleSheetManagerBuilder()
         {
+            var container = WabHttpModule.Host.Container;
             var assetLocator = new FromDirectoryAssetLocator(httpContext.Server, httpContext.Request.PhysicalApplicationPath);
             var builderContext = contextFactory.CreateStyleSheetContext();
-            var bundleProvider = new StyleSheetBundleProvider(DefaultSettings.StyleSheetConfigProvider, new BundlesCache<StyleSheetBundle>(cacheProvider), assetLocator, builderContext);            
+            var bundleProvider = new StyleSheetBundleProvider(
+                DefaultSettings.StyleSheetConfigProvider, 
+                container.Resolve<IBundlesCache<StyleSheetBundle>>(),
+                container.Resolve<IAssetLocator<FromDirectoryComponent>>(), 
+                builderContext);            
 
-            var urlGenerator = new StyleSheetUrlGenerator();
-            var resolverFactory = new WebAssetResolverFactory();
-            var collectionResolver = new WebAssetBundleCollectionResolver(resolverFactory);            
+            var urlGenerator = new StyleSheetUrlGenerator();           
             var merger = new StyleSheetWebAssetMerger(
                 new WebAssetReader(httpContext.Server),
                 new ImagePathContentFilter(),
@@ -52,7 +55,7 @@ namespace WebAssetBundler.Web.Mvc
 
             return new StyleSheetManagerBuilder(
                 new StyleSheetManager(bundleProvider.GetBundles()),
-                collectionResolver,
+                container.Resolve<IWebAssetBundleCollectionResolver>(),
                 tagWriter,
                 merger,                
                 builderContext);
@@ -60,13 +63,15 @@ namespace WebAssetBundler.Web.Mvc
 
         public ScriptManagerBuilder CreateScriptManagerBuilder()
         {
-            var assetLocator = new FromDirectoryAssetLocator(httpContext.Server, httpContext.Request.PhysicalApplicationPath);
+            var container = WabHttpModule.Host.Container;
             var builderContext = contextFactory.CreateScriptContext();
-            var bundleProvider = new ScriptBundleProvider(DefaultSettings.ScriptConfigProvider, new BundlesCache<ScriptBundle>(cacheProvider), assetLocator, builderContext);
+            var bundleProvider = new ScriptBundleProvider(
+                DefaultSettings.ScriptConfigProvider, 
+                container.Resolve<IBundlesCache<ScriptBundle>>(), 
+                container.Resolve<IAssetLocator<FromDirectoryComponent>>(), 
+                builderContext);
 
             var urlGenerator = new ScriptUrlGenerator();
-            var resolverFactory = new WebAssetResolverFactory();
-            var collectionResolver = new WebAssetBundleCollectionResolver(resolverFactory);
             var merger = new ScriptWebAssetMerger(
                 new WebAssetReader(httpContext.Server),
                 DefaultSettings.ScriptCompressor, 
@@ -75,7 +80,7 @@ namespace WebAssetBundler.Web.Mvc
 
             return new ScriptManagerBuilder(
                 new ScriptManager(bundleProvider.GetBundles()),
-                collectionResolver,
+                container.Resolve<IWebAssetBundleCollectionResolver>(),
                 tagWriter,
                 merger,                
                 builderContext);

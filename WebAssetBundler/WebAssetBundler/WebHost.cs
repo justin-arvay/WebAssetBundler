@@ -41,10 +41,31 @@ namespace WebAssetBundler.Web.Mvc
             container.Register((c, p) => HttpContext());
             container.Register((c, p) => HttpContext().Request);
             container.Register((c, p) => HttpContext().Response);
-            container.Register<ICacheProvider>(new CacheProvider());
             container.Register((c, p) => HttpContext().Server);
+
+            container.Register<IWebAssetReader, WebAssetReader>();            
+
+            container.Register<ICacheProvider, CacheProvider>()
+                .AsSingleton();
+            container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>()
+                .AsSingleton();
+            container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>()
+                .AsSingleton();
+
+            container.Register<IWebAssetResolverFactory, WebAssetResolverFactory>()
+                .AsSingleton();
+
+            container.Register<IWebAssetBundleCollectionResolver, WebAssetBundleCollectionResolver>()
+                .AsSingleton();
+
+            container.Register<IAssetLocator<FromDirectoryComponent>>((c, p) => new FromDirectoryAssetLocator(c.Resolve<HttpServerUtilityBase>(), HttpContext().Request.PhysicalApplicationPath));                
         }
 
+        public void ConfigureContainerForStyleSheets()
+        {
+            container.Register<IContentFilter, ImagePathContentFilter>();
+            container.Register<IStyleSheetCompressor>((c, p) => DefaultSettings.StyleSheetCompressor);
+        }
 
         private HttpContextBase HttpContext()
         {
