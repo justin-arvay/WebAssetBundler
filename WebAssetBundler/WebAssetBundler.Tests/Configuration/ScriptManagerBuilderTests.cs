@@ -48,7 +48,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             builder = new ScriptManagerBuilder(
                 new ScriptManager(collection),
-                TestHelper.CreateViewContext(),
                 collectionResolver,
                 tagWriter.Object,
                 merger.Object,

@@ -41,6 +41,8 @@ namespace WebAssetBundler.Web.Mvc
             container.Register((c, p) => HttpContext());
             container.Register((c, p) => HttpContext().Request);
             container.Register((c, p) => HttpContext().Response);
+            container.Register<ICacheProvider>(new CacheProvider());
+            container.Register((c, p) => HttpContext().Server);
         }
 
 

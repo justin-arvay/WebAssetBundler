@@ -87,7 +87,6 @@
     <Compile Include="Configuration\BundleConfiguration.cs" />
     <Compile Include="Configuration\IStyleSheetConfigProvider.cs" />
     <Compile Include="HtmlHelperExtension.cs" />
-    <Compile Include="HttpContextLifetimeProvider.cs" />
     <Compile Include="HttpHandlers\DeflateEncoder.cs" />
     <Compile Include="HttpHandlers\DoNothingEncoder.cs" />
     <Compile Include="HttpHandlers\EncoderFactory.cs" />

@@ -53,7 +53,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             builder = new StyleSheetManagerBuilder(
                 new StyleSheetManager(collection),
-                TestHelper.CreateViewContext(),
                 collectionResolver,
                 tagWriter.Object,
                 merger.Object,

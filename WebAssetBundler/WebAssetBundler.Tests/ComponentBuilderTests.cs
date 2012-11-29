@@ -43,7 +43,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             return new StyleSheetManagerBuilder(
                 new StyleSheetManager(collection),
-                TestHelper.CreateViewContext(),
                 collectionResolver,
                 tagWriter.Object,
                 merger.Object,
@@ -62,7 +61,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             return new ScriptManagerBuilder(
                 new ScriptManager(collection),
-                TestHelper.CreateViewContext(),
                 collectionResolver,
                 tagWriter.Object,
                 merger.Object,

@@ -29,7 +29,6 @@ namespace WebAssetBundler.Web.Mvc
     {
         private readonly IWebAssetBundleCollectionResolver collectionResolver;
         private bool hasRendered;
-        private ViewContext viewContext;
         private ITagWriter tagWriter;
         private IWebAssetMerger merger;
         private BuilderContext context;
@@ -42,7 +41,6 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="resolver"></param>
         public StyleSheetManagerBuilder(
             StyleSheetManager manager, 
-            ViewContext viewContext,
             IWebAssetBundleCollectionResolver resolver,
             ITagWriter tagWriter,                   
             IWebAssetMerger merger,
@@ -51,7 +49,6 @@ namespace WebAssetBundler.Web.Mvc
             Manager = manager;
             this.collectionResolver = resolver;
             this.tagWriter = tagWriter;
-            this.viewContext = viewContext;
             this.merger = merger;         
             this.context = context;
         }
@@ -87,7 +84,7 @@ namespace WebAssetBundler.Web.Mvc
             }
 
             var results = merger.Merge(collectionResolver.Resolve(Manager.StyleSheetBundles, context), context);
-            var baseWriter = viewContext.Writer;
+            var baseWriter = context.ViewContext.Writer;
 
             using (HtmlTextWriter textWriter = new HtmlTextWriter(baseWriter))
             {

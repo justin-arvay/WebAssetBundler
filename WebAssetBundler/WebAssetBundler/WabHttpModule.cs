@@ -24,6 +24,11 @@ namespace WebAssetBundler.Web.Mvc
         private static readonly object locker = new object();
         private static WebHost host;
 
+        public static WebHost Host
+        {
+            get { return host; }
+        }
+
         public void Init(HttpApplication context)
         {
             lock (locker)

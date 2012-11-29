@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System.Web.Mvc;
 
     [TestFixture]
     public class BuilderContextFactoryTests
@@ -27,7 +28,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [SetUp]
         public void Setup()
         {
-            factory = new BuilderContextFactory();
+            factory = new BuilderContextFactory(new ViewContext());
         }
 
         [Test]

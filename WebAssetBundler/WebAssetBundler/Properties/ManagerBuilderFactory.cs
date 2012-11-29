@@ -52,7 +52,6 @@ namespace WebAssetBundler.Web.Mvc
 
             return new StyleSheetManagerBuilder(
                 new StyleSheetManager(bundleProvider.GetBundles()),
-                viewContext,
                 collectionResolver,
                 tagWriter,
                 merger,                
@@ -61,7 +60,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public ScriptManagerBuilder CreateScriptManagerBuilder()
         {
-            var assetLocator = new FromDirectoryAssetLocator(viewContext.HttpContext.Server, viewContext.HttpContext.Request.PhysicalApplicationPath);
+            var assetLocator = new FromDirectoryAssetLocator(httpContext.Server, httpContext.Request.PhysicalApplicationPath);
             var builderContext = contextFactory.CreateScriptContext();
             var bundleProvider = new ScriptBundleProvider(DefaultSettings.ScriptConfigProvider, new BundlesCache<ScriptBundle>(cacheProvider), assetLocator, builderContext);
 
@@ -69,14 +68,13 @@ namespace WebAssetBundler.Web.Mvc
             var resolverFactory = new WebAssetResolverFactory();
             var collectionResolver = new WebAssetBundleCollectionResolver(resolverFactory);
             var merger = new ScriptWebAssetMerger(
-                new WebAssetReader(viewContext.HttpContext.Server),
+                new WebAssetReader(httpContext.Server),
                 DefaultSettings.ScriptCompressor, 
                 new MergedBundleCache(WebAssetType.Script, cacheProvider));            
             var tagWriter = new ScriptTagWriter(urlGenerator);
 
             return new ScriptManagerBuilder(
                 new ScriptManager(bundleProvider.GetBundles()),
-                viewContext,
                 collectionResolver,
                 tagWriter,
                 merger,                

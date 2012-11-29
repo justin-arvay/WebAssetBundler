@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System.Web;
 
     [TestFixture]
     public class ManagerBuilderFactoryTests
@@ -33,7 +34,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             contextFactory = new Mock<IBuilderContextFactory>();
 
             factory = new ManagerBuilderFactory(
-                TestHelper.CreateViewContext(),
+                TestHelper.CreateViewContext().HttpContext,
                 cacheProvider.Object,
                 contextFactory.Object);
         }
