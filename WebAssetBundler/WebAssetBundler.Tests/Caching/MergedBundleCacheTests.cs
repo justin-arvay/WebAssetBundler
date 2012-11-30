@@ -26,15 +26,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class MergedBundleCacheTests
     {
         private Mock<ICacheProvider> provider;
-        private IMergedBundleCache cssCache;
-        private IMergedBundleCache jsCache;
+        private IMergedBundleCache<StyleSheetBundle> cssCache;
+        private IMergedBundleCache<ScriptBundle> jsCache;
 
         [SetUp]
         public void Setup()
         {
             provider = new Mock<ICacheProvider>();
-            cssCache = new MergedBundleCache(WebAssetType.StyleSheet, provider.Object);
-            jsCache = new MergedBundleCache(WebAssetType.Script, provider.Object);
+            cssCache = new MergedBundleCache<StyleSheetBundle>(provider.Object);
+            jsCache = new MergedBundleCache<ScriptBundle>(provider.Object);
         }
 
         [Test]

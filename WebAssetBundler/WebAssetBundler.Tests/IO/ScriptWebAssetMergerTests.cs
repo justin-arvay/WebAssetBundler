@@ -26,7 +26,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private Mock<IWebAssetReader> reader;
         private Mock<IScriptCompressor> compressor;
-        private Mock<IMergedBundleCache> cache;
+        private Mock<IMergedBundleCache<ScriptBundle>> cache;
         private ScriptWebAssetMerger merger;
         private BuilderContext context;
         
@@ -35,7 +35,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             reader = new Mock<IWebAssetReader>();
             compressor = new Mock<IScriptCompressor>();
-            cache = new Mock<IMergedBundleCache>();
+            cache = new Mock<IMergedBundleCache<ScriptBundle>>();
             context = new BuilderContext();
 
             merger = new ScriptWebAssetMerger(reader.Object, compressor.Object, cache.Object);

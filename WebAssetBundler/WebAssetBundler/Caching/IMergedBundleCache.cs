@@ -17,7 +17,7 @@
 namespace WebAssetBundler.Web.Mvc
 {
 
-    public interface IMergedBundleCache
+    public interface IMergedBundleCache<T>
     {
         void Add(MergedBundle bundle);
         MergedBundle Get(string name);

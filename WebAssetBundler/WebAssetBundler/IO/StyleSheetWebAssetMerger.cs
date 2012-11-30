@@ -28,10 +28,10 @@ namespace WebAssetBundler.Web.Mvc
         private IContentFilter filter;
         private IStyleSheetCompressor compressor;
         private HttpServerUtilityBase server;
-        private IMergedBundleCache cache;
+        private IMergedBundleCache<StyleSheetBundle> cache;
 
         public StyleSheetWebAssetMerger(IWebAssetReader reader, IContentFilter filter, IStyleSheetCompressor compressor,
-            HttpServerUtilityBase server, IMergedBundleCache cache)
+            HttpServerUtilityBase server, IMergedBundleCache<StyleSheetBundle> cache)
         {
             this.reader = reader;
             this.filter = filter;

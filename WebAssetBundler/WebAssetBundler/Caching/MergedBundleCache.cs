@@ -18,16 +18,14 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class MergedBundleCache : IMergedBundleCache
+    public class MergedBundleCache<T> : IMergedBundleCache<T>
     {
         private ICacheProvider provider;
         private const string keyPrefix = "MergedResult";
-        private WebAssetType type;
 
-        public MergedBundleCache(WebAssetType type, ICacheProvider provider)
+        public MergedBundleCache(ICacheProvider provider)
         {
             this.provider = provider;
-            this.type = type;
         }
 
         /// <summary>
@@ -51,19 +49,9 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         private string GetKey(string name)
         {
-            var typePrefix = "";
+            var type = typeof(T);
 
-            switch (type)
-            {
-                case WebAssetType.Script:
-                    typePrefix = "Script";
-                    break;
-                case WebAssetType.StyleSheet:
-                    typePrefix = "StyleSheet";
-                    break;
-            }
-
-            return keyPrefix + "->" + typePrefix + "->" + name;
+            return keyPrefix + "->" + type.Name + "->" + name;
         }
     }
 }

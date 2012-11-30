@@ -23,17 +23,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class AssetHttpHandlerTests
     {
         private Mock<IResponseWriter> writer;
-        private Mock<IMergedBundleCache> cache;
+        private Mock<IMergedBundleCache<BundleImpl>> cache;
         private Mock<IEncoder> encoder;
-        private AssetHttpHandler handler;
+        private AssetHttpHandler<BundleImpl> handler;
 
         [SetUp]
         public void Setup()
         {
             writer = new Mock<IResponseWriter>();
-            cache = new Mock<IMergedBundleCache>();
+            cache = new Mock<IMergedBundleCache<BundleImpl>>();
             encoder = new Mock<IEncoder>();
-            handler = new AssetHttpHandler(cache.Object);
+            handler = new AssetHttpHandler<BundleImpl>(cache.Object);
         }
 
         [Test]

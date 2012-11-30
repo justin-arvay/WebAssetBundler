@@ -44,13 +44,8 @@ namespace WebAssetBundler.Web.Mvc
                 container.Resolve<IAssetLocator<FromDirectoryComponent>>(), 
                 builderContext);            
 
-            var urlGenerator = new StyleSheetUrlGenerator();           
-            var merger = new StyleSheetWebAssetMerger(
-                new WebAssetReader(httpContext.Server),
-                new ImagePathContentFilter(),
-                DefaultSettings.StyleSheetCompressor,
-                httpContext.Server,
-                new MergedBundleCache(WebAssetType.StyleSheet, cacheProvider));            
+            var urlGenerator = new StyleSheetUrlGenerator();
+            var merger = container.Resolve<StyleSheetWebAssetMerger>();    
             var tagWriter = new StyleSheetTagWriter(urlGenerator);
 
             return new StyleSheetManagerBuilder(
@@ -72,10 +67,7 @@ namespace WebAssetBundler.Web.Mvc
                 builderContext);
 
             var urlGenerator = new ScriptUrlGenerator();
-            var merger = new ScriptWebAssetMerger(
-                new WebAssetReader(httpContext.Server),
-                DefaultSettings.ScriptCompressor, 
-                new MergedBundleCache(WebAssetType.Script, cacheProvider));            
+            var merger = container.Resolve<ScriptWebAssetMerger>();         
             var tagWriter = new ScriptTagWriter(urlGenerator);
 
             return new ScriptManagerBuilder(

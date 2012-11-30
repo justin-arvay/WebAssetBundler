@@ -29,7 +29,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IStyleSheetCompressor> compressor;
         private Mock<HttpServerUtilityBase> server;
         private StyleSheetWebAssetMerger merger;
-        private Mock<IMergedBundleCache> cache;
+        private Mock<IMergedBundleCache<StyleSheetBundle>> cache;
         private BuilderContext context;
 
         [SetUp]
@@ -39,7 +39,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             filter = new Mock<IContentFilter>();
             server = new Mock<HttpServerUtilityBase>();
             compressor = new Mock<IStyleSheetCompressor>();
-            cache = new Mock<IMergedBundleCache>();
+            cache = new Mock<IMergedBundleCache<StyleSheetBundle>>();
             context = new BuilderContext();
 
             merger = new StyleSheetWebAssetMerger(reader.Object, filter.Object, compressor.Object, server.Object, cache.Object);            

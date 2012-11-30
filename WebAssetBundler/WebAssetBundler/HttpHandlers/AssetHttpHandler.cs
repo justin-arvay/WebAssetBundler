@@ -20,11 +20,11 @@ namespace WebAssetBundler.Web.Mvc
     using System.Web;
     using System.Collections.Generic;
 
-    public class AssetHttpHandler : IWabHttpHandler
+    public class AssetHttpHandler<T> : IWabHttpHandler where T : Bundle
     {
-        private IMergedBundleCache cache;
+        private IMergedBundleCache<T> cache;
 
-        public AssetHttpHandler(IMergedBundleCache cache)
+        public AssetHttpHandler(IMergedBundleCache<T> cache)
         {
             this.cache = cache;
         }

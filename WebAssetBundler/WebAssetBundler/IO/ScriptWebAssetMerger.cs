@@ -14,8 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
@@ -28,9 +26,9 @@ namespace WebAssetBundler.Web.Mvc
     {
         private IWebAssetReader reader;
         private IScriptCompressor compressor;
-        private IMergedBundleCache cache;
+        private IMergedBundleCache<ScriptBundle> cache;
 
-        public ScriptWebAssetMerger(IWebAssetReader reader, IScriptCompressor compressor, IMergedBundleCache cache)
+        public ScriptWebAssetMerger(IWebAssetReader reader, IScriptCompressor compressor, IMergedBundleCache<ScriptBundle> cache)
         {
             this.reader = reader;
             this.compressor = compressor;

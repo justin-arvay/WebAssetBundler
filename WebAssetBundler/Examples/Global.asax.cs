@@ -30,6 +30,14 @@ namespace Examples
 
         }
 
+        public class Test : IStyleSheetCompressor
+        {
+            public string Compress(string content)
+            {
+                return content;
+            }
+        }
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -40,6 +48,7 @@ namespace Examples
             //DefaultSettings.StyleSheetHost = "192.168.1.69";
            // DefaultSettings.ScriptHost = "6.6.6.6";
             DefaultSettings.DebugMode = true;
+            DefaultSettings.StyleSheetCompressor = new Test();
         }
     }
 }

@@ -44,14 +44,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Return_Script_Handler()
         {
             httpContext.Setup(c => c.Request.PathInfo).Returns("/js");
-            Assert.IsInstanceOf<AssetHttpHandler>(factory.Create(httpContext.Object));
+            Assert.IsInstanceOf<AssetHttpHandler<ScriptBundle>>(factory.Create(httpContext.Object));
         }
 
         [Test]
         public void Should_Return_Style_Sheet_Handler()
         {
             httpContext.Setup(c => c.Request.PathInfo).Returns("/css");
-            Assert.IsInstanceOf<AssetHttpHandler>(factory.Create(httpContext.Object));
+            Assert.IsInstanceOf<AssetHttpHandler<StyleSheetBundle>>(factory.Create(httpContext.Object));
         }
     }
 }

@@ -58,13 +58,24 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IWebAssetBundleCollectionResolver, WebAssetBundleCollectionResolver>()
                 .AsSingleton();
 
-            container.Register<IAssetLocator<FromDirectoryComponent>>((c, p) => new FromDirectoryAssetLocator(c.Resolve<HttpServerUtilityBase>(), HttpContext().Request.PhysicalApplicationPath));                
+            container.Register<IAssetLocator<FromDirectoryComponent>>((c, p) => new FromDirectoryAssetLocator(c.Resolve<HttpServerUtilityBase>(), HttpContext().Request.PhysicalApplicationPath));
+
+            ConfigureContainerForStyleSheets();
+            ConfigureContainerForScript();
+
         }
 
         public void ConfigureContainerForStyleSheets()
         {
             container.Register<IContentFilter, ImagePathContentFilter>();
             container.Register<IStyleSheetCompressor>((c, p) => DefaultSettings.StyleSheetCompressor);
+            container.Register<IMergedBundleCache<StyleSheetBundle>, MergedBundleCache<StyleSheetBundle>>();
+        }
+
+        public void ConfigureContainerForScript()
+        {
+            container.Register<IScriptCompressor>((c, p) => DefaultSettings.ScriptCompressor);
+            container.Register<IMergedBundleCache<ScriptBundle>, MergedBundleCache<ScriptBundle>>();
         }
 
         private HttpContextBase HttpContext()
