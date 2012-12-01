@@ -25,18 +25,16 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private StyleSheetBundleProvider provider;
         private Mock<IStyleSheetConfigProvider> configProvider;
-        private BuilderContext context;
         private Mock<IBundlesCache<StyleSheetBundle>> cache;
         private Mock<IAssetLocator<FromDirectoryComponent>> locator;
 
         [SetUp]
         public void Setup()
         {
-            context = new BuilderContext();
             configProvider = new Mock<IStyleSheetConfigProvider>();
             cache = new Mock<IBundlesCache<StyleSheetBundle>>();
             locator = new Mock<IAssetLocator<FromDirectoryComponent>>();
-            provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, locator.Object, context);
+            provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, locator.Object);
         }
 
         [Test]
@@ -45,7 +43,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var configs = new List<StyleSheetBundleConfiguration>();
             configs.Add(new StyleSheetBundleConfigurationImpl());
 
-            configProvider.Setup(c => c.GetConfigs(context)).Returns(configs);
+            configProvider.Setup(c => c.GetConfigs()).Returns(configs);
 
             var bundles = provider.GetBundles();
             Assert.AreEqual(1, bundles.Count);

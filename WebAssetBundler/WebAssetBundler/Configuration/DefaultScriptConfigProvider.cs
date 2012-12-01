@@ -25,7 +25,7 @@ namespace WebAssetBundler.Web.Mvc
     {
 
 
-        public IList<ScriptBundleConfiguration> GetConfigs(BuilderContext context)
+        public IList<ScriptBundleConfiguration> GetConfigs()
         {
             var configs = new List<ScriptBundleConfiguration>();
 

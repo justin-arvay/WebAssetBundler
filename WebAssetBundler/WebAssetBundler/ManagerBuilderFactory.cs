@@ -38,11 +38,7 @@ namespace WebAssetBundler.Web.Mvc
             var container = WabHttpModule.Host.Container;
             var assetLocator = new FromDirectoryAssetLocator(httpContext.Server, httpContext.Request.PhysicalApplicationPath);
             var builderContext = contextFactory.CreateStyleSheetContext();
-            var bundleProvider = new StyleSheetBundleProvider(
-                DefaultSettings.StyleSheetConfigProvider, 
-                container.Resolve<IBundlesCache<StyleSheetBundle>>(),
-                container.Resolve<IAssetLocator<FromDirectoryComponent>>(), 
-                builderContext);            
+            var bundleProvider = container.Resolve<StyleSheetBundleProvider>();          
 
             var urlGenerator = new StyleSheetUrlGenerator();
             var merger = container.Resolve<StyleSheetWebAssetMerger>();    
@@ -60,11 +56,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             var container = WabHttpModule.Host.Container;
             var builderContext = contextFactory.CreateScriptContext();
-            var bundleProvider = new ScriptBundleProvider(
-                DefaultSettings.ScriptConfigProvider, 
-                container.Resolve<IBundlesCache<ScriptBundle>>(), 
-                container.Resolve<IAssetLocator<FromDirectoryComponent>>(), 
-                builderContext);
+            var bundleProvider = container.Resolve<ScriptBundleProvider>();
 
             var urlGenerator = new ScriptUrlGenerator();
             var merger = container.Resolve<ScriptWebAssetMerger>();         

@@ -25,7 +25,7 @@ namespace WebAssetBundler.Web.Mvc
     {
 
 
-        public IList<StyleSheetBundleConfiguration> GetConfigs(BuilderContext context)
+        public IList<StyleSheetBundleConfiguration> GetConfigs()
         {
             var configs = new List<StyleSheetBundleConfiguration>();
 

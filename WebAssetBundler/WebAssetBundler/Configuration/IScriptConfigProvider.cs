@@ -26,6 +26,6 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        IList<ScriptBundleConfiguration> GetConfigs(BuilderContext context);
+        IList<ScriptBundleConfiguration> GetConfigs();
     }
 }

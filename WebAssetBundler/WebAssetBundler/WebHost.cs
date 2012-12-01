@@ -71,12 +71,14 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IContentFilter, ImagePathContentFilter>();
             container.Register<IStyleSheetCompressor>((c, p) => DefaultSettings.StyleSheetCompressor);
             container.Register<IMergedBundleCache<StyleSheetBundle>, MergedBundleCache<StyleSheetBundle>>();
+            container.Register<IStyleSheetConfigProvider>((c, p) => DefaultSettings.StyleSheetConfigProvider);
         }
 
         public void ConfigureContainerForScript()
         {
             container.Register<IScriptCompressor>((c, p) => DefaultSettings.ScriptCompressor);
             container.Register<IMergedBundleCache<ScriptBundle>, MergedBundleCache<ScriptBundle>>();
+            container.Register<IScriptConfigProvider>((c, p) => DefaultSettings.ScriptConfigProvider);
         }
 
         public void ConfigureHttpHandler()

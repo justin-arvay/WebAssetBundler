@@ -23,19 +23,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class DefaultScriptConfigProviderTests
     {
         private DefaultScriptConfigProvider provider;
-        private BuilderContext context;
 
         [SetUp]
         public void Setup()
         {
             provider = new DefaultScriptConfigProvider();
-            context = new BuilderContext();
         }
 
         [Test]
         public void Should_Get_Configuration()
         {
-            var configs = provider.GetConfigs(context);
+            var configs = provider.GetConfigs();
 
             Assert.AreEqual(1, configs.Count);
         }

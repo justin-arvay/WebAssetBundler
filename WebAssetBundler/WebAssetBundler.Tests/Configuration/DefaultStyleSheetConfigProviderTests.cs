@@ -23,19 +23,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class DefaultStyleSheetConfigProviderTests
     {
         private DefaultStyleSheetConfigProvider provider;
-        private BuilderContext context;
 
         [SetUp]
         public void Setup()
         {
             provider = new DefaultStyleSheetConfigProvider();
-            context = new BuilderContext();
         }
 
         [Test]
         public void Should_Get_Configuration()
         {
-            var configs = provider.GetConfigs(context);
+            var configs = provider.GetConfigs();
 
             Assert.AreEqual(1, configs.Count);
         }

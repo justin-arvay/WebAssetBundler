@@ -26,7 +26,7 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        IList<StyleSheetBundleConfiguration> GetConfigs(BuilderContext context);
+        IList<StyleSheetBundleConfiguration> GetConfigs();
 
     }
 }

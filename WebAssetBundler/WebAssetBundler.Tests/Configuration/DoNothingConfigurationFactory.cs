@@ -21,7 +21,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class DoNothingStyleSheetConfigurationProvider : IStyleSheetConfigProvider
     {
 
-        public IList<StyleSheetBundleConfiguration> GetConfigs(BuilderContext context)
+        public IList<StyleSheetBundleConfiguration> GetConfigs()
         {
             return new List<StyleSheetBundleConfiguration>();
         }

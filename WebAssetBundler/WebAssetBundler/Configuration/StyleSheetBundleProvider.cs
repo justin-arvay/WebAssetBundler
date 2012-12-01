@@ -21,15 +21,13 @@ namespace WebAssetBundler.Web.Mvc
     public class StyleSheetBundleProvider : IBundleProvider<StyleSheetBundle>
     {
         private IStyleSheetConfigProvider configProvider;
-        private BuilderContext context;
         private IBundlesCache<StyleSheetBundle> cache;
         private IAssetLocator<FromDirectoryComponent> assetLocator;
 
         public StyleSheetBundleProvider(IStyleSheetConfigProvider configProvider, IBundlesCache<StyleSheetBundle> cache, 
-            IAssetLocator<FromDirectoryComponent> assetLocator, BuilderContext context)
+            IAssetLocator<FromDirectoryComponent> assetLocator)
         {
             this.configProvider = configProvider;
-            this.context = context;
             this.cache = cache;
             this.assetLocator = assetLocator;
         }
@@ -40,7 +38,7 @@ namespace WebAssetBundler.Web.Mvc
 
             if (bundles == null)
             {
-                var configCollection = new BundleConfigurationCollection<StyleSheetBundleConfiguration, StyleSheetBundle>(configProvider.GetConfigs(context), assetLocator);
+                var configCollection = new BundleConfigurationCollection<StyleSheetBundleConfiguration, StyleSheetBundle>(configProvider.GetConfigs(), assetLocator);
                 bundles = configCollection.GetBundles();
                 cache.Set(bundles);
             }
