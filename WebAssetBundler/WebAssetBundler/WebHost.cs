@@ -62,6 +62,7 @@ namespace WebAssetBundler.Web.Mvc
 
             ConfigureContainerForStyleSheets();
             ConfigureContainerForScript();
+            ConfigureHttpHandler();
 
         }
 
@@ -76,6 +77,14 @@ namespace WebAssetBundler.Web.Mvc
         {
             container.Register<IScriptCompressor>((c, p) => DefaultSettings.ScriptCompressor);
             container.Register<IMergedBundleCache<ScriptBundle>, MergedBundleCache<ScriptBundle>>();
+        }
+
+        public void ConfigureHttpHandler()
+        {
+            container.Register<HttpHandlerFactory>()
+                .AsSingleton();
+            container.Register<EncoderFactory>()
+                .AsSingleton();
         }
 
         private HttpContextBase HttpContext()

@@ -24,10 +24,19 @@ namespace WebAssetBundler.Web.Mvc
         private HttpHandlerFactory handlerFactory;
         private EncoderFactory encoderFactory;
 
-        public WabHttpHandler()
+
+        public WabHttpHandler() : 
+            this(
+            WabHttpModule.Host.Container.Resolve<HttpHandlerFactory>(), 
+            WabHttpModule.Host.Container.Resolve<EncoderFactory>())
+        {
+
+        }
+
+        public WabHttpHandler(HttpHandlerFactory handlerFactory, EncoderFactory encoderFactory)
         {            
-            handlerFactory = new HttpHandlerFactory();
-            encoderFactory = new EncoderFactory();
+            this.handlerFactory = handlerFactory;
+            this.encoderFactory = encoderFactory;
         }
 
         public bool IsReusable
