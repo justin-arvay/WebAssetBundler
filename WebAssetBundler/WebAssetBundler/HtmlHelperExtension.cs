@@ -30,7 +30,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public static ComponentBuilder Bundler(this HtmlHelper helper)
         {
-            builderContextFactory = new BuilderContextFactory(helper.ViewContext);            
+            builderContextFactory = new BuilderContextFactory();            
        
             //per request variables
             var builderFactory = (HttpContext.Current.Items["builderFactory"] ??

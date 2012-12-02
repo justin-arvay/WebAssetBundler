@@ -21,18 +21,10 @@ namespace WebAssetBundler.Web.Mvc
 
     public class BuilderContextFactory : IBuilderContextFactory
     {
-        private ViewContext viewContext;
-
-        public BuilderContextFactory(ViewContext viewContext)
-        {
-            this.viewContext = viewContext;
-        }
-
         public BuilderContext CreateScriptContext()
         {
             var context = new BuilderContext()
             {
-                ViewContext = viewContext,
                 Combine = DefaultSettings.Combined,
                 Compress = DefaultSettings.Compressed,
                 DefaultPath = DefaultSettings.ScriptFilesPath,
@@ -49,7 +41,6 @@ namespace WebAssetBundler.Web.Mvc
         {
             var context = new BuilderContext()
             {
-                ViewContext = viewContext,
                 Combine = DefaultSettings.Combined,
                 Compress = DefaultSettings.Compressed,
                 DefaultPath = DefaultSettings.StyleSheetFilesPath,
