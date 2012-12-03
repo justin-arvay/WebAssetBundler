@@ -114,6 +114,9 @@
     <Compile Include="ManagerBuilderFactory.cs" />
     <Compile Include="Configuration\ScriptManagerBuilder.cs" />
     <Compile Include="Configuration\ScriptManager.cs" />
+    <Compile Include="Pipeline\BundlePipeline.cs" />
+    <Compile Include="Pipeline\IBundlePipeline.cs" />
+    <Compile Include="Pipeline\IPipelineProcessor.cs" />
     <Compile Include="Resolvers\CombinedWebAssetBundleResolver.cs" />
     <Compile Include="IO\IWebAssetMerger.cs" />
     <Compile Include="Resolvers\DoNothingWebAssetResolver.cs" />
