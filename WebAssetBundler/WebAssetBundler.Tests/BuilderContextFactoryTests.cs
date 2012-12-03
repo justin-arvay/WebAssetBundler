@@ -28,7 +28,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [SetUp]
         public void Setup()
         {
-            factory = new BuilderContextFactory(new ViewContext());
+            factory = new BuilderContextFactory();
         }
 
         [Test]

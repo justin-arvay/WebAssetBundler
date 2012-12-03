@@ -76,7 +76,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Renders the stylesheets into the responce stream.
         /// </summary>
-        public void Render()
+        public IHtmlString RenderAll()
         {
             if (hasRendered)
             {
@@ -84,9 +84,8 @@ namespace WebAssetBundler.Web.Mvc
             }
 
             var results = merger.Merge(collectionResolver.Resolve(Manager.StyleSheetBundles, context), context);
-            var baseWriter = context.ViewContext.Writer;
 
-            using (HtmlTextWriter textWriter = new HtmlTextWriter(baseWriter))
+            using (HtmlTextWriter textWriter = new HtmlTextWriter(new StringWriter()))
             {
                 tagWriter.Write(textWriter, results, context);
             }
