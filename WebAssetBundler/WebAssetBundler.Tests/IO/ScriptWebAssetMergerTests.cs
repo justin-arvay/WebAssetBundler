@@ -48,7 +48,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Merge_Content_From_Result_Assets_With_Delimeter()
         {
             var content = "function(){}";            
-            var assets = new List<WebAsset>();
+            var assets = new List<AssetBase>();
             var results = new List<ResolvedBundle>();
 
             results.Add (new ResolvedBundle(assets, "Test")
@@ -56,8 +56,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
                     Host = "http://www.test.com"
                 });
 
-            assets.Add(new WebAsset(""));
-            assets.Add(new WebAsset(""));
+            assets.Add(new AssetBase(""));
+            assets.Add(new AssetBase(""));
 
             //set up the reader to always return content
             reader.Setup(r => r.Read(It.IsAny<IWebAsset>()))
@@ -73,13 +73,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Compress_Merged_Content()
         {
-            var webAssets = new List<WebAsset>();
+            var webAssets = new List<AssetBase>();
             var results = new List<ResolvedBundle>();
 
             results.Add(new ResolvedBundle(webAssets, "Test") { Compress = true });
 
-            webAssets.Add(new WebAsset(""));
-            webAssets.Add(new WebAsset(""));
+            webAssets.Add(new AssetBase(""));
+            webAssets.Add(new AssetBase(""));
 
             merger.Merge(results, context);
 
@@ -89,13 +89,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Compress_Merged_Content()
         {
-            var webAssets = new List<WebAsset>();
+            var webAssets = new List<AssetBase>();
             var results = new List<ResolvedBundle>();
 
             results.Add(new ResolvedBundle(webAssets, "Test"));
 
-            webAssets.Add(new WebAsset(""));
-            webAssets.Add(new WebAsset(""));
+            webAssets.Add(new AssetBase(""));
+            webAssets.Add(new AssetBase(""));
 
             merger.Merge(results, context);
 
@@ -106,7 +106,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Cache_Result()
         {
             var results = new List<ResolvedBundle>();
-            results.Add(new ResolvedBundle(new List<WebAsset>(), "Test"));
+            results.Add(new ResolvedBundle(new List<AssetBase>(), "Test"));
 
             merger.Merge(results, context);
 
@@ -116,12 +116,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Add_To_Cache()
         {
-            var webAssets = new List<WebAsset>();
+            var webAssets = new List<AssetBase>();
             var results = new List<ResolvedBundle>();
             var result = new ResolvedBundle(webAssets, "Test");
 
             results.Add(result);
-            webAssets.Add(new WebAsset(""));
+            webAssets.Add(new AssetBase(""));
 
             cache.Setup(c => c.Get(It.IsAny<string>())).Returns(new MergedBundle("", "", WebAssetType.None));
 
@@ -135,12 +135,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             context.DebugMode = true;
 
-            var webAssets = new List<WebAsset>();
+            var webAssets = new List<AssetBase>();
             var results = new List<ResolvedBundle>();
             var result = new ResolvedBundle(webAssets, "Test");
 
             results.Add(result);
-            webAssets.Add(new WebAsset(""));
+            webAssets.Add(new AssetBase(""));
 
             cache.Setup(c => c.Get(It.IsAny<string>())).Returns(new MergedBundle("", "", WebAssetType.None));
 

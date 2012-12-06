@@ -119,12 +119,12 @@
     <Compile Include="DefaultSettingsTests.cs" />
     <Compile Include="Configuration\WebAssetBundleCollectionBuilderTests.cs" />
     <Compile Include="Configuration\WebAssetBundleCollectionTests.cs" />
-    <Compile Include="Configuration\WebAssetTests.cs" />
+    <Compile Include="Configuration\AssetBaseTests.cs" />
     <Compile Include="Configuration\StyleSheetManagerTests.cs" />
     <Compile Include="Configuration\StyleSheetManagerBuilderTests.cs" />
     <Compile Include="Resolvers\ResolvedBundleTests.cs" />
     <Compile Include="TestHelper.cs" />
-    <Compile Include="Filters\ImagePathContentFilterTests.cs" />
+    <Compile Include="StyleSheet\ImagePathTransformerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebAssetBundler\WebAssetBundler.csproj">

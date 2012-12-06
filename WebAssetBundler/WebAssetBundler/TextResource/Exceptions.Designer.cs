@@ -79,7 +79,7 @@ namespace WebAssetBundler.TextResource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Item with specified source already exists. Source: {0}.
+        ///   Looks up a localized string similar to Item with specified stream already exists. Source: {0}.
         /// </summary>
         internal static string ItemWithSpecifiedSourceAlreadyExists {
             get {

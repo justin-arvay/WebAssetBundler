@@ -20,7 +20,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
 
     [TestFixture]
-    public class ImagePathContentFilterTests
+    public class ImagePathTransformerTests
     {
         [Test]
         public void Should_Filter_With_Different_File_Names()

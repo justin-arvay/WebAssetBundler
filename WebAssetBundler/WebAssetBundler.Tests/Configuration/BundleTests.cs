@@ -40,7 +40,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Add_Asset()
         {
-            bundle.Assets.Add(new WebAsset("/path/file.js"));
+            bundle.Assets.Add(new AssetBase("/path/file.js"));
 
             Assert.AreEqual(1, bundle.Assets.Count);
         }
@@ -48,16 +48,16 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Throw_Exception_When_Adding_Duplicate()
         {
-            bundle.Assets.Add(new WebAsset("/path/file.js"));
-            Assert.Throws<ArgumentException>(() => bundle.Assets.Add(new WebAsset("/path/file.js")));
+            bundle.Assets.Add(new AssetBase("/path/file.js"));
+            Assert.Throws<ArgumentException>(() => bundle.Assets.Add(new AssetBase("/path/file.js")));
 
         }
 
         [Test]
         public void Should_Throw_Exception_When_Setting_Duplicate_Item_To_Existing_Index()
         {
-            bundle.Assets.Add(new WebAsset("/path/file.js"));
-            Assert.Throws<ArgumentException>(() => bundle.Assets.Insert(1, new WebAsset("/path/file.js")));
+            bundle.Assets.Add(new AssetBase("/path/file.js"));
+            Assert.Throws<ArgumentException>(() => bundle.Assets.Insert(1, new AssetBase("/path/file.js")));
         }
     }
 }

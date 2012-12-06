@@ -21,6 +21,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IAssetLocator<in T>
     {
-        ICollection<WebAsset> Locate(T component);
+        ICollection<AssetBase> Locate(T component);
     }
 }

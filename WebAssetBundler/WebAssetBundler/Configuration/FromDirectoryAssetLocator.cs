@@ -33,9 +33,9 @@ namespace WebAssetBundler.Web.Mvc
             this.applicationPath = applicationPath;
         }
 
-        public ICollection<WebAsset> Locate(FromDirectoryComponent component)
+        public ICollection<AssetBase> Locate(FromDirectoryComponent component)
         {
-            var collecton = new List<WebAsset>();
+            var collecton = new List<AssetBase>();
 
             //get all files by the extension
             IEnumerable<string> fileNames = new List<string>(Directory.GetFiles(server.MapPath(component.Path)))
@@ -52,7 +52,7 @@ namespace WebAssetBundler.Web.Mvc
                 //string  = fileName.Substring(applicationPath.Length);               
                 var source = fileName.ReplaceFirst(applicationPath, "~/")
                             .Replace("\\", "/");
-                collecton.Add(new WebAsset(source));
+                collecton.Add(new AssetBase(source));
             }
 
             return collecton;

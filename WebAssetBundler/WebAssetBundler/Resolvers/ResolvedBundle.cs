@@ -23,7 +23,7 @@ namespace WebAssetBundler.Web.Mvc
     public class ResolvedBundle
     {
 
-        public ResolvedBundle(ICollection<WebAsset> webAssets, string name)
+        public ResolvedBundle(ICollection<AssetBase> webAssets, string name)
         {
             Name = name.Replace(".", "-");       
             Assets = webAssets;                        
@@ -47,7 +47,7 @@ namespace WebAssetBundler.Web.Mvc
             set;
         }
 
-        public ICollection<WebAsset> Assets
+        public ICollection<AssetBase> Assets
         {
             get;
             private set;

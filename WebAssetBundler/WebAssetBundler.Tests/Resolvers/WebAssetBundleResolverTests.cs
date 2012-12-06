@@ -37,8 +37,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Resolve_A_List_Of_Sources_For_Each_Item_In_Group()
         {
-            bundle.Assets.Add(new WebAsset("~/Files/test.css"));
-            bundle.Assets.Add(new WebAsset("~/Files/test2.css"));
+            bundle.Assets.Add(new AssetBase("~/Files/test.css"));
+            bundle.Assets.Add(new AssetBase("~/Files/test2.css"));
 
             Assert.AreEqual(2, resolver.Resolve().Count);
         }
@@ -48,7 +48,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Resolve_Compress_For_Result()
         {
             bundle.Compress = true;
-            bundle.Assets.Add(new WebAsset(""));
+            bundle.Assets.Add(new AssetBase(""));
 
             var results = resolver.Resolve();
 
@@ -59,7 +59,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Resolve_Name_For_Result()
         {
-            bundle.Assets.Add(new WebAsset("~/Files/test-file.css"));
+            bundle.Assets.Add(new AssetBase("~/Files/test-file.css"));
        
             var results = resolver.Resolve();
 
@@ -71,7 +71,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundle.Host = "1.1.1.1";
 
-            bundle.Assets.Add(new WebAsset("~/Files/test-file.css"));
+            bundle.Assets.Add(new AssetBase("~/Files/test-file.css"));
 
             var results = resolver.Resolve();
 

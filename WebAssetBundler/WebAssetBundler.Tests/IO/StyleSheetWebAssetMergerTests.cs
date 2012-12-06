@@ -49,15 +49,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Merge_Content_From_Result_Assets()
         {
             var content = "1";            
-            var webAssets = new List<WebAsset>();
+            var webAssets = new List<AssetBase>();
             var results = new List<ResolvedBundle>();
 
             results.Add(new ResolvedBundle(webAssets, "Test") { 
                 Host = "http://www.test.com"
             });
 
-            webAssets.Add(new WebAsset(""));
-            webAssets.Add(new WebAsset(""));
+            webAssets.Add(new AssetBase(""));
+            webAssets.Add(new AssetBase(""));
 
             //sets up the filter to return whatever was passed to its content variable
             filter.Setup(r => r.Filter(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
@@ -77,13 +77,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Filter_Each_WebAsset()
         {
             var content = "1";            
-            var webAssets = new List<WebAsset>();
+            var webAssets = new List<AssetBase>();
             var results = new List<ResolvedBundle>();
 
             results.Add(new ResolvedBundle(webAssets, "Test"));
 
-            webAssets.Add(new WebAsset(""));
-            webAssets.Add(new WebAsset(""));
+            webAssets.Add(new AssetBase(""));
+            webAssets.Add(new AssetBase(""));
 
             //sets up the filter to return whatever was passed to its content variable
             filter.Setup(f => f.Filter(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
@@ -104,12 +104,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var outputPath = "/wab.axd/css/a/a";
             var sourcePath = "~/Content/File.css";            
-            var webAssets = new List<WebAsset>();
+            var webAssets = new List<AssetBase>();
             var results = new List<ResolvedBundle>();
 
             results.Add(new ResolvedBundle(webAssets, "Test"));
 
-            webAssets.Add(new WebAsset(sourcePath));
+            webAssets.Add(new AssetBase(sourcePath));
 
             merger.Merge(results, context);
            
@@ -123,12 +123,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Compress_Content()
         {            
-            var webAssets = new List<WebAsset>();
+            var webAssets = new List<AssetBase>();
             var results = new List<ResolvedBundle>();
 
             results.Add(new ResolvedBundle(webAssets, "Test") { Compress = true });
 
-            webAssets.Add(new WebAsset(""));
+            webAssets.Add(new AssetBase(""));
 
             merger.Merge(results, context);
 
@@ -138,12 +138,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Compress_Content()
         {            
-            var webAssets = new List<WebAsset>();
+            var webAssets = new List<AssetBase>();
             var results = new List<ResolvedBundle>();
 
             results.Add(new ResolvedBundle(webAssets, "Test"));
 
-            webAssets.Add(new WebAsset(""));
+            webAssets.Add(new AssetBase(""));
 
             merger.Merge(results, context);
 
@@ -155,13 +155,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var content = "1";
             var path ="~/Test/file.css";            
-            var webAssets = new List<WebAsset>();
+            var webAssets = new List<AssetBase>();
             var results = new List<ResolvedBundle>();
 
             results.Add(new ResolvedBundle(webAssets, "Test"));
 
-            webAssets.Add(new WebAsset(""));
-            webAssets.Add(new WebAsset(""));
+            webAssets.Add(new AssetBase(""));
+            webAssets.Add(new AssetBase(""));
 
             server.Setup(r => r.MapPath(path)).Returns(path);
 
@@ -180,7 +180,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Cache_Result()
         {
             var results = new List<ResolvedBundle>();
-            results.Add(new ResolvedBundle(new List<WebAsset>(), "Test"));
+            results.Add(new ResolvedBundle(new List<AssetBase>(), "Test"));
 
             merger.Merge(results, context);
 
@@ -190,12 +190,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Add_To_Cache()
         {
-            var webAssets = new List<WebAsset>();
+            var webAssets = new List<AssetBase>();
             var results = new List<ResolvedBundle>();
             var result = new ResolvedBundle(webAssets, "Test");
 
             results.Add(result);
-            webAssets.Add(new WebAsset(""));
+            webAssets.Add(new AssetBase(""));
 
             cache.Setup(c => c.Get(It.IsAny<string>())).Returns(new MergedBundle("", "", WebAssetType.None));
 
@@ -209,12 +209,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             context.DebugMode = true;
 
-            var webAssets = new List<WebAsset>();
+            var webAssets = new List<AssetBase>();
             var results = new List<ResolvedBundle>();
             var result = new ResolvedBundle(webAssets, "Test");
 
             results.Add(result);
-            webAssets.Add(new WebAsset(""));
+            webAssets.Add(new AssetBase(""));
 
             cache.Setup(c => c.Get(It.IsAny<string>())).Returns(new MergedBundle("", "", WebAssetType.None));
 

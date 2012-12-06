@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -16,29 +16,17 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
-    using NUnit.Framework;
-    using Moq;
-    using System.Collections.Generic;
+    using System;
 
-    [TestFixture]
-    public class ResolvedBundleTests
+    public class ImagePathProcessor : IPipelineProcessor<StyleSheetBundle>
     {
-        [Test]
-        public void Should_Set_Name_In_Constructor()
-        {            
-            var result = new ResolvedBundle(null, "Test.ext");
 
-            Assert.AreEqual("Test-ext", result.Name);
-        }
-        
-
-        [Test]
-        public void Should_Set_Web_Assets_In_Constructor()
+        public void Process(StyleSheetBundle bundle)
         {
-            var webAssets = new List<AssetBase>();
-            var result = new ResolvedBundle(webAssets, "Test");
-
-            Assert.NotNull(result.Assets);
-        }        
+            foreach (var asset in bundle.Assets)
+            {
+                asset.AddTransformer(new ImagePathTransformer);
+            }
+        }
     }
 }

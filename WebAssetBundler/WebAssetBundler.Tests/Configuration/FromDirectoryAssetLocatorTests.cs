@@ -42,7 +42,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_All_Files_With_Correct_Extension_As_Virtual_Paths()
         {
-            var assets = (IList<WebAsset>)locator.Locate(component);
+            var assets = (IList<AssetBase>)locator.Locate(component);
 
             Assert.AreEqual("~/Files/Configuration/FirstFile.css", assets[0].Source, "0 index");
             Assert.AreEqual("~/Files/Configuration/SecondFile.css", assets[1].Source, "0 index");

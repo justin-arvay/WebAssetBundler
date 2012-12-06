@@ -22,48 +22,6 @@ namespace WebAssetBundler.Web.Mvc
     public class BundlePipeline<T> : List<IPipelineProcessor<T>>, IBundlePipeline<T>
         where T : Bundle
     {
-        readonly TinyIoCContainer container;
-
-        protected BundlePipeline(TinyIoCContainer container)
-        {
-            this.container = container;
-        }
-
-        public void Add<TBundleProcessor>()
-            where TBundleProcessor : class, IPipelineProcessor<T>
-        {
-            var step = (IPipelineProcessor<T>)container.Resolve<TBundleProcessor>();
-            Add(step);
-        }
-
-        public void Add<TBundleProcessorFactory>(Func<TBundleProcessorFactory, IPipelineProcessor<T>> create)
-            where TBundleProcessorFactory : class
-        {
-            var step = create(container.Resolve<TBundleProcessorFactory>());
-            Add(step);
-        }
-
-        public void Insert<TBundleProcessor>(int index)
-            where TBundleProcessor : class, IPipelineProcessor<T>
-        {
-            var step = (IPipelineProcessor<T>)container.Resolve<TBundleProcessor>();
-            Insert(index, step);
-        }
-
-        public void Insert<TBundleProcessorFactory>(int index, Func<TBundleProcessorFactory, IPipelineProcessor<T>> create)
-            where TBundleProcessorFactory : class
-        {
-            var step = create(container.Resolve<TBundleProcessorFactory>());
-            Insert(index, step);
-        }
-
-        public void ReplaceWith<TReplacementProcessors>() where TReplacementProcessors : class, IEnumerable<IPipelineProcessor<T>>
-        {
-            Clear();
-            var replacementProcessors = container.Resolve<TReplacementProcessors>();
-            AddRange(replacementProcessors);
-        }
-
         public virtual void Process(T bundle)
         {
             foreach (var processor in this)

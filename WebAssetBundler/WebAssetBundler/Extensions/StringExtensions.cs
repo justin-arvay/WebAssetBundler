@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Globalization;
+    using System.IO;
 
     public static class StringExtensions
     {
@@ -94,6 +95,24 @@ namespace WebAssetBundler.Web.Mvc
                 return text;
             }
             return text.Substring(0, pos) + replace + text.Substring(pos + search.Length);
+        }
+
+        /// <summary>
+        /// Returns a new stream containing the contents of the string, using UTF-8 encoding.
+        /// The stream's Position property is set to zero.
+        /// </summary>
+        /// <param name="s">The string to convert into a stream.</param>
+        /// <returns>A new stream.</returns>
+        public static Stream AsStream(this string s)
+        {
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+
+            writer.Write(s);
+            writer.Flush();
+
+            stream.Position = 0;
+            return stream;
         }
     }
 }

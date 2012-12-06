@@ -22,11 +22,11 @@
         public string Host { get; set; }
         public string Extension { get; protected set; }
 
-        public IList<WebAsset> Assets { get; set; }
+        public IList<AssetBase> Assets { get; set; }
 
-        private sealed class InternalCollection : Collection<WebAsset>
+        private sealed class InternalCollection : Collection<AssetBase>
         {
-            protected override void InsertItem(int index, WebAsset item)
+            protected override void InsertItem(int index, AssetBase item)
             {
                 if (AlreadyExists(item))
                 {
@@ -36,7 +36,7 @@
                 base.InsertItem(index, item);
             }
 
-            protected override void SetItem(int index, WebAsset item)
+            protected override void SetItem(int index, AssetBase item)
             {
                 if (AlreadyExists(item))
                 {
@@ -46,12 +46,12 @@
                 base.SetItem(index, item);
             }
 
-            private bool AlreadyExists(WebAsset item)
+            private bool AlreadyExists(AssetBase item)
             {
                 return this.Any(i => i != item && i.Source.Equals(item.Source));
             }
 
-            private string Message(WebAsset item)
+            private string Message(AssetBase item)
             {
                 return " Asset: \"" + item.Source + "\"";
             }

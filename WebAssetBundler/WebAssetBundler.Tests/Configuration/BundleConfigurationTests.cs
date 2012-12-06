@@ -85,8 +85,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Locate_Filtered_Assets_In_Directory()
         {
-            var assets = new List<WebAsset>();
-            assets.Add(new WebAsset("~/something"));
+            var assets = new List<AssetBase>();
+            assets.Add(new AssetBase("~/something"));
 
             assetLocator.Setup(l => l.Locate(It.IsAny<FromDirectoryComponent>()))
                 .Returns(assets);
@@ -99,8 +99,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Add_All_Assets_In_Directory()
         {
-            var assets = new List<WebAsset>();
-            assets.Add(new WebAsset("~/something"));
+            var assets = new List<AssetBase>();
+            assets.Add(new AssetBase("~/something"));
 
             assetLocator.Setup(l => l.Locate(It.IsAny<FromDirectoryComponent>()))
                 .Returns(assets);

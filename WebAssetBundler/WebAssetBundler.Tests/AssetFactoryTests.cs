@@ -39,7 +39,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             context.DefaultPath = "~/test/";
             var asset = factory.CreateAsset("file.css", "");
 
-            Assert.IsInstanceOf<WebAsset>(asset);
+            Assert.IsInstanceOf<AssetBase>(asset);
             Assert.AreEqual(Path.Combine("~/test/file.css"), asset.Source);
         }
 
@@ -49,7 +49,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             
             var asset = factory.CreateAsset("file.css", "~/test/");
 
-            Assert.IsInstanceOf<WebAsset>(asset);
+            Assert.IsInstanceOf<AssetBase>(asset);
             Assert.AreEqual("~/test/file.css", asset.Source);
         }
 
@@ -58,7 +58,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var asset = factory.CreateAsset("~/file.css", "");
 
-            Assert.IsInstanceOf<WebAsset>(asset);
+            Assert.IsInstanceOf<AssetBase>(asset);
             Assert.AreEqual("~/file.css", asset.Source);
         }
 

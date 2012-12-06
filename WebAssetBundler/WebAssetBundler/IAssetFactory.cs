@@ -23,10 +23,10 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Creates an asset. Automatically resoves the default path as needed.
         /// </summary>
-        /// <param name="source"></param>
+        /// <param name="stream"></param>
         /// <param name="path"></param>
         /// <returns></returns>
-        WebAsset CreateAsset(string source, string path);
+        AssetBase CreateAsset(string source, string path);
 
         /// <summary>
         /// Creates a bundle.

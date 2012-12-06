@@ -20,14 +20,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using WebAssetBundler.Web.Mvc;
 
     [TestFixture]
-    public class WebAssetTests
+    public class AssetBaseTests
     {
 
         [Test]
         public void Should_Be_Able_To_Get_Source_Set_By_Constructor()
         {
-            var source = "source/file.jpg";
-            var webAsset = new WebAsset(source);
+            var source = "stream/file.jpg";
+            var webAsset = new AssetBase(source);
 
             Assert.AreEqual(source, webAsset.Source);
         }
@@ -36,7 +36,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Be_Able_To_Get_Name_Without_Ext()
         {
             var name = "file";
-            var webAsset = new WebAsset("path/file.css");
+            var webAsset = new AssetBase("path/file.css");
 
             Assert.AreEqual(name, webAsset.Name);
         }
@@ -44,7 +44,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Be_Able_To_Get_Extention()
         {
-            var webAsset = new WebAsset("path/file.css");
+            var webAsset = new AssetBase("path/file.css");
 
             Assert.AreEqual("css", webAsset.Extension);
         }

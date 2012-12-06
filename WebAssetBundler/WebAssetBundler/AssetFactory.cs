@@ -28,7 +28,7 @@ namespace WebAssetBundler.Web.Mvc
             this.context = context;
         }
 
-        public WebAsset CreateAsset(string source, string path)
+        public AssetBase CreateAsset(string source, string path)
         {            
             if (source.StartsWith("~/") == false)
             {
@@ -42,7 +42,7 @@ namespace WebAssetBundler.Web.Mvc
                 }                
             }
 
-            return new WebAsset(source);
+            return new AssetBase(source);
         }
 
 

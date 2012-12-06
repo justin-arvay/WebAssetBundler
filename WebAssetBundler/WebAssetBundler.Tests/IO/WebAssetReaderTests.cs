@@ -30,7 +30,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var server = new Mock<HttpServerUtilityBase>();   
             var reader = new WebAssetReader(server.Object);
-            var webAsset = new WebAsset("Files/read.txt");
+            var webAsset = new AssetBase("Files/read.txt");
 
             server.Setup(m => m.MapPath(It.IsAny<string>()))
                 .Returns((string mappedPath) => mappedPath);

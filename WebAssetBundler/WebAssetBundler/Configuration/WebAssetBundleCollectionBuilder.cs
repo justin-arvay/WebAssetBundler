@@ -32,7 +32,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Adds a file to the collection.
         /// </summary>
-        /// <param name="source"></param>
+        /// <param name="stream"></param>
         /// <returns></returns>
         public WebAssetBundleCollectionBuilder<TBundle> Add(string source)
         {

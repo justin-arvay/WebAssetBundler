@@ -22,29 +22,47 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.IO;
 
-    public class ImagePathContentFilter : IContentFilter
+    public class ImagePathTransformer : IAssetTransformer
     {
-        public ImagePathContentFilter()
-        {            
+        private string outputPath;
+        private HttpServerUtilityBase server;
 
+        public ImagePathTransformer(string outputPath, HttpServerUtilityBase server)
+        {
+            this.outputPath = outputPath;
+            this.server = server;
         }
 
-        public string Filter(string outputPath, string sourcePath, string content)
+        public Func<Stream> Transform(Func<Stream> openStream, AssetBase asset)
         {
-            var sourceUri = new Uri(Path.GetDirectoryName(sourcePath) + "/", UriKind.Absolute);
-            var outputUri = new Uri(Path.GetDirectoryName(outputPath) + "/", UriKind.Absolute);
-
-            var relativePaths = FindDistinctRelativePathsIn(content);
-
-            foreach (string relativePath in relativePaths)
+            return delegate
             {
-                var resolvedSourcePath = new Uri(sourceUri + relativePath);
-                var resolvedOutput = outputUri.MakeRelativeUri(resolvedSourcePath);
+                var stream = openStream();
+                var content = Read(openStream);
 
-                content = content.Replace(relativePath, resolvedOutput.OriginalString);
+                var sourceUri = new Uri(Path.GetDirectoryName(server.MapPath(asset.Source)) + "/", UriKind.Absolute);
+                var outputUri = new Uri(Path.GetDirectoryName(outputPath) + "/", UriKind.Absolute);
+
+                var relativePaths = FindDistinctRelativePathsIn(content);
+
+                foreach (string relativePath in relativePaths)
+                {
+                    var resolvedSourcePath = new Uri(sourceUri + relativePath);
+                    var resolvedOutput = outputUri.MakeRelativeUri(resolvedSourcePath);
+
+                    content = content.Replace(relativePath, resolvedOutput.OriginalString);
+                }
+
+                return content.AsStream();
+            };
+        }
+
+        public string Read(Func<Stream> openStream)
+        {
+            using (var reader = new StreamReader(openStream()))
+            {
+                return reader.ReadToEnd();
             }
-
-            return content;
         }
 
         private IEnumerable<string> FindDistinctRelativePathsIn(string css)

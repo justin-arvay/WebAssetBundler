@@ -48,7 +48,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Resolve_Collection_And_Return_Results()
         {
 
-            bundle.Assets.Add(new WebAsset("path/test.css"));
+            bundle.Assets.Add(new AssetBase("path/test.css"));
             collection.Add(bundle);
 
             var results = resolver.Resolve(collection, context);

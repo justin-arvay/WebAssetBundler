@@ -41,9 +41,9 @@ namespace WebAssetBundler.Web.Mvc
             return results;
         }
 
-        private ResolvedBundle ResolveWebAsset(string name, bool compress, string host, WebAsset webAsset)
+        private ResolvedBundle ResolveWebAsset(string name, bool compress, string host, AssetBase webAsset)
         {
-            var assets = new List<WebAsset>();
+            var assets = new List<AssetBase>();
             assets.Add(webAsset);
 
             return new ResolvedBundle(assets, name)

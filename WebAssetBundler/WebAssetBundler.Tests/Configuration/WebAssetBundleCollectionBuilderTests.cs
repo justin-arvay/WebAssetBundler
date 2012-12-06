@@ -52,7 +52,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Adding_File_Should_Add_New_Group_With_Asset()
         {
             assetFactory.Setup(f => f.CreateBundle<BundleImpl>(It.IsAny<string>())).Returns(new BundleImpl());
-            assetFactory.Setup(f => f.CreateAsset(It.IsAny<string>(), It.IsAny<string>())).Returns(new WebAsset("~/Files/test.css"));
+            assetFactory.Setup(f => f.CreateAsset(It.IsAny<string>(), It.IsAny<string>())).Returns(new AssetBase("~/Files/test.css"));
 
             builder.Add("~/Files/test.css");
 
@@ -70,7 +70,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Add_Should_Return_Self_For_Chaining()
         {
-            assetFactory.Setup(f =>f.CreateAsset(It.IsAny<string>(), It.IsAny<string>())).Returns(new WebAsset("test.css"));
+            assetFactory.Setup(f =>f.CreateAsset(It.IsAny<string>(), It.IsAny<string>())).Returns(new AssetBase("test.css"));
             assetFactory.Setup(f => f.CreateBundle<BundleImpl>(It.IsAny<string>())).Returns(new BundleImpl());
 
             Assert.IsInstanceOf<WebAssetBundleCollectionBuilder<BundleImpl>>(builder.Add("~/Files/test.css"));

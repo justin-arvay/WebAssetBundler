@@ -35,10 +35,10 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Add an asset to the bundle
         /// </summary>
-        /// <param name="source"></param>
+        /// <param name="stream"></param>
         public void Add(string source)
         {
-            bundle.Assets.Add(new WebAsset(source));
+            bundle.Assets.Add(new AssetBase(source));
         }
 
         /// <summary>
