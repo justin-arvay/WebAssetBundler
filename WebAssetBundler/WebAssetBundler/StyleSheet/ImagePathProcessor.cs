@@ -17,16 +17,24 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Web;
 
     public class ImagePathProcessor : IPipelineProcessor<StyleSheetBundle>
     {
+        private HttpServerUtilityBase server;
+        private IUrlGenerator<StyleSheetBundle> urlGenerator;
+        private BuilderContext context;
+
+        public ImagePathProcessor(IUrlGenerator<StyleSheetBundle> urlGenerator, HttpServerUtilityBase server, BuilderContext context)
+        {
+            this.server = server;
+            this.urlGenerator = urlGenerator;
+            this.context = context;
+        }
 
         public void Process(StyleSheetBundle bundle)
         {
-            foreach (var asset in bundle.Assets)
-            {
-                asset.AddTransformer(new ImagePathTransformer);
-            }
+            bundle.TransformAssets(new ImagePathTransformer(urlGenerator.Generate("a", "a", "a", context), server));
         }
     }
 }

@@ -20,6 +20,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IWebAssetReader
     {
-        string Read(IWebAsset webAsset);
+        string Read(AssetBase webAsset);
     }
 }

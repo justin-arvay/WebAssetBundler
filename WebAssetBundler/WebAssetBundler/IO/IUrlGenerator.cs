@@ -18,7 +18,7 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public interface IUrlGenerator
+    public interface IUrlGenerator<T> where T : Bundle
     {
         /// <summary>
         /// Generates a url to the asset.

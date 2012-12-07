@@ -14,29 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
+    using NUnit.Framework;
+    using Moq;
 
-    public class ScriptUrlGenerator : IUrlGenerator<ScriptBundle>
+    [TestFixture]
+    public class MergedAssetTests
     {
-
-        public string Generate(string hash, string version, string host, BuilderContext context)
+        [Test]
+        public void Test()
         {
-            if (context.DebugMode)
-            {
-                version = context.CreateCacheBreakerVersion(version);
-            }
-
-            host = host ?? "";
-            var path = "wab.axd/js/{0}/{1}";
-
-            if (host.EndsWith("/") == false)
-            {
-                host += "/";
-            }
-
-            return host + path.FormatWith(version, hash);
+            Assert.Fail();
         }
     }
 }

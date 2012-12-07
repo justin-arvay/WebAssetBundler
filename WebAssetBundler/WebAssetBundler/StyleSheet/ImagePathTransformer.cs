@@ -33,36 +33,24 @@ namespace WebAssetBundler.Web.Mvc
             this.server = server;
         }
 
-        public Func<Stream> Transform(Func<Stream> openStream, AssetBase asset)
+        public void Transform(AssetBase asset)
         {
-            return delegate
+            var content = asset.Content;
+
+            var sourceUri = new Uri(Path.GetDirectoryName(server.MapPath(asset.Source)) + "/", UriKind.Absolute);
+            var outputUri = new Uri(Path.GetDirectoryName(outputPath) + "/", UriKind.Absolute);
+
+            var relativePaths = FindDistinctRelativePathsIn(content);
+
+            foreach (string relativePath in relativePaths)
             {
-                var stream = openStream();
-                var content = Read(openStream);
+                var resolvedSourcePath = new Uri(sourceUri + relativePath);
+                var resolvedOutput = outputUri.MakeRelativeUri(resolvedSourcePath);
 
-                var sourceUri = new Uri(Path.GetDirectoryName(server.MapPath(asset.Source)) + "/", UriKind.Absolute);
-                var outputUri = new Uri(Path.GetDirectoryName(outputPath) + "/", UriKind.Absolute);
-
-                var relativePaths = FindDistinctRelativePathsIn(content);
-
-                foreach (string relativePath in relativePaths)
-                {
-                    var resolvedSourcePath = new Uri(sourceUri + relativePath);
-                    var resolvedOutput = outputUri.MakeRelativeUri(resolvedSourcePath);
-
-                    content = content.Replace(relativePath, resolvedOutput.OriginalString);
-                }
-
-                return content.AsStream();
-            };
-        }
-
-        public string Read(Func<Stream> openStream)
-        {
-            using (var reader = new StreamReader(openStream()))
-            {
-                return reader.ReadToEnd();
+                content = content.Replace(relativePath, resolvedOutput.OriginalString);
             }
+
+            asset.Content = content;
         }
 
         private IEnumerable<string> FindDistinctRelativePathsIn(string css)

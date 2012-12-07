@@ -22,9 +22,9 @@ namespace WebAssetBundler.Web.Mvc
 
     public class StyleSheetTagWriter : ITagWriter
     {
-        private IUrlGenerator urlGenerator;
+        private IUrlGenerator<StyleSheetBundle> urlGenerator;
 
-        public StyleSheetTagWriter(IUrlGenerator urlGenerator)
+        public StyleSheetTagWriter(IUrlGenerator<StyleSheetBundle> urlGenerator)
         {
             this.urlGenerator = urlGenerator;
         }

@@ -17,26 +17,13 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Collections.Generic;
 
-    public class ScriptUrlGenerator : IUrlGenerator<ScriptBundle>
+    public class MergedAsset : AssetBase
     {
-
-        public string Generate(string hash, string version, string host, BuilderContext context)
+        public MergedAsset(IList<AssetBase> assets, string seperator)
+            : base("")
         {
-            if (context.DebugMode)
-            {
-                version = context.CreateCacheBreakerVersion(version);
-            }
-
-            host = host ?? "";
-            var path = "wab.axd/js/{0}/{1}";
-
-            if (host.EndsWith("/") == false)
-            {
-                host += "/";
-            }
-
-            return host + path.FormatWith(version, hash);
         }
     }
 }

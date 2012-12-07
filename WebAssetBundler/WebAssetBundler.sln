@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAssetBundler", "WebAssetBundler\WebAssetBundler.csproj", "{2AC03817-4112-47FE-AF34-44A8AE4717AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAssetBundler.Tests", "WebAssetBundler.Tests\WebAssetBundler.Tests.csproj", "{9FEF5FAF-C2E6-4943-ACCC-7B89C13013C0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples", "Examples\Examples.csproj", "{CFA5D4E1-15BE-4921-81A9-61951B12BCBD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAssetBundler.Tests", "WebAssetBundler.Tests\WebAssetBundler.Tests.csproj", "{625B8BE8-CB57-4033-842A-CFBF16CAD089}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -30,16 +30,6 @@ Global
 		{2AC03817-4112-47FE-AF34-44A8AE4717AB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2AC03817-4112-47FE-AF34-44A8AE4717AB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2AC03817-4112-47FE-AF34-44A8AE4717AB}.Release|x86.ActiveCfg = Release|Any CPU
-		{9FEF5FAF-C2E6-4943-ACCC-7B89C13013C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9FEF5FAF-C2E6-4943-ACCC-7B89C13013C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9FEF5FAF-C2E6-4943-ACCC-7B89C13013C0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{9FEF5FAF-C2E6-4943-ACCC-7B89C13013C0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{9FEF5FAF-C2E6-4943-ACCC-7B89C13013C0}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{9FEF5FAF-C2E6-4943-ACCC-7B89C13013C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9FEF5FAF-C2E6-4943-ACCC-7B89C13013C0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9FEF5FAF-C2E6-4943-ACCC-7B89C13013C0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{9FEF5FAF-C2E6-4943-ACCC-7B89C13013C0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{9FEF5FAF-C2E6-4943-ACCC-7B89C13013C0}.Release|x86.ActiveCfg = Release|Any CPU
 		{CFA5D4E1-15BE-4921-81A9-61951B12BCBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CFA5D4E1-15BE-4921-81A9-61951B12BCBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFA5D4E1-15BE-4921-81A9-61951B12BCBD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -50,6 +40,16 @@ Global
 		{CFA5D4E1-15BE-4921-81A9-61951B12BCBD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{CFA5D4E1-15BE-4921-81A9-61951B12BCBD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{CFA5D4E1-15BE-4921-81A9-61951B12BCBD}.Release|x86.ActiveCfg = Release|Any CPU
+		{625B8BE8-CB57-4033-842A-CFBF16CAD089}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{625B8BE8-CB57-4033-842A-CFBF16CAD089}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{625B8BE8-CB57-4033-842A-CFBF16CAD089}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{625B8BE8-CB57-4033-842A-CFBF16CAD089}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{625B8BE8-CB57-4033-842A-CFBF16CAD089}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{625B8BE8-CB57-4033-842A-CFBF16CAD089}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{625B8BE8-CB57-4033-842A-CFBF16CAD089}.Release|Any CPU.Build.0 = Release|Any CPU
+		{625B8BE8-CB57-4033-842A-CFBF16CAD089}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{625B8BE8-CB57-4033-842A-CFBF16CAD089}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{625B8BE8-CB57-4033-842A-CFBF16CAD089}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

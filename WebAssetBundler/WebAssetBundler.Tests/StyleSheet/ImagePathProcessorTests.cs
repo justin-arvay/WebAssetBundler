@@ -23,6 +23,10 @@ namespace WebAssetBundler.Web.Mvc
     [TestFixture]
     public class ImagePathProcessorTests
     {
-
+        [Test]
+        public void Test()
+        {
+            Assert.Fail();
+        }
     }
 }

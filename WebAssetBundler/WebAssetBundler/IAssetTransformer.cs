@@ -21,6 +21,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IAssetTransformer
     {
-        Func<Stream> Transform(Func<Stream> openStream, AssetBase asset);
+        void Transform(AssetBase asset);
     }
 }

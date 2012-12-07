@@ -18,25 +18,12 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class ScriptUrlGenerator : IUrlGenerator<ScriptBundle>
+    public class StyleSheetMergeProcessor : IPipelineProcessor<StyleSheetBundle>
     {
 
-        public string Generate(string hash, string version, string host, BuilderContext context)
+        public void Process(StyleSheetBundle bundle)
         {
-            if (context.DebugMode)
-            {
-                version = context.CreateCacheBreakerVersion(version);
-            }
-
-            host = host ?? "";
-            var path = "wab.axd/js/{0}/{1}";
-
-            if (host.EndsWith("/") == false)
-            {
-                host += "/";
-            }
-
-            return host + path.FormatWith(version, hash);
+            
         }
     }
 }

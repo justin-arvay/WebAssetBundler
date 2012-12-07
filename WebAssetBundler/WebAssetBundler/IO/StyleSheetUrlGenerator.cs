@@ -18,7 +18,7 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class StyleSheetUrlGenerator : IUrlGenerator
+    public class StyleSheetUrlGenerator : IUrlGenerator<StyleSheetBundle>
     {
 
         public string Generate(string hash, string version, string host, BuilderContext context)

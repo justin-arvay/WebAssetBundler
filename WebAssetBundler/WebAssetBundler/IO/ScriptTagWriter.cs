@@ -22,9 +22,9 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ScriptTagWriter : ITagWriter
     {
-        private IUrlGenerator urlGenerator;
+        private IUrlGenerator<ScriptBundle> urlGenerator;
 
-        public ScriptTagWriter(IUrlGenerator urlGenerator)
+        public ScriptTagWriter(IUrlGenerator<ScriptBundle> urlGenerator)
         {
             this.urlGenerator = urlGenerator;
         }

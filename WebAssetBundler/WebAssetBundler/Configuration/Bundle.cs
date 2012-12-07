@@ -24,7 +24,12 @@
 
         public IList<AssetBase> Assets { get; set; }
 
-        private sealed class InternalCollection : Collection<AssetBase>
+        public void TransformAssets(IAssetTransformer transformer)
+        {
+            ((InternalCollection)Assets).Transform(transformer);
+        }
+
+        private sealed class InternalCollection : Collection<AssetBase>, ITransformable<IAssetTransformer>
         {
             protected override void InsertItem(int index, AssetBase item)
             {
@@ -54,6 +59,14 @@
             private string Message(AssetBase item)
             {
                 return " Asset: \"" + item.Source + "\"";
+            }
+
+            public void Transform(IAssetTransformer transformer)
+            {
+                foreach (var asset in this)
+                {
+                    asset.Transform(transformer);
+                }
             }
         }
     }

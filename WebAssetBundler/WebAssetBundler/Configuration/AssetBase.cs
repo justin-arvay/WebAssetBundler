@@ -18,12 +18,10 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System.IO;
     using System;
-using System.Collections.Generic;
+    using System.Collections.Generic;
 
-    public abstract class AssetBase
+    public abstract class AssetBase : ITransformable<IAssetTransformer>
     {
-        private IList<IAssetTransformer> transformers = new List<IAssetTransformer>();
-
         public AssetBase(string source)
         {
             Source = source;
@@ -51,15 +49,15 @@ using System.Collections.Generic;
             }
         }
 
-        public Func<Stream> Stream 
+        public string Content
         {
-            get; 
-            set; 
+            get;
+            set;
         }
 
-        public void AddTransformer(IAssetTransformer transformer)
+        public void Transform(IAssetTransformer transformer)
         {
-            transformers.Add(transformer);
+            transformer.Transform(this);
         }
     }
 }

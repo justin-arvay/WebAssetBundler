@@ -31,7 +31,7 @@ namespace WebAssetBundler.Web.Mvc
         }
 
 
-        public string Read(IWebAsset webAsset)
+        public string Read(AssetBase webAsset)
         {
             var path = server.MapPath(webAsset.Source);
             using (var reader = new StreamReader(path))
