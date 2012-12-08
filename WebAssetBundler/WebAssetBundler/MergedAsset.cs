@@ -21,9 +21,10 @@ namespace WebAssetBundler.Web.Mvc
 
     public class MergedAsset : AssetBase
     {
-        public MergedAsset(IList<AssetBase> assets, string seperator)
+        public MergedAsset(string content)
             : base("")
         {
+            Content = content;
         }
     }
 }

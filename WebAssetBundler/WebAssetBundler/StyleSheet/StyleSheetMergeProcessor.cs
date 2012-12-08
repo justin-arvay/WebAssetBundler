@@ -17,13 +17,14 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Linq;
 
     public class StyleSheetMergeProcessor : IPipelineProcessor<StyleSheetBundle>
     {
 
         public void Process(StyleSheetBundle bundle)
         {
-            
+            var content = bundle.Assets.Aggregate<AssetBase, string>("", (a, b) => a + b.Content);
         }
     }
 }
