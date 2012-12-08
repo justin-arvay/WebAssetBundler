@@ -14,19 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System;
-    using System.Linq;
 
-    public class StyleSheetMergeProcessor : IPipelineProcessor<StyleSheetBundle>
+    public class AssetBaseImpl : AssetBase
     {
 
-        public void Process(StyleSheetBundle bundle)
-        {
-            var content = bundle.Assets.Aggregate<AssetBase, string>("", (a, b) => a + b.Content);
-            bundle.Assets.Clear();
-            bundle.Assets.Add(new MergedAsset(content));
-        }
     }
 }

@@ -22,10 +22,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class MergedAssetTests
     {
+
         [Test]
-        public void Test()
+        public void Should_Set_Content()
         {
-            Assert.Fail();
+            var asset = new MergedAsset("content");
+
+            Assert.AreEqual("content", asset.Content);
         }
     }
 }
