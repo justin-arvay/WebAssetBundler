@@ -18,14 +18,13 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class StyleSheetPipeline : BundlePipeline<StyleSheetBundle>
+    public class ScriptPipeline : BundlePipeline<ScriptBundle>
     {
-        public StyleSheetPipeline(TinyIoCContainer container)
+        public ScriptPipeline(TinyIoCContainer container)
             : base(container)
         {
-            Add(container.Resolve<ImagePathProcessor>());
-            Add(new StyleSheetMergeProcessor());
-            Add(container.Resolve<StyleSheetCompressProcessor>());
+            Add(new ScriptMergeProcessor());
+            Add(container.Resolve<ScriptCompressProcessor>());
         }
     }
 }

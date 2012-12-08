@@ -22,6 +22,13 @@ namespace WebAssetBundler.Web.Mvc
     public class BundlePipeline<T> : List<IPipelineProcessor<T>>, IBundlePipeline<T>
         where T : Bundle
     {
+        protected TinyIoCContainer container;
+
+        public BundlePipeline(TinyIoCContainer container)
+        {
+            this.container = container;
+        }
+        
         public virtual void Process(T bundle)
         {
             foreach (var processor in this)

@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,10 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    public interface IContentFilter
+    using NUnit.Framework;
+    using Moq;
+
+    [TestFixture]
+    public class ScriptPipelineTests
     {
-        string Filter(string outputPath, string sourcePath, string content);
+        [Test]
+        public void test()
+        {
+            Assert.Fail();
+        }
     }
 }

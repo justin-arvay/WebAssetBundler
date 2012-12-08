@@ -68,7 +68,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public void ConfigureContainerForStyleSheets()
         {
-            container.Register<IContentFilter, ImagePathContentFilter>();
+            container.Register<IUrlGenerator<StyleSheetBundle>, StyleSheetUrlGenerator>();
             container.Register<IStyleSheetCompressor>((c, p) => DefaultSettings.StyleSheetCompressor);
             container.Register<IMergedBundleCache<StyleSheetBundle>, MergedBundleCache<StyleSheetBundle>>();
             container.Register<IStyleSheetConfigProvider>((c, p) => DefaultSettings.StyleSheetConfigProvider);

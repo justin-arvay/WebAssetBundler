@@ -18,14 +18,21 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class StyleSheetPipeline : BundlePipeline<StyleSheetBundle>
+    public class StyleSheetCompressProcessor : IPipelineProcessor<StyleSheetBundle>
     {
-        public StyleSheetPipeline(TinyIoCContainer container)
-            : base(container)
+        private IStyleSheetCompressor compressor;
+
+        public StyleSheetCompressProcessor(IStyleSheetCompressor compressor)
         {
-            Add(container.Resolve<ImagePathProcessor>());
-            Add(new StyleSheetMergeProcessor());
-            Add(container.Resolve<StyleSheetCompressProcessor>());
+            this.compressor = compressor;
+        }
+
+        public void Process(StyleSheetBundle bundle)
+        {
+            foreach (var asset in bundle.Assets)
+            {
+                asset.Content = compressor.Compress(asset.Content);
+            }
         }
     }
 }

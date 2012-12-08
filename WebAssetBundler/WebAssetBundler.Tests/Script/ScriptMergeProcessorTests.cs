@@ -14,18 +14,34 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
+    using NUnit.Framework;
+    using Moq;
 
-    public class StyleSheetPipeline : BundlePipeline<StyleSheetBundle>
+    [TestFixture]
+    public class ScriptMergeProcessorTests
     {
-        public StyleSheetPipeline(TinyIoCContainer container)
-            : base(container)
+        private ScriptMergeProcessor processor;
+        private ScriptBundle bundle;
+
+        [SetUp]
+        public void Setup()
         {
-            Add(container.Resolve<ImagePathProcessor>());
-            Add(new StyleSheetMergeProcessor());
-            Add(container.Resolve<StyleSheetCompressProcessor>());
+            processor = new ScriptMergeProcessor();
+            bundle = new ScriptBundle();
+        }
+
+        [Test]
+        public void Should_Merge()
+        {
+            bundle.Assets.Add(new AssetBaseImpl());
+            bundle.Assets.Add(new AssetBaseImpl());
+
+            processor.Process(bundle);
+
+            Assert.AreEqual(1, bundle.Assets);
+            Assert.IsInstanceOf<MergedAsset>(bundle.Assets[0]);
         }
     }
 }

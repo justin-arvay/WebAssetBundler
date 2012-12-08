@@ -17,15 +17,17 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Linq;
 
-    public class StyleSheetPipeline : BundlePipeline<StyleSheetBundle>
+    public class ScriptMergeProcessor : IPipelineProcessor<ScriptBundle>
     {
-        public StyleSheetPipeline(TinyIoCContainer container)
-            : base(container)
+
+        public void Process(ScriptBundle bundle)
         {
-            Add(container.Resolve<ImagePathProcessor>());
-            Add(new StyleSheetMergeProcessor());
-            Add(container.Resolve<StyleSheetCompressProcessor>());
+            var seperator = ";";
+            var content = bundle.Assets.Aggregate<AssetBase, string>("", (a, b) => a + seperator + b.Content);
+            bundle.Assets.Clear();
+            bundle.Assets.Add(new MergedAsset(content));
         }
     }
 }
