@@ -22,10 +22,25 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class ScriptPipelineTests
     {
-        [Test]
-        public void test()
+        private ScriptPipeline pipeline;
+        private TinyIoCContainer container;
+
+        [SetUp]
+        public void Setup()
         {
-            Assert.Fail();
+            var compressor = new Mock<IScriptCompressor>();
+
+            container = new TinyIoCContainer();
+            pipeline = new ScriptPipeline(container);
+
+            container.Register<IScriptCompressor>((a, c) => compressor.Object);
+        }
+
+        [Test]
+        public void Should_Contain_Default_Processors()
+        {
+            Assert.IsInstanceOf<ScriptMergeProcessor>(pipeline[0]);
+            Assert.IsInstanceOf<ScriptCompressProcessor>(pipeline[1]);
         }
     }
 }

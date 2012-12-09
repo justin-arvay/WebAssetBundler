@@ -18,23 +18,79 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Web;
+    using System.Collections.Generic;
+    using System.Text.RegularExpressions;
+    using System.IO;
 
-    public class ImagePathProcessor : IPipelineProcessor<StyleSheetBundle>
+    public class ImagePathProcessor : IPipelineProcessor<StyleSheetBundle>, IAssetTransformer
     {
         private HttpServerUtilityBase server;
-        private IUrlGenerator<StyleSheetBundle> urlGenerator;
+        private string outputUrl;
         private BuilderContext context;
 
         public ImagePathProcessor(IUrlGenerator<StyleSheetBundle> urlGenerator, HttpServerUtilityBase server, BuilderContext context)
         {
             this.server = server;
-            this.urlGenerator = urlGenerator;
             this.context = context;
+
+            outputUrl = urlGenerator.Generate("a", "a", "a", context);
         }
 
         public void Process(StyleSheetBundle bundle)
         {
-            bundle.TransformAssets(new ImagePathTransformer(urlGenerator.Generate("a", "a", "a", context), server));
+            bundle.TransformAssets(this);
+        }
+
+        public void Transform(AssetBase asset)
+        {
+            var content = asset.Content;
+
+            var sourceUri = new Uri(Path.GetDirectoryName(server.MapPath(asset.Source)) + "/", UriKind.Absolute);
+            var outputUri = new Uri(Path.GetDirectoryName(outputUrl) + "/", UriKind.Absolute);
+
+            var relativePaths = FindDistinctRelativePathsIn(content);
+
+            foreach (string relativePath in relativePaths)
+            {
+                var resolvedSourcePath = new Uri(sourceUri + relativePath);
+                var resolvedOutput = outputUri.MakeRelativeUri(resolvedSourcePath);
+
+                content = content.Replace(relativePath, resolvedOutput.OriginalString);
+            }
+
+            asset.Content = content;
+        }
+
+        private IEnumerable<string> FindDistinctRelativePathsIn(string css)
+        {
+            var matchesHash = new HashSet<string>();
+            var urlMatches = Regex.Matches(css, @"url\([""']{0,1}(.+?)[""']{0,1}\)", RegexOptions.IgnoreCase);
+            var srcMatches = Regex.Matches(css, @"\(src\=[""']{0,1}(.+?)[""']{0,1}\)", RegexOptions.IgnoreCase);
+
+            foreach (Match match in urlMatches)
+            {
+                matchesHash.Add(GetUrlFromMatch(match));
+            }
+
+            foreach (Match match in srcMatches)
+            {
+                matchesHash.Add(GetUrlFromMatch(match));
+            }
+
+            return matchesHash;
+        }
+
+        private string GetUrlFromMatch(Match match)
+        {
+            var path = match.Groups[1].Captures[0].Value;
+
+            //remove the starting slash if it exists
+            if (path.StartsWith("/"))
+            {
+                path = path.Substring(1);
+            }
+
+            return path;
         }
     }
 }

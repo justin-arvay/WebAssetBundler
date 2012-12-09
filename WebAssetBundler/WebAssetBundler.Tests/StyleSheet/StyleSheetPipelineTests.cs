@@ -18,14 +18,38 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System;
+    using System.Web;
 
     [TestFixture]
     public class StyleSheetPipelineTests
     {
-        [Test]
-        public void test()
+        private StyleSheetPipeline pipeline;
+        private TinyIoCContainer container;
+
+        [SetUp]
+        public void Setup()
         {
-            Assert.Fail();
+            var compressor = new Mock<IStyleSheetCompressor>();
+            var server = new Mock<HttpServerUtilityBase>();
+
+            container = new TinyIoCContainer();
+            pipeline = new StyleSheetPipeline(container);
+
+            container.Register<IStyleSheetCompressor>((a, c) => compressor.Object);
+            container.Register<IUrlGenerator<StyleSheetBundle>, StyleSheetUrlGenerator>();
+            container.Register<HttpServerUtilityBase>((a, c) => server.Object);
+            container.Register<BuilderContext>((a, c) => new BuilderContext());
+        }
+
+        [Test]
+        public void Should_Contain_Default_Processors()
+        {
+            Assert.IsInstanceOf<ImagePathProcessor>(pipeline[0]);
+            Assert.IsInstanceOf<StyleSheetMergeProcessor>(pipeline[1]);
+            Assert.IsInstanceOf<StyleSheetCompressProcessor>(pipeline[2]);
         }
     }
+
+
 }
