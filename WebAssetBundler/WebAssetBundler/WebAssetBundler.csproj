@@ -151,7 +151,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Exceptions.resx</DependentUpon>
     </Compile>
-    <Compile Include="StyleSheet\ImagePathTransformer.cs" />
     <Compile Include="TinyIoC\TinyIoC.cs" />
     <Compile Include="TinyIoC\TinyIoCExtensions.cs" />
     <Compile Include="WabHttpModule.cs" />
