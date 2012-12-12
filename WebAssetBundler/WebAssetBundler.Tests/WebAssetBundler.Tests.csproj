@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="AssetBaseImpl.cs" />
     <Compile Include="AssetFactoryTests.cs" />
+    <Compile Include="AssetFileTests.cs" />
     <Compile Include="BuilderContextFactoryTests.cs" />
     <Compile Include="BuilderContextTests.cs" />
     <Compile Include="Caching\BundlesCacheTests.cs" />
@@ -97,7 +98,6 @@
     <Compile Include="IO\ScriptWebAssetMergerTests.cs" />
     <Compile Include="IO\StyleSheetTagWriterTests.cs" />
     <Compile Include="IO\StyleSheetUrlGeneratorTests.cs" />
-    <Compile Include="IO\WebAssetReaderTests.cs" />
     <Compile Include="ManagerBuilderFactoryTests.cs" />
     <Compile Include="MergedAssetTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -118,6 +118,7 @@
     <Compile Include="TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Files\AssetFileTest.css" />
     <Content Include="Files\Configuration\FirstFile.css" />
     <Content Include="Files\Configuration\NotCorrectExt.txt" />
     <Content Include="Files\Configuration\SecondFile.css" />

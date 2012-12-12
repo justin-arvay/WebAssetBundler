@@ -19,6 +19,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
 using System.Web;
+    using System.IO;
 
     [TestFixture]
     public class AssetFileTests
@@ -48,7 +49,7 @@ using System.Web;
         [Test]
         public void Should_Open_Stream()
         {
-
+            Assert.IsInstanceOf<Stream>(file.Open(FileMode.Open));
         }
 
         [Test]
