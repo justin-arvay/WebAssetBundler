@@ -24,7 +24,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class FromDirectoryAssetLocatorTests
     {
-        private FromDirectoryAssetLocator locator;
+        private AssetProvider locator;
         private FromDirectoryComponent component;
         private Mock<HttpServerUtilityBase> server;
 
@@ -32,7 +32,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Setup()
         {
             server = new Mock<HttpServerUtilityBase>();
-            locator = new FromDirectoryAssetLocator(server.Object, "");
+            locator = new AssetProvider(server.Object, "");
             component = new FromDirectoryComponent("Files/Configuration", "css");
 
             server.Setup(m => m.MapPath(It.IsAny<string>()))
@@ -42,7 +42,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_All_Files_With_Correct_Extension_As_Virtual_Paths()
         {
-            var assets = (IList<AssetBase>)locator.Locate(component);
+            var assets = (IList<AssetBase>)locator.GetAssets(component);
 
             Assert.AreEqual("~/Files/Configuration/FirstFile.css", assets[0].Source, "0 index");
             Assert.AreEqual("~/Files/Configuration/SecondFile.css", assets[1].Source, "0 index");
@@ -57,7 +57,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             component.StartsWithCollection.Add("First");
             component.StartsWithCollection.Add("Second");
 
-            var assets = locator.Locate(component);
+            var assets = locator.GetAssets(component);
 
             Assert.AreEqual(2, assets.Count);
         }
@@ -67,7 +67,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             component.EndsWithCollection.Add("File");
 
-            var assets = locator.Locate(component);
+            var assets = locator.GetAssets(component);
 
             Assert.AreEqual(2, assets.Count);
         }
@@ -77,7 +77,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             component.ContainsCollection.Add("File.min");
 
-            var assets = locator.Locate(component);
+            var assets = locator.GetAssets(component);
 
             Assert.AreEqual(1, assets.Count);
         }

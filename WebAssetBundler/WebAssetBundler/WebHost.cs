@@ -58,7 +58,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IWebAssetBundleCollectionResolver, WebAssetBundleCollectionResolver>()
                 .AsSingleton();
 
-            container.Register<IAssetLocator<FromDirectoryComponent>>((c, p) => new FromDirectoryAssetLocator(c.Resolve<HttpServerUtilityBase>(), HttpContext().Request.PhysicalApplicationPath));
+            container.Register<IAssetProvider<FromDirectoryComponent>>((c, p) => new AssetProvider(c.Resolve<HttpServerUtilityBase>(), HttpContext().Request.PhysicalApplicationPath));
 
             ConfigureContainerForStyleSheets();
             ConfigureContainerForScript();

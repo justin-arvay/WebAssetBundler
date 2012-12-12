@@ -17,34 +17,47 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.Collections.ObjectModel;
-    using System.Collections.Generic;
+    using System.Web;
+    using System.IO;
 
-    public class BundleConfigurationCollection<TConfig, TBundle> : Collection<TConfig>, IBundleProvider<TBundle>
-        where TConfig : BundleConfiguration<TConfig, TBundle>
-        where TBundle : Bundle
+    public class AssetFile : IFile
     {
+        private string fullPath;
 
-        private IAssetProvider assetLocator;
-
-        public BundleConfigurationCollection(IList<TConfig> collection, IAssetProvider assetLocator)
-            : base(collection)
+        public AssetFile(string source, HttpServerUtilityBase server)
         {
-            this.assetLocator = assetLocator;
+            fullPath = server.MapPath(source);
         }
-    
-        public BundleCollection<TBundle> GetBundles()
+
+        public bool Exists
         {
-            var bundles = new BundleCollection<TBundle>();
-
-            foreach (TConfig item in this)
+            get 
             {
-                item.AssetLocator = assetLocator;
-                item.Configure();
-                bundles.Add((TBundle)item.GetBundle());    
+                return File.Exists(fullPath);
             }
+        }
 
-            return bundles;
+        public string FullPath
+        {
+            get 
+            {
+                return fullPath;
+            }
+        }
+
+        public Stream Open(FileMode mode)
+        {
+            return File.Open(fullPath, mode);
+        }
+
+        public Stream Open(FileMode mode, FileAccess access)
+        {
+            return File.Open(fullPath, mode, access);
+        }
+
+        public Stream Open(FileMode mode, FileAccess access, FileShare fileShare)
+        {
+            return File.Open(fullPath, mode, access, fileShare);
         }
     }
 }

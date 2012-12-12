@@ -47,7 +47,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="path"></param>
         public void AddFromDirectory(string path)
         {
-            var assets = AssetLocator.Locate(new FromDirectoryComponent(path, bundle.Extension));
+            var assets = AssetLocator.GetAssets(new FromDirectoryComponent(path, bundle.Extension));
 
             foreach (var asset in assets)
             {
@@ -65,7 +65,7 @@ namespace WebAssetBundler.Web.Mvc
             var component = new FromDirectoryComponent(path, bundle.Extension);
             builder(new FromDirectoryBuilder(component));
 
-            var assets = AssetLocator.Locate(component);
+            var assets = AssetLocator.GetAssets(component);
 
             foreach (var asset in assets)
             {
@@ -114,7 +114,7 @@ namespace WebAssetBundler.Web.Mvc
             return bundle;
         }
 
-        internal IAssetLocator<FromDirectoryComponent> AssetLocator
+        internal IAssetProvider AssetLocator
         {
             get;
             set;

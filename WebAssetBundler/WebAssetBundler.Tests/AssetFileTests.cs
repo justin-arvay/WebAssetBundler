@@ -18,36 +18,43 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
-    using System.Collections.Generic;
+using System.Web;
 
     [TestFixture]
-    public class BundleConfigurationCollectionTests
+    public class AssetFileTests
     {
-        private BundleConfigurationCollection<BundleConfigurationImpl, BundleImpl> collection;
-        private IList<BundleConfigurationImpl> list;
-        private Mock<IAssetProvider<FromDirectoryComponent>> locator;
-
+        private AssetFile file;
+        private Mock<HttpServerUtilityBase> server;
 
         [SetUp]
         public void Setup()
         {
-            list = new List<BundleConfigurationImpl>();
-            locator = new Mock<IAssetProvider<FromDirectoryComponent>>();
-            collection = new BundleConfigurationCollection<BundleConfigurationImpl, BundleImpl>(list, locator.Object);
+            server = new Mock<HttpServerUtilityBase>();
+            file = new AssetFile("~/Files/AssetFileTest.css", server.Object);
+
+            server.Setup(s => s.MapPath("~/Files/AssetFileTest.css"))
+                .Returns("D:\\ASP.NET Projects\\WebAssetBundler\\WebAssetBundler\\WebAssetBundler.Tests\\Files\\AssetFileTest.css");
         }
 
         [Test]
-        public void Should_Get_Bundles()
+        public void Should_Get_Full_Path()
         {
-            var config = new Mock<BundleConfigurationImpl>();
 
-            list.Add(config.Object);
+            Assert.AreEqual(
+                "D:\\ASP.NET Projects\\WebAssetBundler\\WebAssetBundler\\WebAssetBundler.Tests\\Files\\AssetFileTest.css", 
+                file.FullPath);
+        }
 
-            var bundles = collection.GetBundles();
+        [Test]
+        public void Should_Open_Stream()
+        {
 
-            Assert.AreEqual(1, bundles.Count);
-            Assert.AreEqual(locator.Object, config.Object.AssetLocator);
-            config.Verify(c => c.Configure(), Times.Once());
+        }
+
+        [Test]
+        public void Should_Exist()
+        {
+            Assert.True(file.Exists);
         }
     }
 }

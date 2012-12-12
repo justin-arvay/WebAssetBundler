@@ -36,7 +36,7 @@ namespace WebAssetBundler.Web.Mvc
             server = new Mock<HttpServerUtilityBase>();
             context = new BuilderContext();
 
-            processor = new ImagePathProcessor(urlGenerator.Object, server.Object, context);`
+            processor = new ImagePathProcessor(urlGenerator.Object, server.Object, context);
         }
 
         [Test]

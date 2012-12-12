@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -18,25 +18,39 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.IO;
-    using System.Web;
-    using System.Web.Hosting;
 
-    public class WebAssetReader : IWebAssetReader
+    public class FileAsset : AssetBase
     {
-        private HttpServerUtilityBase server;
+        private IFile sourceFile;
+        private string content;
 
-        public WebAssetReader(HttpServerUtilityBase server)
+        public FileAsset(IFile sourceFile)
         {
-            this.server = server;
+            this.sourceFile = sourceFile;
         }
 
-
-        public string Read(AssetBase webAsset)
+        public override string Source
         {
-            var path = server.MapPath(webAsset.Source);
-            using (var reader = new StreamReader(path))
+            get 
             {
-                return reader.ReadToEnd();
+                return sourceFile.FullPath;
+            }
+        }
+
+        public override string Content
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(content))
+                {
+                    content = sourceFile.Open(FileMode.Open, FileAccess.Read, FileShare.Read).ToString();
+                }
+
+                return content;
+            }
+            set
+            {
+                this.content = value;
             }
         }
     }

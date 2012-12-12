@@ -19,8 +19,9 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public interface IAssetLocator<in T>
+    public interface IAssetProvider
     {
-        ICollection<AssetBase> Locate(T component);
+        AssetBase GetAsset(string source);
+        ICollection<AssetBase> GetAssets(FromDirectoryComponent component);
     }
 }

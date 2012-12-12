@@ -22,10 +22,10 @@ namespace WebAssetBundler.Web.Mvc
     {
         private IScriptConfigProvider configProvider;
         private IBundlesCache<ScriptBundle> cache;
-        private IAssetLocator<FromDirectoryComponent> assetLocator;
+        private IAssetProvider assetLocator;
 
         public ScriptBundleProvider(IScriptConfigProvider configProvider, IBundlesCache<ScriptBundle> cache, 
-            IAssetLocator<FromDirectoryComponent> assetLocator)
+            IAssetProvider assetLocator)
         {
             this.configProvider = configProvider;
             this.cache = cache;

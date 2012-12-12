@@ -36,7 +36,7 @@ namespace WebAssetBundler.Web.Mvc
         public StyleSheetManagerBuilder CreateStyleSheetManagerBuilder()
         {
             var container = WabHttpModule.Host.Container;
-            var assetLocator = new FromDirectoryAssetLocator(httpContext.Server, httpContext.Request.PhysicalApplicationPath);
+            var assetLocator = new AssetProvider(httpContext.Server, httpContext.Request.PhysicalApplicationPath);
             var builderContext = contextFactory.CreateStyleSheetContext();
             var bundleProvider = container.Resolve<StyleSheetBundleProvider>();          
 

@@ -22,10 +22,10 @@ namespace WebAssetBundler.Web.Mvc
     {
         private IStyleSheetConfigProvider configProvider;
         private IBundlesCache<StyleSheetBundle> cache;
-        private IAssetLocator<FromDirectoryComponent> assetLocator;
+        private IAssetProvider assetLocator;
 
         public StyleSheetBundleProvider(IStyleSheetConfigProvider configProvider, IBundlesCache<StyleSheetBundle> cache, 
-            IAssetLocator<FromDirectoryComponent> assetLocator)
+            IAssetProvider assetLocator)
         {
             this.configProvider = configProvider;
             this.cache = cache;

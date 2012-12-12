@@ -22,18 +22,25 @@ namespace WebAssetBundler.Web.Mvc
     using System.Linq;
     using System.Web;
 
-    public class FromDirectoryAssetLocator : IAssetLocator<FromDirectoryComponent>
+    public class AssetProvider : IAssetProvider
     {
         private HttpServerUtilityBase server;
         private string applicationPath;
+        private WebAssetReader assetReader;
 
-        public FromDirectoryAssetLocator(HttpServerUtilityBase server, string applicationPath)
+        public AssetProvider(WebAssetReader assetReader, HttpServerUtilityBase server, string applicationPath)
         {
+            this.assetReader = assetReader;
             this.server = server;
             this.applicationPath = applicationPath;
         }
 
-        public ICollection<AssetBase> Locate(FromDirectoryComponent component)
+        public AssetBase GetAsset(string source)
+        {
+            throw new NotImplementedException();
+        }        
+
+        public ICollection<AssetBase> GetAssets(FromDirectoryComponent component)
         {
             var collecton = new List<AssetBase>();
 
@@ -58,14 +65,14 @@ namespace WebAssetBundler.Web.Mvc
             return collecton;
         }
 
-        public bool IsFilteringRequired(FromDirectoryComponent component)
+        private bool IsFilteringRequired(FromDirectoryComponent component)
         {
             return component.StartsWithCollection.Count > 0 ||
                 component.EndsWithCollection.Count > 0 ||
                 component.ContainsCollection.Count > 0;
         }
 
-        public IEnumerable<string> FilterFiles(IEnumerable<string> fileNames, FromDirectoryComponent component)
+        private IEnumerable<string> FilterFiles(IEnumerable<string> fileNames, FromDirectoryComponent component)
         {
             var filteredFileNames = fileNames.Where(
                     (name) => CompareAgainstCollection(component.StartsWithCollection, (x) => Path.GetFileNameWithoutExtension(name).StartsWith(x)) ||
@@ -76,7 +83,7 @@ namespace WebAssetBundler.Web.Mvc
             return filteredFileNames;
         }
 
-        public bool CompareAgainstCollection(ICollection<string> strings, Func<string, bool> callback)
+        private bool CompareAgainstCollection(ICollection<string> strings, Func<string, bool> callback)
         {
             foreach (var str in strings)
             {

@@ -26,14 +26,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private StyleSheetBundleProvider provider;
         private Mock<IStyleSheetConfigProvider> configProvider;
         private Mock<IBundlesCache<StyleSheetBundle>> cache;
-        private Mock<IAssetLocator<FromDirectoryComponent>> locator;
+        private Mock<IAssetProvider<FromDirectoryComponent>> locator;
 
         [SetUp]
         public void Setup()
         {
             configProvider = new Mock<IStyleSheetConfigProvider>();
             cache = new Mock<IBundlesCache<StyleSheetBundle>>();
-            locator = new Mock<IAssetLocator<FromDirectoryComponent>>();
+            locator = new Mock<IAssetProvider<FromDirectoryComponent>>();
             provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, locator.Object);
         }
 

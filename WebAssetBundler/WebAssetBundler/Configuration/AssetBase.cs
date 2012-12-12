@@ -22,11 +22,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public abstract class AssetBase : ITransformable<IAssetTransformer>
     {
-        public AssetBase(string source)
-        {
-            Source = source;
-        }
-
         public string Name
         {
             get
@@ -35,7 +30,7 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
        
-        public string Source
+        public abstract string Source
         {
             get;
             private set;
@@ -49,7 +44,7 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public string Content
+        public abstract string Content
         {
             get;
             set;

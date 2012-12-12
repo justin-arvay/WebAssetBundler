@@ -94,4 +94,3 @@ namespace WebAssetBundler.Web.Mvc
         }
     }
 }
-0
