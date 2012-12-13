@@ -26,18 +26,16 @@ namespace WebAssetBundler.Web.Mvc
     {
         private HttpServerUtilityBase server;
         private string applicationPath;
-        private WebAssetReader assetReader;
 
-        public AssetProvider(WebAssetReader assetReader, HttpServerUtilityBase server, string applicationPath)
+        public AssetProvider(HttpServerUtilityBase server, string applicationPath)
         {
-            this.assetReader = assetReader;
             this.server = server;
             this.applicationPath = applicationPath;
         }
 
         public AssetBase GetAsset(string source)
         {
-            throw new NotImplementedException();
+            return new FileAsset(new AssetFile(source, server));
         }        
 
         public ICollection<AssetBase> GetAssets(FromDirectoryComponent component)
@@ -59,7 +57,7 @@ namespace WebAssetBundler.Web.Mvc
                 //string  = fileName.Substring(applicationPath.Length);               
                 var source = fileName.ReplaceFirst(applicationPath, "~/")
                             .Replace("\\", "/");
-                collecton.Add(new AssetBase(source));
+                collecton.Add(GetAsset(source));
             }
 
             return collecton;

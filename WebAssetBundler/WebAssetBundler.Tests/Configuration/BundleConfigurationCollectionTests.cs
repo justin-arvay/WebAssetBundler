@@ -46,7 +46,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var bundles = collection.GetBundles();
 
             Assert.AreEqual(1, bundles.Count);
-            Assert.AreEqual(locator.Object, config.Object.AssetLocator);
+            Assert.AreEqual(locator.Object, config.Object.AssetProvider);
             config.Verify(c => c.Configure(), Times.Once());
         }
     }

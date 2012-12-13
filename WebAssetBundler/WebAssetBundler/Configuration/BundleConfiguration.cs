@@ -38,7 +38,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="stream"></param>
         public void Add(string source)
         {
-            bundle.Assets.Add(new AssetBase(source));
+            bundle.Assets.Add(AssetProvider.GetAsset(source));
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="path"></param>
         public void AddFromDirectory(string path)
         {
-            var assets = AssetLocator.GetAssets(new FromDirectoryComponent(path, bundle.Extension));
+            var assets = AssetProvider.GetAssets(new FromDirectoryComponent(path, bundle.Extension));
 
             foreach (var asset in assets)
             {
@@ -65,7 +65,7 @@ namespace WebAssetBundler.Web.Mvc
             var component = new FromDirectoryComponent(path, bundle.Extension);
             builder(new FromDirectoryBuilder(component));
 
-            var assets = AssetLocator.GetAssets(component);
+            var assets = AssetProvider.GetAssets(component);
 
             foreach (var asset in assets)
             {
@@ -114,7 +114,7 @@ namespace WebAssetBundler.Web.Mvc
             return bundle;
         }
 
-        internal IAssetProvider AssetLocator
+        internal IAssetProvider AssetProvider
         {
             get;
             set;

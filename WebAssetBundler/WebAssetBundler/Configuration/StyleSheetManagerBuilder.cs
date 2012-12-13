@@ -30,7 +30,6 @@ namespace WebAssetBundler.Web.Mvc
         private readonly IWebAssetBundleCollectionResolver collectionResolver;
         private bool hasRendered;
         private ITagWriter tagWriter;
-        private IWebAssetMerger merger;
         private BuilderContext context;
 
         /// <summary>
@@ -43,7 +42,6 @@ namespace WebAssetBundler.Web.Mvc
             StyleSheetManager manager, 
             IWebAssetBundleCollectionResolver resolver,
             ITagWriter tagWriter,                   
-            IWebAssetMerger merger,
             BuilderContext context)
         {
             Manager = manager;

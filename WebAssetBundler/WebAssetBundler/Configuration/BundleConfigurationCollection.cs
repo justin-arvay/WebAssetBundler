@@ -39,7 +39,7 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (TConfig item in this)
             {
-                item.AssetLocator = assetLocator;
+                item.AssetProvider = assetLocator;
                 item.Configure();
                 bundles.Add((TBundle)item.GetBundle());    
             }

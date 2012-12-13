@@ -33,7 +33,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             assetLocator = new Mock<IAssetProvider<FromDirectoryComponent>>();
             bundleConfig = new BundleConfigurationImpl();
 
-            bundleConfig.AssetLocator = assetLocator.Object;
+            bundleConfig.AssetProvider = assetLocator.Object;
         }
 
         [Test]
