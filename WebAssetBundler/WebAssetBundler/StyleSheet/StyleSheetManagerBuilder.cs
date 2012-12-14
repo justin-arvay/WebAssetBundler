@@ -31,6 +31,7 @@ namespace WebAssetBundler.Web.Mvc
         private bool hasRendered;
         private ITagWriter tagWriter;
         private BuilderContext context;
+        private IBundlePipeline<StyleSheetBundle> pipeline;
 
         /// <summary>
         /// Constructor
@@ -39,15 +40,16 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="viewContext"></param>
         /// <param name="resolver"></param>
         public StyleSheetManagerBuilder(
+            IBundlePipeline<StyleSheetBundle> pipeline,
             StyleSheetManager manager, 
             IWebAssetBundleCollectionResolver resolver,
             ITagWriter tagWriter,                   
             BuilderContext context)
         {
+            this.pipeline = pipeline;
             Manager = manager;
             this.collectionResolver = resolver;
-            this.tagWriter = tagWriter;
-            this.merger = merger;         
+            this.tagWriter = tagWriter;      
             this.context = context;
         }
 

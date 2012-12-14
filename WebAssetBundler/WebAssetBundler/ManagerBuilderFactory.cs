@@ -41,14 +41,14 @@ namespace WebAssetBundler.Web.Mvc
             var bundleProvider = container.Resolve<StyleSheetBundleProvider>();          
 
             var urlGenerator = new StyleSheetUrlGenerator();
-            var merger = container.Resolve<StyleSheetWebAssetMerger>();    
+            var pipeline = container.Resolve<StyleSheetPipeline>();    
             var tagWriter = new StyleSheetTagWriter(urlGenerator);
 
             return new StyleSheetManagerBuilder(
+                pipeline,
                 new StyleSheetManager(bundleProvider.GetBundles()),
                 container.Resolve<IWebAssetBundleCollectionResolver>(),
-                tagWriter,
-                merger,                
+                tagWriter,         
                 builderContext);
         }
 
@@ -59,14 +59,14 @@ namespace WebAssetBundler.Web.Mvc
             var bundleProvider = container.Resolve<ScriptBundleProvider>();
 
             var urlGenerator = new ScriptUrlGenerator();
-            var merger = container.Resolve<ScriptWebAssetMerger>();         
+            var pipeline = container.Resolve<ScriptPipeline>();         
             var tagWriter = new ScriptTagWriter(urlGenerator);
 
             return new ScriptManagerBuilder(
+                pipeline,
                 new ScriptManager(bundleProvider.GetBundles()),
                 container.Resolve<IWebAssetBundleCollectionResolver>(),
-                tagWriter,
-                merger,                
+                tagWriter,              
                 builderContext);
         }
     }

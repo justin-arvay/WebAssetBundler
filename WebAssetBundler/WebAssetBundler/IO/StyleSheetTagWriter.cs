@@ -20,7 +20,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.IO;
     using System.Collections.Generic;
 
-    public class StyleSheetTagWriter : ITagWriter
+    public class StyleSheetTagWriter : ITagWriter<StyleSheetBundle>
     {
         private IUrlGenerator<StyleSheetBundle> urlGenerator;
 
@@ -29,14 +29,14 @@ namespace WebAssetBundler.Web.Mvc
             this.urlGenerator = urlGenerator;
         }
 
-        public void Write(TextWriter writer, IList<MergedBundle> results, BuilderContext context)
+        public void Write(TextWriter writer, ICollection<StyleSheetBundle> bundles, BuilderContext context)
         {
             var url = "";
             var link = "<link type=\"text/css\" href=\"{0}\" rel=\"stylesheet\"/>";
 
-            foreach (var result in results)
+            foreach (var bundle in bundles)
             {
-                url = urlGenerator.Generate(result.Name, result.Hash.ToHexString(), result.Host, context);
+                url = urlGenerator.Generate(bundle.Name, bundle.Hash.ToHexString(), bundle.Host, context);
                 writer.WriteLine(link.FormatWith(url));                
             }
         }

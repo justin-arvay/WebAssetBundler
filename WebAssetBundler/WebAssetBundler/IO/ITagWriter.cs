@@ -20,8 +20,8 @@ namespace WebAssetBundler.Web.Mvc
     using System.IO;
     using System.Collections.Generic;
 
-    public interface ITagWriter
+    public interface ITagWriter<TBundle> where TBundle : Bundle
     {
-        void Write(TextWriter writer, IList<MergedBundle> results, BuilderContext context);
+        void Write(TextWriter writer, ICollection<TBundle> bundles, BuilderContext context);
     }
 }

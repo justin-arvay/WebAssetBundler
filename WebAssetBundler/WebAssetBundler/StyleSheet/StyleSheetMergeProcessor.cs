@@ -25,8 +25,10 @@ namespace WebAssetBundler.Web.Mvc
         public void Process(StyleSheetBundle bundle)
         {
             var content = bundle.Assets.Aggregate<AssetBase, string>("", (a, b) => a + b.Content);
+
             bundle.Assets.Clear();
             bundle.Assets.Add(new MergedAsset(content));
+            bundle.Content = content;
         }
     }
 }

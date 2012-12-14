@@ -29,9 +29,9 @@ namespace WebAssetBundler.Web.Mvc
     {
         private readonly IWebAssetBundleCollectionResolver collectionResolver;
         private bool hasRendered;
-        private ITagWriter tagWriter;
-        private IWebAssetMerger merger;        
+        private ITagWriter tagWriter;       
         private BuilderContext context;
+        private IBundlePipeline<ScriptBundle> pipeline;
 
         /// <summary>
         /// Constructor
@@ -40,16 +40,16 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="viewContext"></param>
         /// <param name="resolver"></param>
         public ScriptManagerBuilder(
+            IBundlePipeline<ScriptBundle> pipeline,
             ScriptManager manager, 
             IWebAssetBundleCollectionResolver resolver,
             ITagWriter tagWriter,
-            IWebAssetMerger merger,
             BuilderContext context)
         {
+            this.pipeline = pipeline;
             Manager = manager;
             this.collectionResolver = resolver;
             this.tagWriter = tagWriter;
-            this.merger = merger;
             this.context = context;
         }
 
@@ -76,19 +76,19 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Renders the stylesheets into the responce stream.
         /// </summary>
-        public void Render()
+        public IHtmlString RenderAll()
         {
             if (hasRendered)
             {
                 throw new InvalidOperationException(TextResource.Exceptions.YouCannotCallRenderMoreThanOnce);
             }
 
-            BundleCollection<ScriptBundle> bundles = Manager.ScriptBundles;
+            //TODO:: resolve bundles
 
-            var results = merger.Merge(collectionResolver.Resolve(bundles, context), context);
-            var baseWriter = context.ViewContext.Writer;
+                        
+            var writer = new StringWriter();
 
-            using (HtmlTextWriter textWriter = new HtmlTextWriter(baseWriter))
+            using (HtmlTextWriter textWriter = new HtmlTextWriter(writer))
             {
                 tagWriter.Write(textWriter, results, context);
             }

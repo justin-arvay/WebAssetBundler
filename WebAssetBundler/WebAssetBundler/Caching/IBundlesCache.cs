@@ -21,6 +21,8 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IBundlesCache<TBundle> where TBundle : Bundle
     {
+        //TODO:: seperate caches for single vs configured bundles?
+
         void Set(BundleCollection<TBundle> bundles);
         BundleCollection<TBundle> Get();
     }

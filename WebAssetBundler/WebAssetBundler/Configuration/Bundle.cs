@@ -5,6 +5,7 @@
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
+    using System.Security.Cryptography;
 
     public abstract class Bundle
     {
@@ -23,6 +24,22 @@
         public string Extension { get; protected set; }
 
         public IList<AssetBase> Assets { get; set; }
+
+        public string Content
+        {
+            get;
+            set;
+        }
+        
+        public byte[] Hash
+        {
+            get
+            {
+                MD5CryptoServiceProvider x = new MD5CryptoServiceProvider();
+                byte[] bs = Encoding.UTF8.GetBytes(Content);
+                return x.ComputeHash(bs);
+            }
+        }
 
         public void TransformAssets(IAssetTransformer transformer)
         {

@@ -26,8 +26,10 @@ namespace WebAssetBundler.Web.Mvc
         {
             var seperator = ";";
             var content = bundle.Assets.Aggregate<AssetBase, string>("", (a, b) => a + seperator + b.Content);
+
             bundle.Assets.Clear();
             bundle.Assets.Add(new MergedAsset(content));
+            bundle.Content = content;
         }
     }
 }
