@@ -35,7 +35,7 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="bundles"></param>
         /// <returns></returns>
-        public IList<ResolvedBundle> Resolve<TBundle>(BundleCollection<TBundle> bundles, BuilderContext context) where TBundle : Bundle
+        public IList<ResolvedBundle> Resolve<TBundle>(BundleCollection<TBundle> bundles, BundleContext context) where TBundle : Bundle
         {
             var results = new List<ResolvedBundle>();
 

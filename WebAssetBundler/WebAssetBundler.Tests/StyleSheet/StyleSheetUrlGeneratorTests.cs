@@ -24,13 +24,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class StyleSheetUrlGeneratorTests
     {
         private StyleSheetUrlGenerator generator;
-        private BuilderContext context;
+        private BundleContext context;
 
         [SetUp]
         public void Setup()
         {
             generator = new StyleSheetUrlGenerator();
-            context = new BuilderContext();
+            context = new BundleContext();
         }
 
         [Test]

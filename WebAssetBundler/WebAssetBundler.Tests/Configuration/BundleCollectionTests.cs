@@ -22,7 +22,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using WebAssetBundler.Web.Mvc;
 
     [TestFixture]
-    public class WebAssetBundleCollectionTests
+    public class BundleCollectionTests
     {
         private BundleCollection<Bundle> collection;
         private Bundle bundle;

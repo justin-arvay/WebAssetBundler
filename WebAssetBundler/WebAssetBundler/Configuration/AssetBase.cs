@@ -43,7 +43,7 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public abstract string Content
+        public virtual string Content
         {
             get;
             set;

@@ -30,23 +30,23 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private Mock<ITagWriter> tagWriter;
         private Mock<IWebAssetMerger> merger;
-        private ScriptManagerBuilder builder;
+        private ScriptBundler builder;
         private Mock<IAssetFactory> assetFactory;
-        private BuilderContext context;
+        private BundleContext context;
 
         [SetUp]
         public void Setup()
         {
             assetFactory = new Mock<IAssetFactory>();
             var server = new Mock<HttpServerUtilityBase>();
-            context = new BuilderContext();
+            context = new BundleContext();
             context.AssetFactory = assetFactory.Object;
             var collection = new BundleCollection<ScriptBundle>();
             var collectionResolver = new Mock<IWebAssetBundleCollectionResolver>().Object;
             merger = new Mock<IWebAssetMerger>();
             tagWriter = new Mock<ITagWriter>();
 
-            builder = new ScriptManagerBuilder(
+            builder = new ScriptBundler(
                 new ScriptManager(collection),
                 collectionResolver,
                 tagWriter.Object,
@@ -57,7 +57,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Scripts_Return_Self_For_Chaining()
         {
-            Assert.IsInstanceOf<ScriptManagerBuilder>(builder.Scripts(s => s.ToString()));
+            Assert.IsInstanceOf<ScriptBundler>(builder.Scripts(s => s.ToString()));
         }
 
         [Test]
@@ -81,7 +81,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var results = new List<MergedBundle>();
             results.Add(new MergedBundle("", "", WebAssetType.None));
-            merger.Setup(m => m.Merge(It.IsAny<IList<ResolvedBundle>>(), It.IsAny<BuilderContext>())).Returns(results);
+            merger.Setup(m => m.Merge(It.IsAny<IList<ResolvedBundle>>(), It.IsAny<BundleContext>())).Returns(results);
 
             builder.Render();
 

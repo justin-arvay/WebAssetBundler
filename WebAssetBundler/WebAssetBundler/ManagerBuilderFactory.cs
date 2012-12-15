@@ -33,7 +33,7 @@ namespace WebAssetBundler.Web.Mvc
             this.contextFactory = contextFactory;
         }
 
-        public StyleSheetManagerBuilder CreateStyleSheetManagerBuilder()
+        public StyleSheetBundler CreateStyleSheetManagerBuilder()
         {
             var container = WabHttpModule.Host.Container;
             var assetLocator = new AssetProvider(httpContext.Server, httpContext.Request.PhysicalApplicationPath);
@@ -44,15 +44,13 @@ namespace WebAssetBundler.Web.Mvc
             var pipeline = container.Resolve<StyleSheetPipeline>();    
             var tagWriter = new StyleSheetTagWriter(urlGenerator);
 
-            return new StyleSheetManagerBuilder(
-                pipeline,
-                new StyleSheetManager(bundleProvider.GetBundles()),
-                container.Resolve<IWebAssetBundleCollectionResolver>(),
+            return new StyleSheetBundler(
+                container.Resolve<IBundleProvider<StyleSheetBundle>>(),
                 tagWriter,         
                 builderContext);
         }
 
-        public ScriptManagerBuilder CreateScriptManagerBuilder()
+        public ScriptBundler CreateScriptManagerBuilder()
         {
             var container = WabHttpModule.Host.Container;
             var builderContext = contextFactory.CreateScriptContext();
@@ -62,10 +60,8 @@ namespace WebAssetBundler.Web.Mvc
             var pipeline = container.Resolve<ScriptPipeline>();         
             var tagWriter = new ScriptTagWriter(urlGenerator);
 
-            return new ScriptManagerBuilder(
-                pipeline,
-                new ScriptManager(bundleProvider.GetBundles()),
-                container.Resolve<IWebAssetBundleCollectionResolver>(),
+            return new ScriptBundler(
+                container.Resolve<IBundleProvider<ScriptBundle>>(),
                 tagWriter,              
                 builderContext);
         }

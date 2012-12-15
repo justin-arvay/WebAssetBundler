@@ -39,7 +39,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             container.Register<IStyleSheetCompressor>((a, c) => compressor.Object);
             container.Register<IUrlGenerator<StyleSheetBundle>, StyleSheetUrlGenerator>();
             container.Register<HttpServerUtilityBase>((a, c) => server.Object);
-            container.Register<BuilderContext>((a, c) => new BuilderContext());
+            container.Register<BundleContext>((a, c) => new BundleContext());
         }
 
         [Test]

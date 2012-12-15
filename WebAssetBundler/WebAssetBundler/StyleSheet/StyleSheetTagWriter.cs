@@ -29,16 +29,11 @@ namespace WebAssetBundler.Web.Mvc
             this.urlGenerator = urlGenerator;
         }
 
-        public void Write(TextWriter writer, ICollection<StyleSheetBundle> bundles, BuilderContext context)
+        public void Write(TextWriter writer, StyleSheetBundle bundle, BundleContext context)
         {
-            var url = "";
             var link = "<link type=\"text/css\" href=\"{0}\" rel=\"stylesheet\"/>";
-
-            foreach (var bundle in bundles)
-            {
-                url = urlGenerator.Generate(bundle.Name, bundle.Hash.ToHexString(), bundle.Host, context);
-                writer.WriteLine(link.FormatWith(url));                
-            }
+            var url = urlGenerator.Generate(bundle.Name, bundle.Hash.ToHexString(), bundle.Host, context);
+            writer.WriteLine(link.FormatWith(url));                            
         }
     }
 }

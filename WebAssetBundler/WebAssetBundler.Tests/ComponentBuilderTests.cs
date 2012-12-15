@@ -31,9 +31,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private Mock<ICacheProvider> cacheProvider;
 
-        private StyleSheetManagerBuilder CreateStyleSheetManagerBuilder()
+        private StyleSheetBundler CreateStyleSheetManagerBuilder()
         {
-            var builderContext = new BuilderContext();
+            var builderContext = new BundleContext();
             var tagWriter = new Mock<ITagWriter>();
             var server = new Mock<HttpServerUtilityBase>();
             var collection = new BundleCollection<StyleSheetBundle>();            
@@ -41,7 +41,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var collectionResolver = new WebAssetBundleCollectionResolver(resolverFactory.Object);
             var merger = new Mock<IWebAssetMerger>();
 
-            return new StyleSheetManagerBuilder(
+            return new StyleSheetBundler(
                 new StyleSheetManager(collection),
                 collectionResolver,
                 tagWriter.Object,
@@ -49,9 +49,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 builderContext);
         }
 
-        private ScriptManagerBuilder CreateScriptManagerBuilder()
+        private ScriptBundler CreateScriptManagerBuilder()
         {
-            var builderContext = new BuilderContext();
+            var builderContext = new BundleContext();
             var tagWriter = new Mock<ITagWriter>();
             var server = new Mock<HttpServerUtilityBase>();
             var collection = new BundleCollection<ScriptBundle>();
@@ -59,7 +59,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var resolverFactory = new Mock<IWebAssetResolverFactory>();
             var collectionResolver = new WebAssetBundleCollectionResolver(resolverFactory.Object);
 
-            return new ScriptManagerBuilder(
+            return new ScriptBundler(
                 new ScriptManager(collection),
                 collectionResolver,
                 tagWriter.Object,
@@ -78,7 +78,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var factory = new ComponentBuilder(CreateStyleSheetManagerBuilder(), CreateScriptManagerBuilder());
 
-            Assert.IsInstanceOf<StyleSheetManagerBuilder>(factory.StyleSheetManager());
+            Assert.IsInstanceOf<StyleSheetBundler>(factory.StyleSheetManager());
         }
 
         [Test]
@@ -97,7 +97,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var factory = new ComponentBuilder(CreateStyleSheetManagerBuilder(), CreateScriptManagerBuilder());
 
-            Assert.IsInstanceOf<ScriptManagerBuilder>(factory.ScriptManager());
+            Assert.IsInstanceOf<ScriptBundler>(factory.ScriptManager());
         }
 
         [Test]

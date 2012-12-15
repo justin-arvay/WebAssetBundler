@@ -41,9 +41,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register((c, p) => HttpContext());
             container.Register((c, p) => HttpContext().Request);
             container.Register((c, p) => HttpContext().Response);
-            container.Register((c, p) => HttpContext().Server);
-
-            container.Register<IWebAssetReader, WebAssetReader>();            
+            container.Register((c, p) => HttpContext().Server);          
 
             container.Register<ICacheProvider, CacheProvider>()
                 .AsSingleton();
@@ -58,7 +56,10 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IWebAssetBundleCollectionResolver, WebAssetBundleCollectionResolver>()
                 .AsSingleton();
 
-            container.Register<IAssetProvider<FromDirectoryComponent>>((c, p) => new AssetProvider(c.Resolve<HttpServerUtilityBase>(), HttpContext().Request.PhysicalApplicationPath));
+            container.Register<IAssetProvider>((c, p) => new AssetProvider(
+                c.Resolve<HttpServerUtilityBase>(), 
+                HttpContext().Request.PhysicalApplicationPath,
+                c.Resolve<BundleContext>()));
 
             ConfigureContainerForStyleSheets();
             ConfigureContainerForScript();
@@ -70,14 +71,14 @@ namespace WebAssetBundler.Web.Mvc
         {
             container.Register<IUrlGenerator<StyleSheetBundle>, StyleSheetUrlGenerator>();
             container.Register<IStyleSheetCompressor>((c, p) => DefaultSettings.StyleSheetCompressor);
-            container.Register<IMergedBundleCache<StyleSheetBundle>, MergedBundleCache<StyleSheetBundle>>();
+            container.Register<IBundlesCache<StyleSheetBundle>, IBundlesCache<StyleSheetBundle>>();
             container.Register<IStyleSheetConfigProvider>((c, p) => DefaultSettings.StyleSheetConfigProvider);
         }
 
         public void ConfigureContainerForScript()
         {
             container.Register<IScriptCompressor>((c, p) => DefaultSettings.ScriptCompressor);
-            container.Register<IMergedBundleCache<ScriptBundle>, MergedBundleCache<ScriptBundle>>();
+            container.Register<IBundlesCache<ScriptBundle>, IBundlesCache<ScriptBundle>>();
             container.Register<IScriptConfigProvider>((c, p) => DefaultSettings.ScriptConfigProvider);
         }
 

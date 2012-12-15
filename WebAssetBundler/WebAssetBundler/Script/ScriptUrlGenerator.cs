@@ -21,7 +21,7 @@ namespace WebAssetBundler.Web.Mvc
     public class ScriptUrlGenerator : IUrlGenerator<ScriptBundle>
     {
 
-        public string Generate(string hash, string version, string host, BuilderContext context)
+        public string Generate(string hash, string version, string host, BundleContext context)
         {
             if (context.DebugMode)
             {

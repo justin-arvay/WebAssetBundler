@@ -24,13 +24,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class ScriptUrlGeneratorTests
     {
         private ScriptUrlGenerator generator;
-        private BuilderContext context;
+        private BundleContext context;
 
         [SetUp]
         public void Setup()
         {
             generator = new ScriptUrlGenerator();
-            context = new BuilderContext();
+            context = new BundleContext();
         }
 
         [Test]

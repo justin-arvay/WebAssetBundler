@@ -50,10 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssetBaseImpl.cs" />
-    <Compile Include="AssetFactoryTests.cs" />
     <Compile Include="AssetFileTests.cs" />
     <Compile Include="BuilderContextFactoryTests.cs" />
-    <Compile Include="BuilderContextTests.cs" />
+    <Compile Include="BundleContextTests.cs" />
     <Compile Include="Caching\BundlesCacheTests.cs" />
     <Compile Include="Caching\MergedBundleCacheTests.cs" />
     <Compile Include="ComponentBuilderTests.cs" />
@@ -79,8 +78,7 @@
     <Compile Include="StyleSheet\StyleSheetBundleTests.cs" />
     <Compile Include="StyleSheet\StyleSheetManagerBuilderTests.cs" />
     <Compile Include="StyleSheet\StyleSheetManagerTests.cs" />
-    <Compile Include="Configuration\WebAssetBundleCollectionBuilderTests.cs" />
-    <Compile Include="Configuration\WebAssetBundleCollectionTests.cs" />
+    <Compile Include="Configuration\BundleCollectionTests.cs" />
     <Compile Include="DefaultSettingsTests.cs" />
     <Compile Include="Extensions\ByteArrayExtensionTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />

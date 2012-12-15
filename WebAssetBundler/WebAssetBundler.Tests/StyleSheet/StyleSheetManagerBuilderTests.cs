@@ -34,15 +34,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private Mock<ITagWriter> tagWriter;
         private Mock<IWebAssetMerger> merger;
-        private StyleSheetManagerBuilder builder;
+        private StyleSheetBundler builder;
         private Mock<IAssetFactory> assetFactory;
-        private BuilderContext context;
+        private BundleContext context;
 
         [SetUp]
         public void Setup()
         {
             assetFactory = new Mock<IAssetFactory>();
-            context = new BuilderContext();
+            context = new BundleContext();
             context.AssetFactory = assetFactory.Object;
 
             var server = new Mock<HttpServerUtilityBase>();
@@ -51,7 +51,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             merger = new Mock<IWebAssetMerger>();
             tagWriter = new Mock<ITagWriter>();
 
-            builder = new StyleSheetManagerBuilder(
+            builder = new StyleSheetBundler(
                 new StyleSheetManager(collection),
                 collectionResolver,
                 tagWriter.Object,
@@ -63,7 +63,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void StyleSheets_Return_Self_For_Chaining()
         {
-            Assert.IsInstanceOf<StyleSheetManagerBuilder>(builder.StyleSheets(s => s.ToString()));
+            Assert.IsInstanceOf<StyleSheetBundler>(builder.StyleSheets(s => s.ToString()));
         }
 
 

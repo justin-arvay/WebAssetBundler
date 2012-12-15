@@ -18,7 +18,7 @@ namespace WebAssetBundler.Web.Mvc
 {
     public interface IBuilderContextFactory
     {
-        BuilderContext CreateScriptContext();
-        BuilderContext CreateStyleSheetContext();
+        BundleContext CreateScriptContext();
+        BundleContext CreateStyleSheetContext();
     }
 }

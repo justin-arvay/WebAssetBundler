@@ -38,14 +38,14 @@ namespace WebAssetBundler.Web.Mvc
                         new ManagerBuilderFactory(helper.ViewContext.HttpContext, cacheProvider, builderContextFactory))) as ManagerBuilderFactory;
 
             //per request variables
-            var styleSheetManagerBuilder = (HttpContext.Current.Items["StyleSheetManagerBuilder"] ??
-                        (HttpContext.Current.Items["StyleSheetManagerBuilder"] =
-                        builderFactory.CreateStyleSheetManagerBuilder())) as StyleSheetManagerBuilder;
+            var styleSheetManagerBuilder = (HttpContext.Current.Items["StyleSheetBundler"] ??
+                        (HttpContext.Current.Items["StyleSheetBundler"] =
+                        builderFactory.CreateStyleSheetManagerBuilder())) as StyleSheetBundler;
 
             //per request variables
-            var scriptManagerBuilder = (HttpContext.Current.Items["ScriptManagerBuilder"] ??
-                        (HttpContext.Current.Items["ScriptManagerBuilder"] =
-                        builderFactory.CreateScriptManagerBuilder())) as ScriptManagerBuilder;
+            var scriptManagerBuilder = (HttpContext.Current.Items["ScriptBundler"] ??
+                        (HttpContext.Current.Items["ScriptBundler"] =
+                        builderFactory.CreateScriptManagerBuilder())) as ScriptBundler;
 
 
             return new ComponentBuilder(

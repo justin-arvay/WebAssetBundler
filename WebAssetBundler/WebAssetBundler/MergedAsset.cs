@@ -21,10 +21,14 @@ namespace WebAssetBundler.Web.Mvc
 
     public class MergedAsset : AssetBase
     {
-        public MergedAsset(string content)
-            : base("")
+        public MergedAsset(string content)            
         {
             Content = content;
+        }
+
+        public override string Source
+        {
+            get { throw new NotSupportedException("Asset is not a really file."); }
         }
     }
 }

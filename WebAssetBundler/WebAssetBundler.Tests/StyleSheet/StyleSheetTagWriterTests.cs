@@ -27,8 +27,8 @@ namespace WebAssetBundler.Web.Mvc
         private Mock<IUrlGenerator<StyleSheetBundle>> urlGenerator;
         private Mock<TextWriter> textWriter;
         private StyleSheetTagWriter tagWriter;
-        private BuilderContext context;
-        private IList<StyleSheetBundle> bundles;
+        private BundleContext context;
+        private StyleSheetBundle bundle;
 
         [SetUp]
         public void SetUp()
@@ -36,37 +36,28 @@ namespace WebAssetBundler.Web.Mvc
             urlGenerator = new Mock<IUrlGenerator<StyleSheetBundle>>();
             textWriter = new Mock<TextWriter>();
             tagWriter = new StyleSheetTagWriter(urlGenerator.Object);
-            context = new BuilderContext();
-            bundles = new List<StyleSheetBundle>();
+            context = new BundleContext();
+            bundle = new StyleSheetBundle();
         }
 
         [Test]
         public void Should_Generate_Url()
         {
-            bundles.Add(new StyleSheetBundle()
-            {
-                Host = "http://www.test.com"
-            });
+            bundle.Host = "http://www.test.com";
 
-            tagWriter.Write(textWriter.Object, bundles, context);
+            tagWriter.Write(textWriter.Object, bundle, context);
 
-            urlGenerator.Verify(m => m.Generate("asdf", bundles[0].Hash.ToHexString(), "http://www.test.com", context), Times.Exactly(1));
+            urlGenerator.Verify(m => m.Generate("asdf", bundle.Hash.ToHexString(), "http://www.test.com", context), Times.Exactly(1));
         }
 
         [Test]
         public void Should_Write_To_Writer()
         {
-            var bundle = new StyleSheetBundle()
-            {
-                Host = "http://dev.test.com"
-            };
+            bundle.Host = "http://dev.test.com";
 
-            bundles.Add(bundle);
-            bundles.Add(bundle);
+            urlGenerator.Setup(u => u.Generate(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<BundleContext>())).Returns("http://dev.test.com/");
 
-            urlGenerator.Setup(u => u.Generate(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<BuilderContext>())).Returns("http://dev.test.com/");
-
-            tagWriter.Write(textWriter.Object, bundles, context);
+            tagWriter.Write(textWriter.Object, bundle, context);
 
             textWriter.Verify(m => m.WriteLine("<link type=\"text/css\" href=\"http://dev.test.com/\" rel=\"stylesheet\"/>"), Times.Exactly(2));   
         }

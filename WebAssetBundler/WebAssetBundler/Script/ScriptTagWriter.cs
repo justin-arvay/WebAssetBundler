@@ -29,17 +29,12 @@ namespace WebAssetBundler.Web.Mvc
             this.urlGenerator = urlGenerator;
         }
 
-        public void Write(TextWriter writer, ICollection<ScriptBundle> bundles, BuilderContext context)
+        public void Write(TextWriter writer, ScriptBundle bundle, BundleContext context)
         {
             var script = "<script type=\"text/javascript\" src=\"{0}\"></script>";
-            var url = "";
+            var url = urlGenerator.Generate(bundle.Name, bundle.Hash.ToHexString(), bundle.Host, context);
 
-            foreach (var bundle in bundles)
-            {
-                url = urlGenerator.Generate(bundle.Name, bundle.Hash.ToHexString(), bundle.Host, context);
-
-                writer.WriteLine(script.FormatWith(url));
-            }
+            writer.WriteLine(script.FormatWith(url));
         }
     }
 }

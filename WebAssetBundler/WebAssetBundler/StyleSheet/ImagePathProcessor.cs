@@ -26,9 +26,9 @@ namespace WebAssetBundler.Web.Mvc
     {
         private HttpServerUtilityBase server;
         private string outputUrl;
-        private BuilderContext context;
+        private BundleContext context;
 
-        public ImagePathProcessor(IUrlGenerator<StyleSheetBundle> urlGenerator, HttpServerUtilityBase server, BuilderContext context)
+        public ImagePathProcessor(IUrlGenerator<StyleSheetBundle> urlGenerator, HttpServerUtilityBase server, BundleContext context)
         {
             this.server = server;
             this.context = context;

@@ -27,14 +27,14 @@ namespace WebAssetBundler.Web.Mvc
         private ImagePathProcessor processor;
         private Mock<IUrlGenerator<StyleSheetBundle>> urlGenerator;
         private Mock<HttpServerUtilityBase> server;
-        private BuilderContext context;
+        private BundleContext context;
 
         [SetUp]
         public void Setup()
         {
             urlGenerator = new Mock<IUrlGenerator<StyleSheetBundle>>();
             server = new Mock<HttpServerUtilityBase>();
-            context = new BuilderContext();
+            context = new BundleContext();
 
             processor = new ImagePathProcessor(urlGenerator.Object, server.Object, context);
         }

@@ -21,9 +21,9 @@ namespace WebAssetBundler.Web.Mvc
 
     public class BuilderContextFactory : IBuilderContextFactory
     {
-        public BuilderContext CreateScriptContext()
+        public BundleContext CreateScriptContext()
         {
-            var context = new BuilderContext()
+            var context = new BundleContext()
             {
                 Combine = DefaultSettings.Combined,
                 Compress = DefaultSettings.Compressed,
@@ -32,14 +32,12 @@ namespace WebAssetBundler.Web.Mvc
                 DebugMode = DefaultSettings.DebugMode
             };
 
-            context.AssetFactory = new AssetFactory(context);
-
             return context;
         }
 
-        public BuilderContext CreateStyleSheetContext()
+        public BundleContext CreateStyleSheetContext()
         {
-            var context = new BuilderContext()
+            var context = new BundleContext()
             {
                 Combine = DefaultSettings.Combined,
                 Compress = DefaultSettings.Compressed,
@@ -47,8 +45,6 @@ namespace WebAssetBundler.Web.Mvc
                 Host = DefaultSettings.StyleSheetHost,
                 DebugMode = DefaultSettings.DebugMode
             };
-
-            context.AssetFactory = new AssetFactory(context);
 
             return context;
         }

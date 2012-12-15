@@ -27,8 +27,8 @@ namespace WebAssetBundler.Web.Mvc
         private Mock<IUrlGenerator<ScriptBundle>> urlGenerator;
         private Mock<TextWriter> textWriter;
         private ScriptTagWriter tagWriter;
-        private BuilderContext context;
-        private IList<ScriptBundle> bundles;
+        private BundleContext context;
+        private ScriptBundle bundle;
 
         [SetUp]
         public void SetUp()
@@ -36,38 +36,29 @@ namespace WebAssetBundler.Web.Mvc
             urlGenerator = new Mock<IUrlGenerator<ScriptBundle>>();
             textWriter = new Mock<TextWriter>();
             tagWriter = new ScriptTagWriter(urlGenerator.Object);
-            context = new BuilderContext();
-            bundles = new List<ScriptBundle>();
+            context = new BundleContext();
+            bundle = new ScriptBundle();
         }
 
         [Test]
         public void Should_Generate_Url()
         {
-            bundles.Add(new ScriptBundle()
-            {
-                Host = "http://www.test.com"
-            });
+            bundle.Host = "http://www.test.com";
 
-            tagWriter.Write(textWriter.Object, bundles, context);
+            tagWriter.Write(textWriter.Object, bundle, context);
 
-            urlGenerator.Verify(m => m.Generate("asdf", bundles[0].Hash.ToHexString(), "http://www.test.com", context), Times.Exactly(1));
+            urlGenerator.Verify(m => m.Generate("asdf", bundle.Hash.ToHexString(), "http://www.test.com", context), Times.Exactly(1));
         }
 
         [Test]
         public void Should_Write_To_Writer()
         {
-            var bundle = new ScriptBundle()
-            {
-                Host = "http://dev.test.com"
-            };
+            bundle.Host = "http://dev.test.com";
 
-            bundles.Add(bundle);
-            bundles.Add(bundle);
-
-            urlGenerator.Setup(u => u.Generate(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<BuilderContext>()))
+            urlGenerator.Setup(u => u.Generate(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<BundleContext>()))
                 .Returns("http://dev.test.com/");
 
-            tagWriter.Write(textWriter.Object, bundles, context);
+            tagWriter.Write(textWriter.Object, bundle, context);
 
             textWriter.Verify(m => m.WriteLine("<script type=\"text/javascript\" src=\"http://dev.test.com/\"></script>"), Times.Exactly(2));   
         }

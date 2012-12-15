@@ -42,14 +42,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Create_Style_Sheet_Builder()
         {
-            Assert.IsInstanceOf<StyleSheetManagerBuilder>(factory.CreateStyleSheetManagerBuilder());
+            Assert.IsInstanceOf<StyleSheetBundler>(factory.CreateStyleSheetManagerBuilder());
             contextFactory.Verify(c => c.CreateStyleSheetContext(), Times.Once());
         }
 
         [Test]
         public void Should_Create_Script_Builder()
         {
-            Assert.IsInstanceOf<ScriptManagerBuilder>(factory.CreateScriptManagerBuilder());
+            Assert.IsInstanceOf<ScriptBundler>(factory.CreateScriptManagerBuilder());
             contextFactory.Verify(c => c.CreateScriptContext(), Times.Once());
         }
     }

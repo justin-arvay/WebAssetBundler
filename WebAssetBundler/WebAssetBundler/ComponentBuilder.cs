@@ -22,22 +22,22 @@ namespace WebAssetBundler
     public class ComponentBuilder
     {
 
-        private StyleSheetManagerBuilder styleSheetManagerBuilder;
-        private ScriptManagerBuilder scriptManagerBuilder;
+        private StyleSheetBundler styleSheetManagerBuilder;
+        private ScriptBundler scriptManagerBuilder;
 
-        public ComponentBuilder(StyleSheetManagerBuilder styleSheetManagerBuilder, ScriptManagerBuilder scriptManagerBuilder)
+        public ComponentBuilder(StyleSheetBundler styleSheetManagerBuilder, ScriptBundler scriptManagerBuilder)
         {
             this.scriptManagerBuilder = scriptManagerBuilder;
             this.styleSheetManagerBuilder = styleSheetManagerBuilder;
 
         }
 
-        public StyleSheetManagerBuilder StyleSheetManager()
+        public StyleSheetBundler StyleSheetManager()
         {
             return styleSheetManagerBuilder;
         }
 
-        public ScriptManagerBuilder ScriptManager()
+        public ScriptBundler ScriptManager()
         {
             return scriptManagerBuilder;
         }

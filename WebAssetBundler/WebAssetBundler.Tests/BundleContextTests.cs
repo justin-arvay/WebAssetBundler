@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,21 +14,29 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using WebAssetBundler.Web.Mvc;
+    using NUnit.Framework;
+    using Moq;
+    using System;
 
-    public class ScriptManager
+    [TestFixture]
+    public class BundleContextTests
     {
-        public ScriptManager(BundleCollection<ScriptBundle> bundles)
-        {
-            ScriptBundles = bundles;
+        private BundleContext context;
+
+        [SetUp]
+        public void Setup()
+        {            
+            context = new BundleContext();
         }
 
-        public BundleCollection<ScriptBundle> ScriptBundles
+        [Test]
+        public void Should_Crate_Cache_Breaker_Version()
         {
-            get;
-            private set;
+            var now = DateTime.Now.ToString("MMddyyHmmss");
+            Assert.IsTrue(context.CreateCacheBreakerVersion("version").EndsWith(now));
         }
+
     }
 }

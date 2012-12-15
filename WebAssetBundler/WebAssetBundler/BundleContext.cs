@@ -17,22 +17,56 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Web.Mvc;
 
-    public interface IAssetFactory
+    public class BundleContext
     {
-        /// <summary>
-        /// Creates an asset. Automatically resoves the default path as needed.
-        /// </summary>
-        /// <param name="stream"></param>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        AssetBase CreateAsset(string source, string path);
+
+        public ViewContext ViewContext
+        {
+            get; 
+            set;
+        }
+
+
+        public bool Compress
+        {
+            get;
+            set;
+        }
+
+        public bool Combine
+        {
+            get;
+            set;
+        }
+
+        public string Host
+        {
+            get;
+            set;
+        }
+
+        public string DefaultPath
+        {
+            get;
+            set;
+        }
+
+        public bool DebugMode
+        {
+            get;
+            set;
+        }
+
 
         /// <summary>
-        /// Creates a bundle.
+        /// Creates the cache breaker version.
         /// </summary>
-        /// <param name="name"></param>
         /// <returns></returns>
-        T CreateBundle<T>(string name) where T : Bundle;
+        public string CreateCacheBreakerVersion(string version)
+        {
+            return version + DateTime.Now.ToString("MMddyyHmmss");
+        }
     }
 }

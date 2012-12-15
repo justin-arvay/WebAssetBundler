@@ -26,15 +26,22 @@ namespace WebAssetBundler.Web.Mvc
     {
         private HttpServerUtilityBase server;
         private string applicationPath;
+        private BundleContext context;
 
-        public AssetProvider(HttpServerUtilityBase server, string applicationPath)
+        public AssetProvider(HttpServerUtilityBase server, string applicationPath, BundleContext context)
         {
+            this.context = context;
             this.server = server;
             this.applicationPath = applicationPath;
         }
 
         public AssetBase GetAsset(string source)
         {
+            if (source.StartsWith("~/") == false)
+            {
+                source = Path.Combine(context.DefaultPath, source);    
+            }
+
             return new FileAsset(new AssetFile(source, server));
         }        
 
