@@ -23,27 +23,34 @@ namespace WebAssetBundler.Web.Mvc
         private IStyleSheetConfigProvider configProvider;
         private IBundlesCache<StyleSheetBundle> cache;
         private IAssetProvider assetLocator;
+        IBundlePipeline<StyleSheetBundle> pipeline;
 
         public StyleSheetBundleProvider(IStyleSheetConfigProvider configProvider, IBundlesCache<StyleSheetBundle> cache, 
-            IAssetProvider assetLocator)
+            IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetLocator)
         {
             this.configProvider = configProvider;
             this.cache = cache;
             this.assetLocator = assetLocator;
-        }
-        
-        public BundleCollection<StyleSheetBundle> GetBundles()
+        }       
+
+        public StyleSheetBundle GetBundle(string name)
         {
             var bundles = cache.Get();
 
             if (bundles == null)
             {
-                var configCollection = new BundleConfigurationCollection<StyleSheetBundleConfiguration, StyleSheetBundle>(configProvider.GetConfigs(), assetLocator);
-                bundles = configCollection.GetBundles();
+                bundles = new BundleCollection<StyleSheetBundle>();
+                foreach (StyleSheetBundleConfiguration item in configProvider.GetConfigs())
+                {
+                    item.AssetProvider = assetLocator;
+                    item.Configure();
+                    bundles.Add(item.GetBundle());
+                }
+
                 cache.Set(bundles);
             }
 
-            return bundles;
+            return bundles.FindBundleByName(name);
         }
     }
 }

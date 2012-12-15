@@ -31,19 +31,25 @@ namespace WebAssetBundler.Web.Mvc
             this.cache = cache;
             this.assetLocator = assetLocator;
         }
-        
-        public BundleCollection<ScriptBundle> GetBundles()
+
+        public ScriptBundle GetBundle(string name)
         {
             var bundles = cache.Get();
 
             if (bundles == null)
             {
-                var configCollection = new BundleConfigurationCollection<ScriptBundleConfiguration, ScriptBundle>(configProvider.GetConfigs(), assetLocator);
-                bundles = configCollection.GetBundles();
+                bundles = new BundleCollection<ScriptBundle>();
+                foreach (ScriptBundleConfiguration item in configProvider.GetConfigs())
+                {
+                    item.AssetProvider = assetLocator;
+                    item.Configure();
+                    bundles.Add(item.GetBundle());
+                }
+
                 cache.Set(bundles);
             }
 
-            return bundles;
+            return bundles.FindBundleByName(name);
         }
     }
 }

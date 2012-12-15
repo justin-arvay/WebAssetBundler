@@ -19,10 +19,10 @@ namespace WebAssetBundler.Web.Mvc
     public interface IBundleProvider<TBundle> where TBundle : Bundle
     {
         /// <summary>
-        /// Provides the bundles for TBundle
+        /// Gets the bundle by name.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <param name="name"></param>
         /// <returns></returns>
-        BundleCollection<TBundle> GetBundles();
+        TBundle GetBundle(string name);
     }
 }

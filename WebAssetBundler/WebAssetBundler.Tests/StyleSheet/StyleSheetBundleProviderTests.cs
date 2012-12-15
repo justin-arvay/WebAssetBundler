@@ -26,44 +26,58 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private StyleSheetBundleProvider provider;
         private Mock<IStyleSheetConfigProvider> configProvider;
         private Mock<IBundlesCache<StyleSheetBundle>> cache;
-        private Mock<IAssetProvider<FromDirectoryComponent>> locator;
+        private Mock<IAssetProvider> assetProvider;
+        private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
 
         [SetUp]
         public void Setup()
         {
+            pipeline = new Mock<IBundlePipeline<StyleSheetBundle>>();
             configProvider = new Mock<IStyleSheetConfigProvider>();
             cache = new Mock<IBundlesCache<StyleSheetBundle>>();
-            locator = new Mock<IAssetProvider<FromDirectoryComponent>>();
-            provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, locator.Object);
+            assetProvider = new Mock<IAssetProvider>();
+            provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, pipeline.Object, assetProvider.Object);
         }
 
         [Test]
-        public void Should_Get_Bundles()
+        public void Should_Get_Bundle()
         {
+            var config = new StyleSheetBundleConfigurationImpl();
+            config.Name("test");
+
             var configs = new List<StyleSheetBundleConfiguration>();
-            configs.Add(new StyleSheetBundleConfigurationImpl());
+            configs.Add(config);
+
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
 
-            var bundles = provider.GetBundles();
-            Assert.AreEqual(1, bundles.Count);
+            var bundle = provider.GetBundle("test");
+            Assert.AreSame(config.GetBundle(), bundle);
+            Assert.AreEqual(1, config.CallCount);
+            Assert.IsInstanceOf<IAssetProvider>(config.AssetProvider);
             cache.Verify(c => c.Get(), Times.Once());
-            cache.Verify(c => c.Set(bundles), Times.Once());
+            cache.Verify(c => c.Set(It.IsAny<BundleCollection<StyleSheetBundle>>()), Times.Once());
         }
 
         [Test]
-        public void Should_Get_Bundles_From_Cache()
+        public void Should_Get_Bundle_From_Cache()
         {
-            var collection = new BundleCollection<StyleSheetBundle>();
-            collection.Add(new StyleSheetBundle());
+            var config = new StyleSheetBundleConfigurationImpl();
+            config.Name("test");
 
-            cache.Setup(c => c.Get()).Returns(collection);
+            var configs = new List<StyleSheetBundleConfiguration>();
+            configs.Add(config);
 
-            var bundles = provider.GetBundles();
 
-            Assert.AreEqual(1, bundles.Count);
-            cache.Verify(c => c.Set(collection), Times.Never());
+            configProvider.Setup(c => c.GetConfigs()).Returns(configs);
+            cache.Setup(c => c.Get()).Returns();
 
+            var bundle = provider.GetBundle("test");
+            Assert.AreSame(config.GetBundle(), bundle);
+            Assert.AreEqual(1, config.CallCount);
+            Assert.IsInstanceOf<IAssetProvider>(config.AssetProvider);
+            cache.Verify(c => c.Get(), Times.Once());
+            cache.Verify(c => c.Set(It.IsAny<BundleCollection<StyleSheetBundle>>()), Times.Never());
         }
     }
 }
