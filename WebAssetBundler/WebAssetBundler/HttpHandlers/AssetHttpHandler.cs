@@ -22,16 +22,16 @@ namespace WebAssetBundler.Web.Mvc
 
     public class AssetHttpHandler<T> : IWabHttpHandler where T : Bundle
     {
-        private IMergedBundleCache<T> cache;
+        private IBundlesCache<T> cache;
 
-        public AssetHttpHandler(IMergedBundleCache<T> cache)
+        public AssetHttpHandler(IBundlesCache<T> cache)
         {
             this.cache = cache;
         }
 
         public void ProcessRequest(string path, IResponseWriter writer, IEncoder encoder)
         {
-            var result = cache.Get(FindName(path));
+            var result = cache.Get().FindBundleByName(FindName(path));
 
             if (result == null)
             {

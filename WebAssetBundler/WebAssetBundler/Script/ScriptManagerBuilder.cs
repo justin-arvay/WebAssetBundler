@@ -29,7 +29,7 @@ namespace WebAssetBundler.Web.Mvc
     {
         private readonly IWebAssetBundleCollectionResolver collectionResolver;
         private bool hasRendered;
-        private ITagWriter tagWriter;       
+        private ITagWriter<ScriptBundle> tagWriter;       
         private BuilderContext context;
         private IBundlePipeline<ScriptBundle> pipeline;
 
@@ -43,7 +43,7 @@ namespace WebAssetBundler.Web.Mvc
             IBundlePipeline<ScriptBundle> pipeline,
             ScriptManager manager, 
             IWebAssetBundleCollectionResolver resolver,
-            ITagWriter tagWriter,
+            ITagWriter<ScriptBundle> tagWriter,
             BuilderContext context)
         {
             this.pipeline = pipeline;

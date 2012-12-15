@@ -17,9 +17,29 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.IO;
+    using System.Collections.Generic;
 
-    public interface IWebAssetReader
+    public class ScriptTagWriter : ITagWriter<ScriptBundle>
     {
-        string Read(AssetBase webAsset);
+        private IUrlGenerator<ScriptBundle> urlGenerator;
+
+        public ScriptTagWriter(IUrlGenerator<ScriptBundle> urlGenerator)
+        {
+            this.urlGenerator = urlGenerator;
+        }
+
+        public void Write(TextWriter writer, ICollection<ScriptBundle> bundles, BuilderContext context)
+        {
+            var script = "<script type=\"text/javascript\" src=\"{0}\"></script>";
+            var url = "";
+
+            foreach (var bundle in bundles)
+            {
+                url = urlGenerator.Generate(bundle.Name, bundle.Hash.ToHexString(), bundle.Host, context);
+
+                writer.WriteLine(script.FormatWith(url));
+            }
+        }
     }
 }

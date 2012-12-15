@@ -41,5 +41,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             Assert.AreEqual("css", bundle.Extension);
         }
+
+        [Test]
+        public void Should_Return_Content_Type()
+        {
+            Assert.AreEqual("text/css", bundle.ContentType);
+        }
     }
 }

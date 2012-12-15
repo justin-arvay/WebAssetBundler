@@ -22,6 +22,7 @@
         public WebAssetType Type { get; protected set; }
         public string Host { get; set; }
         public string Extension { get; protected set; }
+        public abstract string ContentType { get; }
 
         public IList<AssetBase> Assets { get; set; }
 

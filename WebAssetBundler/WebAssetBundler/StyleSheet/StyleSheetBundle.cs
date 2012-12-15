@@ -25,5 +25,10 @@ namespace WebAssetBundler.Web.Mvc
             Type = WebAssetType.StyleSheet;
             Extension = "css";
         }
+
+        public override string ContentType
+        {
+            get { return "text/css"; }
+        }
     }
 }

@@ -32,19 +32,19 @@ namespace WebAssetBundler.Web.Mvc
             this.request = httpContext.Request;
         }
 
-        public void WriteAsset(MergedBundle result, IEncoder encoder)
+        public void WriteAsset(Bundle bundle, IEncoder encoder)
         {
-            response.ContentType = result.ContentType;
-            CacheLongTime(result.Hash.ToHexString());
+            response.ContentType = bundle.ContentType;
+            CacheLongTime(bundle.Hash.ToHexString());
 
-            response.Write(result.Content);
+            response.Write(bundle.Content);
 
             encoder.Encode(response);                                             
         }
 
-        public bool IsNotModified(MergedBundle result)
+        public bool IsNotModified(Bundle bundle)
         {
-            var actualETag = result.Hash.ToHexString();
+            var actualETag = bundle.Hash.ToHexString();
             var givenETag = request.Headers["If-None-Match"];
             return givenETag == actualETag;
         }

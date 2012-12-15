@@ -23,43 +23,52 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class AssetHttpHandlerTests
     {
         private Mock<IResponseWriter> writer;
-        private Mock<IMergedBundleCache<BundleImpl>> cache;
+        private Mock<IBundlesCache<BundleImpl>> cache;
         private Mock<IEncoder> encoder;
         private AssetHttpHandler<BundleImpl> handler;
+        private Bundle bundle;
+        private BundleCollection<BundleImpl> bundles;
 
         [SetUp]
         public void Setup()
         {
+            bundle = new BundleImpl();
+
+            bundles = new BundleCollection<BundleImpl>();
+
+
             writer = new Mock<IResponseWriter>();
-            cache = new Mock<IMergedBundleCache<BundleImpl>>();
+            cache = new Mock<IBundlesCache<BundleImpl>>();
             encoder = new Mock<IEncoder>();
             handler = new AssetHttpHandler<BundleImpl>(cache.Object);
+
+            cache.Setup(c => c.Get()).Returns(bundles);
         }
 
         [Test]
         public void Should_Write_Not_Modified()
         {
-            var result = new MergedBundle("name", "", WebAssetType.None);
-            cache.Setup(c => c.Get(It.IsAny<string>())).Returns(result);
-            writer.Setup(w => w.IsNotModified(result)).Returns(true);
+
+
+            writer.Setup(w => w.IsNotModified(bundle)).Returns(true);
 
             handler.ProcessRequest("/asset/1.1/name", writer.Object, encoder.Object);
 
-            cache.Verify(c => c.Get(It.Is<string>(s => s.Equals("name"))), Times.Once());
-            writer.Verify(w => w.WriteNotModified(result.Hash.ToHexString()), Times.Once());
+            cache.Verify(c => c.Get(), Times.Once());
+            writer.Verify(w => w.IsNotModified(bundle), Times.Once());
+            writer.Verify(w => w.WriteNotModified(bundle.Hash.ToHexString()), Times.Once());
         }
 
         [Test]
         public void Should_Write_Asset()
         {
-            var result = new MergedBundle("name", "", WebAssetType.None);
-            cache.Setup(c => c.Get(It.IsAny<string>())).Returns(result);
-            writer.Setup(w => w.IsNotModified(result)).Returns(false);
+            writer.Setup(w => w.IsNotModified(bundle)).Returns(false);
 
             handler.ProcessRequest("/asset/1.1/name", writer.Object, encoder.Object);
 
-            cache.Verify(c => c.Get(It.Is<string>(s => s.Equals("name"))), Times.Once());
-            writer.Verify(w => w.WriteAsset(result, encoder.Object), Times.Once());
+            cache.Verify(c => c.Get(), Times.Once());
+            writer.Verify(w => w.IsNotModified(bundle), Times.Once());
+            writer.Verify(w => w.WriteAsset(bundle, encoder.Object), Times.Once());
         }
 
         [Test]
@@ -67,7 +76,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {            
             handler.ProcessRequest("/asset/1.1/name", writer.Object, encoder.Object);
 
-            cache.Verify(c => c.Get(It.Is<string>(s => s.Equals("name"))), Times.Once());
+            cache.Verify(c => c.Get(), Times.Once());
             writer.Verify(w => w.WriteNotFound(), Times.Once());
         }
 

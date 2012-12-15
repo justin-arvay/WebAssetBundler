@@ -57,8 +57,6 @@
     <Compile Include="Caching\CacheProvider.cs" />
     <Compile Include="Caching\IBundlesCache.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
-    <Compile Include="Caching\IMergedBundleCache.cs" />
-    <Compile Include="Caching\MergedBundleCache.cs" />
     <Compile Include="ComponentBuilder.cs" />
     <Compile Include="Compressors\IScriptCompressor.cs" />
     <Compile Include="Compressors\IStyleSheetCompressor.cs" />
@@ -104,14 +102,11 @@
     <Compile Include="IAssetTransformer.cs" />
     <Compile Include="IBuilderContextFactory.cs" />
     <Compile Include="IFile.cs" />
-    <Compile Include="IO\ITagWriter.cs" />
-    <Compile Include="IO\ScriptTagWriter.cs" />
-    <Compile Include="IO\ScriptUrlGenerator.cs" />
-    <Compile Include="IO\ScriptWebAssetMerger.cs" />
-    <Compile Include="IO\IWebAssetReader.cs" />
-    <Compile Include="IO\StyleSheetTagWriter.cs" />
-    <Compile Include="IO\StyleSheetUrlGenerator.cs" />
-    <Compile Include="IO\MergedBundle.cs" />
+    <Compile Include="ITagWriter.cs" />
+    <Compile Include="Script\ScriptTagWriter.cs" />
+    <Compile Include="Script\ScriptUrlGenerator.cs" />
+    <Compile Include="StyleSheet\StyleSheetTagWriter.cs" />
+    <Compile Include="StyleSheet\StyleSheetUrlGenerator.cs" />
     <Compile Include="ITransformable.cs" />
     <Compile Include="ManagerBuilderFactory.cs" />
     <Compile Include="Script\ScriptManagerBuilder.cs" />
@@ -128,7 +123,7 @@
     <Compile Include="Resolvers\IWebAssetBundleCollectionResolver.cs" />
     <Compile Include="Resolvers\IWebAssetResolver.cs" />
     <Compile Include="Resolvers\IWebAssetResolverFactory.cs" />
-    <Compile Include="IO\IUrlGenerator.cs" />
+    <Compile Include="IUrlGenerator.cs" />
     <Compile Include="Resolvers\WebAssetResolverFactory.cs" />
     <Compile Include="DefaultSettings.cs" />
     <Compile Include="Configuration\BundleCollection.cs" />

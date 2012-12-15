@@ -32,6 +32,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<HttpResponseBase> response;
         private Mock<HttpCachePolicyBase> cache;
         private Mock<IEncoder> encoder;
+        private Bundle bundle;
 
         [SetUp]
         public void Setup()
@@ -40,6 +41,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             response = new Mock<HttpResponseBase>();
             cache = new Mock<HttpCachePolicyBase>();
             encoder = new Mock<IEncoder>();
+            bundle = new BundleImpl();
 
             response.Setup(r => r.Cache).Returns(cache.Object);
             response.Setup(r => r.Headers).Returns(new NameValueCollection());
@@ -54,14 +56,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Set_Headers_For_Asset()
         {
-            var result = new MergedBundle("name", "content", WebAssetType.None);
+            bundle.Content = "test";
+
             var collection = new NameValueCollection();
             collection.Add("Accept-Encoding", "some encoding");
 
             request.Setup(r => r.Headers).Returns(collection);
-            writer.WriteAsset(result, encoder.Object);
+            writer.WriteAsset(bundle, encoder.Object);
 
-            cache.Verify(c => c.SetETag(result.Hash.ToHexString()));
+            cache.Verify(c => c.SetETag(bundle.Hash.ToHexString()));
             cache.Verify(c => c.SetExpires(It.Is<DateTime>(e => e.ToShortDateString() == DateTime.UtcNow.AddYears(1).ToShortDateString())));
             cache.Verify(c => c.SetCacheability(HttpCacheability.Public));
             response.Verify(r => r.Write("content"));
@@ -91,25 +94,25 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Be_Modified()
         {
-            var result = new MergedBundle("name", "", WebAssetType.None);
             var collection = new NameValueCollection();
             collection.Add("If-None-Match", "");
 
             request.Setup(r => r.Headers).Returns(collection);
 
-            Assert.IsFalse(writer.IsNotModified(result));
+            Assert.IsFalse(writer.IsNotModified(bundle));
         }
 
         [Test]
         public void Should_Not_Be_Modified()
         {
-            var result = new MergedBundle("name", "", WebAssetType.None);
+            bundle.Content = "test";
+   
             var collection = new NameValueCollection();
-            collection.Add("If-None-Match", result.Hash.ToHexString());
+            collection.Add("If-None-Match", bundle.Hash.ToHexString());
 
             request.Setup(r => r.Headers).Returns(collection);
 
-            Assert.IsTrue(writer.IsNotModified(result));
+            Assert.IsTrue(writer.IsNotModified(bundle));
         }
     }
 }

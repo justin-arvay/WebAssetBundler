@@ -25,5 +25,10 @@ namespace WebAssetBundler.Web.Mvc
             Type = WebAssetType.Script;
             Extension = "js";
         }
+
+        public override string ContentType
+        {
+            get { return "text/javascript"; }
+        }
     }
 }

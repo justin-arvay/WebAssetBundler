@@ -91,12 +91,10 @@
     <Compile Include="HttpHandlers\GZipEncoderTests.cs" />
     <Compile Include="HttpHandlers\HttpHandlerFactoryTests.cs" />
     <Compile Include="HttpHandlers\ResponseWriterTests.cs" />
-    <Compile Include="IO\MergedBundleTests.cs" />
-    <Compile Include="IO\ScriptTagWriterTests.cs" />
-    <Compile Include="IO\ScriptUrlGeneratorTests.cs" />
-    <Compile Include="IO\ScriptWebAssetMergerTests.cs" />
-    <Compile Include="IO\StyleSheetTagWriterTests.cs" />
-    <Compile Include="IO\StyleSheetUrlGeneratorTests.cs" />
+    <Compile Include="Script\ScriptTagWriterTests.cs" />
+    <Compile Include="Script\ScriptUrlGeneratorTests.cs" />
+    <Compile Include="StyleSheet\StyleSheetTagWriterTests.cs" />
+    <Compile Include="StyleSheet\StyleSheetUrlGeneratorTests.cs" />
     <Compile Include="ManagerBuilderFactoryTests.cs" />
     <Compile Include="MergedAssetTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -132,6 +130,9 @@
       <Project>{2AC03817-4112-47FE-AF34-44A8AE4717AB}</Project>
       <Name>WebAssetBundler</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="IO\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

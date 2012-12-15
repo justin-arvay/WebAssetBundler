@@ -33,7 +33,6 @@ namespace WebAssetBundler.Web.Mvc
         public abstract string Source
         {
             get;
-            private set;
         }
 
         public string Extension
