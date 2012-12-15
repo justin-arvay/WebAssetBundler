@@ -62,22 +62,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Bundle_From_Cache()
         {
-            var config = new StyleSheetBundleConfigurationImpl();
-            config.Name("test");
+            var bundle = new StyleSheetBundle();
 
-            var configs = new List<StyleSheetBundleConfiguration>();
-            configs.Add(config);
+            var collection = new BundleCollection<StyleSheetBundle>();
+            collection.Add(bundle);
 
+            cache.Setup(c => c.Get()).Returns(collection);
 
-            configProvider.Setup(c => c.GetConfigs()).Returns(configs);
-            cache.Setup(c => c.Get()).Returns();
-
-            var bundle = provider.GetBundle("test");
-            Assert.AreSame(config.GetBundle(), bundle);
-            Assert.AreEqual(1, config.CallCount);
-            Assert.IsInstanceOf<IAssetProvider>(config.AssetProvider);
+            Assert.AreSame(bundle, provider.GetBundle("test"));
             cache.Verify(c => c.Get(), Times.Once());
             cache.Verify(c => c.Set(It.IsAny<BundleCollection<StyleSheetBundle>>()), Times.Never());
+
         }
     }
 }

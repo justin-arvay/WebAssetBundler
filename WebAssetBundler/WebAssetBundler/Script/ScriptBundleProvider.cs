@@ -23,13 +23,15 @@ namespace WebAssetBundler.Web.Mvc
         private IScriptConfigProvider configProvider;
         private IBundlesCache<ScriptBundle> cache;
         private IAssetProvider assetLocator;
+        IBundlePipeline<ScriptBundle> pipeline;
 
         public ScriptBundleProvider(IScriptConfigProvider configProvider, IBundlesCache<ScriptBundle> cache, 
-            IAssetProvider assetLocator)
+            IAssetProvider assetLocator, IBundlePipeline<ScriptBundle> pipeline)
         {
             this.configProvider = configProvider;
             this.cache = cache;
             this.assetLocator = assetLocator;
+            this.pipeline = pipeline;
         }
 
         public ScriptBundle GetBundle(string name)

@@ -26,43 +26,52 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private ScriptBundleProvider provider;
         private Mock<IScriptConfigProvider> configProvider;
         private Mock<IBundlesCache<ScriptBundle>> cache;
-        private Mock<IAssetProvider<FromDirectoryComponent>> locator;
+        private Mock<IAssetProvider> assetProvider;
+        private Mock<IBundlePipeline<ScriptBundle>> pipeline;
 
         [SetUp]
         public void Setup()
         {
+            pipeline = new Mock<IBundlePipeline<ScriptBundle>>();
             configProvider = new Mock<IScriptConfigProvider>();
             cache = new Mock<IBundlesCache<ScriptBundle>>();
-            locator = new Mock<IAssetProvider<FromDirectoryComponent>>();
-            provider = new ScriptBundleProvider(configProvider.Object, cache.Object, locator.Object);
+            assetProvider = new Mock<IAssetProvider>();
+            provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object, pipeline.Object);
         }
 
         [Test]
         public void Should_Get_Bundles()
         {
+            var config = new ScriptBundleConfigurationImpl();
+            config.Name("test");
+
             var configs = new List<ScriptBundleConfiguration>();
-            configs.Add(new ScriptBundleConfigurationImpl());
+            configs.Add(config);
+
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
 
-            var bundles = provider.GetBundles();
-            Assert.AreEqual(1, bundles.Count);
+            var bundle = provider.GetBundle("test");
+            Assert.AreSame(config.GetBundle(), bundle);
+            Assert.AreEqual(1, config.CallCount);
+            Assert.IsInstanceOf<IAssetProvider>(config.AssetProvider);
             cache.Verify(c => c.Get(), Times.Once());
-            cache.Verify(c => c.Set(bundles), Times.Once());
+            cache.Verify(c => c.Set(It.IsAny<BundleCollection<ScriptBundle>>()), Times.Once());
         }
 
         [Test]
         public void Should_Get_Bundles_From_Cache()
         {
+            var bundle = new ScriptBundle();
+
             var collection = new BundleCollection<ScriptBundle>();
-            collection.Add(new ScriptBundle());
+            collection.Add(bundle);
 
             cache.Setup(c => c.Get()).Returns(collection);
 
-            var bundles = provider.GetBundles();
-
-            Assert.AreEqual(1, bundles.Count);
-            cache.Verify(c => c.Set(collection), Times.Never());
+            Assert.AreSame(bundle, provider.GetBundle("test"));
+            cache.Verify(c => c.Get(), Times.Once());
+            cache.Verify(c => c.Set(It.IsAny<BundleCollection<ScriptBundle>>()), Times.Never());
 
         }
 

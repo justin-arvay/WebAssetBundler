@@ -21,9 +21,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
     public class ScriptBundleConfigurationImpl : ScriptBundleConfiguration
     {
+        public int CallCount { get; set; }
+
         public override void Configure()
         {
-
+            CallCount++;
         }
     }
 }
