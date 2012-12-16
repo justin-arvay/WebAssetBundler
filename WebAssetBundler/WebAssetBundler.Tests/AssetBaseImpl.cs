@@ -20,6 +20,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
     public class AssetBaseImpl : AssetBase
     {
+        public override string Source
+        {
+            get { throw new NotImplementedException(); }
+        }
 
     }
 }

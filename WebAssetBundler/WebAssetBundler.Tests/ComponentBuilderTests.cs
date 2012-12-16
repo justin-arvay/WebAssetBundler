@@ -34,36 +34,24 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private StyleSheetBundler CreateStyleSheetManagerBuilder()
         {
             var builderContext = new BundleContext();
-            var tagWriter = new Mock<ITagWriter>();
-            var server = new Mock<HttpServerUtilityBase>();
-            var collection = new BundleCollection<StyleSheetBundle>();            
-            var resolverFactory = new Mock<IWebAssetResolverFactory>();
-            var collectionResolver = new WebAssetBundleCollectionResolver(resolverFactory.Object);
-            var merger = new Mock<IWebAssetMerger>();
+            var tagWriter = new Mock<ITagWriter<StyleSheetBundle>();
+            var bundleProvider = new Mock<IBundleProvider<StyleSheetBundle>>();
 
             return new StyleSheetBundler(
-                new StyleSheetManager(collection),
-                collectionResolver,
+                bundleProvider.Object,
                 tagWriter.Object,
-                merger.Object,
                 builderContext);
         }
 
         private ScriptBundler CreateScriptManagerBuilder()
         {
             var builderContext = new BundleContext();
-            var tagWriter = new Mock<ITagWriter>();
-            var server = new Mock<HttpServerUtilityBase>();
-            var collection = new BundleCollection<ScriptBundle>();
-            var merger = new Mock<IWebAssetMerger>();
-            var resolverFactory = new Mock<IWebAssetResolverFactory>();
-            var collectionResolver = new WebAssetBundleCollectionResolver(resolverFactory.Object);
+            var tagWriter = new Mock<ITagWriter<ScriptBundle>>();
+            var bundleProvider = new Mock<IBundleProvider<ScriptBundle>>();
 
             return new ScriptBundler(
-                new ScriptManager(collection),
-                collectionResolver,
+                bundleProvider.Object,
                 tagWriter.Object,
-                merger.Object,
                 builderContext);
         }
 

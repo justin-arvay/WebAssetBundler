@@ -54,7 +54,6 @@
     <Compile Include="BuilderContextFactoryTests.cs" />
     <Compile Include="BundleContextTests.cs" />
     <Compile Include="Caching\BundlesCacheTests.cs" />
-    <Compile Include="Caching\MergedBundleCacheTests.cs" />
     <Compile Include="ComponentBuilderTests.cs" />
     <Compile Include="Configuration\AssetBaseTests.cs" />
     <Compile Include="Configuration\BundleConfigurationImpl.cs" />
@@ -71,13 +70,11 @@
     <Compile Include="Script\ScriptBundleConfigurationImpl.cs" />
     <Compile Include="Script\ScriptBundleProviderTests.cs" />
     <Compile Include="Script\ScriptBundleTests.cs" />
-    <Compile Include="Script\ScriptManagerBuilderTests.cs" />
-    <Compile Include="Script\ScriptManagerTests.cs" />
+    <Compile Include="Script\ScriptBundlerTests.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleConfigurationImpl.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleProviderTests.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleTests.cs" />
-    <Compile Include="StyleSheet\StyleSheetManagerBuilderTests.cs" />
-    <Compile Include="StyleSheet\StyleSheetManagerTests.cs" />
+    <Compile Include="StyleSheet\StyleSheetBundlerTests.cs" />
     <Compile Include="Configuration\BundleCollectionTests.cs" />
     <Compile Include="DefaultSettingsTests.cs" />
     <Compile Include="Extensions\ByteArrayExtensionTests.cs" />
@@ -96,12 +93,6 @@
     <Compile Include="ManagerBuilderFactoryTests.cs" />
     <Compile Include="MergedAssetTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resolvers\CombinedWebAssetBundleResolverTest.cs" />
-    <Compile Include="Resolvers\DoNothingWebAssetResolverTest.cs" />
-    <Compile Include="Resolvers\ResolvedBundleTests.cs" />
-    <Compile Include="Resolvers\WebAssetBundleCollectionResolverTests.cs" />
-    <Compile Include="Resolvers\WebAssetBundleResolverTests.cs" />
-    <Compile Include="Resolvers\WebAssetResolverFactoryTests.cs" />
     <Compile Include="Script\ScriptCompressProcessorTests.cs" />
     <Compile Include="Script\ScriptPipelineTests.cs" />
     <Compile Include="Script\ScriptMergeProcessorTests.cs" />

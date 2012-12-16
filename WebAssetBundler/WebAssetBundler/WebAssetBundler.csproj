@@ -112,16 +112,7 @@
     <Compile Include="Pipeline\BundlePipeline.cs" />
     <Compile Include="Pipeline\IBundlePipeline.cs" />
     <Compile Include="Pipeline\IPipelineProcessor.cs" />
-    <Compile Include="Resolvers\CombinedWebAssetBundleResolver.cs" />
-    <Compile Include="Resolvers\DoNothingWebAssetResolver.cs" />
-    <Compile Include="Resolvers\ResolvedBundle.cs" />
-    <Compile Include="Resolvers\WebAssetBundleResolver.cs" />
-    <Compile Include="Resolvers\WebAssetBundleCollectionResolver.cs" />
-    <Compile Include="Resolvers\IWebAssetBundleCollectionResolver.cs" />
-    <Compile Include="Resolvers\IWebAssetResolver.cs" />
-    <Compile Include="Resolvers\IWebAssetResolverFactory.cs" />
     <Compile Include="IUrlGenerator.cs" />
-    <Compile Include="Resolvers\WebAssetResolverFactory.cs" />
     <Compile Include="DefaultSettings.cs" />
     <Compile Include="Configuration\BundleCollection.cs" />
     <Compile Include="Configuration\WebAssetType.cs" />

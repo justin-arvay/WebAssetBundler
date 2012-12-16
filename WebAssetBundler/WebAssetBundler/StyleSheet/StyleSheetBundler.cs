@@ -27,7 +27,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public class StyleSheetBundler
     {
-        private readonly IWebAssetBundleCollectionResolver collectionResolver;
         private ITagWriter<StyleSheetBundle> tagWriter;
         private BundleContext context;
         private IBundleProvider<StyleSheetBundle> bundleProvider;

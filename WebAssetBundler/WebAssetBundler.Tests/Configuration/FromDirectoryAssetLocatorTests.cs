@@ -27,12 +27,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private AssetProvider locator;
         private FromDirectoryComponent component;
         private Mock<HttpServerUtilityBase> server;
+        private BundleContext context;
 
         [SetUp]
         public void Setup()
         {
+            context = new BundleContext();
             server = new Mock<HttpServerUtilityBase>();
-            locator = new AssetProvider(server.Object, "");
+            locator = new AssetProvider(server.Object, "", context);
             component = new FromDirectoryComponent("Files/Configuration", "css");
 
             server.Setup(m => m.MapPath(It.IsAny<string>()))

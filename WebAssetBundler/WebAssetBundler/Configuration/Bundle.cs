@@ -16,7 +16,6 @@
         }
 
         public string Name { get; set; }
-        public bool Combine { get; set; }
         public bool Compress { get; set; }
         public bool Enabled { get; set; }
         public WebAssetType Type { get; protected set; }

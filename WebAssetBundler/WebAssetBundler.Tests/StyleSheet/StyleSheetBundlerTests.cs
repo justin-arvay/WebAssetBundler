@@ -16,31 +16,52 @@
 
 namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using WebAssetBundler.Web.Mvc;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using NUnit.Framework;
+    using WebAssetBundler.Web.Mvc;
+    using System.Web.UI;
+    using System.IO;
+    using System.Web.Mvc;
     using Moq;
+    using System.Web;
+
 
     [TestFixture]
-    public class StyleSheetManagerTests
+    public class StyleSheetBundlerTests
     {
-        private BundleCollection<StyleSheetBundle> collection;
-        private StyleSheetManager manager;
+        private Mock<ITagWriter<StyleSheetBundle>> tagWriter;
+        private StyleSheetBundler builder;
+        private BundleContext context;
+        private Mock<IBundleProvider<StyleSheetBundle>> bundleProvider;
 
         [SetUp]
         public void Setup()
         {
-            collection = new BundleCollection<StyleSheetBundle>();
-            manager = new StyleSheetManager(collection);
+            bundleProvider = new Mock<IBundleProvider<StyleSheetBundle>>();
+            context = new BundleContext();
+            tagWriter = new Mock<ITagWriter<StyleSheetBundle>>();
+
+            builder = new StyleSheetBundler(
+                bundleProvider.Object,
+                tagWriter.Object,
+                context);
         }
+ 
 
         [Test]
-        public void Should_Set_Bundles()
+        public void Should_Render_Bundle()
         {
-            Assert.NotNull(manager.StyleSheetBundles);
+            var bundle = new StyleSheetBundle();
+            bundleProvider.Setup(p => p.GetBundle("test")).Returns(bundle);
+            
+            builder.Render("test");
+
+            tagWriter.Verify(t => t.Write(It.IsAny<HtmlTextWriter>(), bundle, context), Times.Once());
         }
+
+       
     }
 }

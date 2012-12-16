@@ -25,15 +25,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class BundleConfigurationTests
     {
         private BundleConfigurationImpl bundleConfig;
-        private Mock<IAssetProvider<FromDirectoryComponent>> assetLocator;
+        private Mock<IAssetProvider> assetProvider;
 
         [SetUp]
         public void Setup()
         {
-            assetLocator = new Mock<IAssetProvider<FromDirectoryComponent>>();
+            assetProvider = new Mock<IAssetProvider>();
             bundleConfig = new BundleConfigurationImpl();
 
-            bundleConfig.AssetProvider = assetLocator.Object;
+            bundleConfig.AssetProvider = assetProvider.Object;
         }
 
         [Test]
@@ -86,10 +86,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Locate_Filtered_Assets_In_Directory()
         {
             var assets = new List<AssetBase>();
-            assets.Add(new AssetBase("~/something"));
+            assets.Add(new AssetBaseImpl());
 
-            assetLocator.Setup(l => l.GetAssets(It.IsAny<FromDirectoryComponent>()))
+            assetProvider.Setup(l => l.GetAssets(It.IsAny<FromDirectoryComponent>()))
                 .Returns(assets);
+
 
             bundleConfig.AddFromDirectory("~/Files/Configration", b => b.ToString());
 
@@ -100,9 +101,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Add_All_Assets_In_Directory()
         {
             var assets = new List<AssetBase>();
-            assets.Add(new AssetBase("~/something"));
+            assets.Add(new AssetBaseImpl());
 
-            assetLocator.Setup(l => l.GetAssets(It.IsAny<FromDirectoryComponent>()))
+            assetProvider.Setup(l => l.GetAssets(It.IsAny<FromDirectoryComponent>()))
                 .Returns(assets);
 
             bundleConfig.AddFromDirectory("~/Files/Configration");

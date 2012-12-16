@@ -27,7 +27,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ScriptBundler
     {
-        private readonly IWebAssetBundleCollectionResolver collectionResolver;
         private ITagWriter<ScriptBundle> tagWriter;       
         private BundleContext context;
         private IBundleProvider<ScriptBundle> bundleProvider;
