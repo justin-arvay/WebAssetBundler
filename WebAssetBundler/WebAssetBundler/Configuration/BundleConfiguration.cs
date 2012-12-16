@@ -83,15 +83,6 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
-        /// Informs the bundling process to combine all assets into one bundle.
-        /// </summary>
-        /// <param name="combine"></param>
-        public void Combine(bool combine)
-        {
-            bundle.Combine = combine;
-        }
-
-        /// <summary>
         /// Informs the bundling process to compress all assets when bundling.
         /// </summary>
         /// <param name="compress"></param>

@@ -50,12 +50,6 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>()
                 .AsSingleton();
 
-            container.Register<IWebAssetResolverFactory, WebAssetResolverFactory>()
-                .AsSingleton();
-
-            container.Register<IWebAssetBundleCollectionResolver, WebAssetBundleCollectionResolver>()
-                .AsSingleton();
-
             container.Register<IAssetProvider>((c, p) => new AssetProvider(
                 c.Resolve<HttpServerUtilityBase>(), 
                 HttpContext().Request.PhysicalApplicationPath,
