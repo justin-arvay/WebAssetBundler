@@ -23,7 +23,6 @@ namespace Examples
     {
         public override void Configure()
         {
-            Combine(true);
             Compress(true);
             AddFromDirectory("~/Content");
         }

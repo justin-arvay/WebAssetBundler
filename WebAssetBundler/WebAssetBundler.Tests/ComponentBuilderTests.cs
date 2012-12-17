@@ -34,7 +34,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private StyleSheetBundler CreateStyleSheetManagerBuilder()
         {
             var builderContext = new BundleContext();
-            var tagWriter = new Mock<ITagWriter<StyleSheetBundle>();
+            var tagWriter = new Mock<ITagWriter<StyleSheetBundle>>();
             var bundleProvider = new Mock<IBundleProvider<StyleSheetBundle>>();
 
             return new StyleSheetBundler(

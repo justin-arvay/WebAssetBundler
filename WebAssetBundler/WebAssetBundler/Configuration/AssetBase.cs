@@ -29,10 +29,11 @@ namespace WebAssetBundler.Web.Mvc
                 return Path.GetFileNameWithoutExtension(Source);
             }
         }
-       
-        public abstract string Source
+        
+        public virtual string Source
         {
             get;
+            set;
         }
 
         public string Extension

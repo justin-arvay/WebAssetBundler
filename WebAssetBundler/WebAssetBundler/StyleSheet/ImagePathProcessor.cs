@@ -25,15 +25,12 @@ namespace WebAssetBundler.Web.Mvc
     public class ImagePathProcessor : IPipelineProcessor<StyleSheetBundle>, IAssetTransformer
     {
         private HttpServerUtilityBase server;
-        private string outputUrl;
         private BundleContext context;
 
         public ImagePathProcessor(IUrlGenerator<StyleSheetBundle> urlGenerator, HttpServerUtilityBase server, BundleContext context)
         {
             this.server = server;
             this.context = context;
-
-            outputUrl = urlGenerator.Generate("a", "a", "a", context);
         }
 
         public void Process(StyleSheetBundle bundle)
@@ -43,9 +40,10 @@ namespace WebAssetBundler.Web.Mvc
 
         public void Transform(AssetBase asset)
         {
+            var outputUrl = outputUrl = urlGenerator.Generate("a", "a", "", context)        
             var content = asset.Content;
 
-            var sourceUri = new Uri(Path.GetDirectoryName(server.MapPath(asset.Source)) + "/", UriKind.Absolute);
+            var sourceUri = new Uri(Path.GetDirectoryName(server.MapPath(asset.Source)), UriKind.Absolute);
             var outputUri = new Uri(Path.GetDirectoryName(outputUrl) + "/", UriKind.Absolute);
 
             var relativePaths = FindDistinctRelativePathsIn(content);

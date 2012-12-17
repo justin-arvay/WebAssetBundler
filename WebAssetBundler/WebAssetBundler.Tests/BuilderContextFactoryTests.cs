@@ -42,7 +42,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual(true, context.Compress);
             Assert.AreEqual("192.168.1.1", context.Host);
             Assert.AreEqual("~/Scripts", context.DefaultPath);
-            Assert.IsInstanceOf<IAssetFactory>(context.AssetFactory);
             Assert.AreEqual(false, context.DebugMode);
         }
 
@@ -57,7 +56,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual(true, context.Compress);
             Assert.AreEqual("192.168.1.1", context.Host);
             Assert.AreEqual("~/Content", context.DefaultPath);
-            Assert.IsInstanceOf<IAssetFactory>(context.AssetFactory);
             Assert.AreEqual(false, context.DebugMode);
         }
     }

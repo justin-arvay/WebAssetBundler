@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System;
     using Moq;
@@ -28,6 +28,7 @@ namespace WebAssetBundler.Web.Mvc
         private Mock<IUrlGenerator<StyleSheetBundle>> urlGenerator;
         private Mock<HttpServerUtilityBase> server;
         private BundleContext context;
+        private StyleSheetBundle bundle;
 
         [SetUp]
         public void Setup()
@@ -36,21 +37,28 @@ namespace WebAssetBundler.Web.Mvc
             server = new Mock<HttpServerUtilityBase>();
             context = new BundleContext();
 
+            bundle = new StyleSheetBundle();
+            bundle.Assets.Add(new AssetBaseImpl());
+
             processor = new ImagePathProcessor(urlGenerator.Object, server.Object, context);
+
+            urlGenerator.Setup(u => u.Generate("a", "a", "a", context)).Returns("/wab.axd/a/a/a");
         }
 
         [Test]
         public void Should_Filter_With_Different_File_Names()
         {
-            string sourcePath = "C:\\Content\\file.css";
-            string outputPath = "C:\\Content\\test.css";
-            string content = "url(\"../img/test.jpg\");";
+            bundle.Assets[0].Source = "";
+            bundle.Assets[0].Content = "url(\"../img/test.jpg\");";
 
-            var filter = new ImagePathContentFilter();
+            server.Setup(s => s.MapPath(bundle.Assets[0].Source)).Returns("C:\\Content\\file.css");
 
-            Assert.AreEqual("url(\"../img/test.jpg\");", filter.Filter(outputPath, sourcePath, content));
+            processor.Process(bundle);
+        
+
+            Assert.AreEqual("url(\"../img/test.jpg\");", bundle.Assets[0].Content);
         }
-
+        /*
         [Test]
         public void Should_Filter_With_Different_Directory_Names()
         {
@@ -127,5 +135,6 @@ namespace WebAssetBundler.Web.Mvc
         public void Should_Process_Each_Asset()
         {
         }
+         */
     }
 }

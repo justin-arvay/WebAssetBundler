@@ -45,14 +45,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Set_Combine()
-        {
-            bundleConfig.Combine(true);
-
-            Assert.IsTrue(bundleConfig.GetBundle().Combine);
-        }
-
-        [Test]
         public void Should_Set_Compress()
         {
             bundleConfig.Compress(true);
