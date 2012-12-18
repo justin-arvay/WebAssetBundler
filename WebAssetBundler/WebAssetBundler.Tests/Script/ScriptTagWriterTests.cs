@@ -43,24 +43,23 @@ namespace WebAssetBundler.Web.Mvc
         [Test]
         public void Should_Generate_Url()
         {
+            bundle.Name = "test";
             bundle.Host = "http://www.test.com";
 
             tagWriter.Write(textWriter.Object, bundle, context);
 
-            urlGenerator.Verify(m => m.Generate("asdf", bundle.Hash.ToHexString(), "http://www.test.com", context), Times.Exactly(1));
+            urlGenerator.Verify(m => m.Generate(bundle.Name, bundle.Hash.ToHexString(), "http://www.test.com", context), Times.Exactly(1));
         }
 
         [Test]
         public void Should_Write_To_Writer()
         {
-            bundle.Host = "http://dev.test.com";
-
             urlGenerator.Setup(u => u.Generate(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<BundleContext>()))
                 .Returns("http://dev.test.com/");
 
             tagWriter.Write(textWriter.Object, bundle, context);
 
-            textWriter.Verify(m => m.WriteLine("<script type=\"text/javascript\" src=\"http://dev.test.com/\"></script>"), Times.Exactly(2));   
+            textWriter.Verify(m => m.WriteLine("<script type=\"text/javascript\" src=\"http://dev.test.com/\"></script>"), Times.Exactly(1));   
         }
     }
 }

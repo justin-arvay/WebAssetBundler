@@ -26,21 +26,25 @@ namespace WebAssetBundler.Web.Mvc
     {
         private HttpServerUtilityBase server;
         private BundleContext context;
+        private IUrlGenerator<StyleSheetBundle> urlGenerator;
+        private string outputUrl;
 
         public ImagePathProcessor(IUrlGenerator<StyleSheetBundle> urlGenerator, HttpServerUtilityBase server, BundleContext context)
         {
             this.server = server;
             this.context = context;
+            this.urlGenerator = urlGenerator;
         }
 
         public void Process(StyleSheetBundle bundle)
         {
             bundle.TransformAssets(this);
+            outputUrl = urlGenerator.Generate("a", "a", "", context);   
+
         }
 
         public void Transform(AssetBase asset)
         {
-            var outputUrl = outputUrl = urlGenerator.Generate("a", "a", "", context)        
             var content = asset.Content;
 
             var sourceUri = new Uri(Path.GetDirectoryName(server.MapPath(asset.Source)), UriKind.Absolute);

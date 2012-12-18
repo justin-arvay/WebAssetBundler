@@ -13,6 +13,7 @@
         {
             Enabled = true;
             Assets = new InternalCollection();
+            Content = "";
         }
 
         public string Name { get; set; }
@@ -70,7 +71,7 @@
 
             private bool AlreadyExists(AssetBase item)
             {
-                return this.Any(i => i != item && i.Source.Equals(item.Source));
+                return this.Any(i => i.Source.Equals(item.Source));
             }
 
             private string Message(AssetBase item)

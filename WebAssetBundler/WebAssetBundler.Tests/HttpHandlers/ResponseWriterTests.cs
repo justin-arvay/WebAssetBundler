@@ -67,7 +67,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             cache.Verify(c => c.SetETag(bundle.Hash.ToHexString()));
             cache.Verify(c => c.SetExpires(It.Is<DateTime>(e => e.ToShortDateString() == DateTime.UtcNow.AddYears(1).ToShortDateString())));
             cache.Verify(c => c.SetCacheability(HttpCacheability.Public));
-            response.Verify(r => r.Write("content"));
+            response.Verify(r => r.Write(bundle.Content));
             encoder.Verify(e => e.Encode(response.Object), Times.Once());
         }
 

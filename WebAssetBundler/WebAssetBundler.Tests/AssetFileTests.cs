@@ -31,10 +31,11 @@ using System.Web;
         public void Setup()
         {
             server = new Mock<HttpServerUtilityBase>();
-            file = new AssetFile("~/Files/AssetFileTest.css", server.Object);
-
             server.Setup(s => s.MapPath("~/Files/AssetFileTest.css"))
-                .Returns("D:\\ASP.NET Projects\\WebAssetBundler\\WebAssetBundler\\WebAssetBundler.Tests\\Files\\AssetFileTest.css");
+               .Returns("D:\\ASP.NET Projects\\WebAssetBundler\\WebAssetBundler\\WebAssetBundler.Tests\\Files\\AssetFileTest.css");
+
+            
+            file = new AssetFile("~/Files/AssetFileTest.css", server.Object);           
         }
 
         [Test]

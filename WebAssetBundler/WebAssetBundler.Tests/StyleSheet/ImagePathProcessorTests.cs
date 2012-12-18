@@ -42,7 +42,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor = new ImagePathProcessor(urlGenerator.Object, server.Object, context);
 
-            urlGenerator.Setup(u => u.Generate("a", "a", "a", context)).Returns("/wab.axd/a/a/a");
+            urlGenerator.Setup(u => u.Generate("a", "a", "", context)).Returns("/wab.axd/a/a/a");
         }
 
         [Test]

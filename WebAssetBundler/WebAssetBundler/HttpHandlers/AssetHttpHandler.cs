@@ -31,21 +31,21 @@ namespace WebAssetBundler.Web.Mvc
 
         public void ProcessRequest(string path, IResponseWriter writer, IEncoder encoder)
         {
-            var result = cache.Get().FindBundleByName(FindName(path));
+            var bundle = cache.Get().FindBundleByName(FindName(path));
 
-            if (result == null)
+            if (bundle == null)
             {
                 writer.WriteNotFound();                
             }
             else
             {
-                if (writer.IsNotModified(result))
+                if (writer.IsNotModified(bundle))
                 {
-                    writer.WriteNotModified(result.Hash.ToHexString());
+                    writer.WriteNotModified(bundle.Hash.ToHexString());
                 }
                 else
                 {
-                    writer.WriteAsset(result, encoder);
+                    writer.WriteAsset(bundle, encoder);
                 }
             }            
         }

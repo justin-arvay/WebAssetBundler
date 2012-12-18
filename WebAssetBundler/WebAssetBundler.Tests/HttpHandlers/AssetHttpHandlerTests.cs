@@ -26,7 +26,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IBundlesCache<BundleImpl>> cache;
         private Mock<IEncoder> encoder;
         private AssetHttpHandler<BundleImpl> handler;
-        private Bundle bundle;
+        private BundleImpl bundle;
         private BundleCollection<BundleImpl> bundles;
 
         [SetUp]
@@ -35,6 +35,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             bundle = new BundleImpl();
 
             bundles = new BundleCollection<BundleImpl>();
+            bundles.Add(bundle);
 
 
             writer = new Mock<IResponseWriter>();
@@ -48,8 +49,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Write_Not_Modified()
         {
-
-
+            bundle.Name = "name";
             writer.Setup(w => w.IsNotModified(bundle)).Returns(true);
 
             handler.ProcessRequest("/asset/1.1/name", writer.Object, encoder.Object);
@@ -62,6 +62,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Write_Asset()
         {
+            bundle.Name = "name";
             writer.Setup(w => w.IsNotModified(bundle)).Returns(false);
 
             handler.ProcessRequest("/asset/1.1/name", writer.Object, encoder.Object);

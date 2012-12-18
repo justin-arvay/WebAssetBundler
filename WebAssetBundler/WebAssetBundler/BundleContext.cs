@@ -35,12 +35,6 @@ namespace WebAssetBundler.Web.Mvc
             set;
         }
 
-        public bool Combine
-        {
-            get;
-            set;
-        }
-
         public string Host
         {
             get;

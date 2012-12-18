@@ -21,7 +21,7 @@ namespace WebAssetBundler.Web.Mvc
     public class StyleSheetUrlGenerator : IUrlGenerator<StyleSheetBundle>
     {
 
-        public string Generate(string hash, string version, string host, BundleContext context)
+        public string Generate(string name, string version, string host, BundleContext context)
         {
             if (context.DebugMode)
             {
@@ -37,7 +37,7 @@ namespace WebAssetBundler.Web.Mvc
                 host += "/";
             }
 
-            return host + path.FormatWith(version, hash);
+            return host + path.FormatWith(version, name);
         }
     }
 }

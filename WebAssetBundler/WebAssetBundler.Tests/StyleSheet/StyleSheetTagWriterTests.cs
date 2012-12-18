@@ -43,11 +43,12 @@ namespace WebAssetBundler.Web.Mvc
         [Test]
         public void Should_Generate_Url()
         {
+            bundle.Name = "test";
             bundle.Host = "http://www.test.com";
 
             tagWriter.Write(textWriter.Object, bundle, context);
 
-            urlGenerator.Verify(m => m.Generate("asdf", bundle.Hash.ToHexString(), "http://www.test.com", context), Times.Exactly(1));
+            urlGenerator.Verify(m => m.Generate(bundle.Name, bundle.Hash.ToHexString(), "http://www.test.com", context), Times.Exactly(1));
         }
 
         [Test]
@@ -59,7 +60,7 @@ namespace WebAssetBundler.Web.Mvc
 
             tagWriter.Write(textWriter.Object, bundle, context);
 
-            textWriter.Verify(m => m.WriteLine("<link type=\"text/css\" href=\"http://dev.test.com/\" rel=\"stylesheet\"/>"), Times.Exactly(2));   
+            textWriter.Verify(m => m.WriteLine("<link type=\"text/css\" href=\"http://dev.test.com/\" rel=\"stylesheet\"/>"), Times.Exactly(1));   
         }
     }
 }

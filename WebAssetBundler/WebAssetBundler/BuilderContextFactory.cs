@@ -25,7 +25,6 @@ namespace WebAssetBundler.Web.Mvc
         {
             var context = new BundleContext()
             {
-                Combine = DefaultSettings.Combined,
                 Compress = DefaultSettings.Compressed,
                 DefaultPath = DefaultSettings.ScriptFilesPath,
                 Host = DefaultSettings.ScriptHost,
@@ -39,7 +38,6 @@ namespace WebAssetBundler.Web.Mvc
         {
             var context = new BundleContext()
             {
-                Combine = DefaultSettings.Combined,
                 Compress = DefaultSettings.Compressed,
                 DefaultPath = DefaultSettings.StyleSheetFilesPath,
                 Host = DefaultSettings.StyleSheetHost,

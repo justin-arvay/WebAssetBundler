@@ -48,9 +48,9 @@ namespace WebAssetBundler.Web.Mvc
         public ICollection<AssetBase> GetAssets(FromDirectoryComponent component)
         {
             var collecton = new List<AssetBase>();
+            var fullPath = server.MapPath(component.Path);
 
-            //get all files by the extension
-            IEnumerable<string> fileNames = new List<string>(Directory.GetFiles(server.MapPath(component.Path)))
+            IEnumerable<string> fileNames = new List<string>(Directory.GetFiles(fullPath))
                 .Where(name => name.EndsWith(component.Extension));
 
             //if the user has sepecidied additonal filtering, filter it

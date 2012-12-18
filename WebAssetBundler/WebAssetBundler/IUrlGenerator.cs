@@ -23,10 +23,10 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Generates a url to the asset.
         /// </summary>
-        /// <param name="hash"></param>
+        /// <param name="name"></param>
         /// <param name="version"></param>
         /// <param name="host"></param>
         /// <returns></returns>
-        string Generate(string hash, string version, string host, BundleContext context);
+        string Generate(string name, string version, string host, BundleContext context);
     }
 }

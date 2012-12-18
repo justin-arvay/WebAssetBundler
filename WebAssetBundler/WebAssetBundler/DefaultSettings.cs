@@ -30,7 +30,6 @@ namespace WebAssetBundler.Web.Mvc
         private static string scriptFilesPath = "~/Scripts";
 
         private static bool compressed = true;
-        private static bool combined = true;
 
         private static string defaultGroupName = "Default";
         
@@ -85,22 +84,6 @@ namespace WebAssetBundler.Web.Mvc
             set
             {
                 compressed = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether assets shoule be combined.
-        /// </summary>
-        /// <value><c>true</c> if combined; otherwise, <c>false</c>.</value>
-        public static bool Combined
-        {
-            get
-            {
-                return combined;
-            }
-            set
-            {
-                combined = value;
             }
         }
 

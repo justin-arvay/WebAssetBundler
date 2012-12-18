@@ -56,12 +56,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Combined_Should_Be_True_By_Default()
-        {
-            Assert.True(DefaultSettings.Combined);
-        }
-
-        [Test]
         public void ScriptsFilesPath_Should_Use_MVC_Scripts_Folder_By_Default()
         {
             Assert.AreEqual("~/Scripts", DefaultSettings.ScriptFilesPath);
@@ -82,17 +76,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             //re-set the default
             DefaultSettings.Compressed = true;
-        }
-
-        [Test]
-        public void Can_Set_Combined()
-        {
-            DefaultSettings.Combined = false;
-
-            Assert.False(DefaultSettings.Combined);
-
-            //re-set the default
-            DefaultSettings.Combined = true;
         }
 
         [Test]
