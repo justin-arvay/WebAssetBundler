@@ -23,6 +23,7 @@ namespace Examples
     {
         public override void Configure()
         {
+            Name("StyleSheets");
             Compress(true);
             AddFromDirectory("~/Content");
         }

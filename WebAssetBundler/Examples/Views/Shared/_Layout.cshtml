@@ -4,10 +4,10 @@
     <title>@ViewBag.Title</title>
 
         @{Html.Bundler().StyleSheetManager()
-            .Render();}
+            .Render("StyleSheets");}
 
         @{Html.Bundler().ScriptManager()
-            .Render();}
+            .Render("Scripts");}
 </head>
 <body>
     <div class="page">

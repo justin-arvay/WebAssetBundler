@@ -106,7 +106,7 @@
     <Compile Include="StyleSheet\StyleSheetTagWriter.cs" />
     <Compile Include="StyleSheet\StyleSheetUrlGenerator.cs" />
     <Compile Include="ITransformable.cs" />
-    <Compile Include="ManagerBuilderFactory.cs" />
+    <Compile Include="BundlerFactory.cs" />
     <Compile Include="Script\ScriptBundler.cs" />
     <Compile Include="MergedAsset.cs" />
     <Compile Include="Pipeline\BundlePipeline.cs" />

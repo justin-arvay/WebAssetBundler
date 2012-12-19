@@ -20,6 +20,9 @@ namespace WebAssetBundler.Web.Mvc
 
     public class StyleSheetUrlGenerator : IUrlGenerator<StyleSheetBundle>
     {
+        public StyleSheetUrlGenerator()
+        {
+        }
 
         public string Generate(string name, string version, string host, BundleContext context)
         {

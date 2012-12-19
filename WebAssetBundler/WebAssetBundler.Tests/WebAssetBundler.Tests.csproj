@@ -90,7 +90,7 @@
     <Compile Include="Script\ScriptUrlGeneratorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetTagWriterTests.cs" />
     <Compile Include="StyleSheet\StyleSheetUrlGeneratorTests.cs" />
-    <Compile Include="ManagerBuilderFactoryTests.cs" />
+    <Compile Include="BundlerFactoryTests.cs" />
     <Compile Include="MergedAssetTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Script\ScriptCompressProcessorTests.cs" />

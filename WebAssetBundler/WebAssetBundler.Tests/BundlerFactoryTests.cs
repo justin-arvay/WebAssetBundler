@@ -21,9 +21,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System.Web;
 
     [TestFixture]
-    public class ManagerBuilderFactoryTests
+    public class BundlerFactoryTests
     {
-        private ManagerBuilderFactory factory;
+        private BundlerFactory factory;
         private Mock<ICacheProvider> cacheProvider;
         private Mock<IBuilderContextFactory> contextFactory;
 
@@ -33,11 +33,33 @@ namespace WebAssetBundler.Web.Mvc.Tests
             cacheProvider = new Mock<ICacheProvider>();
             contextFactory = new Mock<IBuilderContextFactory>();
 
-            factory = new ManagerBuilderFactory(
+            factory = new BundlerFactory(
                 TestHelper.CreateViewContext().HttpContext,
                 cacheProvider.Object,
                 contextFactory.Object);
+
+            var module = new WabHttpModule();
+            module.Init(null);
+            /*
+            
+
+            var container = WabHttpModule.Host.Container;
+
+            container.Register<IAssetProvider>((c, p) => (new Mock<IAssetProvider>()).Object);
+            container.Register<TinyIoCContainer>();
+            
+
+            //stylesheet registers            
+            container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => (new Mock<IBundlePipeline<StyleSheetBundle>>()).Object);
+            //container.Register<IBundlesCache<StyleSheetBundle>>((c, p) => (new Mock<IBundlesCache<StyleSheetBundle>>()).Object);
+            container.Register<IStyleSheetConfigProvider>((c, p) => (new Mock<IStyleSheetConfigProvider>()).Object);
+
+            //script registers            
+            container.Register<IBundlePipeline<ScriptBundle>>((c, p) => (new Mock<IBundlePipeline<ScriptBundle>>()).Object);
+            container.Register<IBundlesCache<ScriptBundle>>((c, p) => (new Mock<IBundlesCache<ScriptBundle>>()).Object);
+            container.Register<IScriptConfigProvider>((c, p) => (new Mock<IScriptConfigProvider>()).Object);*/
         }
+
 
         [Test]
         public void Should_Create_Style_Sheet_Builder()

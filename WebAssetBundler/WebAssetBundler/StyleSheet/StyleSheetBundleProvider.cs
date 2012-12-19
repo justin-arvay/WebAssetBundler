@@ -23,7 +23,7 @@ namespace WebAssetBundler.Web.Mvc
         private IStyleSheetConfigProvider configProvider;
         private IBundlesCache<StyleSheetBundle> cache;
         private IAssetProvider assetLocator;
-        IBundlePipeline<StyleSheetBundle> pipeline;
+        private IBundlePipeline<StyleSheetBundle> pipeline;
 
         public StyleSheetBundleProvider(IStyleSheetConfigProvider configProvider, IBundlesCache<StyleSheetBundle> cache, 
             IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetLocator)
@@ -31,6 +31,7 @@ namespace WebAssetBundler.Web.Mvc
             this.configProvider = configProvider;
             this.cache = cache;
             this.assetLocator = assetLocator;
+            this.pipeline = pipeline;
         }       
 
         public StyleSheetBundle GetBundle(string name)

@@ -39,16 +39,12 @@ namespace WebAssetBundler.Web.Mvc
         public void ConfigureContainer()
         {
             container.Register((c, p) => HttpContext());
+            container.Register<HttpServerUtilityBase>(HttpContext().Server);
             container.Register((c, p) => HttpContext().Request);
             container.Register((c, p) => HttpContext().Response);
-            container.Register((c, p) => HttpContext().Server);          
-
-            container.Register<ICacheProvider, CacheProvider>()
-                .AsSingleton();
-            container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>()
-                .AsSingleton();
-            container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>()
-                .AsSingleton();
+            container.Register((c, p) => HttpContext().Server);
+            container.Register<BundleContext>((c, p) => (new BuilderContextFactory()).CreateScriptContext());
+            container.Register<ICacheProvider, CacheProvider>();
 
             container.Register<IAssetProvider>((c, p) => new AssetProvider(
                 c.Resolve<HttpServerUtilityBase>(), 
@@ -63,17 +59,20 @@ namespace WebAssetBundler.Web.Mvc
 
         public void ConfigureContainerForStyleSheets()
         {
-            container.Register<IUrlGenerator<StyleSheetBundle>, StyleSheetUrlGenerator>();
+            container.Register<IUrlGenerator<StyleSheetBundle>>(new StyleSheetUrlGenerator());
             container.Register<IStyleSheetCompressor>((c, p) => DefaultSettings.StyleSheetCompressor);
-            container.Register<IBundlesCache<StyleSheetBundle>, IBundlesCache<StyleSheetBundle>>();
+            container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();
             container.Register<IStyleSheetConfigProvider>((c, p) => DefaultSettings.StyleSheetConfigProvider);
+            container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => new StyleSheetPipeline(container));
         }
 
         public void ConfigureContainerForScript()
         {
             container.Register<IScriptCompressor>((c, p) => DefaultSettings.ScriptCompressor);
-            container.Register<IBundlesCache<ScriptBundle>, IBundlesCache<ScriptBundle>>();
+            container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>();
             container.Register<IScriptConfigProvider>((c, p) => DefaultSettings.ScriptConfigProvider);
+            container.Register<IBundlePipeline<ScriptBundle>>((c, p) => new ScriptPipeline(container));
+            container.Register<IUrlGenerator<ScriptBundle>>(new ScriptUrlGenerator());
         }
 
         public void ConfigureHttpHandler()

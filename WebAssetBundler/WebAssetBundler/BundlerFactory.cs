@@ -20,13 +20,13 @@ namespace WebAssetBundler.Web.Mvc
     using System.Web.Mvc;
     using System.Web;
 
-    public class ManagerBuilderFactory
+    public class BundlerFactory
     {
         private HttpContextBase httpContext;
         private ICacheProvider cacheProvider;
         private IBuilderContextFactory contextFactory;
 
-        public ManagerBuilderFactory(HttpContextBase httpContext, ICacheProvider cacheProvider, IBuilderContextFactory contextFactory)
+        public BundlerFactory(HttpContextBase httpContext, ICacheProvider cacheProvider, IBuilderContextFactory contextFactory)
         {
             this.httpContext = httpContext;
             this.cacheProvider = cacheProvider;
@@ -35,16 +35,14 @@ namespace WebAssetBundler.Web.Mvc
 
         public StyleSheetBundler CreateStyleSheetManagerBuilder()
         {
-            var container = WabHttpModule.Host.Container;            
+            var container = WabHttpModule.Host.Container;
             var builderContext = contextFactory.CreateStyleSheetContext();
-            var bundleProvider = container.Resolve<StyleSheetBundleProvider>();          
 
-            var urlGenerator = new StyleSheetUrlGenerator();
-            var pipeline = container.Resolve<StyleSheetPipeline>();    
+            var urlGenerator = new StyleSheetUrlGenerator();  
             var tagWriter = new StyleSheetTagWriter(urlGenerator);
 
             return new StyleSheetBundler(
-                container.Resolve<IBundleProvider<StyleSheetBundle>>(),
+                container.Resolve<StyleSheetBundleProvider>(),
                 tagWriter,         
                 builderContext);
         }
@@ -55,12 +53,11 @@ namespace WebAssetBundler.Web.Mvc
             var builderContext = contextFactory.CreateScriptContext();
             var bundleProvider = container.Resolve<ScriptBundleProvider>();
 
-            var urlGenerator = new ScriptUrlGenerator();
-            var pipeline = container.Resolve<ScriptPipeline>();         
+            var urlGenerator = new ScriptUrlGenerator();      
             var tagWriter = new ScriptTagWriter(urlGenerator);
 
             return new ScriptBundler(
-                container.Resolve<IBundleProvider<ScriptBundle>>(),
+                container.Resolve<ScriptBundleProvider>(),
                 tagWriter,              
                 builderContext);
         }
