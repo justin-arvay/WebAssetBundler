@@ -51,12 +51,12 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         public IHtmlString Render(string name)
         {
-            var bundle = bundleProvider.GetBundle(name);                        
+            var bundle = bundleProvider.GetBundle(name);
 
-            using (HtmlTextWriter textWriter = new HtmlTextWriter(new StringWriter()))
+            using (StringWriter textWriter = new StringWriter())
             {
                 tagWriter.Write(textWriter, bundle, context);
-                return new HtmlString(tagWriter.ToString());
+                return new HtmlString(textWriter.ToString());
             }            
         }   
     }

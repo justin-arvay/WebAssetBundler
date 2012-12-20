@@ -3,11 +3,10 @@
 <head>
     <title>@ViewBag.Title</title>
 
-        @{Html.Bundler().StyleSheetManager()
-            .Render("StyleSheets");}
+        @Html.Bundler().StyleSheetManager().Render("StyleSheets")
 
-        @{Html.Bundler().ScriptManager()
-            .Render("Scripts");}
+        @Html.Bundler().ScriptManager().Render("Scripts")
+
 </head>
 <body>
     <div class="page">

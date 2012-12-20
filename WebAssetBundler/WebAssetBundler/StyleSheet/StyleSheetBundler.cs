@@ -54,7 +54,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             var bundle = bundleProvider.GetBundle(name);
 
-            using (HtmlTextWriter textWriter = new HtmlTextWriter(new StringWriter()))
+            using (StringWriter textWriter = new StringWriter())
             {
                 tagWriter.Write(textWriter, bundle, context);
                 return new HtmlString(textWriter.ToString());
