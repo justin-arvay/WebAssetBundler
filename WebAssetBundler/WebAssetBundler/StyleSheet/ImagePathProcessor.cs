@@ -38,17 +38,16 @@ namespace WebAssetBundler.Web.Mvc
 
         public void Process(StyleSheetBundle bundle)
         {
-            bundle.TransformAssets(this);
             outputUrl = urlGenerator.Generate("a", "a", "", context);   
-
+            bundle.TransformAssets(this);            
         }
 
         public void Transform(AssetBase asset)
         {
             var content = asset.Content;
-
+            var format = Uri.IsWellFormedUriString(outputUrl, UriKind.Absolute);
             var sourceUri = new Uri(Path.GetDirectoryName(server.MapPath(asset.Source)), UriKind.Absolute);
-            var outputUri = new Uri(Path.GetDirectoryName(outputUrl) + "/", UriKind.Absolute);
+            var outputUri = new Uri("/wab/css/a/a.css");
 
             var relativePaths = FindDistinctRelativePathsIn(content);
 

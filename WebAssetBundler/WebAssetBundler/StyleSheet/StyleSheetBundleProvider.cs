@@ -47,7 +47,11 @@ namespace WebAssetBundler.Web.Mvc
                 {
                     item.AssetProvider = assetLocator;
                     item.Configure();
-                    bundles.Add(item.GetBundle());
+
+                    var bundle = item.GetBundle();
+                    pipeline.Process(bundle);
+
+                    bundles.Add(bundle);
                 }
 
                 cache.Set(bundles);

@@ -23,7 +23,7 @@ namespace WebAssetBundler.Web.Mvc
         public StyleSheetPipeline(TinyIoCContainer container)
             : base(container)
         {
-            //Add(container.Resolve<ImagePathProcessor>());
+            Add(container.Resolve<ImagePathProcessor>());
             Add(new StyleSheetMergeProcessor());
             Add(container.Resolve<StyleSheetCompressProcessor>());
         }

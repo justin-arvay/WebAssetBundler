@@ -64,6 +64,7 @@
     <Compile Include="Configuration\DefaultStyleSheetConfigProviderTests.cs" />
     <Compile Include="Configuration\DoNothingConfigurationFactory.cs" />
     <Compile Include="Configuration\AssetProviderTests.cs" />
+    <Compile Include="Configuration\FileAssetTest.cs" />
     <Compile Include="Configuration\FromDirectoryBuilderTests.cs" />
     <Compile Include="Configuration\FromDirectoryComponentTests.cs" />
     <Compile Include="Configuration\IConfigurationFactory.cs" />

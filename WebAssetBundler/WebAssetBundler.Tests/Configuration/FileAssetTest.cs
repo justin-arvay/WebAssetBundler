@@ -14,44 +14,41 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
+    using NUnit.Framework;
+    using Moq;
     using System.IO;
+    using System.Text;
 
-    public class FileAsset : AssetBase
+    [TestFixture]
+    public class FileAssetTest
     {
-        private IFile sourceFile;
-        private string content;
+        private Mock<IFile> file;
+        private FileAsset asset;
 
-        public FileAsset(IFile sourceFile)
+        [SetUp]
+        public void Setup()
         {
-            this.sourceFile = sourceFile;
+            file = new Mock<IFile>();
+            asset = new FileAsset(file.Object);
         }
 
-        public override string Source
+        [Test]
+        public void Should_Get_Source()
         {
-            get 
-            {
-                return sourceFile.Source;
-            }
+            file.Setup(f => f.Source).Returns("D:/Source/File.cs");
+
+            Assert.AreEqual("D:/Source/File.cs", asset.Source);
         }
 
-        public override string Content
+        [Test]
+        public void Should_Get_Content()
         {
-            get
-            {
-                if (String.IsNullOrEmpty(content))
-                {
-                    content = (new StreamReader(sourceFile.Open(FileMode.Open, FileAccess.Read, FileShare.Read))).ReadToEnd();
-                }
+            Stream stream = new MemoryStream(Encoding.ASCII.GetBytes("test"));
+            file.Setup(f => f.Open(FileMode.Open, FileAccess.Read, FileShare.Read)).Returns(stream);
 
-                return content;
-            }
-            set
-            {
-                this.content = value;
-            }
+            Assert.AreEqual("test", asset.Content);
         }
     }
 }

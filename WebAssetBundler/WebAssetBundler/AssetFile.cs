@@ -23,10 +23,12 @@ namespace WebAssetBundler.Web.Mvc
     public class AssetFile : IFile
     {
         private string fullPath;
+        private string source;
 
         public AssetFile(string source, HttpServerUtilityBase server)
         {
             fullPath = server.MapPath(source);
+            this.source = source;
         }
 
         public bool Exists
@@ -45,6 +47,7 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
+
         public Stream Open(FileMode mode)
         {
             return File.Open(fullPath, mode);
@@ -58,6 +61,12 @@ namespace WebAssetBundler.Web.Mvc
         public Stream Open(FileMode mode, FileAccess access, FileShare fileShare)
         {
             return File.Open(fullPath, mode, access, fileShare);
+        }
+
+
+        public string Source
+        {
+            get { return source; }
         }
     }
 }

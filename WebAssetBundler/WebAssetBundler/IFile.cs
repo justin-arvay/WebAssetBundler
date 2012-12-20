@@ -32,6 +32,11 @@ namespace WebAssetBundler.Web.Mvc
         string FullPath { get; }
 
         /// <summary>
+        /// Gets the source file path. The source is the virtual path of the file.
+        /// </summary>
+        string Source { get; } 
+
+        /// <summary>
         /// Opens a stream to the file.
         /// </summary>
         Stream Open(FileMode mode);
