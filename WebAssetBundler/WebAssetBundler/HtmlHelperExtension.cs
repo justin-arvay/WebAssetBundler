@@ -25,6 +25,7 @@ namespace WebAssetBundler.Web.Mvc
 
     public static class HtmlHelperExtension
     {
+        /*
         private static IBuilderContextFactory builderContextFactory;
         private static ICacheProvider cacheProvider = new CacheProvider();
 
@@ -52,5 +53,6 @@ namespace WebAssetBundler.Web.Mvc
                 styleSheetManagerBuilder,
                 scriptManagerBuilder);
         }     
+         */
     }
 }

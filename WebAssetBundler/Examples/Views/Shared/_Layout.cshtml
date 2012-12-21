@@ -3,9 +3,9 @@
 <head>
     <title>@ViewBag.Title</title>
 
-        @Html.Bundler().StyleSheetManager().Render("StyleSheets")
+        @Bundler.StyleSheets.Render("StyleSheets")
 
-        @Html.Bundler().ScriptManager().Render("Scripts")
+        @Bundler.Scripts.Render("Scripts")
 
 </head>
 <body>

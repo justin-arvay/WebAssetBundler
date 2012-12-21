@@ -34,7 +34,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             contextFactory = new Mock<IBuilderContextFactory>();
 
             factory = new BundlerFactory(
-                TestHelper.CreateViewContext().HttpContext,
                 cacheProvider.Object,
                 contextFactory.Object);
 

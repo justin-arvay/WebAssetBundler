@@ -22,13 +22,11 @@ namespace WebAssetBundler.Web.Mvc
 
     public class BundlerFactory
     {
-        private HttpContextBase httpContext;
         private ICacheProvider cacheProvider;
         private IBuilderContextFactory contextFactory;
 
-        public BundlerFactory(HttpContextBase httpContext, ICacheProvider cacheProvider, IBuilderContextFactory contextFactory)
+        public BundlerFactory(ICacheProvider cacheProvider, IBuilderContextFactory contextFactory)
         {
-            this.httpContext = httpContext;
             this.cacheProvider = cacheProvider;
             this.contextFactory = contextFactory;
         }

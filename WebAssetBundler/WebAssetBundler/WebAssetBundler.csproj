@@ -56,7 +56,7 @@
     <Compile Include="Caching\CacheProvider.cs" />
     <Compile Include="Caching\IBundlesCache.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
-    <Compile Include="ComponentBuilder.cs" />
+    <Compile Include="Bundler.cs" />
     <Compile Include="Compressors\IScriptCompressor.cs" />
     <Compile Include="Compressors\IStyleSheetCompressor.cs" />
     <Compile Include="Compressors\MsScriptCompressor.cs" />

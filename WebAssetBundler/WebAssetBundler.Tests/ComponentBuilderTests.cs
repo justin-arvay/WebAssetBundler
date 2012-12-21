@@ -29,6 +29,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class ComponentBuilderTests
     {
+        /*
         private Mock<ICacheProvider> cacheProvider;
 
         private StyleSheetBundler CreateStyleSheetManagerBuilder()
@@ -98,5 +99,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreSame(builderOne, builderTwo);
         }
+         * */
     }
 }
