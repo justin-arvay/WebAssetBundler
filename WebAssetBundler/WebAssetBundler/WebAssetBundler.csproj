@@ -84,7 +84,6 @@
     <Compile Include="StyleSheet\DefaultStyleSheetConfigProvider.cs" />
     <Compile Include="Configuration\BundleConfiguration.cs" />
     <Compile Include="StyleSheet\IStyleSheetConfigProvider.cs" />
-    <Compile Include="HtmlHelperExtension.cs" />
     <Compile Include="HttpHandlers\DeflateEncoder.cs" />
     <Compile Include="HttpHandlers\DoNothingEncoder.cs" />
     <Compile Include="HttpHandlers\EncoderFactory.cs" />

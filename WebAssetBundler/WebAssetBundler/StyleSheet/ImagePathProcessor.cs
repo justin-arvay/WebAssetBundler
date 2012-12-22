@@ -46,6 +46,7 @@ namespace WebAssetBundler.Web.Mvc
         {
 
             var content = asset.Content;
+            /*
             var format = Uri.IsWellFormedUriString(outputUrl, UriKind.Absolute);
             var sourceUri = new Uri(Path.GetDirectoryName(server.MapPath(asset.Source)), UriKind.Absolute);
 
@@ -60,7 +61,7 @@ namespace WebAssetBundler.Web.Mvc
 
                 content = content.Replace(relativePath, resolvedOutput.OriginalString);
             }
-
+            */
             asset.Content = content;
         }
 

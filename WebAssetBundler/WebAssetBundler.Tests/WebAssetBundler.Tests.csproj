@@ -80,7 +80,6 @@
     <Compile Include="DefaultSettingsTests.cs" />
     <Compile Include="Extensions\ByteArrayExtensionTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
-    <Compile Include="HtmlHelperExtensionTests.cs" />
     <Compile Include="HttpHandlers\AssetHttpHandlerTests.cs" />
     <Compile Include="HttpHandlers\DeflateEncoderTests.cs" />
     <Compile Include="HttpHandlers\EncoderFactoryTests.cs" />
