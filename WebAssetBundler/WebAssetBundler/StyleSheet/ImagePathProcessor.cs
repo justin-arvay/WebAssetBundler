@@ -44,13 +44,17 @@ namespace WebAssetBundler.Web.Mvc
 
         public void Transform(AssetBase asset)
         {
+            var source = asset.Source.StartsWith("~/") ? asset.Source.ReplaceFirst("~/", "/") : asset.Source
 
             var content = asset.Content;
  
             asset.Content = content;
         }
 
-
+        private int DirectoryLevelDifference(string source, string imagePath)
+        {
+            string[] imagePathPieces = imagePath.Split(string["/"]);
+        }
         /*
         private void oldCode()
         {
