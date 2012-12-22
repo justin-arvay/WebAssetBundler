@@ -58,6 +58,12 @@ namespace WebAssetBundler.Web.Mvc
                 tagWriter.Write(textWriter, bundle, context);
                 return new HtmlString(textWriter.ToString());
             }            
-        }   
+        }
+
+        public IHtmlString Include(string source)
+        {
+
+            return new HtmlString("");
+        }
     }
 }

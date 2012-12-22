@@ -46,23 +46,30 @@ namespace WebAssetBundler.Web.Mvc
         {
 
             var content = asset.Content;
-            /*
-            var format = Uri.IsWellFormedUriString(outputUrl, UriKind.Absolute);
-            var sourceUri = new Uri(Path.GetDirectoryName(server.MapPath(asset.Source)), UriKind.Absolute);
-
-            var outputUri = new Uri("/wab/css/a/a.css");
-
-            var relativePaths = FindDistinctRelativePathsIn(content);
-
-            foreach (string relativePath in relativePaths)
-            {
-                var resolvedSourcePath = new Uri(sourceUri + relativePath);
-                var resolvedOutput = outputUri.MakeRelativeUri(resolvedSourcePath);
-
-                content = content.Replace(relativePath, resolvedOutput.OriginalString);
-            }
-            */
+ 
             asset.Content = content;
+        }
+
+
+        /*
+        private void oldCode()
+        {
+            
+ var format = Uri.IsWellFormedUriString(outputUrl, UriKind.Absolute);
+ var sourceUri = new Uri(Path.GetDirectoryName(server.MapPath(asset.Source)), UriKind.Absolute);
+
+ var outputUri = new Uri("/wab/css/a/a.css");
+
+ var relativePaths = FindDistinctRelativePathsIn(content);
+
+ foreach (string relativePath in relativePaths)
+ {
+     var resolvedSourcePath = new Uri(sourceUri + relativePath);
+     var resolvedOutput = outputUri.MakeRelativeUri(resolvedSourcePath);
+
+     content = content.Replace(relativePath, resolvedOutput.OriginalString);
+ }
+
         }
 
         private IEnumerable<string> FindDistinctRelativePathsIn(string css)
@@ -96,5 +103,6 @@ namespace WebAssetBundler.Web.Mvc
 
             return path;
         }
+         */
     }
 }

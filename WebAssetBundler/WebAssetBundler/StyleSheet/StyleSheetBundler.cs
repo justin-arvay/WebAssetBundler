@@ -60,5 +60,11 @@ namespace WebAssetBundler.Web.Mvc
                 return new HtmlString(textWriter.ToString());
             }
         }
+
+        public IHtmlString Include(string source)
+        {
+           
+            return new HtmlString("");
+        }
     }
 }
