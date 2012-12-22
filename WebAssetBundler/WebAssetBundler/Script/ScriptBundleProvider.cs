@@ -17,27 +17,28 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Web;
 
     public class ScriptBundleProvider : IBundleProvider<ScriptBundle>
     {
         private IScriptConfigProvider configProvider;
         private IBundlesCache<ScriptBundle> cache;
         private IAssetProvider assetLocator;
-        IBundlePipeline<ScriptBundle> pipeline;
+        private IBundlePipeline<ScriptBundle> pipeline;
+        private HttpServerUtilityBase server;
 
         public ScriptBundleProvider(IScriptConfigProvider configProvider, IBundlesCache<ScriptBundle> cache, 
-            IAssetProvider assetLocator, IBundlePipeline<ScriptBundle> pipeline)
+            IAssetProvider assetLocator, IBundlePipeline<ScriptBundle> pipeline, HttpServerUtilityBase server)
         {
             this.configProvider = configProvider;
             this.cache = cache;
             this.assetLocator = assetLocator;
             this.pipeline = pipeline;
+            this.server = server;
         }
 
         public ScriptBundle GetBundle(string name)
         {
-            //TODO:: resolve bundles
-
             var bundles = cache.Get();
 
             if (bundles == null)
@@ -54,6 +55,17 @@ namespace WebAssetBundler.Web.Mvc
             }
 
             return bundles.FindBundleByName(name);
+        }
+
+        public ScriptBundle GetBundle(string source)
+        {
+            var asset = new FileAsset(new AssetFile(source, server));
+            var bundle = new ScriptBundle();
+            bundle.Assets.Add(asset);
+
+            pipeline.Process(bundle);
+
+            return bundle;
         }
     }
 }

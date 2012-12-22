@@ -17,6 +17,7 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+using System.Web;
 
     public class StyleSheetBundleProvider : IBundleProvider<StyleSheetBundle>
     {
@@ -24,14 +25,16 @@ namespace WebAssetBundler.Web.Mvc
         private IBundlesCache<StyleSheetBundle> cache;
         private IAssetProvider assetLocator;
         private IBundlePipeline<StyleSheetBundle> pipeline;
+        private HttpServerUtilityBase server;
 
         public StyleSheetBundleProvider(IStyleSheetConfigProvider configProvider, IBundlesCache<StyleSheetBundle> cache, 
-            IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetLocator)
+            IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetLocator, HttpServerUtilityBase server)
         {
             this.configProvider = configProvider;
             this.cache = cache;
             this.assetLocator = assetLocator;
             this.pipeline = pipeline;
+            this.server = server;
         }       
 
         public StyleSheetBundle GetBundle(string name)
@@ -58,6 +61,17 @@ namespace WebAssetBundler.Web.Mvc
             }
 
             return bundles.FindBundleByName(name);
+        }
+
+        public StyleSheetBundle GetBundle(string source)
+        {
+            var asset = new FileAsset(new AssetFile(source, server));
+            var bundle = new StyleSheetBundle();
+            bundle.Assets.Add(asset);
+
+            pipeline.Process(bundle);
+
+            return bundle;
         }
     }
 }

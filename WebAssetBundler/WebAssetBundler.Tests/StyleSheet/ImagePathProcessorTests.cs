@@ -26,7 +26,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private ImagePathProcessor processor;
         private Mock<IUrlGenerator<StyleSheetBundle>> urlGenerator;
-        private Mock<HttpServerUtilityBase> server;
         private BundleContext context;
         private StyleSheetBundle bundle;
 
@@ -34,29 +33,47 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Setup()
         {
             urlGenerator = new Mock<IUrlGenerator<StyleSheetBundle>>();
-            server = new Mock<HttpServerUtilityBase>();
             context = new BundleContext();
 
             bundle = new StyleSheetBundle();
             bundle.Assets.Add(new AssetBaseImpl());
 
-            processor = new ImagePathProcessor(urlGenerator.Object, server.Object, context);
+            processor = new ImagePathProcessor(urlGenerator.Object, context);
 
-            urlGenerator.Setup(u => u.Generate("a", "a", "", context)).Returns("/wab.axd/a/a/a");
+            urlGenerator.Setup(u => u.Generate("a", "a", "", context)).Returns("/wab.axd/css/a/a");
         }
 
         [Test]
-        public void Should_Filter_With_Different_File_Names()
+        public void Should_Filter_Relative_Path()
         {
-            bundle.Assets[0].Source = "";
             bundle.Assets[0].Content = "url(\"../img/test.jpg\");";
-
-            server.Setup(s => s.MapPath(bundle.Assets[0].Source)).Returns("C:\\Content\\file.css");
 
             processor.Process(bundle);
         
 
-            Assert.AreEqual("url(\"../img/test.jpg\");", bundle.Assets[0].Content);
+            Assert.AreEqual("url(\"../../../../img/test.jpg\");", bundle.Assets[0].Content);
+        }
+
+        [Test]
+        public void Should_Filter_Absolute_Path()
+        {
+            bundle.Assets[0].Content = "url(\"/img/test.jpg\");";
+
+            processor.Process(bundle);
+
+
+            Assert.AreEqual("url(\"/img/test.jpg\");", bundle.Assets[0].Content);
+        }
+
+        [Test]
+        public void Should_Filter_Full_Path()
+        {
+            bundle.Assets[0].Content = "url(\"http://www.google.com/img/test.jpg\");";
+
+            processor.Process(bundle);
+
+
+            Assert.AreEqual("url(\"http://www.google.com/img/test.jpg\");", bundle.Assets[0].Content);
         }
         /*
         [Test]

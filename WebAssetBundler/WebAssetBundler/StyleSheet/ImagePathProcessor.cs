@@ -24,14 +24,12 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ImagePathProcessor : IPipelineProcessor<StyleSheetBundle>, IAssetTransformer
     {
-        private HttpServerUtilityBase server;
         private BundleContext context;
         private IUrlGenerator<StyleSheetBundle> urlGenerator;
         private string outputUrl;
 
-        public ImagePathProcessor(IUrlGenerator<StyleSheetBundle> urlGenerator, HttpServerUtilityBase server, BundleContext context)
+        public ImagePathProcessor(IUrlGenerator<StyleSheetBundle> urlGenerator, BundleContext context)
         {
-            this.server = server;
             this.context = context;
             this.urlGenerator = urlGenerator;
         }
@@ -42,18 +40,64 @@ namespace WebAssetBundler.Web.Mvc
             bundle.TransformAssets(this);            
         }
 
+        // source: ~/Content/file.css
+        // image: ../image/icon.png
+        //target: /wab.axd/a/a
         public void Transform(AssetBase asset)
         {
-            var source = asset.Source.StartsWith("~/") ? asset.Source.ReplaceFirst("~/", "/") : asset.Source
-
+            //TODO: handle absolute paths like: /image/icon.png
+            //TODO: handle absolutepaths like: http://www.google.ca/image/icon.png
             var content = asset.Content;
- 
+            //var source = asset.Source.StartsWith("~/") ? asset.Source.ReplaceFirst("~/", "/") : asset.Source;
+            var relativePaths = FindDistinctRelativePathsIn(content);
+
+            foreach (string relativePath in relativePaths)
+            {
+                content = content.Replace(relativePath, RewritePath(relativePath));
+            }
+                
             asset.Content = content;
         }
 
-        private int DirectoryLevelDifference(string source, string imagePath)
+
+        private string RewritePath(string imagePath)
         {
-            string[] imagePathPieces = imagePath.Split(string["/"]);
+            var levels = DirectoryLevelDifference(imagePath);
+
+            for (; levels > 0; levels--)
+            {
+                imagePath = "../" + imagePath;
+            }
+
+            return imagePath;
+        }
+
+        private int DirectoryLevelDifference(string imagePath)
+        {
+            var level = 0;
+            string[] urlPieces = outputUrl.Split('/');
+            string[] imagePathPieces = imagePath.Split('/');
+
+            foreach (var piece in urlPieces)
+            {
+                if (piece == "")
+                {
+                    continue;
+                }
+
+                level++;
+            }
+
+            foreach (var piece in imagePathPieces)
+            {
+                if (piece == "..")
+                {
+                    level--;
+                }
+            }
+
+
+            return level;
         }
         /*
         private void oldCode()
@@ -75,6 +119,7 @@ namespace WebAssetBundler.Web.Mvc
  }
 
         }
+*/
 
         private IEnumerable<string> FindDistinctRelativePathsIn(string css)
         {
@@ -107,6 +152,6 @@ namespace WebAssetBundler.Web.Mvc
 
             return path;
         }
-         */
+         
     }
 }
