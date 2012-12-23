@@ -60,12 +60,19 @@ namespace WebAssetBundler.Web.Mvc
 
         public ScriptBundle GetSourceBundle(string source)
         {
-            var asset = new FileAsset(new AssetFile(source, server));
-            var bundle = new ScriptBundle();
-            bundle.Assets.Add(asset);
-            bundle.Name = source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source);
+            var name = source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source);
+            var bundle = cache.Get(name);
 
-            pipeline.Process(bundle);
+            if (bundle == null)
+            {
+                var asset = new FileAsset(new AssetFile(source, server));
+                bundle = new ScriptBundle();
+                bundle.Assets.Add(asset);
+                bundle.Name = name;
+
+                pipeline.Process(bundle);
+                cache.Add(bundle);
+            }
 
             return bundle;
         }

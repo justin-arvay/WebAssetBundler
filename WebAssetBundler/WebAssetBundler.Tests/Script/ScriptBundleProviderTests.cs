@@ -82,12 +82,28 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Bundle_By_Source()
         {
-            var bundle = provider.GetSourceBundle("~/file.js");
+            var bundle = provider.GetSourceBundle("~/file.tst");
 
             pipeline.Verify(p => p.Process(It.IsAny<ScriptBundle>()), Times.Once());
-
+            cache.Verify(c => c.Add(bundle), Times.Once());
             Assert.IsNotNull(bundle);
-            Assert.AreEqual("4e18b7efbe6bd59a0b5a13aa9f986ac4-file", bundle.Name);
+            Assert.AreEqual("199b18f549a41c8d45fe0a5b526ac060-file", bundle.Name);
+        }
+
+        [Test]
+        public void Should_Get_Bundle_By_Source_From_Cache()
+        {
+            var bundle = new ScriptBundle();
+            bundle.Name = "199b18f549a41c8d45fe0a5b526ac060-file";
+
+            cache.Setup(c => c.Get("199b18f549a41c8d45fe0a5b526ac060-file")).Returns(bundle);
+
+            bundle = provider.GetSourceBundle("~/file.tst");
+
+            pipeline.Verify(p => p.Process(bundle), Times.Never());
+            cache.Verify(c => c.Add(bundle), Times.Never());
+            Assert.IsNotNull(bundle);
+            Assert.AreEqual("199b18f549a41c8d45fe0a5b526ac060-file", bundle.Name);
         }
 
     }

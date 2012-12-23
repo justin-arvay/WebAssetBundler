@@ -23,6 +23,7 @@ namespace WebAssetBundler.Web.Mvc
     {
         void Set(BundleCollection<TBundle> bundles);
         BundleCollection<TBundle> Get();
+        TBundle Get(string name);
         void Add(TBundle bundle);
     }
 }

@@ -61,9 +61,20 @@ namespace WebAssetBundler.Web.Mvc
             return typeOfBundle.Name + "-Bundles";
         }
 
+        private string GetSingleBundleKey(string bundleName)
+        {
+            Type typeOfBundle = typeof(TBundle);
+            return bundleName + "-" + typeOfBundle.Name + "-Bundle";
+        }
+
+        public TBundle Get(string name)
+        {
+            return (TBundle)provider.Get(GetSingleBundleKey(name));
+        }
+
         public void Add(TBundle bundle)
         {
-            Get().Add(bundle);
+            provider.Insert(GetSingleBundleKey(bundle.Name), bundle); 
         }
     }
 }

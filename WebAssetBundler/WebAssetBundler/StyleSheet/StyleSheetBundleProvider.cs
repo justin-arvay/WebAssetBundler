@@ -66,14 +66,19 @@ using System.Web;
 
         public StyleSheetBundle GetSourceBundle(string source)
         {
-            
-            //TODO: cache the include
-            var asset = new FileAsset(new AssetFile(source, server));
-            var bundle = new StyleSheetBundle();
-            bundle.Name = source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source);
-            bundle.Assets.Add(asset);
+            var name = source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source);
+            var bundle = cache.Get(name);
 
-            pipeline.Process(bundle);
+            if (bundle == null)
+            {
+                var asset = new FileAsset(new AssetFile(source, server));
+                bundle = new StyleSheetBundle();
+                bundle.Assets.Add(asset);
+                bundle.Name = name;
+
+                pipeline.Process(bundle);
+                cache.Add(bundle);
+            }
 
             return bundle;
         }

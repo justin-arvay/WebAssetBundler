@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
     using System.Collections.Generic;
     using System.Web;
+    using System.IO;
 
     [TestFixture]
     public class StyleSheetBundleProviderTests
@@ -84,7 +85,23 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var bundle = provider.GetSourceBundle("~/file.tst");
 
             pipeline.Verify(p => p.Process(It.IsAny<StyleSheetBundle>()), Times.Once());
+            cache.Verify(c => c.Add(bundle), Times.Once());
+            Assert.IsNotNull(bundle);
+            Assert.AreEqual("199b18f549a41c8d45fe0a5b526ac060-file", bundle.Name);
+        }
 
+        [Test]
+        public void Should_Get_Bundle_By_Source_From_Cache()
+        {
+            var bundle = new StyleSheetBundle();
+            bundle.Name = "199b18f549a41c8d45fe0a5b526ac060-file";
+
+            cache.Setup(c => c.Get("199b18f549a41c8d45fe0a5b526ac060-file")).Returns(bundle);
+
+            bundle = provider.GetSourceBundle("~/file.tst");
+
+            pipeline.Verify(p => p.Process(bundle), Times.Never());
+            cache.Verify(c => c.Add(bundle), Times.Never());
             Assert.IsNotNull(bundle);
             Assert.AreEqual("199b18f549a41c8d45fe0a5b526ac060-file", bundle.Name);
         }
