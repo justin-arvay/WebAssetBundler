@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Web;
+    using System.IO;
 
     public class ScriptBundleProvider : IBundleProvider<ScriptBundle>
     {
@@ -37,7 +38,7 @@ namespace WebAssetBundler.Web.Mvc
             this.server = server;
         }
 
-        public ScriptBundle GetBundle(string name)
+        public ScriptBundle GetNamedBundle(string name)
         {
             var bundles = cache.Get();
 
@@ -57,11 +58,12 @@ namespace WebAssetBundler.Web.Mvc
             return bundles.FindBundleByName(name);
         }
 
-        public ScriptBundle GetBundle(string source)
+        public ScriptBundle GetSourceBundle(string source)
         {
             var asset = new FileAsset(new AssetFile(source, server));
             var bundle = new ScriptBundle();
             bundle.Assets.Add(asset);
+            bundle.Name = source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source);
 
             pipeline.Process(bundle);
 

@@ -23,13 +23,13 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        TBundle GetBundle(string name);
+        TBundle GetNamedBundle(string name);
 
         /// <summary>
         /// Gets a bundle by source
         /// </summary>
         /// <param name="soure"></param>
         /// <returns></returns>
-        TBundle GetBundle(string soure);
+        TBundle GetSourceBundle(string soure);
     }
 }

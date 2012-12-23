@@ -60,5 +60,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual("This is not a test. This is a test.", value.ReplaceFirst("a test", "not a test"));
         }
+
+        [Test]
+        public void Should_Convert_To_MD5_Hash()
+        {
+            string value = "test";
+
+            Assert.AreEqual("", value.ToHash());
+        }
     }
 }

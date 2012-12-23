@@ -52,7 +52,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Render_Bundle()
         {
             var bundle = new ScriptBundle();
-            bundleProvider.Setup(p => p.GetBundle("test")).Returns(bundle);
+            bundleProvider.Setup(p => p.GetSourceBundle("test")).Returns(bundle);
             
             builder.Render("test");
 

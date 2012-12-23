@@ -19,6 +19,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
     using System.Collections.Generic;
+    using System.Web;
 
     [TestFixture]
     public class StyleSheetBundleProviderTests
@@ -28,6 +29,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IBundlesCache<StyleSheetBundle>> cache;
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
+        private Mock<HttpServerUtilityBase> server;
 
         [SetUp]
         public void Setup()
@@ -36,7 +38,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             configProvider = new Mock<IStyleSheetConfigProvider>();
             cache = new Mock<IBundlesCache<StyleSheetBundle>>();
             assetProvider = new Mock<IAssetProvider>();
-            provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, pipeline.Object, assetProvider.Object);
+            server = new Mock<HttpServerUtilityBase>();
+            provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, pipeline.Object, assetProvider.Object, server.Object);
         }
 
         [Test]
@@ -51,7 +54,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
 
-            var bundle = provider.GetBundle("test");
+            var bundle = provider.GetNamedBundle("test");
             Assert.AreSame(config.GetBundle(), bundle);
             Assert.AreEqual(1, config.CallCount);
             Assert.IsInstanceOf<IAssetProvider>(config.AssetProvider);
@@ -63,16 +66,27 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Get_Bundle_From_Cache()
         {
             var bundle = new StyleSheetBundle();
+            bundle.Name = "test";
 
             var collection = new BundleCollection<StyleSheetBundle>();
             collection.Add(bundle);
 
             cache.Setup(c => c.Get()).Returns(collection);
 
-            Assert.AreSame(bundle, provider.GetBundle("test"));
+            Assert.AreSame(bundle, provider.GetNamedBundle("test"));
             cache.Verify(c => c.Get(), Times.Once());
             cache.Verify(c => c.Set(It.IsAny<BundleCollection<StyleSheetBundle>>()), Times.Never());
+        }
 
+        [Test]
+        public void Should_Get_Bundle_By_Source()
+        {
+            var bundle = provider.GetSourceBundle("~/file.tst");
+
+            pipeline.Verify(p => p.Process(It.IsAny<StyleSheetBundle>()), Times.Once());
+
+            Assert.IsNotNull(bundle);
+            Assert.AreEqual("199b18f549a41c8d45fe0a5b526ac060-file", bundle.Name);
         }
     }
 }

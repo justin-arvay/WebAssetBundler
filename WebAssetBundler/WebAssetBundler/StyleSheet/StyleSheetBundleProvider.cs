@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 using System.Web;
+    using System.IO;
 
     public class StyleSheetBundleProvider : IBundleProvider<StyleSheetBundle>
     {
@@ -37,7 +38,7 @@ using System.Web;
             this.server = server;
         }       
 
-        public StyleSheetBundle GetBundle(string name)
+        public StyleSheetBundle GetNamedBundle(string name)
         {
             //TODO:: resolve bundles
 
@@ -63,10 +64,13 @@ using System.Web;
             return bundles.FindBundleByName(name);
         }
 
-        public StyleSheetBundle GetBundle(string source)
+        public StyleSheetBundle GetSourceBundle(string source)
         {
+            
+            //TODO: cache the include
             var asset = new FileAsset(new AssetFile(source, server));
             var bundle = new StyleSheetBundle();
+            bundle.Name = source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source);
             bundle.Assets.Add(asset);
 
             pipeline.Process(bundle);

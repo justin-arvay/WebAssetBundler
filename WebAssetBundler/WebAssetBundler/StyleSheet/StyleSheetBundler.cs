@@ -52,7 +52,7 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         public IHtmlString Render(string name)
         {
-            var bundle = bundleProvider.GetBundle(name);
+            var bundle = bundleProvider.GetNamedBundle(name);
 
             using (StringWriter textWriter = new StringWriter())
             {

@@ -76,5 +76,20 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             provider.Verify(p => p.Insert("BundleImpl-Bundles", bundles), Times.Never());
         }
+
+        [Test]
+        public void Should_Add_Bundle()
+        {
+            var bundle = new BundleImpl();
+            bundle.Name = "test";
+            var bundles = new BundleCollection<BundleImpl>();
+
+            provider.Setup(p => p.Get("BundleImpl-Bundles")).Returns(new List<BundleImpl>());
+
+            cache.Add(bundle);
+
+            provider.Verify(p => p.Insert("BundleImpl-Bundles", bundles), Times.Never());
+            Assert.AreEqual(bundle, bundles[0]);
+        }
     }
 }

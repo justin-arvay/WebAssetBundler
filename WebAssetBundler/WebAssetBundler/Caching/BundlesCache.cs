@@ -60,5 +60,10 @@ namespace WebAssetBundler.Web.Mvc
             Type typeOfBundle = typeof(TBundle);
             return typeOfBundle.Name + "-Bundles";
         }
+
+        public void Add(TBundle bundle)
+        {
+            Get().Add(bundle);
+        }
     }
 }

@@ -19,6 +19,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
     using System.Collections.Generic;
+    using System.Web;
 
     [TestFixture]
     public class ScriptBundleProviderTests
@@ -28,6 +29,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IBundlesCache<ScriptBundle>> cache;
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<ScriptBundle>> pipeline;
+        private Mock<HttpServerUtilityBase> server;
 
         [SetUp]
         public void Setup()
@@ -36,7 +38,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             configProvider = new Mock<IScriptConfigProvider>();
             cache = new Mock<IBundlesCache<ScriptBundle>>();
             assetProvider = new Mock<IAssetProvider>();
-            provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object, pipeline.Object);
+            server = new Mock<HttpServerUtilityBase>();
+            provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object, pipeline.Object, server.Object);
         }
 
         [Test]
@@ -51,7 +54,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
 
-            var bundle = provider.GetBundle("test");
+            var bundle = provider.GetNamedBundle("test");
             Assert.AreSame(config.GetBundle(), bundle);
             Assert.AreEqual(1, config.CallCount);
             Assert.IsInstanceOf<IAssetProvider>(config.AssetProvider);
@@ -63,16 +66,28 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Get_Bundles_From_Cache()
         {
             var bundle = new ScriptBundle();
+            bundle.Name = "test";
 
             var collection = new BundleCollection<ScriptBundle>();
             collection.Add(bundle);
 
             cache.Setup(c => c.Get()).Returns(collection);
 
-            Assert.AreSame(bundle, provider.GetBundle("test"));
+            Assert.AreSame(bundle, provider.GetNamedBundle("test"));
             cache.Verify(c => c.Get(), Times.Once());
             cache.Verify(c => c.Set(It.IsAny<BundleCollection<ScriptBundle>>()), Times.Never());
 
+        }
+
+        [Test]
+        public void Should_Get_Bundle_By_Source()
+        {
+            var bundle = provider.GetSourceBundle("~/file.js");
+
+            pipeline.Verify(p => p.Process(It.IsAny<ScriptBundle>()), Times.Once());
+
+            Assert.IsNotNull(bundle);
+            Assert.AreEqual("4e18b7efbe6bd59a0b5a13aa9f986ac4-file", bundle.Name);
         }
 
     }

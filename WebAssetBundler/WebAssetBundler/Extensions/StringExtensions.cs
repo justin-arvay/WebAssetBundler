@@ -19,6 +19,8 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Globalization;
     using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 
     public static class StringExtensions
     {
@@ -113,6 +115,18 @@ namespace WebAssetBundler.Web.Mvc
 
             stream.Position = 0;
             return stream;
+        }
+
+        /// <summary>
+        /// Converts the string to an md5 hash
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string ToHash(this string s)
+        {
+            MD5CryptoServiceProvider x = new MD5CryptoServiceProvider();
+            byte[] bs = Encoding.UTF8.GetBytes(s);
+            return x.ComputeHash(bs).ToHexString();
         }
     }
 }
