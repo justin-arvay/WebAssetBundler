@@ -33,7 +33,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class StyleSheetBundlerTests
     {
         private Mock<ITagWriter<StyleSheetBundle>> tagWriter;
-        private StyleSheetBundler builder;
+        private StyleSheetBundler bundler;
         private BundleContext context;
         private Mock<IBundleProvider<StyleSheetBundle>> bundleProvider;
 
@@ -44,7 +44,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             context = new BundleContext();
             tagWriter = new Mock<ITagWriter<StyleSheetBundle>>();
 
-            builder = new StyleSheetBundler(
+            bundler = new StyleSheetBundler(
                 bundleProvider.Object,
                 tagWriter.Object,
                 context);
@@ -57,11 +57,21 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var bundle = new StyleSheetBundle();
             bundleProvider.Setup(p => p.GetSourceBundle("test")).Returns(bundle);
             
-            builder.Render("test");
+            bundler.Render("test");
 
             tagWriter.Verify(t => t.Write(It.IsAny<HtmlTextWriter>(), bundle, context), Times.Once());
         }
 
-       
+        [Test]
+        public void Should_Include_Bundle()
+        {
+            var bundle = new StyleSheetBundle();
+
+            bundleProvider.Setup(p => p.GetSourceBundle("~/file.css")).Returns(bundle);
+
+            bundler.Include("~/file.css");
+
+            tagWriter.Verify(w => w.Write(It.IsAny<TextWriter>(), bundle, context), Times.Once());
+        }       
     }
 }

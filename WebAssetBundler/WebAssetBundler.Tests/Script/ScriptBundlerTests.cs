@@ -29,7 +29,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class ScriptBundlerTests
     {
         private Mock<ITagWriter<ScriptBundle>> tagWriter;
-        private ScriptBundler builder;
+        private ScriptBundler bundler;
         private BundleContext context;
         private Mock<IBundleProvider<ScriptBundle>> bundleProvider;
 
@@ -41,7 +41,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var collection = new BundleCollection<ScriptBundle>();
             tagWriter = new Mock<ITagWriter<ScriptBundle>>();
 
-            builder = new ScriptBundler(
+            bundler = new ScriptBundler(
                 bundleProvider.Object,
                 tagWriter.Object,
                 context);
@@ -54,9 +54,21 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var bundle = new ScriptBundle();
             bundleProvider.Setup(p => p.GetSourceBundle("test")).Returns(bundle);
             
-            builder.Render("test");
+            bundler.Render("test");
 
             tagWriter.Verify(t => t.Write(It.IsAny<HtmlTextWriter>(), bundle, context), Times.Once());
+        }
+
+        [Test]
+        public void Should_Include_Bundle()
+        {
+            var bundle = new ScriptBundle();
+
+            bundleProvider.Setup(p => p.GetSourceBundle("~/file.js")).Returns(bundle);
+
+            bundler.Include("~/file.js");
+
+            tagWriter.Verify(w => w.Write(It.IsAny<TextWriter>(), bundle, context), Times.Once());
         }
     }
 }

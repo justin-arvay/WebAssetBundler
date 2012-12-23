@@ -63,8 +63,13 @@ namespace WebAssetBundler.Web.Mvc
 
         public IHtmlString Include(string source)
         {
-           
-            return new HtmlString("");
+            var bundle = bundleProvider.GetSourceBundle(source);
+
+            using (StringWriter textWriter = new StringWriter())
+            {
+                tagWriter.Write(textWriter, bundle, context);
+                return new HtmlString(textWriter.ToString());
+            } 
         }
     }
 }
