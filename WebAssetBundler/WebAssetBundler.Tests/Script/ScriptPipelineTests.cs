@@ -31,9 +31,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var compressor = new Mock<IScriptCompressor>();
 
             container = new TinyIoCContainer();
-            pipeline = new ScriptPipeline(container);
-
             container.Register<IScriptCompressor>((a, c) => compressor.Object);
+
+            pipeline = new ScriptPipeline(container);            
         }
 
         [Test]

@@ -74,7 +74,8 @@ namespace WebAssetBundler.Web.Mvc
 
         public void Add(TBundle bundle)
         {
-            provider.Insert(GetSingleBundleKey(bundle.Name), bundle); 
+            var key = GetSingleBundleKey(bundle.Name);
+            provider.Insert(key, bundle); 
         }
     }
 }

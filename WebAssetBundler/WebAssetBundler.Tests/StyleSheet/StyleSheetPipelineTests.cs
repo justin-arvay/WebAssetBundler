@@ -34,12 +34,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var server = new Mock<HttpServerUtilityBase>();
 
             container = new TinyIoCContainer();
-            pipeline = new StyleSheetPipeline(container);
-
             container.Register<IStyleSheetCompressor>((a, c) => compressor.Object);
-            container.Register<IUrlGenerator<StyleSheetBundle>, StyleSheetUrlGenerator>();
+            container.Register<IUrlGenerator<StyleSheetBundle>>((new Mock<IUrlGenerator<StyleSheetBundle>>()).Object);
             container.Register<HttpServerUtilityBase>((a, c) => server.Object);
             container.Register<BundleContext>((a, c) => new BundleContext());
+
+            pipeline = new StyleSheetPipeline(container);
+
+            
         }
 
         [Test]

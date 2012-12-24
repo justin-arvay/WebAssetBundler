@@ -35,13 +35,24 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Merge()
         {
-            bundle.Assets.Add(new AssetBaseImpl());
-            bundle.Assets.Add(new AssetBaseImpl());
+            bundle.Assets.Add(new AssetBaseImpl() 
+            { 
+                Source = "~/File1.css",
+                Content = "test"
+            });
+
+            bundle.Assets.Add(new AssetBaseImpl() 
+            { 
+                Source = "~/File2.css",
+                Content = "test"
+            });
 
             processor.Process(bundle);
 
-            Assert.AreEqual(1, bundle.Assets);
+            Assert.AreEqual(1, bundle.Assets.Count);
             Assert.IsInstanceOf<MergedAsset>(bundle.Assets[0]);
+            Assert.AreEqual("testtest", bundle.Assets[0].Content);
+            Assert.AreEqual("testtest", bundle.Content);
         }
     }
 }

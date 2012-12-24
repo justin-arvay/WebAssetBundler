@@ -25,7 +25,7 @@ namespace WebAssetBundler.Web.Mvc
         public void Process(ScriptBundle bundle)
         {
             var seperator = ";";
-            var content = bundle.Assets.Aggregate<AssetBase, string>("", (a, b) => a + seperator + b.Content);
+            var content = bundle.Assets.Aggregate<AssetBase, string>("", (a, b) => a + b.Content + seperator);
 
             bundle.Assets.Clear();
             bundle.Assets.Add(new MergedAsset(content));

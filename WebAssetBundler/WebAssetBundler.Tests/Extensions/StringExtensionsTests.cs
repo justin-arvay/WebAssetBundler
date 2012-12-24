@@ -66,7 +66,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             string value = "test";
 
-            Assert.AreEqual("", value.ToHash());
+            Assert.AreEqual("098f6bcd4621d373cade4e832627b4f6", value.ToHash());
         }
     }
 }

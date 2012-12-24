@@ -82,13 +82,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var bundle = new BundleImpl();
             bundle.Name = "test";
-            var bundles = new List<BundleImpl>();
-
-            provider.Setup(p => p.Get("BundleImpl-Bundles")).Returns(bundles);
 
             cache.Add(bundle);
 
-            provider.Verify(p => p.Insert("BundleImpl-Bundles", bundles), Times.Once());
+            provider.Verify(p => p.Insert("test-BundleImpl-Bundle", bundle), Times.Once());
         }
     }
 }
