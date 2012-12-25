@@ -38,8 +38,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var context = factory.CreateScriptContext();
 
-            Assert.AreEqual(true, context.Compress);
-            Assert.AreEqual("192.168.1.1", context.Host);
             Assert.AreEqual("~/Scripts", context.DefaultPath);
             Assert.AreEqual(false, context.DebugMode);
         }
@@ -51,8 +49,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var context = factory.CreateStyleSheetContext();
 
-            Assert.AreEqual(true, context.Compress);
-            Assert.AreEqual("192.168.1.1", context.Host);
             Assert.AreEqual("~/Content", context.DefaultPath);
             Assert.AreEqual(false, context.DebugMode);
         }

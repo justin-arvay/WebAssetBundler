@@ -21,32 +21,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public class BundleContext
     {
-
-        public ViewContext ViewContext
-        {
-            get; 
-            set;
-        }
-
-
-        public bool Compress
-        {
-            get;
-            set;
-        }
-
-        public string Host
-        {
-            get;
-            set;
-        }
-
-        public string DefaultPath
-        {
-            get;
-            set;
-        }
-
         public bool DebugMode
         {
             get;

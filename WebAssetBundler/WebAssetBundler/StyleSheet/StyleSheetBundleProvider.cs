@@ -40,8 +40,6 @@ using System.Web;
 
         public StyleSheetBundle GetNamedBundle(string name)
         {
-            //TODO:: resolve bundles
-
             var bundles = cache.Get();
 
             if (bundles == null)

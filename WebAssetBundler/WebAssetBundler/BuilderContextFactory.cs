@@ -25,9 +25,6 @@ namespace WebAssetBundler.Web.Mvc
         {
             var context = new BundleContext()
             {
-                Compress = DefaultSettings.Compressed,
-                DefaultPath = DefaultSettings.ScriptFilesPath,
-                Host = DefaultSettings.ScriptHost,
                 DebugMode = DefaultSettings.DebugMode
             };
 
@@ -38,9 +35,6 @@ namespace WebAssetBundler.Web.Mvc
         {
             var context = new BundleContext()
             {
-                Compress = DefaultSettings.Compressed,
-                DefaultPath = DefaultSettings.StyleSheetFilesPath,
-                Host = DefaultSettings.StyleSheetHost,
                 DebugMode = DefaultSettings.DebugMode
             };
 
