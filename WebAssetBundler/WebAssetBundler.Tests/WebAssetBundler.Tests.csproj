@@ -103,7 +103,9 @@
     <Compile Include="TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Files\AssetFileTest.css" />
+    <Content Include="Files\AssetFileTest.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Files\Configuration\FirstFile.css" />
     <Content Include="Files\Configuration\NotCorrectExt.txt" />
     <Content Include="Files\Configuration\SecondFile.css" />

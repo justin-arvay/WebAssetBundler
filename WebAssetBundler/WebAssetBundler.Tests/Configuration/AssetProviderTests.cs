@@ -34,16 +34,16 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             context = new BundleContext();
             server = new Mock<HttpServerUtilityBase>();
-            provider = new AssetProvider(server.Object, "D:\\ASP.NET Projects\\WebAssetBundler\\WebAssetBundler\\WebAssetBundler.Tests\\", context);
-            component = new FromDirectoryComponent("Files/Configuration", "css");
+            provider = new AssetProvider(server.Object, "", context);
+            component = new FromDirectoryComponent("../../Files/Configuration", "css");
         }
 
         [Test]
         public void Should_Get_All_Files_With_Correct_Extension_As_Virtual_Paths()
-        {            
+        {
 
-            server.Setup(m => m.MapPath("Files/Configuration"))
-                .Returns("D:\\ASP.NET Projects\\WebAssetBundler\\WebAssetBundler\\WebAssetBundler.Tests\\Files\\Configuration\\");
+            server.Setup(m => m.MapPath("../../Files/Configuration"))
+                .Returns("../../Files/Configuration");
 
             server.Setup(m => m.MapPath("~/Files/Configuration/FirstFile.css"))
                 .Returns((string path) => path);
@@ -56,18 +56,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var assets = (IList<AssetBase>)provider.GetAssets(component);
 
-            Assert.AreEqual("~/Files/Configuration/FirstFile.css", assets[0].Source, "0 index");
-            Assert.AreEqual("~/Files/Configuration/SecondFile.css", assets[1].Source, "0 index");
-            Assert.AreEqual("~/Files/Configuration/ThirdFile.min.css", assets[2].Source, "0 index");
+            Assert.AreEqual("~/../../Files/Configuration/FirstFile.css", assets[0].Source, "0 index");
+            Assert.AreEqual("~/../../Files/Configuration/SecondFile.css", assets[1].Source, "0 index");
+            Assert.AreEqual("~/../../Files/Configuration/ThirdFile.min.css", assets[2].Source, "0 index");
             Assert.AreEqual(3, assets.Count);
-
         }
 
         [Test]
         public void Should_Get_Files_That_Start_With()
         {
-            server.Setup(m => m.MapPath("Files/Configuration"))
-                .Returns("D:\\ASP.NET Projects\\WebAssetBundler\\WebAssetBundler\\WebAssetBundler.Tests\\Files\\Configuration\\");
+            server.Setup(m => m.MapPath("../../Files/Configuration"))
+                .Returns("../../Files/Configuration");
 
             server.Setup(m => m.MapPath("~/Files/Configuration/FirstFile.css"))
                 .Returns((string path) => path);
@@ -81,15 +80,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var assets = (IList<AssetBase>)provider.GetAssets(component);
 
             Assert.AreEqual(2, assets.Count);
-            Assert.AreEqual("~/Files/Configuration/FirstFile.css", assets[0].Source, "0 index");
-            Assert.AreEqual("~/Files/Configuration/SecondFile.css", assets[1].Source, "0 index");
+            Assert.AreEqual("~/../../Files/Configuration/FirstFile.css", assets[0].Source, "0 index");
+            Assert.AreEqual("~/../../Files/Configuration/SecondFile.css", assets[1].Source, "0 index");
         }
 
         [Test]
         public void Should_Get_Files_That_End_With()
         {
-            server.Setup(m => m.MapPath("Files/Configuration"))
-                .Returns("D:\\ASP.NET Projects\\WebAssetBundler\\WebAssetBundler\\WebAssetBundler.Tests\\Files\\Configuration\\");
+            server.Setup(m => m.MapPath("../../Files/Configuration"))
+                .Returns("../../Files/Configuration");
 
             server.Setup(m => m.MapPath("~/Files/Configuration/FirstFile.css"))
                 .Returns((string path) => path);
@@ -102,15 +101,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var assets = (IList<AssetBase>)provider.GetAssets(component);
 
             Assert.AreEqual(2, assets.Count);
-            Assert.AreEqual("~/Files/Configuration/FirstFile.css", assets[0].Source, "0 index");
-            Assert.AreEqual("~/Files/Configuration/SecondFile.css", assets[1].Source, "0 index");
+            Assert.AreEqual("~/../../Files/Configuration/FirstFile.css", assets[0].Source, "0 index");
+            Assert.AreEqual("~/../../Files/Configuration/SecondFile.css", assets[1].Source, "0 index");
         }
 
         [Test]
         public void Should_Get_Files_That_Contain()
         {
-            server.Setup(m => m.MapPath("Files/Configuration"))
-                .Returns("D:\\ASP.NET Projects\\WebAssetBundler\\WebAssetBundler\\WebAssetBundler.Tests\\Files\\Configuration\\");
+            server.Setup(m => m.MapPath("../../Files/Configuration"))
+                .Returns("../../Files/Configuration");
 
             server.Setup(m => m.MapPath("~/Files/Configuration/ThirdFile.min.css"))
                 .Returns((string path) => path);
@@ -120,7 +119,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var assets = (IList<AssetBase>)provider.GetAssets(component);
 
             Assert.AreEqual(1, assets.Count);
-            Assert.AreEqual("~/Files/Configuration/ThirdFile.min.css", assets[0].Source);
+            Assert.AreEqual("~/../../Files/Configuration/ThirdFile.min.css", assets[0].Source);
         }
 
         [Test]

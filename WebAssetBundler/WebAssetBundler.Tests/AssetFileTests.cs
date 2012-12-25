@@ -31,11 +31,9 @@ using System.Web;
         [SetUp]
         public void Setup()
         {
-            var eeee = Environment.CurrentDirectory;
-            var sssss = AppDomain.CurrentDomain.BaseDirectory;
             server = new Mock<HttpServerUtilityBase>();
             server.Setup(s => s.MapPath("~/Files/AssetFileTest.css"))
-               .Returns(AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Files\\AssetFileTest.css");
+               .Returns("../../Files/AssetFileTest.css"); //from obj/Debug
 
             
             file = new AssetFile("~/Files/AssetFileTest.css", server.Object);           
@@ -46,7 +44,7 @@ using System.Web;
         {
 
             Assert.AreEqual(
-                "D:\\ASP.NET Projects\\WebAssetBundler\\WebAssetBundler\\WebAssetBundler.Tests\\Files\\AssetFileTest.css", 
+                "../../Files/AssetFileTest.css", 
                 file.FullPath);
         }
 

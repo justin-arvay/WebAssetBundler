@@ -52,11 +52,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Render_Bundle()
         {
             var bundle = new ScriptBundle();
-            bundleProvider.Setup(p => p.GetSourceBundle("test")).Returns(bundle);
+            bundleProvider.Setup(p => p.GetNamedBundle("test")).Returns(bundle);
             
-            bundler.Render("test");
+            var htmlString = bundler.Render("test");
 
-            tagWriter.Verify(t => t.Write(It.IsAny<HtmlTextWriter>(), bundle, context), Times.Once());
+            Assert.IsInstanceOf<IHtmlString>(htmlString);
+            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), bundle, context), Times.Once());
         }
 
         [Test]
@@ -66,8 +67,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             bundleProvider.Setup(p => p.GetSourceBundle("~/file.js")).Returns(bundle);
 
-            bundler.Include("~/file.js");
+            var htmlString = bundler.Include("~/file.js");
 
+            Assert.IsInstanceOf<IHtmlString>(htmlString);
             tagWriter.Verify(w => w.Write(It.IsAny<TextWriter>(), bundle, context), Times.Once());
         }
     }
