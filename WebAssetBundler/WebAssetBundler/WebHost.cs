@@ -48,8 +48,7 @@ namespace WebAssetBundler.Web.Mvc
 
             container.Register<IAssetProvider>((c, p) => new AssetProvider(
                 c.Resolve<HttpServerUtilityBase>(), 
-                HttpContext().Request.PhysicalApplicationPath,
-                c.Resolve<BundleContext>()));
+                HttpContext().Request.PhysicalApplicationPath));
 
             ConfigureContainerForStyleSheets();
             ConfigureContainerForScript();

@@ -61,7 +61,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-
             Assert.AreEqual("url(\"/img/test.jpg\");", bundle.Assets[0].Content);
         }
 
@@ -71,7 +70,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             bundle.Assets[0].Content = "url(\"http://www.google.com/img/test.jpg\");";
 
             processor.Process(bundle);
-
 
             Assert.AreEqual("url(\"http://www.google.com/img/test.jpg\");", bundle.Assets[0].Content);
         }

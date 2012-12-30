@@ -26,20 +26,18 @@ namespace WebAssetBundler.Web.Mvc
     {
         private HttpServerUtilityBase server;
         private string applicationPath;
-        private BundleContext context;
 
-        public AssetProvider(HttpServerUtilityBase server, string applicationPath, BundleContext context)
+        public AssetProvider(HttpServerUtilityBase server, string applicationPath)
         {
-            this.context = context;
             this.server = server;
             this.applicationPath = applicationPath;
         }
 
         public AssetBase GetAsset(string source)
         {
-            if (source.StartsWith("~/") == false)
+            if (source.StartsWith("~/") == false && source.StartsWith("/") == false)
             {
-                source = Path.Combine(context.DefaultPath, source);    
+                throw new ArgumentException("Source must be virtual path.");  
             }
 
             return new FileAsset(new AssetFile(source, server));

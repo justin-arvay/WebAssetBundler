@@ -49,11 +49,15 @@ namespace WebAssetBundler.Web.Mvc
             //TODO: handle absolutepaths like: http://www.google.ca/image/icon.png
             var content = asset.Content;
             //var source = asset.Source.StartsWith("~/") ? asset.Source.ReplaceFirst("~/", "/") : asset.Source;
-            var relativePaths = FindDistinctRelativePathsIn(content);
+            var paths = FindPaths(content);
 
-            foreach (string relativePath in relativePaths)
+            foreach (string path in paths)
             {
-                content = content.Replace(relativePath, RewritePath(relativePath));
+                //ignore all absolute paths
+                if (path.StartsWith("/") == false && path.StartsWith("http") == false && path.StartsWith("https") == false)
+                {
+                    content = content.Replace(path, RewritePath(path));  
+                }                
             }
                 
             asset.Content = content;
@@ -99,29 +103,8 @@ namespace WebAssetBundler.Web.Mvc
 
             return level;
         }
-        /*
-        private void oldCode()
-        {
-            
- var format = Uri.IsWellFormedUriString(outputUrl, UriKind.Absolute);
- var sourceUri = new Uri(Path.GetDirectoryName(server.MapPath(asset.Source)), UriKind.Absolute);
-
- var outputUri = new Uri("/wab/css/a/a.css");
-
- var relativePaths = FindDistinctRelativePathsIn(content);
-
- foreach (string relativePath in relativePaths)
- {
-     var resolvedSourcePath = new Uri(sourceUri + relativePath);
-     var resolvedOutput = outputUri.MakeRelativeUri(resolvedSourcePath);
-
-     content = content.Replace(relativePath, resolvedOutput.OriginalString);
- }
-
-        }
-*/
-
-        private IEnumerable<string> FindDistinctRelativePathsIn(string css)
+        
+        private IEnumerable<string> FindPaths(string css)
         {
             var matchesHash = new HashSet<string>();
             var urlMatches = Regex.Matches(css, @"url\([""']{0,1}(.+?)[""']{0,1}\)", RegexOptions.IgnoreCase);
@@ -142,15 +125,7 @@ namespace WebAssetBundler.Web.Mvc
 
         private string GetUrlFromMatch(Match match)
         {
-            var path = match.Groups[1].Captures[0].Value;
-
-            //remove the starting slash if it exists
-            if (path.StartsWith("/"))
-            {
-                path = path.Substring(1);
-            }
-
-            return path;
+            return match.Groups[1].Captures[0].Value;
         }
          
     }

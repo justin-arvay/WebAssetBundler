@@ -37,8 +37,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             DefaultSettings.ScriptHost = "192.168.1.1";
 
             var context = factory.CreateScriptContext();
-
-            Assert.AreEqual("~/Scripts", context.DefaultPath);
             Assert.AreEqual(false, context.DebugMode);
         }
 
@@ -49,7 +47,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var context = factory.CreateStyleSheetContext();
 
-            Assert.AreEqual("~/Content", context.DefaultPath);
             Assert.AreEqual(false, context.DebugMode);
         }
     }

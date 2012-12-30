@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
     using System.Web;
     using System.Collections.Generic;
+    using System;
 
     [TestFixture]
     public class AssetProviderTests
@@ -27,14 +28,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private AssetProvider provider;
         private FromDirectoryComponent component;
         private Mock<HttpServerUtilityBase> server;
-        private BundleContext context;
 
         [SetUp]
         public void Setup()
-        {
-            context = new BundleContext();
+        {            
             server = new Mock<HttpServerUtilityBase>();
-            provider = new AssetProvider(server.Object, "", context);
+            provider = new AssetProvider(server.Object, "");
             component = new FromDirectoryComponent("../../Files/Configuration", "css");
         }
 
@@ -134,15 +133,18 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Get_Asset_That_Combines_Path_With_Default()
+        public void Should_Throw_Exception_If_Not_Virtual_Source()
         {
             server.Setup(m => m.MapPath("~/Content/File.css"))
                 .Returns((string path) => path);
 
-            context.DefaultPath = "~/Content/";
-            var asset = provider.GetAsset("File.css");
+            Assert.Throws<ArgumentException>(() => provider.GetAsset("File.css"));
 
-            Assert.AreEqual("~/Content/File.css", asset.Source);
+            server.Setup(m => m.MapPath("/Content/File.css"))
+                .Returns((string path) => path);
+
+            Assert.Throws<ArgumentException>(() => provider.GetAsset("File.css"));
+
         }
     }
 }
