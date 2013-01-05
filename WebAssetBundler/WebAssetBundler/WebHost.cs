@@ -53,7 +53,6 @@ namespace WebAssetBundler.Web.Mvc
             ConfigureContainerForStyleSheets();
             ConfigureContainerForScript();
             ConfigureHttpHandler();
-
         }
 
         public void ConfigureContainerForStyleSheets()
