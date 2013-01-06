@@ -51,7 +51,6 @@
   <ItemGroup>
     <Compile Include="AssetBaseImpl.cs" />
     <Compile Include="AssetFileTests.cs" />
-    <Compile Include="BuilderContextFactoryTests.cs" />
     <Compile Include="BundleContextTests.cs" />
     <Compile Include="Caching\BundlesCacheTests.cs" />
     <Compile Include="ComponentBuilderTests.cs" />
@@ -90,7 +89,6 @@
     <Compile Include="Script\ScriptUrlGeneratorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetTagWriterTests.cs" />
     <Compile Include="StyleSheet\StyleSheetUrlGeneratorTests.cs" />
-    <Compile Include="BundlerFactoryTests.cs" />
     <Compile Include="MergedAssetTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Script\ScriptCompressProcessorTests.cs" />

@@ -51,7 +51,6 @@
   <ItemGroup>
     <Compile Include="AssetFile.cs" />
     <Compile Include="BundleContext.cs" />
-    <Compile Include="BuilderContextFactory.cs" />
     <Compile Include="Caching\BundlesCache.cs" />
     <Compile Include="Caching\CacheProvider.cs" />
     <Compile Include="Caching\IBundlesCache.cs" />
@@ -105,7 +104,6 @@
     <Compile Include="StyleSheet\StyleSheetTagWriter.cs" />
     <Compile Include="StyleSheet\StyleSheetUrlGenerator.cs" />
     <Compile Include="ITransformable.cs" />
-    <Compile Include="BundlerFactory.cs" />
     <Compile Include="Script\ScriptBundler.cs" />
     <Compile Include="MergedAsset.cs" />
     <Compile Include="Pipeline\BundlePipeline.cs" />

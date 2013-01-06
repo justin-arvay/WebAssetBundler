@@ -43,7 +43,9 @@ namespace WebAssetBundler.Web.Mvc
             container.Register((c, p) => HttpContext().Request);
             container.Register((c, p) => HttpContext().Response);
             container.Register((c, p) => HttpContext().Server);
-            container.Register<BundleContext>((c, p) => (new BuilderContextFactory()).CreateScriptContext());
+            container.Register<BundleContext>((c, p) => (new BundleContext() {
+                DebugMode = DefaultSettings.DebugMode
+            }));
             container.Register<ICacheProvider, CacheProvider>();
 
             container.Register<IAssetProvider>((c, p) => new AssetProvider(
@@ -62,6 +64,8 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();
             container.Register<IStyleSheetConfigProvider>((c, p) => DefaultSettings.StyleSheetConfigProvider);
             container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => new StyleSheetPipeline(container));
+            container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
+            container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
         }
 
         public void ConfigureContainerForScript()
@@ -71,6 +75,8 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IScriptConfigProvider>((c, p) => DefaultSettings.ScriptConfigProvider);
             container.Register<IBundlePipeline<ScriptBundle>>((c, p) => new ScriptPipeline(container));
             container.Register<IUrlGenerator<ScriptBundle>>(new ScriptUrlGenerator());
+            container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();
+            container.Register<IBundleProvider<ScriptBundle>, ScriptBundleProvider>();
         }
 
         public void ConfigureHttpHandler()

@@ -23,17 +23,6 @@ namespace WebAssetBundler.Web.Mvc
 
         private static StyleSheetBundler styleSheetBundler;
         private static ScriptBundler scriptBundler;
-        private static BundlerFactory factory;
-
-        private static BundlerFactory GetFactory()
-        {
-            if (factory == null) 
-            {
-                factory = new BundlerFactory(new CacheProvider(), new BuilderContextFactory());
-            }
-
-            return factory;
-        }
 
         public static StyleSheetBundler StyleSheets
         {
@@ -41,7 +30,7 @@ namespace WebAssetBundler.Web.Mvc
             {
                 if (styleSheetBundler == null)
                 {
-                    styleSheetBundler = GetFactory().CreateStyleSheetManagerBuilder();
+                    styleSheetBundler = WabHttpModule.Host.Container.Resolve<StyleSheetBundler>();
                 }
 
                 return styleSheetBundler;
@@ -54,7 +43,7 @@ namespace WebAssetBundler.Web.Mvc
             {
                 if (scriptBundler == null)
                 {
-                    scriptBundler = GetFactory().CreateScriptManagerBuilder();
+                    scriptBundler = WabHttpModule.Host.Container.Resolve<ScriptBundler>();
                 }
 
                 return scriptBundler;
