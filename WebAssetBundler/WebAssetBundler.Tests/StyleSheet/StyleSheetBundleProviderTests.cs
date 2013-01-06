@@ -111,12 +111,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Bundle_By_Source()
         {
-            var bundle = provider.GetSourceBundle("~/file.tst");
+            var bundle = provider.GetSourceBundle("~/file.tst.tst");
 
             pipeline.Verify(p => p.Process(It.IsAny<StyleSheetBundle>()), Times.Once());
             cache.Verify(c => c.Add(bundle), Times.Once());
             Assert.IsNotNull(bundle);
-            Assert.AreEqual("199b18f549a41c8d45fe0a5b526ac060-file", bundle.Name);
+            Assert.AreEqual("5294038eea5f8cda328850bbba436881-file-tst", bundle.Name);
         }
 
         [Test]

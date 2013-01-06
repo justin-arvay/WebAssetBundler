@@ -4,8 +4,10 @@
     <title>@ViewBag.Title</title>
 
         @Bundler.StyleSheets.Render("StyleSheets")
+        @Bundler.StyleSheets.Include("~/Content/Test.css.css");
 
         @Bundler.Scripts.Render("Scripts")
+        @Bundler.Scripts.Include("~/Scripts/modernizr-1.7.js")
 
 </head>
 <body>

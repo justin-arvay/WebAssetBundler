@@ -62,7 +62,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public ScriptBundle GetSourceBundle(string source)
         {
-            var name = source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source);
+            var name = source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source).Replace(".", "-");
             var bundle = cache.Get(name);
 
             if (bundle == null || context.DebugMode)

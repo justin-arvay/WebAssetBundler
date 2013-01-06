@@ -66,7 +66,7 @@ using System.Web;
 
         public StyleSheetBundle GetSourceBundle(string source)
         {
-            var name = source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source);
+            var name = source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source).Replace(".", "-");
             var bundle = cache.Get(name);
 
             if (bundle == null || context.DebugMode)
