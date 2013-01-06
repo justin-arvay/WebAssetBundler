@@ -145,12 +145,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             cache.Setup(c => c.Get("199b18f549a41c8d45fe0a5b526ac060-file")).Returns(bundle);
 
-            bundle = provider.GetSourceBundle("~/file.tst");
-
             var bundleOut = provider.GetSourceBundle("~/file.tst");
 
             pipeline.Verify(p => p.Process(It.IsAny<StyleSheetBundle>()), Times.Once());
-            cache.Verify(c => c.Add(bundle), Times.Once());
+            cache.Verify(c => c.Add(It.IsAny<StyleSheetBundle>()), Times.Once());
             cache.Verify(c => c.Get("199b18f549a41c8d45fe0a5b526ac060-file"), Times.Once());
             Assert.IsNotNull(bundle);
             Assert.AreEqual("199b18f549a41c8d45fe0a5b526ac060-file", bundle.Name);

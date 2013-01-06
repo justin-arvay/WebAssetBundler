@@ -27,22 +27,24 @@ namespace WebAssetBundler.Web.Mvc
         private IAssetProvider assetLocator;
         private IBundlePipeline<ScriptBundle> pipeline;
         private HttpServerUtilityBase server;
+        private BundleContext context;
 
         public ScriptBundleProvider(IScriptConfigProvider configProvider, IBundlesCache<ScriptBundle> cache, 
-            IAssetProvider assetLocator, IBundlePipeline<ScriptBundle> pipeline, HttpServerUtilityBase server)
+            IAssetProvider assetLocator, IBundlePipeline<ScriptBundle> pipeline, HttpServerUtilityBase server, BundleContext context)
         {
             this.configProvider = configProvider;
             this.cache = cache;
             this.assetLocator = assetLocator;
             this.pipeline = pipeline;
             this.server = server;
+            this.context = context;
         }
 
         public ScriptBundle GetNamedBundle(string name)
         {
             var bundles = cache.Get();
 
-            if (bundles == null)
+            if (bundles == null || context.DebugMode)
             {
                 bundles = new BundleCollection<ScriptBundle>();
                 foreach (ScriptBundleConfiguration item in configProvider.GetConfigs())
@@ -63,7 +65,7 @@ namespace WebAssetBundler.Web.Mvc
             var name = source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source);
             var bundle = cache.Get(name);
 
-            if (bundle == null)
+            if (bundle == null || context.DebugMode)
             {
                 var asset = new FileAsset(new AssetFile(source, server));
                 bundle = new ScriptBundle();

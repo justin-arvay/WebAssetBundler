@@ -30,16 +30,18 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<ScriptBundle>> pipeline;
         private Mock<HttpServerUtilityBase> server;
+        private BundleContext context;
 
         [SetUp]
         public void Setup()
         {
+            context = new BundleContext();
             pipeline = new Mock<IBundlePipeline<ScriptBundle>>();
             configProvider = new Mock<IScriptConfigProvider>();
             cache = new Mock<IBundlesCache<ScriptBundle>>();
             assetProvider = new Mock<IAssetProvider>();
             server = new Mock<HttpServerUtilityBase>();
-            provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object, pipeline.Object, server.Object);
+            provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object, pipeline.Object, server.Object, context);
         }
 
         [Test]
@@ -80,6 +82,33 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
+        public void Should_Always_Read_From_Config_When_Debug_Mode()
+        {
+            context.DebugMode = true;
+
+            var config = new ScriptBundleConfigurationImpl();
+            config.Name("test");
+
+            var configs = new List<ScriptBundleConfiguration>();
+            configs.Add(config);
+
+
+            configProvider.Setup(c => c.GetConfigs()).Returns(configs);
+
+            var bundle = new ScriptBundle();
+            bundle.Name = "test";
+
+            var collection = new BundleCollection<ScriptBundle>();
+            collection.Add(bundle);
+
+            cache.Setup(c => c.Get()).Returns(collection);
+
+            Assert.IsInstanceOf<ScriptBundle>(provider.GetNamedBundle("test"));
+            cache.Verify(c => c.Get(), Times.Once());
+            cache.Verify(c => c.Set(It.IsAny<BundleCollection<ScriptBundle>>()), Times.Once());
+        }
+
+        [Test]
         public void Should_Get_Bundle_By_Source()
         {
             var bundle = provider.GetSourceBundle("~/file.tst");
@@ -102,6 +131,25 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             pipeline.Verify(p => p.Process(bundle), Times.Never());
             cache.Verify(c => c.Add(bundle), Times.Never());
+            Assert.IsNotNull(bundle);
+            Assert.AreEqual("199b18f549a41c8d45fe0a5b526ac060-file", bundle.Name);
+        }
+
+        [Test]
+        public void Should_Always_Load_Asset_When_Debug_Mode()
+        {
+            context.DebugMode = true;
+
+            var bundle = new ScriptBundle();
+            bundle.Name = "199b18f549a41c8d45fe0a5b526ac060-file";
+
+            cache.Setup(c => c.Get("199b18f549a41c8d45fe0a5b526ac060-file")).Returns(bundle);
+
+            var bundleOut = provider.GetSourceBundle("~/file.tst");
+
+            pipeline.Verify(p => p.Process(It.IsAny<ScriptBundle>()), Times.Once());
+            cache.Verify(c => c.Add(It.IsAny<ScriptBundle>()), Times.Once());
+            cache.Verify(c => c.Get("199b18f549a41c8d45fe0a5b526ac060-file"), Times.Once());
             Assert.IsNotNull(bundle);
             Assert.AreEqual("199b18f549a41c8d45fe0a5b526ac060-file", bundle.Name);
         }
