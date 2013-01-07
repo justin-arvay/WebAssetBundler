@@ -61,7 +61,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreSame(config.GetBundle(), bundle);
             Assert.AreEqual(1, config.CallCount);
             Assert.IsInstanceOf<IAssetProvider>(config.AssetProvider);
-            cache.Verify(c => c.Get(), Times.Once());
+            cache.Verify(c => c.Get("test"), Times.Once());
             cache.Verify(c => c.Set(It.IsAny<BundleCollection<StyleSheetBundle>>()), Times.Once());
         }
 

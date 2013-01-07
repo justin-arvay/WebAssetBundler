@@ -21,9 +21,8 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IBundlesCache<TBundle> where TBundle : Bundle
     {
-        void Set(BundleCollection<TBundle> bundles);
-        BundleCollection<TBundle> Get();
         TBundle Get(string name);
         void Add(TBundle bundle);
+        void AddRange(ICollection<TBundle> bundles);
     }
 }

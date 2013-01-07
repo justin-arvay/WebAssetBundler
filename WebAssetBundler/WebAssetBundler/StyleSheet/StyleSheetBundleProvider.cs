@@ -42,26 +42,14 @@ using System.Web;
 
         public StyleSheetBundle GetNamedBundle(string name)
         {
-            var bundles = cache.Get();
+            var bundle = cache.Get(name);
 
-            if (bundles == null || context.DebugMode)
+            if (bundle == null || context.DebugMode)
             {
-                bundles = new BundleCollection<StyleSheetBundle>();
-                foreach (StyleSheetBundleConfiguration item in configProvider.GetConfigs())
-                {
-                    item.AssetProvider = assetLocator;
-                    item.Configure();
-
-                    var bundle = item.GetBundle();
-                    pipeline.Process(bundle);
-
-                    bundles.Add(bundle);
-                }
-
-                cache.Set(bundles);
+                bundle = PrimeCache(name);
             }
 
-            return bundles.FindBundleByName(name);
+            return bundle;
         }
 
         public StyleSheetBundle GetSourceBundle(string source)
@@ -81,6 +69,29 @@ using System.Web;
             }
 
             return bundle;
+        }
+
+        private StyleSheetBundle PrimeCache(string name)
+        {
+            StyleSheetBundle requestedBundle = null;
+
+            foreach (StyleSheetBundleConfiguration item in configProvider.GetConfigs())
+            {
+                var bundle = item.GetBundle();
+                if (cache.Get(bundle.Name) == null)
+                {
+                    item.AssetProvider = assetLocator;
+                    item.Configure();
+                    cache.Add(bundle);
+                }
+
+                if (bundle.Name.IsCaseSensitiveEqual(name));
+                {
+                    requestedBundle = bundle;
+                }
+            }
+
+            return requestedBundle;
         }
     }
 }

@@ -31,7 +31,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public void ProcessRequest(string path, IResponseWriter writer, IEncoder encoder)
         {
-            var bundle = cache.Get().FindBundleByName(FindName(path));
+            var bundle = cache.Get(FindName(path));
 
             if (bundle == null)
             {

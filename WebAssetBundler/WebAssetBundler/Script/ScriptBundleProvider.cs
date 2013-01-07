@@ -42,22 +42,15 @@ namespace WebAssetBundler.Web.Mvc
 
         public ScriptBundle GetNamedBundle(string name)
         {
-            var bundles = cache.Get();
+            var bundle = cache.Get(name);
 
-            if (bundles == null || context.DebugMode)
+            if (bundle == null || context.DebugMode)
             {
-                bundles = new BundleCollection<ScriptBundle>();
-                foreach (ScriptBundleConfiguration item in configProvider.GetConfigs())
-                {
-                    item.AssetProvider = assetLocator;
-                    item.Configure();
-                    bundles.Add(item.GetBundle());
-                }
+                bundle = PrimeCache(name);
 
-                cache.Set(bundles);
             }
 
-            return bundles.FindBundleByName(name);
+            return bundle;
         }
 
         public ScriptBundle GetSourceBundle(string source)
@@ -77,6 +70,29 @@ namespace WebAssetBundler.Web.Mvc
             }
 
             return bundle;
+        }
+
+        private ScriptBundle PrimeCache(string name)
+        {
+            ScriptBundle requestedBundle = null;
+
+            foreach (ScriptBundleConfiguration item in configProvider.GetConfigs())
+            {
+                var bundle = item.GetBundle();
+                if (cache.Get(bundle.Name) == null)
+                {
+                    item.AssetProvider = assetLocator;
+                    item.Configure();
+                    cache.Add(bundle);
+                }
+
+                if (bundle.Name.IsCaseSensitiveEqual(name));
+                {
+                    requestedBundle = bundle;
+                }
+            }
+
+            return requestedBundle;
         }
     }
 }

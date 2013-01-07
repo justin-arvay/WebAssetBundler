@@ -27,23 +27,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IEncoder> encoder;
         private AssetHttpHandler<BundleImpl> handler;
         private BundleImpl bundle;
-        private BundleCollection<BundleImpl> bundles;
 
         [SetUp]
         public void Setup()
         {
             bundle = new BundleImpl();
-
-            bundles = new BundleCollection<BundleImpl>();
-            bundles.Add(bundle);
-
-
             writer = new Mock<IResponseWriter>();
             cache = new Mock<IBundlesCache<BundleImpl>>();
             encoder = new Mock<IEncoder>();
             handler = new AssetHttpHandler<BundleImpl>(cache.Object);
 
-            cache.Setup(c => c.Get()).Returns(bundles);
+            cache.Setup(c => c.Get("name")).Returns(bundle);
         }
 
         [Test]
@@ -54,7 +48,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             handler.ProcessRequest("/asset/1.1/name", writer.Object, encoder.Object);
 
-            cache.Verify(c => c.Get(), Times.Once());
+            cache.Verify(c => c.Get("name"), Times.Once());
             writer.Verify(w => w.IsNotModified(bundle), Times.Once());
             writer.Verify(w => w.WriteNotModified(bundle.Hash.ToHexString()), Times.Once());
         }
@@ -67,7 +61,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             handler.ProcessRequest("/asset/1.1/name", writer.Object, encoder.Object);
 
-            cache.Verify(c => c.Get(), Times.Once());
+            cache.Verify(c => c.Get("name"), Times.Once());
             writer.Verify(w => w.IsNotModified(bundle), Times.Once());
             writer.Verify(w => w.WriteAsset(bundle, encoder.Object), Times.Once());
         }
@@ -77,7 +71,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {            
             handler.ProcessRequest("/asset/1.1/name", writer.Object, encoder.Object);
 
-            cache.Verify(c => c.Get(), Times.Once());
+            cache.Verify(c => c.Get("name"), Times.Once());
             writer.Verify(w => w.WriteNotFound(), Times.Once());
         }
 

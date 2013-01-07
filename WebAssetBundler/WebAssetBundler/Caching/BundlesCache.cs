@@ -27,40 +27,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             this.provider = provider;
         }
-
-        public void Set(BundleCollection<TBundle> bundleCollection)
-        {
-            if (Get() == null)
-            {
-                provider.Insert(GetKey(), bundleCollection);
-            }
-        }
-
-        public BundleCollection<TBundle> Get()
-        {
-            var dirtyBundles = provider.Get(GetKey());
-            var bundles = new BundleCollection<TBundle>();
-
-            if (dirtyBundles != null)
-            {
-                //cast to correct type, not sure how to do this without looping
-                foreach (var dirtyBundle in (IList<TBundle>)dirtyBundles)
-                {
-                    bundles.Add((TBundle)dirtyBundle);
-                }
-
-                return bundles;
-            }
-
-            return null;
-        }
-
-        public string GetKey()
-        {
-            Type typeOfBundle = typeof(TBundle);
-            return typeOfBundle.Name + "-Bundles";
-        }
-
+        
         private string GetSingleBundleKey(string bundleName)
         {
             Type typeOfBundle = typeof(TBundle);
@@ -76,6 +43,14 @@ namespace WebAssetBundler.Web.Mvc
         {
             var key = GetSingleBundleKey(bundle.Name);
             provider.Insert(key, bundle); 
+        }
+
+        public void AddRange(ICollection<TBundle> bundles)
+        {
+            foreach (var bundle in bundles)
+            {
+                provider.Insert(GetSingleBundleKey(bundle.Name), bundle);
+            }
         }
     }
 }
