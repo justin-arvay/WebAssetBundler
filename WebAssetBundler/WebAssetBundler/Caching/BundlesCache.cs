@@ -44,13 +44,5 @@ namespace WebAssetBundler.Web.Mvc
             var key = GetSingleBundleKey(bundle.Name);
             provider.Insert(key, bundle); 
         }
-
-        public void AddRange(ICollection<TBundle> bundles)
-        {
-            foreach (var bundle in bundles)
-            {
-                provider.Insert(GetSingleBundleKey(bundle.Name), bundle);
-            }
-        }
     }
 }

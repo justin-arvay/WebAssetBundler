@@ -17,11 +17,33 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.Collections.Generic;
 
-    public interface IBundlesCache<TBundle> where TBundle : Bundle
+    public class BundleProviderCachePrimer<TBundle> : IBundleProviderCachePrimer<TBundle>
     {
-        TBundle Get(string name);
-        void Add(TBundle bundle);
+
+        public void IsPrimed
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public void Prime()
+        {
+            foreach (ScriptBundleConfiguration item in configProvider.GetConfigs())
+            {
+                var bundle = item.GetBundle();
+                if (cache.Get(bundle.Name) == null)
+                {
+                    item.AssetProvider = assetLocator;
+                    item.Configure();
+                    pipeline.Process(bundle);
+                    cache.Add(bundle);
+                }
+
+                if (bundle.Name.IsCaseSensitiveEqual(name));
+                {
+                    requestedBundle = bundle;
+                }
+            }
+        }
     }
 }

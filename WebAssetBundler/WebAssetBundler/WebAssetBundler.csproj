@@ -51,8 +51,10 @@
   <ItemGroup>
     <Compile Include="AssetFile.cs" />
     <Compile Include="BundleContext.cs" />
+    <Compile Include="Caching\BundleProviderCachePrimer.cs" />
     <Compile Include="Caching\BundlesCache.cs" />
     <Compile Include="Caching\CacheProvider.cs" />
+    <Compile Include="Caching\IBundleProviderCachePrimer.cs" />
     <Compile Include="Caching\IBundlesCache.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
     <Compile Include="Bundler.cs" />

@@ -82,6 +82,7 @@ using System.Web;
                 {
                     item.AssetProvider = assetLocator;
                     item.Configure();
+                    pipeline.Process(bundle);
                     cache.Add(bundle);
                 }
 

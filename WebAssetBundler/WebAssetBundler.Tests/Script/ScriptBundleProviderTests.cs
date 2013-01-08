@@ -45,7 +45,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Get_Bundles()
+        public void Should_Get_Bundle()
         {
             var config = new ScriptBundleConfigurationImpl();
             config.Name("test");
@@ -60,24 +60,21 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreSame(config.GetBundle(), bundle);
             Assert.AreEqual(1, config.CallCount);
             Assert.IsInstanceOf<IAssetProvider>(config.AssetProvider);
-            cache.Verify(c => c.Get(), Times.Once());
-            cache.Verify(c => c.Set(It.IsAny<BundleCollection<ScriptBundle>>()), Times.Once());
+            cache.Verify(c => c.Get("test"), Times.Once());
+            cache.Verify(c => c.Add(It.IsAny<ScriptBundle>()), Times.Once());
         }
 
         [Test]
-        public void Should_Get_Bundles_From_Cache()
+        public void Should_Get_Bundle_From_Cache()
         {
             var bundle = new ScriptBundle();
             bundle.Name = "test";
 
-            var collection = new BundleCollection<ScriptBundle>();
-            collection.Add(bundle);
-
-            cache.Setup(c => c.Get()).Returns(collection);
+            cache.Setup(c => c.Get(bundle.Name)).Returns(bundle);
 
             Assert.AreSame(bundle, provider.GetNamedBundle("test"));
-            cache.Verify(c => c.Get(), Times.Once());
-            cache.Verify(c => c.Set(It.IsAny<BundleCollection<ScriptBundle>>()), Times.Never());
+            cache.Verify(c => c.Get(bundle.Name), Times.Once());
+            cache.Verify(c => c.Add(It.IsAny<ScriptBundle>()), Times.Never());
 
         }
 
@@ -98,14 +95,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var bundle = new ScriptBundle();
             bundle.Name = "test";
 
-            var collection = new BundleCollection<ScriptBundle>();
-            collection.Add(bundle);
 
-            cache.Setup(c => c.Get()).Returns(collection);
+            cache.Setup(c => c.Get("test")).Returns(bundle);
 
             Assert.IsInstanceOf<ScriptBundle>(provider.GetNamedBundle("test"));
-            cache.Verify(c => c.Get(), Times.Once());
-            cache.Verify(c => c.Set(It.IsAny<BundleCollection<ScriptBundle>>()), Times.Once());
+            cache.Verify(c => c.Get("test"), Times.Once());
+            cache.Verify(c => c.Add(It.IsAny<ScriptBundle>()), Times.Once());
+        }
+
+        [Test]
+        public void Should_Prime_Cache()
+        {
         }
 
         [Test]

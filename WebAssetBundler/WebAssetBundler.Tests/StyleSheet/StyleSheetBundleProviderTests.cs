@@ -58,11 +58,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
 
             var bundle = provider.GetNamedBundle("test");
+
             Assert.AreSame(config.GetBundle(), bundle);
             Assert.AreEqual(1, config.CallCount);
             Assert.IsInstanceOf<IAssetProvider>(config.AssetProvider);
-            cache.Verify(c => c.Get("test"), Times.Once());
-            cache.Verify(c => c.Set(It.IsAny<BundleCollection<StyleSheetBundle>>()), Times.Once());
+            cache.Verify(c => c.Get("test"), Times.AtLeast(1));
+            cache.Verify(c => c.Add(It.IsAny<StyleSheetBundle>()), Times.Once());
         }
 
         [Test]
@@ -71,14 +72,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var bundle = new StyleSheetBundle();
             bundle.Name = "test";
 
-            var collection = new BundleCollection<StyleSheetBundle>();
-            collection.Add(bundle);
-
-            cache.Setup(c => c.Get()).Returns(collection);
+            cache.Setup(c => c.Get(bundle.Name)).Returns(bundle);
 
             Assert.AreSame(bundle, provider.GetNamedBundle("test"));
-            cache.Verify(c => c.Get(), Times.Once());
-            cache.Verify(c => c.Set(It.IsAny<BundleCollection<StyleSheetBundle>>()), Times.Never());
+            cache.Verify(c => c.Get(bundle.Name), Times.Once());
+            cache.Verify(c => c.Add(It.IsAny<StyleSheetBundle>()), Times.Never());
         }
 
         [Test]
@@ -98,14 +96,16 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var bundle = new StyleSheetBundle();
             bundle.Name = "test";
 
-            var collection = new BundleCollection<StyleSheetBundle>();
-            collection.Add(bundle);
-
-            cache.Setup(c => c.Get()).Returns(collection);
+            cache.Setup(c => c.Get(bundle.Name)).Returns(bundle);
 
             Assert.IsInstanceOf<StyleSheetBundle>(provider.GetNamedBundle("test"));
-            cache.Verify(c => c.Get(), Times.Once());
-            cache.Verify(c => c.Set(It.IsAny<BundleCollection<StyleSheetBundle>>()), Times.Once());
+            cache.Verify(c => c.Get(bundle.Name), Times.AtLeast(1));
+            cache.Verify(c => c.Add(It.IsAny<StyleSheetBundle>()), Times.Once());
+        }
+
+        [Test]
+        public void Should_Prime_Cache()
+        {
         }
 
         [Test]

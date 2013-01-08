@@ -39,42 +39,18 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var bundles = new List<BundleImpl>();
             bundles.Add(new BundleImpl());
 
-            provider.Setup(p => p.Get("BundleImpl-Bundles")).Returns((object)bundles);
+            provider.Setup(p => p.Get("test-BundleImpl-Bundles")).Returns((object)bundles);
 
-            Assert.AreEqual(1, cache.Get().Count);
+            Assert.AreEqual(bundles[0], cache.Get("test"));
 
         }
 
         [Test]
         public void Should_Get_Null()
         {
-            provider.Setup(p => p.Get("BundleImpl-Bundles")).Returns(null);
+            provider.Setup(p => p.Get("test-BundleImpl-Bundles")).Returns(null);
 
-            Assert.IsNull(cache.Get());
-        }
-
-        [Test]
-        public void Should_Set_Bundles()
-        {
-            var bundles = new BundleCollection<BundleImpl>();
-            bundles.Add(new BundleImpl());
-
-            cache.Set(bundles);
-
-            provider.Verify(p => p.Insert("BundleImpl-Bundles", bundles));
-        }
-
-        [Test]
-        public void Should_Not_Insert()
-        {
-            var bundles = new BundleCollection<BundleImpl>();
-            bundles.Add(new BundleImpl());
-
-            provider.Setup(p => p.Get("BundleImpl-Bundles")).Returns(new List<BundleImpl>());
-
-            cache.Set(bundles);
-
-            provider.Verify(p => p.Insert("BundleImpl-Bundles", bundles), Times.Never());
+            Assert.IsNull(cache.Get("test"));
         }
 
         [Test]
