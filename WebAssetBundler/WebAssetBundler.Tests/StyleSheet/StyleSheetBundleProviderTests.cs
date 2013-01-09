@@ -26,7 +26,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class StyleSheetBundleProviderTests
     {
         private StyleSheetBundleProvider provider;
-        private Mock<IStyleSheetConfigProvider> configProvider;
+        private Mock<IConfigProvider<StyleSheetBundleConfiguration>> configProvider;
         private Mock<IBundlesCache<StyleSheetBundle>> cache;
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
@@ -38,7 +38,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             context = new BundleContext();
             pipeline = new Mock<IBundlePipeline<StyleSheetBundle>>();
-            configProvider = new Mock<IStyleSheetConfigProvider>();
+            configProvider = new Mock<IConfigProvider<StyleSheetBundleConfiguration>>();
             cache = new Mock<IBundlesCache<StyleSheetBundle>>();
             assetProvider = new Mock<IAssetProvider>();
             server = new Mock<HttpServerUtilityBase>();

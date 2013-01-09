@@ -21,7 +21,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.Linq;
 
-    public class DefaultStyleSheetConfigProvider : IStyleSheetConfigProvider
+    public class DefaultStyleSheetConfigProvider : IConfigProvider<StyleSheetBundleConfiguration>
     {
 
 

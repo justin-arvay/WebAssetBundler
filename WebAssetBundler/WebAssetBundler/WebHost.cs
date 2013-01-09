@@ -62,7 +62,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IUrlGenerator<StyleSheetBundle>>(new StyleSheetUrlGenerator());
             container.Register<IStyleSheetCompressor>((c, p) => DefaultSettings.StyleSheetCompressor);
             container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();
-            container.Register<IStyleSheetConfigProvider>((c, p) => DefaultSettings.StyleSheetConfigProvider);
+            container.Register<IConfigProvider<StyleSheetBundleConfiguration>>((c, p) => DefaultSettings.StyleSheetConfigProvider);
             container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => new StyleSheetPipeline(container));
             container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
@@ -72,7 +72,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             container.Register<IScriptCompressor>((c, p) => DefaultSettings.ScriptCompressor);
             container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>();
-            container.Register<IScriptConfigProvider>((c, p) => DefaultSettings.ScriptConfigProvider);
+            container.Register<IConfigProvider<ScriptBundleConfiguration>>((c, p) => DefaultSettings.ScriptConfigProvider);
             container.Register<IBundlePipeline<ScriptBundle>>((c, p) => new ScriptPipeline(container));
             container.Register<IUrlGenerator<ScriptBundle>>(new ScriptUrlGenerator());
             container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();

@@ -16,9 +16,16 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
-    public interface IBundleProviderCachePrimer<TBundle>
+    using System;
+    using System.Collections.Generic;
+
+    public interface IConfigProvider<TConfig> where TConfig : IConfigurable
     {
-        void IsPrimed { get; }
-        void Prime();
+        /// <summary>
+        /// Gets all style sheet bundle configuration classes.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        IList<TConfig> GetConfigs();
     }
 }

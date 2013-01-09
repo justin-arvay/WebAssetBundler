@@ -25,7 +25,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class ScriptBundleProviderTests
     {
         private ScriptBundleProvider provider;
-        private Mock<IScriptConfigProvider> configProvider;
+        private Mock<IConfigProvider<ScriptBundleConfiguration>> configProvider;
         private Mock<IBundlesCache<ScriptBundle>> cache;
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<ScriptBundle>> pipeline;
@@ -37,7 +37,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             context = new BundleContext();
             pipeline = new Mock<IBundlePipeline<ScriptBundle>>();
-            configProvider = new Mock<IScriptConfigProvider>();
+            configProvider = new Mock<IConfigProvider<ScriptBundleConfiguration>>();
             cache = new Mock<IBundlesCache<ScriptBundle>>();
             assetProvider = new Mock<IAssetProvider>();
             server = new Mock<HttpServerUtilityBase>();

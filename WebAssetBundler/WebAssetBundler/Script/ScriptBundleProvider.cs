@@ -22,14 +22,14 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ScriptBundleProvider : IBundleProvider<ScriptBundle>
     {
-        private IScriptConfigProvider configProvider;
+        private IConfigProvider<ScriptBundleConfiguration> configProvider;
         private IBundlesCache<ScriptBundle> cache;
         private IAssetProvider assetLocator;
         private IBundlePipeline<ScriptBundle> pipeline;
         private HttpServerUtilityBase server;
         private BundleContext context;
 
-        public ScriptBundleProvider(IScriptConfigProvider configProvider, IBundlesCache<ScriptBundle> cache, 
+        public ScriptBundleProvider(IConfigProvider<ScriptBundleConfiguration> configProvider, IBundlesCache<ScriptBundle> cache, 
             IAssetProvider assetLocator, IBundlePipeline<ScriptBundle> pipeline, HttpServerUtilityBase server, BundleContext context)
         {
             this.configProvider = configProvider;

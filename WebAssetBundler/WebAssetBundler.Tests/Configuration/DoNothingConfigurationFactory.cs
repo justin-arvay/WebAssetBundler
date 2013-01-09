@@ -18,7 +18,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System.Collections.Generic;
 
-    public class DoNothingStyleSheetConfigurationProvider : IStyleSheetConfigProvider
+    public class DoNothingStyleSheetConfigurationProvider : IConfigProvider<StyleSheetBundleConfiguration>
     {
 
         public IList<StyleSheetBundleConfiguration> GetConfigs()

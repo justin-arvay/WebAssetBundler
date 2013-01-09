@@ -21,10 +21,8 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.Linq;
 
-    public class DefaultScriptConfigProvider : IScriptConfigProvider
+    public class DefaultScriptConfigProvider : IConfigProvider<ScriptBundleConfiguration>
     {
-
-
         public IList<ScriptBundleConfiguration> GetConfigs()
         {
             var configs = new List<ScriptBundleConfiguration>();

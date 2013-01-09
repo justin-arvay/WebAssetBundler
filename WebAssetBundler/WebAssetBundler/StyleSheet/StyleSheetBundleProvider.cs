@@ -22,14 +22,14 @@ using System.Web;
 
     public class StyleSheetBundleProvider : IBundleProvider<StyleSheetBundle>
     {
-        private IStyleSheetConfigProvider configProvider;
+        private IConfigProvider<StyleSheetBundleConfiguration> configProvider;
         private IBundlesCache<StyleSheetBundle> cache;
         private IAssetProvider assetLocator;
         private IBundlePipeline<StyleSheetBundle> pipeline;
         private HttpServerUtilityBase server;
         private BundleContext context;
 
-        public StyleSheetBundleProvider(IStyleSheetConfigProvider configProvider, IBundlesCache<StyleSheetBundle> cache, 
+        public StyleSheetBundleProvider(IConfigProvider<StyleSheetBundleConfiguration> configProvider, IBundlesCache<StyleSheetBundle> cache, 
             IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetLocator, HttpServerUtilityBase server, BundleContext context)
         {
             this.configProvider = configProvider;

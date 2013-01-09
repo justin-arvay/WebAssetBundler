@@ -18,12 +18,30 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class BundleProviderCachePrimer<TBundle> : IBundleProviderCachePrimer<TBundle>
+    public class ScriptBundleCachePrimer<TBundle> : IBundleCachePrimer<TBundle>
     {
+        private IConfigProvider<ScriptBundleConfiguration> configProvider;
+        private IBundlesCache<ScriptBundle> cache;
+        private IAssetProvider assetProvider;
+        private IBundlePipeline<ScriptBundle> pipeline;
 
-        public void IsPrimed
+        private static bool isPrimed = false;
+
+        public ScriptBundleCachePrimer(IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline,
+            IBundlesCache<ScriptBundle> cache, IConfigProvider<ScriptBundleConfiguration> configProvider)
         {
-            get { throw new NotImplementedException(); }
+            this.configProvider = configProvider;
+            this.assetProvider = assetProvider;
+            this.pipeline = pipeline;
+            this.cache = cache;
+        }
+
+        public bool IsPrimed
+        {
+            get
+            {
+                return isPrimed;
+            }
         }
 
         public void Prime()
@@ -33,17 +51,14 @@ namespace WebAssetBundler.Web.Mvc
                 var bundle = item.GetBundle();
                 if (cache.Get(bundle.Name) == null)
                 {
-                    item.AssetProvider = assetLocator;
+                    item.AssetProvider = assetProvider;
                     item.Configure();
                     pipeline.Process(bundle);
                     cache.Add(bundle);
                 }
-
-                if (bundle.Name.IsCaseSensitiveEqual(name));
-                {
-                    requestedBundle = bundle;
-                }
             }
+
+            isPrimed = true;
         }
     }
 }

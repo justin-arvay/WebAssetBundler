@@ -51,10 +51,10 @@
   <ItemGroup>
     <Compile Include="AssetFile.cs" />
     <Compile Include="BundleContext.cs" />
-    <Compile Include="Caching\BundleProviderCachePrimer.cs" />
+    <Compile Include="Caching\ScriptBundleCachePrimer.cs" />
     <Compile Include="Caching\BundlesCache.cs" />
     <Compile Include="Caching\CacheProvider.cs" />
-    <Compile Include="Caching\IBundleProviderCachePrimer.cs" />
+    <Compile Include="Caching\IBundleCachePrimer.cs" />
     <Compile Include="Caching\IBundlesCache.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
     <Compile Include="Bundler.cs" />
@@ -72,7 +72,7 @@
     <Compile Include="Configuration\IAssetProvider.cs" />
     <Compile Include="Configuration\IBundleProvider.cs" />
     <Compile Include="Configuration\IConfigurable.cs" />
-    <Compile Include="Script\IScriptConfigProvider.cs" />
+    <Compile Include="IConfigProvider.cs" />
     <Compile Include="Script\ScriptBundle.cs" />
     <Compile Include="Script\ScriptBundleConfiguration.cs" />
     <Compile Include="Script\ScriptBundleProvider.cs" />
@@ -84,7 +84,6 @@
     <Compile Include="Configuration\Bundle.cs" />
     <Compile Include="StyleSheet\DefaultStyleSheetConfigProvider.cs" />
     <Compile Include="Configuration\BundleConfiguration.cs" />
-    <Compile Include="StyleSheet\IStyleSheetConfigProvider.cs" />
     <Compile Include="HttpHandlers\DeflateEncoder.cs" />
     <Compile Include="HttpHandlers\DoNothingEncoder.cs" />
     <Compile Include="HttpHandlers\EncoderFactory.cs" />
