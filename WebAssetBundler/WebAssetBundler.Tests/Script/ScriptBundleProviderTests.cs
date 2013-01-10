@@ -111,10 +111,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Bundle_By_Source()
         {
+            assetProvider.Setup(p => p.GetAsset("~/file.tst.tst")).Returns(new AssetBaseImpl());
+
             var bundle = provider.GetSourceBundle("~/file.tst.tst");
 
             pipeline.Verify(p => p.Process(It.IsAny<ScriptBundle>()), Times.Once());
             cache.Verify(c => c.Add(bundle), Times.Once());
+            Assert.IsInstanceOf<AssetBaseImpl>(bundle.Assets[0]);
             Assert.IsNotNull(bundle);
             Assert.AreEqual("5294038eea5f8cda328850bbba436881-file-tst", bundle.Name);
         }

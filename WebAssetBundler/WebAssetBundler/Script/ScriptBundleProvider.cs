@@ -24,17 +24,17 @@ namespace WebAssetBundler.Web.Mvc
     {
         private IConfigProvider<ScriptBundleConfiguration> configProvider;
         private IBundlesCache<ScriptBundle> cache;
-        private IAssetProvider assetLocator;
+        private IAssetProvider assetProvider;
         private IBundlePipeline<ScriptBundle> pipeline;
         private HttpServerUtilityBase server;
         private BundleContext context;
 
-        public ScriptBundleProvider(IConfigProvider<ScriptBundleConfiguration> configProvider, IBundlesCache<ScriptBundle> cache, 
-            IAssetProvider assetLocator, IBundlePipeline<ScriptBundle> pipeline, HttpServerUtilityBase server, BundleContext context)
+        public ScriptBundleProvider(IConfigProvider<ScriptBundleConfiguration> configProvider, IBundlesCache<ScriptBundle> cache,
+            IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline, HttpServerUtilityBase server, BundleContext context)
         {
             this.configProvider = configProvider;
             this.cache = cache;
-            this.assetLocator = assetLocator;
+            this.assetProvider = assetProvider;
             this.pipeline = pipeline;
             this.server = server;
             this.context = context;
@@ -60,7 +60,7 @@ namespace WebAssetBundler.Web.Mvc
 
             if (bundle == null || context.DebugMode)
             {
-                var asset = new FileAsset(new AssetFile(source, server));
+                var asset = assetProvider.GetAsset(source);
                 bundle = new ScriptBundle();
                 bundle.Assets.Add(asset);
                 bundle.Name = name;
@@ -81,7 +81,7 @@ namespace WebAssetBundler.Web.Mvc
                 var bundle = item.GetBundle();
                 if (cache.Get(bundle.Name) == null)
                 {
-                    item.AssetProvider = assetLocator;
+                    item.AssetProvider = assetProvider;
                     item.Configure();
                     pipeline.Process(bundle);
                     cache.Add(bundle);

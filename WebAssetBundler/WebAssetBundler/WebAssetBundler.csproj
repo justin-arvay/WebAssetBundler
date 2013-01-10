@@ -51,7 +51,7 @@
   <ItemGroup>
     <Compile Include="AssetFile.cs" />
     <Compile Include="BundleContext.cs" />
-    <Compile Include="Caching\ScriptBundleCachePrimer.cs" />
+    <Compile Include="Script\ScriptBundleCachePrimer.cs" />
     <Compile Include="Caching\BundlesCache.cs" />
     <Compile Include="Caching\CacheProvider.cs" />
     <Compile Include="Caching\IBundleCachePrimer.cs" />
@@ -76,6 +76,7 @@
     <Compile Include="Script\ScriptBundle.cs" />
     <Compile Include="Script\ScriptBundleConfiguration.cs" />
     <Compile Include="Script\ScriptBundleProvider.cs" />
+    <Compile Include="StyleSheet\StyleSheetBundleCachePrimer.cs" />
     <Compile Include="StyleSheet\StyleSheetBundle.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleConfiguration.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleProvider.cs" />

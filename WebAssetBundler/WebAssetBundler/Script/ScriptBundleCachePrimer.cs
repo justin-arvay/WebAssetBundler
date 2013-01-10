@@ -17,10 +17,10 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Collections.Generic;
 
-    public class ScriptBundleCachePrimer<TBundle> : IBundleCachePrimer<TBundle>
+    public class ScriptBundleCachePrimer : IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>
     {
-        private IConfigProvider<ScriptBundleConfiguration> configProvider;
         private IBundlesCache<ScriptBundle> cache;
         private IAssetProvider assetProvider;
         private IBundlePipeline<ScriptBundle> pipeline;
@@ -28,9 +28,8 @@ namespace WebAssetBundler.Web.Mvc
         private static bool isPrimed = false;
 
         public ScriptBundleCachePrimer(IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline,
-            IBundlesCache<ScriptBundle> cache, IConfigProvider<ScriptBundleConfiguration> configProvider)
+            IBundlesCache<ScriptBundle> cache)
         {
-            this.configProvider = configProvider;
             this.assetProvider = assetProvider;
             this.pipeline = pipeline;
             this.cache = cache;
@@ -44,9 +43,9 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public void Prime()
+        public void Prime(IList<ScriptBundleConfiguration> configs)
         {
-            foreach (ScriptBundleConfiguration item in configProvider.GetConfigs())
+            foreach (ScriptBundleConfiguration item in configs)
             {
                 var bundle = item.GetBundle();
                 if (cache.Get(bundle.Name) == null)

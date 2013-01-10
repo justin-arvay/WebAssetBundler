@@ -24,17 +24,17 @@ using System.Web;
     {
         private IConfigProvider<StyleSheetBundleConfiguration> configProvider;
         private IBundlesCache<StyleSheetBundle> cache;
-        private IAssetProvider assetLocator;
+        private IAssetProvider assetProvider;
         private IBundlePipeline<StyleSheetBundle> pipeline;
         private HttpServerUtilityBase server;
         private BundleContext context;
 
         public StyleSheetBundleProvider(IConfigProvider<StyleSheetBundleConfiguration> configProvider, IBundlesCache<StyleSheetBundle> cache, 
-            IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetLocator, HttpServerUtilityBase server, BundleContext context)
+            IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetProvider, HttpServerUtilityBase server, BundleContext context)
         {
             this.configProvider = configProvider;
             this.cache = cache;
-            this.assetLocator = assetLocator;
+            this.assetProvider = assetProvider;
             this.pipeline = pipeline;
             this.server = server;
             this.context = context;
@@ -59,7 +59,7 @@ using System.Web;
 
             if (bundle == null || context.DebugMode)
             {
-                var asset = new FileAsset(new AssetFile(source, server));
+                var asset = assetProvider.GetAsset(source);
                 bundle = new StyleSheetBundle();
                 bundle.Assets.Add(asset);
                 bundle.Name = name;
@@ -80,7 +80,7 @@ using System.Web;
                 var bundle = item.GetBundle();
                 if (cache.Get(bundle.Name) == null)
                 {
-                    item.AssetProvider = assetLocator;
+                    item.AssetProvider = assetProvider;
                     item.Configure();
                     pipeline.Process(bundle);
                     cache.Add(bundle);

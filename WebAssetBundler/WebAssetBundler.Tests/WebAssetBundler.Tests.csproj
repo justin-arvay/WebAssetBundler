@@ -67,6 +67,7 @@
     <Compile Include="Configuration\FromDirectoryBuilderTests.cs" />
     <Compile Include="Configuration\FromDirectoryComponentTests.cs" />
     <Compile Include="Configuration\IConfigurationFactory.cs" />
+    <Compile Include="Script\ScriptBundleCachePrimerTests.cs" />
     <Compile Include="Script\ScriptBundleConfigurationImpl.cs" />
     <Compile Include="Script\ScriptBundleProviderTests.cs" />
     <Compile Include="Script\ScriptBundleTests.cs" />

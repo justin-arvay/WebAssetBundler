@@ -16,9 +16,13 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
-    public interface IBundleCachePrimer<TBundle>
+    using System.Collections.Generic;
+
+    public interface IBundleCachePrimer<TBundle, TConfig> 
+        where TBundle : Bundle
+        where TConfig : IConfigurable
     {
         bool IsPrimed { get; }
-        void Prime();
+        void Prime(IList<TConfig> configs);
     }
 }
