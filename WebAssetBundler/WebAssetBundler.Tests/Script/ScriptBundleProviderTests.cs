@@ -30,6 +30,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<ScriptBundle>> pipeline;
         private Mock<HttpServerUtilityBase> server;
+        private Mock<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>> primer;
         private BundleContext context;
 
         [SetUp]
@@ -41,7 +42,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
             cache = new Mock<IBundlesCache<ScriptBundle>>();
             assetProvider = new Mock<IAssetProvider>();
             server = new Mock<HttpServerUtilityBase>();
-            provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object, pipeline.Object, server.Object, context);
+            primer = new Mock<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>>();
+
+            provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object, 
+                pipeline.Object, server.Object, context, primer.Object);
         }
 
         [Test]

@@ -72,6 +72,7 @@
     <Compile Include="Script\ScriptBundleProviderTests.cs" />
     <Compile Include="Script\ScriptBundleTests.cs" />
     <Compile Include="Script\ScriptBundlerTests.cs" />
+    <Compile Include="StyleSheet\StyleSheetBundleCachePrimerTests.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleConfigurationImpl.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleProviderTests.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleTests.cs" />

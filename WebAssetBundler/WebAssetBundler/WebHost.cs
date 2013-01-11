@@ -66,6 +66,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => new StyleSheetPipeline(container));
             container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
+            container.Register<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>, StyleSheetBundleCachePrimer>();
         }
 
         public void ConfigureContainerForScript()
@@ -77,6 +78,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IUrlGenerator<ScriptBundle>>(new ScriptUrlGenerator());
             container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();
             container.Register<IBundleProvider<ScriptBundle>, ScriptBundleProvider>();
+            container.Register<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>, ScriptBundleCachePrimer>();
         }
 
         public void ConfigureHttpHandler()

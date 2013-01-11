@@ -28,9 +28,11 @@ namespace WebAssetBundler.Web.Mvc
         private IBundlePipeline<ScriptBundle> pipeline;
         private HttpServerUtilityBase server;
         private BundleContext context;
+        private IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration> primer;
 
         public ScriptBundleProvider(IConfigProvider<ScriptBundleConfiguration> configProvider, IBundlesCache<ScriptBundle> cache,
-            IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline, HttpServerUtilityBase server, BundleContext context)
+            IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline, HttpServerUtilityBase server, BundleContext context,
+            IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration> primer)
         {
             this.configProvider = configProvider;
             this.cache = cache;
@@ -38,19 +40,17 @@ namespace WebAssetBundler.Web.Mvc
             this.pipeline = pipeline;
             this.server = server;
             this.context = context;
+            this.primer = primer;
         }
 
         public ScriptBundle GetNamedBundle(string name)
         {
-            var bundle = cache.Get(name);
-
-            if (bundle == null || context.DebugMode)
+            if (primer.IsPrimed == false || context.DebugMode)
             {
-                bundle = PrimeCache(name);
-
+                primer.Prime(configProvider.GetConfigs());
             }
-
-            return bundle;
+            
+            return cache.Get(name);
         }
 
         public ScriptBundle GetSourceBundle(string source)
@@ -70,30 +70,6 @@ namespace WebAssetBundler.Web.Mvc
             }
 
             return bundle;
-        }
-
-        private ScriptBundle PrimeCache(string name)
-        {
-            ScriptBundle requestedBundle = null;
-
-            foreach (ScriptBundleConfiguration item in configProvider.GetConfigs())
-            {
-                var bundle = item.GetBundle();
-                if (cache.Get(bundle.Name) == null)
-                {
-                    item.AssetProvider = assetProvider;
-                    item.Configure();
-                    pipeline.Process(bundle);
-                    cache.Add(bundle);
-                }
-
-                if (bundle.Name.IsCaseSensitiveEqual(name));
-                {
-                    requestedBundle = bundle;
-                }
-            }
-
-            return requestedBundle;
         }
     }
 }

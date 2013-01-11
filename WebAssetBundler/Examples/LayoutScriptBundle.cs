@@ -24,8 +24,7 @@ namespace Examples
         public override void Configure()
         {
             Name("Scripts");
-            AddFromDirectory("Scripts", d => d
-                .StartsWith("jquery"));
+            Add("~/Scripts/jquery-1.5.1.js");
         }
     }
 }

@@ -22,26 +22,26 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System.Collections.Generic;
 
     [TestFixture]
-    public class ScriptBundleCachePrimerTests
+    public class StyleSheetBundleCachePrimerTests
     {
-        private ScriptBundleCachePrimer primer;
+        private StyleSheetBundleCachePrimer primer;
         private Mock<IAssetProvider> assetProvider;
-        private Mock<IBundlePipeline<ScriptBundle>> pipeline;
-        private Mock<IBundlesCache<ScriptBundle>> cache;
+        private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
+        private Mock<IBundlesCache<StyleSheetBundle>> cache;
 
         [SetUp]
         public void Setup()
         {
             assetProvider = new Mock<IAssetProvider>();
-            pipeline = new Mock<IBundlePipeline<ScriptBundle>>();
-            cache = new Mock<IBundlesCache<ScriptBundle>>();
-            primer = new ScriptBundleCachePrimer(assetProvider.Object, pipeline.Object, cache.Object);
+            pipeline = new Mock<IBundlePipeline<StyleSheetBundle>>();
+            cache = new Mock<IBundlesCache<StyleSheetBundle>>();
+            primer = new StyleSheetBundleCachePrimer(assetProvider.Object, pipeline.Object, cache.Object);
         }
 
         [Test]
         public void Should_Be_Primed()
         {
-            primer.Prime(new List<ScriptBundleConfiguration>());
+            primer.Prime(new List<StyleSheetBundleConfiguration>());
 
             Assert.IsTrue(primer.IsPrimed);
         }
@@ -49,17 +49,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Prime_Cache()
         {
-            var configOne = new ScriptBundleConfigurationImpl();
-            var configTwo = new ScriptBundleConfigurationImpl();
+            var configOne = new StyleSheetBundleConfigurationImpl();
+            var configTwo = new StyleSheetBundleConfigurationImpl();
 
-            var configs = new List<ScriptBundleConfiguration>();
+            var configs = new List<StyleSheetBundleConfiguration>();
             configs.Add(configOne);
             configs.Add(configTwo);
 
             primer.Prime(configs);
 
-            cache.Verify(c => c.Add(It.IsAny<ScriptBundle>()), Times.Exactly(2));
-            pipeline.Verify(p => p.Process(It.IsAny<ScriptBundle>()), Times.Exactly(2));
+            cache.Verify(c => c.Add(It.IsAny<StyleSheetBundle>()), Times.Exactly(2));
+            pipeline.Verify(p => p.Process(It.IsAny<StyleSheetBundle>()), Times.Exactly(2));
             Assert.AreEqual(1, configOne.CallCount);
             Assert.AreEqual(1, configTwo.CallCount);
             Assert.IsInstanceOf<IAssetProvider>(configOne.AssetProvider);
@@ -70,17 +70,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Prime_Cache()
         {
-            var config = new ScriptBundleConfigurationImpl();
+            var config = new StyleSheetBundleConfigurationImpl();
             config.Name("test");
 
-            var configs = new List<ScriptBundleConfiguration>();
+            var configs = new List<StyleSheetBundleConfiguration>();
             configs.Add(config);
 
             cache.Setup(c => c.Get("test")).Returns(config.GetBundle());
 
             primer.Prime(configs);
 
-            cache.Verify(c => c.Add(It.IsAny<ScriptBundle>()), Times.Never());
+            cache.Verify(c => c.Add(It.IsAny<StyleSheetBundle>()), Times.Never());
         }
     }
 }
