@@ -25,7 +25,9 @@ namespace Examples
         {
             Name("StyleSheets");
             Compress(true);
-            AddFromDirectory("~/Content");
+            Add("~/Content/reset.css");
+            Add("~/Content/pepper-grinder/jquery-ui-1.9.2.custom.css");
+            Add("~/Content/layout.css");
         }
     }
 }
