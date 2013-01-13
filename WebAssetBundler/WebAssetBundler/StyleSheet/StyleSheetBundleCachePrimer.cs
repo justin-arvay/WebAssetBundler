@@ -49,13 +49,11 @@ namespace WebAssetBundler.Web.Mvc
             foreach (StyleSheetBundleConfiguration item in configs)
             {
                 var bundle = item.GetBundle();
-                if (cache.Get(bundle.Name) == null)
-                {
-                    item.AssetProvider = assetProvider;
-                    item.Configure();
-                    pipeline.Process(bundle);
-                    cache.Add(bundle);
-                }
+
+                item.AssetProvider = assetProvider;
+                item.Configure();
+                pipeline.Process(bundle);
+                cache.Add(bundle);
             }
 
             isPrimed = true;

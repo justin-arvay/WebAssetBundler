@@ -36,7 +36,14 @@ namespace WebAssetBundler.Web.Mvc
 
         public TBundle Get(string name)
         {
-            return (TBundle)provider.Get(GetSingleBundleKey(name));
+            var obj = provider.Get(GetSingleBundleKey(name));
+
+            if (obj != null)
+            {
+                return (TBundle)obj;
+            }
+
+            return null;
         }
 
         public void Add(TBundle bundle)

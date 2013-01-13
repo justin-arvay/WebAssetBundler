@@ -34,21 +34,20 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Get_Bundles()
+        public void Should_Get_Bundle()
         {
-            var bundles = new List<BundleImpl>();
-            bundles.Add(new BundleImpl());
+            var bundle = new BundleImpl();
 
-            provider.Setup(p => p.Get("test-BundleImpl-Bundles")).Returns((object)bundles);
+            provider.Setup(p => p.Get("test-BundleImpl-Bundle")).Returns((object)bundle);
 
-            Assert.AreEqual(bundles[0], cache.Get("test"));
+            Assert.AreEqual(bundle, cache.Get("test"));
 
         }
 
         [Test]
         public void Should_Get_Null()
         {
-            provider.Setup(p => p.Get("test-BundleImpl-Bundles")).Returns(null);
+            provider.Setup(p => p.Get("test-BundleImpl-Bundle")).Returns(null);
 
             Assert.IsNull(cache.Get("test"));
         }

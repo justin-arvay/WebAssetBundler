@@ -26,19 +26,17 @@ namespace WebAssetBundler.Web.Mvc
         private IBundlesCache<ScriptBundle> cache;
         private IAssetProvider assetProvider;
         private IBundlePipeline<ScriptBundle> pipeline;
-        private HttpServerUtilityBase server;
         private BundleContext context;
         private IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration> primer;
 
         public ScriptBundleProvider(IConfigProvider<ScriptBundleConfiguration> configProvider, IBundlesCache<ScriptBundle> cache,
-            IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline, HttpServerUtilityBase server, BundleContext context,
+            IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline, BundleContext context,
             IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration> primer)
         {
             this.configProvider = configProvider;
             this.cache = cache;
             this.assetProvider = assetProvider;
             this.pipeline = pipeline;
-            this.server = server;
             this.context = context;
             this.primer = primer;
         }

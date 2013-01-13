@@ -35,9 +35,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             writer = new Mock<IResponseWriter>();
             cache = new Mock<IBundlesCache<BundleImpl>>();
             encoder = new Mock<IEncoder>();
-            handler = new AssetHttpHandler<BundleImpl>(cache.Object);
-
-            cache.Setup(c => c.Get("name")).Returns(bundle);
+            handler = new AssetHttpHandler<BundleImpl>(cache.Object);            
         }
 
         [Test]
@@ -45,6 +43,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundle.Name = "name";
             writer.Setup(w => w.IsNotModified(bundle)).Returns(true);
+            cache.Setup(c => c.Get("name")).Returns(bundle);
 
             handler.ProcessRequest("/asset/1.1/name", writer.Object, encoder.Object);
 
@@ -58,6 +57,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundle.Name = "name";
             writer.Setup(w => w.IsNotModified(bundle)).Returns(false);
+            cache.Setup(c => c.Get("name")).Returns(bundle);
 
             handler.ProcessRequest("/asset/1.1/name", writer.Object, encoder.Object);
 

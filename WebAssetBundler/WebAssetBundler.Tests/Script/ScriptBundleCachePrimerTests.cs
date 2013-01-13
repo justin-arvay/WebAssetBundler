@@ -70,15 +70,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Prime_Cache()
         {
-            var config = new ScriptBundleConfigurationImpl();
-            config.Name("test");
 
-            var configs = new List<ScriptBundleConfiguration>();
-            configs.Add(config);
-
-            cache.Setup(c => c.Get("test")).Returns(config.GetBundle());
-
-            primer.Prime(configs);
+            primer.Prime(new List<ScriptBundleConfiguration>());
 
             cache.Verify(c => c.Add(It.IsAny<ScriptBundle>()), Times.Never());
         }

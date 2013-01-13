@@ -26,30 +26,29 @@ using System.Web;
         private IBundlesCache<StyleSheetBundle> cache;
         private IAssetProvider assetProvider;
         private IBundlePipeline<StyleSheetBundle> pipeline;
-        private HttpServerUtilityBase server;
         private BundleContext context;
+        private IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration> primer;
 
         public StyleSheetBundleProvider(IConfigProvider<StyleSheetBundleConfiguration> configProvider, IBundlesCache<StyleSheetBundle> cache, 
-            IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetProvider, HttpServerUtilityBase server, BundleContext context)
+            IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetProvider, BundleContext context,
+            IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration> primer)
         {
             this.configProvider = configProvider;
             this.cache = cache;
             this.assetProvider = assetProvider;
             this.pipeline = pipeline;
-            this.server = server;
             this.context = context;
+            this.primer = primer;
         }       
 
         public StyleSheetBundle GetNamedBundle(string name)
         {
-            var bundle = cache.Get(name);
-
-            if (bundle == null || context.DebugMode)
+            if (primer.IsPrimed == false || context.DebugMode)
             {
-                bundle = PrimeCache(name);
+                primer.Prime(configProvider.GetConfigs());
             }
 
-            return bundle;
+            return cache.Get(name);
         }
 
         public StyleSheetBundle GetSourceBundle(string source)
@@ -69,30 +68,6 @@ using System.Web;
             }
 
             return bundle;
-        }
-
-        private StyleSheetBundle PrimeCache(string name)
-        {
-            StyleSheetBundle requestedBundle = null;
-
-            foreach (StyleSheetBundleConfiguration item in configProvider.GetConfigs())
-            {
-                var bundle = item.GetBundle();
-                if (cache.Get(bundle.Name) == null)
-                {
-                    item.AssetProvider = assetProvider;
-                    item.Configure();
-                    pipeline.Process(bundle);
-                    cache.Add(bundle);
-                }
-
-                if (bundle.Name.IsCaseSensitiveEqual(name));
-                {
-                    requestedBundle = bundle;
-                }
-            }
-
-            return requestedBundle;
         }
     }
 }

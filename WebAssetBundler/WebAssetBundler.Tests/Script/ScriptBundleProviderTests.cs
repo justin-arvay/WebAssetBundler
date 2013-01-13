@@ -41,77 +41,68 @@ namespace WebAssetBundler.Web.Mvc.Tests
             configProvider = new Mock<IConfigProvider<ScriptBundleConfiguration>>();
             cache = new Mock<IBundlesCache<ScriptBundle>>();
             assetProvider = new Mock<IAssetProvider>();
-            server = new Mock<HttpServerUtilityBase>();
             primer = new Mock<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>>();
 
             provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object, 
-                pipeline.Object, server.Object, context, primer.Object);
+                pipeline.Object, context, primer.Object);
         }
 
         [Test]
-        public void Should_Get_Bundle()
+        public void Should_Get_Named_Bundle()
         {
-            var config = new ScriptBundleConfigurationImpl();
-            config.Name("test");
+            var bundle = new ScriptBundle();
+            cache.Setup(c => c.Get("test")).Returns(bundle);
 
+            var bundleOut = provider.GetNamedBundle("test");
+
+            cache.Verify(c => c.Get("test"), Times.Once());
+            Assert.AreSame(bundleOut, bundle);
+        }
+
+        [Test]
+        public void Should_Prime_Cache_When_Getting_Named_Bundle()
+        {
             var configs = new List<ScriptBundleConfiguration>();
-            configs.Add(config);
-
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
 
-            var bundle = provider.GetNamedBundle("test");
-            Assert.AreSame(config.GetBundle(), bundle);
-            Assert.AreEqual(1, config.CallCount);
-            Assert.IsInstanceOf<IAssetProvider>(config.AssetProvider);
-            cache.Verify(c => c.Get("test"), Times.Once());
-            cache.Verify(c => c.Add(It.IsAny<ScriptBundle>()), Times.Once());
+            provider.GetNamedBundle("test");
+
+            primer.Verify(p => p.Prime(configs), Times.Once());
         }
 
+
         [Test]
-        public void Should_Get_Bundle_From_Cache()
+        public void Should_Not_Prime_Cache_When_Getting_Named_Bundle()
         {
-            var bundle = new ScriptBundle();
-            bundle.Name = "test";
+            var configs = new List<ScriptBundleConfiguration>();
 
-            cache.Setup(c => c.Get(bundle.Name)).Returns(bundle);
+            configProvider.Setup(c => c.GetConfigs()).Returns(configs);
+            primer.Setup(p => p.IsPrimed).Returns(true);
 
-            Assert.AreSame(bundle, provider.GetNamedBundle("test"));
-            cache.Verify(c => c.Get(bundle.Name), Times.Once());
-            cache.Verify(c => c.Add(It.IsAny<ScriptBundle>()), Times.Never());
+            provider.GetNamedBundle("test");
 
+            primer.Verify(p => p.Prime(configs), Times.Never());
         }
 
         [Test]
-        public void Should_Always_Read_From_Config_When_Debug_Mode()
+        public void Should_Always_Prime_Cache_When_Getting_Named_Bundle()
         {
             context.DebugMode = true;
 
-            var config = new ScriptBundleConfigurationImpl();
-            config.Name("test");
-
             var configs = new List<ScriptBundleConfiguration>();
-            configs.Add(config);
-
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
+            primer.Setup(p => p.IsPrimed).Returns(true);
 
-            var bundle = new ScriptBundle();
-            bundle.Name = "test";
+            provider.GetNamedBundle("test");
+            provider.GetNamedBundle("test");
+            provider.GetNamedBundle("test");
 
-
-            cache.Setup(c => c.Get("test")).Returns(bundle);
-
-            Assert.IsInstanceOf<ScriptBundle>(provider.GetNamedBundle("test"));
-            cache.Verify(c => c.Get("test"), Times.Once());
-            cache.Verify(c => c.Add(It.IsAny<ScriptBundle>()), Times.Once());
+            primer.Verify(p => p.Prime(configs), Times.Exactly(3));
         }
 
-        [Test]
-        public void Should_Prime_Cache()
-        {
-        }
-
+        
         [Test]
         public void Should_Get_Bundle_By_Source()
         {
