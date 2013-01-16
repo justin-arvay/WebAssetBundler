@@ -1,5 +1,5 @@
 html { height: 100%;}
-body{background-color:white;font-size:10px; font-family:Arial, Sans-Serif;margin:0;padding:0;color:#666; height: 100%; }
+body{background-color:white;font-size:10px; font-family:Arial, Sans-Serif;margin:0;padding:0;color:#333; height: 100%; }
      
 a:link{color:#034af3;text-decoration:underline}
 a:visited{color:#505abc}
@@ -24,7 +24,8 @@ h1,h2,h3,h4,h5,h6{font-size:1.5em;color:#000}
     background: linear-gradient(to bottom,  #ff7b0d 0%,#ffa84c 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7b0d', endColorstr='#ffa84c',GradientType=0 ); /* IE6-9 */
     border-bottom: 1px solid #c47535; border-top: 1px solid #fcca9c; }
-}
+#header div.bottom div.wrapper {width: 1000px; margin: 0px auto; height: 100%;}
+#header div.bottom img.logo { margin-top: 10px; }
 
 #footer { width: 100%; position:relative;}
-#footer div.wrapper { width: 1000px; margin: 0px auto; border:1px solid black; height: 140px;}
+#footer div.wrapper { width: 1000px; margin: 0px auto; height: 140px;}
