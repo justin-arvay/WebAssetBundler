@@ -26,6 +26,7 @@ namespace Examples
             Name("Scripts");
             Add("~/Scripts/jquery-1.8.3.js");
             Add("~/Scripts/jquery-ui-1.9.2.custom.min.js");
+            Add("~/Scripts/rainbow-custom.min.js");
         }
     }
 }

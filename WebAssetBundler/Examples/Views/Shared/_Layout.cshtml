@@ -22,7 +22,9 @@
         </div>
 
         <div id="main">
-            @RenderBody()
+            <div class="wrapper">
+                @RenderBody()
+            </div>            
         </div>
 
         <div class="push"></div>
@@ -40,5 +42,11 @@
 
 
     @Bundler.Scripts.Render("Scripts")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Rainbow.color();
+        });
+    </script>
 </body>
 </html>

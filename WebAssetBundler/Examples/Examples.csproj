@@ -106,6 +106,7 @@
     <Content Include="Scripts\jquery-1.8.3.js" />
     <Content Include="Scripts\jquery-ui-1.9.2.custom.js" />
     <Content Include="Scripts\jquery-ui-1.9.2.custom.min.js" />
+    <Content Include="Scripts\rainbow-custom.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
