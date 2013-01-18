@@ -28,10 +28,13 @@ h1,h2,h3,h4,h5,h6{font-size:1.5em;color:#000}
 #header div.bottom img.logo { margin-top: 10px; }
 
 #footer { width: 100%; position:relative;}
-#footer div.wrapper { width: 1000px; margin: 0px auto; height: 140px;}
+#footer div.wrapper { width: 1000px; margin: 0px auto; height: 140px; border-top: 1px dashed #ccc; background-color: #f4f4f4;}
+#footer div.wrapper div.content {margin:20px; }
+#footer div.wrapper div.osi { float:right; width: 100px;}
 
 #main {font-size: 12px; margin-top:20px;}
-#main div.wrapper { width: 1000px; margin: 0px auto; }
+#main div.wrapper { width: 1000px; margin: 0px auto;}
+#main div.wrapper div.content {margin:20px; }
 #main div.wrapper blockquote {margin: 1em 3em; color: #999; border-left: 2px solid #999; padding-left: 1em; font-style: italic;}
 #main div.wrapper pre { display: block; width: auto; overflow: auto; max-height: 600px; white-space: pre; word-wrap: normal; padding: 10px; }
 
@@ -39,6 +42,7 @@ h1,h2,h3,h4,h5,h6{font-size:1.5em;color:#000}
 #main div.wrapper pre span.keyword {color: #00c;}
 #main div.wrapper pre span.code-type {color: #468ea7;}
 #main div.wrapper pre span.string { color: #a00;}
+#main div.wrapper pre span.support.class {color: #468ea7;}
 
 /* html */
 #main div.wrapper pre span.support.tag { color: #00a; }
