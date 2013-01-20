@@ -58,9 +58,11 @@
     <Compile Include="Configuration\BundleConfigurationImpl.cs" />
     <Compile Include="Configuration\BundleConfigurationTests.cs" />
     <Compile Include="Configuration\BundleImpl.cs" />
+    <Compile Include="Configuration\BundleProviderBaseImpl.cs" />
+    <Compile Include="Configuration\BundleProviderBaseTests.cs" />
     <Compile Include="Configuration\BundleTests.cs" />
-    <Compile Include="Configuration\DefaultScriptConfigProviderTests.cs" />
-    <Compile Include="Configuration\DefaultStyleSheetConfigProviderTests.cs" />
+    <Compile Include="Script\DefaultScriptConfigProviderTests.cs" />
+    <Compile Include="StyleSheet\DefaultStyleSheetConfigProviderTests.cs" />
     <Compile Include="Configuration\DoNothingConfigurationFactory.cs" />
     <Compile Include="Configuration\AssetProviderTests.cs" />
     <Compile Include="Configuration\FileAssetTest.cs" />

@@ -32,9 +32,17 @@ namespace WebAssetBundler.Web.Mvc
         public void Write(TextWriter writer, ScriptBundle bundle, BundleContext context)
         {
             var script = "<script type=\"text/javascript\" src=\"{0}\"></script>";
-            var url = urlGenerator.Generate(bundle.Name, bundle.Hash.ToHexString(), bundle.Host, context);
 
-            writer.WriteLine(script.FormatWith(url));
+            if (bundle.IsExternal)
+            {
+                writer.WriteLine(script.FormatWith(bundle.Assets[0].Source));
+            }
+            else
+            {                
+                var url = urlGenerator.Generate(bundle.Name, bundle.Hash.ToHexString(), bundle.Host, context);
+
+                writer.WriteLine(script.FormatWith(url));
+            }
         }
     }
 }

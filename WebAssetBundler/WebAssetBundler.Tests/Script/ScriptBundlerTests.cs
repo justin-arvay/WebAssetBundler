@@ -72,5 +72,19 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.IsInstanceOf<IHtmlString>(htmlString);
             tagWriter.Verify(w => w.Write(It.IsAny<TextWriter>(), bundle, context), Times.Once());
         }
+
+        [Test]
+        public void Should_Incude_External_Bundle()
+        {
+            var bundle = new ScriptBundle();
+
+            bundleProvider.Setup(p => p.GetExternalBundle("http://www.google.com/file.js")).Returns(bundle);
+
+            var htmlString = bundler.Include("http://www.google.com/file.js");
+
+            Assert.IsInstanceOf<IHtmlString>(htmlString);
+            tagWriter.Verify(w => w.Write(It.IsAny<TextWriter>(), bundle, context), Times.Once());
+            bundleProvider.Verify(p => p.GetExternalBundle("http://www.google.com/file.js"), Times.Once());
+        }
     }
 }
