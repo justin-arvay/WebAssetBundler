@@ -62,5 +62,18 @@ namespace WebAssetBundler.Web.Mvc
 
             textWriter.Verify(m => m.WriteLine("<link type=\"text/css\" href=\"http://dev.test.com/\" rel=\"stylesheet\"/>"), Times.Exactly(1));   
         }
+
+        [Test]
+        public void Should_Write_External_Tag()
+        {
+            bundle.Assets.Add(new ExternalAsset()
+            {
+                Source = "http://www.google.com/file.css"
+            });
+
+            tagWriter.Write(textWriter.Object, bundle, context);
+
+            textWriter.Verify(m => m.WriteLine("<link type=\"text/css\" href=\"http://www.google.com/file.css\" rel=\"stylesheet\"/>"), Times.Exactly(1));
+        }
     }
 }

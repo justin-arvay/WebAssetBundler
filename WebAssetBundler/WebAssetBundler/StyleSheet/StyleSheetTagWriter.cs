@@ -32,8 +32,16 @@ namespace WebAssetBundler.Web.Mvc
         public void Write(TextWriter writer, StyleSheetBundle bundle, BundleContext context)
         {
             var link = "<link type=\"text/css\" href=\"{0}\" rel=\"stylesheet\"/>";
-            var url = urlGenerator.Generate(bundle.Name, bundle.Hash.ToHexString(), bundle.Host, context);
-            writer.WriteLine(link.FormatWith(url));                            
+
+            if (bundle.IsExternal)
+            {
+                writer.WriteLine(link.FormatWith(bundle.Assets[0].Source));
+            }
+            else
+            {
+                var url = urlGenerator.Generate(bundle.Name, bundle.Hash.ToHexString(), bundle.Host, context);
+                writer.WriteLine(link.FormatWith(url));
+            }     
         }
     }
 }

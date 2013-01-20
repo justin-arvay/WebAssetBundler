@@ -63,7 +63,16 @@ namespace WebAssetBundler.Web.Mvc
 
         public IHtmlString Include(string source)
         {
-            var bundle = bundleProvider.GetSourceBundle(source);
+            StyleSheetBundle bundle = null;
+
+            if (source.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+            {
+                bundle = bundleProvider.GetExternalBundle(source);
+            }
+            else
+            {
+                bundle = bundleProvider.GetSourceBundle(source);
+            }
 
             using (StringWriter textWriter = new StringWriter())
             {
