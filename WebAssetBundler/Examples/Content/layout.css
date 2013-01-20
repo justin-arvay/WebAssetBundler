@@ -25,6 +25,9 @@ h1,h2,h3,h4,h5,h6{font-size:1.5em;color:#FF8B24; margin:10px 0px;}
     border-bottom: 1px solid #c47535; border-top: 1px solid #fcca9c; }
 #header div.top div.wrapper {width: 1000px; margin: 0px auto; height: 100%;}
 #header div.top img.logo { margin-top: 10px; }
+#header div.top div.right {float: right; width:50px;}
+#header div.top div.right div.button {float:left; padding:2px 0px;}
+
 #header div.bottom { background-color: #5e5e5e; height: 26px; min-width: 1000px;}
 #header div.bottom div.wrapper {width: 1000px; margin: 0px auto; height: 100%; line-height: 26px;}
 #header div.bottom div.wrapper a { text-decoration: none; color: White; font-size: 12px; font-weight:bold; margin-right: 20px;}

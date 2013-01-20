@@ -23,6 +23,18 @@ namespace Examples
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                "Home",
+                "",
+                new { controller = "Home", action = "Index" }
+            );
+
+            routes.MapRoute(
+                "Documentation",
+                "docs/{*path}",
+                new { controller = "Documentation", action = "Index" }
+            );
+
+            routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}", // URL with parameters
                 new { controller = "Example", action = "Index" } // Parameter defaults

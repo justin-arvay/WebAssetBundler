@@ -9,15 +9,10 @@ using System.Web.Configuration;
 
 namespace Examples.Controllers
 {
-    public class ExampleController : Controller
+    public class HomeController : Controller
     {
         public ActionResult Index()
         {            
-            return View();
-        }
-
-        public ActionResult DefaultGroup()
-        {
             return View();
         }
     }
