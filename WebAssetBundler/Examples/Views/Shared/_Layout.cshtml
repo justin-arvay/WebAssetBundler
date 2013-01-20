@@ -1,33 +1,62 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
     <title>@ViewBag.Title</title>
 
-        @Bundler.StyleSheets.Render("StyleSheets")
-        @Bundler.StyleSheets.Include("~/Content/Test.css.css");
-
-        @Bundler.Scripts.Render("Scripts")
-        @Bundler.Scripts.Include("~/Scripts/modernizr-1.7.js")
+    @Bundler.StyleSheets.Render("StyleSheets")
 
 </head>
 <body>
-    <div class="page">
+    <div id="wrap-all">
         <div id="header">
-            <div id="title">
-                <h1>My MVC Application</h1>
+            <div class="top">
+                <div class="wrapper">
+                    <img alt="Logo" class="logo" src="/Images/Logo.png" width="170" height="80"/>
+                </div>
             </div>
+            <div class="bottom">
+                <div class="wrapper">
+                    <a href="#">Introduction</a>
+                    <a href="#">Configuration</a>
+                </div>
+            </div>
+        </div>
 
-            <div id="menucontainer">
-                <ul id="menu">
-                    <li>@Html.ActionLink("DefaultGroup", "DefaultGroup", "Example")</li>                    
-                </ul>
-            </div>
-        </div>
         <div id="main">
-            @RenderBody()
+            <div class="wrapper">
+                <div class="content">
+                    @RenderBody()
+                </div>
+            </div>            
         </div>
-        <div id="footer">
-        </div>
+
+        <div class="push"></div>
     </div>
+
+    <div id="footer">
+        <div class="wrapper">
+            <div class="content">
+                <span>© 2013 Justin Arvay</span>
+                <a href="https://github.com/justin-arvay/WebAssetBundler">Git Hub</a>
+        
+                <div class="osi">
+                    <img alt="This software fully supports the Open Source Initiative" src="/Images/osi-logo.png" />        
+                    <div><strong>Open</strong> Source Initiative</div>
+                </div>
+            </div>
+        </div>        
+    </div>
+
+
+    @Bundler.Scripts.Render("Scripts")
+    @Bundler.Scripts.Include("https://apis.google.com/js/plusone.js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Rainbow.color();
+        });
+    </script>
 </body>
 </html>

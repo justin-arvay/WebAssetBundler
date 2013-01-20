@@ -24,7 +24,9 @@ namespace Examples
         public override void Configure()
         {
             Name("Scripts");
-            Add("~/Scripts/jquery-1.5.1.js");
+            Add("~/Scripts/jquery-1.8.3.js");
+            Add("~/Scripts/jquery-ui-1.9.2.custom.min.js");
+            Add("~/Scripts/rainbow-custom.min.js");
         }
     }
 }

@@ -14,20 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace Examples
+namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System;
-    using WebAssetBundler.Web.Mvc;
 
-    public class LayoutStyleSheetBundle : StyleSheetBundleConfiguration
+    public class BundleProviderBaseImpl : BundleProviderBase<BundleImpl>
     {
-        public override void Configure()
+
+        public override BundleImpl GetNamedBundle(string name)
         {
-            Name("StyleSheets");
-            Compress(true);
-            Add("~/Content/reset.css");
-            Add("~/Content/pepper-grinder/jquery-ui-1.9.2.custom.css");
-            Add("~/Content/layout.css");
+            throw new NotImplementedException();
+        }
+
+        public override BundleImpl GetSourceBundle(string soure)
+        {
+            throw new NotImplementedException();
         }
     }
 }

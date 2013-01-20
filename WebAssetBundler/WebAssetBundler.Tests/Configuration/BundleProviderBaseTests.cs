@@ -14,20 +14,30 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace Examples
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
-    using WebAssetBundler.Web.Mvc;
+    using NUnit.Framework;
+    using Moq;
 
-    public class LayoutStyleSheetBundle : StyleSheetBundleConfiguration
+    [TestFixture]
+    public class BundleProviderBaseTests
     {
-        public override void Configure()
+        private BundleProviderBase<BundleImpl> provider;
+
+        [SetUp]
+        public void Setup()
         {
-            Name("StyleSheets");
-            Compress(true);
-            Add("~/Content/reset.css");
-            Add("~/Content/pepper-grinder/jquery-ui-1.9.2.custom.css");
-            Add("~/Content/layout.css");
+            provider = new BundleProviderBaseImpl();
+        }
+
+        [Test]
+        public void Should_Get_External_Bundle()
+        {
+            var bundle = provider.GetExternalBundle("http://www.google.com/file.js");
+
+            Assert.True(bundle.IsExternal);
+            Assert.AreEqual(1, bundle.Assets.Count);
+            Assert.AreEqual("http://www.google.com/file.js", bundle.Assets[0].Source);
         }
     }
 }

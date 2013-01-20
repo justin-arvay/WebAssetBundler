@@ -20,7 +20,7 @@ namespace WebAssetBundler.Web.Mvc
 using System.Web;
     using System.IO;
 
-    public class StyleSheetBundleProvider : IBundleProvider<StyleSheetBundle>
+    public class StyleSheetBundleProvider : BundleProviderBase<StyleSheetBundle>
     {
         private IConfigProvider<StyleSheetBundleConfiguration> configProvider;
         private IBundlesCache<StyleSheetBundle> cache;
@@ -41,7 +41,7 @@ using System.Web;
             this.primer = primer;
         }       
 
-        public StyleSheetBundle GetNamedBundle(string name)
+        public override StyleSheetBundle GetNamedBundle(string name)
         {
             if (primer.IsPrimed == false || context.DebugMode)
             {
@@ -51,7 +51,7 @@ using System.Web;
             return cache.Get(name);
         }
 
-        public StyleSheetBundle GetSourceBundle(string source)
+        public override StyleSheetBundle GetSourceBundle(string source)
         {
             var name = source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source).Replace(".", "-");
             var bundle = cache.Get(name);

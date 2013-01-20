@@ -26,10 +26,17 @@ namespace WebAssetBundler.Web.Mvc
         TBundle GetNamedBundle(string name);
 
         /// <summary>
-        /// Gets a bundle by source
+        /// Gets a bundle by source.
         /// </summary>
         /// <param name="soure"></param>
         /// <returns></returns>
         TBundle GetSourceBundle(string soure);
+
+        /// <summary>
+        /// Gets a bundle for an external source.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        TBundle GetExternalBundle(string source);
     }
 }

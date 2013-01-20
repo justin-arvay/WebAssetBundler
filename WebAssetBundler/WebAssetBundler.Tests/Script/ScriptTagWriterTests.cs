@@ -61,5 +61,18 @@ namespace WebAssetBundler.Web.Mvc
 
             textWriter.Verify(m => m.WriteLine("<script type=\"text/javascript\" src=\"http://dev.test.com/\"></script>"), Times.Exactly(1));   
         }
+
+        [Test]
+        public void Should_Write_External_Tag()
+        {
+            bundle.Assets.Add(new ExternalAsset()
+            {
+                Source = "http://www.google.com/file.js"
+            });
+
+            tagWriter.Write(textWriter.Object, bundle, context);
+
+            textWriter.Verify(m => m.WriteLine("<script type=\"text/javascript\" src=\"http://www.google.com/file.js\"></script>"), Times.Exactly(1));   
+        }
     }
 }

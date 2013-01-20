@@ -65,5 +65,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
             bundle.Assets.Add(asset);
             Assert.Throws<ArgumentException>(() => bundle.Assets.Insert(1, asset));
         }
+
+        [Test]
+        public void Should_Be_External_Bundle()
+        {
+            var asset = new ExternalAsset();
+            bundle.Assets.Add(asset);
+
+            Assert.True(bundle.IsExternal);
+        }        
     }
 }

@@ -3,48 +3,47 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Defaults</h2>
-<p>Defaults are setup such like so:</p>
-<ul>
-    <li>Script Path: ~/Script/</li>
-    <li>Style Sheet Path: ~/Content/</li>
-    <li>Generated Path: ~/Generated/</li>
-    <li>Script Compressor: MsScriptCompressor</li>
-    <li>Style Sheet Compressor: MsStyleSheetCompressor</li>
-    <li>Default Group Name: Default</li>
-</ul>
+<h1>Introduction</h1>
+<p>Adipiscing ac velit lectus rhoncus in! Proin vel? Velit? Massa risus et, dolor nisi, nec nisi ultricies, dolor placerat magna, tortor massa mus in 
+dolor nisi ultrices quis lectus eros montes in! Adipiscing eros purus dictumst? Odio phasellus porttitor montes dapibus a rhoncus odio nec eros, 
+penatibus augue! Tristique? Cras auctor massa. Risus dictumst magna phasellus velit, velit adipiscing tincidunt vel magnis turpis aliquet. Eu, eros 
+platea integer mus pulvinar, nisi integer ac duis ridiculus risus sagittis est magna porttitor nunc placerat egestas parturient integer cras vut 
+adipiscing enim hac, cursus quis nec mid purus, placerat magna phasellus nisi urna, nec mauris elit rhoncus placerat, dolor, nunc nisi? Rhoncus 
+diam? Egestas aliquet! Augue nec magna nascetur nec nisi sociis cum.</p>
 
-<p>You can modify the defaults by using the static class. Eg:</p>
-<code>
-DefaultSettings.ScriptCompressor = new YuiScriptCompressor();
-</code>
-<p><strong>Note:</strong> You must configure the default settings before the output is rendered. It is best to do this in your "bootstrap" of the application.</p>
+<p>Hac porta sed nisi augue? Cras, dis magna cum? Enim aliquet, scelerisque montes? Eros? Lacus. Et placerat pulvinar adipiscing, augue nascetur 
+ac sed, elementum aenean rhoncus hac turpis cum, lundium. Non. Porta magna nunc nascetur, montes in! Proin elementum? Tristique eu, platea integer 
+lundium, eu parturient pid. Rhoncus odio augue. Nisi, sociis dolor. Penatibus. Elementum massa in magna aenean, porta montes montes et in dolor diam! 
+Elit massa enim magna elit, placerat et sociis, nisi, lorem lacus. Dolor turpis rhoncus ac sagittis arcu aliquam eu turpis ut? Enim dis, placerat montes 
+diam integer mauris enim! Platea penatibus aliquet. Ultricies! Amet vel. Sit nunc! Massa sit ac tincidunt, vel lundium magnis, mauris! Cursus! Et non 
+penatibus nisi scelerisque, aenean aenean.</p>
 
-<h3>Compressors</h3>
-<p>There are 2 style sheet and script compressors available by default. Those are: </p>
-<ul>
-    <li>YuiScriptCompressor and YuiStyleSheetCompressor</li>
-    <li>MsScriptCompressor and MsStyleSheetCompressor</li>
-</ul>
-<p>You can create your own compressors by implementing these interfaces for each asset type:</p>
-<ul>
-    <li>IScriptCompressor</li>
-    <li>IStyleSheetCompressor</li>
-</ul>
-<p>Then add the compressors to the default settings.</p>
-<h2>Web Asset Groups</h2>
+<blockquote>Auctor? Porta porttitor duis porta? Est in montes odio! In mattis. Turpis etiam elit sagittis turpis augue scelerisque vel, ut rhoncus, ultricies
+sociis tincidunt et sagittis porta nisi eu. Velit lectus! Massa egestas porttitor aenean, arcu adipiscing quis tortor odio dapibus, dapibus odio. Hac? 
+Pulvinar nisi augue pulvinar turpis odio nec sit integer phasellus massa ac. Dictumst scelerisque in. Sit, ridiculus. Cras ridiculus ac a tincidunt pulvinar 
+hac cum dolor! Odio, augue cursus auctor. Platea in parturient odio sociis non egestas vut, vut? Elementum etiam proin purus porttitor adipiscing, dis lacus, 
+magna velit magna! Tortor a cum quis lundium? Mus, cum lectus rhoncus, ac risus nascetur eu! Natoque urna sed cum, porta arcu tortor integer lectus amet aliquam 
+phasellus.</blockquote>
 
-<p><strong>Note:</strong>Groups require that the generated folder have read and write access for the application. See The section on defaults for changing the generated location.</p>
+<pre data-language="csharp">
+    ObjectName obj = new ObjectName();
+    string name = "bob";
+    var code = true;
+    if (code)
+    {
+        Console.Write(code);
+    }
+</pre>
 
-<p>Asset groups can be defined in any location, but must be rendered in a view or master page.</p>
-<p>Groups can be versioned. When you version a group it will transform the output path of the file. This means 
-a file will be generated for this "versioned" asset.</p>
+<pre data-language="html">
+    <div>
+        <span class="test" id="test">Blah</span>
+    </div>
+</pre>
 
-<p>Example:</p>
-<code>
-<!-- from -->
-<script type="text/javascript" src="/Script/core.js"></script>
-
-<!-- to -->
-<script type="text/javascript" src="/Generated/1.1/core.js"></script>
-</code>
+   <p>Hac porta sed nisi augue? Cras, dis magna cum? Enim aliquet, scelerisque montes? Eros? Lacus. Et placerat pulvinar adipiscing, augue nascetur 
+ac sed, elementum aenean rhoncus hac turpis cum, lundium. Non. Porta magna nunc nascetur, montes in! Proin elementum? Tristique eu, platea integer 
+lundium, eu parturient pid. Rhoncus odio augue. Nisi, sociis dolor. Penatibus. Elementum massa in magna aenean, porta montes montes et in dolor diam! 
+Elit massa enim magna elit, placerat et sociis, nisi, lorem lacus. Dolor turpis rhoncus ac sagittis arcu aliquam eu turpis ut? Enim dis, placerat montes 
+diam integer mauris enim! Platea penatibus aliquet. Ultricies! Amet vel. Sit nunc! Massa sit ac tincidunt, vel lundium magnis, mauris! Cursus! Et non 
+penatibus nisi scelerisque, aenean aenean.</p>

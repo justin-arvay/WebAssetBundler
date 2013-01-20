@@ -31,6 +31,14 @@
             get;
             set;
         }
+
+        public bool IsExternal
+        {
+            get
+            {
+                return Assets.Count == 1 && Assets[0] is ExternalAsset;
+            }
+        }
         
         public byte[] Hash
         {

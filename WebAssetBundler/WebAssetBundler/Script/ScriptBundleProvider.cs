@@ -20,7 +20,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.Web;
     using System.IO;
 
-    public class ScriptBundleProvider : IBundleProvider<ScriptBundle>
+    public class ScriptBundleProvider : BundleProviderBase<ScriptBundle>
     {
         private IConfigProvider<ScriptBundleConfiguration> configProvider;
         private IBundlesCache<ScriptBundle> cache;
@@ -41,7 +41,7 @@ namespace WebAssetBundler.Web.Mvc
             this.primer = primer;
         }
 
-        public ScriptBundle GetNamedBundle(string name)
+        public override ScriptBundle GetNamedBundle(string name)
         {
             if (primer.IsPrimed == false || context.DebugMode)
             {
@@ -51,7 +51,7 @@ namespace WebAssetBundler.Web.Mvc
             return cache.Get(name);
         }
 
-        public ScriptBundle GetSourceBundle(string source)
+        public override ScriptBundle GetSourceBundle(string source)
         {
             var name = source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source).Replace(".", "-");
             var bundle = cache.Get(name);

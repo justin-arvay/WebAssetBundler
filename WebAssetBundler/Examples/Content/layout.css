@@ -1,0 +1,56 @@
+html { height: 100%;}
+body{background-color:white;font-size:10px; font-family:Arial, Sans-Serif;margin:0;padding:0;color:#333; height: 100%; }
+     
+a:link{color:#034af3;text-decoration:underline}
+a:visited{color:#505abc}
+a:hover{color:#1d60ff;text-decoration:none}
+a:active{color:#12eb87}p,ul{margin-bottom:20px;line-height:1.6em}
+
+h1,h2,h3,h4,h5,h6{font-size:1.5em;color:#FF8B24; margin:10px 0px;}
+
+
+#wrap-all { position:relative; min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -140px; /* the bottom margin is the negative value of the footer's height */}
+#wrap-all div.push { height: 142px;}
+
+#header div.top  {
+    height: 100px; min-width: 1000px;
+    background: #ff7b0d; /* Old browsers */
+    background: -moz-linear-gradient(top,  #ff7b0d 0%, #ffa84c 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff7b0d), color-stop(100%,#ffa84c)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #ff7b0d 0%,#ffa84c 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #ff7b0d 0%,#ffa84c 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #ff7b0d 0%,#ffa84c 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #ff7b0d 0%,#ffa84c 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7b0d', endColorstr='#ffa84c',GradientType=0 ); /* IE6-9 */
+    border-bottom: 1px solid #c47535; border-top: 1px solid #fcca9c; }
+#header div.top div.wrapper {width: 1000px; margin: 0px auto; height: 100%;}
+#header div.top img.logo { margin-top: 10px; }
+#header div.bottom { background-color: #5e5e5e; height: 26px; min-width: 1000px;}
+#header div.bottom div.wrapper {width: 1000px; margin: 0px auto; height: 100%; line-height: 26px;}
+#header div.bottom div.wrapper a { text-decoration: none; color: White; font-size: 12px; font-weight:bold; margin-right: 20px;}
+
+#footer { width: 100%; position:relative;}
+#footer div.wrapper { width: 1000px; margin: 0px auto; height: 140px; border-top: 1px solid #ccc; background-color: #f4f4f4;}
+#footer div.wrapper div.content {margin:20px; }
+#footer div.wrapper div.osi { float:right; width: 70px; text-align:center;}
+#footer div.wrapper div.osi img { margin: 0px 10px;}
+
+#main {font-size: 12px; margin-top:20px;}
+#main div.wrapper { width: 1000px; margin: 0px auto;}
+#main div.wrapper div.content {margin:20px; }
+#main div.wrapper blockquote {margin: 1em 3em; color: #999; border-left: 2px solid #999; padding-left: 1em; font-style: italic;}
+#main div.wrapper pre { display: block; width: auto; overflow: auto; max-height: 600px; white-space: pre; word-wrap: normal; padding: 10px; }
+
+/* csharp */
+#main div.wrapper pre span.keyword {color: #00c;}
+#main div.wrapper pre span.code-type {color: #468ea7;}
+#main div.wrapper pre span.string { color: #a00;}
+#main div.wrapper pre span.support.class {color: #468ea7;}
+
+/* html */
+#main div.wrapper pre span.support.tag { color: #00a; }
+#main div.wrapper pre span.support.tag-name { color: #a00; }
+#main div.wrapper pre span.support.attribute { color: Red; }
+#main div.wrapper pre span.support.operator { color: #00f; }
+#main div.wrapper pre span.string.quote { color: #00f; }
+#main div.wrapper pre span.string.value { color: #00f; }
