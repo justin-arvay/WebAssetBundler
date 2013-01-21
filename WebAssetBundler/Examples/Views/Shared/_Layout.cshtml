@@ -30,13 +30,21 @@
                             <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
                         </div>
                     </div>
+
+                    
+                    <div class="download">
+                        <a href="#">
+                            <img src="" /> 
+                            Download
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="bottom">
 
                 <div class="wrapper">
                     @Html.RouteLink("Introduction", "Documentation", new { path = "introduction" })
-                    <a href="#">Configuration</a>
+                    @Html.RouteLink("Configuration", "Documentation", new { path = "configuration" })
                 </div>
             </div>
         </div>
