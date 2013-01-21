@@ -40,11 +40,27 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var asset = new AssetBaseImpl();
             asset.Content = "var value = 1;";
+
             bundle.Assets.Add(asset);
+            bundle.Compress = true;
 
             processor.Process(bundle);
 
             compressor.Verify(c => c.Compress("var value = 1;"), Times.Once());
+        }
+
+        [Test]
+        public void Should_Not_Compress_Assets()
+        {
+            var asset = new AssetBaseImpl();
+            asset.Content = "var value = 1;";
+
+            bundle.Assets.Add(asset);
+            bundle.Compress = false;
+
+            processor.Process(bundle);
+
+            compressor.Verify(c => c.Compress("var value = 1;"), Times.Never());
         }
     }
 }

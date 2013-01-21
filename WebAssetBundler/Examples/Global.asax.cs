@@ -22,11 +22,8 @@ namespace Examples
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                "Home",
-                "",
-                new { controller = "Home", action = "Index" }
-            );
+            routes.MapRoute("Home", "", new { controller = "Home", action = "Index" });
+            routes.MapRoute("Download", "download", new { controller = "Home", action = "Download" });
 
             routes.MapRoute(
                 "Documentation",

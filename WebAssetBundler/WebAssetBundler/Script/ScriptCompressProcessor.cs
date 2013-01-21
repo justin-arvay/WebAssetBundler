@@ -31,7 +31,10 @@ namespace WebAssetBundler.Web.Mvc
         {
             foreach (var asset in bundle.Assets)
             {
-                asset.Content = compressor.Compress(asset.Content);
+                if (bundle.Compress)
+                {
+                    asset.Content = compressor.Compress(asset.Content);
+                }
             }
         }
     }

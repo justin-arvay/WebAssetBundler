@@ -6,7 +6,7 @@
 <h2>1. Install</h2>
 
 <h2>2. Configure</h2>
-<pre data-language="csharp"><code class="cs">
+<pre data-language="csharp">
     using WebAssetBundler.Web.Mvc;
 
     public class LayoutScriptBundle : ScriptBundleConfiguration
@@ -30,34 +30,15 @@
             Add("~/Content/layout.css");
         }
     }
-</code></pre>
+</pre>
 
 <h2>3. Render</h2>
 
-<pre ><code data-language="html" class="xml">
-    <body></body>
-</code></pre>
-<pre data-language="csharp" class="cs">
-            @@Bundler.StyleSheets.Render("StyleSheets")
-</pre>
-<pre data-language="html">            
-        </head>
-        <body>
-            ...
-</pre>
 <pre data-language="csharp">
-            @@Bundler.Scripts.Render("Scripts")
-            @@Bundler.Scripts.Include("https://apis.google.com/js/plusone.js")
-</pre>
-<pre data-language="html">        
-        </body>
-    </html>
-</pre>
+    //in the head tag
+    @@Bundler.StyleSheets.Render("StyleSheets")
 
-
-<pre data-language="html">
-    <div>
-        <span class="test" id="test">Blah</span>
-    </div>
-    <html></html>
-    </pre>
+    //before end of body tag
+    @@Bundler.Scripts.Render("Scripts")
+    @@Bundler.Scripts.Include("https://apis.google.com/js/plusone.js")
+</pre>
