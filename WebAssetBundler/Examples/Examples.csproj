@@ -155,7 +155,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Content Include="Views\Documentation\Introduction.cshtml" />
-    <Content Include="Views\Documentation\Cofiguration.cshtml" />
+    <Content Include="Views\Documentation\Configuration.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
