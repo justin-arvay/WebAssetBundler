@@ -4,22 +4,60 @@
 }
 
 <h2>1. Install</h2>
+
 <h2>2. Configure</h2>
+<pre data-language="csharp"><code class="cs">
+    using WebAssetBundler.Web.Mvc;
+
+    public class LayoutScriptBundle : ScriptBundleConfiguration
+    {
+        public override void Configure()
+        {
+            Name("Scripts");
+            Add("~/Scripts/jquery-1.8.3.js");
+            Add("~/Scripts/jquery-ui-1.9.2.custom.min.js");
+            Add("~/Scripts/rainbow-custom.min.js");
+        }
+    }
+
+    public class LayoutStyleSheetBundle : StyleSheetBundleConfiguration
+    {
+        public override void Configure()
+        {
+            Name("StyleSheets");
+            Add("~/Content/reset.css");
+            Add("~/Content/pepper-grinder/jquery-ui-1.9.2.custom.css");
+            Add("~/Content/layout.css");
+        }
+    }
+</code></pre>
+
 <h2>3. Render</h2>
 
-
-<pre data-language="csharp">
-    ObjectName obj = new ObjectName();
-    string name = "bob";
-    var code = true;
-    if (code)
-    {
-        Console.Write(code);
-    }
+<pre ><code data-language="html" class="xml">
+    <body></body>
+</code></pre>
+<pre data-language="csharp" class="cs">
+            @@Bundler.StyleSheets.Render("StyleSheets")
 </pre>
+<pre data-language="html">            
+        </head>
+        <body>
+            ...
+</pre>
+<pre data-language="csharp">
+            @@Bundler.Scripts.Render("Scripts")
+            @@Bundler.Scripts.Include("https://apis.google.com/js/plusone.js")
+</pre>
+<pre data-language="html">        
+        </body>
+    </html>
+</pre>
+
 
 <pre data-language="html">
     <div>
         <span class="test" id="test">Blah</span>
     </div>
-</pre>
+    <html></html>
+    </pre>

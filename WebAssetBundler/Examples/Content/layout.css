@@ -28,11 +28,7 @@ h1,h2,h3,h4,h5,h6{font-size:1.5em;color:#FF8B24; margin:10px 0px;}
 #header div.top div.right {float: right; width:100px; margin-top:10px;}
 #header div.top div.right div.button {float:left; padding:2px 0px;}
 #header div.top div.download {float:right; height: 40px; margin:28px 40px 0px 0px; }
-
     
-
-
-
 #header div.top div.download a {text-shadow: 1px 1px 0 #5e8426; line-height: 40px; color: white; padding: 8px 20px; font-size: 20px; font-weight:bold; 
     border: 2px solid #5e8426; moz-border-radius: 12px; -webkit-border-radius: 12px; border-radius: 12px; text-decoration: none;
     background: #b4e391; /* Old browsers */
