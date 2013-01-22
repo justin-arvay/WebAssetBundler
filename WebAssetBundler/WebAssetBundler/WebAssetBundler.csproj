@@ -51,6 +51,8 @@
   <ItemGroup>
     <Compile Include="AssetFile.cs" />
     <Compile Include="BundleContext.cs" />
+    <Compile Include="Compressors\JSMin.cs" />
+    <Compile Include="Compressors\JSMinCompressor.cs" />
     <Compile Include="Configuration\BundleProviderBase.cs" />
     <Compile Include="ExternalAsset.cs" />
     <Compile Include="Script\ScriptBundleCachePrimer.cs" />

@@ -14,20 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace Examples
+namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using WebAssetBundler.Web.Mvc;
 
-    public class LayoutScriptBundle : ScriptBundleConfiguration
+    public class JSMinCompressor : IScriptCompressor
     {
-        public override void Configure()
+
+        public string Compress(string content)
         {
-            Name("Scripts");
-            Compress(true);
-            Add("~/Scripts/jquery-1.9.0.min.js");
-            Add("~/Scripts/jquery-ui-1.10.0.custom.min.js");
-            Add("~/Scripts/rainbow-custom.min.js");
+            var minifier = new JavaScriptMinifier();
+            return minifier.Minify(content);
         }
     }
 }
