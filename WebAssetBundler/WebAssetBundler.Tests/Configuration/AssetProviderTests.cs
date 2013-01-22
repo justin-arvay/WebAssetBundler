@@ -127,9 +127,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
             server.Setup(m => m.MapPath("~/File.css"))
                 .Returns((string path) => path);
 
-            var asset = provider.GetAsset("~/File.css");
+            var asset = provider.GetAsset("~/File.min.css");
 
-            Assert.AreEqual("~/File.css", asset.Source);
+            Assert.AreEqual("~/File.min.css", asset.Source);
+            Assert.IsTrue(asset.Minify);
         }
 
         [Test]

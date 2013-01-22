@@ -36,6 +36,12 @@ namespace WebAssetBundler.Web.Mvc
             set;
         }
 
+        public bool Minify
+        {
+            get;
+            set;
+        }
+
         public string Extension
         {
             get
