@@ -40,10 +40,7 @@ namespace WebAssetBundler.Web.Mvc
                 throw new ArgumentException("Source must be virtual path.");  
             }
 
-            return new FileAsset(new AssetFile(source, server))
-                {
-                    Minify = Path.GetFileNameWithoutExtension(source).EndsWith("min", StringComparison.OrdinalIgnoreCase)
-                };
+            return new FileAsset(new AssetFile(source, server));
         }        
 
         public ICollection<AssetBase> GetAssets(FromDirectoryComponent component)

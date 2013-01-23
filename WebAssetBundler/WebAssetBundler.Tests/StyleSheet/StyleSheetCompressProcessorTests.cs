@@ -39,6 +39,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var asset = new AssetBaseImpl();
             asset.Content = "#div { color: #123; }";
+            asset.Source = "~/file.css";
 
             bundle.Assets.Add(asset);
             bundle.Compress = true;
@@ -56,6 +57,21 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             bundle.Assets.Add(asset);
             bundle.Compress = false;
+
+            processor.Process(bundle);
+
+            compressor.Verify(c => c.Compress("#div { color: #123; }"), Times.Never());
+        }
+
+        [Test]
+        public void Should_Not_Compress_Asset_When_Already_Minified()
+        {
+            var asset = new AssetBaseImpl();
+            asset.Content = "#div { color: #123; }";
+            asset.Source = "~/file.min.css";
+
+            bundle.Assets.Add(asset);
+            bundle.Compress = true;
 
             processor.Process(bundle);
 

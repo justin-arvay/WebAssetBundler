@@ -40,6 +40,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var asset = new AssetBaseImpl();
             asset.Content = "var value = 1;";
+            asset.Source = "~/file.js";
 
             bundle.Assets.Add(asset);
             bundle.Compress = true;
@@ -57,6 +58,21 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             bundle.Assets.Add(asset);
             bundle.Compress = false;
+
+            processor.Process(bundle);
+
+            compressor.Verify(c => c.Compress("var value = 1;"), Times.Never());
+        }
+
+        [Test]
+        public void Should_Not_Compress_Asset_When_Already_Minified()
+        {
+            var asset = new AssetBaseImpl();
+            asset.Source = "~/file.min.js";
+            asset.Content = "var value = 1;";
+
+            bundle.Assets.Add(asset);
+            bundle.Compress = true;
 
             processor.Process(bundle);
 

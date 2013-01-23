@@ -130,7 +130,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var asset = provider.GetAsset("~/File.min.css");
 
             Assert.AreEqual("~/File.min.css", asset.Source);
-            Assert.IsTrue(asset.Minify);
         }
 
         [Test]

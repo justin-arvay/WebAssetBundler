@@ -48,8 +48,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Contain_Default_Processors()
         {
             Assert.IsInstanceOf<ImagePathProcessor>(pipeline[0]);
-            Assert.IsInstanceOf<StyleSheetMergeProcessor>(pipeline[1]);
-            Assert.IsInstanceOf<StyleSheetCompressProcessor>(pipeline[2]);
+            Assert.IsInstanceOf<StyleSheetMergeProcessor>(pipeline[2]);
+            Assert.IsInstanceOf<StyleSheetCompressProcessor>(pipeline[1]);
         }
     }
 

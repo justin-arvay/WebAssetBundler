@@ -24,9 +24,9 @@ namespace Examples
         public override void Configure()
         {
             Name("StyleSheets");
-            Compress(true);
+            Compress(false);
             Add("~/Content/reset.css");
-            Add("~/Content/pepper-grinder/jquery-ui-1.9.2.custom.css");
+            Add("~/Content/pepper-grinder/jquery-ui-1.9.2.custom.min.css");
             Add("~/Content/layout.css");
         }
     }

@@ -39,8 +39,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Contain_Default_Processors()
         {
-            Assert.IsInstanceOf<ScriptMergeProcessor>(pipeline[0]);
-            Assert.IsInstanceOf<ScriptCompressProcessor>(pipeline[1]);
+            Assert.IsInstanceOf<ScriptCompressProcessor>(pipeline[0]);
+            Assert.IsInstanceOf<ScriptMergeProcessor>(pipeline[1]);
+            
         }
     }
 }

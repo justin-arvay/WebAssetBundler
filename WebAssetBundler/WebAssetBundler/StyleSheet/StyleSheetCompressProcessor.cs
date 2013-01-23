@@ -17,6 +17,7 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.IO;
 
     public class StyleSheetCompressProcessor : IPipelineProcessor<StyleSheetBundle>
     {
@@ -33,9 +34,16 @@ namespace WebAssetBundler.Web.Mvc
             {
                 if (bundle.Compress)
                 {
-                    asset.Content = compressor.Compress(asset.Content);
+                    if (IsAlreadyMinified(asset) == false) {
+                        asset.Content = compressor.Compress(asset.Content);
+                    }
                 }
             }
+        }
+
+        public bool IsAlreadyMinified(AssetBase asset)
+        {
+            return Path.GetFileNameWithoutExtension(asset.Source).EndsWith("min", StringComparison.OrdinalIgnoreCase);
         }
     }
 }
