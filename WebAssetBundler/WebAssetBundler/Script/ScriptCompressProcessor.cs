@@ -22,10 +22,12 @@ namespace WebAssetBundler.Web.Mvc
     public class ScriptCompressProcessor : IPipelineProcessor<ScriptBundle>
     {
         private IScriptCompressor compressor;
+        private string minifyIdentifier;
 
-        public ScriptCompressProcessor(IScriptCompressor compressor)
+        public ScriptCompressProcessor(Func<string> minifyIdentifier, IScriptCompressor compressor)
         {
             this.compressor = compressor;
+            this.minifyIdentifier = minifyIdentifier();
         }
 
         public void Process(ScriptBundle bundle)
@@ -44,7 +46,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public bool IsAlreadyMinified(AssetBase asset)
         {
-            return Path.GetFileNameWithoutExtension(asset.Source).EndsWith("min", StringComparison.OrdinalIgnoreCase);
+            return Path.GetFileNameWithoutExtension(asset.Source).EndsWith(minifyIdentifier, StringComparison.OrdinalIgnoreCase);
         }
     }
 }

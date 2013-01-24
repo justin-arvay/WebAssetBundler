@@ -79,6 +79,9 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();
             container.Register<IBundleProvider<ScriptBundle>, ScriptBundleProvider>();
             container.Register<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>, ScriptBundleCachePrimer>();
+            container.Register<ScriptCompressProcessor>((c, p) => new ScriptCompressProcessor(
+                () => DefaultSettings.ScriptMinifyIdentifier, 
+                container.Resolve<IScriptCompressor>()));
         }
 
         public void ConfigureHttpHandler()

@@ -30,9 +30,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [SetUp]
         public void Setup()
         {
+            Func<string> minifyIdentifier = () => "min";
+
             bundle = new ScriptBundle();
             compressor = new Mock<IScriptCompressor>();
-            processor = new ScriptCompressProcessor(compressor.Object);
+            processor = new ScriptCompressProcessor(minifyIdentifier, compressor.Object);
         }
 
         [Test]

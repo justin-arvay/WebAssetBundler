@@ -29,6 +29,9 @@ namespace WebAssetBundler.Web.Mvc
         private static string styleSheetFilesPath = "~/Content";
         private static string scriptFilesPath = "~/Scripts";
 
+        private static string styleSheetMinifyIdentifier = "min";
+        private static string scriptMinifyIdentifier = "min";
+
         private static bool compressed = true;
 
         private static string defaultGroupName = "Default";
@@ -187,6 +190,38 @@ namespace WebAssetBundler.Web.Mvc
             set
             {
                 scriptConfigProvider = value;
+            }
+        }
+
+        /// <summary>
+        /// Sets the identifier use to identify javascript files that are already minified. Eg: ~/file.min.js is a file that has already been 
+        /// minified. The application will not attempt to minify it again.
+        /// </summary>
+        public static string ScriptMinifyIdentifier
+        {
+            get
+            {
+                return scriptMinifyIdentifier;
+            }
+            set
+            {
+                scriptMinifyIdentifier = value;
+            }
+        }
+
+        /// <summary>
+        /// Sets the identifier use to identify style sheet files that are already minified. Eg: ~/file.min.css is a file that has already been 
+        /// minified. The application will not attempt to minify it again.
+        /// </summary>
+        public static string StyleSheetMinifyIdentifier
+        {
+            get
+            {
+                return styleSheetMinifyIdentifier;
+            }
+            set
+            {
+                styleSheetMinifyIdentifier = value;
             }
         }
     }
