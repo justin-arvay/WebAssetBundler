@@ -81,6 +81,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Content Include="Content\documentation.css" />
     <Content Include="Scripts\jquery-1.9.0.min.js" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +158,8 @@
     <Content Include="Views\Documentation\Introduction.cshtml" />
     <Content Include="Views\Documentation\Configuration.cshtml" />
     <Content Include="Views\Home\Download.cshtml" />
+    <Content Include="Views\Shared\_DocumentationLayout.cshtml" />
+    <Content Include="Views\Shared\_BasicLayout.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

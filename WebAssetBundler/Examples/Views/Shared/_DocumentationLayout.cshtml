@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="documentation">
+    <div class="menu">
+        @Html.RouteLink("Introduction", "Documentation", new { path = "introduction" })
+    </div>
+
+    <div class="content">
+        @RenderBody()
+    </div>
+</div>
+   

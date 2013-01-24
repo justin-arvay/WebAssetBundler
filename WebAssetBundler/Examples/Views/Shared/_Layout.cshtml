@@ -43,17 +43,19 @@
             <div class="bottom">
 
                 <div class="wrapper">
-                    @Html.RouteLink("Introduction", "Documentation", new { path = "introduction" })
-                    @Html.RouteLink("Configuration", "Documentation", new { path = "configuration" })
+                    @Html.RouteLink("Getting Started", "Documentation", new { path = "introduction" })
+                    @Html.RouteLink("Benefits", "Documentation", new { path = "introduction" })
+                    @Html.RouteLink("Support", "Documentation", new { path = "introduction" })
+                    @Html.RouteLink("Documentation", "Documentation", new { path = "introduction" })                    
+                    @Html.RouteLink("Download", "Documentation", new { path = "introduction" })
+                    
                 </div>
             </div>
         </div>
 
         <div id="main">
             <div class="wrapper">
-                <div class="content">
-                    @RenderBody()
-                </div>
+                @RenderBody()
             </div>            
         </div>
 

@@ -28,6 +28,7 @@ namespace Examples
             Add("~/Content/reset.css");
             Add("~/Content/pepper-grinder/jquery-ui-1.9.2.custom.min.css");
             Add("~/Content/layout.css");
+            Add("~/Content/documentation.css");
         }
     }
 }
