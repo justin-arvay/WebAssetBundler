@@ -22,10 +22,12 @@ namespace WebAssetBundler.Web.Mvc
     public class StyleSheetCompressProcessor : IPipelineProcessor<StyleSheetBundle>
     {
         private IStyleSheetCompressor compressor;
+        private string minifyIdentifier;
 
-        public StyleSheetCompressProcessor(IStyleSheetCompressor compressor)
+        public StyleSheetCompressProcessor(Func<string> minifyIdentifier, IStyleSheetCompressor compressor)
         {
             this.compressor = compressor;
+            this.minifyIdentifier = minifyIdentifier();
         }
 
         public void Process(StyleSheetBundle bundle)

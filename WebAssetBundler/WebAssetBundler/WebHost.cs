@@ -67,6 +67,9 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
             container.Register<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>, StyleSheetBundleCachePrimer>();
+            container.Register<StyleSheetCompressProcessor>((c, p) => new StyleSheetCompressProcessor(
+                () => DefaultSettings.StyleSheetMinifyIdentifier,
+                container.Resolve<IStyleSheetCompressor>()));
         }
 
         public void ConfigureContainerForScript()

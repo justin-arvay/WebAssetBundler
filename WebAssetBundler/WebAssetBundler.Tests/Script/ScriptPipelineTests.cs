@@ -32,6 +32,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             container = new TinyIoCContainer();
             container.Register<IScriptCompressor>((a, c) => compressor.Object);
+            container.Register<ScriptCompressProcessor>((c, p) => new ScriptCompressProcessor(
+                () => DefaultSettings.ScriptMinifyIdentifier,
+                container.Resolve<IScriptCompressor>()));
 
             pipeline = new ScriptPipeline(container);            
         }

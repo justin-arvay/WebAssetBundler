@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System;
 
     [TestFixture]
     public class StyleSheetCompressProcessorTests
@@ -29,9 +30,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [SetUp]
         public void Setup()
         {
+            Func<string> minifyIdentifier = () => "min";
             bundle = new StyleSheetBundle();
             compressor = new Mock<IStyleSheetCompressor>();
-            processor = new StyleSheetCompressProcessor(compressor.Object);
+            processor = new StyleSheetCompressProcessor(minifyIdentifier, compressor.Object);
         }
 
         [Test]

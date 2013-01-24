@@ -38,6 +38,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
             container.Register<IUrlGenerator<StyleSheetBundle>>((new Mock<IUrlGenerator<StyleSheetBundle>>()).Object);
             container.Register<HttpServerUtilityBase>((a, c) => server.Object);
             container.Register<BundleContext>((a, c) => new BundleContext());
+            container.Register<StyleSheetCompressProcessor>((c, p) => new StyleSheetCompressProcessor(
+                () => DefaultSettings.StyleSheetMinifyIdentifier,
+                container.Resolve<IStyleSheetCompressor>()));
 
             pipeline = new StyleSheetPipeline(container);
 
