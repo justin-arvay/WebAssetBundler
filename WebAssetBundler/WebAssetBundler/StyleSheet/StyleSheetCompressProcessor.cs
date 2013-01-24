@@ -36,7 +36,8 @@ namespace WebAssetBundler.Web.Mvc
             {
                 if (bundle.Compress)
                 {
-                    if (IsAlreadyMinified(asset) == false) {
+                    if (IsAlreadyMinified(asset) == false) 
+                    {
                         asset.Content = compressor.Compress(asset.Content);
                     }
                 }
