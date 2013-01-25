@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
     using System.Collections.Generic;
+    using System;
 
     [TestFixture]
     public class StyleSheetBundleCachePrimerTests
@@ -28,6 +29,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
         private Mock<IBundlesCache<StyleSheetBundle>> cache;
+        private Func<bool> debugMode;
 
         [SetUp]
         public void Setup()
@@ -35,12 +37,21 @@ namespace WebAssetBundler.Web.Mvc.Tests
             assetProvider = new Mock<IAssetProvider>();
             pipeline = new Mock<IBundlePipeline<StyleSheetBundle>>();
             cache = new Mock<IBundlesCache<StyleSheetBundle>>();
-            primer = new StyleSheetBundleCachePrimer(assetProvider.Object, pipeline.Object, cache.Object);
+            primer = new StyleSheetBundleCachePrimer(assetProvider.Object, pipeline.Object, cache.Object, debugMode);
         }
 
         [Test]
         public void Should_Be_Primed()
         {
+            primer.Prime(new List<StyleSheetBundleConfiguration>());
+
+            Assert.IsTrue(primer.IsPrimed);
+        }
+
+        [Test]
+        public void Should_Not_Be_Primed_When_Debug_Mode()
+        {
+            debugMode = () => true;
             primer.Prime(new List<StyleSheetBundleConfiguration>());
 
             Assert.IsTrue(primer.IsPrimed);

@@ -20,15 +20,18 @@ namespace WebAssetBundler.Web.Mvc
 
     public class StyleSheetUrlGenerator : IUrlGenerator<StyleSheetBundle>
     {
-        public StyleSheetUrlGenerator()
+        private bool debugMode;
+
+        public StyleSheetUrlGenerator(Func<bool> debugMode)
         {
+            this.debugMode = debugMode();
         }
 
-        public string Generate(string name, string version, string host, BundleContext context)
+        public string Generate(string name, string version, string host)
         {
-            if (context.DebugMode)
+            if (debugMode)
             {
-                version = context.CreateCacheBreakerVersion(version);
+                version = version + DateTime.Now.ToString("MMddyyHmmss");
             }
 
             var path = "wab.axd/css/{0}/{1}";

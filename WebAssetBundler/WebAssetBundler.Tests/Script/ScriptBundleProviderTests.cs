@@ -31,12 +31,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IBundlePipeline<ScriptBundle>> pipeline;
         private Mock<HttpServerUtilityBase> server;
         private Mock<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>> primer;
-        private BundleContext context;
 
         [SetUp]
         public void Setup()
         {
-            context = new BundleContext();
             pipeline = new Mock<IBundlePipeline<ScriptBundle>>();
             configProvider = new Mock<IConfigProvider<ScriptBundleConfiguration>>();
             cache = new Mock<IBundlesCache<ScriptBundle>>();
@@ -44,7 +42,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             primer = new Mock<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>>();
 
             provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object, 
-                pipeline.Object, context, primer.Object);
+                pipeline.Object, primer.Object);
         }
 
         [Test]
@@ -88,8 +86,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Always_Prime_Cache_When_Getting_Named_Bundle()
         {
-            context.DebugMode = true;
-
             var configs = new List<ScriptBundleConfiguration>();
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
@@ -101,7 +97,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             primer.Verify(p => p.Prime(configs), Times.Exactly(3));
         }
-
         
         [Test]
         public void Should_Get_Bundle_By_Source()
@@ -136,8 +131,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Always_Load_Asset_When_Debug_Mode()
         {
-            context.DebugMode = true;
-
             var bundle = new ScriptBundle();
             bundle.Name = "199b18f549a41c8d45fe0a5b526ac060-file";
 

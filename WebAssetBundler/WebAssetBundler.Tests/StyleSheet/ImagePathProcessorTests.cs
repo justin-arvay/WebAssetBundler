@@ -26,21 +26,19 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private ImagePathProcessor processor;
         private Mock<IUrlGenerator<StyleSheetBundle>> urlGenerator;
-        private BundleContext context;
         private StyleSheetBundle bundle;
 
         [SetUp]
         public void Setup()
         {
             urlGenerator = new Mock<IUrlGenerator<StyleSheetBundle>>();
-            context = new BundleContext();
 
             bundle = new StyleSheetBundle();
             bundle.Assets.Add(new AssetBaseImpl());
 
-            processor = new ImagePathProcessor(urlGenerator.Object, context);
+            processor = new ImagePathProcessor(urlGenerator.Object);
 
-            urlGenerator.Setup(u => u.Generate("a", "a", "", context)).Returns("/wab.axd/css/a/a");
+            urlGenerator.Setup(u => u.Generate("a", "a", "")).Returns("/wab.axd/css/a/a");
         }
 
         [Test]

@@ -51,7 +51,6 @@
   <ItemGroup>
     <Compile Include="AssetBaseImpl.cs" />
     <Compile Include="AssetFileTests.cs" />
-    <Compile Include="BundleContextTests.cs" />
     <Compile Include="Caching\BundlesCacheTests.cs" />
     <Compile Include="ComponentBuilderTests.cs" />
     <Compile Include="Configuration\AssetBaseTests.cs" />

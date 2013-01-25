@@ -30,21 +30,19 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private Mock<ITagWriter<ScriptBundle>> tagWriter;
         private ScriptBundler bundler;
-        private BundleContext context;
         private Mock<IBundleProvider<ScriptBundle>> bundleProvider;
 
         [SetUp]
         public void Setup()
         {
             bundleProvider = new Mock<IBundleProvider<ScriptBundle>>();
-            context = new BundleContext();
+
             var collection = new BundleCollection<ScriptBundle>();
             tagWriter = new Mock<ITagWriter<ScriptBundle>>();
 
             bundler = new ScriptBundler(
                 bundleProvider.Object,
-                tagWriter.Object,
-                context);
+                tagWriter.Object);
         }
 
 
@@ -57,7 +55,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var htmlString = bundler.Render("test");
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
-            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), bundle, context), Times.Once());
+            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), bundle), Times.Once());
         }
 
         [Test]
@@ -70,7 +68,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var htmlString = bundler.Include("~/file.js");
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
-            tagWriter.Verify(w => w.Write(It.IsAny<TextWriter>(), bundle, context), Times.Once());
+            tagWriter.Verify(w => w.Write(It.IsAny<TextWriter>(), bundle), Times.Once());
         }
 
         [Test]
@@ -83,7 +81,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var htmlString = bundler.Include("http://www.google.com/file.js");
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
-            tagWriter.Verify(w => w.Write(It.IsAny<TextWriter>(), bundle, context), Times.Once());
+            tagWriter.Verify(w => w.Write(It.IsAny<TextWriter>(), bundle), Times.Once());
             bundleProvider.Verify(p => p.GetExternalBundle("http://www.google.com/file.js"), Times.Once());
         }
     }

@@ -29,7 +29,7 @@ namespace WebAssetBundler.Web.Mvc
             this.urlGenerator = urlGenerator;
         }
 
-        public void Write(TextWriter writer, ScriptBundle bundle, BundleContext context)
+        public void Write(TextWriter writer, ScriptBundle bundle)
         {
             var script = "<script type=\"text/javascript\" src=\"{0}\"></script>";
 
@@ -39,7 +39,7 @@ namespace WebAssetBundler.Web.Mvc
             }
             else
             {                
-                var url = urlGenerator.Generate(bundle.Name, bundle.Hash.ToHexString(), bundle.Host, context);
+                var url = urlGenerator.Generate(bundle.Name, bundle.Hash.ToHexString(), bundle.Host);
 
                 writer.WriteLine(script.FormatWith(url));
             }

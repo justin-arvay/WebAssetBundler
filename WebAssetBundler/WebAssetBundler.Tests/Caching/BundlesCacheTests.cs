@@ -19,12 +19,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
     using System.Collections.Generic;
+using System;
 
     [TestFixture]
     public class BundlesCacheTests
     {
         private Mock<ICacheProvider> provider;
-        private BundlesCache<BundleImpl> cache;        
+        private BundlesCache<BundleImpl> cache;
 
         [SetUp]
         public void Setup()

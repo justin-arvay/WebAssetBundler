@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssetFile.cs" />
-    <Compile Include="BundleContext.cs" />
     <Compile Include="Compressors\JSMin.cs" />
     <Compile Include="Compressors\JSMinCompressor.cs" />
     <Compile Include="Configuration\BundleProviderBase.cs" />
@@ -102,7 +101,6 @@
     <Compile Include="HttpHandlers\AssetHttpHandler.cs" />
     <Compile Include="HttpHandlers\WabHttpHandler.cs" />
     <Compile Include="IAssetTransformer.cs" />
-    <Compile Include="IBuilderContextFactory.cs" />
     <Compile Include="IFile.cs" />
     <Compile Include="ITagWriter.cs" />
     <Compile Include="Script\ScriptTagWriter.cs" />

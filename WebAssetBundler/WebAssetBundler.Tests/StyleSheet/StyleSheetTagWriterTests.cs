@@ -27,7 +27,6 @@ namespace WebAssetBundler.Web.Mvc
         private Mock<IUrlGenerator<StyleSheetBundle>> urlGenerator;
         private Mock<TextWriter> textWriter;
         private StyleSheetTagWriter tagWriter;
-        private BundleContext context;
         private StyleSheetBundle bundle;
 
         [SetUp]
@@ -36,7 +35,6 @@ namespace WebAssetBundler.Web.Mvc
             urlGenerator = new Mock<IUrlGenerator<StyleSheetBundle>>();
             textWriter = new Mock<TextWriter>();
             tagWriter = new StyleSheetTagWriter(urlGenerator.Object);
-            context = new BundleContext();
             bundle = new StyleSheetBundle();
         }
 
@@ -46,9 +44,9 @@ namespace WebAssetBundler.Web.Mvc
             bundle.Name = "test";
             bundle.Host = "http://www.test.com";
 
-            tagWriter.Write(textWriter.Object, bundle, context);
+            tagWriter.Write(textWriter.Object, bundle);
 
-            urlGenerator.Verify(m => m.Generate(bundle.Name, bundle.Hash.ToHexString(), "http://www.test.com", context), Times.Exactly(1));
+            urlGenerator.Verify(m => m.Generate(bundle.Name, bundle.Hash.ToHexString(), "http://www.test.com"), Times.Exactly(1));
         }
 
         [Test]
@@ -56,9 +54,9 @@ namespace WebAssetBundler.Web.Mvc
         {
             bundle.Host = "http://dev.test.com";
 
-            urlGenerator.Setup(u => u.Generate(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<BundleContext>())).Returns("http://dev.test.com/");
+            urlGenerator.Setup(u => u.Generate(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns("http://dev.test.com/");
 
-            tagWriter.Write(textWriter.Object, bundle, context);
+            tagWriter.Write(textWriter.Object, bundle);
 
             textWriter.Verify(m => m.WriteLine("<link type=\"text/css\" href=\"http://dev.test.com/\" rel=\"stylesheet\"/>"), Times.Exactly(1));   
         }
@@ -71,7 +69,7 @@ namespace WebAssetBundler.Web.Mvc
                 Source = "http://www.google.com/file.css"
             });
 
-            tagWriter.Write(textWriter.Object, bundle, context);
+            tagWriter.Write(textWriter.Object, bundle);
 
             textWriter.Verify(m => m.WriteLine("<link type=\"text/css\" href=\"http://www.google.com/file.css\" rel=\"stylesheet\"/>"), Times.Exactly(1));
         }

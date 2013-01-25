@@ -26,24 +26,22 @@ using System.Web;
         private IBundlesCache<StyleSheetBundle> cache;
         private IAssetProvider assetProvider;
         private IBundlePipeline<StyleSheetBundle> pipeline;
-        private BundleContext context;
         private IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration> primer;
 
         public StyleSheetBundleProvider(IConfigProvider<StyleSheetBundleConfiguration> configProvider, IBundlesCache<StyleSheetBundle> cache, 
-            IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetProvider, BundleContext context,
+            IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetProvider,
             IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration> primer)
         {
             this.configProvider = configProvider;
             this.cache = cache;
             this.assetProvider = assetProvider;
             this.pipeline = pipeline;
-            this.context = context;
             this.primer = primer;
         }       
 
         public override StyleSheetBundle GetNamedBundle(string name)
         {
-            if (primer.IsPrimed == false || context.DebugMode)
+            if (primer.IsPrimed == false)
             {
                 primer.Prime(configProvider.GetConfigs());
             }
@@ -56,7 +54,7 @@ using System.Web;
             var name = source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source).Replace(".", "-");
             var bundle = cache.Get(name);
 
-            if (bundle == null || context.DebugMode)
+            if (bundle == null)
             {
                 var asset = assetProvider.GetAsset(source);
                 bundle = new StyleSheetBundle();

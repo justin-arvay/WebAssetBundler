@@ -27,6 +27,6 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="version"></param>
         /// <param name="host"></param>
         /// <returns></returns>
-        string Generate(string name, string version, string host, BundleContext context);
+        string Generate(string name, string version, string host);
     }
 }

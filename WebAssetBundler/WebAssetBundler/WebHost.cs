@@ -43,9 +43,6 @@ namespace WebAssetBundler.Web.Mvc
             container.Register((c, p) => HttpContext().Request);
             container.Register((c, p) => HttpContext().Response);
             container.Register((c, p) => HttpContext().Server);
-            container.Register<BundleContext>((c, p) => (new BundleContext() {
-                DebugMode = DefaultSettings.DebugMode
-            }));
             container.Register<ICacheProvider, CacheProvider>();
 
             container.Register<IAssetProvider>((c, p) => new AssetProvider(
@@ -59,14 +56,19 @@ namespace WebAssetBundler.Web.Mvc
 
         public void ConfigureContainerForStyleSheets()
         {
-            container.Register<IUrlGenerator<StyleSheetBundle>>(new StyleSheetUrlGenerator());
+            container.Register<IUrlGenerator<StyleSheetBundle>>(new StyleSheetUrlGenerator(() => DefaultSettings.DebugMode));
             container.Register<IStyleSheetCompressor>((c, p) => DefaultSettings.StyleSheetCompressor);
             container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();
             container.Register<IConfigProvider<StyleSheetBundleConfiguration>>((c, p) => DefaultSettings.StyleSheetConfigProvider);
             container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => new StyleSheetPipeline(container));
             container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
-            container.Register<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>, StyleSheetBundleCachePrimer>();
+            container.Register<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>>(new StyleSheetBundleCachePrimer(
+                container.Resolve<IAssetProvider>(),
+                container.Resolve<IBundlePipeline<StyleSheetBundle>>(),
+                container.Resolve<IBundlesCache<StyleSheetBundle>>(),
+                () => DefaultSettings.DebugMode));
+
             container.Register<StyleSheetCompressProcessor>((c, p) => new StyleSheetCompressProcessor(
                 () => DefaultSettings.StyleSheetMinifyIdentifier,
                 container.Resolve<IStyleSheetCompressor>()));
@@ -78,10 +80,15 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>();
             container.Register<IConfigProvider<ScriptBundleConfiguration>>((c, p) => DefaultSettings.ScriptConfigProvider);
             container.Register<IBundlePipeline<ScriptBundle>>((c, p) => new ScriptPipeline(container));
-            container.Register<IUrlGenerator<ScriptBundle>>(new ScriptUrlGenerator());
+            container.Register<IUrlGenerator<ScriptBundle>>(new ScriptUrlGenerator(() => DefaultSettings.DebugMode));
             container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();
             container.Register<IBundleProvider<ScriptBundle>, ScriptBundleProvider>();
-            container.Register<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>, ScriptBundleCachePrimer>();
+            container.Register<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>>(new ScriptBundleCachePrimer(
+                container.Resolve<IAssetProvider>(),
+                container.Resolve<IBundlePipeline<ScriptBundle>>(),
+                container.Resolve<IBundlesCache<ScriptBundle>>(),
+                () => DefaultSettings.DebugMode));
+
             container.Register<ScriptCompressProcessor>((c, p) => new ScriptCompressProcessor(
                 () => DefaultSettings.ScriptMinifyIdentifier, 
                 container.Resolve<IScriptCompressor>()));

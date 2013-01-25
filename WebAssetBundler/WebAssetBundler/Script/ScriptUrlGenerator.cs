@@ -20,12 +20,18 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ScriptUrlGenerator : IUrlGenerator<ScriptBundle>
     {
+        private bool debugMode;
 
-        public string Generate(string name, string version, string host, BundleContext context)
+        public ScriptUrlGenerator(Func<bool> debugMode)
         {
-            if (context.DebugMode)
+            this.debugMode = debugMode();
+        }
+
+        public string Generate(string name, string version, string host)
+        {
+            if (debugMode)
             {
-                version = context.CreateCacheBreakerVersion(version);
+                version = version + DateTime.Now.ToString("MMddyyHmmss");
             }
 
             host = host ?? "";

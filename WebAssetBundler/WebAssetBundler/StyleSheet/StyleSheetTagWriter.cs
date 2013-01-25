@@ -29,7 +29,7 @@ namespace WebAssetBundler.Web.Mvc
             this.urlGenerator = urlGenerator;
         }
 
-        public void Write(TextWriter writer, StyleSheetBundle bundle, BundleContext context)
+        public void Write(TextWriter writer, StyleSheetBundle bundle)
         {
             var link = "<link type=\"text/css\" href=\"{0}\" rel=\"stylesheet\"/>";
 
@@ -39,7 +39,7 @@ namespace WebAssetBundler.Web.Mvc
             }
             else
             {
-                var url = urlGenerator.Generate(bundle.Name, bundle.Hash.ToHexString(), bundle.Host, context);
+                var url = urlGenerator.Generate(bundle.Name, bundle.Hash.ToHexString(), bundle.Host);
                 writer.WriteLine(link.FormatWith(url));
             }     
         }
