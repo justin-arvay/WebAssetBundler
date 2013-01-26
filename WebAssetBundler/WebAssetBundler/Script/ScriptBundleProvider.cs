@@ -29,7 +29,8 @@ namespace WebAssetBundler.Web.Mvc
         private IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration> primer;
 
         public ScriptBundleProvider(IConfigProvider<ScriptBundleConfiguration> configProvider, IBundlesCache<ScriptBundle> cache,
-            IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline, IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration> primer)
+            IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline, IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration> primer, 
+            Func<bool> debugMode) : base (debugMode)
         {
             this.configProvider = configProvider;
             this.cache = cache;
@@ -53,7 +54,7 @@ namespace WebAssetBundler.Web.Mvc
             var name = source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source).Replace(".", "-");
             var bundle = cache.Get(name);
 
-            if (bundle == null)
+            if (bundle == null || DebugMode)
             {
                 var asset = assetProvider.GetAsset(source);
                 bundle = new ScriptBundle();

@@ -29,8 +29,9 @@ using System.Web;
         private IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration> primer;
 
         public StyleSheetBundleProvider(IConfigProvider<StyleSheetBundleConfiguration> configProvider, IBundlesCache<StyleSheetBundle> cache, 
-            IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetProvider,
-            IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration> primer)
+            IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetProvider, IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration> primer,
+            Func<bool> debugMode)
+            : base(debugMode)
         {
             this.configProvider = configProvider;
             this.cache = cache;
@@ -54,7 +55,7 @@ using System.Web;
             var name = source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source).Replace(".", "-");
             var bundle = cache.Get(name);
 
-            if (bundle == null)
+            if (bundle == null || DebugMode)
             {
                 var asset = assetProvider.GetAsset(source);
                 bundle = new StyleSheetBundle();

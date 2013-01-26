@@ -25,24 +25,22 @@ namespace WebAssetBundler.Web.Mvc
         private IBundlesCache<ScriptBundle> cache;
         private IAssetProvider assetProvider;
         private IBundlePipeline<ScriptBundle> pipeline;
-        private bool debugMode;
 
         private static bool isPrimed = false;
 
         public ScriptBundleCachePrimer(IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline,
-            IBundlesCache<ScriptBundle> cache, Func<bool> debugMode)
+            IBundlesCache<ScriptBundle> cache)
         {
             this.assetProvider = assetProvider;
             this.pipeline = pipeline;
             this.cache = cache;
-            this.debugMode = debugMode();
         }
 
         public bool IsPrimed
         {
             get
             {
-                return isPrimed && debugMode == false;
+                return isPrimed;
             }
         }
 

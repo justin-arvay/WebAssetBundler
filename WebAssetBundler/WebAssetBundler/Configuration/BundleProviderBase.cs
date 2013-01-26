@@ -22,6 +22,18 @@ namespace WebAssetBundler.Web.Mvc
         where TBundle : Bundle, new()
 
     {
+        public BundleProviderBase(Func<bool> debugMode)
+        {
+            DebugMode = debugMode();
+        }
+
+
+        protected bool DebugMode
+        { 
+            get; 
+            private set; 
+        }
+
         public TBundle GetExternalBundle(string source) 
         {
             var bundle = new TBundle();

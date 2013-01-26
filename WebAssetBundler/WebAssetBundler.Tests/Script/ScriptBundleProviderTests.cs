@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
     using System.Collections.Generic;
     using System.Web;
+using System;
 
     [TestFixture]
     public class ScriptBundleProviderTests
@@ -31,6 +32,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IBundlePipeline<ScriptBundle>> pipeline;
         private Mock<HttpServerUtilityBase> server;
         private Mock<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>> primer;
+        private Func<bool> debugMode;
 
         [SetUp]
         public void Setup()
@@ -42,7 +44,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             primer = new Mock<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>>();
 
             provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object, 
-                pipeline.Object, primer.Object);
+                pipeline.Object, primer.Object, debugMode);
         }
 
         [Test]

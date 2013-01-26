@@ -24,24 +24,22 @@ namespace WebAssetBundler.Web.Mvc
         private IBundlesCache<StyleSheetBundle> cache;
         private IAssetProvider assetProvider;
         private IBundlePipeline<StyleSheetBundle> pipeline;
-        private bool debugMode;
 
         private static bool isPrimed = false;
 
         public StyleSheetBundleCachePrimer(IAssetProvider assetProvider, IBundlePipeline<StyleSheetBundle> pipeline,
-            IBundlesCache<StyleSheetBundle> cache, Func<bool> debugMode)
+            IBundlesCache<StyleSheetBundle> cache)
         {
             this.assetProvider = assetProvider;
             this.pipeline = pipeline;
             this.cache = cache;
-            this.debugMode = debugMode();
         }
 
         public bool IsPrimed
         {
             get
             {
-                return isPrimed && debugMode == false;
+                return isPrimed;
             }
         }
 

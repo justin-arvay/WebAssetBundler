@@ -63,15 +63,19 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => new StyleSheetPipeline(container));
             container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
-            container.Register<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>>(new StyleSheetBundleCachePrimer(
-                container.Resolve<IAssetProvider>(),
-                container.Resolve<IBundlePipeline<StyleSheetBundle>>(),
-                container.Resolve<IBundlesCache<StyleSheetBundle>>(),
-                () => DefaultSettings.DebugMode));
+            container.Register<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>, StyleSheetBundleCachePrimer>();
 
             container.Register<StyleSheetCompressProcessor>((c, p) => new StyleSheetCompressProcessor(
                 () => DefaultSettings.StyleSheetMinifyIdentifier,
                 container.Resolve<IStyleSheetCompressor>()));
+
+            container.Register<IBundleProvider<StyleSheetBundle>>((c, p) => new StyleSheetBundleProvider(
+                container.Resolve<IConfigProvider<StyleSheetBundleConfiguration>>(),
+                container.Resolve<IBundlesCache<StyleSheetBundle>>(),
+                container.Resolve<IBundlePipeline<StyleSheetBundle>>(),
+                container.Resolve<IAssetProvider>(),
+                container.Resolve<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>>(),
+                () => DefaultSettings.DebugMode));
         }
 
         public void ConfigureContainerForScript()
@@ -82,16 +86,19 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IBundlePipeline<ScriptBundle>>((c, p) => new ScriptPipeline(container));
             container.Register<IUrlGenerator<ScriptBundle>>(new ScriptUrlGenerator(() => DefaultSettings.DebugMode));
             container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();
-            container.Register<IBundleProvider<ScriptBundle>, ScriptBundleProvider>();
-            container.Register<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>>(new ScriptBundleCachePrimer(
-                container.Resolve<IAssetProvider>(),
-                container.Resolve<IBundlePipeline<ScriptBundle>>(),
-                container.Resolve<IBundlesCache<ScriptBundle>>(),
-                () => DefaultSettings.DebugMode));
+            container.Register<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>, ScriptBundleCachePrimer>();
 
             container.Register<ScriptCompressProcessor>((c, p) => new ScriptCompressProcessor(
                 () => DefaultSettings.ScriptMinifyIdentifier, 
                 container.Resolve<IScriptCompressor>()));
+
+            container.Register<IBundleProvider<ScriptBundle>>((c, p) => new ScriptBundleProvider(
+                container.Resolve<IConfigProvider<ScriptBundleConfiguration>>(),
+                container.Resolve<IBundlesCache<ScriptBundle>>(),
+                container.Resolve<IAssetProvider>(),
+                container.Resolve<IBundlePipeline<ScriptBundle>>(),
+                container.Resolve<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>>(), 
+                () => DefaultSettings.DebugMode));
         }
 
         public void ConfigureHttpHandler()

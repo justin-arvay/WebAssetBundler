@@ -29,7 +29,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<ScriptBundle>> pipeline;
         private Mock<IBundlesCache<ScriptBundle>> cache;
-        private Func<bool> debugMode;
 
         [SetUp]
         public void Setup()
@@ -37,21 +36,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
             assetProvider = new Mock<IAssetProvider>();
             pipeline = new Mock<IBundlePipeline<ScriptBundle>>();
             cache = new Mock<IBundlesCache<ScriptBundle>>();
-            primer = new ScriptBundleCachePrimer(assetProvider.Object, pipeline.Object, cache.Object, debugMode);
+            primer = new ScriptBundleCachePrimer(assetProvider.Object, pipeline.Object, cache.Object);
         }
 
         [Test]
         public void Should_Be_Primed()
         {
-            primer.Prime(new List<ScriptBundleConfiguration>());
-
-            Assert.IsTrue(primer.IsPrimed);
-        }
-
-        [Test]
-        public void Should_Not_Be_Primed_When_Debug_Mode()
-        {
-            debugMode = () => true;
             primer.Prime(new List<ScriptBundleConfiguration>());
 
             Assert.IsTrue(primer.IsPrimed);

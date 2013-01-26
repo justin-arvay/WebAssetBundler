@@ -21,6 +21,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System.Collections.Generic;
     using System.Web;
     using System.IO;
+using System;
 
     [TestFixture]
     public class StyleSheetBundleProviderTests
@@ -31,6 +32,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
         private Mock<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>> primer;
+        private Func<bool> debugMode;
 
         [SetUp]
         public void Setup()
@@ -41,7 +43,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             assetProvider = new Mock<IAssetProvider>();
             primer = new Mock<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>>();
 
-            provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, pipeline.Object, assetProvider.Object, primer.Object);
+            provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, pipeline.Object, assetProvider.Object, primer.Object, debugMode);
         }
 
         [Test]
