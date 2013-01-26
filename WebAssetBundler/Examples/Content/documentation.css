@@ -1,3 +1,5 @@
-﻿#documentation div.content { float:right; width: 700px;}
+﻿#documentation div.content { float:right; width: 700px; margin-top: 0px !important;}
 
-#documentation div.menu { width: 230px; float:left; border: 1px solid #ccc; padding: 10px; margin-top: 20px;}
+#documentation div.menu { width: 230px; float:left; border-right: 2px solid #5e5e5e;  margin-top: 20px; height: 200px;}
+#documentation div.menu a { color: #FF8B24; display:block; text-decoration:none; padding: 5px 5px; font-weight:bold; }
+#documentation div.menu a:hover { color: white; background-color: #ccc;}

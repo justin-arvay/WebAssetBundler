@@ -41,7 +41,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public override ScriptBundle GetNamedBundle(string name)
         {
-            if (primer.IsPrimed == false)
+            if (primer.IsPrimed == false || DebugMode)
             {
                 primer.Prime(configProvider.GetConfigs());
             }

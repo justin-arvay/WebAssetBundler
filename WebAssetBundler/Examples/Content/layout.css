@@ -54,7 +54,7 @@ body{background-color:white;font-size:10px; font-family:Arial, Sans-Serif;margin
 #footer div.wrapper div.osi { float:right; width: 70px; text-align:center;}
 #footer div.wrapper div.osi img { margin: 0px 10px;}
 
-#main {font-size: 12px; margin-top:20px;}
+#main {font-size: 12px; margin-top:20px; position:relative;}
 #main div.wrapper { width: 1000px; margin: 0px auto;}
 #main div.wrapper div.content {margin:20px; }
 #main div.wrapper blockquote {margin: 1em 3em; color: #999; border-left: 2px solid #999; padding-left: 1em; font-style: italic;}

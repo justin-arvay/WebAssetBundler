@@ -42,7 +42,7 @@ using System.Web;
 
         public override StyleSheetBundle GetNamedBundle(string name)
         {
-            if (primer.IsPrimed == false)
+            if (primer.IsPrimed == false || DebugMode)
             {
                 primer.Prime(configProvider.GetConfigs());
             }
