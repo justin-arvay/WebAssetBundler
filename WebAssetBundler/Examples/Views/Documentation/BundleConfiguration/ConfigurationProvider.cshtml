@@ -9,7 +9,9 @@ that is inheriting ScriptBundleConfiguration or StyleSheetBundleConfiguration. Y
 of the providers.</p>
 
 <p>The first thing you need to do is create a new implementation of providers. Here is an example that returns a hard coded list:</p>
-<pre data-language="csharp"><code>
+<pre data-language="csharp">
+
+    @Html.Code(@"
     using WebAssetBundler.Web.Mvc;
 
     public class MyScriptConfigProvider : IConfigProvider<ScriptBundleConfiguration>
@@ -29,8 +31,11 @@ of the providers.</p>
         {
             //similar to above
         }
-    }
-</code></pre>
+    }")
+      
+   
+
+</pre>
 
 <p>Now you just need to inform the bundler that you want to use your own provider:</p>
 <pre data-language="csharp">

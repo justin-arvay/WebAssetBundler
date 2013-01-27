@@ -17,17 +17,13 @@
 namespace Examples
 {
     using System;
-    using WebAssetBundler.Web.Mvc;
+    using System.Web.Mvc;
 
-    public class LayoutScriptBundle : ScriptBundleConfiguration
+    public static class HtmlHelperExtensions
     {
-        public override void Configure()
+        public static string Code(this HtmlHelper helper, string code)
         {
-            Name("Scripts");
-            Compress(true);
-            Add("~/Scripts/jquery-1.9.0.min.js");
-            Add("~/Scripts/jquery-ui-1.10.0.custom.min.js");
-            Add("~/Scripts/rainbow-custom.min.js");
+            return code;
         }
     }
 }
