@@ -11,14 +11,13 @@
     {
         public Bundle()
         {
-            Enabled = true;
+            Minify = true;
             Assets = new InternalCollection();
             Content = "";
         }
 
         public string Name { get; set; }
-        public bool Compress { get; set; }
-        public bool Enabled { get; set; }
+        public bool Minify { get; set; }
         public WebAssetType Type { get; protected set; }
         public string Host { get; set; }
         public string Extension { get; protected set; }

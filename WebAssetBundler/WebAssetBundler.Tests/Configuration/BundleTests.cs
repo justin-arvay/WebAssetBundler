@@ -38,6 +38,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
+        public void Should_Have_Minify_On_By_Default()
+        {
+            Assert.AreEqual(true, bundle.Minify);
+        }
+
+        [Test]
         public void Should_Add_Asset()
         {
             bundle.Assets.Add(new AssetBaseImpl());

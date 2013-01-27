@@ -45,7 +45,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             asset.Source = "~/file.js";
 
             bundle.Assets.Add(asset);
-            bundle.Compress = true;
+            bundle.Minify = true;
 
             processor.Process(bundle);
 
@@ -59,7 +59,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             asset.Content = "var value = 1;";
 
             bundle.Assets.Add(asset);
-            bundle.Compress = false;
+            bundle.Minify = false;
 
             processor.Process(bundle);
 
@@ -74,7 +74,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             asset.Content = "var value = 1;";
 
             bundle.Assets.Add(asset);
-            bundle.Compress = true;
+            bundle.Minify = true;
 
             processor.Process(bundle);
 

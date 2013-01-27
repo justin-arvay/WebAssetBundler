@@ -34,7 +34,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             foreach (var asset in bundle.Assets)
             {
-                if (bundle.Compress)
+                if (bundle.Minify)
                 {
                     if (IsAlreadyMinified(asset) == false)
                     {

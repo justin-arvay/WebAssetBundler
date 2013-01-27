@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Other";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<h2>Minifying Assets</h2>
+<p>By default all assets in a bundle are minified. You can easily disable this like so:</p>
+
+<pre data-language="cshar">
+    public override void Configure()
+    {
+        //... other settings
+
+        Compress(false);
+    }
+</pre>

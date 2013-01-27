@@ -9,9 +9,27 @@
 is an example:</p>
 
 <pre data-language="csharp">
-    //virtual path add
-    Add("~/Scripts/jquery-1.9.0.min.js");
+    public override void Configure()
+    {
+        //virtual path add
+        Add("~/Scripts/jquery-1.9.0.min.js");
 
-    //relative path add
-    Add("jquery-ui-1.10.0.custom.min.js");
+        //relative path add
+        Add("jquery-ui-1.10.0.custom.min.js");
+    }
 </pre>
+
+<p>You can also add assets based on a directory. Here is an example:</p>
+<pre data-language="csharp">
+
+    //adds all assets in a specific directory
+    AddFromDirectory("~/Script");
+
+    //adds assets based on criteria
+    AddFromDirectory("~/Script", a => a
+        .Contains("jQuery")
+        .StartsWith("j")
+        .EndsWith("n"));
+</pre>
+
+<p><strong>Note:</strong> EndsWith ignores the file extension when comparing.</p>

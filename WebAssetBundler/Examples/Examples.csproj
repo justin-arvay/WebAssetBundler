@@ -162,6 +162,8 @@
     <Content Include="Views\Shared\_DocumentationLayout.cshtml" />
     <Content Include="Views\Shared\_BasicLayout.cshtml" />
     <Content Include="Views\Documentation\BundleConfiguration\AddingAssets.cshtml" />
+    <Content Include="Views\Documentation\BundleConfiguration\ConfigurationProvider.cshtml" />
+    <Content Include="Views\Documentation\BundleConfiguration\Other.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

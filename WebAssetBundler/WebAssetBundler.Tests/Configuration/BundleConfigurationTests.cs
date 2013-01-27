@@ -49,7 +49,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundleConfig.Compress(true);
 
-            Assert.IsTrue(bundleConfig.GetBundle().Compress);
+            Assert.IsTrue(bundleConfig.GetBundle().Minify);
         }
 
         [Test]

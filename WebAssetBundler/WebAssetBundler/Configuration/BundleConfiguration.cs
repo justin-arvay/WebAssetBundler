@@ -88,7 +88,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="compress"></param>
         public void Compress(bool compress)
         {
-            bundle.Compress = compress;
+            bundle.Minify = compress;
         }
 
         /// <summary>

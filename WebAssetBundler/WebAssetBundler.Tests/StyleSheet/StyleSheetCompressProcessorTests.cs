@@ -44,7 +44,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             asset.Source = "~/file.css";
 
             bundle.Assets.Add(asset);
-            bundle.Compress = true;
+            bundle.Minify = true;
 
             processor.Process(bundle);
 
@@ -58,7 +58,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             asset.Content = "#div { color: #123; }";
 
             bundle.Assets.Add(asset);
-            bundle.Compress = false;
+            bundle.Minify = false;
 
             processor.Process(bundle);
 
@@ -73,7 +73,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             asset.Source = "~/file.min.css";
 
             bundle.Assets.Add(asset);
-            bundle.Compress = true;
+            bundle.Minify = true;
 
             processor.Process(bundle);
 
