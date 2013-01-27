@@ -3,4 +3,15 @@
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
 }
 
-<h2>AddingAssets</h2>
+<h2>Add Single Assets</h2>
+
+<p>The <strong>Add</strong> method takes a relative or virtual path to the file you are adding to the bundle. Here 
+is an example:</p>
+
+<pre data-language="csharp">
+    //virtual path add
+    Add("~/Scripts/jquery-1.9.0.min.js");
+
+    //relative path add
+    Add("jquery-ui-1.10.0.custom.min.js");
+</pre>
