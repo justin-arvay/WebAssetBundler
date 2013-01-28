@@ -38,9 +38,8 @@ StyleSheetBundeConfiguration for javascript and style sheet configuration.</p>
 required to name your bundles. The bundle name will be needed when trying to render the bundle. The bundle name will also be part of the rendered url. Here is an
 example of the output from the above configuration:</p>
 <pre data-language="html">
-    <link type="text/css" 
-        href="/wab.axd/css/ea6a28569fbedb21230d1c620dc5bddb0/StyleSheets" rel="stylesheet" />
+    @Html.Code("<link type=\"text/css\" href=\"/wab.axd/css/ea6a28569fbedb21230d1c620dc5bddb0/StyleSheets\" rel=\"stylesheet\" />");
 
-    <script type="text/javascript" 
-        src="/wab.axd/js/95fee1d9571e0b4a0764d7773/Script"></script>
+    <script type="text/javascript" src="/wab.axd/js/95fee1d9571e0b4a0764d7773/Script"></script>
+    @Html.Code("<script type=\"text/javascript\" src=\"/wab.axd/js/95fee1d9571e0b4a0764d7773/Script\"></script>");
 </pre>

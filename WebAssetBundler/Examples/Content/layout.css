@@ -1,7 +1,7 @@
 html { height: 100%;}
 body{background-color:white;font-size:10px; font-family:Arial, Sans-Serif;margin:0;padding:0;color:#333; height: 100%; }
      
-#wrap-all { position:relative; min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -140px; /* the bottom margin is the negative value of the footer's height */}
+#wrap-all { position:relative; height: auto !important; min-height:100%; margin: 0 auto -140px; /* the bottom margin is the negative value of the footer's height */}
 #wrap-all div.push { height: 142px;}
 
 #header div.top  {
@@ -54,7 +54,7 @@ body{background-color:white;font-size:10px; font-family:Arial, Sans-Serif;margin
 #footer div.wrapper div.osi { float:right; width: 70px; text-align:center;}
 #footer div.wrapper div.osi img { margin: 0px 10px;}
 
-#main {font-size: 12px; margin-top:20px; position:relative;}
+#main {font-size: 12px; margin-top:20px; position:relative; display:inline-block; width: 100%;}
 #main div.wrapper { width: 1000px; margin: 0px auto;}
 #main div.wrapper div.content {margin:20px; }
 #main div.wrapper blockquote {margin: 1em 3em; color: #999; border-left: 2px solid #999; padding-left: 1em; font-style: italic;}

@@ -18,12 +18,13 @@ namespace Examples
 {
     using System;
     using System.Web.Mvc;
+    using System.Web;
 
     public static class HtmlHelperExtensions
     {
-        public static string Code(this HtmlHelper helper, string code)
+        public static IHtmlString Code(this HtmlHelper helper, string code)
         {
-            return code;
+            return new MvcHtmlString(helper.Encode(code));
         }
     }
 }
