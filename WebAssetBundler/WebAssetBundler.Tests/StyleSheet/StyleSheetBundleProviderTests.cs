@@ -32,7 +32,6 @@ using System;
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
         private Mock<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>> primer;
-        private Func<bool> debugMode;
 
         [SetUp]
         public void Setup()
@@ -43,7 +42,7 @@ using System;
             assetProvider = new Mock<IAssetProvider>();
             primer = new Mock<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>>();
 
-            provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, pipeline.Object, assetProvider.Object, primer.Object, debugMode);
+            provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, pipeline.Object, assetProvider.Object, primer.Object, () => false);
         }
 
         [Test]
@@ -87,6 +86,8 @@ using System;
         [Test]
         public void Should_Always_Prime_Cache_When_Getting_Named_Bundle()
         {
+            provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, pipeline.Object, assetProvider.Object, primer.Object, () => true);
+
             var configs = new List<StyleSheetBundleConfiguration>();
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
@@ -133,6 +134,8 @@ using System;
         [Test]
         public void Should_Always_Load_Asset_When_Debug_Mode()
         {
+            provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, pipeline.Object, assetProvider.Object, primer.Object, () => true);
+
             var bundle = new StyleSheetBundle();
             bundle.Name = "199b18f549a41c8d45fe0a5b526ac060-file";
 

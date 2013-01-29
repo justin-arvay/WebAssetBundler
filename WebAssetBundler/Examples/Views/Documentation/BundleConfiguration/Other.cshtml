@@ -6,14 +6,70 @@
 <h2>Minifying Assets</h2>
 <p>By default all assets in a bundle are minified. You can easily disable this like so:</p>
 
-<pre data-language="cshar">
-    public override void Configure()
-    {
-        //... other settings
+<pre data-language="csharp">
+public override void Configure()
+{
+    //... other settings
 
-        Compress(false);
-    }
+    Minify(false);
+}
 </pre>
 
+<p>The bundle will automatically ignore assets that have already been minified even when minifying is on. It does this by looking for
+the <strong>.min</strong> at the end of the files path. For example this file would not be re-minifed: </p>
+
+<code>~/Scripts/jquery-1.9.0.min.js</code>
+
+<p>Instead the minify process would simply skip this file and move on. You can configure this to use a different identifier if you wish. By default these are both
+set to <strong>.min</strong>. You can change these two settings.</p>
+<pre data-language="csharp">
+//script identifier
+DefaultSettings.ScriptMinifyIdentifier = "minified";
+
+//stylesheet identifier
+DefaultSettings.StyleSheetMinifyIdentifier = "minified";
+</pre>
+
+
 <h2>Naming Bundles</h2>
-<p>Bundles must be named in order to render them.</p>
+<p>Bundles must be named in order to render them. The bundle name is used to reference the bundle on the page. The bundle name is also used 
+as an identifier in the rendered url. For example this bundle:</p>
+<pre data-language="csharp">
+public class LayoutScriptBundle : ScriptBundleConfiguration
+{
+    public override void Configure()
+    {
+        Name("Scripts");
+        Add("~/Scripts/jquery-1.9.0.min.js");
+    }
+}
+</pre>
+
+<p>Would be rendered like so:</p>
+<pre data-language="csharp">
+@@Bundler.Scripts.Render("Scripts")
+</pre>
+
+<p>And produce this url:</p>
+<pre data-language="html">
+@Html.Code("<script type=\"text/javascript\" src=\"/wab.axd/js/406f73f10ad75152ee39a583b7e5625d012813193156/Scripts\"></script>")
+</pre>
+
+<h2>Setting a Host</h2>
+<p>You can manually override the host for each bundle if you wish. This can be useful if you have your own content delivery network (CDN). For example:</p>
+<pre data-language="csharp">
+public class LayoutScriptBundle : ScriptBundleConfiguration
+{
+    public override void Configure()
+    {
+        Name("Scripts");
+        Host("https://cdn.mydomain.com");
+        Add("~/Scripts/jquery-1.9.0.min.js");
+    }
+}
+</pre>
+
+<p>Would render the script tag like so:</p>
+<pre data-language="html">
+@Html.Code("<script type=\"text/javascript\" src=\"https://cdn.mydomain.com/wab.axd/js/406f73f10ad75152ee39a583b7e5625d012813193156/Scripts\"></script>")
+</pre>

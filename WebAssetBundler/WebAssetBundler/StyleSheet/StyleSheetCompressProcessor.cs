@@ -46,7 +46,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public bool IsAlreadyMinified(AssetBase asset)
         {
-            return Path.GetFileNameWithoutExtension(asset.Source).EndsWith("min", StringComparison.OrdinalIgnoreCase);
+            return Path.GetFileNameWithoutExtension(asset.Source).EndsWith(minifyIdentifier, StringComparison.OrdinalIgnoreCase);
         }
     }
 }

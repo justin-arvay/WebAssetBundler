@@ -141,5 +141,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.IsInstanceOf<DefaultScriptConfigProvider>(DefaultSettings.ScriptConfigProvider);
         }
 
+        [Test]
+        public void Should_Be_Dot_Min_By_Default()
+        {
+            Assert.AreEqual(".min", DefaultSettings.ScriptMinifyIdentifier);
+            Assert.AreEqual(".min", DefaultSettings.StyleSheetMinifyIdentifier);
+        }
     }
 }

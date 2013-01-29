@@ -17,7 +17,7 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-using System.Web;
+    using System.Web;
     using System.IO;
 
     public class StyleSheetBundleProvider : BundleProviderBase<StyleSheetBundle>

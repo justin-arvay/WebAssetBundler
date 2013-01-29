@@ -29,8 +29,8 @@ namespace WebAssetBundler.Web.Mvc
         private static string styleSheetFilesPath = "~/Content";
         private static string scriptFilesPath = "~/Scripts";
 
-        private static string styleSheetMinifyIdentifier = "min";
-        private static string scriptMinifyIdentifier = "min";
+        private static string styleSheetMinifyIdentifier = ".min";
+        private static string scriptMinifyIdentifier = ".min";
 
         private static bool compressed = true;
 

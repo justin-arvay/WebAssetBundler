@@ -43,7 +43,7 @@ body{background-color:white;font-size:10px; font-family:Arial, Sans-Serif;margin
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b4e391', endColorstr='#b4e391',GradientType=0 ); /* IE6-9 */
 }
 
-#header div.bottom { background-color: #5e5e5e; height: 26px; min-width: 1000px; border-top: 1px solid #898989; border-bottom:2px solid #3d3d3d;}
+#header div.bottom { background-color: #5e5e5e; height: 26px; min-width: 1000px; border-top: 1px solid #898989; border-bottom:1px solid #3d3d3d;}
 #header div.bottom div.wrapper {width: 1000px; margin: 0px auto; height: 100%; line-height: 26px;}
 #header div.bottom div.wrapper a { text-decoration: none; color: White; font-size: 12px; font-weight:bold; margin-right: 20px;}
 #header div.bottom div.wrapper a:hover { color: #FF8B24;}
@@ -79,6 +79,7 @@ body{background-color:white;font-size:10px; font-family:Arial, Sans-Serif;margin
 /**** content styling ****/
 #main div.content {font-size: 12px;}
 #main div.content li { margin-left: 30px; list-style:square;}
+#main div.content p{text-indent: 0px;}
 #main div.content p, #main div.content ul{margin:10px 0px;line-height:16px;}
 #main div.content a:link{color:#034af3;text-decoration:underline}
 #main div.content a:visited{color:#505abc}

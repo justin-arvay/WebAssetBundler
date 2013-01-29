@@ -24,12 +24,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class ScriptUrlGeneratorTests
     {
         private ScriptUrlGenerator generator;
-        private Func<bool> debugMode;
 
         [SetUp]
         public void Setup()
         {
-            generator = new ScriptUrlGenerator(debugMode);
+            generator = new ScriptUrlGenerator(() => false);
         }
 
         [Test]
@@ -51,6 +50,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Generate_Cache_Breaker_Url()
         {
+            generator = new ScriptUrlGenerator(() => true);
+
             var url = generator.Generate("test", "abc", null);
 
             Assert.AreEqual("/wab.axd/js/abc" + DateTime.Now.ToString("MMddyyHmmss") + "/test", url);

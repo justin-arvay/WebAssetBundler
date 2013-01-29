@@ -32,7 +32,6 @@ using System;
         private Mock<IBundlePipeline<ScriptBundle>> pipeline;
         private Mock<HttpServerUtilityBase> server;
         private Mock<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>> primer;
-        private Func<bool> debugMode;
 
         [SetUp]
         public void Setup()
@@ -44,7 +43,7 @@ using System;
             primer = new Mock<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>>();
 
             provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object, 
-                pipeline.Object, primer.Object, debugMode);
+                pipeline.Object, primer.Object, () => false);
         }
 
         [Test]
@@ -88,6 +87,9 @@ using System;
         [Test]
         public void Should_Always_Prime_Cache_When_Getting_Named_Bundle()
         {
+            provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object,
+                pipeline.Object, primer.Object, () => true);
+
             var configs = new List<ScriptBundleConfiguration>();
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
@@ -133,6 +135,9 @@ using System;
         [Test]
         public void Should_Always_Load_Asset_When_Debug_Mode()
         {
+            provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object,
+                pipeline.Object, primer.Object, () => true);
+
             var bundle = new ScriptBundle();
             bundle.Name = "199b18f549a41c8d45fe0a5b526ac060-file";
 
