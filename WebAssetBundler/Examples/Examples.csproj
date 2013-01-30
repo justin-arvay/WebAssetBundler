@@ -165,6 +165,7 @@
     <Content Include="Views\Documentation\BundleConfiguration\AddingAssets.cshtml" />
     <Content Include="Views\Documentation\BundleConfiguration\ConfigurationProvider.cshtml" />
     <Content Include="Views\Documentation\BundleConfiguration\Other.cshtml" />
+    <Content Include="Views\Documentation\RenderingBundles.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
