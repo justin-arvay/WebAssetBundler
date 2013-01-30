@@ -50,12 +50,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Compressed_Should_Be_True_By_Default()
-        {
-            Assert.True(DefaultSettings.Compressed);
-        }
-
-        [Test]
         public void ScriptsFilesPath_Should_Use_MVC_Scripts_Folder_By_Default()
         {
             Assert.AreEqual("~/Scripts", DefaultSettings.ScriptFilesPath);
@@ -66,35 +60,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             Assert.AreEqual("~/Content", DefaultSettings.StyleSheetFilesPath);
         }
-
-        [Test]
-        public void Can_Set_Compressed()
-        {
-            DefaultSettings.Compressed = false;
-
-            Assert.False(DefaultSettings.Compressed);
-
-            //re-set the default
-            DefaultSettings.Compressed = true;
-        }
-
-        [Test]
-        public void Default_Group_Name_Should_Already_Be_Set()
-        {
-            Assert.AreEqual("Default", DefaultSettings.DefaultGroupName);
-        }
-
-        [Test]
-        public void Can_Set_Default_Group_Name()
-        {
-            var previous = DefaultSettings.DefaultGroupName;
-
-            DefaultSettings.DefaultGroupName = "SomeGroup";
-            Assert.AreEqual("SomeGroup", DefaultSettings.DefaultGroupName);
-
-            DefaultSettings.DefaultGroupName = previous;
-        }
-
+      
         [Test]
         public void Should_Use_Ms_Script_Compressor_By_Default()
         {

@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Bundle Pipeline";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<h2>Bundle Pipeline</h2>
+<p>Bundles are processed in a pipleine that allows for easy modification. You can add in your own pipeline processing
+to customize how a bundle is processed. There is one pipeline for style sheets and one for bundles. Each pipeline has default processors
+used for the standard bundling procedure.</p>
+
+<p>Default Processors for style sheet bundles (processed in this order):</p>
+<ul>
+    <li>Image path processor - updates any image paths to work with the new url.</li>
+    <li>Minify processor - minifies the assets.</li>
+    <li>Merge processor - merges the assets into one asset.</li>
+</ul>
+
+<p>Default Processors for script bundles (processed in this order):</p>
+<ul>   
+    <li>Minify processor - minifies the assets.</li>
+    <li>Merge processor - merges the assets into one asset.</li>
+</ul>
