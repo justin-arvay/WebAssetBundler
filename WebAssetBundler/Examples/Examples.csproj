@@ -166,6 +166,10 @@
     <Content Include="Views\Documentation\BundleConfiguration\ConfigurationProvider.cshtml" />
     <Content Include="Views\Documentation\BundleConfiguration\Other.cshtml" />
     <Content Include="Views\Documentation\RenderingBundles.cshtml" />
+    <Content Include="Views\Documentation\Bundle Pipeline.cshtml" />
+    <Content Include="Views\Documentation\CustomMinifiers.cshtml" />
+    <Content Include="Views\Documentation\Browser Caching.cshtml" />
+    <Content Include="Views\Documentation\DebugMode.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -75,37 +75,6 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether assets should be served as compressed.
-        /// </summary>
-        /// <value><c>true</c> if compressed; otherwise, <c>false</c>.</value>
-        public static bool Compressed
-        {
-            get
-            {
-                return compressed;
-            }
-            set
-            {
-                compressed = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the default bundle name.
-        /// </summary>
-        public static string DefaultGroupName
-        {
-            get
-            {
-                return defaultGroupName;
-            }
-            set
-            {
-                defaultGroupName = value;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the default script compressor.
         /// </summary>
         public static IScriptCompressor ScriptCompressor
@@ -133,25 +102,6 @@ namespace WebAssetBundler.Web.Mvc
             {
                 styleSheetCompressor = value;
             }
-        }
-
-        /// <summary>
-        /// Gets or sets the javascript host.
-        /// </summary>
-        public static string ScriptHost
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the style sheet host.
-        /// </summary>
-        /// <returns></returns>
-        public static string StyleSheetHost
-        {
-            get;
-            set;
         }
 
         /// <summary>
