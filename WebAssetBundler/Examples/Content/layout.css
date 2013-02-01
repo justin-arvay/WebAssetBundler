@@ -1,8 +1,9 @@
 html { height: 100%;}
-body{background-color:white;font-size:10px; font-family:Arial, Sans-Serif;margin:0;padding:0;color:#333; height: 100%; }
-     
-#wrap-all { position:relative; height: auto !important; min-height:100%; margin: 0 auto -140px; /* the bottom margin is the negative value of the footer's height */}
-#wrap-all div.push { height: 142px;}
+body{background-color:#e6e6e6;font-size:10px; font-family:Arial, Sans-Serif;margin:0;padding:0;color:#333; height: 100%; }
+/* 
+//sticky footer    
+#wrap-all { position:relative; height: auto !important; min-height:100%; margin: 0 auto -140px; }
+#wrap-all div.push { height: 142px;}*/
 
 #header div.top  {
     height: 100px; min-width: 1000px;
@@ -48,19 +49,23 @@ body{background-color:white;font-size:10px; font-family:Arial, Sans-Serif;margin
 #header div.bottom div.wrapper a { text-decoration: none; color: White; font-size: 12px; font-weight:bold; margin-right: 20px;}
 #header div.bottom div.wrapper a:hover { color: #FF8B24;}
 
-#footer { width: 100%; position:relative;}
-#footer div.wrapper { width: 1000px; margin: 0px auto; height: 140px; border-top: 1px solid #ccc; background-color: #f4f4f4;}
-#footer div.wrapper div.content {margin:20px; }
-#footer div.wrapper div.osi { float:right; width: 70px; text-align:center;}
-#footer div.wrapper div.osi img { margin: 0px 10px;}
-
-#main {font-size: 12px; margin-top:20px; position:relative; display:inline-block; width: 100%;}
+#main {font-size: 12px; position:relative; display:inline-block; width: 100%;}
 #main div.wrapper { width: 1000px; margin: 0px auto;}
-#main div.wrapper div.content {margin:20px; }
+#main div.wrapper div.content {font-size: 12px;}
 #main div.wrapper blockquote {margin: 1em 3em; color: #999; border-left: 2px solid #999; padding-left: 1em; font-style: italic;}
 #main div.wrapper pre { font-family: Consolas,Inconsolata,monospace; display: block; width: auto; overflow: auto; max-height: 600px; 
     white-space: pre; word-wrap: normal; padding: 10px; border: 1px solid #ccc; background-color: #f9f9f9; moz-border-radius: 12px; 
     -webkit-border-radius: 12px; border-radius: 12px;}
+#main div.edge { -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18), 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18), 0 0 5px 0 rgba(0, 0, 0, 0.2); box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18), 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    background-color: White; display:inline-block; padding: 20px;}
+
+#basic {width:960px; }
+#footer { width: 100%; position:relative;}
+#footer div.wrapper { width: 1000px; margin: 0px auto; height: 140px;}
+#footer div.wrapper div.content {margin:20px; }
+#footer div.wrapper div.osi { float:right; width: 70px; text-align:center;}
+#footer div.wrapper div.osi img { margin: 0px 10px;}
 
 /* csharp */
 #main div.wrapper pre span.keyword {color: #00c;}
@@ -77,7 +82,6 @@ body{background-color:white;font-size:10px; font-family:Arial, Sans-Serif;margin
 #main div.wrapper pre span.string.value { color: #00f; }
 
 /**** content styling ****/
-#main div.content {font-size: 12px;}
 #main div.content li { margin-left: 30px; list-style:square;}
 #main div.content p{text-indent: 0px;}
 #main div.content p, #main div.content ul{margin:10px 0px;line-height:16px;}

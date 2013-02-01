@@ -1,6 +1,7 @@
-﻿#documentation div.content { float:right; width: 740px; margin-top: 0px !important;}
+﻿#documentation { width: 960px;}
+#documentation div.content { float:right; width: 740px; margin-top: 0px !important;}
 
-#documentation div.menu { width: 200px; float:left;  margin-top: 20px; height: 200px;}
+#documentation div.menu { width: 200px; float:left;  margin-top: 20px; margin-left: -10px; height: 200px;}
 #documentation div.menu ul li ul{ margin-left: 20px;}
 #documentation div.menu ul li { background-image: url(../Images/document-icon.png); background-repeat:no-repeat; padding-left: 20px;}
 #documentation div.menu a { color: #333; display:block; text-decoration:none; padding: 5px 5px; font-weight:bold; }
