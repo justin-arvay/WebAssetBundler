@@ -39,9 +39,9 @@ namespace Examples
 
         }
 
-        public class Test : IStyleSheetCompressor
+        public class Test : IStyleSheetMinifier
         {
-            public string Compress(string content)
+            public string Minify(string content)
             {
                 return content;
             }
@@ -57,7 +57,7 @@ namespace Examples
             //DefaultSettings.StyleSheetHost = "192.168.1.69";
            // DefaultSettings.ScriptHost = "6.6.6.6";
             DefaultSettings.DebugMode = true;
-            DefaultSettings.ScriptCompressor = new JSMinCompressor();            
+            DefaultSettings.ScriptMinifier = new JSMinMinifier();            
         }
     }
 }

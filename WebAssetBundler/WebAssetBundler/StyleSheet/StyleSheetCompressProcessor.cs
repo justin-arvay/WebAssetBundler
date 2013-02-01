@@ -21,10 +21,10 @@ namespace WebAssetBundler.Web.Mvc
 
     public class StyleSheetCompressProcessor : IPipelineProcessor<StyleSheetBundle>
     {
-        private IStyleSheetCompressor compressor;
+        private IStyleSheetMinifier compressor;
         private string minifyIdentifier;
 
-        public StyleSheetCompressProcessor(Func<string> minifyIdentifier, IStyleSheetCompressor compressor)
+        public StyleSheetCompressProcessor(Func<string> minifyIdentifier, IStyleSheetMinifier compressor)
         {
             this.compressor = compressor;
             this.minifyIdentifier = minifyIdentifier();
@@ -38,7 +38,7 @@ namespace WebAssetBundler.Web.Mvc
                 {
                     if (IsAlreadyMinified(asset) == false) 
                     {
-                        asset.Content = compressor.Compress(asset.Content);
+                        asset.Content = compressor.Minify(asset.Content);
                     }
                 }
             }

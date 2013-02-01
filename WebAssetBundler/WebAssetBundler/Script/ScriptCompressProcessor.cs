@@ -21,10 +21,10 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ScriptCompressProcessor : IPipelineProcessor<ScriptBundle>
     {
-        private IScriptCompressor compressor;
+        private IScriptMinifier compressor;
         private string minifyIdentifier;
 
-        public ScriptCompressProcessor(Func<string> minifyIdentifier, IScriptCompressor compressor)
+        public ScriptCompressProcessor(Func<string> minifyIdentifier, IScriptMinifier compressor)
         {
             this.compressor = compressor;
             this.minifyIdentifier = minifyIdentifier();
@@ -38,7 +38,7 @@ namespace WebAssetBundler.Web.Mvc
                 {
                     if (IsAlreadyMinified(asset) == false)
                     {
-                        asset.Content = compressor.Compress(asset.Content);
+                        asset.Content = compressor.Minify(asset.Content);
                     }
                 }
             }

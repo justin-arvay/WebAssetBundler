@@ -11,46 +11,44 @@ of the providers.</p>
 <p>The first thing you need to do is create a new implementation of providers. Here is an example that returns a hard coded list:</p>
 <pre data-language="csharp">
 
-    @Html.Code(@"
-    using WebAssetBundler.Web.Mvc;
+@Html.Code(@"
+using WebAssetBundler.Web.Mvc;
 
-    public class MyScriptConfigProvider : IConfigProvider<ScriptBundleConfiguration>
+public class MyScriptConfigProvider : IConfigProvider<ScriptBundleConfiguration>
+{
+    public IList<ScriptBundleConfiguration> GetConfigs()
     {
-        public IList<ScriptBundleConfiguration> GetConfigs()
-        {
-            var configs = new List<ScriptBundleConfiguration>();
-            configs.Add(new ScriptLayoutConfiguration());            
+        var configs = new List<ScriptBundleConfiguration>();
+        configs.Add(new ScriptLayoutConfiguration());            
 
-            return configs;
-        }
+        return configs;
     }
+}
 
-    public class MyStyleSheetConfigProvider : IConfigProvider<StyleSheetBundleConfiguration>
+public class MyStyleSheetConfigProvider : IConfigProvider<StyleSheetBundleConfiguration>
+{
+    public IList<StyleSheetBundleConfiguration> GetConfigs()
     {
-        public IList<StyleSheetBundleConfiguration> GetConfigs()
-        {
-            //similar to above
-        }
-    }")
+        //similar to above
+    }
+}")
       
-   
-
 </pre>
 
 <p>Now you just need to inform the bundler that you want to use your own provider:</p>
 <pre data-language="csharp">
-    protected void Application_Start()
-    {
-        AreaRegistration.RegisterAllAreas();
+protected void Application_Start()
+{
+    AreaRegistration.RegisterAllAreas();
 
-        RegisterGlobalFilters(GlobalFilters.Filters);
-        RegisterRoutes(RouteTable.Routes);
+    RegisterGlobalFilters(GlobalFilters.Filters);
+    RegisterRoutes(RouteTable.Routes);
 
-        //register the new providers 
-        DefaultSettings.ScriptConfigProvider = new MyScriptConfigProvider();
-        DefaultSettings.StyleSheetConfigProvider = new MyStyleSheetConfigProvider();
+    //register the new providers 
+    DefaultSettings.ScriptConfigProvider = new MyScriptConfigProvider();
+    DefaultSettings.StyleSheetConfigProvider = new MyStyleSheetConfigProvider();
 
-    }
+}
 </pre>
 
 <p>The providers need to be registered <strong>before</strong> any rendering is done. In ASP.NET MVC framework, the 

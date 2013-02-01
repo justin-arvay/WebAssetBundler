@@ -19,9 +19,9 @@ namespace WebAssetBundler.Web.Mvc
 {
     using Yahoo.Yui.Compressor;
 
-    public class YuiStyleSheetCompressor: IStyleSheetCompressor
+    public class YuiStyleSheetMinifier: IStyleSheetMinifier
     {
-        public string Compress(string content)
+        public string Minify(string content)
         {
             return CssCompressor.Compress(content, 0, CssCompressionType.StockYuiCompressor);
         }

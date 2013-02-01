@@ -24,7 +24,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class ScriptCompressProcessorTests
     {
         private ScriptCompressProcessor processor;
-        private Mock<IScriptCompressor> compressor;
+        private Mock<IScriptMinifier> compressor;
         private ScriptBundle bundle;
 
         [SetUp]
@@ -33,7 +33,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Func<string> minifyIdentifier = () => "min";
 
             bundle = new ScriptBundle();
-            compressor = new Mock<IScriptCompressor>();
+            compressor = new Mock<IScriptMinifier>();
             processor = new ScriptCompressProcessor(minifyIdentifier, compressor.Object);
         }
 
@@ -49,7 +49,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            compressor.Verify(c => c.Compress("var value = 1;"), Times.Once());
+            compressor.Verify(c => c.Minify("var value = 1;"), Times.Once());
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            compressor.Verify(c => c.Compress("var value = 1;"), Times.Never());
+            compressor.Verify(c => c.Minify("var value = 1;"), Times.Never());
         }
 
         [Test]
@@ -78,7 +78,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            compressor.Verify(c => c.Compress("var value = 1;"), Times.Never());
+            compressor.Verify(c => c.Minify("var value = 1;"), Times.Never());
         }
     }
 }

@@ -36,8 +36,8 @@ namespace WebAssetBundler.Web.Mvc
 
         private static string defaultGroupName = "Default";
         
-        private static IScriptCompressor scriptCompressor = new MsScriptCompressor();
-        private static IStyleSheetCompressor styleSheetCompressor = new MsStyleSheetCompressor();
+        private static IScriptMinifier scriptMinifier = new MsScriptMinifier();
+        private static IStyleSheetMinifier styleSheetMinfier = new MsStyleSheetMinifier();
 
         private static IConfigProvider<StyleSheetBundleConfiguration> styleSheetConfigProvider = new DefaultStyleSheetConfigProvider();
         private static IConfigProvider<ScriptBundleConfiguration> scriptConfigProvider = new DefaultScriptConfigProvider();
@@ -75,32 +75,32 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
-        /// Gets or sets the default script compressor.
+        /// Gets or sets the default script minfier.
         /// </summary>
-        public static IScriptCompressor ScriptCompressor
+        public static IScriptMinifier ScriptMinifier
         {
             get
             {
-                return scriptCompressor;
+                return scriptMinifier;
             }
             set
             {
-                scriptCompressor = value;
+                scriptMinifier = value;
             }
         }
 
         /// <summary>
-        /// Gets or sets the default style sheet compressor.
+        /// Gets or sets the default style sheet minifier.
         /// </summary>
-        public static IStyleSheetCompressor StyleSheetCompressor
+        public static IStyleSheetMinifier StyleSheetMinifier
         {
             get
             {
-                return styleSheetCompressor;
+                return styleSheetMinfier;
             }
             set
             {
-                styleSheetCompressor = value;
+                styleSheetMinfier = value;
             }
         }
 

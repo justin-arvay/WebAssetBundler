@@ -28,13 +28,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [SetUp]
         public void Setup()
         {
-            var compressor = new Mock<IScriptCompressor>();
+            var compressor = new Mock<IScriptMinifier>();
 
             container = new TinyIoCContainer();
-            container.Register<IScriptCompressor>((a, c) => compressor.Object);
+            container.Register<IScriptMinifier>((a, c) => compressor.Object);
             container.Register<ScriptCompressProcessor>((c, p) => new ScriptCompressProcessor(
                 () => DefaultSettings.ScriptMinifyIdentifier,
-                container.Resolve<IScriptCompressor>()));
+                container.Resolve<IScriptMinifier>()));
 
             pipeline = new ScriptPipeline(container);            
         }

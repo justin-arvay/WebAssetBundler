@@ -16,8 +16,8 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
-    public interface IStyleSheetCompressor
+    public interface IStyleSheetMinifier
     {        
-        string Compress(string content);
+        string Minify(string content);
     }
 }

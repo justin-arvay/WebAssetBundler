@@ -166,7 +166,7 @@
     <Content Include="Views\Documentation\BundleConfiguration\ConfigurationProvider.cshtml" />
     <Content Include="Views\Documentation\BundleConfiguration\Other.cshtml" />
     <Content Include="Views\Documentation\RenderingBundles.cshtml" />
-    <Content Include="Views\Documentation\BundlePipeline.cshtml" />
+    <Content Include="Views\Documentation\BundlePipelines.cshtml" />
     <Content Include="Views\Documentation\CustomMinifiers.cshtml" />
     <Content Include="Views\Documentation\BrowserCaching.cshtml" />
     <Content Include="Views\Documentation\DebugMode.cshtml" />

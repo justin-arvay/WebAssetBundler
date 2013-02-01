@@ -64,35 +64,35 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Use_Ms_Script_Compressor_By_Default()
         {
-            Assert.IsInstanceOf<MsScriptCompressor>(DefaultSettings.ScriptCompressor);
+            Assert.IsInstanceOf<MsScriptMinifier>(DefaultSettings.ScriptMinifier);
         }
 
         [Test]
         public void Can_Set_Script_Compressor()
         {
-            var previous = DefaultSettings.ScriptCompressor;
+            var previous = DefaultSettings.ScriptMinifier;
 
-            DefaultSettings.ScriptCompressor = new YuiScriptCompressor();
-            Assert.IsInstanceOf<YuiScriptCompressor>(DefaultSettings.ScriptCompressor);
+            DefaultSettings.ScriptMinifier = new YuiScriptMinifier();
+            Assert.IsInstanceOf<YuiScriptMinifier>(DefaultSettings.ScriptMinifier);
 
-            DefaultSettings.ScriptCompressor = previous;
+            DefaultSettings.ScriptMinifier = previous;
         }
 
         [Test]
         public void Should_Use_Ms_Style_Sheet_Compressor_By_Defaut()
         {
-            Assert.IsInstanceOf<MsStyleSheetCompressor>(DefaultSettings.StyleSheetCompressor);
+            Assert.IsInstanceOf<MsStyleSheetMinifier>(DefaultSettings.StyleSheetMinifier);
         }
 
         [Test]
         public void Can_Set_Style_Sheet_Compressor()
         {
-            var previous = DefaultSettings.StyleSheetCompressor;
+            var previous = DefaultSettings.StyleSheetMinifier;
 
-            DefaultSettings.StyleSheetCompressor = new YuiStyleSheetCompressor();
-            Assert.IsInstanceOf<YuiStyleSheetCompressor>(DefaultSettings.StyleSheetCompressor);
+            DefaultSettings.StyleSheetMinifier = new YuiStyleSheetMinifier();
+            Assert.IsInstanceOf<YuiStyleSheetMinifier>(DefaultSettings.StyleSheetMinifier);
 
-            DefaultSettings.StyleSheetCompressor = previous;
+            DefaultSettings.StyleSheetMinifier = previous;
         }
 
         [Test]

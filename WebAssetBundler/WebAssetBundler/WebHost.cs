@@ -57,7 +57,7 @@ namespace WebAssetBundler.Web.Mvc
         public void ConfigureContainerForStyleSheets()
         {
             container.Register<IUrlGenerator<StyleSheetBundle>>(new StyleSheetUrlGenerator(() => DefaultSettings.DebugMode));
-            container.Register<IStyleSheetCompressor>((c, p) => DefaultSettings.StyleSheetCompressor);
+            container.Register<IStyleSheetMinifier>((c, p) => DefaultSettings.StyleSheetMinifier);
             container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();
             container.Register<IConfigProvider<StyleSheetBundleConfiguration>>((c, p) => DefaultSettings.StyleSheetConfigProvider);
             container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => new StyleSheetPipeline(container));
@@ -67,7 +67,7 @@ namespace WebAssetBundler.Web.Mvc
 
             container.Register<StyleSheetCompressProcessor>((c, p) => new StyleSheetCompressProcessor(
                 () => DefaultSettings.StyleSheetMinifyIdentifier,
-                container.Resolve<IStyleSheetCompressor>()));
+                container.Resolve<IStyleSheetMinifier>()));
 
             container.Register<IBundleProvider<StyleSheetBundle>>((c, p) => new StyleSheetBundleProvider(
                 container.Resolve<IConfigProvider<StyleSheetBundleConfiguration>>(),
@@ -80,7 +80,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public void ConfigureContainerForScript()
         {
-            container.Register<IScriptCompressor>((c, p) => DefaultSettings.ScriptCompressor);
+            container.Register<IScriptMinifier>((c, p) => DefaultSettings.ScriptMinifier);
             container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>();
             container.Register<IConfigProvider<ScriptBundleConfiguration>>((c, p) => DefaultSettings.ScriptConfigProvider);
             container.Register<IBundlePipeline<ScriptBundle>>((c, p) => new ScriptPipeline(container));
@@ -90,7 +90,7 @@ namespace WebAssetBundler.Web.Mvc
 
             container.Register<ScriptCompressProcessor>((c, p) => new ScriptCompressProcessor(
                 () => DefaultSettings.ScriptMinifyIdentifier, 
-                container.Resolve<IScriptCompressor>()));
+                container.Resolve<IScriptMinifier>()));
 
             container.Register<IBundleProvider<ScriptBundle>>((c, p) => new ScriptBundleProvider(
                 container.Resolve<IConfigProvider<ScriptBundleConfiguration>>(),

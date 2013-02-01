@@ -24,7 +24,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class StyleSheetCompressProcessorTests
     {
         private StyleSheetCompressProcessor processor;
-        private Mock<IStyleSheetCompressor> compressor;
+        private Mock<IStyleSheetMinifier> compressor;
         private StyleSheetBundle bundle;
 
         [SetUp]
@@ -32,7 +32,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             Func<string> minifyIdentifier = () => "min";
             bundle = new StyleSheetBundle();
-            compressor = new Mock<IStyleSheetCompressor>();
+            compressor = new Mock<IStyleSheetMinifier>();
             processor = new StyleSheetCompressProcessor(minifyIdentifier, compressor.Object);
         }
 
@@ -48,7 +48,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            compressor.Verify(c => c.Compress("#div { color: #123; }"), Times.Once());
+            compressor.Verify(c => c.Minify("#div { color: #123; }"), Times.Once());
         }
 
         [Test]
@@ -62,7 +62,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            compressor.Verify(c => c.Compress("#div { color: #123; }"), Times.Never());
+            compressor.Verify(c => c.Minify("#div { color: #123; }"), Times.Never());
         }
 
         [Test]
@@ -77,7 +77,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            compressor.Verify(c => c.Compress("#div { color: #123; }"), Times.Never());
+            compressor.Verify(c => c.Minify("#div { color: #123; }"), Times.Never());
         }
     }
 }

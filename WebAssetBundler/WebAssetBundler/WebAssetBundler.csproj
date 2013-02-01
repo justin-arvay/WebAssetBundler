@@ -51,7 +51,7 @@
   <ItemGroup>
     <Compile Include="AssetFile.cs" />
     <Compile Include="Compressors\JSMin.cs" />
-    <Compile Include="Compressors\JSMinCompressor.cs" />
+    <Compile Include="Compressors\JSMinMinifier.cs" />
     <Compile Include="Configuration\BundleProviderBase.cs" />
     <Compile Include="ExternalAsset.cs" />
     <Compile Include="Script\ScriptBundleCachePrimer.cs" />
@@ -61,12 +61,12 @@
     <Compile Include="Caching\IBundlesCache.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
     <Compile Include="Bundler.cs" />
-    <Compile Include="Compressors\IScriptCompressor.cs" />
-    <Compile Include="Compressors\IStyleSheetCompressor.cs" />
-    <Compile Include="Compressors\MsScriptCompressor.cs" />
-    <Compile Include="Compressors\MsStyleSheetCompressor.cs" />
-    <Compile Include="Compressors\YuiScriptCompressor.cs" />
-    <Compile Include="Compressors\YuiStyleSheetCompressor.cs" />
+    <Compile Include="Compressors\IScriptMinifier.cs" />
+    <Compile Include="Compressors\IStyleSheetMinifier.cs" />
+    <Compile Include="Compressors\MsScriptMinifier.cs" />
+    <Compile Include="Compressors\MsStyleSheetMinifier.cs" />
+    <Compile Include="Compressors\YuiScriptMinifier.cs" />
+    <Compile Include="Compressors\YuiStyleSheetMinifier.cs" />
     <Compile Include="Script\DefaultScriptConfigProvider.cs" />
     <Compile Include="Configuration\AssetProvider.cs" />
     <Compile Include="Configuration\FileAsset.cs" />

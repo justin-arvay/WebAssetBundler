@@ -1,4 +1,4 @@
-﻿// Web Asset Bundler - Bundles web assets so you dont have to.
+// WebAssetBundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -16,15 +16,8 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
-    using System;
-
-    public class JSMinCompressor : IScriptCompressor
-    {
-
-        public string Compress(string content)
-        {
-            var minifier = new JavaScriptMinifier();
-            return minifier.Minify(content);
-        }
+    public interface IScriptMinifier
+    {  
+        string Minify(string content);
     }
 }

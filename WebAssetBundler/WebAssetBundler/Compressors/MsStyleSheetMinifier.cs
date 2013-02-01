@@ -16,8 +16,15 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
-    public interface IScriptCompressor
-    {  
-        string Compress(string content);
+    using Microsoft.Ajax.Utilities;
+
+    public class MsStyleSheetMinifier: IStyleSheetMinifier
+    {
+
+        public string Minify(string content)
+        {
+            var minifier = new Minifier();
+            return minifier.MinifyStyleSheet(content);
+        }
     }
 }

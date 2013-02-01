@@ -30,16 +30,16 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [SetUp]
         public void Setup()
         {
-            var compressor = new Mock<IStyleSheetCompressor>();
+            var compressor = new Mock<IStyleSheetMinifier>();
             var server = new Mock<HttpServerUtilityBase>();
 
             container = new TinyIoCContainer();
-            container.Register<IStyleSheetCompressor>((a, c) => compressor.Object);
+            container.Register<IStyleSheetMinifier>((a, c) => compressor.Object);
             container.Register<IUrlGenerator<StyleSheetBundle>>((new Mock<IUrlGenerator<StyleSheetBundle>>()).Object);
             container.Register<HttpServerUtilityBase>((a, c) => server.Object);
             container.Register<StyleSheetCompressProcessor>((c, p) => new StyleSheetCompressProcessor(
                 () => DefaultSettings.StyleSheetMinifyIdentifier,
-                container.Resolve<IStyleSheetCompressor>()));
+                container.Resolve<IStyleSheetMinifier>()));
 
             pipeline = new StyleSheetPipeline(container);
 
