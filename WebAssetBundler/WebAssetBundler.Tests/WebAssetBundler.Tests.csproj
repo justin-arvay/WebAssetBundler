@@ -94,11 +94,11 @@
     <Compile Include="StyleSheet\StyleSheetUrlGeneratorTests.cs" />
     <Compile Include="MergedAssetTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Script\ScriptCompressProcessorTests.cs" />
+    <Compile Include="Script\ScriptMinifyProcessorTests.cs" />
     <Compile Include="Script\ScriptPipelineTests.cs" />
     <Compile Include="Script\ScriptMergeProcessorTests.cs" />
     <Compile Include="StyleSheet\ImagePathProcessorTests.cs" />
-    <Compile Include="StyleSheet\StyleSheetCompressProcessorTests.cs" />
+    <Compile Include="StyleSheet\StyleSheetMinifyProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetMergeProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetPipelineTests.cs" />
     <Compile Include="TestHelper.cs" />
