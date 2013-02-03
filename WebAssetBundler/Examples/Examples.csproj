@@ -170,6 +170,7 @@
     <Content Include="Views\Documentation\CustomMinifiers.cshtml" />
     <Content Include="Views\Documentation\BrowserCaching.cshtml" />
     <Content Include="Views\Documentation\DebugMode.cshtml" />
+    <Content Include="Views\Documentation\WebConfig.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
