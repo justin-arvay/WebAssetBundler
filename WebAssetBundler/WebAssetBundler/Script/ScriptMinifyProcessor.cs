@@ -19,26 +19,31 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.IO;
 
-    public class ScriptCompressProcessor : IPipelineProcessor<ScriptBundle>
+    public class ScriptMinfiyProcessor : IPipelineProcessor<ScriptBundle>
     {
         private IScriptMinifier compressor;
         private string minifyIdentifier;
+        private bool debugMode;
 
-        public ScriptCompressProcessor(Func<string> minifyIdentifier, IScriptMinifier compressor)
+        public ScriptMinfiyProcessor(Func<string> minifyIdentifier, Func<bool> debugMode, IScriptMinifier compressor)
         {
             this.compressor = compressor;
             this.minifyIdentifier = minifyIdentifier();
+            this.debugMode = debugMode();
         }
 
         public void Process(ScriptBundle bundle)
         {
-            foreach (var asset in bundle.Assets)
+            if (debugMode == false)
             {
                 if (bundle.Minify)
                 {
-                    if (IsAlreadyMinified(asset) == false)
+                    foreach (var asset in bundle.Assets)
                     {
-                        asset.Content = compressor.Minify(asset.Content);
+                        if (IsAlreadyMinified(asset) == false)
+                        {
+                            asset.Content = compressor.Minify(asset.Content);
+                        }
                     }
                 }
             }

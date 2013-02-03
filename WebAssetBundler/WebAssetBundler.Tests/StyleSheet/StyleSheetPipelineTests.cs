@@ -37,8 +37,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
             container.Register<IStyleSheetMinifier>((a, c) => compressor.Object);
             container.Register<IUrlGenerator<StyleSheetBundle>>((new Mock<IUrlGenerator<StyleSheetBundle>>()).Object);
             container.Register<HttpServerUtilityBase>((a, c) => server.Object);
-            container.Register<StyleSheetCompressProcessor>((c, p) => new StyleSheetCompressProcessor(
+            container.Register<StyleSheetMinifyProcessor>((c, p) => new StyleSheetMinifyProcessor(
                 () => DefaultSettings.StyleSheetMinifyIdentifier,
+                () => DefaultSettings.DebugMode,
                 container.Resolve<IStyleSheetMinifier>()));
 
             pipeline = new StyleSheetPipeline(container);
@@ -51,7 +52,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             Assert.IsInstanceOf<ImagePathProcessor>(pipeline[0]);
             Assert.IsInstanceOf<StyleSheetMergeProcessor>(pipeline[2]);
-            Assert.IsInstanceOf<StyleSheetCompressProcessor>(pipeline[1]);
+            Assert.IsInstanceOf<StyleSheetMinifyProcessor>(pipeline[1]);
         }
     }
 

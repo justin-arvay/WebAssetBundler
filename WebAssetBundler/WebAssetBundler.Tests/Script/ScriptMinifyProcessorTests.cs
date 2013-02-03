@@ -21,9 +21,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
 
     [TestFixture]
-    public class ScriptCompressProcessorTests
+    public class ScriptMinifyProcessorTests
     {
-        private ScriptCompressProcessor processor;
+        private ScriptMinfiyProcessor processor;
         private Mock<IScriptMinifier> compressor;
         private ScriptBundle bundle;
 
@@ -31,10 +31,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Setup()
         {
             Func<string> minifyIdentifier = () => "min";
+            Func<bool> debugMode = () => false;
 
             bundle = new ScriptBundle();
             compressor = new Mock<IScriptMinifier>();
-            processor = new ScriptCompressProcessor(minifyIdentifier, compressor.Object);
+            processor = new ScriptMinfiyProcessor(minifyIdentifier, debugMode, compressor.Object);
         }
 
         [Test]
@@ -72,6 +73,23 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var asset = new AssetBaseImpl();
             asset.Source = "~/file.min.js";
             asset.Content = "var value = 1;";
+
+            bundle.Assets.Add(asset);
+            bundle.Minify = true;
+
+            processor.Process(bundle);
+
+            compressor.Verify(c => c.Minify("var value = 1;"), Times.Never());
+        }
+
+        [Test]
+        public void Should_Not_Compress_Assets_When_Debug_Mode()
+        {
+            processor = new ScriptMinfiyProcessor(() => ".min", () => true, compressor.Object);
+
+            var asset = new AssetBaseImpl();
+            asset.Content = "#div { color: #123; }";
+            asset.Source = "~/file.js";
 
             bundle.Assets.Add(asset);
             bundle.Minify = true;

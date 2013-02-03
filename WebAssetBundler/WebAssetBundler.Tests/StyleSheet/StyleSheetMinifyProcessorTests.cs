@@ -21,9 +21,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System;
 
     [TestFixture]
-    public class StyleSheetCompressProcessorTests
+    public class StyleSheetMinifyProcessorTests
     {
-        private StyleSheetCompressProcessor processor;
+        private StyleSheetMinifyProcessor processor;
         private Mock<IStyleSheetMinifier> compressor;
         private StyleSheetBundle bundle;
 
@@ -31,9 +31,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Setup()
         {
             Func<string> minifyIdentifier = () => "min";
+            Func<bool> debugMode = () => false;
             bundle = new StyleSheetBundle();
             compressor = new Mock<IStyleSheetMinifier>();
-            processor = new StyleSheetCompressProcessor(minifyIdentifier, compressor.Object);
+            processor = new StyleSheetMinifyProcessor(minifyIdentifier, debugMode, compressor.Object);
         }
 
         [Test]
@@ -71,6 +72,23 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var asset = new AssetBaseImpl();
             asset.Content = "#div { color: #123; }";
             asset.Source = "~/file.min.css";
+
+            bundle.Assets.Add(asset);
+            bundle.Minify = true;
+
+            processor.Process(bundle);
+
+            compressor.Verify(c => c.Minify("#div { color: #123; }"), Times.Never());
+        }
+
+        [Test]
+        public void Should_Not_Compress_Assets_When_Debug_Mode()
+        {
+            processor = new StyleSheetMinifyProcessor(() => ".min", () => true, compressor.Object);
+
+            var asset = new AssetBaseImpl();
+            asset.Content = "#div { color: #123; }";
+            asset.Source = "~/file.css";
 
             bundle.Assets.Add(asset);
             bundle.Minify = true;

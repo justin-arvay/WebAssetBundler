@@ -23,7 +23,7 @@ namespace WebAssetBundler.Web.Mvc
         public ScriptPipeline(TinyIoCContainer container)
             : base(container)
         {
-            Add(container.Resolve<ScriptCompressProcessor>());
+            Add(container.Resolve<ScriptMinfiyProcessor>());
             Add(new ScriptMergeProcessor());            
         }
     }

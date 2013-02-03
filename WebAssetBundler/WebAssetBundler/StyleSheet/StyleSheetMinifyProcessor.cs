@@ -19,26 +19,31 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.IO;
 
-    public class StyleSheetCompressProcessor : IPipelineProcessor<StyleSheetBundle>
+    public class StyleSheetMinifyProcessor : IPipelineProcessor<StyleSheetBundle>
     {
         private IStyleSheetMinifier compressor;
         private string minifyIdentifier;
+        private bool debugMode;
 
-        public StyleSheetCompressProcessor(Func<string> minifyIdentifier, IStyleSheetMinifier compressor)
+        public StyleSheetMinifyProcessor(Func<string> minifyIdentifier, Func<bool> debugMode, IStyleSheetMinifier compressor)
         {
             this.compressor = compressor;
             this.minifyIdentifier = minifyIdentifier();
+            this.debugMode = debugMode();
         }
 
         public void Process(StyleSheetBundle bundle)
         {
-            foreach (var asset in bundle.Assets)
+            if (debugMode == false)
             {
                 if (bundle.Minify)
                 {
-                    if (IsAlreadyMinified(asset) == false) 
+                    foreach (var asset in bundle.Assets)
                     {
-                        asset.Content = compressor.Minify(asset.Content);
+                        if (IsAlreadyMinified(asset) == false)
+                        {
+                            asset.Content = compressor.Minify(asset.Content);
+                        }
                     }
                 }
             }

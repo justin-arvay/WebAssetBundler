@@ -24,7 +24,7 @@ namespace WebAssetBundler.Web.Mvc
             : base(container)
         {
             Add(container.Resolve<ImagePathProcessor>());
-            Add(container.Resolve<StyleSheetCompressProcessor>());
+            Add(container.Resolve<StyleSheetMinifyProcessor>());
             Add(new StyleSheetMergeProcessor());            
         }
     }

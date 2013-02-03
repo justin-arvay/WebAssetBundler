@@ -65,8 +65,9 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
             container.Register<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>, StyleSheetBundleCachePrimer>();
 
-            container.Register<StyleSheetCompressProcessor>((c, p) => new StyleSheetCompressProcessor(
+            container.Register<StyleSheetMinifyProcessor>((c, p) => new StyleSheetMinifyProcessor(
                 () => DefaultSettings.StyleSheetMinifyIdentifier,
+                () => DefaultSettings.DebugMode,
                 container.Resolve<IStyleSheetMinifier>()));
 
             container.Register<IBundleProvider<StyleSheetBundle>>((c, p) => new StyleSheetBundleProvider(
@@ -88,8 +89,9 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();
             container.Register<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>, ScriptBundleCachePrimer>();
 
-            container.Register<ScriptCompressProcessor>((c, p) => new ScriptCompressProcessor(
-                () => DefaultSettings.ScriptMinifyIdentifier, 
+            container.Register<ScriptMinfiyProcessor>((c, p) => new ScriptMinfiyProcessor(
+                () => DefaultSettings.ScriptMinifyIdentifier,
+                () => DefaultSettings.DebugMode,
                 container.Resolve<IScriptMinifier>()));
 
             container.Register<IBundleProvider<ScriptBundle>>((c, p) => new ScriptBundleProvider(
