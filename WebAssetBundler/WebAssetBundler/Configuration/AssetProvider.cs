@@ -26,15 +26,28 @@ namespace WebAssetBundler.Web.Mvc
     {
         private HttpServerUtilityBase server;
         private string applicationPath;
+        private string minifyIdentifier;
+        private bool debugMode;
 
-        public AssetProvider(HttpServerUtilityBase server, string applicationPath)
+        public AssetProvider(HttpServerUtilityBase server, string applicationPath, Func<string> minifyIdentifier, Func<bool> debugMode)
         {
             this.server = server;
             this.applicationPath = applicationPath;
+            this.minifyIdentifier = minifyIdentifier();
+            this.debugMode = debugMode();
         }
 
         public AssetBase GetAsset(string source)
         {
+            if (Path.GetFileNameWithoutExtension(source).EndsWith(minifyIdentifier))
+            {
+                if (debugMode)
+                {
+                    //check if file exists without min in same dir
+                    //change source
+                }
+            }
+
             if (source.StartsWith("~/") == false && source.StartsWith("/") == false)
             {
                 throw new ArgumentException("Source must be virtual path.");  
