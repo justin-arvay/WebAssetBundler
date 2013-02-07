@@ -146,5 +146,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.Throws<ArgumentException>(() => provider.GetAsset("File.css"));
 
         }
+
+        [Test]
+        public void Should_Get_Minifed_Asset()
+        {
+        }
+
+        [Test]
+        public void Should_Get_Raw_Asset()
+        {
+        }
     }
 }

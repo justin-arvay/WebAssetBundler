@@ -39,13 +39,19 @@ namespace WebAssetBundler.Web.Mvc
 
         public AssetBase GetAsset(string source)
         {
+            //user provided a minified source when in debug mode, try and change it to a non minifed version if it exists
             if (Path.GetFileNameWithoutExtension(source).EndsWith(minifyIdentifier))
             {
                 if (debugMode)
                 {
-                    //check if file exists without min in same dir
-                    //change source
+                    source = TryGetRawSource(source);
                 }
+            }
+
+            //user provided a raw source, check if a minified version exists and use it instead if it does.
+            else
+            {
+                source = TryGetMinifiedSource(source);
             }
 
             if (source.StartsWith("~/") == false && source.StartsWith("/") == false)
@@ -79,6 +85,47 @@ namespace WebAssetBundler.Web.Mvc
             }
 
             return collecton;
+        }
+
+        /// <summary>
+        /// Tries to get the minified source from a raw source. If the minified file does
+        /// not exist the original source is returned.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public string TryGetMinifiedSource(string source)
+        {
+            string ext = Path.GetExtension(source);
+            string noExtSource = Path.GetFileNameWithoutExtension(source);
+            string newSource = noExtSource + minifyIdentifier + "." + ext;
+
+            if (File.Exists(newSource))
+            {
+                return newSource;
+            }
+
+            return source;
+        }
+
+        /// <summary>
+        /// Tries to get the raw source from a source with minify identifier in it. If
+        /// the raw source file does not exist, the original source is returned.
+        ///
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public string TryGetRawSource(string source)
+        {
+            string ext = Path.GetExtension(source);
+            string noExtSource = Path.GetFileNameWithoutExtension(source);
+            string newSource = noExtSource.Substring(noExtSource.LastIndexOf(minifyIdentifier));
+
+            if (File.Exists(newSource))
+            {
+                return newSource;
+            }
+
+            return source;
         }
 
         private bool IsFilteringRequired(FromDirectoryComponent component)
