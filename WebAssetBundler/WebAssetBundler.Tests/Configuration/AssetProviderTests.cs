@@ -148,12 +148,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Get_Minifed_Asset()
+        public void Should_Get_Minifed_Source()
         {
+            var source = provider.TryGetMinifiedSource("../../Files/Configuration/FirstFile.css");
+
+            Assert.AreEqual("../../Files/Configuration/FirstFile.min.css", source);
         }
 
         [Test]
-        public void Should_Get_Raw_Asset()
+        public void Should_Get_Raw_Source()
         {
         }
     }

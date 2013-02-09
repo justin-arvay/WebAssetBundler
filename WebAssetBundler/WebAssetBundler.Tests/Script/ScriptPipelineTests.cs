@@ -32,8 +32,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             container = new TinyIoCContainer();
             container.Register<IScriptMinifier>((a, c) => compressor.Object);
-            container.Register<ScriptMinfiyProcessor>((c, p) => new ScriptMinfiyProcessor(
-                () => DefaultSettings.ScriptMinifyIdentifier,
+            container.Register<ScriptMinifyProcessor>((c, p) => new ScriptMinifyProcessor(
+                () => DefaultSettings.MinifyIdentifier,
                 () => DefaultSettings.DebugMode,
                 container.Resolve<IScriptMinifier>()));
 
@@ -43,7 +43,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Contain_Default_Processors()
         {
-            Assert.IsInstanceOf<ScriptMinfiyProcessor>(pipeline[0]);
+            Assert.IsInstanceOf<ScriptMinifyProcessor>(pipeline[0]);
             Assert.IsInstanceOf<ScriptMergeProcessor>(pipeline[1]);
             
         }

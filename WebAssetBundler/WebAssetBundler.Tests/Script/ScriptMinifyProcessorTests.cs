@@ -85,7 +85,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Compress_Assets_When_Debug_Mode()
         {
-            processor = new ScriptMinfiyProcessor(() => ".min", () => true, compressor.Object);
+            processor = new ScriptMinifyProcessor(() => ".min", () => true, compressor.Object);
 
             var asset = new AssetBaseImpl();
             asset.Content = "#div { color: #123; }";

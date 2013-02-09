@@ -38,13 +38,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
             container.Register<IUrlGenerator<StyleSheetBundle>>((new Mock<IUrlGenerator<StyleSheetBundle>>()).Object);
             container.Register<HttpServerUtilityBase>((a, c) => server.Object);
             container.Register<StyleSheetMinifyProcessor>((c, p) => new StyleSheetMinifyProcessor(
-                () => DefaultSettings.StyleSheetMinifyIdentifier,
+                () => DefaultSettings.MinifyIdentifier,
                 () => DefaultSettings.DebugMode,
                 container.Resolve<IStyleSheetMinifier>()));
 
-            pipeline = new StyleSheetPipeline(container);
-
-            
+            pipeline = new StyleSheetPipeline(container);  
         }
 
         [Test]
