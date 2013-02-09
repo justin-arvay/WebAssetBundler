@@ -161,6 +161,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Raw_Source()
         {
+            server.Setup(m => m.MapPath(It.IsAny<string>()))
+                .Returns((string sourceOut) => sourceOut);
+
+            var source = provider.TryGetRawSource("../../Files/Configuration/FirstFile.min.css");
+
+            Assert.AreEqual("../../Files/Configuration/FirstFile.css", source);
         }
     }
 }

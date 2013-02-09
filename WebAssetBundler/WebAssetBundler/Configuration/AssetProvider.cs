@@ -119,7 +119,7 @@ namespace WebAssetBundler.Web.Mvc
             string noExtSource = Path.GetFileNameWithoutExtension(source);
             string newSource = noExtSource.Substring(noExtSource.LastIndexOf(minifyIdentifier));
 
-            if (File.Exists(newSource))
+            if (File.Exists(server.MapPath(newSource)))
             {
                 return newSource;
             }
