@@ -21,6 +21,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.IO;
     using System.Linq;
     using System.Web;
+    using System.Collections;
 
     public class AssetProvider : IAssetProvider
     {
@@ -76,6 +77,9 @@ namespace WebAssetBundler.Web.Mvc
                 fileNames = FilterFiles(fileNames, component);
             }
 
+
+            RemoveDuplicates(fileNames);
+
             foreach (var fileName in fileNames)
             {
                 //string  = fileName.Substring(applicationPath.Length);               
@@ -95,12 +99,11 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public string TryGetMinifiedSource(string source)
         {
-            string ext = Path.GetExtension(source);
-            string newSource = source.Insert(source.LastIndexOf(ext), minifyIdentifier);
+            string minifedSource = GetMinifiedSource(source);
 
-            if (File.Exists(server.MapPath(newSource)))
+            if (File.Exists(server.MapPath(minifedSource)))
             {
-                return newSource;
+                return minifedSource;
             }
 
             return source;
@@ -115,16 +118,47 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public string TryGetRawSource(string source)
         {
-            string ext = Path.GetExtension(source);
-            string noExtSource = Path.GetFileNameWithoutExtension(source);
-            string newSource = noExtSource.Substring(noExtSource.LastIndexOf(minifyIdentifier));
-
-            if (File.Exists(server.MapPath(newSource)))
+            var rawSource = GetRawSource(source);
+            if (File.Exists(server.MapPath(rawSource)))
             {
-                return newSource;
+                return rawSource;
             }
 
             return source;
+        }
+
+        /// <summary>
+        /// Changes the source to its raw version.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        private string GetRawSource(string source)
+        {
+            string ext = Path.GetExtension(source);
+            return source.Substring(0, source.LastIndexOf(minifyIdentifier)) + ext;
+        }
+
+        /// <summary>
+        /// Changes the source to its minifed version.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        private string GetMinifiedSource(string source)
+        {
+            string ext = Path.GetExtension(source);
+            return source.Insert(source.LastIndexOf(ext), minifyIdentifier);
+        }
+
+        private IEnumerable<string> RemoveDuplicates(IEnumerable<string> fileNames)
+        {
+            var filteredFileNames = new List<string>();
+
+            foreach (var fileName in fileNames)
+            {
+
+            }
+
+            return filteredFileNames;
         }
 
         private bool IsFilteringRequired(FromDirectoryComponent component)

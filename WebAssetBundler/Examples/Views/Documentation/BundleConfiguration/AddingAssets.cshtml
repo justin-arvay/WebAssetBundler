@@ -9,19 +9,20 @@
 is an example:</p>
 
 <pre data-language="csharp">
-    public override void Configure()
-    {
-        //virtual path add
-        Add("~/Scripts/jquery-1.9.0.min.js");
+public override void Configure()
+{
+    //virtual path add
+    Add("~/Scripts/jquery-1.9.0.min.js");
 
-        //relative path add
-        Add("jquery-ui-1.10.0.custom.min.js");
-    }
+    //relative path add
+    Add("jquery-ui-1.10.0.custom.min.js");
+}
 </pre>
 
 <p>You can also add assets based on a directory. Here is an example:</p>
 <pre data-language="csharp">
-
+public override void Configure()
+{
     //adds all assets in a specific directory
     AddFromDirectory("~/Script");
 
@@ -30,6 +31,28 @@ is an example:</p>
         .Contains("jQuery")
         .StartsWith("j")
         .EndsWith("n"));
+}
 </pre>
 
 <p><strong>Note:</strong> EndsWith ignores the file extension when comparing.</p>
+
+<p>When adding an asset a check is done to see if the asset is already considered minified. This check is done to ensure we do not 
+waste processing time to re-minify something that does not need it. In addition this will also allow you to minify some assets ahead of time if you wish.</p>
+
+<p>In order to identify which files are already considered minified, the provider will look at the file name. Any file name that matches this structure
+will not be minifed again:</p>
+<code>
+../path/file-name.min.ext
+</code>
+
+<p>The identifier in this case is the <strong>.min</strong>. The <strong>.min</strong> must appear at the end of the file name, before the extension. You 
+can configure this by changing a default setting like so:</p>
+<pre data-language="csharp">
+//script identifier
+DefaultSettings.MinifyIdentifier = ".minified";
+
+</pre>
+<p>The above example would <strong>not</strong> minify assets with file names like this:</p>
+<code>
+../path/file-name.minified.ext
+</code>

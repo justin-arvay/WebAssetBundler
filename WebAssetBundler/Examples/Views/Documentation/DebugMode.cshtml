@@ -22,4 +22,5 @@ protected void Application_Start()
     <li>Disables browser caching by changing the url every request.</li>
     <li>Disables bundle caching so every request will process the assets.</li>
     <li>Disables asset minifying so every asset will be combined with the source code.</li>
+    <li>Attempts to include assets that are not minifed (raw assets). See @Html.RouteLink("Adding Assets", "Documentation", new { path = "bundle-configuration/adding-assets" }).</li>
 </ul>

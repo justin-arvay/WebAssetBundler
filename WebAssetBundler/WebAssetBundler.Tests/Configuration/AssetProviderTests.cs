@@ -56,8 +56,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var assets = (IList<AssetBase>)provider.GetAssets(component);
 
             Assert.AreEqual("~/../../Files/Configuration/FirstFile.css", assets[0].Source, "0 index");
-            Assert.AreEqual("~/../../Files/Configuration/SecondFile.css", assets[1].Source, "0 index");
-            Assert.AreEqual("~/../../Files/Configuration/ThirdFile.min.css", assets[2].Source, "0 index");
+            Assert.AreEqual("~/../../Files/Configuration/SecondFile.css", assets[1].Source, "1 index");
+            Assert.AreEqual("~/../../Files/Configuration/ThirdFile.min.css", assets[2].Source, "2 index");
             Assert.AreEqual(3, assets.Count);
         }
 
@@ -80,7 +80,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual(2, assets.Count);
             Assert.AreEqual("~/../../Files/Configuration/FirstFile.css", assets[0].Source, "0 index");
-            Assert.AreEqual("~/../../Files/Configuration/SecondFile.css", assets[1].Source, "0 index");
+            Assert.AreEqual("~/../../Files/Configuration/SecondFile.css", assets[1].Source, "1 index");
         }
 
         [Test]
@@ -101,7 +101,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual(2, assets.Count);
             Assert.AreEqual("~/../../Files/Configuration/FirstFile.css", assets[0].Source, "0 index");
-            Assert.AreEqual("~/../../Files/Configuration/SecondFile.css", assets[1].Source, "0 index");
+            Assert.AreEqual("~/../../Files/Configuration/SecondFile.css", assets[1].Source, "1 index");
         }
 
         [Test]
