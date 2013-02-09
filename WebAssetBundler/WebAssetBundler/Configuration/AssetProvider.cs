@@ -96,10 +96,9 @@ namespace WebAssetBundler.Web.Mvc
         public string TryGetMinifiedSource(string source)
         {
             string ext = Path.GetExtension(source);
-            string noExtSource = source.Substring(source.LastIndexOf(ext));
-            string newSource = noExtSource + minifyIdentifier + ext;
+            string newSource = source.Insert(source.LastIndexOf(ext), minifyIdentifier);
 
-            if (File.Exists(newSource))
+            if (File.Exists(server.MapPath(newSource)))
             {
                 return newSource;
             }

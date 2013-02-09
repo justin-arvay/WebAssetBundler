@@ -150,6 +150,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Minifed_Source()
         {
+            server.Setup(m => m.MapPath(It.IsAny<string>()))
+                .Returns((string sourceOut) => sourceOut);
+
             var source = provider.TryGetMinifiedSource("../../Files/Configuration/FirstFile.css");
 
             Assert.AreEqual("../../Files/Configuration/FirstFile.min.css", source);
