@@ -144,10 +144,10 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
-        /// Sets the identifier use to identify javascript files that are already minified. Eg: ~/file.min.js is a file that has already been 
+        /// Sets the identifier use to identify files that are already minified. Eg: ~/file.min.js is a file that has already been 
         /// minified. The application will not attempt to minify it again.
         /// </summary>
-        public static string ScriptMinifyIdentifier
+        public static string MinifyIdentifier
         {
             get
             {
@@ -156,22 +156,6 @@ namespace WebAssetBundler.Web.Mvc
             set
             {
                 scriptMinifyIdentifier = value;
-            }
-        }
-
-        /// <summary>
-        /// Sets the identifier use to identify style sheet files that are already minified. Eg: ~/file.min.css is a file that has already been 
-        /// minified. The application will not attempt to minify it again.
-        /// </summary>
-        public static string StyleSheetMinifyIdentifier
-        {
-            get
-            {
-                return styleSheetMinifyIdentifier;
-            }
-            set
-            {
-                styleSheetMinifyIdentifier = value;
             }
         }
     }

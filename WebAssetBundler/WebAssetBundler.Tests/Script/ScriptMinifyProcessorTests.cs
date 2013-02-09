@@ -23,7 +23,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class ScriptMinifyProcessorTests
     {
-        private ScriptMinfiyProcessor processor;
+        private ScriptMinifyProcessor processor;
         private Mock<IScriptMinifier> compressor;
         private ScriptBundle bundle;
 
@@ -35,7 +35,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             bundle = new ScriptBundle();
             compressor = new Mock<IScriptMinifier>();
-            processor = new ScriptMinfiyProcessor(minifyIdentifier, debugMode, compressor.Object);
+            processor = new ScriptMinifyProcessor(minifyIdentifier, debugMode, compressor.Object);
         }
 
         [Test]

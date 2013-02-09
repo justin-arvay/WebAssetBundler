@@ -33,7 +33,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Setup()
         {            
             server = new Mock<HttpServerUtilityBase>();
-            provider = new AssetProvider(server.Object, "");
+            provider = new AssetProvider(server.Object, "", () => ".min", () => false);
             component = new FromDirectoryComponent("../../Files/Configuration", "css");
         }
 

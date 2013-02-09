@@ -19,13 +19,13 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.IO;
 
-    public class ScriptMinfiyProcessor : IPipelineProcessor<ScriptBundle>
+    public class ScriptMinifyProcessor : IPipelineProcessor<ScriptBundle>
     {
         private IScriptMinifier compressor;
         private string minifyIdentifier;
         private bool debugMode;
 
-        public ScriptMinfiyProcessor(Func<string> minifyIdentifier, Func<bool> debugMode, IScriptMinifier compressor)
+        public ScriptMinifyProcessor(Func<string> minifyIdentifier, Func<bool> debugMode, IScriptMinifier compressor)
         {
             this.compressor = compressor;
             this.minifyIdentifier = minifyIdentifier();

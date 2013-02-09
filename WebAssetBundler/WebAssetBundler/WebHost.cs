@@ -47,7 +47,8 @@ namespace WebAssetBundler.Web.Mvc
 
             container.Register<IAssetProvider>((c, p) => new AssetProvider(
                 c.Resolve<HttpServerUtilityBase>(), 
-                HttpContext().Request.PhysicalApplicationPath));
+                HttpContext().Request.PhysicalApplicationPath,
+                () => DefaultSettings.MinifyIdentifier));
 
             ConfigureContainerForStyleSheets();
             ConfigureContainerForScript();
@@ -66,7 +67,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>, StyleSheetBundleCachePrimer>();
 
             container.Register<StyleSheetMinifyProcessor>((c, p) => new StyleSheetMinifyProcessor(
-                () => DefaultSettings.StyleSheetMinifyIdentifier,
+                () => DefaultSettings.MinifyIdentifier,
                 () => DefaultSettings.DebugMode,
                 container.Resolve<IStyleSheetMinifier>()));
 
@@ -90,7 +91,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>, ScriptBundleCachePrimer>();
 
             container.Register<ScriptMinfiyProcessor>((c, p) => new ScriptMinfiyProcessor(
-                () => DefaultSettings.ScriptMinifyIdentifier,
+                () => DefaultSettings.MinifyIdentifier,
                 () => DefaultSettings.DebugMode,
                 container.Resolve<IScriptMinifier>()));
 
