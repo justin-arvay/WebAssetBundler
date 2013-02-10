@@ -117,8 +117,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var assets = (IList<AssetBase>)provider.GetAssets(component);
 
-            Assert.AreEqual(1, assets.Count);
-            Assert.AreEqual("~/../../Files/Configuration/ThirdFile.min.css", assets[0].Source);
+            Assert.AreEqual(2, assets.Count);
+            Assert.AreEqual("~/../../Files/Configuration/FirstFile.min.css", assets[0].Source);
+            Assert.AreEqual("~/../../Files/Configuration/ThirdFile.min.css", assets[1].Source);
         }
 
         [Test]

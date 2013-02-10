@@ -68,8 +68,8 @@ namespace WebAssetBundler.Web.Mvc
             var collecton = new List<AssetBase>();
             var fullPath = server.MapPath(component.Path);
 
-            IEnumerable<string> fileNames = new List<string>(Directory.GetFiles(fullPath))
-                .Where(name => name.EndsWith(component.Extension));
+            IList<string> fileNames = new List<string>(Directory.GetFiles(fullPath)
+                .Where(name => name.EndsWith(component.Extension)));
 
             //if the user has sepecidied additonal filtering, filter it
             if (IsFilteringRequired(component))
@@ -78,7 +78,7 @@ namespace WebAssetBundler.Web.Mvc
             }
 
 
-            RemoveDuplicates(fileNames);
+            fileNames = RemoveDuplicates(fileNames);
 
             foreach (var fileName in fileNames)
             {
@@ -159,34 +159,18 @@ namespace WebAssetBundler.Web.Mvc
             return source.Insert(source.LastIndexOf(ext), minifyIdentifier);
         }
 
-        private IEnumerable<string> RemoveDuplicates(IEnumerable<string> fileNames)
+        private IList<string> RemoveDuplicates(IList<string> fileNames)
         {
-            var filteredFileNames = new List<string>();
+            var filteredFileNames = fileNames;
 
-            foreach (var fileName in fileNames)
+            for (int index = 0; index < fileNames.Count(); index++)
             {
-                if (IsMinifedAsset(fileName))
+                if (IsMinifedAsset(fileNames[index]))
                 {
-                    var rawFileName = GetRawSource(fileName);
-                    if (fileNames.Contains(rawFileName))
+                    var rawSource = GetRawSource(fileNames[index]);
+                    if (fileNames.Contains(rawSource))
                     {
-                        filteredFileNames.Add(rawFileName);
-                    }
-                    else
-                    {
-                        filteredFileNames.Add(fileName);
-                    }
-                }
-                else
-                {
-                    var minifedFileName = GetMinifiedSource(fileName);
-                    if (fileNames.Contains(minifedFileName))
-                    {
-                        filteredFileNames.Add(minifedFileName);
-                    }
-                    else
-                    {
-                        filteredFileNames.Add(fileName);
+                        filteredFileNames.Remove(fileNames[index]);
                     }
                 }
             }
@@ -201,7 +185,7 @@ namespace WebAssetBundler.Web.Mvc
                 component.ContainsCollection.Count > 0;
         }
 
-        private IEnumerable<string> FilterFiles(IEnumerable<string> fileNames, FromDirectoryComponent component)
+        private IList<string> FilterFiles(IList<string> fileNames, FromDirectoryComponent component)
         {
             var filteredFileNames = fileNames.Where(
                     (name) => CompareAgainstCollection(component.StartsWithCollection, (x) => Path.GetFileNameWithoutExtension(name).StartsWith(x)) ||
@@ -209,7 +193,7 @@ namespace WebAssetBundler.Web.Mvc
                     CompareAgainstCollection(component.ContainsCollection, (x) => Path.GetFileNameWithoutExtension(name).Contains(x))
             );
 
-            return filteredFileNames;
+            return filteredFileNames.ToList();
         }
 
         private bool CompareAgainstCollection(ICollection<string> strings, Func<string, bool> callback)
