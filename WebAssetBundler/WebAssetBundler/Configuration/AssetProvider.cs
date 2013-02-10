@@ -41,7 +41,7 @@ namespace WebAssetBundler.Web.Mvc
         public AssetBase GetAsset(string source)
         {
             //user provided a minified source when in debug mode, try and change it to a non minifed version if it exists
-            if (Path.GetFileNameWithoutExtension(source).EndsWith(minifyIdentifier))
+            if (IsMinifedAsset(source))
             {
                 if (debugMode)
                 {
@@ -128,6 +128,16 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
+        /// Checks if the source is a minified asset.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        private bool IsMinifedAsset(string source)
+        {
+            return Path.GetFileNameWithoutExtension(source).EndsWith(minifyIdentifier);
+        }
+
+        /// <summary>
         /// Changes the source to its raw version.
         /// </summary>
         /// <param name="source"></param>
@@ -155,7 +165,30 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (var fileName in fileNames)
             {
-
+                if (IsMinifedAsset(fileName))
+                {
+                    var rawFileName = GetRawSource(fileName);
+                    if (fileNames.Contains(rawFileName))
+                    {
+                        filteredFileNames.Add(rawFileName);
+                    }
+                    else
+                    {
+                        filteredFileNames.Add(fileName);
+                    }
+                }
+                else
+                {
+                    var minifedFileName = GetMinifiedSource(fileName);
+                    if (fileNames.Contains(minifedFileName))
+                    {
+                        filteredFileNames.Add(minifedFileName);
+                    }
+                    else
+                    {
+                        filteredFileNames.Add(fileName);
+                    }
+                }
             }
 
             return filteredFileNames;
