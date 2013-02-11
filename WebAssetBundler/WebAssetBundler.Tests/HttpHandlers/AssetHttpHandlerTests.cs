@@ -49,7 +49,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             cache.Verify(c => c.Get("name"), Times.Once());
             writer.Verify(w => w.IsNotModified(bundle), Times.Once());
-            writer.Verify(w => w.WriteNotModified(bundle.Hash.ToHexString()), Times.Once());
+            writer.Verify(w => w.WriteNotModified(bundle), Times.Once());
         }
 
         [Test]

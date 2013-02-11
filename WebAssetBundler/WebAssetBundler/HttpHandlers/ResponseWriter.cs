@@ -35,7 +35,7 @@ namespace WebAssetBundler.Web.Mvc
         public void WriteAsset(Bundle bundle, IEncoder encoder)
         {
             response.ContentType = bundle.ContentType;
-            CacheLongTime(bundle.Hash.ToHexString());
+            CacheLongTime(bundle.Hash.ToHexString(), bundle.BrowserTtl);
 
             response.Write(bundle.Content);
 
@@ -54,17 +54,28 @@ namespace WebAssetBundler.Web.Mvc
             response.StatusCode = 404;
         }
 
-        public void WriteNotModified(string etag)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="etag"></param>
+        /// <param name="ttl">In minutes.</param>
+        public void WriteNotModified(Bundle bundle)
         {
-            CacheLongTime(etag); // Some browsers seem to require a reminder to keep caching?!
+            CacheLongTime(bundle.Hash.ToHexString(), bundle.BrowserTtl); // Some browsers seem to require a reminder to keep caching?!
             response.StatusCode = 304; // Not Modified
             response.SuppressContent = true;
         }
 
-        private void CacheLongTime(string actualETag)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="actualETag"></param>
+        /// <param name="ttl">In minutes.</param>
+        private void CacheLongTime(string actualETag, int ttl)
         {
+            var expires = DateTime.UtcNow.AddMinutes(ttl);
             response.Cache.SetCacheability(HttpCacheability.Public);
-            response.Cache.SetExpires(DateTime.UtcNow.AddYears(1));
+            response.Cache.SetExpires(expires);
             response.Cache.SetETag(actualETag);
         }
 

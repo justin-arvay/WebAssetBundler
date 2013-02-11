@@ -14,6 +14,7 @@
             Minify = true;
             Assets = new InternalCollection();
             Content = "";
+            BrowserTtl = 525949; //1 year default
         }
 
         public string Name { get; set; }
@@ -22,6 +23,7 @@
         public string Host { get; set; }
         public string Extension { get; protected set; }
         public abstract string ContentType { get; }
+        public int BrowserTtl { get; set; }
 
         public IList<AssetBase> Assets { get; set; }
 

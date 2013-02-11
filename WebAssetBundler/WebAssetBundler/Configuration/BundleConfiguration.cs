@@ -100,6 +100,15 @@ namespace WebAssetBundler.Web.Mvc
             bundle.Host = host;
         }
 
+        /// <summary>
+        /// Time to live of the browser cache in minutes.
+        /// </summary>
+        /// <param name="timeToLive"></param>
+        public void BrowserTtl(int timeToLive)
+        {
+            bundle.BrowserTtl = timeToLive;
+        }
+
         public TBundle GetBundle()
         {
             return bundle;

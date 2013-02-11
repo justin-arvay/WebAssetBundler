@@ -79,6 +79,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
             bundle.Assets.Add(asset);
 
             Assert.True(bundle.IsExternal);
-        }        
+        }
+
+        [Test]
+        public void Should_Be_1_Year_Browser_Ttl_By_Default()
+        {
+            Assert.AreEqual(525949, bundle.BrowserTtl);
+        }
     }
 }
