@@ -1,4 +1,4 @@
-﻿// ResourceCompiler - Compiles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -14,15 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Tests.Configuration
+namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class IConfigurationFactory
+    public interface IPipelineCustomizer<T> where T : IBundlePipeline<T>
     {
-        public IConfigurationFactory()
-        {
-        }
-
+        public void Customize(IBundlePipeline<T> pipeline);
     }
 }

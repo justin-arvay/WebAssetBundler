@@ -52,8 +52,9 @@
     <Compile Include="AssetFile.cs" />
     <Compile Include="Compressors\JSMin.cs" />
     <Compile Include="Compressors\JSMinMinifier.cs" />
-    <Compile Include="Configuration\BundleProviderBase.cs" />
+    <Compile Include="BundleProviderBase.cs" />
     <Compile Include="ExternalAsset.cs" />
+    <Compile Include="IPipelineCustomizer.cs" />
     <Compile Include="Script\ScriptBundleCachePrimer.cs" />
     <Compile Include="Caching\BundlesCache.cs" />
     <Compile Include="Caching\CacheProvider.cs" />
@@ -68,13 +69,13 @@
     <Compile Include="Compressors\YuiScriptMinifier.cs" />
     <Compile Include="Compressors\YuiStyleSheetMinifier.cs" />
     <Compile Include="Script\DefaultScriptConfigProvider.cs" />
-    <Compile Include="Configuration\AssetProvider.cs" />
-    <Compile Include="Configuration\FileAsset.cs" />
-    <Compile Include="Configuration\FromDirectoryBuilder.cs" />
-    <Compile Include="Configuration\FromDirectoryComponent.cs" />
-    <Compile Include="Configuration\IAssetProvider.cs" />
-    <Compile Include="Configuration\IBundleProvider.cs" />
-    <Compile Include="Configuration\IConfigurable.cs" />
+    <Compile Include="AssetProvider.cs" />
+    <Compile Include="FileAsset.cs" />
+    <Compile Include="FromDirectoryBuilder.cs" />
+    <Compile Include="FromDirectoryComponent.cs" />
+    <Compile Include="IAssetProvider.cs" />
+    <Compile Include="IBundleProvider.cs" />
+    <Compile Include="IConfigurable.cs" />
     <Compile Include="IConfigProvider.cs" />
     <Compile Include="Script\ScriptBundle.cs" />
     <Compile Include="Script\ScriptBundleConfiguration.cs" />
@@ -85,9 +86,9 @@
     <Compile Include="StyleSheet\StyleSheetBundleProvider.cs" />
     <Compile Include="Extensions\ByteArrayExensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Configuration\Bundle.cs" />
+    <Compile Include="Bundle.cs" />
     <Compile Include="StyleSheet\DefaultStyleSheetConfigProvider.cs" />
-    <Compile Include="Configuration\BundleConfiguration.cs" />
+    <Compile Include="BundleConfiguration.cs" />
     <Compile Include="HttpHandlers\DeflateEncoder.cs" />
     <Compile Include="HttpHandlers\DoNothingEncoder.cs" />
     <Compile Include="HttpHandlers\EncoderFactory.cs" />
@@ -115,10 +116,10 @@
     <Compile Include="Pipeline\IPipelineProcessor.cs" />
     <Compile Include="IUrlGenerator.cs" />
     <Compile Include="DefaultSettings.cs" />
-    <Compile Include="Configuration\BundleCollection.cs" />
-    <Compile Include="Configuration\WebAssetType.cs" />
+    <Compile Include="BundleCollection.cs" />
+    <Compile Include="WebAssetType.cs" />
     <Compile Include="StyleSheet\StyleSheetBundler.cs" />
-    <Compile Include="Configuration\AssetBase.cs" />
+    <Compile Include="AssetBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Script\ScriptMinifyProcessor.cs" />
     <Compile Include="Script\ScriptPipeline.cs" />
@@ -144,6 +145,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
