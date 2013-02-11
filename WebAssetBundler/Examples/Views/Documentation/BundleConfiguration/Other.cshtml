@@ -71,3 +71,13 @@ public class LayoutScriptBundle : ScriptBundleConfiguration
 <pre data-language="html">
 @Html.Code("<script type=\"text/javascript\" src=\"https://cdn.mydomain.com/wab.axd/js/406f73f10ad75152ee39a583b7e/Scripts\"></script>")
 </pre>
+
+<h2>Browser Time to Live</h2>
+<p>By default the browser caching is set to 1 year. You can modify this in each configuration. You must give it the number of <strong>minutes</strong> you want
+the bundle to be cached for. The default of 1 year is 525,949 minutes.</p>
+<pre data-language="html">
+public override void Configure()
+{
+    BrowserTtl(1000);
+}
+</pre>
