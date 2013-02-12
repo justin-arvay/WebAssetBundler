@@ -60,6 +60,8 @@
     <Compile Include="BundleProviderBaseImpl.cs" />
     <Compile Include="BundleProviderBaseTests.cs" />
     <Compile Include="BundleTests.cs" />
+    <Compile Include="Pipeline\BundlePipelineTests.cs" />
+    <Compile Include="Pipeline\PipelineProcessorImpl.cs" />
     <Compile Include="Script\DefaultScriptConfigProviderTests.cs" />
     <Compile Include="StyleSheet\DefaultStyleSheetConfigProviderTests.cs" />
     <Compile Include="DoNothingConfigurationFactory.cs" />
@@ -91,7 +93,7 @@
     <Compile Include="Script\ScriptUrlGeneratorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetTagWriterTests.cs" />
     <Compile Include="StyleSheet\StyleSheetUrlGeneratorTests.cs" />
-    <Compile Include="MergedAssetTests.cs" />
+    <Compile Include="Pipeline\MergedAssetTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Script\ScriptMinifyProcessorTests.cs" />
     <Compile Include="Script\ScriptPipelineTests.cs" />

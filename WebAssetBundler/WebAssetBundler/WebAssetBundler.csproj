@@ -54,7 +54,7 @@
     <Compile Include="Compressors\JSMinMinifier.cs" />
     <Compile Include="BundleProviderBase.cs" />
     <Compile Include="ExternalAsset.cs" />
-    <Compile Include="IPipelineCustomizer.cs" />
+    <Compile Include="Pipeline\IPipelineCustomizer.cs" />
     <Compile Include="Script\ScriptBundleCachePrimer.cs" />
     <Compile Include="Caching\BundlesCache.cs" />
     <Compile Include="Caching\CacheProvider.cs" />
@@ -110,7 +110,7 @@
     <Compile Include="StyleSheet\StyleSheetUrlGenerator.cs" />
     <Compile Include="ITransformable.cs" />
     <Compile Include="Script\ScriptBundler.cs" />
-    <Compile Include="MergedAsset.cs" />
+    <Compile Include="Pipeline\MergedAsset.cs" />
     <Compile Include="Pipeline\BundlePipeline.cs" />
     <Compile Include="Pipeline\IBundlePipeline.cs" />
     <Compile Include="Pipeline\IPipelineProcessor.cs" />

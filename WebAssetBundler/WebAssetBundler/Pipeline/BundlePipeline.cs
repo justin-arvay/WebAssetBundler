@@ -36,5 +36,25 @@ namespace WebAssetBundler.Web.Mvc
                 processor.Process(bundle);
             }
         }
+
+        public void Add<TProcessor>() where TProcessor : class, IPipelineProcessor<T>
+        {
+            Add(container.Resolve<TProcessor>());
+        }
+
+        public void Add<TProcessorFactory>(Func<TProcessorFactory, IPipelineProcessor<T>> create) where TProcessorFactory : class
+        {
+            Add(create(container.Resolve<TProcessorFactory>());
+        }
+
+        public void Insert<TProcessor>(int index) where TProcessor : class, IPipelineProcessor<T>
+        {
+            Insert(index, container.Resolve<TProcessor>());
+        }
+
+        public void Insert<TProcessorFactory>(int index, Func<TProcessorFactory, IPipelineProcessor<T>> create) where TProcessorFactory : class
+        {
+            Insert(index, create(container.Resolve<TProcessorFactory>()));
+        }
     }
 }

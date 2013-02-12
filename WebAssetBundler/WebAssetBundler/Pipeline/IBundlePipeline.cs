@@ -22,19 +22,32 @@ namespace WebAssetBundler.Web.Mvc
     public interface IBundlePipeline<T> : IList<IPipelineProcessor<T>>, IPipelineProcessor<T>
         where T : Bundle
     {
+        /// <summary>
+        /// Adds the processor by resolving using the IOC container.
+        /// </summary>
+        /// <typeparam name="TBundleProcessor"></typeparam>
         void Add<TBundleProcessor>()
             where TBundleProcessor : class, IPipelineProcessor<T>;
 
-        void Add<TBundleProcessorFactory>(Func<TBundleProcessorFactory, IPipelineProcessor<T>> create)
-            where TBundleProcessorFactory : class;
+        /// <summary>
+        /// Adds the processor by factory and resolving using the IOC container.
+        /// </summary>
+        /// <typeparam name="TBundleProcessor"></typeparam>
+        void Add<TProcessorFactory>(Func<TProcessorFactory, IPipelineProcessor<T>> create)
+            where TProcessorFactory : class;
 
-        void Insert<TBundleProcessor>(int index)
-            where TBundleProcessor : class, IPipelineProcessor<T>;
+        /// <summary>
+        /// Inserts the processor by resolving using the IOC container.
+        /// </summary>
+        /// <typeparam name="TBundleProcessor"></typeparam>
+        void Insert<TProcessor>(int index)
+            where TProcessor : class, IPipelineProcessor<T>;
 
-        void Insert<TBundleProcessorFactory>(int index, Func<TBundleProcessorFactory, IPipelineProcessor<T>> create)
-            where TBundleProcessorFactory : class;
-
-        void ReplaceWith<TReplacementProcessors>()
-            where TReplacementProcessors : class, IEnumerable<IPipelineProcessor<T>>;
+        /// <summary>
+        /// Adds the processor by factory and resolving using the IOC container.
+        /// </summary>
+        /// <typeparam name="TBundleProcessor"></typeparam>
+        void Insert<TProcessorFactory>(int index, Func<TProcessorFactory, IPipelineProcessor<T>> create)
+            where TProcessorFactory : class;
     }
 }
