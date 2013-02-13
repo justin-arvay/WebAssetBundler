@@ -14,16 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System;
 
-    public class PipelineProcessorImpl : IPipelineProcessor<Bundle>
+    public class BundlePipelineImpl : BundlePipeline<BundleImpl>
     {
-        public int CallCount { get; set; }
-        public void Process(Bundle bundle)
+        public BundlePipelineImpl(TinyIoCContainer container) : base(container)
         {
-            CallCount++;
+
         }
     }
 }

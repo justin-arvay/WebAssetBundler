@@ -18,8 +18,8 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public interface IPipelineCustomizer<T> where T : IBundlePipeline<T>
+    interface IPipelineCustomizer<T> where T : Bundle
     {
-        public void Customize(IBundlePipeline<T> pipeline);
+        void Customize(IBundlePipeline<T> pipeline);
     }
 }

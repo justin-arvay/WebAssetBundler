@@ -22,10 +22,27 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class BundlePipelineTests
     {
+        private BundlePipeline<BundleImpl> pipeline;
+        private TinyIoCContainer ioc;
+
+        [SetUp]
+        public void Setup()
+        {
+            ioc = new TinyIoCContainer();
+            pipeline = new BundlePipelineImpl(ioc);
+        }
+
         [Test]
         public void Should_Process_Bundle()
         {
+            var processor = new Mock<IPipelineProcessor<BundleImpl>>();
+            var bundle = new BundleImpl();
 
+            pipeline.Add(processor.Object);
+            pipeline.Add(processor.Object);
+
+            pipeline.Process(bundle);
+            processor.Verify(p => p.Process(bundle), Times.Exactly(2));
         }
     }
 }

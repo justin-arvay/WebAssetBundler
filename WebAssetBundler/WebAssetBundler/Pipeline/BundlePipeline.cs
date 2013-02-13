@@ -44,7 +44,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public void Add<TProcessorFactory>(Func<TProcessorFactory, IPipelineProcessor<T>> create) where TProcessorFactory : class
         {
-            Add(create(container.Resolve<TProcessorFactory>());
+            Add(create(container.Resolve<TProcessorFactory>()));
         }
 
         public void Insert<TProcessor>(int index) where TProcessor : class, IPipelineProcessor<T>
