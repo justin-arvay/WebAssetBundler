@@ -62,6 +62,7 @@
     <Compile Include="BundleTests.cs" />
     <Compile Include="Pipeline\BundlePipelineImpl.cs" />
     <Compile Include="Pipeline\BundlePipelineTests.cs" />
+    <Compile Include="Pipeline\ProcessorImpl.cs" />
     <Compile Include="Script\DefaultScriptConfigProviderTests.cs" />
     <Compile Include="StyleSheet\DefaultStyleSheetConfigProviderTests.cs" />
     <Compile Include="DoNothingConfigurationFactory.cs" />

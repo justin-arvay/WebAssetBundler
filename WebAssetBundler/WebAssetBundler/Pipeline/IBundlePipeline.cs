@@ -23,30 +23,32 @@ namespace WebAssetBundler.Web.Mvc
         where T : Bundle
     {
         /// <summary>
-        /// Adds the processor by resolving using the IOC container.
+        /// Allows adding a processor to be resolved by the container.
         /// </summary>
-        /// <typeparam name="TBundleProcessor"></typeparam>
+        /// <typeparam name="TProcessor"></typeparam>
         void Add<TBundleProcessor>()
             where TBundleProcessor : class, IPipelineProcessor<T>;
 
         /// <summary>
-        /// Adds the processor by factory and resolving using the IOC container.
+        /// Allows adding a processor using a delegate factory.
         /// </summary>
-        /// <typeparam name="TBundleProcessor"></typeparam>
+        /// <typeparam name="TProcessorFactory"></typeparam>
+        /// <param name="create"></param>
         void Add<TProcessorFactory>(Func<TProcessorFactory, IPipelineProcessor<T>> create)
             where TProcessorFactory : class;
 
         /// <summary>
-        /// Inserts the processor by resolving using the IOC container.
+        /// Allows inserting a processor to be resolved by the container.
         /// </summary>
-        /// <typeparam name="TBundleProcessor"></typeparam>
+        /// <typeparam name="TProcessor"></typeparam>
         void Insert<TProcessor>(int index)
             where TProcessor : class, IPipelineProcessor<T>;
 
         /// <summary>
-        /// Adds the processor by factory and resolving using the IOC container.
+        /// Allows inserting a processor using a delegate factory.
         /// </summary>
-        /// <typeparam name="TBundleProcessor"></typeparam>
+        /// <typeparam name="TProcessorFactory"></typeparam>
+        /// <param name="create"></param>
         void Insert<TProcessorFactory>(int index, Func<TProcessorFactory, IPipelineProcessor<T>> create)
             where TProcessorFactory : class;
     }

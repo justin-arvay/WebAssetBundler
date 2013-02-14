@@ -44,5 +44,26 @@ namespace WebAssetBundler.Web.Mvc.Tests
             pipeline.Process(bundle);
             processor.Verify(p => p.Process(bundle), Times.Exactly(2));
         }
+
+        [Test]
+        public void Should_Add_Processor()
+        {
+            var processor = new Mock<IPipelineProcessor<BundleImpl>>();
+            ioc.Register<IPipelineProcessor<BundleImpl>>(processor.Object);
+
+            pipeline.Add<IPipelineProcessor<BundleImpl>>();
+
+            Assert.AreEqual(1, pipeline.Count);
+        }
+
+        [Test]
+        public void Should_Add_Processor_With_Factory()
+        {
+            var processor = new Mock<IPipelineProcessor<BundleImpl>>();
+            ioc.Register<IPipelineProcessor<BundleImpl>>(processor.Object);
+
+            pipeline.Add<ProcessorImpl.Factory>(c => c("test"));
+
+        }
     }
 }
