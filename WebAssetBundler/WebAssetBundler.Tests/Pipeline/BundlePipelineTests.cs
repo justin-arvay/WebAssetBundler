@@ -64,6 +64,41 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             pipeline.Add<ProcessorImpl.Factory>(c => c("test"));
 
+            Assert.AreEqual(1, pipeline.Count);
+        }
+
+        [Test]
+        public void Should_Insert_Processor()
+        {
+            ioc.Register<IPipelineProcessor<BundleImpl>>(new ProcessorImpl());
+
+            pipeline.Add(new FakeProcessor());
+            pipeline.Add(new FakeProcessor());
+
+            pipeline.Insert<IPipelineProcessor<BundleImpl>>(1);
+
+            Assert.IsInstanceOf<ProcessorImpl>(pipeline[1]);
+        }
+
+        [Test]
+        public void Should_Insert_Processor_With_Factory()
+        {
+            ioc.Register<IPipelineProcessor<BundleImpl>>(new ProcessorImpl());
+
+            pipeline.Add(new FakeProcessor());
+            pipeline.Add(new FakeProcessor());
+
+            pipeline.Insert<ProcessorImpl.Factory>(1, c => c("test"));
+
+            Assert.IsInstanceOf<ProcessorImpl>(pipeline[1]);
+        }
+
+        class FakeProcessor : IPipelineProcessor<BundleImpl>
+        {
+            public void Process(BundleImpl bundle)
+            {
+                throw new System.NotImplementedException();
+            }
         }
     }
 }

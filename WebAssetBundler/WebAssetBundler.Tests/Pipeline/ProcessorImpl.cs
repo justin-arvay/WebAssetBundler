@@ -32,5 +32,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
 
         }
+
+        public void Process(BundleImpl bundle)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
