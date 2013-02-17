@@ -65,6 +65,16 @@ namespace WebAssetBundler.Web.Mvc
             ConfigureHttpHandler();
         }
 
+        public void RunBootstrapTasks()
+        {
+            container.RegisterMultiple<IBootstrapTask>(typeProvider.GetImplementationTypes(typeof(IBootstrapTask)));
+
+            foreach (var task in container.ResolveAll<IBootstrapTask>())
+            {
+                task.StartUp();
+            }
+        }
+
         public void ConfigureContainerForStyleSheets()
         {
             container.Register<IUrlGenerator<StyleSheetBundle>>(new StyleSheetUrlGenerator(() => DefaultSettings.DebugMode));
