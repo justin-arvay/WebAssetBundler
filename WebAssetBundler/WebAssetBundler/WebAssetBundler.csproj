@@ -117,6 +117,7 @@
     <Compile Include="IUrlGenerator.cs" />
     <Compile Include="DefaultSettings.cs" />
     <Compile Include="BundleCollection.cs" />
+    <Compile Include="TypeProvider.cs" />
     <Compile Include="WebAssetType.cs" />
     <Compile Include="StyleSheet\StyleSheetBundler.cs" />
     <Compile Include="AssetBase.cs" />

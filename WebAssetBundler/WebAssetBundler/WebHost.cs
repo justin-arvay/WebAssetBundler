@@ -17,14 +17,23 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Linq;
     using System.Web;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Web.Compilation;
 
     public class WebHost : IDisposable
     {
         private TinyIoCContainer container;
+        private Type[] allTypes;
+        private TypeProvider typeProvider;
+
 
         public WebHost()
         {
+            typeProvider = new TypeProvider(LoadAssemblies());
+            allTypes = typeProvider.GetAllTypes();
             container = new TinyIoCContainer();
         }
 
@@ -62,7 +71,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IStyleSheetMinifier>((c, p) => DefaultSettings.StyleSheetMinifier);
             container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();
             container.Register<IConfigProvider<StyleSheetBundleConfiguration>>((c, p) => DefaultSettings.StyleSheetConfigProvider);
-            container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => new StyleSheetPipeline(container));
+            container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => CreateStyleSheetPipeline(c));
             container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
             container.Register<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>, StyleSheetBundleCachePrimer>();
@@ -109,6 +118,8 @@ namespace WebAssetBundler.Web.Mvc
         {
             var pipeline = new ScriptPipeline(container);
 
+            container.RegisterMultiple<IPipelineCustomizer<ScriptBundle>>(typeProvider.GetImplementationTypes(typeof(IPipelineCustomizer<ScriptBundle>)));
+
             foreach (var customizer in container.ResolveAll<IPipelineCustomizer<ScriptBundle>>())
             {
                 customizer.Customize(pipeline);
@@ -121,6 +132,8 @@ namespace WebAssetBundler.Web.Mvc
         {
             var pipeline = new StyleSheetPipeline(container);
 
+            container.RegisterMultiple<IPipelineCustomizer<StyleSheetBundle>>(typeProvider.GetImplementationTypes(typeof(IPipelineCustomizer<StyleSheetBundle>)));
+
             foreach (var customizer in container.ResolveAll<IPipelineCustomizer<StyleSheetBundle>>())
             {
                 customizer.Customize(pipeline);
@@ -129,12 +142,40 @@ namespace WebAssetBundler.Web.Mvc
             return pipeline;
         }
 
+        /*
+        protected virtual IEnumerable<Type> GetConfigurationTypes(IEnumerable<Type> typesToSearch)
+        {
+            var publicTypes =
+                from type in typesToSearch
+                where type.IsClass && !type.IsAbstract
+                from interfaceType in type.GetInterfaces()
+                where interfaceType.IsGenericType &&
+                      interfaceType.GetGenericTypeDefinition() == typeof(IConfiguration<>)
+                select type;
+
+            var internalTypes = new[]
+            {
+                typeof(ScriptContainerConfiguration),
+                typeof(StylesheetsContainerConfiguration),
+                typeof(HtmlTemplatesContainerConfiguration),
+                typeof(SettingsVersionAssigner)
+            };
+
+            return publicTypes.Concat(internalTypes);
+        }*/
+
         public void ConfigureHttpHandler()
         {
             container.Register<HttpHandlerFactory>()
                 .AsSingleton();
             container.Register<EncoderFactory>()
                 .AsSingleton();
+        }
+
+        private  IEnumerable<Assembly> LoadAssemblies()
+        {
+            return AppDomain.CurrentDomain.GetAssemblies().ToArray();
+            //return BuildManager.GetReferencedAssemblies().Cast<Assembly>();
         }
 
         private HttpContextBase HttpContext()
