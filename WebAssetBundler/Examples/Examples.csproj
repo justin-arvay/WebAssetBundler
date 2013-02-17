@@ -82,6 +82,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="TestPipelineCustomizer.cs" />
     <Content Include="Content\documentation.css" />
     <Content Include="Images\document-icon.png" />
     <Content Include="Scripts\jquery-1.9.0.min.js" />

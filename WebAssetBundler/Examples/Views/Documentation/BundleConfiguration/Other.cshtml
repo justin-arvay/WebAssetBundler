@@ -20,7 +20,7 @@ the <strong>.min</strong> at the end of the files path. For example this file wo
 
 <code>~/Scripts/jquery-1.9.0.min.js</code>
 
-<p>Instead the minify process would simply skip this file and move on. You can configure this to use a different identifier if you wish. By default these are both
+<p>Instead the minify process would simply skip this file and move on. You can configure this to use a different identifier if you wish. By default this is 
 set to <strong>.min</strong>. You can change these two settings.</p>
 <pre data-language="csharp">
 //script identifier
@@ -54,7 +54,7 @@ public class LayoutScriptBundle : ScriptBundleConfiguration
 </pre>
 
 <h2>Setting a Host</h2>
-<p>You can manually override the host for each bundle if you wish. This can be useful if you have your own content delivery network (CDN). For example:</p>
+<p>You can manually override the host for each bundle if you wish. For example:</p>
 <pre data-language="csharp">
 public class LayoutScriptBundle : ScriptBundleConfiguration
 {
@@ -78,6 +78,7 @@ the bundle to be cached for. The default of 1 year is 525,949 minutes.</p>
 <pre data-language="html">
 public override void Configure()
 {
+    //16h 40min
     BrowserTtl(1000);
 }
 </pre>

@@ -86,7 +86,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IScriptMinifier>((c, p) => DefaultSettings.ScriptMinifier);
             container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>();
             container.Register<IConfigProvider<ScriptBundleConfiguration>>((c, p) => DefaultSettings.ScriptConfigProvider);
-            container.Register<IBundlePipeline<ScriptBundle>>((c, p) => new ScriptPipeline(container));
+            container.Register<IBundlePipeline<ScriptBundle>>((c, p) => CreateScriptPipeline(c));
             container.Register<IUrlGenerator<ScriptBundle>>(new ScriptUrlGenerator(() => DefaultSettings.DebugMode));
             container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();
             container.Register<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>, ScriptBundleCachePrimer>();
@@ -103,6 +103,30 @@ namespace WebAssetBundler.Web.Mvc
                 container.Resolve<IBundlePipeline<ScriptBundle>>(),
                 container.Resolve<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>>(), 
                 () => DefaultSettings.DebugMode));
+        }
+
+        public IBundlePipeline<ScriptBundle> CreateScriptPipeline(TinyIoCContainer container)
+        {
+            var pipeline = new ScriptPipeline(container);
+
+            foreach (var customizer in container.ResolveAll<IPipelineCustomizer<ScriptBundle>>())
+            {
+                customizer.Customize(pipeline);
+            }
+
+            return pipeline;
+        }
+
+        public IBundlePipeline<StyleSheetBundle> CreateStyleSheetPipeline(TinyIoCContainer container)
+        {
+            var pipeline = new StyleSheetPipeline(container);
+
+            foreach (var customizer in container.ResolveAll<IPipelineCustomizer<StyleSheetBundle>>())
+            {
+                customizer.Customize(pipeline);
+            }
+
+            return pipeline;
         }
 
         public void ConfigureHttpHandler()
