@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssetFile.cs" />
+    <Compile Include="Bootstrap\IBootstrapTask.cs" />
     <Compile Include="Compressors\JSMin.cs" />
     <Compile Include="Compressors\JSMinMinifier.cs" />
     <Compile Include="BundleProviderBase.cs" />
