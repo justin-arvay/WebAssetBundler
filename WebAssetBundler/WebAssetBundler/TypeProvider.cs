@@ -21,7 +21,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.Reflection;
     using System.Linq;
 
-    public class TypeProvider
+    public class TypeProvider : WebAssetBundler.ITypeProvider
     {
         private IEnumerable<Assembly> assemblies;
         private Type[] allTypes;

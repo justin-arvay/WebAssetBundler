@@ -50,11 +50,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssetFile.cs" />
+    <Compile Include="Bootstrap\ConfigureContainerTask.cs" />
     <Compile Include="Bootstrap\IBootstrapTask.cs" />
     <Compile Include="Compressors\JSMin.cs" />
     <Compile Include="Compressors\JSMinMinifier.cs" />
     <Compile Include="BundleProviderBase.cs" />
     <Compile Include="ExternalAsset.cs" />
+    <Compile Include="ITypeProvider.cs" />
     <Compile Include="Pipeline\IPipelineCustomizer.cs" />
     <Compile Include="Script\ScriptBundleCachePrimer.cs" />
     <Compile Include="Caching\BundlesCache.cs" />

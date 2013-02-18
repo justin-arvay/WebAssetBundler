@@ -36,7 +36,7 @@ namespace WebAssetBundler.Web.Mvc
                 if (host == null)
                 {
                     host = new WebHost();
-                    host.ConfigureContainer();
+                    host.RunBootstrapTasks();
                 }
             }
         }

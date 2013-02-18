@@ -20,6 +20,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IBootstrapTask
     {
-        void StartUp();
+        void StartUp(TinyIoCContainer container, ITypeProvider typeProvider);
     }
 }

@@ -45,113 +45,21 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public void ConfigureContainer()
-        {
-            container.Register((c, p) => HttpContext());
-            container.Register<HttpServerUtilityBase>(HttpContext().Server);
-            container.Register((c, p) => HttpContext().Request);
-            container.Register((c, p) => HttpContext().Response);
-            container.Register((c, p) => HttpContext().Server);
-            container.Register<ICacheProvider, CacheProvider>();
-
-            container.Register<IAssetProvider>((c, p) => new AssetProvider(
-                c.Resolve<HttpServerUtilityBase>(), 
-                HttpContext().Request.PhysicalApplicationPath,
-                () => DefaultSettings.MinifyIdentifier,
-                () => DefaultSettings.DebugMode));
-
-            ConfigureContainerForStyleSheets();
-            ConfigureContainerForScript();
-            ConfigureHttpHandler();
-        }
-
         public void RunBootstrapTasks()
         {
-            container.RegisterMultiple<IBootstrapTask>(typeProvider.GetImplementationTypes(typeof(IBootstrapTask)));
+            var childContainer = container.GetChildContainer();
 
-            foreach (var task in container.ResolveAll<IBootstrapTask>())
+            childContainer.RegisterMultiple<IBootstrapTask>(typeProvider.GetImplementationTypes(typeof(IBootstrapTask)));
+            var tasks = childContainer.ResolveAll<IBootstrapTask>();
+            //TODO:: dispose of the child container using HttpApplication events
+
+            foreach (var task in tasks)
             {
-                task.StartUp();
-            }
-        }
-
-        public void ConfigureContainerForStyleSheets()
-        {
-            container.Register<IUrlGenerator<StyleSheetBundle>>(new StyleSheetUrlGenerator(() => DefaultSettings.DebugMode));
-            container.Register<IStyleSheetMinifier>((c, p) => DefaultSettings.StyleSheetMinifier);
-            container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();
-            container.Register<IConfigProvider<StyleSheetBundleConfiguration>>((c, p) => DefaultSettings.StyleSheetConfigProvider);
-            container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => CreateStyleSheetPipeline(c));
-            container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
-            container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
-            container.Register<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>, StyleSheetBundleCachePrimer>();
-
-            container.Register<StyleSheetMinifyProcessor>((c, p) => new StyleSheetMinifyProcessor(
-                () => DefaultSettings.MinifyIdentifier,
-                () => DefaultSettings.DebugMode,
-                container.Resolve<IStyleSheetMinifier>()));
-
-            container.Register<IBundleProvider<StyleSheetBundle>>((c, p) => new StyleSheetBundleProvider(
-                container.Resolve<IConfigProvider<StyleSheetBundleConfiguration>>(),
-                container.Resolve<IBundlesCache<StyleSheetBundle>>(),
-                container.Resolve<IBundlePipeline<StyleSheetBundle>>(),
-                container.Resolve<IAssetProvider>(),
-                container.Resolve<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>>(),
-                () => DefaultSettings.DebugMode));
-        }
-
-        public void ConfigureContainerForScript()
-        {
-            container.Register<IScriptMinifier>((c, p) => DefaultSettings.ScriptMinifier);
-            container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>();
-            container.Register<IConfigProvider<ScriptBundleConfiguration>>((c, p) => DefaultSettings.ScriptConfigProvider);
-            container.Register<IBundlePipeline<ScriptBundle>>((c, p) => CreateScriptPipeline(c));
-            container.Register<IUrlGenerator<ScriptBundle>>(new ScriptUrlGenerator(() => DefaultSettings.DebugMode));
-            container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();
-            container.Register<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>, ScriptBundleCachePrimer>();
-
-            container.Register<ScriptMinifyProcessor>((c, p) => new ScriptMinifyProcessor(
-                () => DefaultSettings.MinifyIdentifier,
-                () => DefaultSettings.DebugMode,
-                container.Resolve<IScriptMinifier>()));
-
-            container.Register<IBundleProvider<ScriptBundle>>((c, p) => new ScriptBundleProvider(
-                container.Resolve<IConfigProvider<ScriptBundleConfiguration>>(),
-                container.Resolve<IBundlesCache<ScriptBundle>>(),
-                container.Resolve<IAssetProvider>(),
-                container.Resolve<IBundlePipeline<ScriptBundle>>(),
-                container.Resolve<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>>(), 
-                () => DefaultSettings.DebugMode));
-        }
-
-        public IBundlePipeline<ScriptBundle> CreateScriptPipeline(TinyIoCContainer container)
-        {
-            var pipeline = new ScriptPipeline(container);
-
-            container.RegisterMultiple<IPipelineCustomizer<ScriptBundle>>(typeProvider.GetImplementationTypes(typeof(IPipelineCustomizer<ScriptBundle>)));
-
-            foreach (var customizer in container.ResolveAll<IPipelineCustomizer<ScriptBundle>>())
-            {
-                customizer.Customize(pipeline);
+                task.StartUp(container, typeProvider);
             }
 
-            return pipeline;
+            ConfigureHttpHandler();
         }
-
-        public IBundlePipeline<StyleSheetBundle> CreateStyleSheetPipeline(TinyIoCContainer container)
-        {
-            var pipeline = new StyleSheetPipeline(container);
-
-            container.RegisterMultiple<IPipelineCustomizer<StyleSheetBundle>>(typeProvider.GetImplementationTypes(typeof(IPipelineCustomizer<StyleSheetBundle>)));
-
-            foreach (var customizer in container.ResolveAll<IPipelineCustomizer<StyleSheetBundle>>())
-            {
-                customizer.Customize(pipeline);
-            }
-
-            return pipeline;
-        }
-
         /*
         protected virtual IEnumerable<Type> GetConfigurationTypes(IEnumerable<Type> typesToSearch)
         {
@@ -186,11 +94,6 @@ namespace WebAssetBundler.Web.Mvc
         {
             return AppDomain.CurrentDomain.GetAssemblies().ToArray();
             //return BuildManager.GetReferencedAssemblies().Cast<Assembly>();
-        }
-
-        private HttpContextBase HttpContext()
-        {
-            return new HttpContextWrapper(System.Web.HttpContext.Current);
         }
 
         public void Dispose()

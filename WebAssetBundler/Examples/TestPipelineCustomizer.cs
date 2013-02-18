@@ -7,11 +7,11 @@ namespace Examples
 {
     using WebAssetBundler.Web.Mvc;
 
-    public class TestPipelineCustomizer : IPipelineCustomizer<ScriptBundle>
+    public class TestPipelineCustomizer : IPipelineCustomizer<StyleSheetBundle>
     {
-        public void Customize(IBundlePipeline<ScriptBundle> pipeline)
+        public void Customize(IBundlePipeline<StyleSheetBundle> pipeline)
         {
-            throw new NotImplementedException();
+
         }
     }
 }
