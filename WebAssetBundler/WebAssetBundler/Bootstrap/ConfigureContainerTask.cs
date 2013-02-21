@@ -27,7 +27,16 @@ namespace WebAssetBundler.Web.Mvc
             ConfigureCommon(container);
             ConfigureContainerForScript(container, typeProvider);
             ConfigureContainerForStyleSheets(container, typeProvider);
+            ConfigureHttpHandler(container);
 
+        }
+
+        public void ConfigureHttpHandler(TinyIoCContainer container)
+        {
+            container.Register<HttpHandlerFactory>()
+                .AsSingleton();
+            container.Register<EncoderFactory>()
+                .AsSingleton();
         }
 
         public void ConfigureCommon(TinyIoCContainer container)

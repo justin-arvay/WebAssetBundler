@@ -26,6 +26,7 @@ namespace WebAssetBundler.Web.Mvc
     public class WebHost : IDisposable
     {
         private TinyIoCContainer container;
+        private TinyIoCContainer childContainer;
         private Type[] allTypes;
         private TypeProvider typeProvider;
 
@@ -35,6 +36,7 @@ namespace WebAssetBundler.Web.Mvc
             typeProvider = new TypeProvider(LoadAssemblies());
             allTypes = typeProvider.GetAllTypes();
             container = new TinyIoCContainer();
+            childContainer = container.GetChildContainer();
         }
 
         public TinyIoCContainer Container
@@ -47,8 +49,6 @@ namespace WebAssetBundler.Web.Mvc
 
         public void RunBootstrapTasks()
         {
-            var childContainer = container.GetChildContainer();
-
             childContainer.RegisterMultiple<IBootstrapTask>(typeProvider.GetImplementationTypes(typeof(IBootstrapTask)));
             var tasks = childContainer.ResolveAll<IBootstrapTask>();
             //TODO:: dispose of the child container using HttpApplication events
@@ -57,8 +57,6 @@ namespace WebAssetBundler.Web.Mvc
             {
                 task.StartUp(container, typeProvider);
             }
-
-            ConfigureHttpHandler();
         }
         /*
         protected virtual IEnumerable<Type> GetConfigurationTypes(IEnumerable<Type> typesToSearch)
@@ -82,22 +80,14 @@ namespace WebAssetBundler.Web.Mvc
             return publicTypes.Concat(internalTypes);
         }*/
 
-        public void ConfigureHttpHandler()
-        {
-            container.Register<HttpHandlerFactory>()
-                .AsSingleton();
-            container.Register<EncoderFactory>()
-                .AsSingleton();
-        }
-
         private  IEnumerable<Assembly> LoadAssemblies()
         {
             return AppDomain.CurrentDomain.GetAssemblies().ToArray();
-            //return BuildManager.GetReferencedAssemblies().Cast<Assembly>();
         }
 
         public void Dispose()
         {
+            childContainer.Dispose();
             container.Dispose();
         }
     }
