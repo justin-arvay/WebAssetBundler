@@ -30,14 +30,6 @@ namespace WebAssetBundler.Web.Mvc
             where TBundleProcessor : class, IPipelineProcessor<T>;
 
         /// <summary>
-        /// Allows adding a processor using a delegate factory.
-        /// </summary>
-        /// <typeparam name="TProcessorFactory"></typeparam>
-        /// <param name="create"></param>
-        void Add<TProcessorFactory>(Func<TProcessorFactory, IPipelineProcessor<T>> create)
-            where TProcessorFactory : class;
-
-        /// <summary>
         /// Allows inserting a processor to be resolved by the container.
         /// </summary>
         /// <typeparam name="TProcessor"></typeparam>
@@ -45,11 +37,10 @@ namespace WebAssetBundler.Web.Mvc
             where TProcessor : class, IPipelineProcessor<T>;
 
         /// <summary>
-        /// Allows inserting a processor using a delegate factory.
+        /// Allows removal of a processor based on its type.
         /// </summary>
-        /// <typeparam name="TProcessorFactory"></typeparam>
-        /// <param name="create"></param>
-        void Insert<TProcessorFactory>(int index, Func<TProcessorFactory, IPipelineProcessor<T>> create)
-            where TProcessorFactory : class;
+        /// <typeparam name="TProcessor"></typeparam>
+        void Remove<TProcessor>()
+            where TProcessor : class, IPipelineProcessor<T>;
     }
 }

@@ -42,19 +42,24 @@ namespace WebAssetBundler.Web.Mvc
             Add(container.Resolve<TProcessor>());
         }
 
-        public void Add<TProcessorFactory>(Func<TProcessorFactory, IPipelineProcessor<T>> create) where TProcessorFactory : class
-        {
-            Add(create(container.Resolve<TProcessorFactory>()));
-        }
-
         public void Insert<TProcessor>(int index) where TProcessor : class, IPipelineProcessor<T>
         {
             Insert(index, container.Resolve<TProcessor>());
         }
 
-        public void Insert<TProcessorFactory>(int index, Func<TProcessorFactory, IPipelineProcessor<T>> create) where TProcessorFactory : class
+        public void Remove<TProcessor>() where TProcessor : class, IPipelineProcessor<T>
         {
-            Insert(index, create(container.Resolve<TProcessorFactory>()));
+            var type = typeof(TProcessor);            
+
+            for (int index = 0; index < Count - 1; index++)
+            {
+                if (this[index].GetType().Equals(type))
+                {
+                    RemoveAt(index);
+                    break;
+                }
+            }
+            
         }
     }
 }
