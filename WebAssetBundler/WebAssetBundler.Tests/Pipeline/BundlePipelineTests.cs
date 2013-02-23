@@ -56,6 +56,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual(1, pipeline.Count);
         }
 
+        /*
         [Test]
         public void Should_Add_Processor_With_Factory()
         {
@@ -66,6 +67,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual(1, pipeline.Count);
         }
+        */
 
         [Test]
         public void Should_Insert_Processor()
@@ -80,6 +82,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.IsInstanceOf<ProcessorImpl>(pipeline[1]);
         }
 
+        /*
         [Test]
         public void Should_Insert_Processor_With_Factory()
         {
@@ -91,6 +94,36 @@ namespace WebAssetBundler.Web.Mvc.Tests
             pipeline.Insert<ProcessorImpl.Factory>(1, c => c("test"));
 
             Assert.IsInstanceOf<ProcessorImpl>(pipeline[1]);
+        }
+        */
+
+        [Test]
+        public void Should_Remove_Processor()
+        {
+            pipeline.Add(new ProcessorImpl());
+            pipeline.Add(new FakeProcessor());
+            pipeline.Add(new ProcessorImpl());            
+
+            pipeline.Remove<FakeProcessor>();
+
+            Assert.IsInstanceOf<ProcessorImpl>(pipeline[0]);
+            Assert.IsInstanceOf<ProcessorImpl>(pipeline[1]);
+        }
+
+        [Test]
+        public void Should_Replace_Processor()
+        {
+            ioc.Register<IPipelineProcessor<BundleImpl>>(new ProcessorImpl());
+
+            pipeline.Add(new ProcessorImpl());
+            pipeline.Add(new FakeProcessor());
+            pipeline.Add(new ProcessorImpl());
+
+            pipeline.Replace<FakeProcessor, ProcessorImpl>();
+
+            Assert.IsInstanceOf<ProcessorImpl>(pipeline[0]);
+            Assert.IsInstanceOf<ProcessorImpl>(pipeline[1]);
+            Assert.IsInstanceOf<ProcessorImpl>(pipeline[2]);
         }
 
         class FakeProcessor : IPipelineProcessor<BundleImpl>

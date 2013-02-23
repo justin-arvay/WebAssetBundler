@@ -61,5 +61,22 @@ namespace WebAssetBundler.Web.Mvc
             }
             
         }
+
+        public void Replace<OldProcessor, NewProcessor>()
+            where OldProcessor : class, IPipelineProcessor<T>
+            where NewProcessor : class, IPipelineProcessor<T>
+        {
+            var type = typeof(OldProcessor);
+
+            for (int index = 0; index < Count - 1; index++)
+            {
+                if (this[index].GetType().Equals(type))
+                {
+                    RemoveAt(index);
+                    Insert<NewProcessor>(index);
+                    break;
+                }
+            }
+        }
     }
 }

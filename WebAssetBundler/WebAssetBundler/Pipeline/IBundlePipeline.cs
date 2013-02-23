@@ -42,5 +42,14 @@ namespace WebAssetBundler.Web.Mvc
         /// <typeparam name="TProcessor"></typeparam>
         void Remove<TProcessor>()
             where TProcessor : class, IPipelineProcessor<T>;
+
+        /// <summary>
+        /// Replaces the old process with the new processor at the same position.
+        /// </summary>
+        /// <typeparam name="OldProcessor"></typeparam>
+        /// <typeparam name="NewProcessor"></typeparam>
+        void Replace<OldProcessor, NewProcessor>()
+            where OldProcessor : class, IPipelineProcessor<T>
+            where NewProcessor : class, IPipelineProcessor<T>;
     }
 }
