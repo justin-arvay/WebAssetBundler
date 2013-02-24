@@ -38,8 +38,8 @@ namespace WebAssetBundler.Web.Mvc
         private static IScriptMinifier scriptMinifier = new MsScriptMinifier();
         private static IStyleSheetMinifier styleSheetMinfier = new MsStyleSheetMinifier();
 
-        private static IConfigProvider<StyleSheetBundleConfiguration> styleSheetConfigProvider = new DefaultStyleSheetConfigProvider();
-        private static IConfigProvider<ScriptBundleConfiguration> scriptConfigProvider = new DefaultScriptConfigProvider();
+        private static IBundleConfigurationProvider<StyleSheetBundle> styleSheetBundleConfigurationFactory = new DefaultStyleSheetConfigProvider();
+        private static IBundleConfigurationProvider<ScriptBundle> scriptBundleConfigurationFactory = new DefaultScriptConfigProvider();
 
         /// <summary>
         /// Gets or sets the style sheet files path. Path must be a virtual path.
@@ -115,30 +115,30 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Sets the configuration factory to be used when loading the style sheet bundles.
         /// </summary>
-        public static IConfigProvider<StyleSheetBundleConfiguration> StyleSheetConfigProvider
+        public static IBundleConfigurationFactory<StyleSheetBundle> StyleSheetBundleConfigurationFactory
         {
             get
             {
-                return styleSheetConfigProvider;
+                return styleSheetBundleConfigurationFactory;
             }
             set
             {
-                styleSheetConfigProvider = value;
+                styleSheetBundleConfigurationFactory = value;
             }
         }
 
         /// <summary>
         /// Sets the configuration factory to be used when loading the script bundles.
         /// </summary>
-        public static IConfigProvider<ScriptBundleConfiguration> ScriptConfigProvider
+        public static IBundleConfigurationFactory<ScriptBundle> ScriptBundleConfigurationFactory
         {
             get
             {
-                return scriptConfigProvider;
+                return scriptBundleConfigurationFactory;
             }
             set
             {
-                scriptConfigProvider = value;
+                scriptBundleConfigurationFactory = value;
             }
         }
 

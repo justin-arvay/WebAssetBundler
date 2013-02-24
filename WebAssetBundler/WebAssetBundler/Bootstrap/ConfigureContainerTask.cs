@@ -60,7 +60,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IUrlGenerator<StyleSheetBundle>>(new StyleSheetUrlGenerator(() => DefaultSettings.DebugMode));
             container.Register<IStyleSheetMinifier>((c, p) => DefaultSettings.StyleSheetMinifier);
             container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();
-            container.Register<IConfigProvider<StyleSheetBundleConfiguration>>((c, p) => DefaultSettings.StyleSheetConfigProvider);
+            container.Register<IBundleConfigurationProvider<StyleSheetBundleConfiguration>>((c, p) => DefaultSettings.StyleSheetBundleConfigurationFactory);
             container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => CreateStyleSheetPipeline(c, typeProvider));
             container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
@@ -72,7 +72,7 @@ namespace WebAssetBundler.Web.Mvc
                 container.Resolve<IStyleSheetMinifier>()));
 
             container.Register<IBundleProvider<StyleSheetBundle>>((c, p) => new StyleSheetBundleProvider(
-                container.Resolve<IConfigProvider<StyleSheetBundleConfiguration>>(),
+                container.Resolve<IBundleConfigurationProvider<StyleSheetBundleConfiguration>>(),
                 container.Resolve<IBundlesCache<StyleSheetBundle>>(),
                 container.Resolve<IBundlePipeline<StyleSheetBundle>>(),
                 container.Resolve<IAssetProvider>(),
@@ -84,7 +84,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             container.Register<IScriptMinifier>((c, p) => DefaultSettings.ScriptMinifier);
             container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>();
-            container.Register<IConfigProvider<ScriptBundleConfiguration>>((c, p) => DefaultSettings.ScriptConfigProvider);
+            container.Register<IBundleConfigurationProvider<ScriptBundleConfiguration>>((c, p) => DefaultSettings.ScriptConfigProvider);
             container.Register<IBundlePipeline<ScriptBundle>>((c, p) => CreateScriptPipeline(c, typeProvider));
             container.Register<IUrlGenerator<ScriptBundle>>(new ScriptUrlGenerator(() => DefaultSettings.DebugMode));
             container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();
@@ -96,7 +96,7 @@ namespace WebAssetBundler.Web.Mvc
                 container.Resolve<IScriptMinifier>()));
 
             container.Register<IBundleProvider<ScriptBundle>>((c, p) => new ScriptBundleProvider(
-                container.Resolve<IConfigProvider<ScriptBundleConfiguration>>(),
+                container.Resolve<IBundleConfigurationProvider<ScriptBundleConfiguration>>(),
                 container.Resolve<IBundlesCache<ScriptBundle>>(),
                 container.Resolve<IAssetProvider>(),
                 container.Resolve<IBundlePipeline<ScriptBundle>>(),

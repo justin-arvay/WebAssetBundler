@@ -22,14 +22,14 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ScriptBundleProvider : BundleProviderBase<ScriptBundle>
     {
-        private IConfigProvider<ScriptBundleConfiguration> configProvider;
+        private IBundleConfigurationProvider<IBundleConfiguration<ScriptBundle>> configProvider;
         private IBundlesCache<ScriptBundle> cache;
         private IAssetProvider assetProvider;
         private IBundlePipeline<ScriptBundle> pipeline;
-        private IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration> primer;
+        private IBundleCachePrimer<ScriptBundle> primer;
 
-        public ScriptBundleProvider(IConfigProvider<ScriptBundleConfiguration> configProvider, IBundlesCache<ScriptBundle> cache,
-            IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline, IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration> primer, 
+        public ScriptBundleProvider(IBundleConfigurationProvider<IBundleConfiguration<ScriptBundle>> configProvider, IBundlesCache<ScriptBundle> cache,
+            IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline, IBundleCachePrimer<ScriptBundle> primer, 
             Func<bool> debugMode) : base (debugMode)
         {
             this.configProvider = configProvider;

@@ -20,17 +20,9 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.IO;
 
-    public abstract class BundleConfiguration<T, TBundle> : IConfigurable
-        where T : BundleConfiguration<T, TBundle>
+    public abstract class BundleConfiguration<TBundle> : IBundleConfiguration<TBundle>
         where TBundle : Bundle
     {
-        private TBundle bundle;
-
-        public BundleConfiguration(TBundle bundle)
-        {            
-            bundle.Name = this.GetType().Name;
-            this.bundle = bundle;
-        }
 
         /// <summary>
         /// Add an asset to the bundle
@@ -38,7 +30,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="stream"></param>
         public void Add(string source)
         {
-            bundle.Assets.Add(AssetProvider.GetAsset(source));
+            Bundle.Assets.Add(AssetProvider.GetAsset(source));
         }
 
         /// <summary>
@@ -47,11 +39,11 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="path"></param>
         public void AddFromDirectory(string path)
         {
-            var assets = AssetProvider.GetAssets(new FromDirectoryComponent(path, bundle.Extension));
+            var assets = AssetProvider.GetAssets(new FromDirectoryComponent(path, Bundle.Extension));
 
             foreach (var asset in assets)
             {
-                bundle.Assets.Add(asset);
+                Bundle.Assets.Add(asset);
             }
         }
 
@@ -62,14 +54,14 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="builder"></param>
         public void AddFromDirectory(string path, Action<FromDirectoryBuilder> builder)
         {
-            var component = new FromDirectoryComponent(path, bundle.Extension);
+            var component = new FromDirectoryComponent(path, Bundle.Extension);
             builder(new FromDirectoryBuilder(component));
 
             var assets = AssetProvider.GetAssets(component);
 
             foreach (var asset in assets)
             {
-                bundle.Assets.Add(asset);
+                Bundle.Assets.Add(asset);
             }
         }
 
@@ -79,7 +71,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="name"></param>
         public void Name(string name)
         {
-            bundle.Name = name;
+            Bundle.Name = name;
         }
 
         /// <summary>
@@ -88,7 +80,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="compress"></param>
         public void Compress(bool compress)
         {
-            bundle.Minify = compress;
+            Bundle.Minify = compress;
         }
 
         /// <summary>
@@ -97,7 +89,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="host"></param>
         public void Host(string host)
         {
-            bundle.Host = host;
+            Bundle.Host = host;
         }
 
         /// <summary>
@@ -106,12 +98,13 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="timeToLive"></param>
         public void BrowserTtl(int timeToLive)
         {
-            bundle.BrowserTtl = timeToLive;
+            Bundle.BrowserTtl = timeToLive;
         }
 
-        public TBundle GetBundle()
-        {
-            return bundle;
+        internal TBundle Bundle
+        { 
+            get; 
+            set; 
         }
 
         internal IAssetProvider AssetProvider

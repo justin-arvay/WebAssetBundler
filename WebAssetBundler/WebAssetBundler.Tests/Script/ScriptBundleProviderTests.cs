@@ -26,7 +26,7 @@ using System;
     public class ScriptBundleProviderTests
     {
         private ScriptBundleProvider provider;
-        private Mock<IConfigProvider<ScriptBundleConfiguration>> configProvider;
+        private Mock<IBundleConfigurationProvider<ScriptBundleConfiguration>> configProvider;
         private Mock<IBundlesCache<ScriptBundle>> cache;
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<ScriptBundle>> pipeline;
@@ -37,7 +37,7 @@ using System;
         public void Setup()
         {
             pipeline = new Mock<IBundlePipeline<ScriptBundle>>();
-            configProvider = new Mock<IConfigProvider<ScriptBundleConfiguration>>();
+            configProvider = new Mock<IBundleConfigurationProvider<ScriptBundleConfiguration>>();
             cache = new Mock<IBundlesCache<ScriptBundle>>();
             assetProvider = new Mock<IAssetProvider>();
             primer = new Mock<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>>();

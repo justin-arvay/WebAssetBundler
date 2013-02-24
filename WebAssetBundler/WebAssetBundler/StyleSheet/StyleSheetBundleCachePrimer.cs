@@ -19,7 +19,7 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public class StyleSheetBundleCachePrimer : IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>
+    public class StyleSheetBundleCachePrimer : IBundleCachePrimer<StyleSheetBundle>
     {
         private IBundlesCache<StyleSheetBundle> cache;
         private IAssetProvider assetProvider;
@@ -44,16 +44,17 @@ namespace WebAssetBundler.Web.Mvc
         }
 
 
-        public void Prime(IList<StyleSheetBundleConfiguration> configs)
+        public void Prime(IList<IBundleConfiguration<StyleSheetBundle>> configs)
         {
-            foreach (StyleSheetBundleConfiguration item in configs)
+            foreach (IBundleConfiguration<StyleSheetBundle> item in configs)
             {
-                var bundle = item.GetBundle();
-
+                item.Bundle = new StyleSheetBundle();
+                item.Bundle.Name = item.GetType().Name;
                 item.AssetProvider = assetProvider;
                 item.Configure();
-                pipeline.Process(bundle);
-                cache.Add(bundle);
+
+                pipeline.Process(item.Bundle);
+                cache.Add(item.Bundle);
             }
 
             isPrimed = true;

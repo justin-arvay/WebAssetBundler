@@ -17,15 +17,10 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.Collections.Generic;
 
-    public interface IConfigProvider<TConfig> where TConfig : IConfigurable
+    public interface IBundleConfigurationFactory<TBundle>
+        where TBundle : Bundle
     {
-        /// <summary>
-        /// Gets all style sheet bundle configuration classes.
-        /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        IList<TConfig> GetConfigs();
+        IBundleConfiguration<TBundle> Create(Type type);
     }
 }

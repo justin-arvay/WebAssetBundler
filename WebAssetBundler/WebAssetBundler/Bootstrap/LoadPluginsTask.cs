@@ -18,8 +18,12 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public interface IConfigurable
+    public class LoadPluginsTask : IBootstrapTask
     {
-        void Configure();
+
+        public void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

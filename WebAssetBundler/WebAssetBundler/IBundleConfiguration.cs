@@ -14,28 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc.Tests
+namespace WebAssetBundler.Web.Mvc
 {
-    using NUnit.Framework;
-    using Moq;
+    using System;
 
-    [TestFixture]
-    public class DefaultStyleSheetConfigProviderTests
+    public interface IBundleConfiguration<TBundle> where TBundle : Bundle
     {
-        private DefaultStyleSheetConfigProvider provider;
-
-        [SetUp]
-        public void Setup()
-        {
-            provider = new DefaultStyleSheetConfigProvider();
-        }
-
-        [Test]
-        public void Should_Get_Configuration()
-        {
-            var configs = provider.GetConfigs();
-
-            Assert.AreEqual(1, configs.Count);
-        }
+        void Add(string source);
+        void AddFromDirectory(string path);
+        void AddFromDirectory(string path, Action<FromDirectoryBuilder> builder);
+        void Name(string name);
+        void Compress(bool compress);
+        void Host(string host);
+        void BrowserTtl(int timeToLive);
+        TBundle Bundle { get; set; }
+        IAssetProvider AssetProvider { get; set; }
+        void Configure();
     }
 }

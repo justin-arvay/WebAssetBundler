@@ -20,7 +20,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
 
     [TestFixture]
-    public class DefaultScriptConfigProviderTests
+    public class BundleConfigurationProviderTest
     {
         private DefaultScriptConfigProvider provider;
 

@@ -17,12 +17,16 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Collections.Generic;
 
-    public abstract class ScriptBundleConfiguration : BundleConfiguration<ScriptBundleConfiguration, ScriptBundle>
+    public interface IBundleConfigurationProvider<TBundle>
+        where TBundle : Bundle
     {
-        public ScriptBundleConfiguration()
-            : base(new ScriptBundle())
-        {
-        }
+        /// <summary>
+        /// Gets all style sheet bundle configuration classes.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        IList<IBundleConfiguration<TBundle>> GetConfigs();
     }
 }

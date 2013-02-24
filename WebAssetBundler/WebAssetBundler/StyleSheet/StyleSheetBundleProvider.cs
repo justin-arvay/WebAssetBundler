@@ -22,14 +22,14 @@ namespace WebAssetBundler.Web.Mvc
 
     public class StyleSheetBundleProvider : BundleProviderBase<StyleSheetBundle>
     {
-        private IConfigProvider<StyleSheetBundleConfiguration> configProvider;
+        private IBundleConfigurationProvider<IBundleConfiguration<StyleSheetBundle>> configProvider;
         private IBundlesCache<StyleSheetBundle> cache;
         private IAssetProvider assetProvider;
         private IBundlePipeline<StyleSheetBundle> pipeline;
-        private IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration> primer;
+        private IBundleCachePrimer<StyleSheetBundle> primer;
 
-        public StyleSheetBundleProvider(IConfigProvider<StyleSheetBundleConfiguration> configProvider, IBundlesCache<StyleSheetBundle> cache, 
-            IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetProvider, IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration> primer,
+        public StyleSheetBundleProvider(IBundleConfigurationProvider<IBundleConfiguration<StyleSheetBundle>> configProvider, IBundlesCache<StyleSheetBundle> cache,
+            IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetProvider, IBundleCachePrimer<StyleSheetBundle> primer,
             Func<bool> debugMode)
             : base(debugMode)
         {

@@ -98,7 +98,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Be_Default_Style_Sheet_Config_Provider()
         {
-            Assert.IsInstanceOf<DefaultStyleSheetConfigProvider>(DefaultSettings.StyleSheetConfigProvider);
+            Assert.IsInstanceOf<DefaultStyleSheetConfigProvider>(DefaultSettings.StyleSheetBundleConfigurationFactory);
         }
 
         [Test]

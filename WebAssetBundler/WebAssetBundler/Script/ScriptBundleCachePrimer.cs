@@ -20,7 +20,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.Diagnostics;
 
-    public class ScriptBundleCachePrimer : IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>
+    public class ScriptBundleCachePrimer : IBundleCachePrimer<ScriptBundle>
     {
         private IBundlesCache<ScriptBundle> cache;
         private IAssetProvider assetProvider;
@@ -44,17 +44,17 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public void Prime(IList<ScriptBundleConfiguration> configs)
+        public void Prime(IList<IBundleConfiguration<ScriptBundle>> configs)
         {
-            foreach (ScriptBundleConfiguration item in configs)
+            foreach (IBundleConfiguration<ScriptBundle> item in configs)
             {
-                var bundle = item.GetBundle();
-
+                item.Bundle = new ScriptBundle();
+                item.Bundle.Name = item.GetType().Name;
                 item.AssetProvider = assetProvider;
                 item.Configure();
 
-                pipeline.Process(bundle);
-                cache.Add(bundle);
+                pipeline.Process(item.Bundle);
+                cache.Add(item.Bundle);
             }
 
             isPrimed = true;

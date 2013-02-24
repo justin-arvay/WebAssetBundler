@@ -21,23 +21,26 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.Linq;
 
-    public class DefaultStyleSheetConfigProvider : IConfigProvider<StyleSheetBundleConfiguration>
+    public class BundleConfigurationProvider<TBundle> : IBundleConfigurationProvider<TBundle>
+        where TBundle : Bundle
     {
+        private IBundleConfigurationFactory<TBundle> factory;
+        private ITypeProvider typeProvider;
 
-
-        public IList<StyleSheetBundleConfiguration> GetConfigs()
+        public BundleConfigurationProvider(IBundleConfigurationFactory<TBundle> factory, ITypeProvider typeProvider)
         {
-            var configs = new List<StyleSheetBundleConfiguration>();
+            this.factory = factory;
+            this.typeProvider = typeProvider;
+        }
 
-            //TODO:: improve this to ignore obvious assemblies
-            var types = AppDomain.CurrentDomain.GetAssemblies().ToList()
-                .SelectMany(s => s.GetTypes())
-                .Where(p => typeof(StyleSheetBundleConfiguration).IsAssignableFrom(p) && p.IsAbstract == false);
-            //.Where(myType => myType.IsClass && myType.IsAbstract && myType.IsSubclassOf(typeof(T)));
+        public IList<IBundleConfiguration<TBundle>> GetConfigs()
+        {
+            var types = typeProvider.GetImplementationTypes(typeof(IBundleConfiguration<TBundle>));
+            var configs = new List<IBundleConfiguration<TBundle>>();
 
             foreach (Type type in types)
             {
-                configs.Add((StyleSheetBundleConfiguration)Activator.CreateInstance(type));
+                configs.Add(factory.Create(type));
             }
 
             return configs;

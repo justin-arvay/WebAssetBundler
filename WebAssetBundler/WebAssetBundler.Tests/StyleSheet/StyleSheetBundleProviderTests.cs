@@ -27,7 +27,7 @@ using System;
     public class StyleSheetBundleProviderTests
     {
         private StyleSheetBundleProvider provider;
-        private Mock<IConfigProvider<StyleSheetBundleConfiguration>> configProvider;
+        private Mock<IBundleConfigurationProvider<StyleSheetBundleConfiguration>> configProvider;
         private Mock<IBundlesCache<StyleSheetBundle>> cache;
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
@@ -37,7 +37,7 @@ using System;
         public void Setup()
         {
             pipeline = new Mock<IBundlePipeline<StyleSheetBundle>>();
-            configProvider = new Mock<IConfigProvider<StyleSheetBundleConfiguration>>();
+            configProvider = new Mock<IBundleConfigurationProvider<StyleSheetBundleConfiguration>>();
             cache = new Mock<IBundlesCache<StyleSheetBundle>>();
             assetProvider = new Mock<IAssetProvider>();
             primer = new Mock<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>>();
