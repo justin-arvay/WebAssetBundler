@@ -72,8 +72,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
         [Test]
         public void Should_Not_Prime_Cache()
-        {                     
-            primer.Prime(new List<StyleSheetBundleConfiguration>());
+        {
+            primer.Prime(new List<IBundleConfiguration<StyleSheetBundle>>());
 
             cache.Verify(c => c.Add(It.IsAny<StyleSheetBundle>()), Times.Never());
         }

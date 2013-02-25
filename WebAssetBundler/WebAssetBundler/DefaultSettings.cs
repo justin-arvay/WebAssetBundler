@@ -38,8 +38,8 @@ namespace WebAssetBundler.Web.Mvc
         private static IScriptMinifier scriptMinifier = new MsScriptMinifier();
         private static IStyleSheetMinifier styleSheetMinfier = new MsStyleSheetMinifier();
 
-        private static IBundleConfigurationProvider<StyleSheetBundle> styleSheetBundleConfigurationFactory = new DefaultStyleSheetConfigProvider();
-        private static IBundleConfigurationProvider<ScriptBundle> scriptBundleConfigurationFactory = new DefaultScriptConfigProvider();
+        private static IBundleConfigurationFactory<StyleSheetBundle> styleSheetBundleConfigurationFactory = new DefaultBundleConfigurationFactory<StyleSheetBundle>();
+        private static IBundleConfigurationFactory<ScriptBundle> scriptBundleConfigurationFactory = new DefaultBundleConfigurationFactory<ScriptBundle>();
 
         /// <summary>
         /// Gets or sets the style sheet files path. Path must be a virtual path.
