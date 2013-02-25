@@ -53,6 +53,7 @@ namespace WebAssetBundler.Web.Mvc
                 HttpContext().Request.PhysicalApplicationPath,
                 () => DefaultSettings.MinifyIdentifier,
                 () => DefaultSettings.DebugMode));
+            
         }
 
         public void ConfigureContainerForStyleSheets(TinyIoCContainer container, ITypeProvider typeProvider)
@@ -60,11 +61,12 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IUrlGenerator<StyleSheetBundle>>(new StyleSheetUrlGenerator(() => DefaultSettings.DebugMode));
             container.Register<IStyleSheetMinifier>((c, p) => DefaultSettings.StyleSheetMinifier);
             container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();
-            container.Register<IBundleConfigurationProvider<StyleSheetBundleConfiguration>>((c, p) => DefaultSettings.StyleSheetBundleConfigurationFactory);
+            container.Register<IBundleConfigurationProvider<StyleSheetBundle>, BundleConfigurationProvider<StyleSheetBundle>>();
+            container.Register<IBundleConfigurationFactory<StyleSheetBundle>>((c, p) => DefaultSettings.StyleSheetBundleConfigurationFactory);
             container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => CreateStyleSheetPipeline(c, typeProvider));
             container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
-            container.Register<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>, StyleSheetBundleCachePrimer>();
+            container.Register<IBundleCachePrimer<StyleSheetBundle>, StyleSheetBundleCachePrimer>();
 
             container.Register<StyleSheetMinifyProcessor>((c, p) => new StyleSheetMinifyProcessor(
                 () => DefaultSettings.MinifyIdentifier,
@@ -72,11 +74,11 @@ namespace WebAssetBundler.Web.Mvc
                 container.Resolve<IStyleSheetMinifier>()));
 
             container.Register<IBundleProvider<StyleSheetBundle>>((c, p) => new StyleSheetBundleProvider(
-                container.Resolve<IBundleConfigurationProvider<StyleSheetBundleConfiguration>>(),
+                container.Resolve<IBundleConfigurationProvider<StyleSheetBundle>>(),
                 container.Resolve<IBundlesCache<StyleSheetBundle>>(),
                 container.Resolve<IBundlePipeline<StyleSheetBundle>>(),
                 container.Resolve<IAssetProvider>(),
-                container.Resolve<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>>(),
+                container.Resolve<IBundleCachePrimer<StyleSheetBundle>>(),
                 () => DefaultSettings.DebugMode));
         }
 
@@ -84,11 +86,12 @@ namespace WebAssetBundler.Web.Mvc
         {
             container.Register<IScriptMinifier>((c, p) => DefaultSettings.ScriptMinifier);
             container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>();
-            container.Register<IBundleConfigurationProvider<ScriptBundleConfiguration>>((c, p) => DefaultSettings.ScriptConfigProvider);
+            container.Register<IBundleConfigurationProvider<ScriptBundle>, BundleConfigurationProvider<ScriptBundle>>();
+            container.Register<IBundleConfigurationFactory<ScriptBundle>>((c, p) => DefaultSettings.ScriptBundleConfigurationFactory);
             container.Register<IBundlePipeline<ScriptBundle>>((c, p) => CreateScriptPipeline(c, typeProvider));
             container.Register<IUrlGenerator<ScriptBundle>>(new ScriptUrlGenerator(() => DefaultSettings.DebugMode));
             container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();
-            container.Register<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>, ScriptBundleCachePrimer>();
+            container.Register<IBundleCachePrimer<ScriptBundle>, ScriptBundleCachePrimer>();
 
             container.Register<ScriptMinifyProcessor>((c, p) => new ScriptMinifyProcessor(
                 () => DefaultSettings.MinifyIdentifier,
@@ -96,11 +99,11 @@ namespace WebAssetBundler.Web.Mvc
                 container.Resolve<IScriptMinifier>()));
 
             container.Register<IBundleProvider<ScriptBundle>>((c, p) => new ScriptBundleProvider(
-                container.Resolve<IBundleConfigurationProvider<ScriptBundleConfiguration>>(),
+                container.Resolve<IBundleConfigurationProvider<ScriptBundle>>(),
                 container.Resolve<IBundlesCache<ScriptBundle>>(),
                 container.Resolve<IAssetProvider>(),
                 container.Resolve<IBundlePipeline<ScriptBundle>>(),
-                container.Resolve<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>>(), 
+                container.Resolve<IBundleCachePrimer<ScriptBundle>>(), 
                 () => DefaultSettings.DebugMode));
         }
 

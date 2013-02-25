@@ -57,6 +57,7 @@
     <Compile Include="Compressors\JSMinMinifier.cs" />
     <Compile Include="BundleProviderBase.cs" />
     <Compile Include="ExternalAsset.cs" />
+    <Compile Include="IBundleConfiguration.cs" />
     <Compile Include="IBundleConfigurationFactory.cs" />
     <Compile Include="ITypeProvider.cs" />
     <Compile Include="Pipeline\IPipelineCustomizer.cs" />
@@ -80,7 +81,6 @@
     <Compile Include="FromDirectoryComponent.cs" />
     <Compile Include="IAssetProvider.cs" />
     <Compile Include="IBundleProvider.cs" />
-    <Compile Include="IBundleConfiguration.cs" />
     <Compile Include="IBundleConfigurationProvider.cs" />
     <Compile Include="Script\ScriptBundle.cs" />
     <Compile Include="Script\ScriptBundleProvider.cs" />

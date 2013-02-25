@@ -18,12 +18,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System.Collections.Generic;
 
-    public class DoNothingStyleSheetConfigurationProvider : IBundleConfigurationProvider<StyleSheetBundleConfiguration>
+    public class DoNothingStyleSheetConfigurationProvider : BundleConfigurationProvider<StyleSheetBundle>
     {
 
-        public IList<StyleSheetBundleConfiguration> GetConfigs()
+        public IList<IBundleConfiguration<StyleSheetBundle>> GetConfigs()
         {
-            return new List<StyleSheetBundleConfiguration>();
+            return new List<IBundleConfiguration<StyleSheetBundle>>();
         }
     }
 }

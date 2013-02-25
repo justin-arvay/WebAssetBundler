@@ -101,13 +101,13 @@ namespace WebAssetBundler.Web.Mvc
             Bundle.BrowserTtl = timeToLive;
         }
 
-        internal TBundle Bundle
+        public TBundle Bundle
         { 
             get; 
             set; 
         }
 
-        internal IAssetProvider AssetProvider
+        public IAssetProvider AssetProvider
         {
             get;
             set;

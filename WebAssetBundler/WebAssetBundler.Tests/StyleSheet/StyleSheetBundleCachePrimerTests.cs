@@ -42,7 +42,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Be_Primed()
         {
-            primer.Prime(new List<StyleSheetBundleConfiguration>());
+            primer.Prime(new List<IBundleConfiguration<StyleSheetBundle>>());
 
             Assert.IsTrue(primer.IsPrimed);
         }
@@ -53,7 +53,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var configOne = new StyleSheetBundleConfigurationImpl();
             var configTwo = new StyleSheetBundleConfigurationImpl();
 
-            var configs = new List<StyleSheetBundleConfiguration>();
+            var configs = new List<IBundleConfiguration<StyleSheetBundle>>();
             configs.Add(configOne);
             configs.Add(configTwo);
 
@@ -65,6 +65,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual(1, configTwo.CallCount);
             Assert.IsInstanceOf<IAssetProvider>(configOne.AssetProvider);
             Assert.IsInstanceOf<IAssetProvider>(configTwo.AssetProvider);
+            Assert.IsInstanceOf<StyleSheetBundle>(configOne.Bundle);
+            Assert.IsInstanceOf<StyleSheetBundle>(configTwo.Bundle);
 
         }
 

@@ -27,20 +27,20 @@ using System;
     public class StyleSheetBundleProviderTests
     {
         private StyleSheetBundleProvider provider;
-        private Mock<IBundleConfigurationProvider<StyleSheetBundleConfiguration>> configProvider;
+        private Mock<IBundleConfigurationProvider<StyleSheetBundle>> configProvider;
         private Mock<IBundlesCache<StyleSheetBundle>> cache;
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
-        private Mock<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>> primer;
+        private Mock<IBundleCachePrimer<StyleSheetBundle>> primer;
 
         [SetUp]
         public void Setup()
         {
             pipeline = new Mock<IBundlePipeline<StyleSheetBundle>>();
-            configProvider = new Mock<IBundleConfigurationProvider<StyleSheetBundleConfiguration>>();
+            configProvider = new Mock<IBundleConfigurationProvider<StyleSheetBundle>>();
             cache = new Mock<IBundlesCache<StyleSheetBundle>>();
             assetProvider = new Mock<IAssetProvider>();
-            primer = new Mock<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>>();
+            primer = new Mock<IBundleCachePrimer<StyleSheetBundle>>();
 
             provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, pipeline.Object, assetProvider.Object, primer.Object, () => false);
         }
@@ -60,7 +60,7 @@ using System;
         [Test]
         public void Should_Prime_Cache_When_Getting_Named_Bundle()
         {
-            var configs = new List<StyleSheetBundleConfiguration>();
+            var configs = new List<IBundleConfiguration<StyleSheetBundle>>();
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
 
@@ -73,7 +73,7 @@ using System;
         [Test]
         public void Should_Not_Prime_Cache_When_Getting_Named_Bundle()
         {
-            var configs = new List<StyleSheetBundleConfiguration>();
+            var configs = new List<IBundleConfiguration<StyleSheetBundle>>();
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
             primer.Setup(p => p.IsPrimed).Returns(true);
@@ -88,7 +88,7 @@ using System;
         {
             provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, pipeline.Object, assetProvider.Object, primer.Object, () => true);
 
-            var configs = new List<StyleSheetBundleConfiguration>();
+            var configs = new List<IBundleConfiguration<StyleSheetBundle>>();
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
             primer.Setup(p => p.IsPrimed).Returns(true);
