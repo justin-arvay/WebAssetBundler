@@ -163,7 +163,7 @@
     <Content Include="Views\Shared\_DocumentationLayout.cshtml" />
     <Content Include="Views\Shared\_BasicLayout.cshtml" />
     <Content Include="Views\Documentation\BundleConfiguration\AddingAssets.cshtml" />
-    <Content Include="Views\Documentation\BundleConfiguration\ConfigurationProvider.cshtml" />
+    <Content Include="Views\Documentation\BundleConfiguration\ConfigurationFactory.cshtml" />
     <Content Include="Views\Documentation\BundleConfiguration\Other.cshtml" />
     <Content Include="Views\Documentation\RenderingBundles.cshtml" />
     <Content Include="Views\Documentation\BundlePipelines.cshtml" />

@@ -26,21 +26,20 @@ using System;
     public class ScriptBundleProviderTests
     {
         private ScriptBundleProvider provider;
-        private Mock<IBundleConfigurationProvider<ScriptBundleConfiguration>> configProvider;
+        private Mock<IBundleConfigurationProvider<ScriptBundle>> configProvider;
         private Mock<IBundlesCache<ScriptBundle>> cache;
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<ScriptBundle>> pipeline;
-        private Mock<HttpServerUtilityBase> server;
-        private Mock<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>> primer;
+        private Mock<IBundleCachePrimer<ScriptBundle>> primer;
 
         [SetUp]
         public void Setup()
         {
             pipeline = new Mock<IBundlePipeline<ScriptBundle>>();
-            configProvider = new Mock<IBundleConfigurationProvider<ScriptBundleConfiguration>>();
+            configProvider = new Mock<IBundleConfigurationProvider<ScriptBundle>>();
             cache = new Mock<IBundlesCache<ScriptBundle>>();
             assetProvider = new Mock<IAssetProvider>();
-            primer = new Mock<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>>();
+            primer = new Mock<IBundleCachePrimer<ScriptBundle>>();
 
             provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object, 
                 pipeline.Object, primer.Object, () => false);
@@ -61,7 +60,7 @@ using System;
         [Test]
         public void Should_Prime_Cache_When_Getting_Named_Bundle()
         {
-            var configs = new List<ScriptBundleConfiguration>();
+            var configs = new List<IBundleConfiguration<ScriptBundle>>();
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
 
@@ -74,7 +73,7 @@ using System;
         [Test]
         public void Should_Not_Prime_Cache_When_Getting_Named_Bundle()
         {
-            var configs = new List<ScriptBundleConfiguration>();
+            var configs = new List<IBundleConfiguration<ScriptBundle>>();
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
             primer.Setup(p => p.IsPrimed).Returns(true);
@@ -90,7 +89,7 @@ using System;
             provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object,
                 pipeline.Object, primer.Object, () => true);
 
-            var configs = new List<ScriptBundleConfiguration>();
+            var configs = new List<IBundleConfiguration<ScriptBundle>>();
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
             primer.Setup(p => p.IsPrimed).Returns(true);

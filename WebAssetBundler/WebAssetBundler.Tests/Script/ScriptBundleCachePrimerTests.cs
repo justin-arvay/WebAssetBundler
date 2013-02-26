@@ -67,6 +67,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.IsInstanceOf<IAssetProvider>(configTwo.AssetProvider);
             Assert.IsInstanceOf<ScriptBundle>(configOne.Bundle);
             Assert.IsInstanceOf<ScriptBundle>(configTwo.Bundle);
+            Assert.AreEqual("ScriptBundleConfigurationImpl", configOne.Bundle.Name);
+            Assert.AreEqual("ScriptBundleConfigurationImpl", configTwo.Bundle.Name);
 
         }
 

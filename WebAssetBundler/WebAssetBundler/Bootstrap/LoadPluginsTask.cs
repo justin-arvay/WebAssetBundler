@@ -23,7 +23,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

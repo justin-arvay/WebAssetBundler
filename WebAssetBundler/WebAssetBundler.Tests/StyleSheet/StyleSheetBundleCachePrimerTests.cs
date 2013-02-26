@@ -67,6 +67,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.IsInstanceOf<IAssetProvider>(configTwo.AssetProvider);
             Assert.IsInstanceOf<StyleSheetBundle>(configOne.Bundle);
             Assert.IsInstanceOf<StyleSheetBundle>(configTwo.Bundle);
+            Assert.AreEqual("StyleSheetBundleConfigurationImpl", configOne.Bundle.Name);
+            Assert.AreEqual("StyleSheetBundleConfigurationImpl", configTwo.Bundle.Name);
 
         }
 

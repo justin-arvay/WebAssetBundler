@@ -16,14 +16,28 @@
 
 namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System.Collections.Generic;
+    using System;
+    using Moq;
+    using NUnit.Framework;
 
-    public class DoNothingStyleSheetConfigurationProvider : BundleConfigurationProvider<StyleSheetBundle>
+    [TestFixture]
+    public class DefaultBundleConfigurationFactoryTests
     {
+        private DefaultBundleConfigurationFactory<BundleImpl> factory;
 
-        public IList<IBundleConfiguration<StyleSheetBundle>> GetConfigs()
+        [SetUp]
+        public void Setup()
         {
-            return new List<IBundleConfiguration<StyleSheetBundle>>();
+            factory = new DefaultBundleConfigurationFactory<BundleImpl>();
+        }
+
+        [Test]
+        public void Should_Create_Config()
+        {
+            var type = typeof(BundleConfigurationImpl);
+            var config = factory.Create(type);
+
+            Assert.IsInstanceOf<BundleConfigurationImpl>(config);
         }
     }
 }

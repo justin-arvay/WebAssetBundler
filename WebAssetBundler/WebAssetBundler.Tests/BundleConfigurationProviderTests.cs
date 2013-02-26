@@ -18,24 +18,42 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System;
+    using System.Collections.Generic;
 
     [TestFixture]
     public class BundleConfigurationProviderTest
     {
-        private DefaultScriptConfigProvider provider;
+        private BundleConfigurationProvider<BundleImpl> provider;
+        private Mock<IBundleConfigurationFactory<BundleImpl>> factory;
+        private Mock<ITypeProvider> typeProvider;
 
         [SetUp]
         public void Setup()
         {
-            provider = new DefaultScriptConfigProvider();
+            typeProvider = new Mock<ITypeProvider>();
+            factory = new Mock<IBundleConfigurationFactory<BundleImpl>>();
+            provider = new BundleConfigurationProvider<BundleImpl>(factory.Object, typeProvider.Object);
         }
 
         [Test]
         public void Should_Get_Configuration()
         {
+            var types = new List<Type>();
+            types.Add(typeof(IBundleConfiguration<BundleImpl>));
+            types.Add(typeof(IBundleConfiguration<BundleImpl>));
+
+            typeProvider.Setup(t => t.GetImplementationTypes(typeof(IBundleConfiguration<BundleImpl>)))
+                .Returns(types);
+
+            factory.Setup(f => f.Create(typeof(IBundleConfiguration<BundleImpl>)))
+                .Returns(new BundleConfigurationImpl());
+
             var configs = provider.GetConfigs();
 
-            Assert.AreEqual(1, configs.Count);
+            Assert.AreEqual(2, configs.Count);
+            factory.Verify(f => f.Create(It.IsAny<Type>()), Times.Exactly(2));
+
         }
     }
 }

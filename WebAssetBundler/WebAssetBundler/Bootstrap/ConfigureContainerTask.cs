@@ -24,7 +24,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
         {
-            ConfigureCommon(container);
+            ConfigureCommon(container, typeProvider);
             ConfigureContainerForScript(container, typeProvider);
             ConfigureContainerForStyleSheets(container, typeProvider);
             ConfigureHttpHandler(container);
@@ -39,7 +39,7 @@ namespace WebAssetBundler.Web.Mvc
                 .AsSingleton();
         }
 
-        public void ConfigureCommon(TinyIoCContainer container)
+        public void ConfigureCommon(TinyIoCContainer container, ITypeProvider typeProvider)
         {
             container.Register((c, p) => HttpContext());
             container.Register<HttpServerUtilityBase>(HttpContext().Server);
@@ -53,6 +53,8 @@ namespace WebAssetBundler.Web.Mvc
                 HttpContext().Request.PhysicalApplicationPath,
                 () => DefaultSettings.MinifyIdentifier,
                 () => DefaultSettings.DebugMode));
+
+            container.Register<ITypeProvider>(typeProvider);
             
         }
 

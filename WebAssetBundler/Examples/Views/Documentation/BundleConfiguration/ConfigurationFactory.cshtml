@@ -3,10 +3,10 @@
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
 }
 
-<h2>Configuration Provider Overriding</h2>
-<p>By default there is a build in configuration provider for each bundle type that will automatically find any class 
-that is inheriting ScriptBundleConfiguration or StyleSheetBundleConfiguration. You can override this and provide your own implementation 
-of the providers.</p>
+<h2>Custom Configuration Factory</h2>
+<p>By default there is a build in configuration factory for each bundle type that will instantiate the different configuration types
+that are inheriting from @Code("BundleConfiguration<T>"). You can override this and provide your own implementation if you need
+to inject your own behavior.</p>
 
 <p>The first thing you need to do is create a new implementation of providers. Here is an example that returns a hard coded list:</p>
 <pre data-language="csharp">

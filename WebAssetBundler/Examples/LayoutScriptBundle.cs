@@ -19,7 +19,7 @@ namespace Examples
     using System;
     using WebAssetBundler.Web.Mvc;
 
-    public class LayoutScriptBundle : ScriptBundleConfiguration
+    public class LayoutScriptBundle : BundleConfiguration<ScriptBundle>
     {
         public override void Configure()
         {

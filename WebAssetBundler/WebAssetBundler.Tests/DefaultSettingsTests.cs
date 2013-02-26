@@ -96,15 +96,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Be_Default_Style_Sheet_Config_Provider()
+        public void Should_Be_Default_Style_Sheet_Config_Factory()
         {
-            Assert.IsInstanceOf<DefaultStyleSheetConfigProvider>(DefaultSettings.StyleSheetBundleConfigurationFactory);
+            Assert.IsInstanceOf<DefaultBundleConfigurationFactory<StyleSheetBundle>>(DefaultSettings.StyleSheetBundleConfigurationFactory);
         }
 
         [Test]
-        public void Should_Be_Default_Script_Config_Provider()
+        public void Should_Be_Default_Script_Config_Factory()
         {
-            Assert.IsInstanceOf<DefaultScriptConfigProvider>(DefaultSettings.ScriptConfigProvider);
+            Assert.IsInstanceOf<DefaultBundleConfigurationFactory<ScriptBundle>>(DefaultSettings.ScriptBundleConfigurationFactory);
         }
 
         [Test]

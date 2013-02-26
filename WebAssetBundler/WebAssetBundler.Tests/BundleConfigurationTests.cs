@@ -32,6 +32,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             assetProvider = new Mock<IAssetProvider>();
             bundleConfig = new BundleConfigurationImpl();
+            bundleConfig.Bundle = new BundleImpl();
 
             bundleConfig.AssetProvider = assetProvider.Object;
         }
@@ -41,7 +42,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundleConfig.Add("");
 
-            Assert.AreEqual(1, bundleConfig.GetBundle().Assets.Count);
+            Assert.AreEqual(1, bundleConfig.Bundle.Assets.Count);
         }
 
         [Test]
@@ -49,7 +50,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundleConfig.Compress(true);
 
-            Assert.IsTrue(bundleConfig.GetBundle().Minify);
+            Assert.IsTrue(bundleConfig.Bundle.Minify);
         }
 
         [Test]
@@ -57,7 +58,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundleConfig.Name("name");
 
-            Assert.AreEqual("name", bundleConfig.GetBundle().Name);
+            Assert.AreEqual("name", bundleConfig.Bundle.Name);
         }
 
         [Test]
@@ -65,13 +66,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundleConfig.Host("http://www.test.com");
 
-            Assert.AreEqual("http://www.test.com", bundleConfig.GetBundle().Host);
-        }
-
-        [Test]
-        public void Should_Set_Name_Of_Class()
-        {
-            Assert.AreEqual("BundleConfigurationImpl", bundleConfig.GetBundle().Name);
+            Assert.AreEqual("http://www.test.com", bundleConfig.Bundle.Host);
         }
 
         [Test]
@@ -86,7 +81,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             bundleConfig.AddFromDirectory("~/Files/Configration", b => b.ToString());
 
-            Assert.AreEqual(1, bundleConfig.GetBundle().Assets.Count);
+            Assert.AreEqual(1, bundleConfig.Bundle.Assets.Count);
         }
 
         [Test]
@@ -100,7 +95,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             bundleConfig.AddFromDirectory("~/Files/Configration");
 
-            Assert.AreEqual(1, bundleConfig.GetBundle().Assets.Count);
+            Assert.AreEqual(1, bundleConfig.Bundle.Assets.Count);
         }
     }
 }

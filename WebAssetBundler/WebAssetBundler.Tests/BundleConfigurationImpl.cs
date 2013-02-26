@@ -18,13 +18,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System;
 
-    public class BundleConfigurationImpl : BundleConfiguration<BundleConfigurationImpl, BundleImpl>
+    public class BundleConfigurationImpl : BundleConfiguration<BundleImpl>
     {
-        public BundleConfigurationImpl()
-            : base(new BundleImpl())
-        {
-        }
-
         public override void Configure()
         {
             throw new NotImplementedException();
