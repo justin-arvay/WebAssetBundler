@@ -5,7 +5,7 @@
 
 <h2>Custom Configuration Factory</h2>
 <p>By default there is a build in configuration provider for each bundle type that will find and instantiate the different configuration types
-that are inheriting from @Code("IBundleConfigurationProvider<T>"). You can override this and provide your own implementation if you need
+that are inheriting from @Html.Code("IBundleConfigurationProvider<TBundle>"). You can override this and provide your own implementation if you need
 to inject your own behavior.</p>
 
 <p>The first thing you need to do is create a new implementation of providers. Here is an example that returns a hard coded list:</p>
@@ -14,20 +14,20 @@ to inject your own behavior.</p>
 @Html.Code(@"
 using WebAssetBundler.Web.Mvc;
 
-public class MyScriptConfigProvider : IConfigProvider<ScriptBundleConfiguration>
+public class MyScriptBundleConfigurationProvider : IBundleConfigurationProvider<ScriptBundle>
 {
-    public IList<ScriptBundleConfiguration> GetConfigs()
+    public IList<IBundleConfiguration<ScriptBundle>> GetConfigs()
     {
-        var configs = new List<ScriptBundleConfiguration>();
+        var configs = new List<IBundleConfiguration<ScriptBundle>>();
         configs.Add(new ScriptLayoutConfiguration());            
 
         return configs;
     }
 }
 
-public class MyStyleSheetConfigProvider : IConfigProvider<StyleSheetBundleConfiguration>
+public class MyStyleSheetBundleConfigurationProvider : IBundleConfigurationProvider<StyleSheetBundle>
 {
-    public IList<StyleSheetBundleConfiguration> GetConfigs()
+    public IList<IBundleConfiguration<StyleSheetBundle>> GetConfigs()
     {
         //similar to above
     }

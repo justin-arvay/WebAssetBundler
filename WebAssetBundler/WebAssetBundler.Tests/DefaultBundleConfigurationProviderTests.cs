@@ -22,7 +22,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System.Collections.Generic;
 
     [TestFixture]
-    public class BundleConfigurationProviderTest
+    public class DefaultBundleConfigurationProviderTest
     {
         private DefaultBundleConfigurationProvider<BundleImpl> provider;
         private Mock<ITypeProvider> typeProvider;
@@ -38,20 +38,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Get_Configuration()
         {
             var types = new List<Type>();
-            types.Add(typeof(IBundleConfiguration<BundleImpl>));
-            types.Add(typeof(IBundleConfiguration<BundleImpl>));
+            types.Add(typeof(BundleConfigurationImpl));
+            types.Add(typeof(BundleConfigurationImpl));
 
             typeProvider.Setup(t => t.GetImplementationTypes(typeof(IBundleConfiguration<BundleImpl>)))
                 .Returns(types);
 
-            factory.Setup(f => f.Create(typeof(IBundleConfiguration<BundleImpl>)))
-                .Returns(new BundleConfigurationImpl());
-
             var configs = provider.GetConfigs();
 
             Assert.AreEqual(2, configs.Count);
-            factory.Verify(f => f.Create(It.IsAny<Type>()), Times.Exactly(2));
-
         }
     }
 }

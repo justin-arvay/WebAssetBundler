@@ -63,7 +63,7 @@
     <Compile Include="Pipeline\BundlePipelineImpl.cs" />
     <Compile Include="Pipeline\BundlePipelineTests.cs" />
     <Compile Include="Pipeline\ProcessorImpl.cs" />
-    <Compile Include="BundleConfigurationProviderTests.cs" />
+    <Compile Include="DefaultBundleConfigurationProviderTests.cs" />
     <Compile Include="AssetProviderTests.cs" />
     <Compile Include="FileAssetTest.cs" />
     <Compile Include="FromDirectoryBuilderTests.cs" />

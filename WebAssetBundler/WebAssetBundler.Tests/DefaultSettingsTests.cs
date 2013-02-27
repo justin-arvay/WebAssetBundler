@@ -23,6 +23,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using WebAssetBundler.Web.Mvc;
     using System.Reflection;
+    using Moq;
 
     [TestFixture]
     public class DefaultSettingsTests
@@ -98,13 +99,23 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Be_Default_Style_Sheet_Config_Factory()
         {
-            Assert.IsInstanceOf<DefaultBundleConfigurationFactory<StyleSheetBundle>>(DefaultSettings.StyleSheetConfigurationProvider);
+            var container = new TinyIoCContainer();
+            container.Register<ITypeProvider>((new Mock<ITypeProvider>()).Object);
+            
+            var provider = DefaultSettings.StyleSheetConfigurationProvider(container);
+
+            Assert.IsInstanceOf<DefaultBundleConfigurationProvider<StyleSheetBundle>>(provider);
         }
 
         [Test]
         public void Should_Be_Default_Script_Config_Factory()
         {
-            Assert.IsInstanceOf<DefaultBundleConfigurationFactory<ScriptBundle>>(DefaultSettings.ScriptConfigurationProvider);
+            var container = new TinyIoCContainer();
+            container.Register<ITypeProvider>((new Mock<ITypeProvider>()).Object);
+
+            var provider = DefaultSettings.ScriptConfigurationProvider(container);
+
+            Assert.IsInstanceOf<DefaultBundleConfigurationProvider<ScriptBundle>>(provider);
         }
 
         [Test]
