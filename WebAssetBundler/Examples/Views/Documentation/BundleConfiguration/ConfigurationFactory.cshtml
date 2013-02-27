@@ -4,8 +4,8 @@
 }
 
 <h2>Custom Configuration Factory</h2>
-<p>By default there is a build in configuration factory for each bundle type that will instantiate the different configuration types
-that are inheriting from @Code("BundleConfiguration<T>"). You can override this and provide your own implementation if you need
+<p>By default there is a build in configuration provider for each bundle type that will find and instantiate the different configuration types
+that are inheriting from @Code("IBundleConfigurationProvider<T>"). You can override this and provide your own implementation if you need
 to inject your own behavior.</p>
 
 <p>The first thing you need to do is create a new implementation of providers. Here is an example that returns a hard coded list:</p>

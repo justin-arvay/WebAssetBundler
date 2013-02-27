@@ -21,15 +21,13 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.Linq;
 
-    public class BundleConfigurationProvider<TBundle> : IBundleConfigurationProvider<TBundle>
+    public class DefaultBundleConfigurationProvider<TBundle> : IBundleConfigurationProvider<TBundle>
         where TBundle : Bundle
     {
-        private IBundleConfigurationFactory<TBundle> factory;
         private ITypeProvider typeProvider;
 
-        public BundleConfigurationProvider(IBundleConfigurationFactory<TBundle> factory, ITypeProvider typeProvider)
+        public DefaultBundleConfigurationProvider(ITypeProvider typeProvider)
         {
-            this.factory = factory;
             this.typeProvider = typeProvider;
         }
 
@@ -40,7 +38,7 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (Type type in types)
             {
-                configs.Add(factory.Create(type));
+                configs.Add((IBundleConfiguration<TBundle>)Activator.CreateInstance(type));
             }
 
             return configs;

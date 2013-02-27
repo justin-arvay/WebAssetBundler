@@ -60,7 +60,6 @@
     <Compile Include="BundleProviderBaseImpl.cs" />
     <Compile Include="BundleProviderBaseTests.cs" />
     <Compile Include="BundleTests.cs" />
-    <Compile Include="DefaultBundleConfigurationFactoryTests.cs" />
     <Compile Include="Pipeline\BundlePipelineImpl.cs" />
     <Compile Include="Pipeline\BundlePipelineTests.cs" />
     <Compile Include="Pipeline\ProcessorImpl.cs" />

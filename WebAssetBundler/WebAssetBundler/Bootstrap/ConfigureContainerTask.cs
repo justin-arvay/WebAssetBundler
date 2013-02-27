@@ -63,8 +63,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IUrlGenerator<StyleSheetBundle>>(new StyleSheetUrlGenerator(() => DefaultSettings.DebugMode));
             container.Register<IStyleSheetMinifier>((c, p) => DefaultSettings.StyleSheetMinifier);
             container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();
-            container.Register<IBundleConfigurationProvider<StyleSheetBundle>, BundleConfigurationProvider<StyleSheetBundle>>();
-            container.Register<IBundleConfigurationFactory<StyleSheetBundle>>((c, p) => DefaultSettings.StyleSheetBundleConfigurationFactory);
+            container.Register<IBundleConfigurationProvider<StyleSheetBundle>>((c, p) => DefaultSettings.StyleSheetConfigurationProvider(c));
             container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => CreateStyleSheetPipeline(c, typeProvider));
             container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
@@ -88,8 +87,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             container.Register<IScriptMinifier>((c, p) => DefaultSettings.ScriptMinifier);
             container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>();
-            container.Register<IBundleConfigurationProvider<ScriptBundle>, BundleConfigurationProvider<ScriptBundle>>();
-            container.Register<IBundleConfigurationFactory<ScriptBundle>>((c, p) => DefaultSettings.ScriptBundleConfigurationFactory);
+            container.Register<IBundleConfigurationProvider<ScriptBundle>>((c, p) => DefaultSettings.ScriptConfigurationProvider(c));
             container.Register<IBundlePipeline<ScriptBundle>>((c, p) => CreateScriptPipeline(c, typeProvider));
             container.Register<IUrlGenerator<ScriptBundle>>(new ScriptUrlGenerator(() => DefaultSettings.DebugMode));
             container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();

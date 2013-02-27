@@ -24,16 +24,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class BundleConfigurationProviderTest
     {
-        private BundleConfigurationProvider<BundleImpl> provider;
-        private Mock<IBundleConfigurationFactory<BundleImpl>> factory;
+        private DefaultBundleConfigurationProvider<BundleImpl> provider;
         private Mock<ITypeProvider> typeProvider;
 
         [SetUp]
         public void Setup()
         {
             typeProvider = new Mock<ITypeProvider>();
-            factory = new Mock<IBundleConfigurationFactory<BundleImpl>>();
-            provider = new BundleConfigurationProvider<BundleImpl>(factory.Object, typeProvider.Object);
+            provider = new DefaultBundleConfigurationProvider<BundleImpl>(typeProvider.Object);
         }
 
         [Test]

@@ -38,8 +38,11 @@ namespace WebAssetBundler.Web.Mvc
         private static IScriptMinifier scriptMinifier = new MsScriptMinifier();
         private static IStyleSheetMinifier styleSheetMinfier = new MsStyleSheetMinifier();
 
-        private static IBundleConfigurationFactory<StyleSheetBundle> styleSheetBundleConfigurationFactory = new DefaultBundleConfigurationFactory<StyleSheetBundle>();
-        private static IBundleConfigurationFactory<ScriptBundle> scriptBundleConfigurationFactory = new DefaultBundleConfigurationFactory<ScriptBundle>();
+        private static Func<TinyIoCContainer, IBundleConfigurationProvider<StyleSheetBundle>> styleSheetConfigurationProvider =
+            (c) => c.Resolve<DefaultBundleConfigurationProvider<StyleSheetBundle>>();
+
+        private static Func<TinyIoCContainer, IBundleConfigurationProvider<ScriptBundle>> scriptConfigurationProvider =
+            (c) => c.Resolve<DefaultBundleConfigurationProvider<ScriptBundle>>();
 
         /// <summary>
         /// Gets or sets the style sheet files path. Path must be a virtual path.
@@ -115,30 +118,30 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Sets the configuration factory to be used when loading the style sheet bundles.
         /// </summary>
-        public static IBundleConfigurationFactory<StyleSheetBundle> StyleSheetBundleConfigurationFactory
+        public static Func<TinyIoCContainer, IBundleConfigurationProvider<StyleSheetBundle>> StyleSheetConfigurationProvider
         {
             get
             {
-                return styleSheetBundleConfigurationFactory;
+                return styleSheetConfigurationProvider;
             }
             set
             {
-                styleSheetBundleConfigurationFactory = value;
+                styleSheetConfigurationProvider = value;
             }
         }
 
         /// <summary>
         /// Sets the configuration factory to be used when loading the script bundles.
         /// </summary>
-        public static IBundleConfigurationFactory<ScriptBundle> ScriptBundleConfigurationFactory
+        public static Func<TinyIoCContainer, IBundleConfigurationProvider<ScriptBundle>> ScriptConfigurationProvider
         {
             get
             {
-                return scriptBundleConfigurationFactory;
+                return scriptConfigurationProvider;
             }
             set
             {
-                scriptBundleConfigurationFactory = value;
+                scriptConfigurationProvider = value;
             }
         }
 
