@@ -45,14 +45,14 @@ protected void Application_Start()
     RegisterRoutes(RouteTable.Routes);
 
     //register the new providers 
-    DefaultSettings.ScriptConfigProvider = new MyScriptConfigProvider();
-    DefaultSettings.StyleSheetConfigProvider = new MyStyleSheetConfigProvider();
+    DefaultSettings.ScriptConfigurationProvider = (c) => new MyScriptBundleConfigurationProvider();
+    DefaultSettings.StyleSheetConfigurationProvider = (c) => new MyStyleSheetBundleConfigurationProvider();
 
 }
 </pre>
 
 <p>The providers need to be registered <strong>before</strong> any rendering is done. In ASP.NET MVC framework, the 
-Global.asax is the best place for that.</p>
+Global.asax would be a good place to put it.</p>
 
 <p>Using your own providers will give you mode freedom to configure the bundles as needed. For instance, you could use a custom provider to pull bundle
 configurations from the database, xml, json or any other format required by your project.</p>
