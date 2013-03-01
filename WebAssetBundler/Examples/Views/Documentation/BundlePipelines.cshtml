@@ -9,14 +9,16 @@ to customize how a bundle is processed. There is one pipeline for style sheets a
 used for the standard bundling procedure.</p>
 
 <p>Default Processors for style sheet bundles (processed in this order):</p>
-<ul>
-    <li>Image path processor - updates any image paths to work with the new url.</li>
+<ol>    
     <li>Minify processor - minifies the assets.</li>
     <li>Merge processor - merges the assets into one asset.</li>
-</ul>
+    <li>Url Assignment Processor - generates and assignes the url for the bundle.</li>
+    <li>Image path processor - updates any image paths to work with the new url.</li>
+</ol>
 
 <p>Default Processors for script bundles (processed in this order):</p>
-<ul>   
+<ol>   
     <li>Minify processor - minifies the assets.</li>
     <li>Merge processor - merges the assets into one asset.</li>
-</ul>
+    <li>Url Assignment Processor - generates and assignes the url for the bundle.</li>
+</ol>

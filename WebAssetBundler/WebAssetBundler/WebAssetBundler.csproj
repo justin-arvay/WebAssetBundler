@@ -60,6 +60,7 @@
     <Compile Include="IBundleConfiguration.cs" />
     <Compile Include="ITypeProvider.cs" />
     <Compile Include="Pipeline\IPipelineCustomizer.cs" />
+    <Compile Include="Pipeline\UrlAssignmentProcessor.cs" />
     <Compile Include="Script\ScriptBundleCachePrimer.cs" />
     <Compile Include="Caching\BundlesCache.cs" />
     <Compile Include="Caching\CacheProvider.cs" />
@@ -106,16 +107,13 @@
     <Compile Include="IFile.cs" />
     <Compile Include="ITagWriter.cs" />
     <Compile Include="Script\ScriptTagWriter.cs" />
-    <Compile Include="Script\ScriptUrlGenerator.cs" />
     <Compile Include="StyleSheet\StyleSheetTagWriter.cs" />
-    <Compile Include="StyleSheet\StyleSheetUrlGenerator.cs" />
     <Compile Include="ITransformable.cs" />
     <Compile Include="Script\ScriptBundler.cs" />
     <Compile Include="Pipeline\MergedAsset.cs" />
     <Compile Include="Pipeline\BundlePipeline.cs" />
     <Compile Include="Pipeline\IBundlePipeline.cs" />
     <Compile Include="Pipeline\IPipelineProcessor.cs" />
-    <Compile Include="IUrlGenerator.cs" />
     <Compile Include="DefaultSettings.cs" />
     <Compile Include="BundleCollection.cs" />
     <Compile Include="TypeProvider.cs" />

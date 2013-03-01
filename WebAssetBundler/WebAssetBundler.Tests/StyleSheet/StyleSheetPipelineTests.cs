@@ -35,7 +35,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             container = new TinyIoCContainer();
             container.Register<IStyleSheetMinifier>((a, c) => compressor.Object);
-            container.Register<IUrlGenerator<StyleSheetBundle>>((new Mock<IUrlGenerator<StyleSheetBundle>>()).Object);
+            container.Register<UrlAssignmentProcessor<StyleSheetBundle>>(new UrlAssignmentProcessor<StyleSheetBundle>(() => false));
             container.Register<HttpServerUtilityBase>((a, c) => server.Object);
             container.Register<StyleSheetMinifyProcessor>((c, p) => new StyleSheetMinifyProcessor(
                 () => DefaultSettings.MinifyIdentifier,
@@ -48,9 +48,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Contain_Default_Processors()
         {
-            Assert.IsInstanceOf<ImagePathProcessor>(pipeline[0]);
-            Assert.IsInstanceOf<StyleSheetMergeProcessor>(pipeline[2]);
-            Assert.IsInstanceOf<StyleSheetMinifyProcessor>(pipeline[1]);
+            Assert.IsInstanceOf<StyleSheetMinifyProcessor>(pipeline[0]);
+            Assert.IsInstanceOf<StyleSheetMergeProcessor>(pipeline[1]);
+            Assert.IsInstanceOf<UrlAssignmentProcessor<StyleSheetBundle>>(pipeline[2]);
+            Assert.IsInstanceOf<ImagePathProcessor>(pipeline[3]);            
         }
     }
 

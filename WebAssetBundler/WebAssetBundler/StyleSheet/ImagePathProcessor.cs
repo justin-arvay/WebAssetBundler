@@ -24,17 +24,11 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ImagePathProcessor : IPipelineProcessor<StyleSheetBundle>, IAssetTransformer
     {
-        private IUrlGenerator<StyleSheetBundle> urlGenerator;
         private string outputUrl;
-
-        public ImagePathProcessor(IUrlGenerator<StyleSheetBundle> urlGenerator)
-        {
-            this.urlGenerator = urlGenerator;
-        }
 
         public void Process(StyleSheetBundle bundle)
         {
-            outputUrl = urlGenerator.Generate("a", "a", "");   
+            outputUrl = bundle.Url;
             bundle.TransformAssets(this);            
         }
 

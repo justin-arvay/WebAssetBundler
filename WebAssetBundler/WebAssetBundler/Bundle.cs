@@ -15,6 +15,7 @@
             Assets = new InternalCollection();
             Content = "";
             BrowserTtl = 525949; //1 year default
+            Host = "";
         }
 
         public string Name { get; set; }
@@ -24,6 +25,7 @@
         public string Extension { get; protected set; }
         public abstract string ContentType { get; }
         public int BrowserTtl { get; set; }
+        public string Url { get; set; }
 
         public IList<AssetBase> Assets { get; set; }
 

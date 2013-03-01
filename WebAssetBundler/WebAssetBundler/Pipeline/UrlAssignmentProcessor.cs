@@ -18,31 +18,32 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class ScriptUrlGenerator : IUrlGenerator<ScriptBundle>
+    public class UrlAssignmentProcessor<TBundle> : IPipelineProcessor<TBundle>
+        where TBundle : Bundle
     {
         private bool debugMode;
 
-        public ScriptUrlGenerator(Func<bool> debugMode)
+        public UrlAssignmentProcessor(Func<bool> debugMode)
         {
             this.debugMode = debugMode();
         }
 
-        public string Generate(string name, string version, string host)
+        public void Process(TBundle bundle)
         {
+            var version = bundle.Hash.ToHexString();
+            var path = "wab.axd/css/{0}/{1}";
+
             if (debugMode)
             {
                 version = version + DateTime.Now.ToString("MMddyyHmmss");
-            }
+            }            
 
-            host = host ?? "";
-            var path = "wab.axd/js/{0}/{1}";
-
-            if (host.EndsWith("/") == false)
+            if (bundle.Host.EndsWith("/") == false)
             {
-                host += "/";
+                bundle.Host += "/";
             }
 
-            return host + path.FormatWith(version, name);
+            bundle.Url = bundle.Host + path.FormatWith(version, bundle.Name);
         }
     }
 }

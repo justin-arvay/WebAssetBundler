@@ -63,6 +63,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
+        public void Should_Be_Empty_Host()
+        {
+            Assert.AreEqual(String.Empty, bundle.Host);
+        }
+
+        [Test]
         public void Should_Throw_Exception_When_Setting_Duplicate_Item_To_Existing_Index()
         {
             var asset = new AssetBaseImpl();

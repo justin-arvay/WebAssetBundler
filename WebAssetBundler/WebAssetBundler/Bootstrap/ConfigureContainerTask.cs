@@ -60,7 +60,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public void ConfigureContainerForStyleSheets(TinyIoCContainer container, ITypeProvider typeProvider)
         {
-            container.Register<IUrlGenerator<StyleSheetBundle>>(new StyleSheetUrlGenerator(() => DefaultSettings.DebugMode));
+            container.Register<UrlAssignmentProcessor<StyleSheetBundle>>(new UrlAssignmentProcessor<StyleSheetBundle>(() => DefaultSettings.DebugMode));
             container.Register<IStyleSheetMinifier>((c, p) => DefaultSettings.StyleSheetMinifier);
             container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();
             container.Register<IBundleConfigurationProvider<StyleSheetBundle>>((c, p) => DefaultSettings.StyleSheetConfigurationProvider(c));
@@ -89,7 +89,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>();
             container.Register<IBundleConfigurationProvider<ScriptBundle>>((c, p) => DefaultSettings.ScriptConfigurationProvider(c));
             container.Register<IBundlePipeline<ScriptBundle>>((c, p) => CreateScriptPipeline(c, typeProvider));
-            container.Register<IUrlGenerator<ScriptBundle>>(new ScriptUrlGenerator(() => DefaultSettings.DebugMode));
+            container.Register<UrlAssignmentProcessor<ScriptBundle>>(new UrlAssignmentProcessor<ScriptBundle>(() => DefaultSettings.DebugMode));
             container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();
             container.Register<IBundleCachePrimer<ScriptBundle>, ScriptBundleCachePrimer>();
 

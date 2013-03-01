@@ -32,6 +32,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             container = new TinyIoCContainer();
             container.Register<IScriptMinifier>((a, c) => compressor.Object);
+            container.Register<UrlAssignmentProcessor<ScriptBundle>>(new UrlAssignmentProcessor<ScriptBundle>(() => false));
             container.Register<ScriptMinifyProcessor>((c, p) => new ScriptMinifyProcessor(
                 () => DefaultSettings.MinifyIdentifier,
                 () => DefaultSettings.DebugMode,
@@ -45,6 +46,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             Assert.IsInstanceOf<ScriptMinifyProcessor>(pipeline[0]);
             Assert.IsInstanceOf<ScriptMergeProcessor>(pipeline[1]);
+            Assert.IsInstanceOf<UrlAssignmentProcessor<ScriptBundle>>(pipeline[2]);
             
         }
     }

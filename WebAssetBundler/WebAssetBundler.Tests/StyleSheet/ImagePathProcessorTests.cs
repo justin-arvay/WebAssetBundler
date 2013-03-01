@@ -25,26 +25,22 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class ImagePathProcessorTests
     {
         private ImagePathProcessor processor;
-        private Mock<IUrlGenerator<StyleSheetBundle>> urlGenerator;
         private StyleSheetBundle bundle;
 
         [SetUp]
         public void Setup()
         {
-            urlGenerator = new Mock<IUrlGenerator<StyleSheetBundle>>();
-
             bundle = new StyleSheetBundle();
             bundle.Assets.Add(new AssetBaseImpl());
 
-            processor = new ImagePathProcessor(urlGenerator.Object);
-
-            urlGenerator.Setup(u => u.Generate("a", "a", "")).Returns("/wab.axd/css/a/a");
+            processor = new ImagePathProcessor();
         }
 
         [Test]
         public void Should_Filter_Relative_Path()
         {
             bundle.Assets[0].Content = "url(\"../img/test.jpg\");";
+            bundle.Url = "/a/a/a/a";
 
             processor.Process(bundle);
         
@@ -56,6 +52,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Filter_Absolute_Path()
         {
             bundle.Assets[0].Content = "url(\"/img/test.jpg\");";
+            bundle.Url = "/a/a/a/a";
 
             processor.Process(bundle);
 
@@ -66,6 +63,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Filter_Full_Path()
         {
             bundle.Assets[0].Content = "url(\"http://www.google.com/img/test.jpg\");";
+            bundle.Url = "/a/a/a/a";
 
             processor.Process(bundle);
 
