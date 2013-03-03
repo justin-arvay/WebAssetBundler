@@ -50,7 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssetBaseImpl.cs" />
-    <Compile Include="AssetFileTests.cs" />
+    <Compile Include="FileSystemDirectoryTests.cs" />
+    <Compile Include="FileSystemFileTests.cs" />
     <Compile Include="Caching\BundlesCacheTests.cs" />
     <Compile Include="ComponentBuilderTests.cs" />
     <Compile Include="AssetBaseTests.cs" />
@@ -111,6 +112,10 @@
     <Content Include="Files\Configuration\NotCorrectExt.txt" />
     <Content Include="Files\Configuration\SecondFile.css" />
     <Content Include="Files\Configuration\ThirdFile.min.css" />
+    <Content Include="Files\FileSystem\DirOne\FileTwo.txt" />
+    <Content Include="Files\FileSystem\DirOne\FileOne.txt" />
+    <Content Include="Files\FileSystem\DirTwo\FileOne.txt" />
+    <Content Include="Files\FileSystem\DirTwo\FileTwo.txt" />
     <Content Include="Files\read.txt" />
   </ItemGroup>
   <ItemGroup>

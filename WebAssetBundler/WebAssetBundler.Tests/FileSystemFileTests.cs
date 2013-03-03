@@ -25,7 +25,7 @@ using System.Web;
     [TestFixture]
     public class AssetFileTests
     {
-        private AssetFile file;
+        private FileSystemFile file;
         private Mock<HttpServerUtilityBase> server;
 
         [SetUp]
@@ -36,7 +36,7 @@ using System.Web;
                .Returns("../../Files/AssetFileTest.css"); //from obj/Debug
 
             
-            file = new AssetFile("~/Files/AssetFileTest.css", server.Object);           
+            file = new FileSystemFile("~/Files/AssetFileTest.css", server.Object);           
         }
 
         [Test]

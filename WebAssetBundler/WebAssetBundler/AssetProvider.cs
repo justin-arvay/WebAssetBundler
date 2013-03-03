@@ -60,7 +60,7 @@ namespace WebAssetBundler.Web.Mvc
                 throw new ArgumentException("Source must be virtual path.");  
             }
 
-            return new FileAsset(new AssetFile(source, server));
+            return new FileAsset(new FileSystemFile(source, server));
         }        
 
         public ICollection<AssetBase> GetAssets(FromDirectoryComponent component)
