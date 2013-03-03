@@ -14,28 +14,31 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
+    using NUnit.Framework;
+    using Moq;
     using System.Web;
 
-    public class DirectoryFactory : IDirectoryFactory
+    [TestFixture]
+    public class DirectoryFactoryTests
     {
-        private HttpServerUtilityBase server;
+        private DirectoryFactory factory;
+        private Mock<HttpServerUtilityBase> server;
 
-        public DirectoryFactory(HttpServerUtilityBase server)
+        [SetUp]
+        public void Setup()
         {
-            this.server = server;
+            server = new Mock<HttpServerUtilityBase>();
+            factory = new DirectoryFactory(server.Object);
         }
 
-        public IDirectory Create(string source)
+        [Test]
+        public void Should_Create_Directory()
         {
-            if (source.StartsWith("~/") == false && source.StartsWith("/") == false)
-            {
-                source = server.MapPath(source);
-            }
+            var directory = factory.Create("~/Script");
 
-            return new FileSystemDirectory(source);
+
         }
     }
 }
