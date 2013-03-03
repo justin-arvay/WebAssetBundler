@@ -20,12 +20,18 @@ namespace WebAssetBundler.Web.Mvc
     using System.Web;
     using System.IO;
 
-    public class AssetFile : IFile
+    public class FileSystemFile : IFile
     {
         private string fullPath;
         private string source;
 
-        public AssetFile(string source, HttpServerUtilityBase server)
+        public FileSystemFile(string source)
+        {
+            fullPath = source;
+            this.source = source;
+        }
+
+        public FileSystemFile(string source, HttpServerUtilityBase server)
         {
             fullPath = server.MapPath(source);
             this.source = source;

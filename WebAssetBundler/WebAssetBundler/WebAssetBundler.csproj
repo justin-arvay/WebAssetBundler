@@ -49,12 +49,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssetFile.cs" />
+    <Compile Include="FileSystemFile.cs" />
     <Compile Include="Bootstrap\ConfigureContainerTask.cs" />
     <Compile Include="Bootstrap\IBootstrapTask.cs" />
     <Compile Include="Bootstrap\LoadPluginsTask.cs" />
-    <Compile Include="Compressors\JSMin.cs" />
-    <Compile Include="Compressors\JSMinMinifier.cs" />
+    <Compile Include="FileSystemDirectory.cs" />
+    <Compile Include="IDirectory.cs" />
+    <Compile Include="Minifiers\JSMin.cs" />
+    <Compile Include="Minifiers\JSMinMinifier.cs" />
     <Compile Include="BundleProviderBase.cs" />
     <Compile Include="ExternalAsset.cs" />
     <Compile Include="IBundleConfiguration.cs" />
@@ -68,12 +70,12 @@
     <Compile Include="Caching\IBundlesCache.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
     <Compile Include="Bundler.cs" />
-    <Compile Include="Compressors\IScriptMinifier.cs" />
-    <Compile Include="Compressors\IStyleSheetMinifier.cs" />
-    <Compile Include="Compressors\MsScriptMinifier.cs" />
-    <Compile Include="Compressors\MsStyleSheetMinifier.cs" />
-    <Compile Include="Compressors\YuiScriptMinifier.cs" />
-    <Compile Include="Compressors\YuiStyleSheetMinifier.cs" />
+    <Compile Include="Minifiers\IScriptMinifier.cs" />
+    <Compile Include="Minifiers\IStyleSheetMinifier.cs" />
+    <Compile Include="Minifiers\MsScriptMinifier.cs" />
+    <Compile Include="Minifiers\MsStyleSheetMinifier.cs" />
+    <Compile Include="Minifiers\YuiScriptMinifier.cs" />
+    <Compile Include="Minifiers\YuiStyleSheetMinifier.cs" />
     <Compile Include="DefaultBundleConfigurationProvider.cs" />
     <Compile Include="AssetProvider.cs" />
     <Compile Include="FileAsset.cs" />
