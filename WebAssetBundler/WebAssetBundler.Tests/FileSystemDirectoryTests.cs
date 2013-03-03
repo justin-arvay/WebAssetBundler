@@ -40,7 +40,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             foreach (var dir in directories)
             {
-                Assert.AreSame(directory, ((FileSystemDirectory)dir).Parent);
+                Assert.AreSame(directory, dir.Parent);
             }
         }
 
@@ -50,6 +50,16 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var files = new List<IFile>(directory.GetFiles("*", System.IO.SearchOption.AllDirectories));
 
             Assert.AreEqual(4, files.Count);
+
+            foreach (var file in files)
+            {
+                Assert.AreSame(directory, file.Directory);
+            }
+        }
+
+        [Test]
+        public void Should_Get_Root_Directory()
+        {
         }
     }
 }

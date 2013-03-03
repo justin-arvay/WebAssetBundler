@@ -29,13 +29,16 @@ namespace WebAssetBundler.Web.Mvc
         private string applicationPath;
         private string minifyIdentifier;
         private bool debugMode;
+        private IDirectoryFactory directoryFactory;
 
-        public AssetProvider(HttpServerUtilityBase server, string applicationPath, Func<string> minifyIdentifier, Func<bool> debugMode)
+        public AssetProvider(HttpServerUtilityBase server, string applicationPath, Func<string> minifyIdentifier, Func<bool> debugMode,
+            IDirectoryFactory directoryFactory)
         {
             this.server = server;
             this.applicationPath = applicationPath;
             this.minifyIdentifier = minifyIdentifier();
             this.debugMode = debugMode();
+            this.directoryFactory = directoryFactory;
         }
 
         public AssetBase GetAsset(string source)

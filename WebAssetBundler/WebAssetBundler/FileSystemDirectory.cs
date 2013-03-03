@@ -71,7 +71,7 @@ namespace WebAssetBundler.Web.Mvc
         public IEnumerable<IFile> GetFiles(string searchPattern, SearchOption searchOption)
         {
             return Directory.GetFiles(fullPath, searchPattern, searchOption)
-                .Select((f) => new FileSystemFile(f));
+                .Select((f) => new FileSystemFile(f, this));
         }
 
         public IDirectory Parent

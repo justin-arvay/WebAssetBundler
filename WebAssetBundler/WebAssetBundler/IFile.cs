@@ -34,7 +34,12 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Gets the source file path. The source is the virtual path of the file.
         /// </summary>
-        string Source { get; } 
+        string Source { get; }
+
+        /// <summary>
+        /// Gets the directory the file is contained in.
+        /// </summary>
+        IDirectory Directory { get; }
 
         /// <summary>
         /// Opens a stream to the file.

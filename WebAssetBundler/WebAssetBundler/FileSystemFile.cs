@@ -25,10 +25,11 @@ namespace WebAssetBundler.Web.Mvc
         private string fullPath;
         private string source;
 
-        public FileSystemFile(string source)
+        public FileSystemFile(string source, IDirectory directory)
         {
             fullPath = source;
             this.source = source;
+            Directory = directory;
         }
 
         public FileSystemFile(string source, HttpServerUtilityBase server)
@@ -73,6 +74,13 @@ namespace WebAssetBundler.Web.Mvc
         public string Source
         {
             get { return source; }
+        }
+
+
+        public IDirectory Directory
+        {
+            get;
+            private set;
         }
     }
 }

@@ -49,12 +49,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DirectoryFactory.cs" />
     <Compile Include="FileSystemFile.cs" />
     <Compile Include="Bootstrap\ConfigureContainerTask.cs" />
     <Compile Include="Bootstrap\IBootstrapTask.cs" />
     <Compile Include="Bootstrap\LoadPluginsTask.cs" />
     <Compile Include="FileSystemDirectory.cs" />
     <Compile Include="IDirectory.cs" />
+    <Compile Include="IDirectoryFactory.cs" />
     <Compile Include="Minifiers\JSMin.cs" />
     <Compile Include="Minifiers\JSMinMinifier.cs" />
     <Compile Include="BundleProviderBase.cs" />
