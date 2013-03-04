@@ -25,17 +25,12 @@ namespace WebAssetBundler.Web.Mvc
 
     public class AssetProvider : IAssetProvider
     {
-        private HttpServerUtilityBase server;
-        private string applicationPath;
         private string minifyIdentifier;
         private bool debugMode;
         private IDirectoryFactory directoryFactory;
 
-        public AssetProvider(HttpServerUtilityBase server, string applicationPath, Func<string> minifyIdentifier, Func<bool> debugMode,
-            IDirectoryFactory directoryFactory)
+        public AssetProvider(Func<string> minifyIdentifier, Func<bool> debugMode, IDirectoryFactory directoryFactory)
         {
-            this.server = server;
-            this.applicationPath = applicationPath;
             this.minifyIdentifier = minifyIdentifier();
             this.debugMode = debugMode();
             this.directoryFactory = directoryFactory;

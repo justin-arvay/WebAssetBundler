@@ -38,6 +38,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var directory = factory.Create("~/Script");
 
+            Assert.IsNotNull(directory);
 
         }
     }
