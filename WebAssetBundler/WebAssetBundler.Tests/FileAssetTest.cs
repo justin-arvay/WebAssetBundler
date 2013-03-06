@@ -37,7 +37,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Source()
         {
-            file.Setup(f => f.Source).Returns("D:/Source/File.cs");
+            file.Setup(f => f.Path).Returns("D:/Source/File.cs");
 
             Assert.AreEqual("D:/Source/File.cs", asset.Source);
         }

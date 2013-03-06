@@ -35,17 +35,17 @@ using System.Web;
             server.Setup(s => s.MapPath("~/Files/AssetFileTest.css"))
                .Returns("../../Files/AssetFileTest.css"); //from obj/Debug
 
-            
-            file = new FileSystemFile("~/Files/AssetFileTest.css", server.Object);           
+
+            file = new FileSystemFile("../../Files/AssetFileTest.css");           
         }
 
         [Test]
-        public void Should_Get_Full_Path()
+        public void Should_Assign_Directory()
         {
+            var directory = new Mock<IDirectory>();
+            file = new FileSystemFile("../../Files/AssetFileTest.css", directory.Object);
 
-            Assert.AreEqual(
-                "../../Files/AssetFileTest.css", 
-                file.Path);
+            Assert.AreSame(directory.Object, file.Directory);
         }
 
         [Test]
