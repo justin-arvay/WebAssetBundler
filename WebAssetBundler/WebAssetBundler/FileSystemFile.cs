@@ -22,60 +22,50 @@ namespace WebAssetBundler.Web.Mvc
 
     public class FileSystemFile : IFile
     {
-        private string fullPath;
-        private string source;
+        private string path;
 
-        public FileSystemFile(string source, IDirectory directory)
+        public FileSystemFile(string path)
         {
-            fullPath = source;
-            this.source = source;
-            Directory = directory;
+            this.path = path;
         }
 
-        public FileSystemFile(string source, HttpServerUtilityBase server)
+        public FileSystemFile(string path, IDirectory directory)
         {
-            fullPath = server.MapPath(source);
-            this.source = source;
+            this.path = path;
+            Directory = directory;
         }
 
         public bool Exists
         {
             get 
             {
-                return File.Exists(fullPath);
+                return File.Exists(path);
             }
         }
 
-        public string FullPath
+        public string Path
         {
             get 
             {
-                return fullPath;
+                return path;
             }
         }
 
 
         public Stream Open(FileMode mode)
         {
-            return File.Open(fullPath, mode);
+            return File.Open(path, mode);
         }
 
         public Stream Open(FileMode mode, FileAccess access)
         {
-            return File.Open(fullPath, mode, access);
+            return File.Open(path, mode, access);
         }
 
         public Stream Open(FileMode mode, FileAccess access, FileShare fileShare)
         {
-            return File.Open(fullPath, mode, access, fileShare);
+            return File.Open(path, mode, access, fileShare);
         }
-
-
-        public string Source
-        {
-            get { return source; }
-        }
-
 
         public IDirectory Directory
         {

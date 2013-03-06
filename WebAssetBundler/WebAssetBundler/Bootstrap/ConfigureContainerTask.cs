@@ -47,10 +47,11 @@ namespace WebAssetBundler.Web.Mvc
             container.Register((c, p) => HttpContext().Response);
             container.Register((c, p) => HttpContext().Server);
             container.Register<ICacheProvider, CacheProvider>();
+            container.Register<IDirectoryFactory, DirectoryFactory>();
 
             container.Register<IAssetProvider>((c, p) => new AssetProvider(
-                c.Resolve<HttpServerUtilityBase>(), 
-                HttpContext().Request.PhysicalApplicationPath,
+                c.Resolve<IDirectoryFactory>(),
+                c.Resolve<HttpServerUtilityBase>(),
                 () => DefaultSettings.MinifyIdentifier,
                 () => DefaultSettings.DebugMode));
 

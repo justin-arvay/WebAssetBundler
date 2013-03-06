@@ -85,11 +85,6 @@
                 return this.Any(i => i.Source.Equals(item.Source));
             }
 
-            private string Message(AssetBase item)
-            {
-                return " Asset: \"" + item.Source + "\"";
-            }
-
             public void Transform(IAssetTransformer transformer)
             {
                 foreach (var asset in this)

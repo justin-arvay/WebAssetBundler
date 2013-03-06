@@ -14,35 +14,34 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
+    using NUnit.Framework;
+    using Moq;
     using System;
+    using System.IO;
 
-    public class FromDirectoryBuilder
+    [TestFixture]
+    public class DirectorySearchContextTests
     {
-        private FromDirectoryComponent component;
 
-        public FromDirectoryBuilder(FromDirectoryComponent component)
+        [SetUp]
+        public void Setup()
         {
-            this.component = component;
+            
         }
 
-        public FromDirectoryBuilder StartsWith(string value)
+        [Test]
+        public void Should_Throw_Exception_If_Path_Is_Rooted()
         {
-            component.StartsWithCollection.Add(value);
-            return this;
+            Assert.Throws<FormatException>(() => new DirectorySearchContext(@"\foo", "css"));
+            Assert.Throws<FormatException>(() => new DirectorySearchContext(@"c:\foo", "css"));
         }
 
-        public FromDirectoryBuilder EndsWith(string value)
+        [Test]
+        public void Should_Include_All_Sub_Directories_By_Default()
         {
-            component.EndsWithCollection.Add(value);
-            return this;
-        }
-
-        public FromDirectoryBuilder Contains(string value)
-        {
-            component.ContainsCollection.Add(value);
-            return this;
+            Assert.AreSame(SearchOption.AllDirectories, (new DirectorySearchContext("", "")).SearchOption);
         }
     }
 }

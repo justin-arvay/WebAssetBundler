@@ -22,6 +22,6 @@ namespace WebAssetBundler.Web.Mvc
     public interface IAssetProvider
     {
         AssetBase GetAsset(string source);
-        ICollection<AssetBase> GetAssets(FromDirectoryComponent component);
+        ICollection<AssetBase> GetAssets(DirectorySearchContext component);
     }
 }

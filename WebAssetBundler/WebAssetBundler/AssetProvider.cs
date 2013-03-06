@@ -28,101 +28,88 @@ namespace WebAssetBundler.Web.Mvc
         private string minifyIdentifier;
         private bool debugMode;
         private IDirectoryFactory directoryFactory;
+        private HttpServerUtilityBase server;
 
-        public AssetProvider(Func<string> minifyIdentifier, Func<bool> debugMode, IDirectoryFactory directoryFactory)
+        public AssetProvider(IDirectoryFactory directoryFactory, HttpServerUtilityBase server, Func<string> minifyIdentifier, Func<bool> debugMode)
         {
             this.minifyIdentifier = minifyIdentifier();
             this.debugMode = debugMode();
             this.directoryFactory = directoryFactory;
+            this.server = server;
         }
 
         public AssetBase GetAsset(string source)
         {
-            //user provided a minified source when in debug mode, try and change it to a non minifed version if it exists
-            if (IsMinifedAsset(source))
-            {
-                if (debugMode)
-                {
-                    source = TryGetRawSource(source);
-                }
-            }
-
-            //user provided a raw source, check if a minified version exists and use it instead if it does.
-            else
-            {
-                source = TryGetMinifiedSource(source);
-            }
-
             if (source.StartsWith("~/") == false && source.StartsWith("/") == false)
             {
                 throw new ArgumentException("Source must be virtual path.");  
             }
 
-            return new FileAsset(new FileSystemFile(source, server));
+            IFile file = ResolveFile(new FileSystemFile(server.MapPath(source)));
+
+            return CreateAsset(file);
         }        
 
-        public ICollection<AssetBase> GetAssets(FromDirectoryComponent component)
+        public ICollection<AssetBase> GetAssets(DirectorySearchContext context)
         {
-            var collecton = new List<AssetBase>();
-            var fullPath = server.MapPath(component.Path);
+            var directory = directoryFactory.Create(context.Source);
 
-            IList<string> fileNames = new List<string>(Directory.GetFiles(fullPath)
-                .Where(name => name.EndsWith(component.Extension)));
+            //fileNames = RemoveDuplicates(fileNames);
 
-            //if the user has sepecidied additonal filtering, filter it
-            if (IsFilteringRequired(component))
-            {
-                fileNames = FilterFiles(fileNames, component);
-            }
+            //retrieve all files from the directory where the file ends in the extension
+            var files = directory.GetFiles(context.Pattern, context.SearchOption)
+                .Where((file) => file.Path.EndsWith(context.Extension));
+
+            return new List<AssetBase>(files.Select((file) => CreateAsset(file)));
+
+        }
 
 
-            fileNames = RemoveDuplicates(fileNames);
-
-            foreach (var fileName in fileNames)
-            {
-                //string  = fileName.Substring(applicationPath.Length);               
-                var source = fileName.ReplaceFirst(applicationPath, "~/")
-                            .Replace("\\", "/");
-                collecton.Add(GetAsset(source));
-            }
-
-            return collecton;
+        /// <summary>
+        /// Creates an asset from the file.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public AssetBase CreateAsset(IFile file)
+        {
+            return new FileAsset(ResolveFile(file));
         }
 
         /// <summary>
-        /// Tries to get the minified source from a raw source. If the minified file does
-        /// not exist the original source is returned.
+        /// Changes the file to a minified or raw file depending on settings.
         /// </summary>
-        /// <param name="source"></param>
+        /// <param name="file"></param>
         /// <returns></returns>
-        public string TryGetMinifiedSource(string source)
+        public IFile ResolveFile(IFile file)
         {
-            string minifedSource = GetMinifiedSource(source);
+            IFile rawFile = null;
+            IFile minifedFile = null;
 
-            if (File.Exists(server.MapPath(minifedSource)))
+            if (IsMinifed(file.Path)) 
             {
-                return minifedSource;
+                minifedFile = file;
+                rawFile = new FileSystemFile(GetRawSource(file.Path), file.Directory);
+            } 
+            else 
+            {
+                rawFile = file;
+                minifedFile = new FileSystemFile(GetMinifiedSource(file.Path), file.Directory);
             }
 
-            return source;
-        }
 
-        /// <summary>
-        /// Tries to get the raw source from a source with minify identifier in it. If
-        /// the raw source file does not exist, the original source is returned.
-        ///
-        /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        public string TryGetRawSource(string source)
-        {
-            var rawSource = GetRawSource(source);
-            if (File.Exists(server.MapPath(rawSource)))
+            if (minifedFile != null)
             {
-                return rawSource;
-            }
+                if (debugMode)
+                {
+                    return rawFile;
+                }
 
-            return source;
+                return minifedFile;
+            }
+            else
+            {
+                return rawFile;
+            }
         }
 
         /// <summary>
@@ -130,7 +117,7 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
-        private bool IsMinifedAsset(string source)
+        private bool IsMinifed(string source)
         {
             return Path.GetFileNameWithoutExtension(source).EndsWith(minifyIdentifier);
         }
@@ -163,7 +150,7 @@ namespace WebAssetBundler.Web.Mvc
 
             for (int index = 0; index < fileNames.Count(); index++)
             {
-                if (IsMinifedAsset(fileNames[index]))
+                if (IsMinifed(fileNames[index]))
                 {
                     var rawSource = GetRawSource(fileNames[index]);
                     if (fileNames.Contains(rawSource))
@@ -174,37 +161,6 @@ namespace WebAssetBundler.Web.Mvc
             }
 
             return filteredFileNames;
-        }
-
-        private bool IsFilteringRequired(FromDirectoryComponent component)
-        {
-            return component.StartsWithCollection.Count > 0 ||
-                component.EndsWithCollection.Count > 0 ||
-                component.ContainsCollection.Count > 0;
-        }
-
-        private IList<string> FilterFiles(IList<string> fileNames, FromDirectoryComponent component)
-        {
-            var filteredFileNames = fileNames.Where(
-                    (name) => CompareAgainstCollection(component.StartsWithCollection, (x) => Path.GetFileNameWithoutExtension(name).StartsWith(x)) ||
-                    CompareAgainstCollection(component.EndsWithCollection, (x) => Path.GetFileNameWithoutExtension(name).EndsWith(x)) ||
-                    CompareAgainstCollection(component.ContainsCollection, (x) => Path.GetFileNameWithoutExtension(name).Contains(x))
-            );
-
-            return filteredFileNames.ToList();
-        }
-
-        private bool CompareAgainstCollection(ICollection<string> strings, Func<string, bool> callback)
-        {
-            foreach (var str in strings)
-            {
-                if (callback(str))
-                {
-                    return true;
-                }
-            }
-
-            return false;
         }
     }
 }

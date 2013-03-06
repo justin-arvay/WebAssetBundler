@@ -18,46 +18,37 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
-using System.Web;
     using System.IO;
-    using System;
 
     [TestFixture]
-    public class AssetFileTests
+    public class DirectorySearchBuilderTests
     {
-        private FileSystemFile file;
-        private Mock<HttpServerUtilityBase> server;
+        private DirectorySearchBuilder builder;
+        private DirectorySearchContext context;
 
         [SetUp]
         public void Setup()
         {
-            server = new Mock<HttpServerUtilityBase>();
-            server.Setup(s => s.MapPath("~/Files/AssetFileTest.css"))
-               .Returns("../../Files/AssetFileTest.css"); //from obj/Debug
-
-            
-            file = new FileSystemFile("~/Files/AssetFileTest.css", server.Object);           
+            context = new DirectorySearchContext("path", "txt");
+            builder = new DirectorySearchBuilder(context);
         }
 
         [Test]
-        public void Should_Get_Full_Path()
+        public void Should_Set_Pattern()
         {
+            var returnBuilder = builder.Pattern("*.js");
 
-            Assert.AreEqual(
-                "../../Files/AssetFileTest.css", 
-                file.Path);
+            Assert.AreEqual("*.js", context.Pattern);
+            Assert.IsInstanceOf<DirectorySearchBuilder>(returnBuilder);
         }
 
         [Test]
-        public void Should_Open_Stream()
+        public void Should_Set_SearchOption()
         {
-            Assert.IsInstanceOf<Stream>(file.Open(FileMode.Open));
-        }
+            var returnBuilder = builder.SearchOption(SearchOption.TopDirectoryOnly);
 
-        [Test]
-        public void Should_Exist()
-        {
-            Assert.True(file.Exists);
-        }
+            Assert.AreEqual(SearchOption.TopDirectoryOnly, context.SearchOption);
+            Assert.IsInstanceOf<DirectorySearchBuilder>(returnBuilder);
+        }        
     }
 }

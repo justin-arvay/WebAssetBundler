@@ -19,39 +19,25 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.IO;
 
-    public class FileAsset : AssetBase
+    public class DirectorySearchBuilder
     {
-        private IFile sourceFile;
-        private string content;
+        private DirectorySearchContext context;
 
-        public FileAsset(IFile sourceFile)
+        public DirectorySearchBuilder(DirectorySearchContext context)
         {
-            this.sourceFile = sourceFile;
+            this.context = context;
         }
 
-        public override string Source
+        public DirectorySearchBuilder Pattern(string pattern)
         {
-            get 
-            {
-                return sourceFile.Path;
-            }
+            context.Pattern = pattern;
+            return this;
         }
 
-        public override string Content
+        public DirectorySearchBuilder SearchOption(SearchOption option)
         {
-            get
-            {
-                if (String.IsNullOrEmpty(content))
-                {
-                    content = (new StreamReader(sourceFile.Open(FileMode.Open, FileAccess.Read, FileShare.Read))).ReadToEnd();
-                }
-
-                return content;
-            }
-            set
-            {
-                this.content = value;
-            }
+            context.SearchOption = option;
+            return this;
         }
     }
 }

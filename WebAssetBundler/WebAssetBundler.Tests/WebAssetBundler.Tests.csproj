@@ -68,8 +68,8 @@
     <Compile Include="DefaultBundleConfigurationProviderTests.cs" />
     <Compile Include="AssetProviderTests.cs" />
     <Compile Include="FileAssetTest.cs" />
-    <Compile Include="FromDirectoryBuilderTests.cs" />
-    <Compile Include="FromDirectoryComponentTests.cs" />
+    <Compile Include="DirectorySearchBuilderTests.cs" />
+    <Compile Include="DirectorySearchContextTests.cs" />
     <Compile Include="Script\ScriptBundleCachePrimerTests.cs" />
     <Compile Include="Script\ScriptBundleConfigurationImpl.cs" />
     <Compile Include="Script\ScriptBundleProviderTests.cs" />

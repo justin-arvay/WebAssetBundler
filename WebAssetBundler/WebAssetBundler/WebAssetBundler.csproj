@@ -81,8 +81,8 @@
     <Compile Include="DefaultBundleConfigurationProvider.cs" />
     <Compile Include="AssetProvider.cs" />
     <Compile Include="FileAsset.cs" />
-    <Compile Include="FromDirectoryBuilder.cs" />
-    <Compile Include="FromDirectoryComponent.cs" />
+    <Compile Include="DirectorySearchBuilder.cs" />
+    <Compile Include="DirectorySearchContext.cs" />
     <Compile Include="IAssetProvider.cs" />
     <Compile Include="IBundleProvider.cs" />
     <Compile Include="IBundleConfigurationProvider.cs" />

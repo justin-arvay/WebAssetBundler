@@ -14,27 +14,31 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc.Tests
+namespace WebAssetBundler.Web.Mvc
 {
-    using NUnit.Framework;
-    using Moq;
     using System;
+    using System.Collections.Generic;
+using System.IO;
 
-    [TestFixture]
-    public class FromDirectoryComponentTests
+    public class DirectorySearchContext
     {
-
-        [SetUp]
-        public void Setup()
+        public DirectorySearchContext(string source, string extension)
         {
-            
+            if (System.IO.Path.IsPathRooted(source))
+            {
+                throw new FormatException("Path ({0}) must be virtual or relative.".FormatWith(source));
+            }
+
+            Source = source;
+            Extension = extension;
+
+            SearchOption = SearchOption.AllDirectories;
         }
 
-        [Test]
-        public void Should_Throw_Exception_If_Path_Is_Rooted()
-        {
-            Assert.Throws<FormatException>(() => new FromDirectoryComponent(@"\foo", "css"));
-            Assert.Throws<FormatException>(() => new FromDirectoryComponent(@"c:\foo", "css"));
-        }
+        public string Source { get; private set; }
+        public string Extension { get; private set; }
+        public string Pattern { get; set; }
+        public SearchOption SearchOption { get; set; }
+
     }
 }

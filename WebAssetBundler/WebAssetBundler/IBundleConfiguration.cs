@@ -22,7 +22,7 @@ namespace WebAssetBundler.Web.Mvc
     {
         void Add(string source);
         void AddFromDirectory(string path);
-        void AddFromDirectory(string path, Action<FromDirectoryBuilder> builder);
+        void AddFromDirectory(string path, Action<DirectorySearchBuilder> builder);
         void Name(string name);
         void Compress(bool compress);
         void Host(string host);

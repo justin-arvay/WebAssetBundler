@@ -26,15 +26,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class AssetProviderTests
     {
         private AssetProvider provider;
-        private FromDirectoryComponent component;
+        private DirectorySearchContext component;
         private Mock<HttpServerUtilityBase> server;
+        private Mock<IDirectoryFactory> directoryFactory;
 
         [SetUp]
         public void Setup()
         {            
             server = new Mock<HttpServerUtilityBase>();
-            provider = new AssetProvider(server.Object, "", () => ".min", () => false);
-            component = new FromDirectoryComponent("../../Files/Configuration", "css");
+            directoryFactory = new Mock<IDirectoryFactory>();
+            provider = new AssetProvider(directoryFactory.Object, server.Object, () => ".min", () => false);
+            component = new DirectorySearchContext("../../Files/Configuration", "css");
         }
 
         [Test]
