@@ -58,9 +58,11 @@ namespace WebAssetBundler.Web.Mvc
 
             //retrieve all files from the directory where the file ends in the extension
             var files = directory.GetFiles(context.Pattern, context.SearchOption)
-                .Where((file) => file.Path.EndsWith(context.Extension));
+                .Where((file) => file.Path.EndsWith(context.Extension))
+                .ToList();
 
-            return new List<AssetBase>(files.Select((file) => CreateAsset(file)));
+            return new List<AssetBase>(RemoveDuplicates(files)
+                .Select((file) => CreateAsset(file)));
 
         }
 
@@ -85,7 +87,8 @@ namespace WebAssetBundler.Web.Mvc
             IFile rawFile = null;
             IFile minifedFile = null;
 
-            if (IsMinifed(file.Path)) 
+            //figure out if it is minified or not and then create the other
+            if (IsMinifed(file)) 
             {
                 minifedFile = file;
                 rawFile = new FileSystemFile(GetRawSource(file.Path), file.Directory);
@@ -96,20 +99,20 @@ namespace WebAssetBundler.Web.Mvc
                 minifedFile = new FileSystemFile(GetMinifiedSource(file.Path), file.Directory);
             }
 
-
-            if (minifedFile != null)
+            if (rawFile.Exists && minifedFile.Exists)
             {
                 if (debugMode)
                 {
                     return rawFile;
                 }
+                else
+                {
+                    return minifedFile;
+                }
+            }
 
-                return minifedFile;
-            }
-            else
-            {
-                return rawFile;
-            }
+            
+            return rawFile.Exists ? rawFile : minifedFile;
         }
 
         /// <summary>
@@ -117,9 +120,9 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
-        private bool IsMinifed(string source)
+        private bool IsMinifed(IFile file)
         {
-            return Path.GetFileNameWithoutExtension(source).EndsWith(minifyIdentifier);
+            return Path.GetFileNameWithoutExtension(file.Path).EndsWith(minifyIdentifier);
         }
 
         /// <summary>
@@ -144,23 +147,23 @@ namespace WebAssetBundler.Web.Mvc
             return source.Insert(source.LastIndexOf(ext), minifyIdentifier);
         }
 
-        private IList<string> RemoveDuplicates(IList<string> fileNames)
+        private IList<IFile> RemoveDuplicates(IList<IFile> file)
         {
-            var filteredFileNames = fileNames;
+            var filteredFiles = file;
 
-            for (int index = 0; index < fileNames.Count(); index++)
+            for (int index = 0; index < file.Count(); index++)
             {
-                if (IsMinifed(fileNames[index]))
+                if (IsMinifed(file[index]))
                 {
-                    var rawSource = GetRawSource(fileNames[index]);
-                    if (fileNames.Contains(rawSource))
+                    var rawSource = GetRawSource(file[index].Path);
+                    if (file[index].Path.Contains(rawSource))
                     {
-                        filteredFileNames.Remove(fileNames[index]);
+                        filteredFiles.Remove(file[index]);
                     }
                 }
             }
 
-            return filteredFileNames;
+            return filteredFiles;
         }
     }
 }

@@ -39,9 +39,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Include_All_Sub_Directories_By_Default()
+        public void Should_Set_Defaults()
         {
-            Assert.AreSame(SearchOption.AllDirectories, (new DirectorySearchContext("", "")).SearchOption);
+            var context = new DirectorySearchContext("source", "ext");
+
+            Assert.AreEqual(SearchOption.AllDirectories, context.SearchOption);
+            Assert.AreEqual("ext", context.Extension);
+            Assert.AreEqual("", context.Pattern);
+            Assert.AreEqual("source", context.Source);
         }
     }
 }

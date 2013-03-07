@@ -31,7 +31,7 @@ using System.IO;
 
             Source = source;
             Extension = extension;
-
+            Pattern = "*";
             SearchOption = SearchOption.AllDirectories;
         }
 

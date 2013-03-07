@@ -26,9 +26,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class AssetProviderTests
     {
         private AssetProvider provider;
-        private DirectorySearchContext component;
+        private DirectorySearchContext context;
         private Mock<HttpServerUtilityBase> server;
         private Mock<IDirectoryFactory> directoryFactory;
+        private IDirectory directory;
 
         [SetUp]
         public void Setup()
@@ -36,93 +37,46 @@ namespace WebAssetBundler.Web.Mvc.Tests
             server = new Mock<HttpServerUtilityBase>();
             directoryFactory = new Mock<IDirectoryFactory>();
             provider = new AssetProvider(directoryFactory.Object, server.Object, () => ".min", () => false);
-            component = new DirectorySearchContext("../../Files/Configuration", "css");
+            context = new DirectorySearchContext("~/Files/AssetProvider", "css");
+
+            directory = new FileSystemDirectory("../../Files/AssetProvider");
+
+            directoryFactory.Setup(d => d.Create("~/Files/AssetProvider"))
+                .Returns(directory);
         }
 
         [Test]
-        public void Should_Get_All_Files_With_Correct_Extension_As_Virtual_Paths()
+        public void Should_Get_All_Files_With_Correct_Extension()
         {
+            var assets = (IList<AssetBase>)provider.GetAssets(context);
 
-            server.Setup(m => m.MapPath("../../Files/Configuration"))
-                .Returns("../../Files/Configuration");
-
-            server.Setup(m => m.MapPath("~/Files/Configuration/FirstFile.css"))
-                .Returns((string path) => path);
-
-            server.Setup(m => m.MapPath("~/Files/Configuration/SecondFile.css"))
-                .Returns((string path) => path);
-
-            server.Setup(m => m.MapPath("~/Files/Configuration/ThirdFile.min.css"))
-                .Returns((string path) => path);
-
-            var assets = (IList<AssetBase>)provider.GetAssets(component);
-
-            Assert.AreEqual("~/../../Files/Configuration/FirstFile.css", assets[0].Source, "0 index");
-            Assert.AreEqual("~/../../Files/Configuration/SecondFile.css", assets[1].Source, "1 index");
-            Assert.AreEqual("~/../../Files/Configuration/ThirdFile.min.css", assets[2].Source, "2 index");
-            Assert.AreEqual(3, assets.Count);
-        }
-
-        [Test]
-        public void Should_Get_Files_That_Start_With()
-        {
-            server.Setup(m => m.MapPath("../../Files/Configuration"))
-                .Returns("../../Files/Configuration");
-
-            server.Setup(m => m.MapPath("~/Files/Configuration/FirstFile.css"))
-                .Returns((string path) => path);
-
-            server.Setup(m => m.MapPath("~/Files/Configuration/SecondFile.css"))
-                .Returns((string path) => path);
-
-            component.StartsWithCollection.Add("First");
-            component.StartsWithCollection.Add("Second");
-
-            var assets = (IList<AssetBase>)provider.GetAssets(component);
-
+            Assert.AreEqual("../../Files/AssetProvider\\FirstFile.css", assets[0].Source);
+            Assert.AreEqual("../../Files/AssetProvider\\SecondFile.css", assets[0].Source);
             Assert.AreEqual(2, assets.Count);
-            Assert.AreEqual("~/../../Files/Configuration/FirstFile.css", assets[0].Source, "0 index");
-            Assert.AreEqual("~/../../Files/Configuration/SecondFile.css", assets[1].Source, "1 index");
         }
 
         [Test]
-        public void Should_Get_Files_That_End_With()
+        public void Should_Get_Raw_Assets()
         {
-            server.Setup(m => m.MapPath("../../Files/Configuration"))
-                .Returns("../../Files/Configuration");
-
-            server.Setup(m => m.MapPath("~/Files/Configuration/FirstFile.css"))
-                .Returns((string path) => path);
-
-            server.Setup(m => m.MapPath("~/Files/Configuration/SecondFile.css"))
-                .Returns((string path) => path);
-
-            component.EndsWithCollection.Add("File");
-
-            var assets = (IList<AssetBase>)provider.GetAssets(component);
-
-            Assert.AreEqual(2, assets.Count);
-            Assert.AreEqual("~/../../Files/Configuration/FirstFile.css", assets[0].Source, "0 index");
-            Assert.AreEqual("~/../../Files/Configuration/SecondFile.css", assets[1].Source, "1 index");
         }
 
         [Test]
-        public void Should_Get_Files_That_Contain()
+        public void Should_Always_Get_Raw_Assets_In_Debug_Mode()
         {
-            server.Setup(m => m.MapPath("../../Files/Configuration"))
-                .Returns("../../Files/Configuration");
+            provider = new AssetProvider(directoryFactory.Object, server.Object, () => ".min", () => true);
 
-            server.Setup(m => m.MapPath("~/Files/Configuration/ThirdFile.min.css"))
-                .Returns((string path) => path);
+            var assets = (IList<AssetBase>)provider.GetAssets(context);
 
-            component.ContainsCollection.Add("File.min");
-
-            var assets = (IList<AssetBase>)provider.GetAssets(component);
-
+            Assert.AreEqual("../../Files/AssetProvider\\FirstFile.css", assets[0].Source);
+            Assert.AreEqual("../../Files/AssetProvider\\SecondFile.css", assets[1].Source);
             Assert.AreEqual(2, assets.Count);
-            Assert.AreEqual("~/../../Files/Configuration/FirstFile.min.css", assets[0].Source);
-            Assert.AreEqual("~/../../Files/Configuration/ThirdFile.min.css", assets[1].Source);
         }
+
+        [Test]
+        public void Should_Get_MinifiedAssets()
+        {
+        }
+
 
         [Test]
         public void Should_Get_Asset()
@@ -151,25 +105,18 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Get_Minifed_Source()
+        public void Should_Get_Raw_Asset()
         {
-            server.Setup(m => m.MapPath(It.IsAny<string>()))
-                .Returns((string sourceOut) => sourceOut);
-
-            var source = provider.TryGetMinifiedSource("../../Files/Configuration/FirstFile.css");
-
-            Assert.AreEqual("../../Files/Configuration/FirstFile.min.css", source);
         }
 
         [Test]
-        public void Should_Get_Raw_Source()
+        public void Should_Always_Get_Raw_Asset_In_Debug_Mode()
         {
-            server.Setup(m => m.MapPath(It.IsAny<string>()))
-                .Returns((string sourceOut) => sourceOut);
+        }
 
-            var source = provider.TryGetRawSource("../../Files/Configuration/FirstFile.min.css");
-
-            Assert.AreEqual("../../Files/Configuration/FirstFile.css", source);
+        [Test]
+        public void Should_Get_MinifiedAsset()
+        {
         }
     }
 }

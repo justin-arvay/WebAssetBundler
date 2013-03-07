@@ -108,11 +108,11 @@
     <Content Include="Files\AssetFileTest.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\Configuration\FirstFile.min.css" />
-    <Content Include="Files\Configuration\FirstFile.css" />
-    <Content Include="Files\Configuration\NotCorrectExt.txt" />
-    <Content Include="Files\Configuration\SecondFile.css" />
-    <Content Include="Files\Configuration\ThirdFile.min.css" />
+    <Content Include="Files\AssetProvider\FirstFile.min.css" />
+    <Content Include="Files\AssetProvider\FirstFile.css" />
+    <Content Include="Files\AssetProvider\NotCorrectExt.txt" />
+    <Content Include="Files\AssetProvider\SecondFile.css" />
+    <Content Include="Files\AssetProvider\SecondFile.min.css" />
     <Content Include="Files\FileSystem\DirOne\FileTwo.txt" />
     <Content Include="Files\FileSystem\DirOne\FileOne.txt" />
     <Content Include="Files\FileSystem\DirTwo\FileOne.txt" />
