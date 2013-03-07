@@ -61,18 +61,18 @@ namespace WebAssetBundler.Web.Mvc
                 .Where((file) => file.Path.EndsWith(context.Extension))
                 .ToList();
 
-            return new List<AssetBase>(RemoveDuplicates(files)
-                .Select((file) => CreateAsset(file)));
+            var assets = new List<AssetBase>(files.Select((file) => CreateAsset(file)));
+
+            return RemoveDuplicates(assets);
 
         }
 
-
         /// <summary>
-        /// Creates an asset from the file.
+        /// Creates an assets from the file.
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        public AssetBase CreateAsset(IFile file)
+        public FileAsset CreateAsset(IFile file)
         {
             return new FileAsset(ResolveFile(file));
         }
@@ -116,7 +116,7 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
-        /// Checks if the source is a minified asset.
+        /// Checks if the source is a minified assets.
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
@@ -147,23 +147,19 @@ namespace WebAssetBundler.Web.Mvc
             return source.Insert(source.LastIndexOf(ext), minifyIdentifier);
         }
 
-        private IList<IFile> RemoveDuplicates(IList<IFile> file)
+        private IList<AssetBase> RemoveDuplicates(IList<AssetBase> assets)
         {
-            var filteredFiles = file;
+            var filteredAssets = new List<AssetBase>();
 
-            for (int index = 0; index < file.Count(); index++)
+            foreach (var asset in assets)
             {
-                if (IsMinifed(file[index]))
+                if (filteredAssets.Where((a) => a.Source.Equals(asset.Source)).Count() == 0)
                 {
-                    var rawSource = GetRawSource(file[index].Path);
-                    if (file[index].Path.Contains(rawSource))
-                    {
-                        filteredFiles.Remove(file[index]);
-                    }
+                    filteredAssets.Add(asset);
                 }
             }
 
-            return filteredFiles;
+            return filteredAssets;
         }
     }
 }

@@ -40,7 +40,7 @@ namespace WebAssetBundler.Web.Mvc
             //TODO: handle absolute paths like: /image/icon.png
             //TODO: handle absolutepaths like: http://www.google.ca/image/icon.png
             var content = asset.Content;
-            //var source = asset.Source.StartsWith("~/") ? asset.Source.ReplaceFirst("~/", "/") : asset.Source;
+            //var source = assets.Source.StartsWith("~/") ? assets.Source.ReplaceFirst("~/", "/") : assets.Source;
             var paths = FindPaths(content);
 
             foreach (string path in paths)

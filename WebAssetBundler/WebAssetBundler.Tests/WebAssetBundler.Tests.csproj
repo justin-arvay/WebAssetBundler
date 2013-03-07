@@ -108,11 +108,14 @@
     <Content Include="Files\AssetFileTest.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\AssetProvider\FirstFile.min.css" />
-    <Content Include="Files\AssetProvider\FirstFile.css" />
-    <Content Include="Files\AssetProvider\NotCorrectExt.txt" />
-    <Content Include="Files\AssetProvider\SecondFile.css" />
-    <Content Include="Files\AssetProvider\SecondFile.min.css" />
+    <Content Include="Files\AssetProvider\Mixed\FirstFile.min.css" />
+    <Content Include="Files\AssetProvider\Mixed\FirstFile.css" />
+    <Content Include="Files\AssetProvider\Mixed\NotCorrectExt.txt" />
+    <Content Include="Files\AssetProvider\Mixed\SecondFile.css" />
+    <Content Include="Files\AssetProvider\Mixed\SecondFile.min.css" />
+    <Content Include="Files\AssetProvider\Raw\FirstFile.css" />
+    <Content Include="Files\AssetProvider\Raw\NotCorrectExt.txt" />
+    <Content Include="Files\AssetProvider\Raw\SecondFile.css" />
     <Content Include="Files\FileSystem\DirOne\FileTwo.txt" />
     <Content Include="Files\FileSystem\DirOne\FileOne.txt" />
     <Content Include="Files\FileSystem\DirTwo\FileOne.txt" />

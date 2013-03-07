@@ -25,7 +25,7 @@ namespace WebAssetBundler.Web.Mvc
     {
 
         /// <summary>
-        /// Add an asset to the bundle
+        /// Add an assets to the bundle
         /// </summary>
         /// <param name="stream"></param>
         public void Add(string source)
