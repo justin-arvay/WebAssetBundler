@@ -25,9 +25,8 @@ namespace Examples
         {
             Name("Scripts");
             Compress(true);
-            Add("~/Scripts/jquery-1.9.0.min.js");
-            Add("~/Scripts/jquery-ui-1.10.0.custom.min.js");
-            Add("~/Scripts/rainbow-custom.min.js");
+            AddFromDirectory("~/Scripts", dir => dir
+                .Pattern("*"));
         }
     }
 }

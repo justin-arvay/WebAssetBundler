@@ -84,5 +84,14 @@ namespace WebAssetBundler.Web.Mvc
         {
             return Parent == null ? this : ((FileSystemDirectory)Parent).GetRootDirectory();
         }
+
+
+        public bool Exists
+        {
+            get 
+            { 
+                return Directory.Exists(fullPath); 
+            }
+        }
     }
 }

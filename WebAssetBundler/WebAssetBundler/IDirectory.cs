@@ -25,6 +25,7 @@ namespace WebAssetBundler.Web.Mvc
         FileAttributes Attributes { get; }
         string Path { get; }
         IDirectory Parent { get; }
+        bool Exists { get; }
 
         IFile GetFile(string filename);
         IDirectory GetDirectory(string path);

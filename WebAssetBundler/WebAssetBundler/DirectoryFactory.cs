@@ -32,10 +32,10 @@ namespace WebAssetBundler.Web.Mvc
         {
             if (source.StartsWith("~/") == false && source.StartsWith("/") == false)
             {
-                source = server.MapPath(source);
+                throw new ArgumentException("Directory source must be virtual path: " + source);  
             }
 
-            return new FileSystemDirectory(source);
+            return new FileSystemDirectory(server.MapPath(source));
         }
     }
 }

@@ -21,6 +21,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System.Web;
     using System.Collections.Generic;
     using System;
+    using System.IO;
 
     [TestFixture]
     public class AssetProviderTests
@@ -50,8 +51,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var assets = (IList<AssetBase>)provider.GetAssets(context);
 
-            Assert.AreEqual("../../Files/AssetProvider/Mixed\\FirstFile.css", assets[0].Source);
-            Assert.AreEqual("../../Files/AssetProvider/Mixed\\SecondFile.css", assets[1].Source);
+            Assert.AreEqual("../../Files/AssetProvider/Mixed\\FirstFile.min.css", assets[0].Source);
+            Assert.AreEqual("../../Files/AssetProvider/Mixed\\SecondFile.min.css", assets[1].Source);
             Assert.AreEqual(2, assets.Count);
         }
 
@@ -99,23 +100,18 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Get_Asset()
         {
             server.Setup(m => m.MapPath("~/File.css"))
-                .Returns((string path) => path);
+                .Returns("../../Files/AssetProvider/Mixed/FirstFile.css");
 
-            var asset = provider.GetAsset("~/File.min.css");
+            var asset = provider.GetAsset("~/File.css");
 
-            Assert.AreEqual("~/File.min.css", asset.Source);
+            Assert.AreEqual("../../Files/AssetProvider/Mixed/FirstFile.min.css", asset.Source);
         }
 
         [Test]
         public void Should_Throw_Exception_If_Not_Virtual_Source()
         {
-            server.Setup(m => m.MapPath("~/Content/File.css"))
-                .Returns((string path) => path);
 
             Assert.Throws<ArgumentException>(() => provider.GetAsset("File.css"));
-
-            server.Setup(m => m.MapPath("/Content/File.css"))
-                .Returns((string path) => path);
 
             Assert.Throws<ArgumentException>(() => provider.GetAsset("File.css"));
 
@@ -124,16 +120,52 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Raw_Asset()
         {
+            server.Setup(m => m.MapPath("~/File.css"))
+                .Returns("../../Files/AssetProvider/Raw/FirstFile.css");
+
+            var asset = provider.GetAsset("~/File.css");
+
+            Assert.AreEqual("../../Files/AssetProvider/Raw/FirstFile.css", asset.Source);
         }
 
         [Test]
         public void Should_Always_Get_Raw_Asset_In_Debug_Mode()
         {
+            provider = new AssetProvider(directoryFactory.Object, server.Object, () => ".min", () => true);
+
+            server.Setup(m => m.MapPath("~/File.min.css"))
+                .Returns("../../Files/AssetProvider/Mixed/FirstFile.min.css");
+
+            var asset = provider.GetAsset("~/File.min.css");
+
+            Assert.AreEqual("../../Files/AssetProvider/Mixed/FirstFile.css", asset.Source);
         }
 
         [Test]
         public void Should_Get_MinifiedAsset()
         {
+            server.Setup(m => m.MapPath("~/File.css"))
+                .Returns("../../Files/AssetProvider/Mixed/FirstFile.css");
+
+            var asset = provider.GetAsset("~/File.css");
+
+            Assert.AreEqual("../../Files/AssetProvider/Mixed/FirstFile.min.css", asset.Source);
+        }
+
+        [Test]
+        public void Should_Throw_Exception_When_Getting_Asset_That_Does_Not_Exist()
+        {
+            Assert.Throws<FileNotFoundException>(() => provider.GetAsset("~/test.css"));
+        }
+
+        [Test]
+        public void Should_Throw_Exception_When_Getting_Assets_From_A_Directory_That_Does_Not_Exist()
+        {
+            context = new DirectorySearchContext("~/FakeDir", "css");
+            directoryFactory.Setup(d => d.Create("~/FakeDir"))
+               .Returns(new FileSystemDirectory("../../FakeDir"));
+
+            Assert.Throws<DirectoryNotFoundException>(() => provider.GetAssets(context));
         }
     }
 }

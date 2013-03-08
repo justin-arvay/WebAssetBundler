@@ -92,7 +92,7 @@
     <Compile Include="HttpHandlers\ResponseWriterTests.cs" />
     <Compile Include="Script\ScriptTagWriterTests.cs" />
     <Compile Include="StyleSheet\StyleSheetTagWriterTests.cs" />
-    <Compile Include="UrlAssignmentProcessorTests.cs" />
+    <Compile Include="Pipeline\UrlAssignmentProcessorTests.cs" />
     <Compile Include="Pipeline\MergedAssetTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Script\ScriptMinifyProcessorTests.cs" />

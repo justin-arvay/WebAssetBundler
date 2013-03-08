@@ -42,19 +42,27 @@ namespace WebAssetBundler.Web.Mvc
         {
             if (source.StartsWith("~/") == false && source.StartsWith("/") == false)
             {
-                throw new ArgumentException("Source must be virtual path.");  
+                throw new ArgumentException(TextResource.Exceptions.PathMustBeVirtual.FormatWith(source));  
             }
 
-            IFile file = ResolveFile(new FileSystemFile(server.MapPath(source)));
+            IFile file = new FileSystemFile(server.MapPath(source));
 
-            return CreateAsset(file);
+            if (file.Exists == false)
+            {
+                throw new FileNotFoundException(TextResource.Exceptions.FileNotFound.FormatWith(source));
+            }
+
+            return CreateAsset(ResolveFile(file));
         }        
 
         public ICollection<AssetBase> GetAssets(DirectorySearchContext context)
         {
             var directory = directoryFactory.Create(context.Source);
 
-            //fileNames = RemoveDuplicates(fileNames);
+            if (directory.Exists == false)
+            {
+                throw new DirectoryNotFoundException(TextResource.Exceptions.DirectoryNotFound.FormatWith(context.Source));
+            }
 
             //retrieve all files from the directory where the file ends in the extension
             var files = directory.GetFiles(context.Pattern, context.SearchOption)

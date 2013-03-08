@@ -45,7 +45,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual(SearchOption.AllDirectories, context.SearchOption);
             Assert.AreEqual("ext", context.Extension);
-            Assert.AreEqual("", context.Pattern);
+            Assert.AreEqual("*", context.Pattern);
             Assert.AreEqual("source", context.Source);
         }
     }
