@@ -28,7 +28,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public override string Source
         {
-            get { throw new NotSupportedException("Asset is not a really file."); }
+            get { throw new NotSupportedException("Asset is not a real file."); }
         }
     }
 }

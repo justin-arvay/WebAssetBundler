@@ -13,7 +13,6 @@
         {
             Minify = true;
             Assets = new InternalCollection();
-            Content = "";
             BrowserTtl = 525949; //1 year default
             Host = "";
         }
@@ -31,8 +30,10 @@
 
         public string Content
         {
-            get;
-            set;
+            get
+            {
+                return Assets.Aggregate<AssetBase, string>("", (a, b) => a + b.Content);
+            }
         }
 
         public bool IsExternal

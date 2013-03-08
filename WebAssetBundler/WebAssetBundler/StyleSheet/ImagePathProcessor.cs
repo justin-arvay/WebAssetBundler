@@ -48,7 +48,8 @@ namespace WebAssetBundler.Web.Mvc
                 //ignore all absolute paths
                 if (path.StartsWith("/") == false && path.StartsWith("http") == false && path.StartsWith("https") == false)
                 {
-                    content = content.Replace(path, RewritePath(path));  
+                    var newPath = RewritePath(path);
+                    content = content.Replace(path, newPath);  
                 }                
             }
                 

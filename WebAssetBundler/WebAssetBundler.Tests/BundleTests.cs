@@ -92,5 +92,20 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             Assert.AreEqual(525949, bundle.BrowserTtl);
         }
+
+        [Test]
+        public void Should_Return_Content_From_All_Assets()
+        {
+            var assetOne = new AssetBaseImpl();
+            assetOne.Content = "test";
+
+            var assetTwo = new AssetBaseImpl();
+            assetTwo.Content = "test";
+
+            bundle.Assets.Add(assetOne);
+            bundle.Assets.Add(assetTwo);
+
+            Assert.AreEqual("testtest", bundle.Content);
+        }
     }
 }

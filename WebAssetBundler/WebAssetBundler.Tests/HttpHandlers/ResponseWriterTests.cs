@@ -57,7 +57,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Set_Headers_For_Asset()
         {
             bundle.BrowserTtl = 10;
-            bundle.Content = "test";
+            bundle.Assets.Add(new MergedAsset("test"));
 
             var collection = new NameValueCollection();
             collection.Add("Accept-Encoding", "some encoding");
@@ -107,7 +107,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Be_Modified()
         {
-            bundle.Content = "test";
+            bundle.Assets.Add(new MergedAsset("test"));
    
             var collection = new NameValueCollection();
             collection.Add("If-None-Match", bundle.Hash.ToHexString());
