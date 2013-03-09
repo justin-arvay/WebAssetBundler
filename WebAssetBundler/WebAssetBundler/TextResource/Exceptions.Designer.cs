@@ -79,15 +79,6 @@ namespace WebAssetBundler.TextResource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A group with that name already exists. Name: {0}.
-        /// </summary>
-        internal static string GroupWithSpecifiedNameAlreadyExists {
-            get {
-                return ResourceManager.GetString("GroupWithSpecifiedNameAlreadyExists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Item with specified source already exists. Source: {0}.
         /// </summary>
         internal static string ItemWithSpecifiedSourceAlreadyExists {

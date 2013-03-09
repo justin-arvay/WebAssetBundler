@@ -123,9 +123,6 @@
   <data name="FileNotFound" xml:space="preserve">
     <value>The file does not exist. Source: {0}</value>
   </data>
-  <data name="GroupWithSpecifiedNameAlreadyExists" xml:space="preserve">
-    <value>A group with that name already exists. Name: {0}</value>
-  </data>
   <data name="ItemWithSpecifiedSourceAlreadyExists" xml:space="preserve">
     <value>Item with specified source already exists. Source: {0}</value>
   </data>

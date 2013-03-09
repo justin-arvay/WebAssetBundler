@@ -46,6 +46,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
+        public void Should_Throw_Exception_If_Asset_Already_Exists()
+        {
+        }
+
+        [Test]
         public void Should_Set_Compress()
         {
             bundleConfig.Compress(true);
@@ -97,5 +102,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual(1, bundleConfig.Bundle.Assets.Count);
         }
+
+        [Test]
+        public void Should_Not_Add_Duplicate_Assets_From_Directory()
+        {
+        }
+
+        [Test]
+        public void Should_Not_Add_Duplicate_Filtered_Assets_From_Directory()
+        { 
+        }
+
+
     }
 }

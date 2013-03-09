@@ -19,6 +19,7 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
 
     public abstract class BundleConfiguration<TBundle> : IBundleConfiguration<TBundle>
         where TBundle : Bundle
@@ -30,7 +31,14 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="stream"></param>
         public void Add(string source)
         {
-            Bundle.Assets.Add(AssetProvider.GetAsset(source));
+            var asset = AssetProvider.GetAsset(source);
+
+            if (AlreadyExists(asset))
+            {
+                throw new ArgumentException(TextResource.Exceptions.ItemWithSpecifiedSourceAlreadyExists.FormatWith(asset.Source));
+            }
+
+            Bundle.Assets.Add(asset);
         }
 
         /// <summary>
@@ -43,7 +51,10 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (var asset in assets)
             {
-                Bundle.Assets.Add(asset);
+                if (AlreadyExists(asset) == false)
+                {
+                    Bundle.Assets.Add(asset);
+                }
             }
         }
 
@@ -61,7 +72,10 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (var asset in assets)
             {
-                Bundle.Assets.Add(asset);
+                if (AlreadyExists(asset) == false)
+                {
+                    Bundle.Assets.Add(asset);
+                }
             }
         }
 
@@ -114,5 +128,11 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         public abstract void Configure();
+
+        private bool AlreadyExists(AssetBase item)
+        {
+            return Bundle.Assets.Any(i => i.Source.Equals(item.Source));
+        }
+
     }
 }
