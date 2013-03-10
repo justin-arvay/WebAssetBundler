@@ -48,15 +48,9 @@ namespace WebAssetBundler.Web.Mvc
             container.Register((c, p) => HttpContext().Server);
             container.Register<ICacheProvider, CacheProvider>();
             container.Register<IDirectoryFactory, DirectoryFactory>();
-
-            container.Register<IAssetProvider>((c, p) => new AssetProvider(
-                c.Resolve<IDirectoryFactory>(),
-                c.Resolve<HttpServerUtilityBase>(),
-                () => DefaultSettings.MinifyIdentifier,
-                () => DefaultSettings.DebugMode));
-
             container.Register<ITypeProvider>(typeProvider);
             container.Register<WabSettings>((c, p) => CreateSettings());
+            container.Register<IAssetProvider, AssetProvider>();
             
         }
 

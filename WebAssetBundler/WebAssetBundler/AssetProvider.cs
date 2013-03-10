@@ -25,15 +25,13 @@ namespace WebAssetBundler.Web.Mvc
 
     public class AssetProvider : IAssetProvider
     {
-        private string minifyIdentifier;
-        private bool debugMode;
+        private WabSettings settings;
         private IDirectoryFactory directoryFactory;
         private HttpServerUtilityBase server;
 
-        public AssetProvider(IDirectoryFactory directoryFactory, HttpServerUtilityBase server, Func<string> minifyIdentifier, Func<bool> debugMode)
+        public AssetProvider(IDirectoryFactory directoryFactory, HttpServerUtilityBase server, WabSettings settings)
         {
-            this.minifyIdentifier = minifyIdentifier();
-            this.debugMode = debugMode();
+            this.settings = settings;
             this.directoryFactory = directoryFactory;
             this.server = server;
         }
@@ -109,7 +107,7 @@ namespace WebAssetBundler.Web.Mvc
 
             if (rawFile.Exists && minifedFile.Exists)
             {
-                if (debugMode)
+                if (settings.DebugMode)
                 {
                     return rawFile;
                 }
@@ -130,7 +128,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         private bool IsMinifed(IFile file)
         {
-            return Path.GetFileNameWithoutExtension(file.Path).EndsWith(minifyIdentifier);
+            return Path.GetFileNameWithoutExtension(file.Path).EndsWith(settings.MinifyIdentifier);
         }
 
         /// <summary>
@@ -141,7 +139,7 @@ namespace WebAssetBundler.Web.Mvc
         private string GetRawSource(string source)
         {
             string ext = Path.GetExtension(source);
-            return source.Substring(0, source.LastIndexOf(minifyIdentifier)) + ext;
+            return source.Substring(0, source.LastIndexOf(settings.MinifyIdentifier)) + ext;
         }
 
         /// <summary>
@@ -152,7 +150,7 @@ namespace WebAssetBundler.Web.Mvc
         private string GetMinifiedSource(string source)
         {
             string ext = Path.GetExtension(source);
-            return source.Insert(source.LastIndexOf(ext), minifyIdentifier);
+            return source.Insert(source.LastIndexOf(ext), settings.MinifyIdentifier);
         }
 
         private IList<AssetBase> RemoveDuplicates(IList<AssetBase> assets)
