@@ -49,14 +49,33 @@ namespace WebAssetBundler.Web.Mvc
 
         public void RunBootstrapTasks()
         {
-            childContainer.RegisterMultiple<IBootstrapTask>(typeProvider.GetImplementationTypes(typeof(IBootstrapTask)));
-            var tasks = childContainer.ResolveAll<IBootstrapTask>();
-            //TODO:: dispose of the child container using HttpApplication events
-
-            foreach (var task in tasks)
+            foreach (var task in GetBootstrapTasks())
             {
                 task.StartUp(container, typeProvider);
             }
+        }
+
+        /// <summary>
+        /// Gets the bootstrap tasks in correct order.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<IBootstrapTask> GetBootstrapTasks()
+        {
+            childContainer.RegisterMultiple<IBootstrapTask>(typeProvider.GetImplementationTypes(typeof(IBootstrapTask)));
+            var tasks = childContainer.ResolveAll<IBootstrapTask>()
+                .OrderBy((t) =>
+                {
+                    TaskOrderAttribute attribute = (TaskOrderAttribute)t.GetType().GetCustomAttributes(typeof(TaskOrderAttribute), true)
+                        .SingleOrDefault();
+
+                    return attribute != null ? attribute.Order : int.MaxValue;
+                });
+
+
+            //TODO:: dispose of the child container using HttpApplication events
+            childContainer.Dispose();
+
+            return tasks;
         }
         /*
         protected virtual IEnumerable<Type> GetConfigurationTypes(IEnumerable<Type> typesToSearch)

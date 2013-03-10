@@ -17,14 +17,29 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using Moq;
+    using NUnit.Framework;
+    using System.Collections.Generic;
 
-    [TaskOrder(2, false)]
-    public class LoadPluginsTask : IBootstrapTask
+    [TestFixture]
+    public class WebHostTests
     {
+        private WebHost host;
 
-        public void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
+        [SetUp]
+        public void Setup()
         {
-            //throw new NotImplementedException();
+            host = new WebHost();
+        }
+
+        [Test]
+        public void Should_Get_Tasks_In_Correct_Order()
+        {
+            var tasks = new List<IBootstrapTask>(host.GetBootstrapTasks());
+
+            Assert.IsInstanceOf<LoadSettingsTask>(tasks[0]);
+            Assert.IsInstanceOf<ConfigureContainerTask>(tasks[1]);
+            Assert.IsInstanceOf<LoadPluginsTask>(tasks[2]);
         }
     }
 }
