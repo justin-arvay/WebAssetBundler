@@ -19,6 +19,7 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Web;
 
+    [TaskOrder(1, false)]
     public class ConfigureContainerTask : IBootstrapTask
     {
 

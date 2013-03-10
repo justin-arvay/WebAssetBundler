@@ -49,6 +49,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrap\LoadSettingsTask.cs" />
+    <Compile Include="Configuration\WabConfigurationSection.cs" />
     <Compile Include="DirectoryFactory.cs" />
     <Compile Include="FileSystemFile.cs" />
     <Compile Include="Bootstrap\ConfigureContainerTask.cs" />
@@ -150,7 +152,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Bootstrap\TaskOrderAttribute.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
