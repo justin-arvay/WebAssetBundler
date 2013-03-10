@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
     using System.Runtime.CompilerServices;
     using System.Collections.Generic;
+    using System;
 
     [TestFixture]    
     public class BundleConfigurationTests
@@ -48,6 +49,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Throw_Exception_If_Asset_Already_Exists()
         {
+            assetProvider.Setup(p => p.GetAsset("~/Test.css"))
+                .Returns(new AssetBaseImpl()
+                {
+                    Source = "~/Test"
+                });
+
+            bundleConfig.Add("~/Test.css");
+
+            Assert.Throws<ArgumentException>(() => bundleConfig.Add("~/Test.css"));
         }
 
         [Test]
@@ -106,13 +116,47 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Add_Duplicate_Assets_From_Directory()
         {
+            var assets = new List<AssetBase>()
+            {
+                new AssetBaseImpl()
+                {
+                    Source = "~/Test"
+                },
+                new AssetBaseImpl()
+                {
+                    Source = "~/Test"
+                }
+            };
+
+            assetProvider.Setup(p => p.GetAssets(It.IsAny<DirectorySearchContext>()))
+                .Returns(assets);
+
+            bundleConfig.AddFromDirectory("~/Test");
+
+            Assert.AreEqual(1, bundleConfig.Bundle.Assets.Count);
         }
 
         [Test]
         public void Should_Not_Add_Duplicate_Filtered_Assets_From_Directory()
-        { 
+        {
+            var assets = new List<AssetBase>()
+            {
+                new AssetBaseImpl()
+                {
+                    Source = "~/Test"
+                },
+                new AssetBaseImpl()
+                {
+                    Source = "~/Test"
+                }
+            };
+
+            assetProvider.Setup(p => p.GetAssets(It.IsAny<DirectorySearchContext>()))
+                .Returns(assets);
+
+            bundleConfig.AddFromDirectory("~/Test", b => b.ToString());
+
+            Assert.AreEqual(1, bundleConfig.Bundle.Assets.Count);
         }
-
-
     }
 }

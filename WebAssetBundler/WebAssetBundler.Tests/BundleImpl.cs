@@ -20,6 +20,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
     public class BundleImpl : Bundle
     {
+        public BundleImpl()
+            : base()
+        {
+        }
+
         public override string ContentType
         {
             get { return "text/html"; }

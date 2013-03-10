@@ -51,31 +51,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual(1, bundle.Assets.Count);
         }
 
-        [Test]
-        public void Should_Throw_Exception_When_Adding_Duplicate()
-        {
-            var asset = new AssetBaseImpl();
-            asset.Source = "/path/file.js";
-
-            bundle.Assets.Add(asset);
-            Assert.Throws<ArgumentException>(() => bundle.Assets.Add(asset));
-
-        }
 
         [Test]
         public void Should_Be_Empty_Host()
         {
             Assert.AreEqual(String.Empty, bundle.Host);
-        }
-
-        [Test]
-        public void Should_Throw_Exception_When_Setting_Duplicate_Item_To_Existing_Index()
-        {
-            var asset = new AssetBaseImpl();
-            asset.Source = "/path/file.js";
-
-            bundle.Assets.Add(asset);
-            Assert.Throws<ArgumentException>(() => bundle.Assets.Insert(1, asset));
         }
 
         [Test]

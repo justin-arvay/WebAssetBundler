@@ -31,7 +31,7 @@ namespace WebAssetBundler.Web.Mvc
         public void Process(TBundle bundle)
         {
             var version = bundle.Hash.ToHexString();
-            var path = "wab.axd/css/{0}/{1}";
+            var path = "wab.axd/" + bundle.Extension + "/{0}/{1}";
 
             if (debugMode)
             {
