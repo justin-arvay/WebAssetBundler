@@ -19,6 +19,7 @@ public override void Configure()
 }
 </pre>
 
+<h2>Adding Per Directory</h2>
 <p>You can also add assets based on a directory. Here is an example:</p>
 <pre data-language="csharp">
 public override void Configure()
@@ -28,16 +29,31 @@ public override void Configure()
 
     //adds assets based on criteria
     AddFromDirectory("~/Script", a => a
-        .Contains("jQuery")
-        .StartsWith("j")
-        .EndsWith("n"));
+        .Pattern("jQuery*")));
 }
 </pre>
+<p>The above example will only include assets from the script directory that start with <strong>jQuery</strong>. Multiple 
+wildcards can be used. For instance:</p>
+<pre data-language="csharp">
+public override void Configure()
+{
+    AddFromDirectory("~/Script", a => a
+        .Pattern("*jQuery*")));
+}
+</pre>
+<p>This example will include all assets with the word jQuery in it.</p>
 
-<p><strong>Note:</strong> EndsWith ignores the file extension when comparing.</p>
-
+<h2>Additional Behavior</h2>
 <p>When adding an asset a check is done to see if the asset is already considered minified. This check is done to ensure we do not 
 waste processing time to re-minify something that does not need it. In addition this will also allow you to minify some assets ahead of time if you wish.</p>
+
+<p>For example, if we have two files like so:</p>
+<code>
+~/Scripts/jQuery.js
+~/Scripts/jQuery.min.js
+</code>
+<p>The <strong>~/Scripts/jQuery.min.js</strong> would be used as an asset instead of the jQuery.js file. If the application is set to debug mode, the raw 
+<strong>~/Scripts/jQuery.js</strong> file will be used.</p>
 
 <p>In order to identify which files are already considered minified, the provider will look at the file name. Any file name that matches this structure
 will not be minifed again:</p>
