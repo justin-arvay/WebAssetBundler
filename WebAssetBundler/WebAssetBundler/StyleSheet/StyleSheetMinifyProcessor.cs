@@ -22,19 +22,17 @@ namespace WebAssetBundler.Web.Mvc
     public class StyleSheetMinifyProcessor : IPipelineProcessor<StyleSheetBundle>
     {
         private IStyleSheetMinifier compressor;
-        private string minifyIdentifier;
-        private bool debugMode;
+        private WabSettings settings;
 
-        public StyleSheetMinifyProcessor(Func<string> minifyIdentifier, Func<bool> debugMode, IStyleSheetMinifier compressor)
+        public StyleSheetMinifyProcessor(WabSettings settings, IStyleSheetMinifier compressor)
         {
             this.compressor = compressor;
-            this.minifyIdentifier = minifyIdentifier();
-            this.debugMode = debugMode();
+            this.settings = settings;
         }
 
         public void Process(StyleSheetBundle bundle)
         {
-            if (debugMode == false)
+            if (settings.DebugMode == false)
             {
                 if (bundle.Minify)
                 {
@@ -51,7 +49,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public bool IsAlreadyMinified(AssetBase asset)
         {
-            return Path.GetFileNameWithoutExtension(asset.Source).EndsWith(minifyIdentifier, StringComparison.OrdinalIgnoreCase);
+            return Path.GetFileNameWithoutExtension(asset.Source).EndsWith(settings.MinifyIdentifier, StringComparison.OrdinalIgnoreCase);
         }
     }
 }

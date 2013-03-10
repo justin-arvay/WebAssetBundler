@@ -37,10 +37,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             container.Register<IStyleSheetMinifier>((a, c) => compressor.Object);
             container.Register<UrlAssignmentProcessor<StyleSheetBundle>>(new UrlAssignmentProcessor<StyleSheetBundle>(() => false));
             container.Register<HttpServerUtilityBase>((a, c) => server.Object);
-            container.Register<StyleSheetMinifyProcessor>((c, p) => new StyleSheetMinifyProcessor(
-                () => DefaultSettings.MinifyIdentifier,
-                () => DefaultSettings.DebugMode,
-                container.Resolve<IStyleSheetMinifier>()));
 
             pipeline = new StyleSheetPipeline(container);  
         }

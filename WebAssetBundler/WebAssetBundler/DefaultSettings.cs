@@ -31,10 +31,6 @@ namespace WebAssetBundler.Web.Mvc
 
         private static string minifyIdentifier = ".min";
 
-        private static bool compressed = true;
-
-        private static string defaultGroupName = "Default";
-        
         private static IScriptMinifier scriptMinifier = new MsScriptMinifier();
         private static IStyleSheetMinifier styleSheetMinfier = new MsStyleSheetMinifier();
 

@@ -56,6 +56,7 @@ namespace WebAssetBundler.Web.Mvc
                 () => DefaultSettings.DebugMode));
 
             container.Register<ITypeProvider>(typeProvider);
+            container.Register<WabSettings>((c, p) => CreateSettings());
             
         }
 
@@ -69,11 +70,6 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
             container.Register<IBundleCachePrimer<StyleSheetBundle>, StyleSheetBundleCachePrimer>();
-
-            container.Register<StyleSheetMinifyProcessor>((c, p) => new StyleSheetMinifyProcessor(
-                () => DefaultSettings.MinifyIdentifier,
-                () => DefaultSettings.DebugMode,
-                container.Resolve<IStyleSheetMinifier>()));
 
             container.Register<IBundleProvider<StyleSheetBundle>>((c, p) => new StyleSheetBundleProvider(
                 container.Resolve<IBundleConfigurationProvider<StyleSheetBundle>>(),
@@ -139,6 +135,15 @@ namespace WebAssetBundler.Web.Mvc
         private HttpContextBase HttpContext()
         {
             return new HttpContextWrapper(System.Web.HttpContext.Current);
+        }
+
+        private WabSettings CreateSettings()
+        {
+            return new WabSettings()
+            {
+                MinifyIdentifier = DefaultSettings.MinifyIdentifier,
+                DebugMode = DefaultSettings.DebugMode
+            };
         }
     }
 }
