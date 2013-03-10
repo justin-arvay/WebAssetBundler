@@ -31,10 +31,12 @@ using System;
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<ScriptBundle>> pipeline;
         private Mock<IBundleCachePrimer<ScriptBundle>> primer;
+        private WabSettings settings;
 
         [SetUp]
         public void Setup()
         {
+            settings = new WabSettings();
             pipeline = new Mock<IBundlePipeline<ScriptBundle>>();
             configProvider = new Mock<IBundleConfigurationProvider<ScriptBundle>>();
             cache = new Mock<IBundlesCache<ScriptBundle>>();
@@ -42,7 +44,7 @@ using System;
             primer = new Mock<IBundleCachePrimer<ScriptBundle>>();
 
             provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object, 
-                pipeline.Object, primer.Object, () => false);
+                pipeline.Object, primer.Object, settings);
         }
 
         [Test]
@@ -86,8 +88,7 @@ using System;
         [Test]
         public void Should_Always_Prime_Cache_When_Getting_Named_Bundle()
         {
-            provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object,
-                pipeline.Object, primer.Object, () => true);
+            settings.DebugMode = true;
 
             var configs = new List<IBundleConfiguration<ScriptBundle>>();
 
@@ -134,8 +135,7 @@ using System;
         [Test]
         public void Should_Always_Load_Asset_When_Debug_Mode()
         {
-            provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object,
-                pipeline.Object, primer.Object, () => true);
+            settings.DebugMode = true;
 
             var bundle = new ScriptBundle();
             bundle.Name = "199b18f549a41c8d45fe0a5b526ac060-file";

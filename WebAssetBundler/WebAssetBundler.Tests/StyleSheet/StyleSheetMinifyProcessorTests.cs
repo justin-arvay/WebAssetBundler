@@ -31,14 +31,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [SetUp]
         public void Setup()
         {
-            Func<string> minifyIdentifier = () => "min";
-            Func<bool> debugMode = () => false;
             bundle = new StyleSheetBundle();
             compressor = new Mock<IStyleSheetMinifier>();
             settings = new WabSettings()
             {
-                MinifyIdentifier = "min",
-                DebugMode = false
+                MinifyIdentifier = ".min"
             };
             processor = new StyleSheetMinifyProcessor(settings, compressor.Object);
         }

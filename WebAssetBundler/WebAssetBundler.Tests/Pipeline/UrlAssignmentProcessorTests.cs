@@ -25,12 +25,18 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private UrlAssignmentProcessor<BundleImpl> processor;
         private BundleImpl bundle;
+        private WabSettings settings;
 
         [SetUp]
         public void Setup()
         {
+            settings = new WabSettings()
+            {
+                MinifyIdentifier = ".min"
+            };
             bundle = new BundleImpl();
-            processor = new UrlAssignmentProcessor<BundleImpl>(() => false);
+            bundle.Extension = "css";
+            processor = new UrlAssignmentProcessor<BundleImpl>(settings);
         }
 
         [Test]
@@ -62,7 +68,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             bundle.Name = "test";
             bundle.Assets.Add(new MergedAsset("1"));
 
-            processor = new UrlAssignmentProcessor<BundleImpl>(() => true);
+            settings.DebugMode = true;
+
             processor.Process(bundle);
 
             Assert.AreEqual("/wab.axd/css/c4ca4238a0b923820dcc509a6f75849b" + DateTime.Now.ToString("MMddyyHmmss") + "/test", bundle.Url);

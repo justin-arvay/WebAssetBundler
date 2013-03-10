@@ -30,8 +30,8 @@ namespace WebAssetBundler.Web.Mvc
 
         public StyleSheetBundleProvider(IBundleConfigurationProvider<StyleSheetBundle> configProvider, IBundlesCache<StyleSheetBundle> cache,
             IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetProvider, IBundleCachePrimer<StyleSheetBundle> primer,
-            Func<bool> debugMode)
-            : base(debugMode)
+            WabSettings settings)
+            : base(settings)
         {
             this.configProvider = configProvider;
             this.cache = cache;
@@ -42,7 +42,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public override StyleSheetBundle GetNamedBundle(string name)
         {
-            if (primer.IsPrimed == false || DebugMode)
+            if (primer.IsPrimed == false || Settings.DebugMode)
             {
                 primer.Prime(configProvider.GetConfigs());
             }
@@ -55,7 +55,7 @@ namespace WebAssetBundler.Web.Mvc
             var name = source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source).Replace(".", "-");
             var bundle = cache.Get(name);
 
-            if (bundle == null || DebugMode)
+            if (bundle == null || Settings.DebugMode)
             {
                 var asset = assetProvider.GetAsset(source);
                 bundle = new StyleSheetBundle();

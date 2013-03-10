@@ -22,13 +22,13 @@ namespace WebAssetBundler.Web.Mvc
         where TBundle : Bundle, new()
 
     {
-        public BundleProviderBase(Func<bool> debugMode)
+        public BundleProviderBase(WabSettings settings)
         {
-            DebugMode = debugMode();
+            Settings = settings;
         }
 
 
-        protected bool DebugMode
+        protected WabSettings Settings
         { 
             get; 
             private set; 

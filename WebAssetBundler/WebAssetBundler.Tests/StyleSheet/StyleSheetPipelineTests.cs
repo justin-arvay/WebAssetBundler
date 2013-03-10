@@ -35,7 +35,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             container = new TinyIoCContainer();
             container.Register<IStyleSheetMinifier>((a, c) => compressor.Object);
-            container.Register<UrlAssignmentProcessor<StyleSheetBundle>>(new UrlAssignmentProcessor<StyleSheetBundle>(() => false));
             container.Register<HttpServerUtilityBase>((a, c) => server.Object);
 
             pipeline = new StyleSheetPipeline(container);  

@@ -22,19 +22,17 @@ namespace WebAssetBundler.Web.Mvc
     public class ScriptMinifyProcessor : IPipelineProcessor<ScriptBundle>
     {
         private IScriptMinifier compressor;
-        private string minifyIdentifier;
-        private bool debugMode;
+        private WabSettings settings;
 
-        public ScriptMinifyProcessor(Func<string> minifyIdentifier, Func<bool> debugMode, IScriptMinifier compressor)
+        public ScriptMinifyProcessor(WabSettings settings, IScriptMinifier compressor)
         {
             this.compressor = compressor;
-            this.minifyIdentifier = minifyIdentifier();
-            this.debugMode = debugMode();
+            this.settings = settings;
         }
 
         public void Process(ScriptBundle bundle)
         {
-            if (debugMode == false)
+            if (settings.DebugMode == false)
             {
                 if (bundle.Minify)
                 {
@@ -51,7 +49,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public bool IsAlreadyMinified(AssetBase asset)
         {
-            return Path.GetFileNameWithoutExtension(asset.Source).EndsWith(minifyIdentifier, StringComparison.OrdinalIgnoreCase);
+            return Path.GetFileNameWithoutExtension(asset.Source).EndsWith(settings.MinifyIdentifier, StringComparison.OrdinalIgnoreCase);
         }
     }
 }

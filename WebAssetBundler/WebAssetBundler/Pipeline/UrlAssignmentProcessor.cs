@@ -21,11 +21,11 @@ namespace WebAssetBundler.Web.Mvc
     public class UrlAssignmentProcessor<TBundle> : IPipelineProcessor<TBundle>
         where TBundle : Bundle
     {
-        private bool debugMode;
+        private WabSettings settings;
 
-        public UrlAssignmentProcessor(Func<bool> debugMode)
+        public UrlAssignmentProcessor(WabSettings settings)
         {
-            this.debugMode = debugMode();
+            this.settings = settings;
         }
 
         public void Process(TBundle bundle)
@@ -33,7 +33,7 @@ namespace WebAssetBundler.Web.Mvc
             var version = bundle.Hash.ToHexString();
             var path = "wab.axd/" + bundle.Extension + "/{0}/{1}";
 
-            if (debugMode)
+            if (settings.DebugMode)
             {
                 version = version + DateTime.Now.ToString("MMddyyHmmss");
             }            

@@ -21,7 +21,7 @@
         public bool Minify { get; set; }
         public WebAssetType Type { get; protected set; }
         public string Host { get; set; }
-        public string Extension { get; protected set; }
+        public string Extension { get; set; }
         public abstract string ContentType { get; }
         public int BrowserTtl { get; set; }
         public string Url { get; set; }
