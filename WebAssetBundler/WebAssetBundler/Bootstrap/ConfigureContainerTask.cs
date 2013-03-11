@@ -19,7 +19,7 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Web;
 
-    [TaskOrder(1, false)]
+    [TaskOrder(1)]
     public class ConfigureContainerTask : IBootstrapTask
     {
 
@@ -29,7 +29,6 @@ namespace WebAssetBundler.Web.Mvc
             ConfigureContainerForScript(container, typeProvider);
             ConfigureContainerForStyleSheets(container, typeProvider);
             ConfigureHttpHandler(container);
-
         }
 
         public void ConfigureHttpHandler(TinyIoCContainer container)

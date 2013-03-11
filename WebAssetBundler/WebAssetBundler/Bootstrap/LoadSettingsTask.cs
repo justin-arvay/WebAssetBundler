@@ -19,7 +19,7 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Web.Configuration;
 
-    [TaskOrder(0, false)]
+    [TaskOrder(0)]
     public class LoadSettingsTask : IBootstrapTask
     {
 

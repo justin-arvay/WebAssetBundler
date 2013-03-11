@@ -22,7 +22,7 @@ namespace WebAssetBundler.Web.Mvc
 	{
         public int Order {get; protected set;}
 
-        public TaskOrderAttribute(int order, bool replacable = true)
+        public TaskOrderAttribute(int order)
         {
             Order = order;
         }

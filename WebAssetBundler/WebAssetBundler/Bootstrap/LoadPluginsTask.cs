@@ -18,7 +18,7 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    [TaskOrder(2, false)]
+    [TaskOrder(2)]
     public class LoadPluginsTask : IBootstrapTask
     {
 
