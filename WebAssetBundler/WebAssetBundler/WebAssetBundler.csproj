@@ -67,6 +67,7 @@
     <Compile Include="ITypeProvider.cs" />
     <Compile Include="Pipeline\IPipelineCustomizer.cs" />
     <Compile Include="Pipeline\UrlAssignmentProcessor.cs" />
+    <Compile Include="Plugins\IPluginConfiguration.cs" />
     <Compile Include="Script\ScriptBundleCachePrimer.cs" />
     <Compile Include="Caching\BundlesCache.cs" />
     <Compile Include="Caching\CacheProvider.cs" />
@@ -155,9 +156,7 @@
   <ItemGroup>
     <Compile Include="Bootstrap\TaskOrderAttribute.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NewFolder1\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

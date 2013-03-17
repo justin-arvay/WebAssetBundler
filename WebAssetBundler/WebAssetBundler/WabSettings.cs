@@ -17,19 +17,32 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Collections.Generic;
 
-    public class WabSettings
+    public class WabSettings<TBundle> where TBundle : Bundle
     {
         public string MinifyIdentifier 
         { 
-            get; 
-            set; 
+            internal get; 
+            internal set; 
         }
 
         public bool DebugMode 
         { 
-            get; 
-            set; 
+            internal get; 
+            internal set; 
+        }
+
+        public IEnumerable<IPipelineModifier<TBundle>> PiplineModifiers 
+        { 
+            internal get;
+            internal set; 
+        }
+
+        public IEnumerable<string> SearchPatterns
+        {
+            internal get;
+            internal set;
         }
     }
 }
