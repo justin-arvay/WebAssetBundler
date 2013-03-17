@@ -19,7 +19,7 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public interface IAssetProvider
+    public interface IAssetProvider<TBundle> where TBundle : Bundle
     {
         AssetBase GetAsset(string source);
         ICollection<AssetBase> GetAssets(DirectorySearchContext component);

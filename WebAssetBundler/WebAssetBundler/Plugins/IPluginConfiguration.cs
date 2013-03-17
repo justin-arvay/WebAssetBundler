@@ -19,8 +19,12 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public interface IPlugin
+    public interface IPluginConfiguration<TBundle> where TBundle : Bundle
     {
-        public void Configure(TinyIoCContainer container, WabSettings settings);
+        public void Configure(TinyIoCContainer container, WabSettings<TBundle> settings);
+
+        public void ModifyPipeline(IBundlePipeline<TBundle> bundle);
+
+        public void ModifySearchPattern(IEnumerable<string> patterns);
     }
 }

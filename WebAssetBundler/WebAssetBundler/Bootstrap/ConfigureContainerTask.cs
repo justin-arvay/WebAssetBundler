@@ -49,13 +49,14 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<ICacheProvider, CacheProvider>();
             container.Register<IDirectoryFactory, DirectoryFactory>();
             container.Register<ITypeProvider>(typeProvider);
-            container.Register<WabSettings>((c, p) => CreateSettings());
-            container.Register<IAssetProvider, AssetProvider>();
+            
             
         }
 
         public void ConfigureContainerForStyleSheets(TinyIoCContainer container, ITypeProvider typeProvider)
-        {            
+        {
+            container.Register<WabSettings>((c, p) => CreateSettings());
+            container.Register<IAssetProvider, AssetProvider>();
             container.Register<IStyleSheetMinifier>((c, p) => DefaultSettings.StyleSheetMinifier);
             container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();
             container.Register<IBundleConfigurationProvider<StyleSheetBundle>>((c, p) => DefaultSettings.StyleSheetConfigurationProvider(c));
@@ -68,6 +69,8 @@ namespace WebAssetBundler.Web.Mvc
 
         public void ConfigureContainerForScript(TinyIoCContainer container, ITypeProvider typeProvider)
         {
+            container.Register<WabSettings>((c, p) => CreateSettings());
+            container.Register<IAssetProvider, AssetProvider>();
             container.Register<IScriptMinifier>((c, p) => DefaultSettings.ScriptMinifier);
             container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>();
             container.Register<IBundleConfigurationProvider<ScriptBundle>>((c, p) => DefaultSettings.ScriptConfigurationProvider(c));
@@ -81,9 +84,9 @@ namespace WebAssetBundler.Web.Mvc
         {
             var pipeline = new ScriptPipeline(container);
 
-            container.RegisterMultiple<IPipelineCustomizer<ScriptBundle>>(typeProvider.GetImplementationTypes(typeof(IPipelineCustomizer<ScriptBundle>)));
+            container.RegisterMultiple<IPipelineModifier<ScriptBundle>>(typeProvider.GetImplementationTypes(typeof(IPipelineModifier<ScriptBundle>)));
 
-            foreach (var customizer in container.ResolveAll<IPipelineCustomizer<ScriptBundle>>())
+            foreach (var customizer in container.ResolveAll<IPipelineModifier<ScriptBundle>>())
             {
                 customizer.Customize(pipeline);
             }
@@ -95,9 +98,9 @@ namespace WebAssetBundler.Web.Mvc
         {
             var pipeline = new StyleSheetPipeline(container);
 
-            container.RegisterMultiple<IPipelineCustomizer<StyleSheetBundle>>(typeProvider.GetImplementationTypes(typeof(IPipelineCustomizer<StyleSheetBundle>)));
+            container.RegisterMultiple<IPipelineModifier<StyleSheetBundle>>(typeProvider.GetImplementationTypes(typeof(IPipelineModifier<StyleSheetBundle>)));
 
-            foreach (var customizer in container.ResolveAll<IPipelineCustomizer<StyleSheetBundle>>())
+            foreach (var customizer in container.ResolveAll<IPipelineModifier<StyleSheetBundle>>())
             {
                 customizer.Customize(pipeline);
             }
@@ -110,7 +113,7 @@ namespace WebAssetBundler.Web.Mvc
             return new HttpContextWrapper(System.Web.HttpContext.Current);
         }
 
-        private WabSettings CreateSettings()
+        private WabSettings CreateSettings<TBundle>() where TBundle : Bundle
         {
             return new WabSettings()
             {

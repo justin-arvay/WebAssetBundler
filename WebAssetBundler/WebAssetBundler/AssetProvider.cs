@@ -23,13 +23,13 @@ namespace WebAssetBundler.Web.Mvc
     using System.Web;
     using System.Collections;
 
-    public class AssetProvider : IAssetProvider
+    public class AssetProvider<TBundle> : IAssetProvider<TBundle>
     {
-        private WabSettings settings;
+        private WabSettings<TBundle> settings;
         private IDirectoryFactory directoryFactory;
         private HttpServerUtilityBase server;
 
-        public AssetProvider(IDirectoryFactory directoryFactory, HttpServerUtilityBase server, WabSettings settings)
+        public AssetProvider(IDirectoryFactory directoryFactory, HttpServerUtilityBase server, WabSettings<TBundle> settings)
         {
             this.settings = settings;
             this.directoryFactory = directoryFactory;
