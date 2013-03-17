@@ -17,6 +17,8 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     [TaskOrder(2)]
     public class LoadPluginsTask : IBootstrapTask
@@ -25,6 +27,35 @@ namespace WebAssetBundler.Web.Mvc
         public void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
         {
             var pluginTypes = typeProvider.GetImplementationTypes(typeof(IPluginConfiguration<>));
+
+            RegisterConfigurationTypes(container, pluginTypes);
+            
+        }
+
+        private void RegisterConfigurationTypes(TinyIoCContainer container, IEnumerable<Type> pluginTypes)
+        {
+            var plugins =
+                from type in pluginTypes
+                from interfaceType in type.GetInterfaces()
+                where interfaceType.IsGenericType &&
+                      interfaceType.GetGenericTypeDefinition() == typeof(IPluginConfiguration<>)
+                select new
+                {
+                    registrationType = interfaceType,
+                    implementationType = type
+                };
+
+            var groupedByRegistrationType = plugins.GroupBy(
+                c => c.registrationType,
+                c => c.implementationType
+            );
+
+            foreach (var configs in groupedByRegistrationType)
+            {
+                var registrationType = configs.Key;
+                var implementationTypes = configs;
+                container.RegisterMultiple(registrationType, implementationTypes);
+            }
         }
     }
 }
