@@ -23,7 +23,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.Web;
     using System.Collections;
 
-    public class AssetProvider<TBundle> : IAssetProvider<TBundle>
+    public class AssetProvider<TBundle> : IAssetProvider<TBundle> where TBundle : Bundle
     {
         private WabSettings<TBundle> settings;
         private IDirectoryFactory directoryFactory;

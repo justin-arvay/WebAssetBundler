@@ -121,7 +121,7 @@ namespace WebAssetBundler.Web.Mvc
             set; 
         }
 
-        public IAssetProvider AssetProvider
+        public IAssetProvider<TBundle> AssetProvider
         {
             get;
             set;

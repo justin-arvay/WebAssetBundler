@@ -55,8 +55,8 @@ namespace WebAssetBundler.Web.Mvc
 
         public void ConfigureContainerForStyleSheets(TinyIoCContainer container, ITypeProvider typeProvider)
         {
-            container.Register<WabSettings>((c, p) => CreateSettings());
-            container.Register<IAssetProvider, AssetProvider>();
+            container.Register<WabSettings<StyleSheetBundle>>((c, p) => CreateSettings<StyleSheetBundle>());
+            container.Register<IAssetProvider<StyleSheetBundle>, AssetProvider<StyleSheetBundle>>();
             container.Register<IStyleSheetMinifier>((c, p) => DefaultSettings.StyleSheetMinifier);
             container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();
             container.Register<IBundleConfigurationProvider<StyleSheetBundle>>((c, p) => DefaultSettings.StyleSheetConfigurationProvider(c));
@@ -69,8 +69,8 @@ namespace WebAssetBundler.Web.Mvc
 
         public void ConfigureContainerForScript(TinyIoCContainer container, ITypeProvider typeProvider)
         {
-            container.Register<WabSettings>((c, p) => CreateSettings());
-            container.Register<IAssetProvider, AssetProvider>();
+            container.Register<WabSettings<ScriptBundle>>((c, p) => CreateSettings<ScriptBundle>());
+            container.Register<IAssetProvider<ScriptBundle>, AssetProvider<ScriptBundle>>();
             container.Register<IScriptMinifier>((c, p) => DefaultSettings.ScriptMinifier);
             container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>();
             container.Register<IBundleConfigurationProvider<ScriptBundle>>((c, p) => DefaultSettings.ScriptConfigurationProvider(c));
@@ -113,9 +113,9 @@ namespace WebAssetBundler.Web.Mvc
             return new HttpContextWrapper(System.Web.HttpContext.Current);
         }
 
-        private WabSettings CreateSettings<TBundle>() where TBundle : Bundle
+        private WabSettings<TBundle> CreateSettings<TBundle>() where TBundle : Bundle
         {
-            return new WabSettings()
+            return new WabSettings<TBundle>()
             {
                 MinifyIdentifier = DefaultSettings.MinifyIdentifier,
                 DebugMode = DefaultSettings.DebugMode

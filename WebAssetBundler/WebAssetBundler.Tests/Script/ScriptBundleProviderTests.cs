@@ -28,19 +28,19 @@ using System;
         private ScriptBundleProvider provider;
         private Mock<IBundleConfigurationProvider<ScriptBundle>> configProvider;
         private Mock<IBundlesCache<ScriptBundle>> cache;
-        private Mock<IAssetProvider> assetProvider;
+        private Mock<IAssetProvider<ScriptBundle>> assetProvider;
         private Mock<IBundlePipeline<ScriptBundle>> pipeline;
         private Mock<IBundleCachePrimer<ScriptBundle>> primer;
-        private WabSettings settings;
+        private WabSettings<ScriptBundle> settings;
 
         [SetUp]
         public void Setup()
         {
-            settings = new WabSettings();
+            settings = new WabSettings<ScriptBundle>();
             pipeline = new Mock<IBundlePipeline<ScriptBundle>>();
             configProvider = new Mock<IBundleConfigurationProvider<ScriptBundle>>();
             cache = new Mock<IBundlesCache<ScriptBundle>>();
-            assetProvider = new Mock<IAssetProvider>();
+            assetProvider = new Mock<IAssetProvider<ScriptBundle>>();
             primer = new Mock<IBundleCachePrimer<ScriptBundle>>();
 
             provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object, 

@@ -26,24 +26,24 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class AssetProviderTests
     {
-        private AssetProvider provider;
+        private AssetProvider<BundleImpl> provider;
         private DirectorySearchContext context;
         private Mock<HttpServerUtilityBase> server;
         private Mock<IDirectoryFactory> directoryFactory;
         private IDirectory directory;
-        private WabSettings settings;
+        private WabSettings<BundleImpl> settings;
 
         [SetUp]
         public void Setup()
         {
-            settings = new WabSettings()
+            settings = new WabSettings<BundleImpl>()
             {
                 MinifyIdentifier = ".min"
             };
 
             server = new Mock<HttpServerUtilityBase>();
             directoryFactory = new Mock<IDirectoryFactory>();
-            provider = new AssetProvider(directoryFactory.Object, server.Object, settings);
+            provider = new AssetProvider<BundleImpl>(directoryFactory.Object, server.Object, settings);
             context = new DirectorySearchContext("~/Files/AssetProvider/Mixed", "css");
 
             directory = new FileSystemDirectory("../../Files/AssetProvider/Mixed");

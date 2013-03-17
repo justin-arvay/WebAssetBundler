@@ -26,12 +26,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class BundleConfigurationTests
     {
         private BundleConfigurationImpl bundleConfig;
-        private Mock<IAssetProvider> assetProvider;
+        private Mock<IAssetProvider<BundleImpl>> assetProvider;
 
         [SetUp]
         public void Setup()
         {
-            assetProvider = new Mock<IAssetProvider>();
+            assetProvider = new Mock<IAssetProvider<BundleImpl>>();
             bundleConfig = new BundleConfigurationImpl();
             bundleConfig.Bundle = new BundleImpl();
 

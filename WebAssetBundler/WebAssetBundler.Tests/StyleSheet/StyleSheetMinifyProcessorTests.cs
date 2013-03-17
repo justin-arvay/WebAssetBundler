@@ -26,14 +26,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private StyleSheetMinifyProcessor processor;
         private Mock<IStyleSheetMinifier> compressor;
         private StyleSheetBundle bundle;
-        private WabSettings settings;
+        private WabSettings<StyleSheetBundle> settings;
 
         [SetUp]
         public void Setup()
         {
             bundle = new StyleSheetBundle();
             compressor = new Mock<IStyleSheetMinifier>();
-            settings = new WabSettings()
+            settings = new WabSettings<StyleSheetBundle>()
             {
                 MinifyIdentifier = ".min"
             };

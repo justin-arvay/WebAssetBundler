@@ -24,13 +24,14 @@ namespace WebAssetBundler.Web.Mvc
     {
         private IBundleConfigurationProvider<ScriptBundle> configProvider;
         private IBundlesCache<ScriptBundle> cache;
-        private IAssetProvider assetProvider;
+        private IAssetProvider<ScriptBundle> assetProvider;
         private IBundlePipeline<ScriptBundle> pipeline;
         private IBundleCachePrimer<ScriptBundle> primer;
 
         public ScriptBundleProvider(IBundleConfigurationProvider<ScriptBundle> configProvider, IBundlesCache<ScriptBundle> cache,
-            IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline, IBundleCachePrimer<ScriptBundle> primer, 
-            WabSettings settings) : base (settings)
+            IAssetProvider<ScriptBundle> assetProvider, IBundlePipeline<ScriptBundle> pipeline, IBundleCachePrimer<ScriptBundle> primer,
+            WabSettings<ScriptBundle> settings)
+            : base(settings)
         {
             this.configProvider = configProvider;
             this.cache = cache;

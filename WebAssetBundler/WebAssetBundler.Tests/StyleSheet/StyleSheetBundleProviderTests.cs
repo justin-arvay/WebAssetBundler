@@ -29,19 +29,19 @@ using System;
         private StyleSheetBundleProvider provider;
         private Mock<IBundleConfigurationProvider<StyleSheetBundle>> configProvider;
         private Mock<IBundlesCache<StyleSheetBundle>> cache;
-        private Mock<IAssetProvider> assetProvider;
+        private Mock<IAssetProvider<StyleSheetBundle>> assetProvider;
         private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
         private Mock<IBundleCachePrimer<StyleSheetBundle>> primer;
-        private WabSettings settings;
+        private WabSettings<StyleSheetBundle> settings;
 
         [SetUp]
         public void Setup()
         {
-            settings = new WabSettings();
+            settings = new WabSettings<StyleSheetBundle>();
             pipeline = new Mock<IBundlePipeline<StyleSheetBundle>>();
             configProvider = new Mock<IBundleConfigurationProvider<StyleSheetBundle>>();
             cache = new Mock<IBundlesCache<StyleSheetBundle>>();
-            assetProvider = new Mock<IAssetProvider>();
+            assetProvider = new Mock<IAssetProvider<StyleSheetBundle>>();
             primer = new Mock<IBundleCachePrimer<StyleSheetBundle>>();
 
             provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, pipeline.Object, 

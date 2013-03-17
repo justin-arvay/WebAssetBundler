@@ -21,10 +21,10 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IPluginConfiguration<TBundle> where TBundle : Bundle
     {
-        public void Configure(TinyIoCContainer container, WabSettings<TBundle> settings);
+        void Configure(TinyIoCContainer container, WabSettings<TBundle> settings);
 
-        public void ModifyPipeline(IBundlePipeline<TBundle> bundle);
+        void ConfigurePipelineModifiers(ICollection<IPipelineModifier<TBundle>> modifiers);
 
-        public void ModifySearchPattern(IEnumerable<string> patterns);
+        void ConfigurePatternModifiers(ICollection<string> patterns);
     }
 }

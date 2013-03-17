@@ -20,7 +20,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
     public class BundleProviderBaseImpl : BundleProviderBase<BundleImpl>
     {
-        public BundleProviderBaseImpl(WabSettings settings)
+        public BundleProviderBaseImpl(WabSettings<BundleImpl> settings)
             : base(settings)
         {
         }

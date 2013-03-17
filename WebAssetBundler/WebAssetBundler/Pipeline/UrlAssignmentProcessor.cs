@@ -21,9 +21,9 @@ namespace WebAssetBundler.Web.Mvc
     public class UrlAssignmentProcessor<TBundle> : IPipelineProcessor<TBundle>
         where TBundle : Bundle
     {
-        private WabSettings settings;
+        private WabSettings<TBundle> settings;
 
-        public UrlAssignmentProcessor(WabSettings settings)
+        public UrlAssignmentProcessor(WabSettings<TBundle> settings)
         {
             this.settings = settings;
         }

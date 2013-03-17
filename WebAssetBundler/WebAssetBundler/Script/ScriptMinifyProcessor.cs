@@ -22,9 +22,9 @@ namespace WebAssetBundler.Web.Mvc
     public class ScriptMinifyProcessor : IPipelineProcessor<ScriptBundle>
     {
         private IScriptMinifier compressor;
-        private WabSettings settings;
+        private WabSettings<ScriptBundle> settings;
 
-        public ScriptMinifyProcessor(WabSettings settings, IScriptMinifier compressor)
+        public ScriptMinifyProcessor(WabSettings<ScriptBundle> settings, IScriptMinifier compressor)
         {
             this.compressor = compressor;
             this.settings = settings;

@@ -26,14 +26,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class ScriptBundleCachePrimerTests
     {
         private ScriptBundleCachePrimer primer;
-        private Mock<IAssetProvider> assetProvider;
+        private Mock<IAssetProvider<ScriptBundle>> assetProvider;
         private Mock<IBundlePipeline<ScriptBundle>> pipeline;
         private Mock<IBundlesCache<ScriptBundle>> cache;
 
         [SetUp]
         public void Setup()
         {
-            assetProvider = new Mock<IAssetProvider>();
+            assetProvider = new Mock<IAssetProvider<ScriptBundle>>();
             pipeline = new Mock<IBundlePipeline<ScriptBundle>>();
             cache = new Mock<IBundlesCache<ScriptBundle>>();
             primer = new ScriptBundleCachePrimer(assetProvider.Object, pipeline.Object, cache.Object);
@@ -63,8 +63,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             pipeline.Verify(p => p.Process(It.IsAny<ScriptBundle>()), Times.Exactly(2));
             Assert.AreEqual(1, configOne.CallCount);
             Assert.AreEqual(1, configTwo.CallCount);
-            Assert.IsInstanceOf<IAssetProvider>(configOne.AssetProvider);
-            Assert.IsInstanceOf<IAssetProvider>(configTwo.AssetProvider);
+            Assert.IsInstanceOf<IAssetProvider<ScriptBundle>>(configOne.AssetProvider);
+            Assert.IsInstanceOf<IAssetProvider<ScriptBundle>>(configTwo.AssetProvider);
             Assert.IsInstanceOf<ScriptBundle>(configOne.Bundle);
             Assert.IsInstanceOf<ScriptBundle>(configTwo.Bundle);
             Assert.AreEqual("ScriptBundleConfigurationImpl", configOne.Bundle.Name);

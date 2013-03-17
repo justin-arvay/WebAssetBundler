@@ -22,12 +22,12 @@ namespace WebAssetBundler.Web.Mvc
     public class StyleSheetBundleCachePrimer : IBundleCachePrimer<StyleSheetBundle>
     {
         private IBundlesCache<StyleSheetBundle> cache;
-        private IAssetProvider assetProvider;
+        private IAssetProvider<StyleSheetBundle> assetProvider;
         private IBundlePipeline<StyleSheetBundle> pipeline;
 
         private static bool isPrimed = false;
 
-        public StyleSheetBundleCachePrimer(IAssetProvider assetProvider, IBundlePipeline<StyleSheetBundle> pipeline,
+        public StyleSheetBundleCachePrimer(IAssetProvider<StyleSheetBundle> assetProvider, IBundlePipeline<StyleSheetBundle> pipeline,
             IBundlesCache<StyleSheetBundle> cache)
         {
             this.assetProvider = assetProvider;
