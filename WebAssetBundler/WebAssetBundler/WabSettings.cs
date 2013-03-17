@@ -23,14 +23,26 @@ namespace WebAssetBundler.Web.Mvc
     {
         public string MinifyIdentifier 
         { 
-            get; 
-            set; 
+            internal get; 
+            internal set; 
         }
 
         public bool DebugMode 
         { 
-            get; 
-            set; 
+            internal get; 
+            internal set; 
+        }
+
+        public IEnumerable<IPipelineModifier<TBundle>> PiplineModifiers 
+        { 
+            internal get;
+            internal set; 
+        }
+
+        public IEnumerable<string> SearchPatterns
+        {
+            internal get;
+            internal set;
         }
 
         public IEnumerable<IPipelineModifier<TBundle>> PiplineModifiers 
