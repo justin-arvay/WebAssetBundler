@@ -10,12 +10,50 @@ namespace Examples
     public class TestPlugin : IPluginConfiguration<StyleSheetBundle>
     {
 
-        public void Configure(TinyIoCContainer container, WabSettings<StyleSheetBundle> settings)
+        public void Configure(TinyIoCContainer container)
         {
             throw new NotImplementedException();
         }
 
         public void ConfigurePipelineModifiers(ICollection<IPipelineModifier<StyleSheetBundle>> modifiers)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ConfigurePatternModifiers(ICollection<string> patterns)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class TestTwoPlugin : IPluginConfiguration<StyleSheetBundle>
+    {
+
+        public void Configure(TinyIoCContainer container)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ConfigurePipelineModifiers(ICollection<IPipelineModifier<StyleSheetBundle>> modifiers)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ConfigurePatternModifiers(ICollection<string> patterns)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class TestThreePlugin : IPluginConfiguration<ScriptBundle>
+    {
+
+        public void Configure(TinyIoCContainer container)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ConfigurePipelineModifiers(ICollection<IPipelineModifier<ScriptBundle>> modifiers)
         {
             throw new NotImplementedException();
         }

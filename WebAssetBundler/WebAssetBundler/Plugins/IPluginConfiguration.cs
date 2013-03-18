@@ -21,7 +21,7 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IPluginConfiguration<TBundle> where TBundle : Bundle
     {
-        void Configure(TinyIoCContainer container, WabSettings<TBundle> settings);
+        void Configure(TinyIoCContainer container);
 
         void ConfigurePipelineModifiers(ICollection<IPipelineModifier<TBundle>> modifiers);
 

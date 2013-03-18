@@ -26,36 +26,27 @@ namespace WebAssetBundler.Web.Mvc
 
         public void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
         {
-            var pluginTypes = typeProvider.GetImplementationTypes(typeof(IPluginConfiguration<>));
+            var pluginTypes = GetPluginTypes(container, typeProvider.GetAllTypes());
 
-            RegisterConfigurationTypes(container, pluginTypes);
+
+            foreach (Type pluginType in pluginTypes)
+            {
+                IPluginConfiguration<Bundle> plugin = (IPluginConfiguration<Bundle>)container.Resolve(pluginType);
+                plugin.Configure(container);
+            }
             
         }
 
-        private void RegisterConfigurationTypes(TinyIoCContainer container, IEnumerable<Type> pluginTypes)
+        private IEnumerable<Type> GetPluginTypes(TinyIoCContainer container, IEnumerable<Type> allTypes)
         {
             var plugins =
-                from type in pluginTypes
+                from type in allTypes
                 from interfaceType in type.GetInterfaces()
                 where interfaceType.IsGenericType &&
                       interfaceType.GetGenericTypeDefinition() == typeof(IPluginConfiguration<>)
-                select new
-                {
-                    registrationType = interfaceType,
-                    implementationType = type
-                };
+                select type;
 
-            var groupedByRegistrationType = plugins.GroupBy(
-                c => c.registrationType,
-                c => c.implementationType
-            );
-
-            foreach (var configs in groupedByRegistrationType)
-            {
-                var registrationType = configs.Key;
-                var implementationTypes = configs;
-                container.RegisterMultiple(registrationType, implementationTypes);
-            }
+            return plugins;          
         }
     }
 }
