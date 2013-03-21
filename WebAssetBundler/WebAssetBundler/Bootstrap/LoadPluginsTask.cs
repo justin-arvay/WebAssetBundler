@@ -23,20 +23,31 @@ namespace WebAssetBundler.Web.Mvc
     [TaskOrder(2)]
     public class LoadPluginsTask : IBootstrapTask
     {
-
         public void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
         {
-            var pluginTypes = GetPluginTypes(container, typeProvider.GetAllTypes());
-
-
-            foreach (Type pluginType in pluginTypes)
-            {
-                IPluginConfiguration<Bundle> plugin = (IPluginConfiguration<Bundle>)container.Resolve(pluginType);
-                plugin.Configure(container);
-            }
-            
+            LoadPlugins<ScriptBundle>(container, typeProvider);
+            LoadPlugins<StyleSheetBundle>(container, typeProvider);
         }
 
+        /// <summary>
+        /// Loads the plugins for the specified bundle type.
+        /// </summary>
+        /// <typeparam name="TBundle"></typeparam>
+        /// <param name="container"></param>
+        /// <param name="typeProvider"></param>
+        public void LoadPlugins<TBundle>(TinyIoCContainer container, ITypeProvider typeProvider)
+            where TBundle : Bundle
+        {
+            var scriptPlugins = typeProvider.GetImplementationTypes(typeof(IPluginConfiguration<TBundle>));
+
+            foreach (var pluginType in scriptPlugins)
+            {
+                var plugin = (IPluginConfiguration<TBundle>)container.Resolve(pluginType);
+                plugin.Configure(container);
+            }
+        }
+
+        /*
         private IEnumerable<Type> GetPluginTypes(TinyIoCContainer container, IEnumerable<Type> allTypes)
         {
             var plugins =
@@ -48,5 +59,6 @@ namespace WebAssetBundler.Web.Mvc
 
             return plugins;          
         }
+        */
     }
 }

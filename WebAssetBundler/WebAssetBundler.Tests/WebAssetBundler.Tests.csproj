@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssetBaseImpl.cs" />
+    <Compile Include="Bootstrap\LoadPluginsTaskTests.cs" />
     <Compile Include="DirectoryFactoryTests.cs" />
     <Compile Include="FileSystemDirectoryTests.cs" />
     <Compile Include="FileSystemFileTests.cs" />
