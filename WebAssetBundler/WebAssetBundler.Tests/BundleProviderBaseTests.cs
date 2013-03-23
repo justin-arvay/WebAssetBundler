@@ -23,12 +23,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class BundleProviderBaseTests
     {
         private BundleProviderBase<BundleImpl> provider;
-        private WabSettings<BundleImpl> settings;
+        private SettingsContext<BundleImpl> settings;
 
         [SetUp]
         public void Setup()
         {
-            settings = new WabSettings<BundleImpl>();
+            settings = new SettingsContext<BundleImpl>();
             provider = new BundleProviderBaseImpl(settings);
         }
 

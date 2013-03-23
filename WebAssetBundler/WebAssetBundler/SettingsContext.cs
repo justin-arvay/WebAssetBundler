@@ -19,7 +19,7 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public class WabSettings<TBundle> where TBundle : Bundle
+    public class SettingsContext<TBundle> where TBundle : Bundle
     {
         public string MinifyIdentifier 
         { 

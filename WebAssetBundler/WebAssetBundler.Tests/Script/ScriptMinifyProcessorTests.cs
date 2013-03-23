@@ -26,12 +26,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private ScriptMinifyProcessor processor;
         private Mock<IScriptMinifier> compressor;
         private ScriptBundle bundle;
-        private WabSettings<ScriptBundle> settings;
+        private SettingsContext<ScriptBundle> settings;
 
         [SetUp]
         public void Setup()
         {
-            settings = new WabSettings<ScriptBundle>()
+            settings = new SettingsContext<ScriptBundle>()
             {
                 MinifyIdentifier = ".min"
             };

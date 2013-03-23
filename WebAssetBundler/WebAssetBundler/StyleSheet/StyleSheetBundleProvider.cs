@@ -30,7 +30,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public StyleSheetBundleProvider(IBundleConfigurationProvider<StyleSheetBundle> configProvider, IBundlesCache<StyleSheetBundle> cache,
             IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider<StyleSheetBundle> assetProvider, IBundleCachePrimer<StyleSheetBundle> primer,
-            WabSettings<StyleSheetBundle> settings)
+            SettingsContext<StyleSheetBundle> settings)
             : base(settings)
         {
             this.configProvider = configProvider;

@@ -30,7 +30,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public ScriptBundleProvider(IBundleConfigurationProvider<ScriptBundle> configProvider, IBundlesCache<ScriptBundle> cache,
             IAssetProvider<ScriptBundle> assetProvider, IBundlePipeline<ScriptBundle> pipeline, IBundleCachePrimer<ScriptBundle> primer,
-            WabSettings<ScriptBundle> settings)
+            SettingsContext<ScriptBundle> settings)
             : base(settings)
         {
             this.configProvider = configProvider;

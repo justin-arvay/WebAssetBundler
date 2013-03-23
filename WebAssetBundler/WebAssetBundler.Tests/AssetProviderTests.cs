@@ -31,12 +31,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<HttpServerUtilityBase> server;
         private Mock<IDirectoryFactory> directoryFactory;
         private IDirectory directory;
-        private WabSettings<BundleImpl> settings;
+        private SettingsContext<BundleImpl> settings;
 
         [SetUp]
         public void Setup()
         {
-            settings = new WabSettings<BundleImpl>()
+            settings = new SettingsContext<BundleImpl>()
             {
                 MinifyIdentifier = ".min"
             };

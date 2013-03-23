@@ -31,12 +31,12 @@ using System;
         private Mock<IAssetProvider<ScriptBundle>> assetProvider;
         private Mock<IBundlePipeline<ScriptBundle>> pipeline;
         private Mock<IBundleCachePrimer<ScriptBundle>> primer;
-        private WabSettings<ScriptBundle> settings;
+        private SettingsContext<ScriptBundle> settings;
 
         [SetUp]
         public void Setup()
         {
-            settings = new WabSettings<ScriptBundle>();
+            settings = new SettingsContext<ScriptBundle>();
             pipeline = new Mock<IBundlePipeline<ScriptBundle>>();
             configProvider = new Mock<IBundleConfigurationProvider<ScriptBundle>>();
             cache = new Mock<IBundlesCache<ScriptBundle>>();

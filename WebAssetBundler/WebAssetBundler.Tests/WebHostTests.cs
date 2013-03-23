@@ -38,8 +38,9 @@ namespace WebAssetBundler.Web.Mvc
             var tasks = new List<IBootstrapTask>(host.GetBootstrapTasks());
 
             Assert.IsInstanceOf<LoadSettingsTask>(tasks[0]);
-            Assert.IsInstanceOf<ConfigureContainerTask>(tasks[1]);
-            Assert.IsInstanceOf<LoadPluginsTask>(tasks[2]);
+            Assert.IsInstanceOf<ConfigureCommonTask>(tasks[1]);
+            Assert.IsInstanceOf<ConfigureStyleSheetsTask>(tasks[2]);
+            Assert.IsInstanceOf<ConfigureScriptsTask>(tasks[3]);
         }
     }
 }

@@ -49,14 +49,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrap\ConfigureCommonTask.cs" />
+    <Compile Include="Bootstrap\ConfigureStyleSheetsTask.cs" />
     <Compile Include="Bootstrap\LoadSettingsTask.cs" />
+    <Compile Include="Bootstrap\ConfigureScriptsTask.cs" />
     <Compile Include="Configuration\WabConfigurationSection.cs" />
     <Compile Include="DirectoryFactory.cs" />
     <Compile Include="FileSystemFile.cs" />
-    <Compile Include="Bootstrap\ConfigureContainerTask.cs" />
+    <Compile Include="Bootstrap\ConfigureContainerTaskBase.cs" />
     <Compile Include="Bootstrap\IBootstrapTask.cs" />
-    <Compile Include="Bootstrap\LoadPluginsTask.cs" />
     <Compile Include="FileSystemDirectory.cs" />
+    <Compile Include="IContainer.cs" />
     <Compile Include="IDirectory.cs" />
     <Compile Include="IDirectoryFactory.cs" />
     <Compile Include="Minifiers\JSMin.cs" />
@@ -124,7 +127,7 @@
     <Compile Include="DefaultSettings.cs" />
     <Compile Include="BundleCollection.cs" />
     <Compile Include="TypeProvider.cs" />
-    <Compile Include="WabSettings.cs" />
+    <Compile Include="SettingsContext.cs" />
     <Compile Include="WebAssetType.cs" />
     <Compile Include="StyleSheet\StyleSheetBundler.cs" />
     <Compile Include="AssetBase.cs" />

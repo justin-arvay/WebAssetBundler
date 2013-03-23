@@ -25,12 +25,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private UrlAssignmentProcessor<BundleImpl> processor;
         private BundleImpl bundle;
-        private WabSettings<BundleImpl> settings;
+        private SettingsContext<BundleImpl> settings;
 
         [SetUp]
         public void Setup()
         {
-            settings = new WabSettings<BundleImpl>()
+            settings = new SettingsContext<BundleImpl>()
             {
                 MinifyIdentifier = ".min"
             };

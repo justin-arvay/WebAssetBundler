@@ -32,12 +32,12 @@ using System;
         private Mock<IAssetProvider<StyleSheetBundle>> assetProvider;
         private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
         private Mock<IBundleCachePrimer<StyleSheetBundle>> primer;
-        private WabSettings<StyleSheetBundle> settings;
+        private SettingsContext<StyleSheetBundle> settings;
 
         [SetUp]
         public void Setup()
         {
-            settings = new WabSettings<StyleSheetBundle>();
+            settings = new SettingsContext<StyleSheetBundle>();
             pipeline = new Mock<IBundlePipeline<StyleSheetBundle>>();
             configProvider = new Mock<IBundleConfigurationProvider<StyleSheetBundle>>();
             cache = new Mock<IBundlesCache<StyleSheetBundle>>();

@@ -25,11 +25,11 @@ namespace WebAssetBundler.Web.Mvc
 
     public class AssetProvider<TBundle> : IAssetProvider<TBundle> where TBundle : Bundle
     {
-        private WabSettings<TBundle> settings;
+        private SettingsContext<TBundle> settings;
         private IDirectoryFactory directoryFactory;
         private HttpServerUtilityBase server;
 
-        public AssetProvider(IDirectoryFactory directoryFactory, HttpServerUtilityBase server, WabSettings<TBundle> settings)
+        public AssetProvider(IDirectoryFactory directoryFactory, HttpServerUtilityBase server, SettingsContext<TBundle> settings)
         {
             this.settings = settings;
             this.directoryFactory = directoryFactory;

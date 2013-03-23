@@ -22,13 +22,13 @@ namespace WebAssetBundler.Web.Mvc
         where TBundle : Bundle, new()
 
     {
-        public BundleProviderBase(WabSettings<TBundle> settings)
+        public BundleProviderBase(SettingsContext<TBundle> settings)
         {
             Settings = settings;
         }
 
 
-        protected WabSettings<TBundle> Settings
+        protected SettingsContext<TBundle> Settings
         { 
             get; 
             private set; 
