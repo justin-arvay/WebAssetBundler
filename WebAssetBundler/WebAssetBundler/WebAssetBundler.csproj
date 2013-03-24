@@ -70,7 +70,7 @@
     <Compile Include="ITypeProvider.cs" />
     <Compile Include="Pipeline\IPipelineCustomizer.cs" />
     <Compile Include="Pipeline\UrlAssignmentProcessor.cs" />
-    <Compile Include="Plugins\IPluginConfiguration.cs" />
+    <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Script\ScriptBundleCachePrimer.cs" />
     <Compile Include="Caching\BundlesCache.cs" />
     <Compile Include="Caching\CacheProvider.cs" />

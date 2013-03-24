@@ -33,10 +33,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundle = new StyleSheetBundle();
             compressor = new Mock<IStyleSheetMinifier>();
-            settings = new SettingsContext<StyleSheetBundle>()
-            {
-                MinifyIdentifier = ".min"
-            };
+            settings = new SettingsContext<StyleSheetBundle>(false, ".min");
             processor = new StyleSheetMinifyProcessor(settings, compressor.Object);
         }
 
@@ -87,8 +84,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Compress_Assets_When_Debug_Mode()
         {
-
-            settings.DebugMode = true;
+            settings = new SettingsContext<StyleSheetBundle>(true, ".min");
 
             var asset = new AssetBaseImpl();
             asset.Content = "#div { color: #123; }";

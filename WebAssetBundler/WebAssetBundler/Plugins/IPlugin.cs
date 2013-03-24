@@ -19,12 +19,10 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public interface IPluginConfiguration<TBundle> where TBundle : Bundle
+    public interface IPlugin<TBundle> : IDisposable where TBundle : Bundle
     {
-        void Configure(TinyIoCContainer container);
+        void Initialize(TinyIoCContainer container);
 
-        void ConfigurePipelineModifiers(ICollection<IPipelineModifier<TBundle>> modifiers);
-
-        void ConfigurePatternModifiers(ICollection<string> patterns);
+        void Configure(SettingsContext<TBundle> settings);
     }
 }

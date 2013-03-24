@@ -37,7 +37,7 @@ using System;
         [SetUp]
         public void Setup()
         {
-            settings = new SettingsContext<StyleSheetBundle>();
+            settings = new SettingsContext<StyleSheetBundle>(false, ".min");
             pipeline = new Mock<IBundlePipeline<StyleSheetBundle>>();
             configProvider = new Mock<IBundleConfigurationProvider<StyleSheetBundle>>();
             cache = new Mock<IBundlesCache<StyleSheetBundle>>();
@@ -89,7 +89,7 @@ using System;
         [Test]
         public void Should_Always_Prime_Cache_When_Getting_Named_Bundle()
         {
-            settings.DebugMode = true;
+            settings = new SettingsContext<StyleSheetBundle>(true, ".min");
 
             var configs = new List<IBundleConfiguration<StyleSheetBundle>>();
 
@@ -137,7 +137,7 @@ using System;
         [Test]
         public void Should_Always_Load_Asset_When_Debug_Mode()
         {
-            settings.DebugMode = true;
+            settings = new SettingsContext<StyleSheetBundle>(true, ".min");
 
             var bundle = new StyleSheetBundle();
             bundle.Name = "199b18f549a41c8d45fe0a5b526ac060-file";

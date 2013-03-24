@@ -29,16 +29,16 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (var plugin in plugins)
             {
-                plugin.Configure(container);
-                plugin.ConfigurePatternModifiers(settings.PiplineModifiers);
+                plugin.Initialize(container);
+                plugin.Configure(settings);
             }
 
-            ConfigureContainer(container, typeProvider);
+            ConfigureContainer(container, typeProvider, settings);
         }
 
-        public void ConfigureContainer(TinyIoCContainer container, ITypeProvider typeProvider)
+        public void ConfigureContainer(TinyIoCContainer container, ITypeProvider typeProvider, SettingsContext<ScriptBundle> settings)
         {
-            container.Register<SettingsContext<ScriptBundle>>((c, p) => CreateSettings<ScriptBundle>());
+            container.Register<SettingsContext<ScriptBundle>>(settings);
             container.Register<IAssetProvider<ScriptBundle>, AssetProvider<ScriptBundle>>();
             container.Register<IScriptMinifier>((c, p) => DefaultSettings.ScriptMinifier);
             container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>();

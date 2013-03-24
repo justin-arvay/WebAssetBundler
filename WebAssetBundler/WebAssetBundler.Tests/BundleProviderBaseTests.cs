@@ -28,7 +28,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [SetUp]
         public void Setup()
         {
-            settings = new SettingsContext<BundleImpl>();
+            settings = new SettingsContext<BundleImpl>(false, ".min");
             provider = new BundleProviderBaseImpl(settings);
         }
 

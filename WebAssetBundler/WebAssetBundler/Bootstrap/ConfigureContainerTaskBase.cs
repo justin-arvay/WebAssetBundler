@@ -35,11 +35,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public SettingsContext<TBundle> CreateSettings<TBundle>() where TBundle : Bundle
         {
-            return new SettingsContext<TBundle>()
-            {
-                MinifyIdentifier = DefaultSettings.MinifyIdentifier,
-                DebugMode = DefaultSettings.DebugMode
-            };
+            return new SettingsContext<TBundle>(DefaultSettings.DebugMode, DefaultSettings.MinifyIdentifier);
         }
 
 
@@ -49,15 +45,15 @@ namespace WebAssetBundler.Web.Mvc
         /// <typeparam name="TBundle"></typeparam>
         /// <param name="container"></param>
         /// <param name="typeProvider"></param>
-        public IEnumerable<IPluginConfiguration<TBundle>> LoadPlugins<TBundle>(TinyIoCContainer container, ITypeProvider typeProvider)
+        public IEnumerable<IPlugin<TBundle>> LoadPlugins<TBundle>(TinyIoCContainer container, ITypeProvider typeProvider)
             where TBundle : Bundle
         {
-            var scriptPlugins = typeProvider.GetImplementationTypes(typeof(IPluginConfiguration<TBundle>));
-            var plugins = new List<IPluginConfiguration<TBundle>>();
+            var scriptPlugins = typeProvider.GetImplementationTypes(typeof(IPlugin<TBundle>));
+            var plugins = new List<IPlugin<TBundle>>();
 
             foreach (var pluginType in scriptPlugins)
             {
-                plugins.Add((IPluginConfiguration<TBundle>)container.Resolve(pluginType));
+                plugins.Add((IPlugin<TBundle>)container.Resolve(pluginType));
             }
 
             return plugins;

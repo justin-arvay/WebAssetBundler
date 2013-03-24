@@ -21,28 +21,36 @@ namespace WebAssetBundler.Web.Mvc
 
     public class SettingsContext<TBundle> where TBundle : Bundle
     {
+        public SettingsContext(bool debugMode, string minifyIdentifier)
+        {
+            DebugMode = debugMode;
+            MinifyIdentifier = minifyIdentifier;
+            PiplineModifiers = new List<IPipelineModifier<TBundle>>();
+            SearchPatterns = new List<string>();
+        }
+
         public string MinifyIdentifier 
         { 
             get; 
-            set; 
+            private set; 
         }
 
-        public bool DebugMode 
-        { 
-            get; 
-            set; 
+        public bool DebugMode
+        {
+            get;
+            private set;
         }
 
         public IEnumerable<IPipelineModifier<TBundle>> PiplineModifiers 
         { 
             get;
-            set; 
+            private set; 
         }
 
         public IEnumerable<string> SearchPatterns
         {
             get;
-            set;
+            private set;
         }
     }
 }

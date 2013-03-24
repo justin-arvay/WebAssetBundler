@@ -24,13 +24,21 @@ namespace WebAssetBundler.Web.Mvc
 
         public override void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
         {
-            ConfigureContainer(container, typeProvider);
-            LoadPlugins<StyleSheetBundle>(container, typeProvider);
+            var settings = CreateSettings<StyleSheetBundle>();
+            var plugins = LoadPlugins<StyleSheetBundle>(container, typeProvider);
+
+            foreach (var plugin in plugins)
+            {
+                plugin.Initialize(container);
+                plugin.Configure(settings);
+            }
+
+            ConfigureContainer(container, typeProvider, settings);
         }
 
-        public void ConfigureContainer(TinyIoCContainer container, ITypeProvider typeProvider)
+        public void ConfigureContainer(TinyIoCContainer container, ITypeProvider typeProvider, SettingsContext<StyleSheetBundle> settings)
         {
-            container.Register<SettingsContext<StyleSheetBundle>>((c, p) => CreateSettings<StyleSheetBundle>());
+            container.Register<SettingsContext<StyleSheetBundle>>(settings);
             container.Register<IAssetProvider<StyleSheetBundle>, AssetProvider<StyleSheetBundle>>();
             container.Register<IStyleSheetMinifier>((c, p) => DefaultSettings.StyleSheetMinifier);
             container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();

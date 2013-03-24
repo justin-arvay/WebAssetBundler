@@ -36,10 +36,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [SetUp]
         public void Setup()
         {
-            settings = new SettingsContext<BundleImpl>()
-            {
-                MinifyIdentifier = ".min"
-            };
+            settings = new SettingsContext<BundleImpl>(false, ".min");
 
             server = new Mock<HttpServerUtilityBase>();
             directoryFactory = new Mock<IDirectoryFactory>();
@@ -82,7 +79,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Always_Get_Raw_Assets_In_Debug_Mode()
         {
-            settings.DebugMode = true;
+            settings = new SettingsContext<BundleImpl>(true, ".min");
 
             var assets = (IList<AssetBase>)provider.GetAssets(context);
 
@@ -137,7 +134,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Always_Get_Raw_Asset_In_Debug_Mode()
         {
-            settings.DebugMode = true;
+            settings = new SettingsContext<BundleImpl>(true, ".min");
 
             server.Setup(m => m.MapPath("~/File.min.css"))
                 .Returns("../../Files/AssetProvider/Mixed/FirstFile.min.css");
