@@ -59,7 +59,7 @@
     <Compile Include="Bootstrap\ConfigureContainerTaskBase.cs" />
     <Compile Include="Bootstrap\IBootstrapTask.cs" />
     <Compile Include="FileSystemDirectory.cs" />
-    <Compile Include="IContainer.cs" />
+    <Compile Include="Container\IContainer.cs" />
     <Compile Include="IDirectory.cs" />
     <Compile Include="IDirectoryFactory.cs" />
     <Compile Include="Minifiers\JSMin.cs" />
