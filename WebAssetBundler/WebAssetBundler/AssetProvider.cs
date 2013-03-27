@@ -23,21 +23,24 @@ namespace WebAssetBundler.Web.Mvc
     using System.Web;
     using System.Collections;
 
-    public class AssetProvider<TBundle> : IAssetProvider<TBundle> where TBundle : Bundle
+    public class AssetProvider : IAssetProvider
     {
-        private SettingsContext<TBundle> settings;
+        private Func<Type, SettingsContext<Bundle>> settings;
         private IDirectoryFactory directoryFactory;
         private HttpServerUtilityBase server;
 
-        public AssetProvider(IDirectoryFactory directoryFactory, HttpServerUtilityBase server, SettingsContext<TBundle> settings)
+        public AssetProvider(IDirectoryFactory directoryFactory, HttpServerUtilityBase server, Func<Type, SettingsContext<Bundle>> settings)
         {
             this.settings = settings;
             this.directoryFactory = directoryFactory;
             this.server = server;
         }
 
-        public AssetBase GetAsset(string source)
+        public AssetBase GetAsset<TBundle>(string source) 
+            where TBundle : Bundle
         {
+            var settings = this.settings(typeof(TBundle));
+
             if (source.StartsWith("~/") == false && source.StartsWith("/") == false)
             {
                 throw new ArgumentException(TextResource.Exceptions.PathMustBeVirtual.FormatWith(source));  
@@ -50,11 +53,13 @@ namespace WebAssetBundler.Web.Mvc
                 throw new FileNotFoundException(TextResource.Exceptions.FileNotFound.FormatWith(source));
             }
 
-            return CreateAsset(ResolveFile(file));
+            return CreateAsset(ResolveFile(file, settings), settings);
         }        
 
-        public ICollection<AssetBase> GetAssets(DirectorySearchContext context)
+        public ICollection<AssetBase> GetAssets<TBundle>(DirectorySearchContext context) 
+            where TBundle : Bundle
         {
+            var settings = this.settings(typeof(TBundle));
             var directory = directoryFactory.Create(context.Source);
 
             if (directory.Exists == false)
@@ -67,7 +72,7 @@ namespace WebAssetBundler.Web.Mvc
                 .Where((file) => file.Path.EndsWith(context.Extension))
                 .ToList();
 
-            var assets = new List<AssetBase>(files.Select((file) => CreateAsset(file)));
+            var assets = new List<AssetBase>(files.Select((file) => CreateAsset(file, settings)));
 
             return RemoveDuplicates(assets);
 
@@ -78,9 +83,9 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        public FileAsset CreateAsset(IFile file)
+        public FileAsset CreateAsset(IFile file, SettingsContext<Bundle> settings)
         {
-            return new FileAsset(ResolveFile(file));
+            return new FileAsset(ResolveFile(file, settings));
         }
 
         /// <summary>
@@ -88,21 +93,21 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        public IFile ResolveFile(IFile file)
+        public IFile ResolveFile(IFile file, SettingsContext<Bundle> settings)
         {
             IFile rawFile = null;
             IFile minifedFile = null;
 
             //figure out if it is minified or not and then create the other
-            if (IsMinifed(file)) 
+            if (IsMinifed(file, settings)) 
             {
                 minifedFile = file;
-                rawFile = new FileSystemFile(GetRawSource(file.Path), file.Directory);
+                rawFile = new FileSystemFile(GetRawSource(file.Path, settings), file.Directory);
             } 
             else 
             {
                 rawFile = file;
-                minifedFile = new FileSystemFile(GetMinifiedSource(file.Path), file.Directory);
+                minifedFile = new FileSystemFile(GetMinifiedSource(file.Path, settings), file.Directory);
             }
 
             if (rawFile.Exists && minifedFile.Exists)
@@ -126,7 +131,7 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
-        private bool IsMinifed(IFile file)
+        private bool IsMinifed(IFile file, SettingsContext<Bundle> settings)
         {
             return Path.GetFileNameWithoutExtension(file.Path).EndsWith(settings.MinifyIdentifier);
         }
@@ -136,7 +141,7 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
-        private string GetRawSource(string source)
+        private string GetRawSource(string source, SettingsContext<Bundle> settings)
         {
             string ext = Path.GetExtension(source);
             return source.Substring(0, source.LastIndexOf(settings.MinifyIdentifier)) + ext;
@@ -147,7 +152,7 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
-        private string GetMinifiedSource(string source)
+        private string GetMinifiedSource(string source, SettingsContext<Bundle> settings)
         {
             string ext = Path.GetExtension(source);
             return source.Insert(source.LastIndexOf(ext), settings.MinifyIdentifier);
