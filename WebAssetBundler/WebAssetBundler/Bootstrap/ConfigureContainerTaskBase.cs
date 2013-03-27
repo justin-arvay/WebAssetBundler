@@ -48,10 +48,10 @@ namespace WebAssetBundler.Web.Mvc
         public IEnumerable<IPlugin<TBundle>> LoadPlugins<TBundle>(TinyIoCContainer container, ITypeProvider typeProvider)
             where TBundle : Bundle
         {
-            var scriptPlugins = typeProvider.GetImplementationTypes(typeof(IPlugin<TBundle>));
+            var pluginTypes = typeProvider.GetImplementationTypes(typeof(IPlugin<TBundle>));
             var plugins = new List<IPlugin<TBundle>>();
 
-            foreach (var pluginType in scriptPlugins)
+            foreach (var pluginType in pluginTypes)
             {
                 plugins.Add((IPlugin<TBundle>)container.Resolve(pluginType));
             }

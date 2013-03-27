@@ -18,8 +18,8 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public interface IDirectorySearchModifier
+    public interface IPipelineModifier<T> where T : Bundle
     {
-        public void Modify();
+        void Modify(IBundlePipeline<T> pipeline);
     }
 }

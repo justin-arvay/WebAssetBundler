@@ -20,6 +20,9 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IContainer
     {
+
+        #region Register
+
         /// <summary>
         /// Creates or replaces a container class.
         /// </summary>
@@ -28,26 +31,11 @@ namespace WebAssetBundler.Web.Mvc
         void Register(Type registerType);
 
         /// <summary>
-        /// Creates/replaces a named container class.
-        /// </summary>
-        /// <param name="registerType"></param>
-        /// <param name="name"></param>
-        void Register(Type registerType, string name);
-
-        /// <summary>
         /// Creates/replaces a container class registration with a given implementation
         /// </summary>
         /// <param name="registerType"></param>
         /// <param name="registerImplementation"></param>
         void Register(Type registerType, Type registerImplementation);
-
-        /// <summary>
-        /// Creates/replaces a named container class registration with a given implementation.
-        /// </summary>
-        /// <param name="registerType"></param>
-        /// <param name="registerImplementation"></param>
-        /// <param name="name"></param>
-        void Register(Type registerType, Type registerImplementation, string name);
 
         /// <summary>
         /// Creates/replaces a container class registration with a user specified factory
@@ -58,22 +46,6 @@ namespace WebAssetBundler.Web.Mvc
         void Register(Type registerType, Func<IContainer, object> factory);
 
         /// <summary>
-        /// Creates/replaces a container class registration with a user specified factory.
-        /// </summary>
-        /// <param name="registerType"></param>
-        /// <param name="factory"></param>
-        /// <param name="name"></param>
-        void Register(Type registerType, Func<IContainer, object> factory, string name);
-
-        /// <summary>
-        /// Creates/replaces a named container class registration with a specific, strong referenced, instance.
-        /// </summary>
-        /// <param name="registerType"></param>
-        /// <param name="instance"></param>
-        /// <param name="name"></param>
-        void Register(Type registerType, object instance, string name);
-
-        /// <summary>
         /// Creates/replaces a container class registration with a specific, strong referenced, instance.
         /// </summary>
         /// <param name="registerType"></param>
@@ -82,26 +54,10 @@ namespace WebAssetBundler.Web.Mvc
         void Register(Type registerType, Type registerImplementation, object instance);
 
         /// <summary>
-        /// Creates/replaces a named container class registration with a specific, strong referenced, instance.
-        /// </summary>
-        /// <param name="registerType"></param>
-        /// <param name="registerImplementation"></param>
-        /// <param name="instance"></param>
-        /// <param name="name"></param>
-        void Register(Type registerType, Type registerImplementation, object instance, string name);
-
-        /// <summary>
         /// Creates or replaces a container class.
         /// </summary>
         /// <typeparam name="Type"></typeparam>
         void Register<Type>();      
- 
-        /// <summary>
-        /// Creates/replaces a named container class registration.
-        /// </summary>
-        /// <typeparam name="RegisterType"></typeparam>
-        /// <param name="name"></param>
-        void Register<RegisterType>(string name);
 
         /// <summary>
         /// Creates/replaces a container class registration with a given implementation.
@@ -111,27 +67,11 @@ namespace WebAssetBundler.Web.Mvc
         void Register<RegisterType, RegisterImplementation>();
 
         /// <summary>
-        /// Creates/replaces a named container class registration with a given implementation
-        /// </summary>
-        /// <typeparam name="RegisterType"></typeparam>
-        /// <typeparam name="RegisterImplementation"></typeparam>
-        /// <param name="name"></param>
-        void Register<RegisterType, RegisterImplementation>(string name);
-
-        /// <summary>
         /// Creates/replaces a container class registration with a specific, strong referenced, instance.
         /// </summary>
         /// <typeparam name="RegisterType"></typeparam>
         /// <param name="instance"></param>
         void Register<RegisterType>(RegisterType instance);
-
-        /// <summary>
-        /// Creates/replaces a named container class registration with a specific, strong referenced, instance.
-        /// </summary>
-        /// <typeparam name="RegisterType"></typeparam>
-        /// <param name="instance"></param>
-        /// <param name="name"></param>
-        void Register<RegisterType>(RegisterType instance, string name);
 
         /// <summary>
         /// Creates/replaces a container class registration with a specific, strong referenced, instance.
@@ -142,27 +82,25 @@ namespace WebAssetBundler.Web.Mvc
         void Register<RegisterType, RegisterImplementation>(RegisterImplementation instance);
 
         /// <summary>
-        /// Creates/replaces a named container class registration with a specific, strong referenced, instance.
-        /// </summary>
-        /// <typeparam name="RegisterType"></typeparam>
-        /// <typeparam name="RegisterImplementation"></typeparam>
-        /// <param name="instance"></param>
-        /// <param name="name"></param>
-        void Register<RegisterType, RegisterImplementation>(RegisterImplementation instance, string name);
-
-        /// <summary>
         /// Creates/replaces a container class registration with a user specified factory.
         /// </summary>
         /// <typeparam name="RegisterType"></typeparam>
         /// <param name="factory"></param>
         void Register<RegisterType>(Func<IContainer, RegisterType> factory);
 
+        #endregion
+
+        #region Resolve
         /// <summary>
-        /// Creates/replaces a named container class registration with a user specified factory.
+        /// Attempts to resolve a type.
         /// </summary>
-        /// <typeparam name="RegisterType"></typeparam>
-        /// <param name="factory"></param>
-        /// <param name="name"></param>
-        void Register<RegisterType>(Func<TinyIoCContainer, NamedParameterOverloads, RegisterType> factory, string name);
+        /// <param name="resolveType"></param>
+        void Resolve(Type resolveType);
+
+        /// <summary>
+        /// Attempts to resolve a type.
+        /// </summary>
+        ResolveType Resolve<ResolveType>() where ResolveType : class;
+        #endregion
     }
 }

@@ -54,6 +54,7 @@
     <Compile Include="Bootstrap\LoadSettingsTask.cs" />
     <Compile Include="Bootstrap\ConfigureScriptsTask.cs" />
     <Compile Include="Configuration\WabConfigurationSection.cs" />
+    <Compile Include="Container\TinyIocContainerImpl.cs" />
     <Compile Include="DirectoryFactory.cs" />
     <Compile Include="FileSystemFile.cs" />
     <Compile Include="Bootstrap\ConfigureContainerTaskBase.cs" />
@@ -62,13 +63,14 @@
     <Compile Include="Container\IContainer.cs" />
     <Compile Include="IDirectory.cs" />
     <Compile Include="IDirectoryFactory.cs" />
+
     <Compile Include="Minifiers\JSMin.cs" />
     <Compile Include="Minifiers\JSMinMinifier.cs" />
     <Compile Include="BundleProviderBase.cs" />
     <Compile Include="ExternalAsset.cs" />
     <Compile Include="IBundleConfiguration.cs" />
     <Compile Include="ITypeProvider.cs" />
-    <Compile Include="Pipeline\IPipelineCustomizer.cs" />
+    <Compile Include="Pipeline\IPipelineModifier.cs" />
     <Compile Include="Pipeline\UrlAssignmentProcessor.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Script\ScriptBundleCachePrimer.cs" />

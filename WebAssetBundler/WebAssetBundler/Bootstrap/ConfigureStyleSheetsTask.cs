@@ -58,7 +58,7 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (var customizer in container.ResolveAll<IPipelineModifier<StyleSheetBundle>>())
             {
-                customizer.Customize(pipeline);
+                customizer.Modify(pipeline);
             }
 
             return pipeline;

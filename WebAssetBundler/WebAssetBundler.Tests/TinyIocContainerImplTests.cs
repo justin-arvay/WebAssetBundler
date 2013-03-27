@@ -14,12 +14,30 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
+    using NUnit.Framework;
+    using Moq;
     using System;
 
-    public interface IPipelineModifier<T> where T : Bundle
+    [TestFixture]
+    public class TinyIocContainerImplTests
     {
-        void Customize(IBundlePipeline<T> pipeline);
+        [Test]
+        public void test_Should_()
+        {
+            var init = 10;
+            Func<int, int> testOne = (value) => {
+                value += 1;
+                return value;
+            };
+
+            Func<Func<int, int>, int> testTwo = (value) =>
+            {
+                return value(init) + 1;
+            };
+
+            Assert.AreEqual(12, testTwo((v) => testOne(v)));
+        }
     }
 }

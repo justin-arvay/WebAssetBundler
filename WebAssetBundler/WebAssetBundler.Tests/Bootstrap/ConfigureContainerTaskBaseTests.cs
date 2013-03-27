@@ -19,11 +19,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
     using System.Collections.Generic;
+    using System;
 
     [TestFixture]
     public class ConfigureContainerTaskBaseTests
     {
         private ConfigureContainerTaskBase task;
+        private Mock<ITypeProvider> typeProvider;
 
         [Test]
         public void Setup()
@@ -35,6 +37,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Create_Settings()
         {
             var settings = task.CreateSettings<BundleImpl>();
+            typeProvider = new Mock<ITypeProvider>();
 
             Assert.AreEqual(DefaultSettings.DebugMode, settings.DebugMode);
             Assert.AreEqual(DefaultSettings.MinifyIdentifier, settings.MinifyIdentifier);
@@ -45,7 +48,35 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Load_Plugins()
         {
+            var container = new TinyIoCContainer();
+            container.Register<IPlugin<BundleImpl>, TestPlugin>();
 
+            typeProvider.Setup(p => p.GetImplementationTypes(typeof(IPlugin<BundleImpl>)))
+                .Returns(new List<Type>() { typeof(IPlugin<BundleImpl>) });
+
+            var plugins = new List<IPlugin<BundleImpl>>(task.LoadPlugins<BundleImpl>(container, typeProvider.Object));
+
+            Assert.AreEqual(1, plugins.Count);
+            Assert.IsInstanceOf<TestPlugin>(plugins[0]);
+        }
+
+        internal class TestPlugin : IPlugin<BundleImpl>
+        {
+
+            public void Initialize(TinyIoCContainer container)
+            {
+                throw new System.NotImplementedException();
+            }
+
+            public void Configure(SettingsContext<BundleImpl> settings)
+            {
+                throw new System.NotImplementedException();
+            }
+
+            public void Dispose()
+            {
+                throw new System.NotImplementedException();
+            }
         }
     }
 }

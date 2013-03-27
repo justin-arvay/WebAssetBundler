@@ -105,6 +105,7 @@
     <Compile Include="StyleSheet\StyleSheetMergeProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetPipelineTests.cs" />
     <Compile Include="TestHelper.cs" />
+    <Compile Include="TinyIocContainerImplTests.cs" />
     <Compile Include="WebHostTests.cs" />
   </ItemGroup>
   <ItemGroup>
