@@ -29,7 +29,7 @@ using System;
         private StyleSheetBundleProvider provider;
         private Mock<IBundleConfigurationProvider<StyleSheetBundle>> configProvider;
         private Mock<IBundlesCache<StyleSheetBundle>> cache;
-        private Mock<IAssetProvider<StyleSheetBundle>> assetProvider;
+        private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
         private Mock<IBundleCachePrimer<StyleSheetBundle>> primer;
         private SettingsContext<StyleSheetBundle> settings;
@@ -41,7 +41,7 @@ using System;
             pipeline = new Mock<IBundlePipeline<StyleSheetBundle>>();
             configProvider = new Mock<IBundleConfigurationProvider<StyleSheetBundle>>();
             cache = new Mock<IBundlesCache<StyleSheetBundle>>();
-            assetProvider = new Mock<IAssetProvider<StyleSheetBundle>>();
+            assetProvider = new Mock<IAssetProvider>();
             primer = new Mock<IBundleCachePrimer<StyleSheetBundle>>();
 
             provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, pipeline.Object, 
@@ -106,7 +106,7 @@ using System;
         [Test]
         public void Should_Get_Bundle_By_Source()
         {
-            assetProvider.Setup(p => p.GetAsset("~/file.tst.tst")).Returns(new AssetBaseImpl());
+            assetProvider.Setup(p => p.GetAsset<StyleSheetBundle>("~/file.tst.tst")).Returns(new AssetBaseImpl());
 
             var bundle = provider.GetSourceBundle("~/file.tst.tst");            
 

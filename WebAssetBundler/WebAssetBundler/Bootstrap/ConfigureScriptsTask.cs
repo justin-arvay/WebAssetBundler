@@ -17,6 +17,7 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Collections.Generic;
 
     [TaskOrder(3)]
     public class ConfigureScriptsTask : ConfigureContainerTaskBase
@@ -24,41 +25,36 @@ namespace WebAssetBundler.Web.Mvc
 
         public override void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
         {
-            var settings = CreateSettings<ScriptBundle>();
+            var pipelineModifers = new List<IPipelineModifier<ScriptBundle>>();
+            var searchPatterns = new List<string>();
             var plugins = LoadPlugins<ScriptBundle>(container, typeProvider);
 
             foreach (var plugin in plugins)
             {
                 plugin.Initialize(container);
-                plugin.Configure(settings);
+                pipelineModifers.AddRange(plugin.GetPipelineModifers());
+                searchPatterns.AddRange(plugin.GetSearchPatterns());
             }
 
-            ConfigureContainer(container, typeProvider, settings);
+            ConfigureContainer(container, pipelineModifers);
         }
 
-        public void ConfigureContainer(TinyIoCContainer container, ITypeProvider typeProvider, SettingsContext<ScriptBundle> settings)
+        public void ConfigureContainer(TinyIoCContainer container, IEnumerable<IPipelineModifier<ScriptBundle>> pipelineModifiers)
         {
-            container.Register<SettingsContext<ScriptBundle>>(settings);
-            container.Register<IAssetProvider<ScriptBundle>, AssetProvider<ScriptBundle>>();
             container.Register<IScriptMinifier>((c, p) => DefaultSettings.ScriptMinifier);
             container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>();
             container.Register<IBundleConfigurationProvider<ScriptBundle>>((c, p) => DefaultSettings.ScriptConfigurationProvider(c));
-            container.Register<IBundlePipeline<ScriptBundle>>((c, p) => CreateScriptPipeline(c, typeProvider));
+            container.Register<IBundlePipeline<ScriptBundle>>((c, p) => CreateScriptPipeline(c, pipelineModifiers));
             container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();
             container.Register<IBundleCachePrimer<ScriptBundle>, ScriptBundleCachePrimer>();
             container.Register<IBundleProvider<ScriptBundle>, ScriptBundleProvider>();
         }
 
-        public IBundlePipeline<ScriptBundle> CreateScriptPipeline(TinyIoCContainer container, ITypeProvider typeProvider)
+        public IBundlePipeline<ScriptBundle> CreateScriptPipeline(TinyIoCContainer container, IEnumerable<IPipelineModifier<ScriptBundle>> pipelineModifiers)
         {
             var pipeline = new ScriptPipeline(container);
 
-            container.RegisterMultiple<IPipelineModifier<ScriptBundle>>(typeProvider.GetImplementationTypes(typeof(IPipelineModifier<ScriptBundle>)));
-
-            foreach (var customizer in container.ResolveAll<IPipelineModifier<ScriptBundle>>())
-            {
-                customizer.Modify(pipeline);
-            }
+            ModifyPipeline<ScriptBundle>(pipeline, pipelineModifiers);
 
             return pipeline;
         }

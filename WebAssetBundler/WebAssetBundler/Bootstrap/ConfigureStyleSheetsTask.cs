@@ -17,6 +17,7 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Collections.Generic;
 
     [TaskOrder(2)]
     public class ConfigureStyleSheetsTask : ConfigureContainerTaskBase
@@ -24,42 +25,37 @@ namespace WebAssetBundler.Web.Mvc
 
         public override void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
         {
-            var settings = CreateSettings<StyleSheetBundle>();
+            var pipelineModifers = new List<IPipelineModifier<StyleSheetBundle>>();
+            var searchPatterns = new List<string>();
             var plugins = LoadPlugins<StyleSheetBundle>(container, typeProvider);
 
             foreach (var plugin in plugins)
             {
                 plugin.Initialize(container);
-                plugin.Configure(settings);
+                pipelineModifers.AddRange(plugin.GetPipelineModifers());
+                searchPatterns.AddRange(plugin.GetSearchPatterns());
             }
 
-            ConfigureContainer(container, typeProvider, settings);
+            ConfigureContainer(container, pipelineModifers);
         }
 
-        public void ConfigureContainer(TinyIoCContainer container, ITypeProvider typeProvider, SettingsContext<StyleSheetBundle> settings)
+        public void ConfigureContainer(TinyIoCContainer container, IEnumerable<IPipelineModifier<StyleSheetBundle>> pipelineModifiers)
         {
-            container.Register<SettingsContext<StyleSheetBundle>>(settings);
-            container.Register<IAssetProvider<StyleSheetBundle>, AssetProvider<StyleSheetBundle>>();
             container.Register<IStyleSheetMinifier>((c, p) => DefaultSettings.StyleSheetMinifier);
             container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();
             container.Register<IBundleConfigurationProvider<StyleSheetBundle>>((c, p) => DefaultSettings.StyleSheetConfigurationProvider(c));
-            container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => CreateStyleSheetPipeline(c, typeProvider));
+            container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => CreateStyleSheetPipeline(c, pipelineModifiers));
             container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
             container.Register<IBundleCachePrimer<StyleSheetBundle>, StyleSheetBundleCachePrimer>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
         }
 
-        public IBundlePipeline<StyleSheetBundle> CreateStyleSheetPipeline(TinyIoCContainer container, ITypeProvider typeProvider)
+        public IBundlePipeline<StyleSheetBundle> CreateStyleSheetPipeline(TinyIoCContainer container, IEnumerable<IPipelineModifier<StyleSheetBundle>> pipelineModifiers)
         {
             var pipeline = new StyleSheetPipeline(container);
 
-            container.RegisterMultiple<IPipelineModifier<StyleSheetBundle>>(typeProvider.GetImplementationTypes(typeof(IPipelineModifier<StyleSheetBundle>)));
-
-            foreach (var customizer in container.ResolveAll<IPipelineModifier<StyleSheetBundle>>())
-            {
-                customizer.Modify(pipeline);
-            }
+            ModifyPipeline<StyleSheetBundle>(pipeline, pipelineModifiers);
 
             return pipeline;
         }

@@ -28,7 +28,7 @@ using System;
         private ScriptBundleProvider provider;
         private Mock<IBundleConfigurationProvider<ScriptBundle>> configProvider;
         private Mock<IBundlesCache<ScriptBundle>> cache;
-        private Mock<IAssetProvider<ScriptBundle>> assetProvider;
+        private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<ScriptBundle>> pipeline;
         private Mock<IBundleCachePrimer<ScriptBundle>> primer;
         private SettingsContext<ScriptBundle> settings;
@@ -40,7 +40,7 @@ using System;
             pipeline = new Mock<IBundlePipeline<ScriptBundle>>();
             configProvider = new Mock<IBundleConfigurationProvider<ScriptBundle>>();
             cache = new Mock<IBundlesCache<ScriptBundle>>();
-            assetProvider = new Mock<IAssetProvider<ScriptBundle>>();
+            assetProvider = new Mock<IAssetProvider>();
             primer = new Mock<IBundleCachePrimer<ScriptBundle>>();
 
             provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object, 
@@ -105,7 +105,7 @@ using System;
         [Test]
         public void Should_Get_Bundle_By_Source()
         {
-            assetProvider.Setup(p => p.GetAsset("~/file.tst.tst")).Returns(new AssetBaseImpl());
+            assetProvider.Setup(p => p.GetAsset<ScriptBundle>("~/file.tst.tst")).Returns(new AssetBaseImpl());
 
             var bundle = provider.GetSourceBundle("~/file.tst.tst");
 

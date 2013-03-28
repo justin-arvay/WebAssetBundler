@@ -58,5 +58,14 @@ namespace WebAssetBundler.Web.Mvc
 
             return plugins;
         }
+
+        public void ModifyPipeline<TBundle>(IBundlePipeline<TBundle> pipeline, IEnumerable<IPipelineModifier<TBundle>> pipelineModifiers)
+            where TBundle : Bundle
+        {
+            foreach (var modifier in pipelineModifiers)
+            {
+                modifier.Modify(pipeline);
+            }
+        }
     }
 }

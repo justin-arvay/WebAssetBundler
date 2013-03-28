@@ -23,6 +23,7 @@ namespace WebAssetBundler.Web.Mvc
     {
         void Initialize(TinyIoCContainer container);
 
-        void Configure(SettingsContext<TBundle> settings);
+        IEnumerable<IPipelineModifier<TBundle>> GetPipelineModifers();
+        IEnumerable<string> GetSearchPatterns();
     }
 }

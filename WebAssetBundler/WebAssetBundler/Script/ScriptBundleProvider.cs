@@ -24,12 +24,12 @@ namespace WebAssetBundler.Web.Mvc
     {
         private IBundleConfigurationProvider<ScriptBundle> configProvider;
         private IBundlesCache<ScriptBundle> cache;
-        private IAssetProvider<ScriptBundle> assetProvider;
+        private IAssetProvider assetProvider;
         private IBundlePipeline<ScriptBundle> pipeline;
         private IBundleCachePrimer<ScriptBundle> primer;
 
         public ScriptBundleProvider(IBundleConfigurationProvider<ScriptBundle> configProvider, IBundlesCache<ScriptBundle> cache,
-            IAssetProvider<ScriptBundle> assetProvider, IBundlePipeline<ScriptBundle> pipeline, IBundleCachePrimer<ScriptBundle> primer,
+            IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline, IBundleCachePrimer<ScriptBundle> primer,
             SettingsContext<ScriptBundle> settings)
             : base(settings)
         {
@@ -57,7 +57,7 @@ namespace WebAssetBundler.Web.Mvc
 
             if (bundle == null || Settings.DebugMode)
             {
-                var asset = assetProvider.GetAsset(source);
+                var asset = assetProvider.GetAsset<ScriptBundle>(source);
                 bundle = new ScriptBundle();
                 bundle.Assets.Add(asset);
                 bundle.Name = name;

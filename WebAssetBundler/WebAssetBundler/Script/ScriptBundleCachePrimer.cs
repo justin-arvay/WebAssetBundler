@@ -23,12 +23,12 @@ namespace WebAssetBundler.Web.Mvc
     public class ScriptBundleCachePrimer : IBundleCachePrimer<ScriptBundle>
     {
         private IBundlesCache<ScriptBundle> cache;
-        private IAssetProvider<ScriptBundle> assetProvider;
+        private IAssetProvider assetProvider;
         private IBundlePipeline<ScriptBundle> pipeline;
 
         private static bool isPrimed = false;
 
-        public ScriptBundleCachePrimer(IAssetProvider<ScriptBundle> assetProvider, IBundlePipeline<ScriptBundle> pipeline,
+        public ScriptBundleCachePrimer(IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline,
             IBundlesCache<ScriptBundle> cache)
         {
             this.assetProvider = assetProvider;

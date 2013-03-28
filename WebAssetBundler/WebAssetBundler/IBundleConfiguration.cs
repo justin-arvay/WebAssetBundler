@@ -28,7 +28,7 @@ namespace WebAssetBundler.Web.Mvc
         void Host(string host);
         void BrowserTtl(int timeToLive);
         TBundle Bundle { get; set; }
-        IAssetProvider<TBundle> AssetProvider { get; set; }
+        IAssetProvider AssetProvider { get; set; }
         void Configure();
     }
 }

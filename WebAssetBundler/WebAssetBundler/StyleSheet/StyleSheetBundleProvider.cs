@@ -24,12 +24,12 @@ namespace WebAssetBundler.Web.Mvc
     {
         private IBundleConfigurationProvider<StyleSheetBundle> configProvider;
         private IBundlesCache<StyleSheetBundle> cache;
-        private IAssetProvider<StyleSheetBundle> assetProvider;
+        private IAssetProvider assetProvider;
         private IBundlePipeline<StyleSheetBundle> pipeline;
         private IBundleCachePrimer<StyleSheetBundle> primer;
 
         public StyleSheetBundleProvider(IBundleConfigurationProvider<StyleSheetBundle> configProvider, IBundlesCache<StyleSheetBundle> cache,
-            IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider<StyleSheetBundle> assetProvider, IBundleCachePrimer<StyleSheetBundle> primer,
+            IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetProvider, IBundleCachePrimer<StyleSheetBundle> primer,
             SettingsContext<StyleSheetBundle> settings)
             : base(settings)
         {
@@ -57,7 +57,7 @@ namespace WebAssetBundler.Web.Mvc
 
             if (bundle == null || Settings.DebugMode)
             {
-                var asset = assetProvider.GetAsset(source);
+                var asset = assetProvider.GetAsset<StyleSheetBundle>(source);
                 bundle = new StyleSheetBundle();
                 bundle.Assets.Add(asset);
                 bundle.Name = name;

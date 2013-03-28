@@ -26,14 +26,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class StyleSheetBundleCachePrimerTests
     {
         private StyleSheetBundleCachePrimer primer;
-        private Mock<IAssetProvider<StyleSheetBundle>> assetProvider;
+        private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
         private Mock<IBundlesCache<StyleSheetBundle>> cache;
 
         [SetUp]
         public void Setup()
         {
-            assetProvider = new Mock<IAssetProvider<StyleSheetBundle>>();
+            assetProvider = new Mock<IAssetProvider>();
             pipeline = new Mock<IBundlePipeline<StyleSheetBundle>>();
             cache = new Mock<IBundlesCache<StyleSheetBundle>>();
             primer = new StyleSheetBundleCachePrimer(assetProvider.Object, pipeline.Object, cache.Object);
@@ -63,8 +63,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             pipeline.Verify(p => p.Process(It.IsAny<StyleSheetBundle>()), Times.Exactly(2));
             Assert.AreEqual(1, configOne.CallCount);
             Assert.AreEqual(1, configTwo.CallCount);
-            Assert.IsInstanceOf<IAssetProvider<StyleSheetBundle>>(configOne.AssetProvider);
-            Assert.IsInstanceOf<IAssetProvider<StyleSheetBundle>>(configTwo.AssetProvider);
+            Assert.IsInstanceOf<IAssetProvider>(configOne.AssetProvider);
+            Assert.IsInstanceOf<IAssetProvider>(configTwo.AssetProvider);
             Assert.IsInstanceOf<StyleSheetBundle>(configOne.Bundle);
             Assert.IsInstanceOf<StyleSheetBundle>(configTwo.Bundle);
             Assert.AreEqual("StyleSheetBundleConfigurationImpl", configOne.Bundle.Name);

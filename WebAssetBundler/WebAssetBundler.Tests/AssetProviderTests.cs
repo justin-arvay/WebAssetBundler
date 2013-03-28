@@ -36,14 +36,18 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [SetUp]
         public void Setup()
         {
-            settings = new SettingsContext<BundleImpl>(false, ".min");
+            var container = new TinyIoCContainer();
+            Bundle test = new BundleImpl();
 
+            settings = new SettingsContext<BundleImpl>(false, ".min");
+            container.Register(settings);
+            
             server = new Mock<HttpServerUtilityBase>();
             directoryFactory = new Mock<IDirectoryFactory>();
-            provider = new AssetProvider(directoryFactory.Object, server.Object, (t) =>
-            {
-                return (SettingsContext<Bundle>)settings;
-            });
+//            provider = new AssetProvider(directoryFactory.Object, server.Object, (t) =>
+//            {
+////                return settings as SettingsContext<Bundle>;
+//            });
 
             context = new DirectorySearchContext("~/Files/AssetProvider/Mixed", "css");
 

@@ -19,14 +19,13 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public class SettingsContext<TBundle> where TBundle : Bundle
+
+    public class SettingsContext
     {
         public SettingsContext(bool debugMode, string minifyIdentifier)
         {
             DebugMode = debugMode;
             MinifyIdentifier = minifyIdentifier;
-            PiplineModifiers = new List<IPipelineModifier<TBundle>>();
-            SearchPatterns = new List<string>();
         }
 
         public string MinifyIdentifier 
@@ -36,18 +35,6 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         public bool DebugMode
-        {
-            get;
-            private set;
-        }
-
-        public IEnumerable<IPipelineModifier<TBundle>> PiplineModifiers 
-        { 
-            get;
-            private set; 
-        }
-
-        public IEnumerable<string> SearchPatterns
         {
             get;
             private set;
