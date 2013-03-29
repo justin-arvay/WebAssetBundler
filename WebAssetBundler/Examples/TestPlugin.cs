@@ -23,12 +23,12 @@ namespace Examples
 
 
 
-        public void AddPipelineModifers(IEnumerable<IPipelineModifier<StyleSheetBundle>> modifiers)
+        public void AddPipelineModifers(ICollection<IPipelineModifier<StyleSheetBundle>> modifiers)
         {
 
         }
 
-        public void AddSearchPatterns(IEnumerable<string> patterns)
+        public void AddSearchPatterns(ICollection<string> patterns)
         {
 
         }

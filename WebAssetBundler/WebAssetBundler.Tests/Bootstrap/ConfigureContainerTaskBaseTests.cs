@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
     using System.Collections.Generic;
     using System;
+    using System.Linq;
 
     [TestFixture]
     public class ConfigureContainerTaskBaseTests
@@ -27,10 +28,32 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private ConfigureContainerTaskBase task;
         private Mock<ITypeProvider> typeProvider;
 
-        [Test]
+        [SetUp]
         public void Setup()
         {
             task = new ConfigureContainerTaskBaseImpl();
+            typeProvider = new Mock<ITypeProvider>();
+        }
+
+        [Test]
+        public void Should_Get_Pipeline_Modifiers()
+        {
+            var plugin = new Mock<IPlugin<BundleImpl>>();          
+            
+            task.GetPipelineModifiers<BundleImpl>(plugin.Object).ToList();
+
+            plugin.Verify(p => p.AddPipelineModifers(It.IsAny<ICollection<IPipelineModifier<BundleImpl>>>()));
+        }
+
+        [Test]
+        public void Should_Get_Search_Patterns()
+        {
+            var plugin = new Mock<IPlugin<BundleImpl>>();
+            
+            task.GetSearchPatterns<BundleImpl>(plugin.Object)
+                .ToList<string>();
+
+            plugin.Verify(p => p.AddSearchPatterns(It.IsAny<ICollection<string>>()));
         }
 
         [Test]
@@ -61,12 +84,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 throw new System.NotImplementedException();
             }
 
-            public void AddPipelineModifers(IEnumerable<IPipelineModifier<BundleImpl>> modifiers)
+            public void AddPipelineModifers(ICollection<IPipelineModifier<BundleImpl>> modifiers)
             {
                 throw new NotImplementedException();
             }
 
-            public void AddSearchPatterns(IEnumerable<string> patterns)
+            public void AddSearchPatterns(ICollection<string> patterns)
             {
                 throw new NotImplementedException();
             }

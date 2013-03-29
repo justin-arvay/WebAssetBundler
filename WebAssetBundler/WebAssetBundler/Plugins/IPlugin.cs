@@ -31,12 +31,12 @@ namespace WebAssetBundler.Web.Mvc
         /// Adds registered pipeline modifiers to modify the bundle types pipeline.
         /// </summary>
         /// <param name="modifiers"></param>
-        void AddPipelineModifers(IEnumerable<IPipelineModifier<TBundle>> modifiers);
+        void AddPipelineModifers(ICollection<IPipelineModifier<TBundle>> modifiers);
 
         /// <summary>
         /// Adds new patterns to use when using directory search to add assets to a bundle for bundle type.
         /// </summary>
         /// <param name="patterns"></param>
-        void AddSearchPatterns(IEnumerable<string> patterns);
+        void AddSearchPatterns(ICollection<string> patterns);
     }
 }
