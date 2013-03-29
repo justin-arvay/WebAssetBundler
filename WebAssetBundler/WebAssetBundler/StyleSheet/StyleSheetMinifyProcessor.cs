@@ -22,9 +22,9 @@ namespace WebAssetBundler.Web.Mvc
     public class StyleSheetMinifyProcessor : IPipelineProcessor<StyleSheetBundle>
     {
         private IStyleSheetMinifier compressor;
-        private SettingsContext<StyleSheetBundle> settings;
+        private SettingsContext settings;
 
-        public StyleSheetMinifyProcessor(SettingsContext<StyleSheetBundle> settings, IStyleSheetMinifier compressor)
+        public StyleSheetMinifyProcessor(SettingsContext settings, IStyleSheetMinifier compressor)
         {
             this.compressor = compressor;
             this.settings = settings;

@@ -30,7 +30,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public ScriptBundleProvider(IBundleConfigurationProvider<ScriptBundle> configProvider, IBundlesCache<ScriptBundle> cache,
             IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline, IBundleCachePrimer<ScriptBundle> primer,
-            SettingsContext<ScriptBundle> settings)
+            SettingsContext settings)
             : base(settings)
         {
             this.configProvider = configProvider;
@@ -57,7 +57,7 @@ namespace WebAssetBundler.Web.Mvc
 
             if (bundle == null || Settings.DebugMode)
             {
-                var asset = assetProvider.GetAsset<ScriptBundle>(source);
+                var asset = assetProvider.GetAsset(source);
                 bundle = new ScriptBundle();
                 bundle.Assets.Add(asset);
                 bundle.Name = name;

@@ -25,12 +25,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private UrlAssignmentProcessor<BundleImpl> processor;
         private BundleImpl bundle;
-        private SettingsContext<BundleImpl> settings;
+        private SettingsContext settings;
 
         [SetUp]
         public void Setup()
         {
-            settings = new SettingsContext<BundleImpl>(false, ".min");
+            settings = new SettingsContext(false, ".min");
             bundle = new BundleImpl();
             bundle.Extension = "css";
             processor = new UrlAssignmentProcessor<BundleImpl>(settings);
@@ -65,7 +65,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             bundle.Name = "test";
             bundle.Assets.Add(new MergedAsset("1"));
 
-            settings = new SettingsContext<BundleImpl>(true, ".min");
+            settings = new SettingsContext(true, ".min");
 
             processor.Process(bundle);
 

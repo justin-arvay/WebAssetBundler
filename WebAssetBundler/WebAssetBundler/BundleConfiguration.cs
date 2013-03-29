@@ -31,7 +31,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="stream"></param>
         public void Add(string source)
         {
-            var asset = AssetProvider.GetAsset<TBundle>(source);
+            var asset = AssetProvider.GetAsset(source);
 
             if (AlreadyExists(asset))
             {
@@ -47,7 +47,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="path"></param>
         public void AddFromDirectory(string path)
         {
-            var assets = AssetProvider.GetAssets<TBundle>(new DirectorySearchContext(path, Bundle.Extension));
+            var assets = AssetProvider.GetAssets(new DirectorySearchContext(path, Bundle.Extension));
 
             foreach (var asset in assets)
             {
@@ -68,7 +68,7 @@ namespace WebAssetBundler.Web.Mvc
             var component = new DirectorySearchContext(path, Bundle.Extension);
             builder(new DirectorySearchBuilder(component));
 
-            var assets = AssetProvider.GetAssets<TBundle>(component);
+            var assets = AssetProvider.GetAssets(component);
 
             foreach (var asset in assets)
             {

@@ -21,25 +21,22 @@ namespace WebAssetBundler.Web.Mvc
     using System.IO;
     using System.Linq;
     using System.Web;
-    using System.Collections;
 
     public class AssetProvider : IAssetProvider
     {
-        private Func<Type, SettingsContext<Bundle>> settings;
+        private SettingsContext settings;
         private IDirectoryFactory directoryFactory;
         private HttpServerUtilityBase server;
 
-        public AssetProvider(IDirectoryFactory directoryFactory, HttpServerUtilityBase server, Func<Type, SettingsContext<Bundle>> settings)
+        public AssetProvider(IDirectoryFactory directoryFactory, HttpServerUtilityBase server, SettingsContext settings)
         {
             this.settings = settings;
             this.directoryFactory = directoryFactory;
             this.server = server;
         }
 
-        public AssetBase GetAsset<TBundle>(string source) 
-            where TBundle : Bundle
+        public AssetBase GetAsset(string source)
         {
-            var settings = this.settings(typeof(TBundle));
 
             if (source.StartsWith("~/") == false && source.StartsWith("/") == false)
             {
@@ -53,13 +50,11 @@ namespace WebAssetBundler.Web.Mvc
                 throw new FileNotFoundException(TextResource.Exceptions.FileNotFound.FormatWith(source));
             }
 
-            return CreateAsset(ResolveFile(file, settings), settings);
+            return CreateAsset(ResolveFile(file));
         }        
 
-        public ICollection<AssetBase> GetAssets<TBundle>(DirectorySearchContext context) 
-            where TBundle : Bundle
+        public ICollection<AssetBase> GetAssets(DirectorySearchContext context)
         {
-            var settings = this.settings(typeof(TBundle));
             var directory = directoryFactory.Create(context.Source);
 
             if (directory.Exists == false)
@@ -72,7 +67,7 @@ namespace WebAssetBundler.Web.Mvc
                 .Where((file) => file.Path.EndsWith(context.Extension))
                 .ToList();
 
-            var assets = new List<AssetBase>(files.Select((file) => CreateAsset(file, settings)));
+            var assets = new List<AssetBase>(files.Select((file) => CreateAsset(file)));
 
             return RemoveDuplicates(assets);
 
@@ -83,9 +78,9 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        public FileAsset CreateAsset(IFile file, SettingsContext<Bundle> settings)
+        public FileAsset CreateAsset(IFile file)
         {
-            return new FileAsset(ResolveFile(file, settings));
+            return new FileAsset(ResolveFile(file));
         }
 
         /// <summary>
@@ -93,21 +88,21 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        public IFile ResolveFile(IFile file, SettingsContext<Bundle> settings)
+        public IFile ResolveFile(IFile file)
         {
             IFile rawFile = null;
             IFile minifedFile = null;
 
             //figure out if it is minified or not and then create the other
-            if (IsMinifed(file, settings)) 
+            if (IsMinifed(file)) 
             {
                 minifedFile = file;
-                rawFile = new FileSystemFile(GetRawSource(file.Path, settings), file.Directory);
+                rawFile = new FileSystemFile(GetRawSource(file.Path), file.Directory);
             } 
             else 
             {
                 rawFile = file;
-                minifedFile = new FileSystemFile(GetMinifiedSource(file.Path, settings), file.Directory);
+                minifedFile = new FileSystemFile(GetMinifiedSource(file.Path), file.Directory);
             }
 
             if (rawFile.Exists && minifedFile.Exists)
@@ -131,7 +126,7 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
-        private bool IsMinifed(IFile file, SettingsContext<Bundle> settings)
+        private bool IsMinifed(IFile file)
         {
             return Path.GetFileNameWithoutExtension(file.Path).EndsWith(settings.MinifyIdentifier);
         }
@@ -141,7 +136,7 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
-        private string GetRawSource(string source, SettingsContext<Bundle> settings)
+        private string GetRawSource(string source)
         {
             string ext = Path.GetExtension(source);
             return source.Substring(0, source.LastIndexOf(settings.MinifyIdentifier)) + ext;
@@ -152,7 +147,7 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
-        private string GetMinifiedSource(string source, SettingsContext<Bundle> settings)
+        private string GetMinifiedSource(string source)
         {
             string ext = Path.GetExtension(source);
             return source.Insert(source.LastIndexOf(ext), settings.MinifyIdentifier);

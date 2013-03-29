@@ -22,9 +22,14 @@ namespace Examples
         }
 
 
-        public void Configure(SettingsContext<StyleSheetBundle> settings)
+        public IEnumerable<IPipelineModifier<StyleSheetBundle>> GetPipelineModifers()
         {
+            throw new NotImplementedException();
+        }
 
+        public IEnumerable<string> GetSearchPatterns()
+        {
+            throw new NotImplementedException();
         }
     }    
 }

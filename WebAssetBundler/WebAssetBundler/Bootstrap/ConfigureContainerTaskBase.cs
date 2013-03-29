@@ -29,17 +29,6 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
-        /// Creates the settings context for the bundle type.
-        /// </summary>
-        /// <typeparam name="TBundle"></typeparam>
-        /// <returns></returns>
-        public SettingsContext<TBundle> CreateSettings<TBundle>() where TBundle : Bundle
-        {
-            return new SettingsContext<TBundle>(DefaultSettings.DebugMode, DefaultSettings.MinifyIdentifier);
-        }
-
-
-        /// <summary>
         /// Loads the plugins for the specified bundle type.
         /// </summary>
         /// <typeparam name="TBundle"></typeparam>

@@ -27,7 +27,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <typeparam name="TBundle"></typeparam>
         /// <param name="source"></param>
         /// <returns></returns>
-        AssetBase GetAsset<TBundle>(string source) where TBundle : Bundle;
+        AssetBase GetAsset(string source);
         
         /// <summary>
         /// Get all assets based on the search context for bundle.
@@ -35,6 +35,6 @@ namespace WebAssetBundler.Web.Mvc
         /// <typeparam name="TBundle"></typeparam>
         /// <param name="component"></param>
         /// <returns></returns>
-        ICollection<AssetBase> GetAssets<TBundle>(DirectorySearchContext component) where TBundle : Bundle;
+        ICollection<AssetBase> GetAssets(DirectorySearchContext component);
     }
 }

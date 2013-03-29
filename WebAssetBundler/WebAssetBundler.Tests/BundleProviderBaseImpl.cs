@@ -20,7 +20,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
     public class BundleProviderBaseImpl : BundleProviderBase<BundleImpl>
     {
-        public BundleProviderBaseImpl(SettingsContext<BundleImpl> settings)
+        public BundleProviderBaseImpl(SettingsContext settings)
             : base(settings)
         {
         }

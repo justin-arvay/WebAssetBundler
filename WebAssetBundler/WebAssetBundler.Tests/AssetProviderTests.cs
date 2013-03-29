@@ -31,7 +31,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<HttpServerUtilityBase> server;
         private Mock<IDirectoryFactory> directoryFactory;
         private IDirectory directory;
-        private SettingsContext<BundleImpl> settings;
+        private SettingsContext settings;
 
         [SetUp]
         public void Setup()
@@ -39,7 +39,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var container = new TinyIoCContainer();
             Bundle test = new BundleImpl();
 
-            settings = new SettingsContext<BundleImpl>(false, ".min");
+            settings = new SettingsContext(false, ".min");
             container.Register(settings);
             
             server = new Mock<HttpServerUtilityBase>();
@@ -60,7 +60,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_All_Files_With_Correct_Extension()
         {
-            var assets = (IList<AssetBase>)provider.GetAssets<BundleImpl>(context);
+            var assets = (IList<AssetBase>)provider.GetAssets(context);
 
             Assert.AreEqual("../../Files/AssetProvider/Mixed\\FirstFile.min.css", assets[0].Source);
             Assert.AreEqual("../../Files/AssetProvider/Mixed\\SecondFile.min.css", assets[1].Source);
@@ -77,7 +77,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             directoryFactory.Setup(d => d.Create("~/Files/AssetProvider/Raw"))
                 .Returns(directory);
 
-            var assets = (IList<AssetBase>)provider.GetAssets<BundleImpl>(context);
+            var assets = (IList<AssetBase>)provider.GetAssets(context);
 
             Assert.AreEqual("../../Files/AssetProvider/Raw\\FirstFile.css", assets[0].Source);
             Assert.AreEqual("../../Files/AssetProvider/Raw\\SecondFile.css", assets[1].Source);
@@ -87,9 +87,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Always_Get_Raw_Assets_In_Debug_Mode()
         {
-            settings = new SettingsContext<BundleImpl>(true, ".min");
+            settings = new SettingsContext(true, ".min");
 
-            var assets = (IList<AssetBase>)provider.GetAssets<BundleImpl>(context);
+            var assets = (IList<AssetBase>)provider.GetAssets(context);
 
             Assert.AreEqual("../../Files/AssetProvider/Mixed\\FirstFile.css", assets[0].Source);
             Assert.AreEqual("../../Files/AssetProvider/Mixed\\SecondFile.css", assets[1].Source);
@@ -99,7 +99,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_MinifiedAssets()
         {
-            var assets = (IList<AssetBase>)provider.GetAssets<BundleImpl>(context);
+            var assets = (IList<AssetBase>)provider.GetAssets(context);
 
             Assert.AreEqual("../../Files/AssetProvider/Mixed\\FirstFile.min.css", assets[0].Source);
             Assert.AreEqual("../../Files/AssetProvider/Mixed\\SecondFile.min.css", assets[1].Source);
@@ -113,7 +113,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             server.Setup(m => m.MapPath("~/File.css"))
                 .Returns("../../Files/AssetProvider/Mixed/FirstFile.css");
 
-            var asset = provider.GetAsset<BundleImpl>("~/File.css");
+            var asset = provider.GetAsset("~/File.css");
 
             Assert.AreEqual("../../Files/AssetProvider/Mixed/FirstFile.min.css", asset.Source);
         }
@@ -122,9 +122,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Throw_Exception_If_Not_Virtual_Source()
         {
 
-            Assert.Throws<ArgumentException>(() => provider.GetAsset<BundleImpl>("File.css"));
+            Assert.Throws<ArgumentException>(() => provider.GetAsset("File.css"));
 
-            Assert.Throws<ArgumentException>(() => provider.GetAsset<BundleImpl>("File.css"));
+            Assert.Throws<ArgumentException>(() => provider.GetAsset("File.css"));
 
         }
 
@@ -134,7 +134,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             server.Setup(m => m.MapPath("~/File.css"))
                 .Returns("../../Files/AssetProvider/Raw/FirstFile.css");
 
-            var asset = provider.GetAsset<BundleImpl>("~/File.css");
+            var asset = provider.GetAsset("~/File.css");
 
             Assert.AreEqual("../../Files/AssetProvider/Raw/FirstFile.css", asset.Source);
         }
@@ -142,12 +142,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Always_Get_Raw_Asset_In_Debug_Mode()
         {
-            settings = new SettingsContext<BundleImpl>(true, ".min");
+            settings = new SettingsContext(true, ".min");
 
             server.Setup(m => m.MapPath("~/File.min.css"))
                 .Returns("../../Files/AssetProvider/Mixed/FirstFile.min.css");
 
-            var asset = provider.GetAsset<BundleImpl>("~/File.min.css");
+            var asset = provider.GetAsset("~/File.min.css");
 
             Assert.AreEqual("../../Files/AssetProvider/Mixed/FirstFile.css", asset.Source);
         }
@@ -158,7 +158,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             server.Setup(m => m.MapPath("~/File.css"))
                 .Returns("../../Files/AssetProvider/Mixed/FirstFile.css");
 
-            var asset = provider.GetAsset<BundleImpl>("~/File.css");
+            var asset = provider.GetAsset("~/File.css");
 
             Assert.AreEqual("../../Files/AssetProvider/Mixed/FirstFile.min.css", asset.Source);
         }
@@ -166,7 +166,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Throw_Exception_When_Getting_Asset_That_Does_Not_Exist()
         {
-            Assert.Throws<FileNotFoundException>(() => provider.GetAsset<BundleImpl>("~/test.css"));
+            Assert.Throws<FileNotFoundException>(() => provider.GetAsset("~/test.css"));
         }
 
         [Test]
@@ -176,7 +176,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             directoryFactory.Setup(d => d.Create("~/FakeDir"))
                .Returns(new FileSystemDirectory("../../FakeDir"));
 
-            Assert.Throws<DirectoryNotFoundException>(() => provider.GetAssets<BundleImpl>(context));
+            Assert.Throws<DirectoryNotFoundException>(() => provider.GetAssets(context));
         }
     }
 }

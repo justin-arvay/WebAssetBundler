@@ -22,13 +22,13 @@ namespace WebAssetBundler.Web.Mvc
         where TBundle : Bundle, new()
 
     {
-        public BundleProviderBase(SettingsContext<TBundle> settings)
+        public BundleProviderBase(SettingsContext settings)
         {
             Settings = settings;
         }
 
 
-        protected SettingsContext<TBundle> Settings
+        protected SettingsContext Settings
         { 
             get; 
             private set; 

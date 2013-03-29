@@ -26,12 +26,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private ScriptMinifyProcessor processor;
         private Mock<IScriptMinifier> compressor;
         private ScriptBundle bundle;
-        private SettingsContext<ScriptBundle> settings;
+        private SettingsContext settings;
 
         [SetUp]
         public void Setup()
         {
-            settings = new SettingsContext<ScriptBundle>(false, ".min");
+            settings = new SettingsContext(false, ".min");
             bundle = new ScriptBundle();
             compressor = new Mock<IScriptMinifier>();
             processor = new ScriptMinifyProcessor(settings, compressor.Object);
@@ -84,7 +84,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Compress_Assets_When_Debug_Mode()
         {
-            settings = new SettingsContext<ScriptBundle>(true, ".min");
+            settings = new SettingsContext(true, ".min");
 
             var asset = new AssetBaseImpl();
             asset.Content = "#div { color: #123; }";

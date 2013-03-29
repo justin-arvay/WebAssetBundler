@@ -34,18 +34,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Create_Settings()
-        {
-            var settings = task.CreateSettings<BundleImpl>();
-            typeProvider = new Mock<ITypeProvider>();
-
-            Assert.AreEqual(DefaultSettings.DebugMode, settings.DebugMode);
-            Assert.AreEqual(DefaultSettings.MinifyIdentifier, settings.MinifyIdentifier);
-            Assert.AreEqual(DefaultSettings.DebugMode, ((IList<IPipelineModifier<BundleImpl>>)settings.PiplineModifiers).Count);
-            Assert.AreEqual(0, ((IList<string>)settings.SearchPatterns).Count);
-        }
-
-        [Test]
         public void Should_Load_Plugins()
         {
             var container = new TinyIoCContainer();
@@ -68,14 +56,20 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 throw new System.NotImplementedException();
             }
 
-            public void Configure(SettingsContext<BundleImpl> settings)
+            public void Dispose()
             {
                 throw new System.NotImplementedException();
             }
 
-            public void Dispose()
+
+            public IEnumerable<IPipelineModifier<BundleImpl>> GetPipelineModifers()
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
+            }
+
+            public IEnumerable<string> GetSearchPatterns()
+            {
+                throw new NotImplementedException();
             }
         }
     }

@@ -49,7 +49,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Throw_Exception_If_Asset_Already_Exists()
         {
-            assetProvider.Setup(p => p.GetAsset<BundleImpl>("~/Test.css"))
+            assetProvider.Setup(p => p.GetAsset("~/Test.css"))
                 .Returns(new AssetBaseImpl()
                 {
                     Source = "~/Test"
@@ -90,7 +90,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var assets = new List<AssetBase>();
             assets.Add(new AssetBaseImpl());
 
-            assetProvider.Setup(l => l.GetAssets<BundleImpl>(It.IsAny<DirectorySearchContext>()))
+            assetProvider.Setup(l => l.GetAssets(It.IsAny<DirectorySearchContext>()))
                 .Returns(assets);
 
 
@@ -105,7 +105,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var assets = new List<AssetBase>();
             assets.Add(new AssetBaseImpl());
 
-            assetProvider.Setup(l => l.GetAssets<BundleImpl>(It.IsAny<DirectorySearchContext>()))
+            assetProvider.Setup(l => l.GetAssets(It.IsAny<DirectorySearchContext>()))
                 .Returns(assets);
 
             bundleConfig.AddFromDirectory("~/Files/Configration");
@@ -128,7 +128,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 }
             };
 
-            assetProvider.Setup(p => p.GetAssets<BundleImpl>(It.IsAny<DirectorySearchContext>()))
+            assetProvider.Setup(p => p.GetAssets(It.IsAny<DirectorySearchContext>()))
                 .Returns(assets);
 
             bundleConfig.AddFromDirectory("~/Test");
@@ -151,7 +151,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 }
             };
 
-            assetProvider.Setup(p => p.GetAssets<BundleImpl>(It.IsAny<DirectorySearchContext>()))
+            assetProvider.Setup(p => p.GetAssets(It.IsAny<DirectorySearchContext>()))
                 .Returns(assets);
 
             bundleConfig.AddFromDirectory("~/Test", b => b.ToString());

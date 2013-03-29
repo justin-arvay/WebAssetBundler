@@ -32,12 +32,12 @@ using System;
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
         private Mock<IBundleCachePrimer<StyleSheetBundle>> primer;
-        private SettingsContext<StyleSheetBundle> settings;
+        private SettingsContext settings;
 
         [SetUp]
         public void Setup()
         {
-            settings = new SettingsContext<StyleSheetBundle>(false, ".min");
+            settings = new SettingsContext(false, ".min");
             pipeline = new Mock<IBundlePipeline<StyleSheetBundle>>();
             configProvider = new Mock<IBundleConfigurationProvider<StyleSheetBundle>>();
             cache = new Mock<IBundlesCache<StyleSheetBundle>>();
@@ -89,7 +89,7 @@ using System;
         [Test]
         public void Should_Always_Prime_Cache_When_Getting_Named_Bundle()
         {
-            settings = new SettingsContext<StyleSheetBundle>(true, ".min");
+            settings = new SettingsContext(true, ".min");
 
             var configs = new List<IBundleConfiguration<StyleSheetBundle>>();
 
@@ -106,7 +106,7 @@ using System;
         [Test]
         public void Should_Get_Bundle_By_Source()
         {
-            assetProvider.Setup(p => p.GetAsset<StyleSheetBundle>("~/file.tst.tst")).Returns(new AssetBaseImpl());
+            assetProvider.Setup(p => p.GetAsset("~/file.tst.tst")).Returns(new AssetBaseImpl());
 
             var bundle = provider.GetSourceBundle("~/file.tst.tst");            
 
@@ -137,7 +137,7 @@ using System;
         [Test]
         public void Should_Always_Load_Asset_When_Debug_Mode()
         {
-            settings = new SettingsContext<StyleSheetBundle>(true, ".min");
+            settings = new SettingsContext(true, ".min");
 
             var bundle = new StyleSheetBundle();
             bundle.Name = "199b18f549a41c8d45fe0a5b526ac060-file";
