@@ -22,14 +22,15 @@ namespace Examples
         }
 
 
-        public IEnumerable<IPipelineModifier<StyleSheetBundle>> GetPipelineModifers()
+
+        public void AddPipelineModifers(IEnumerable<IPipelineModifier<StyleSheetBundle>> modifiers)
         {
-            throw new NotImplementedException();
+
         }
 
-        public IEnumerable<string> GetSearchPatterns()
+        public void AddSearchPatterns(IEnumerable<string> patterns)
         {
-            throw new NotImplementedException();
+
         }
     }    
 }

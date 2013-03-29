@@ -48,6 +48,32 @@ namespace WebAssetBundler.Web.Mvc
             return plugins;
         }
 
+        public IEnumerable<IPipelineModifier<TBundle>> GetPipelineModifiers<TBundle>(IPlugin<TBundle> plugin)
+            where TBundle : Bundle
+        {
+            var modifiers = new List<IPipelineModifier<TBundle>>();
+
+            plugin.AddPipelineModifers(modifiers);
+
+            return modifiers;
+        }
+
+        public IEnumerable<string> GetSearchPatterns<TBundle>(IPlugin<TBundle> plugin)
+            where TBundle : Bundle
+        {
+            var patterns = new List<string>();
+
+            plugin.AddSearchPatterns(patterns);
+
+            return patterns;
+        }
+
+        /// <summary>
+        /// Modifies the pipeline using the provided modifiers.
+        /// </summary>
+        /// <typeparam name="TBundle"></typeparam>
+        /// <param name="pipeline"></param>
+        /// <param name="pipelineModifiers"></param>
         public void ModifyPipeline<TBundle>(IBundlePipeline<TBundle> pipeline, IEnumerable<IPipelineModifier<TBundle>> pipelineModifiers)
             where TBundle : Bundle
         {

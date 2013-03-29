@@ -32,6 +32,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<ICacheProvider, CacheProvider>();
             container.Register<IDirectoryFactory, DirectoryFactory>();
             container.Register<ITypeProvider>(typeProvider);
+            container.Register<IAssetProvider, AssetProvider>();
             container.Register<SettingsContext>(new SettingsContext(DefaultSettings.DebugMode, DefaultSettings.MinifyIdentifier));
 
             ConfigureHttpHandler(container);

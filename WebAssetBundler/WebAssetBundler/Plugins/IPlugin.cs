@@ -21,9 +21,22 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IPlugin<TBundle> : IDisposable where TBundle : Bundle
     {
+        /// <summary>
+        /// Initializes the plugin. Best time to configure the container.
+        /// </summary>
+        /// <param name="container"></param>
         void Initialize(TinyIoCContainer container);
 
-        IEnumerable<IPipelineModifier<TBundle>> GetPipelineModifers();
-        IEnumerable<string> GetSearchPatterns();
+        /// <summary>
+        /// Adds registered pipeline modifiers to modify the bundle types pipeline.
+        /// </summary>
+        /// <param name="modifiers"></param>
+        void AddPipelineModifers(IEnumerable<IPipelineModifier<TBundle>> modifiers);
+
+        /// <summary>
+        /// Adds new patterns to use when using directory search to add assets to a bundle for bundle type.
+        /// </summary>
+        /// <param name="patterns"></param>
+        void AddSearchPatterns(IEnumerable<string> patterns);
     }
 }

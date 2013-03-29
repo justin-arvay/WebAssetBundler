@@ -32,8 +32,8 @@ namespace WebAssetBundler.Web.Mvc
             foreach (var plugin in plugins)
             {
                 plugin.Initialize(container);
-                pipelineModifers.AddRange(plugin.GetPipelineModifers());
-                searchPatterns.AddRange(plugin.GetSearchPatterns());
+                pipelineModifers.AddRange(GetPipelineModifiers<ScriptBundle>(plugin));
+                searchPatterns.AddRange(GetSearchPatterns<ScriptBundle>(plugin));
             }
 
             ConfigureContainer(container, pipelineModifers);

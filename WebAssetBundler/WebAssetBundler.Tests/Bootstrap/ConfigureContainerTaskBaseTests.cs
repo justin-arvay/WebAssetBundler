@@ -61,13 +61,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 throw new System.NotImplementedException();
             }
 
-
-            public IEnumerable<IPipelineModifier<BundleImpl>> GetPipelineModifers()
+            public void AddPipelineModifers(IEnumerable<IPipelineModifier<BundleImpl>> modifiers)
             {
                 throw new NotImplementedException();
             }
 
-            public IEnumerable<string> GetSearchPatterns()
+            public void AddSearchPatterns(IEnumerable<string> patterns)
             {
                 throw new NotImplementedException();
             }
