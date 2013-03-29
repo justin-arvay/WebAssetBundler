@@ -25,7 +25,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class ConfigureContainerTaskBaseTests
     {
-        private ConfigureContainerTaskBase task;
+        private ConfigureContainerTaskBase<BundleImpl> task;
         private Mock<ITypeProvider> typeProvider;
 
         [SetUp]
@@ -40,7 +40,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var plugin = new Mock<IPlugin<BundleImpl>>();          
             
-            task.GetPipelineModifiers<BundleImpl>(plugin.Object).ToList();
+            task.GetPipelineModifiers(plugin.Object).ToList();
 
             plugin.Verify(p => p.AddPipelineModifers(It.IsAny<ICollection<IPipelineModifier<BundleImpl>>>()));
         }
@@ -50,7 +50,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var plugin = new Mock<IPlugin<BundleImpl>>();
             
-            task.GetSearchPatterns<BundleImpl>(plugin.Object)
+            task.GetSearchPatterns(plugin.Object)
                 .ToList<string>();
 
             plugin.Verify(p => p.AddSearchPatterns(It.IsAny<ICollection<string>>()));
@@ -65,10 +65,26 @@ namespace WebAssetBundler.Web.Mvc.Tests
             typeProvider.Setup(p => p.GetImplementationTypes(typeof(IPlugin<BundleImpl>)))
                 .Returns(new List<Type>() { typeof(IPlugin<BundleImpl>) });
 
-            var plugins = new List<IPlugin<BundleImpl>>(task.LoadPlugins<BundleImpl>(container, typeProvider.Object));
+            var plugins = new List<IPlugin<BundleImpl>>(task.LoadPlugins(container, typeProvider.Object));
 
             Assert.AreEqual(1, plugins.Count);
             Assert.IsInstanceOf<TestPlugin>(plugins[0]);
+            Assert.AreEqual(task.Plugins, plugins);
+        }
+
+        [Test]
+        public void Should_Dispose_Of_Loaded_Plugins_On_Shut_Down()
+        {
+            var plugin = new Mock<IPlugin<BundleImpl>>();
+
+            task.Plugins = new List<IPlugin<BundleImpl>>()
+            {
+                plugin.Object
+            };
+
+            task.ShutDown();
+
+            plugin.Verify(p => p.Dispose());
         }
 
         internal class TestPlugin : IPlugin<BundleImpl>

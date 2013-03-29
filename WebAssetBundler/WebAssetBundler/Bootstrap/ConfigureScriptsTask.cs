@@ -20,20 +20,20 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
 
     [TaskOrder(3)]
-    public class ConfigureScriptsTask : ConfigureContainerTaskBase
+    public class ConfigureScriptsTask : ConfigureContainerTaskBase<ScriptBundle>
     {
 
         public override void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
         {
             var pipelineModifers = new List<IPipelineModifier<ScriptBundle>>();
             var searchPatterns = new List<string>();
-            var plugins = LoadPlugins<ScriptBundle>(container, typeProvider);
+            var plugins = LoadPlugins(container, typeProvider);
 
             foreach (var plugin in plugins)
             {
                 plugin.Initialize(container);
-                pipelineModifers.AddRange(GetPipelineModifiers<ScriptBundle>(plugin));
-                searchPatterns.AddRange(GetSearchPatterns<ScriptBundle>(plugin));
+                pipelineModifers.AddRange(GetPipelineModifiers(plugin));
+                searchPatterns.AddRange(GetSearchPatterns(plugin));
             }
 
             ConfigureContainer(container, pipelineModifers);
@@ -54,7 +54,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             var pipeline = new ScriptPipeline(container);
 
-            ModifyPipeline<ScriptBundle>(pipeline, pipelineModifiers);
+            ModifyPipeline(pipeline, pipelineModifiers);
 
             return pipeline;
         }

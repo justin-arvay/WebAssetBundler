@@ -20,20 +20,20 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
 
     [TaskOrder(2)]
-    public class ConfigureStyleSheetsTask : ConfigureContainerTaskBase
+    public class ConfigureStyleSheetsTask : ConfigureContainerTaskBase<StyleSheetBundle>
     {
 
         public override void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
         {
             var pipelineModifers = new List<IPipelineModifier<StyleSheetBundle>>();
             var searchPatterns = new List<string>();
-            var plugins = LoadPlugins<StyleSheetBundle>(container, typeProvider);
+            var plugins = LoadPlugins(container, typeProvider);
 
             foreach (var plugin in plugins)
             {
                 plugin.Initialize(container);
-                pipelineModifers.AddRange(GetPipelineModifiers<StyleSheetBundle>(plugin));
-                searchPatterns.AddRange(GetSearchPatterns<StyleSheetBundle>(plugin));
+                pipelineModifers.AddRange(GetPipelineModifiers(plugin));
+                searchPatterns.AddRange(GetSearchPatterns(plugin));
             }
 
             ConfigureContainer(container, pipelineModifers);
@@ -55,7 +55,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             var pipeline = new StyleSheetPipeline(container);
 
-            ModifyPipeline<StyleSheetBundle>(pipeline, pipelineModifiers);
+            ModifyPipeline(pipeline, pipelineModifiers);
 
             return pipeline;
         }

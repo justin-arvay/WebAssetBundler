@@ -64,7 +64,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             public string Name { get; set; }
         }
 
-        public interface ITest<T> where T : Base
+        public interface ITest<out T> where T : Base
         {
             bool IsWorking { get; set; }
 

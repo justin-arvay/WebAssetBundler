@@ -84,7 +84,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Compress_Assets_When_Debug_Mode()
         {
-            settings = new SettingsContext(true, ".min");
+            settings.DebugMode = true;
 
             var asset = new AssetBaseImpl();
             asset.Content = "#div { color: #123; }";

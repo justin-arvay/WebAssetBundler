@@ -37,17 +37,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Setup()
         {
             var container = new TinyIoCContainer();
-            Bundle test = new BundleImpl();
 
             settings = new SettingsContext(false, ".min");
             container.Register(settings);
             
             server = new Mock<HttpServerUtilityBase>();
             directoryFactory = new Mock<IDirectoryFactory>();
-//            provider = new AssetProvider(directoryFactory.Object, server.Object, (t) =>
-//            {
-////                return settings as SettingsContext<Bundle>;
-//            });
+            provider = new AssetProvider(directoryFactory.Object, server.Object, settings);
 
             context = new DirectorySearchContext("~/Files/AssetProvider/Mixed", "css");
 
@@ -87,7 +83,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Always_Get_Raw_Assets_In_Debug_Mode()
         {
-            settings = new SettingsContext(true, ".min");
+            settings.DebugMode = true;
 
             var assets = (IList<AssetBase>)provider.GetAssets(context);
 
@@ -142,7 +138,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Always_Get_Raw_Asset_In_Debug_Mode()
         {
-            settings = new SettingsContext(true, ".min");
+            settings.DebugMode = true;
 
             server.Setup(m => m.MapPath("~/File.min.css"))
                 .Returns("../../Files/AssetProvider/Mixed/FirstFile.min.css");

@@ -22,6 +22,10 @@ namespace WebAssetBundler.Web.Mvc
 
     public class SettingsContext
     {
+        public SettingsContext()
+        {
+        }
+
         public SettingsContext(bool debugMode, string minifyIdentifier)
         {
             DebugMode = debugMode;
@@ -31,13 +35,13 @@ namespace WebAssetBundler.Web.Mvc
         public string MinifyIdentifier 
         { 
             get; 
-            private set; 
+            set; 
         }
 
         public bool DebugMode
         {
             get;
-            private set;
+            set;
         }
     }
 }

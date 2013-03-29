@@ -19,9 +19,16 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Web;
     using System.Collections.Generic;
+    using System.Linq;
 
-    public abstract class ConfigureContainerTaskBase : IBootstrapTask
+    public abstract class ConfigureContainerTaskBase<TBundle> : IBootstrapTask
+        where TBundle : Bundle
     {
+        public IEnumerable<IPlugin<TBundle>> Plugins
+        {
+            get;
+            set;
+        }
 
         public virtual void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
         {
@@ -34,8 +41,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <typeparam name="TBundle"></typeparam>
         /// <param name="container"></param>
         /// <param name="typeProvider"></param>
-        public IEnumerable<IPlugin<TBundle>> LoadPlugins<TBundle>(TinyIoCContainer container, ITypeProvider typeProvider)
-            where TBundle : Bundle
+        public IEnumerable<IPlugin<TBundle>> LoadPlugins(TinyIoCContainer container, ITypeProvider typeProvider)
         {
             var pluginTypes = typeProvider.GetImplementationTypes(typeof(IPlugin<TBundle>));
             var plugins = new List<IPlugin<TBundle>>();
@@ -45,11 +51,12 @@ namespace WebAssetBundler.Web.Mvc
                 plugins.Add((IPlugin<TBundle>)container.Resolve(pluginType));
             }
 
+            Plugins = plugins;
+
             return plugins;
         }
 
-        public IEnumerable<IPipelineModifier<TBundle>> GetPipelineModifiers<TBundle>(IPlugin<TBundle> plugin)
-            where TBundle : Bundle
+        public IEnumerable<IPipelineModifier<TBundle>> GetPipelineModifiers(IPlugin<TBundle> plugin)
         {
             var modifiers = new List<IPipelineModifier<TBundle>>();
 
@@ -58,8 +65,7 @@ namespace WebAssetBundler.Web.Mvc
             return modifiers;
         }
 
-        public IEnumerable<string> GetSearchPatterns<TBundle>(IPlugin<TBundle> plugin)
-            where TBundle : Bundle
+        public IEnumerable<string> GetSearchPatterns(IPlugin<TBundle> plugin)
         {
             var patterns = new List<string>();
 
@@ -74,12 +80,23 @@ namespace WebAssetBundler.Web.Mvc
         /// <typeparam name="TBundle"></typeparam>
         /// <param name="pipeline"></param>
         /// <param name="pipelineModifiers"></param>
-        public void ModifyPipeline<TBundle>(IBundlePipeline<TBundle> pipeline, IEnumerable<IPipelineModifier<TBundle>> pipelineModifiers)
-            where TBundle : Bundle
+        public void ModifyPipeline(IBundlePipeline<TBundle> pipeline, IEnumerable<IPipelineModifier<TBundle>> pipelineModifiers)
         {
             foreach (var modifier in pipelineModifiers)
             {
                 modifier.Modify(pipeline);
+            }
+        }
+
+        public void ShutDown()
+        {
+            if (Plugins != null)
+            {
+                Plugins.Select(s =>
+                {
+                    s.Dispose();
+                    return false;
+                });
             }
         }
     }

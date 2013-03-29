@@ -52,6 +52,7 @@ namespace WebAssetBundler.Web.Mvc
             foreach (var task in GetBootstrapTasks())
             {
                 task.StartUp(container, typeProvider);
+                task.ShutDown();
             }
         }
 

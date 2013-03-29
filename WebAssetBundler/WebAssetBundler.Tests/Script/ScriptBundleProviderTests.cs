@@ -88,7 +88,7 @@ using System;
         [Test]
         public void Should_Always_Prime_Cache_When_Getting_Named_Bundle()
         {
-            settings = new SettingsContext(true, ".min");
+            settings.DebugMode = true;
 
             var configs = new List<IBundleConfiguration<ScriptBundle>>();
 
@@ -135,7 +135,7 @@ using System;
         [Test]
         public void Should_Always_Load_Asset_When_Debug_Mode()
         {
-            settings = new SettingsContext(true, ".min");
+            settings.DebugMode = true;
 
             var bundle = new ScriptBundle();
             bundle.Name = "199b18f549a41c8d45fe0a5b526ac060-file";

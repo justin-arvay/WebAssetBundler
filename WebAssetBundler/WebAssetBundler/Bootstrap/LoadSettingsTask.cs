@@ -32,5 +32,11 @@ namespace WebAssetBundler.Web.Mvc
             DefaultSettings.DebugMode = section.DebugMode;
             DefaultSettings.MinifyIdentifier = section.MinifyIdentifier;
         }
+
+
+        public void ShutDown()
+        {
+
+        }
     }
 }

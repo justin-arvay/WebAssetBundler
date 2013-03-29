@@ -42,5 +42,10 @@ namespace WebAssetBundler.Web.Mvc
             Assert.IsInstanceOf<ConfigureStyleSheetsTask>(tasks[2]);
             Assert.IsInstanceOf<ConfigureScriptsTask>(tasks[3]);
         }
+
+        [Test]
+        public void Should_Start_Up_And_Shut_Down_Tasks()
+        {
+        }
     }
 }

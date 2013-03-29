@@ -65,7 +65,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             bundle.Name = "test";
             bundle.Assets.Add(new MergedAsset("1"));
 
-            settings = new SettingsContext(true, ".min");
+            settings.DebugMode = true;
 
             processor.Process(bundle);
 

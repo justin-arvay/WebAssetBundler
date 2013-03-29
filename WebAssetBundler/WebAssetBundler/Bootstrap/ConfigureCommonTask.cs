@@ -50,5 +50,11 @@ namespace WebAssetBundler.Web.Mvc
         {
             return new HttpContextWrapper(System.Web.HttpContext.Current);
         }
+
+
+        public void ShutDown()
+        {
+
+        }
     }
 }
