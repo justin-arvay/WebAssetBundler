@@ -49,18 +49,19 @@ namespace WebAssetBundler.Web.Mvc
 
         public void RunBootstrapTasks()
         {
-            foreach (var task in GetBootstrapTasks())
+
+            GetBootstrapTasks().ToList().ForEach(task =>
             {
                 task.StartUp(container, typeProvider);
                 task.ShutDown();
-            }
+            });
         }
 
         /// <summary>
         /// Gets the bootstrap tasks in correct order.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<IBootstrapTask> GetBootstrapTasks()
+        public virtual IEnumerable<IBootstrapTask> GetBootstrapTasks()
         {
             childContainer.RegisterMultiple<IBootstrapTask>(typeProvider.GetImplementationTypes(typeof(IBootstrapTask)));
             var tasks = childContainer.ResolveAll<IBootstrapTask>()
@@ -78,27 +79,6 @@ namespace WebAssetBundler.Web.Mvc
 
             return tasks;
         }
-        /*
-        protected virtual IEnumerable<Type> GetConfigurationTypes(IEnumerable<Type> typesToSearch)
-        {
-            var publicTypes =
-                from type in typesToSearch
-                where type.IsClass && !type.IsAbstract
-                from interfaceType in type.GetInterfaces()
-                where interfaceType.IsGenericType &&
-                      interfaceType.GetGenericTypeDefinition() == typeof(IConfiguration<>)
-                select type;
-
-            var internalTypes = new[]
-            {
-                typeof(ScriptContainerConfiguration),
-                typeof(StylesheetsContainerConfiguration),
-                typeof(HtmlTemplatesContainerConfiguration),
-                typeof(SettingsVersionAssigner)
-            };
-
-            return publicTypes.Concat(internalTypes);
-        }*/
 
         private  IEnumerable<Assembly> LoadAssemblies()
         {

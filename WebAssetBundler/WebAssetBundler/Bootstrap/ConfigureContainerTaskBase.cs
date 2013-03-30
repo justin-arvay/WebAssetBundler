@@ -92,11 +92,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             if (Plugins != null)
             {
-                Plugins.Select(s =>
-                {
-                    s.Dispose();
-                    return false;
-                });
+                Plugins.ToList().ForEach(p => p.Dispose());
             }
         }
     }

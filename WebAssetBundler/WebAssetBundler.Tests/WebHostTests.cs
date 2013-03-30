@@ -46,6 +46,22 @@ namespace WebAssetBundler.Web.Mvc
         [Test]
         public void Should_Start_Up_And_Shut_Down_Tasks()
         {
+            var host = new Mock<WebHost>();
+            host.CallBase = true;
+
+            var task = new Mock<IBootstrapTask>();
+
+            host.Setup(h => h.GetBootstrapTasks())
+                .Returns(new List<IBootstrapTask>()
+                {
+                    task.Object
+                });
+
+            host.Object.RunBootstrapTasks();
+
+            task.Verify(t => t.StartUp(It.IsAny<TinyIoCContainer>(), It.IsAny<ITypeProvider>()));
+            task.Verify(t => t.ShutDown());
         }
+
     }
 }
