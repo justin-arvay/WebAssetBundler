@@ -22,7 +22,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System.IO;
 
     [TestFixture]
-    public class DirectorySearchContextTests
+    public class DirectorySearchTests
     {
 
         [SetUp]
@@ -34,19 +34,27 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Throw_Exception_If_Path_Is_Rooted()
         {
-            Assert.Throws<FormatException>(() => new DirectorySearchContext(@"\foo", "css"));
-            Assert.Throws<FormatException>(() => new DirectorySearchContext(@"c:\foo", "css"));
+            Assert.Throws<FormatException>(() => new DirectorySearch(@"\foo", "css"));
+            Assert.Throws<FormatException>(() => new DirectorySearch(@"c:\foo", "css"));
         }
 
         [Test]
         public void Should_Set_Defaults()
         {
-            var context = new DirectorySearchContext("source", "ext");
+            var context = new DirectorySearch("source", "ext");
 
             Assert.AreEqual(SearchOption.AllDirectories, context.SearchOption);
             Assert.AreEqual("ext", context.Extension);
             Assert.AreEqual("*", context.Pattern);
             Assert.AreEqual("source", context.Source);
+        }
+
+        [Test]
+        public void Should_Get_Directory_Search_Registration_Name()
+        {
+            var name = DirectorySearch.GetDirectorySearchName(typeof(BundleImpl));
+
+            Assert.AreEqual("BundleImpl.DirectorySearch", name);
         }
     }
 }

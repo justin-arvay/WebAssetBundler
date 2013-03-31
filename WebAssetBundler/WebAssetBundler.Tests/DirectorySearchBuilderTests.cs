@@ -24,12 +24,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class DirectorySearchBuilderTests
     {
         private DirectorySearchBuilder builder;
-        private DirectorySearchContext context;
+        private DirectorySearch context;
 
         [SetUp]
         public void Setup()
         {
-            context = new DirectorySearchContext("path", "txt");
+            context = new DirectorySearch("path", "txt");
             builder = new DirectorySearchBuilder(context);
         }
 

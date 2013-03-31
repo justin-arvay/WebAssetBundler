@@ -17,27 +17,32 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.IO;
+    using System.Collections.Generic;
+using System.IO;
 
-    public class DirectorySearchBuilder
+    public class DirectorySearch
     {
-        private DirectorySearch context;
-
-        public DirectorySearchBuilder(DirectorySearch context)
+        public DirectorySearch(string source, string extension)
         {
-            this.context = context;
+            if (System.IO.Path.IsPathRooted(source))
+            {
+                throw new FormatException("Path ({0}) must be virtual or relative.".FormatWith(source));
+            }
+
+            Source = source;
+            Extension = extension;
+            Pattern = "*";
+            SearchOption = SearchOption.AllDirectories;
         }
 
-        public DirectorySearchBuilder Pattern(string pattern)
-        {
-            context.Pattern = pattern;
-            return this;
-        }
+        public string Source { get; private set; }
+        public string Extension { get; private set; }
+        public string Pattern { get; set; }
+        public SearchOption SearchOption { get; set; }
 
-        public DirectorySearchBuilder SearchOption(SearchOption option)
+        public static string GetDirectorySearchName(Type bundleType)
         {
-            context.SearchOption = option;
-            return this;
+            return bundleType.Name + ".DirectorySearch";
         }
     }
 }

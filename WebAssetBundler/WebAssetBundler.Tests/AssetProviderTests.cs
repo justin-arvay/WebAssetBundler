@@ -27,7 +27,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class AssetProviderTests
     {
         private AssetProvider provider;
-        private DirectorySearchContext context;
+        private DirectorySearch context;
         private Mock<HttpServerUtilityBase> server;
         private Mock<IDirectoryFactory> directoryFactory;
         private IDirectory directory;
@@ -45,7 +45,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             directoryFactory = new Mock<IDirectoryFactory>();
             provider = new AssetProvider(directoryFactory.Object, server.Object, settings);
 
-            context = new DirectorySearchContext("~/Files/AssetProvider/Mixed", "css");
+            context = new DirectorySearch("~/Files/AssetProvider/Mixed", "css");
 
             directory = new FileSystemDirectory("../../Files/AssetProvider/Mixed");
 
@@ -66,7 +66,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Raw_Assets()
         {
-            context = new DirectorySearchContext("~/Files/AssetProvider/Raw", "css");
+            context = new DirectorySearch("~/Files/AssetProvider/Raw", "css");
 
             directory = new FileSystemDirectory("../../Files/AssetProvider/Raw");
 
@@ -168,7 +168,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Throw_Exception_When_Getting_Assets_From_A_Directory_That_Does_Not_Exist()
         {
-            context = new DirectorySearchContext("~/FakeDir", "css");
+            context = new DirectorySearch("~/FakeDir", "css");
             directoryFactory.Setup(d => d.Create("~/FakeDir"))
                .Returns(new FileSystemDirectory("../../FakeDir"));
 

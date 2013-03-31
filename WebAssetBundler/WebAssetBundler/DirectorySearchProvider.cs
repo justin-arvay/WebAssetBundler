@@ -17,28 +17,19 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.Collections.Generic;
-using System.IO;
 
-    public class DirectorySearchContext
+    public class DirectorySearchProvider : IDirectorySerachProvider
     {
-        public DirectorySearchContext(string source, string extension)
-        {
-            if (System.IO.Path.IsPathRooted(source))
-            {
-                throw new FormatException("Path ({0}) must be virtual or relative.".FormatWith(source));
-            }
+        private Func<Type, DirectorySearch> directorySearchFactory;
 
-            Source = source;
-            Extension = extension;
-            Pattern = "*";
-            SearchOption = SearchOption.AllDirectories;
+        public DirectorySearchProvider(Func<Type, DirectorySearch> directorySearchFactory)
+        {
+            this.directorySearchFactory = directorySearchFactory;
         }
 
-        public string Source { get; private set; }
-        public string Extension { get; private set; }
-        public string Pattern { get; set; }
-        public SearchOption SearchOption { get; set; }
-
+        public DirectorySearch GetContext<TBundle>() where TBundle : Bundle
+        {
+            return directorySearchFactory(typeof(TBundle));
+        }
     }
 }

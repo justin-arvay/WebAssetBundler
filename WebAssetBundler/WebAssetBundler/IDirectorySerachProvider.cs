@@ -17,27 +17,10 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.IO;
 
-    public class DirectorySearchBuilder
+    public interface IDirectorySerachProvider
     {
-        private DirectorySearch context;
-
-        public DirectorySearchBuilder(DirectorySearch context)
-        {
-            this.context = context;
-        }
-
-        public DirectorySearchBuilder Pattern(string pattern)
-        {
-            context.Pattern = pattern;
-            return this;
-        }
-
-        public DirectorySearchBuilder SearchOption(SearchOption option)
-        {
-            context.SearchOption = option;
-            return this;
-        }
+        DirectorySearch GetContext<TBundle>()
+            where TBundle : Bundle;
     }
 }

@@ -90,7 +90,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var assets = new List<AssetBase>();
             assets.Add(new AssetBaseImpl());
 
-            assetProvider.Setup(l => l.GetAssets(It.IsAny<DirectorySearchContext>()))
+            assetProvider.Setup(l => l.GetAssets(It.IsAny<DirectorySearch>()))
                 .Returns(assets);
 
 
@@ -105,7 +105,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var assets = new List<AssetBase>();
             assets.Add(new AssetBaseImpl());
 
-            assetProvider.Setup(l => l.GetAssets(It.IsAny<DirectorySearchContext>()))
+            assetProvider.Setup(l => l.GetAssets(It.IsAny<DirectorySearch>()))
                 .Returns(assets);
 
             bundleConfig.AddFromDirectory("~/Files/Configration");
@@ -128,7 +128,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 }
             };
 
-            assetProvider.Setup(p => p.GetAssets(It.IsAny<DirectorySearchContext>()))
+            assetProvider.Setup(p => p.GetAssets(It.IsAny<DirectorySearch>()))
                 .Returns(assets);
 
             bundleConfig.AddFromDirectory("~/Test");
@@ -151,7 +151,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 }
             };
 
-            assetProvider.Setup(p => p.GetAssets(It.IsAny<DirectorySearchContext>()))
+            assetProvider.Setup(p => p.GetAssets(It.IsAny<DirectorySearch>()))
                 .Returns(assets);
 
             bundleConfig.AddFromDirectory("~/Test", b => b.ToString());

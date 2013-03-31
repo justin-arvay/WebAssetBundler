@@ -72,7 +72,7 @@
     <Compile Include="AssetProviderTests.cs" />
     <Compile Include="FileAssetTest.cs" />
     <Compile Include="DirectorySearchBuilderTests.cs" />
-    <Compile Include="DirectorySearchContextTests.cs" />
+    <Compile Include="DirectorySearchTests.cs" />
     <Compile Include="Script\ScriptBundleCachePrimerTests.cs" />
     <Compile Include="Script\ScriptBundleConfigurationImpl.cs" />
     <Compile Include="Script\ScriptBundleProviderTests.cs" />

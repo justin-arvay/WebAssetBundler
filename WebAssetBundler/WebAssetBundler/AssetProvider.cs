@@ -53,7 +53,7 @@ namespace WebAssetBundler.Web.Mvc
             return CreateAsset(ResolveFile(file));
         }        
 
-        public ICollection<AssetBase> GetAssets(DirectorySearchContext context)
+        public ICollection<AssetBase> GetAssets(DirectorySearch context)
         {
             var directory = directoryFactory.Create(context.Source);
 
