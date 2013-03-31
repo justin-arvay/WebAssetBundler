@@ -18,27 +18,43 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Collections.Generic;
-using System.IO;
+    using System.IO;
+    using System.Linq;
 
-    public class DirectorySearch
+    public class DirectorySearch : IDirectorySearch
     {
-        public DirectorySearch(string source, string extension)
+        public DirectorySearch()
         {
-            if (System.IO.Path.IsPathRooted(source))
-            {
-                throw new FormatException("Path ({0}) must be virtual or relative.".FormatWith(source));
-            }
-
-            Source = source;
-            Extension = extension;
-            Pattern = "*";
             SearchOption = SearchOption.AllDirectories;
         }
 
-        public string Source { get; private set; }
-        public string Extension { get; private set; }
-        public string Pattern { get; set; }
-        public SearchOption SearchOption { get; set; }
+        public IEnumerable<string> Patterns
+        { 
+            get; 
+            set; 
+        }
+
+        public SearchOption SearchOption 
+        { 
+            get; 
+            set; 
+        }
+
+        public string Extension 
+        { 
+            get; 
+            set; 
+        }
+
+        public IEnumerable<IFile> FindFiles(IDirectory directory)
+        {
+            IEnumerable<IFile> files =
+                from pattern in Patterns
+                from file in directory.GetFiles(pattern, SearchOption)
+                select file;
+
+            return files.Distinct(new FileSystemFileComparer());
+        }
 
         public static string GetDirectorySearchName(Type bundleType)
         {

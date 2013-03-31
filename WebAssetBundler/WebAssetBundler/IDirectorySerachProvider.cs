@@ -20,7 +20,7 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IDirectorySerachProvider
     {
-        DirectorySearch GetContext<TBundle>()
+        DirectorySearch Get<TBundle>()
             where TBundle : Bundle;
     }
 }

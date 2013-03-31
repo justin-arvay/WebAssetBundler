@@ -45,7 +45,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             directoryFactory = new Mock<IDirectoryFactory>();
             provider = new AssetProvider(directoryFactory.Object, server.Object, settings);
 
-            context = new DirectorySearch("~/Files/AssetProvider/Mixed", "css");
+            context = new DirectorySearch();
+            context.Extension = "css";
 
             directory = new FileSystemDirectory("../../Files/AssetProvider/Mixed");
 
@@ -56,7 +57,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_All_Files_With_Correct_Extension()
         {
-            var assets = (IList<AssetBase>)provider.GetAssets(context);
+            var assets = (IList<AssetBase>)provider.GetAssets("~/Files/AssetProvider/Mixed", context);
 
             Assert.AreEqual("../../Files/AssetProvider/Mixed\\FirstFile.min.css", assets[0].Source);
             Assert.AreEqual("../../Files/AssetProvider/Mixed\\SecondFile.min.css", assets[1].Source);
@@ -66,14 +67,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Raw_Assets()
         {
-            context = new DirectorySearch("~/Files/AssetProvider/Raw", "css");
+            context = new DirectorySearch();
 
             directory = new FileSystemDirectory("../../Files/AssetProvider/Raw");
 
             directoryFactory.Setup(d => d.Create("~/Files/AssetProvider/Raw"))
                 .Returns(directory);
 
-            var assets = (IList<AssetBase>)provider.GetAssets(context);
+            var assets = (IList<AssetBase>)provider.GetAssets("~/Files/AssetProvider/Raw", context);
 
             Assert.AreEqual("../../Files/AssetProvider/Raw\\FirstFile.css", assets[0].Source);
             Assert.AreEqual("../../Files/AssetProvider/Raw\\SecondFile.css", assets[1].Source);
@@ -85,7 +86,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             settings.DebugMode = true;
 
-            var assets = (IList<AssetBase>)provider.GetAssets(context);
+            var assets = (IList<AssetBase>)provider.GetAssets("~/Files/AssetProvider/Mixed", context);
 
             Assert.AreEqual("../../Files/AssetProvider/Mixed\\FirstFile.css", assets[0].Source);
             Assert.AreEqual("../../Files/AssetProvider/Mixed\\SecondFile.css", assets[1].Source);
@@ -95,7 +96,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_MinifiedAssets()
         {
-            var assets = (IList<AssetBase>)provider.GetAssets(context);
+            var assets = (IList<AssetBase>)provider.GetAssets("~/Files/AssetProvider/Mixed", context);
 
             Assert.AreEqual("../../Files/AssetProvider/Mixed\\FirstFile.min.css", assets[0].Source);
             Assert.AreEqual("../../Files/AssetProvider/Mixed\\SecondFile.min.css", assets[1].Source);
@@ -168,11 +169,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Throw_Exception_When_Getting_Assets_From_A_Directory_That_Does_Not_Exist()
         {
-            context = new DirectorySearch("~/FakeDir", "css");
+            context = new DirectorySearch();
             directoryFactory.Setup(d => d.Create("~/FakeDir"))
                .Returns(new FileSystemDirectory("../../FakeDir"));
 
-            Assert.Throws<DirectoryNotFoundException>(() => provider.GetAssets(context));
+            Assert.Throws<DirectoryNotFoundException>(() => provider.GetAssets("~/FakeDir", context));
         }
     }
 }

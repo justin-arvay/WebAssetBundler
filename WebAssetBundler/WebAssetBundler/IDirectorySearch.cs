@@ -18,21 +18,15 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class DirectorySearchProvider : IDirectorySerachProvider
+    using System.Collections.Generic;
+
+    public interface IDirectorySearch
     {
-        private Func<Type, DirectorySearch> directorySearchFactory;
-
-        public DirectorySearchProvider(Func<Type, DirectorySearch> directorySearchFactory)
-        {
-            this.directorySearchFactory = directorySearchFactory;
-        }
-
-        public DirectorySearch Get<TBundle>() where TBundle : Bundle
-        {
-            var directorySearch = directorySearchFactory(typeof(TBundle));
-            directorySearch.Extension = (Activator.CreateInstance<TBundle>()).Extension;
-
-            return directorySearch;
-        }
+        /// <summary>
+        /// Finds all matching files in the specific directory.
+        /// </summary>
+        /// <param name="directory"></param>
+        /// <returns></returns>
+        IEnumerable<IFile> FindFiles(IDirectory directory);
     }
 }

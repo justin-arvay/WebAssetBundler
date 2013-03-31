@@ -47,7 +47,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="path"></param>
         public void AddFromDirectory(string path)
         {
-            var assets = AssetProvider.GetAssets(new DirectorySearch(path, Bundle.Extension));
+            var assets = AssetProvider.GetAssets(path, DirectorySearchProvider.Get<TBundle>());
 
             foreach (var asset in assets)
             {
@@ -65,10 +65,10 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="builder"></param>
         public void AddFromDirectory(string path, Action<DirectorySearchBuilder> builder)
         {
-            var component = new DirectorySearch(path, Bundle.Extension);
+            var component = DirectorySearchProvider.Get<TBundle>();
             builder(new DirectorySearchBuilder(component));
 
-            var assets = AssetProvider.GetAssets(component);
+            var assets = AssetProvider.GetAssets(path, component);
 
             foreach (var asset in assets)
             {
@@ -122,6 +122,12 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         public IAssetProvider AssetProvider
+        {
+            get;
+            set;
+        }
+
+        public IDirectorySerachProvider DirectorySearchProvider
         {
             get;
             set;

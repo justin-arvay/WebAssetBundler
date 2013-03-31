@@ -23,6 +23,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public BundleImpl()
             : base()
         {
+            Extension = ".tst";
         }
 
         public override string ContentType

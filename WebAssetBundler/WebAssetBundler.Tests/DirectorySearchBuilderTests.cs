@@ -19,6 +19,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
     using System.IO;
+    using System.Linq;
 
     [TestFixture]
     public class DirectorySearchBuilderTests
@@ -29,7 +30,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [SetUp]
         public void Setup()
         {
-            context = new DirectorySearch("path", "txt");
+            context = new DirectorySearch();
             builder = new DirectorySearchBuilder(context);
         }
 
@@ -38,7 +39,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var returnBuilder = builder.Pattern("*.js");
 
-            Assert.AreEqual("*.js", context.Pattern);
+            Assert.AreEqual("*.js", context.Patterns.ToList()[0]);
             Assert.IsInstanceOf<DirectorySearchBuilder>(returnBuilder);
         }
 

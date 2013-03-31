@@ -14,25 +14,36 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System;
+    using NUnit.Framework;
+    using Moq;
 
-    public class DirectorySearchProvider : IDirectorySerachProvider
+    [TestFixture]
+    public class DirectorySearchProviderTests
     {
-        private Func<Type, DirectorySearch> directorySearchFactory;
+        private DirectorySearchProvider provider;
+        private DirectorySearch dirSearch;
 
-        public DirectorySearchProvider(Func<Type, DirectorySearch> directorySearchFactory)
+        [SetUp]
+        public void Setup()
         {
-            this.directorySearchFactory = directorySearchFactory;
+            dirSearch = new DirectorySearch();
+            provider = new DirectorySearchProvider((type) =>
+            {
+                return dirSearch;
+            });
         }
 
-        public DirectorySearch Get<TBundle>() where TBundle : Bundle
+        [Test]
+        public void Should_Get_Directory_Search()
         {
-            var directorySearch = directorySearchFactory(typeof(TBundle));
-            directorySearch.Extension = (Activator.CreateInstance<TBundle>()).Extension;
+            var bundle = new BundleImpl();
+            var dirSearch = provider.Get<BundleImpl>();
 
-            return directorySearch;
+            Assert.AreEqual(this.dirSearch, dirSearch);
+            Assert.AreEqual(bundle.Extension, dirSearch.Extension);
         }
     }
 }

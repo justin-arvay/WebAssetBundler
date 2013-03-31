@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
     using System;
     using System.IO;
+    using System.Linq;
 
     [TestFixture]
     public class DirectorySearchTests
@@ -34,19 +35,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Throw_Exception_If_Path_Is_Rooted()
         {
-            Assert.Throws<FormatException>(() => new DirectorySearch(@"\foo", "css"));
-            Assert.Throws<FormatException>(() => new DirectorySearch(@"c:\foo", "css"));
+            Assert.Throws<FormatException>(() => new DirectorySearch());
+            Assert.Throws<FormatException>(() => new DirectorySearch());
         }
 
         [Test]
         public void Should_Set_Defaults()
         {
-            var context = new DirectorySearch("source", "ext");
+            var context = new DirectorySearch();
 
             Assert.AreEqual(SearchOption.AllDirectories, context.SearchOption);
-            Assert.AreEqual("ext", context.Extension);
-            Assert.AreEqual("*", context.Pattern);
-            Assert.AreEqual("source", context.Source);
+            Assert.NotNull(context.Patterns);
         }
 
         [Test]

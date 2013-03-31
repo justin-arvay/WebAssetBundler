@@ -53,19 +53,17 @@ namespace WebAssetBundler.Web.Mvc
             return CreateAsset(ResolveFile(file));
         }        
 
-        public ICollection<AssetBase> GetAssets(DirectorySearch context)
+        public ICollection<AssetBase> GetAssets(string source, DirectorySearch context)
         {
-            var directory = directoryFactory.Create(context.Source);
+            var directory = directoryFactory.Create(source);
 
             if (directory.Exists == false)
             {
-                throw new DirectoryNotFoundException(TextResource.Exceptions.DirectoryNotFound.FormatWith(context.Source));
+                throw new DirectoryNotFoundException(TextResource.Exceptions.DirectoryNotFound.FormatWith(source));
             }
 
             //retrieve all files from the directory where the file ends in the extension
-            var files = directory.GetFiles(context.Pattern, context.SearchOption)
-                .Where((file) => file.Path.EndsWith(context.Extension))
-                .ToList();
+            var files = context.FindFiles(directory);
 
             var assets = new List<AssetBase>(files.Select((file) => CreateAsset(file)));
 

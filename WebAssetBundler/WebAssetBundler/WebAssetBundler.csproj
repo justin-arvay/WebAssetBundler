@@ -62,8 +62,10 @@
     <Compile Include="Bootstrap\IBootstrapTask.cs" />
     <Compile Include="FileSystemDirectory.cs" />
     <Compile Include="Container\IContainer.cs" />
+    <Compile Include="FileSystemFileComparer.cs" />
     <Compile Include="IDirectory.cs" />
     <Compile Include="IDirectoryFactory.cs" />
+    <Compile Include="IDirectorySearch.cs" />
     <Compile Include="IDirectorySerachProvider.cs" />
     <Compile Include="Minifiers\JSMin.cs" />
     <Compile Include="Minifiers\JSMinMinifier.cs" />

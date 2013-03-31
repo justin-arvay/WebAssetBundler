@@ -18,25 +18,26 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.IO;
+    using System.Collections.Generic;
 
     public class DirectorySearchBuilder
     {
-        private DirectorySearch context;
+        private DirectorySearch directorySearch;
 
-        public DirectorySearchBuilder(DirectorySearch context)
+        public DirectorySearchBuilder(DirectorySearch directorySearch)
         {
-            this.context = context;
+            this.directorySearch = directorySearch;
         }
 
         public DirectorySearchBuilder Pattern(string pattern)
         {
-            context.Pattern = pattern;
+            ((IList<string>)directorySearch.Patterns).Add(pattern);
             return this;
         }
 
         public DirectorySearchBuilder SearchOption(SearchOption option)
         {
-            context.SearchOption = option;
+            directorySearch.SearchOption = option;
             return this;
         }
     }

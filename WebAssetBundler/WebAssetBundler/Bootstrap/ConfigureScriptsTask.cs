@@ -50,7 +50,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IBundleProvider<ScriptBundle>, ScriptBundleProvider>();
             container.Register<DirectorySearch>((c, p) =>
             {
-                return new DirectorySearch("", "");
+                return new DirectorySearch();
             }, DirectorySearch.GetDirectorySearchName(typeof(ScriptBundle)));
         }
 

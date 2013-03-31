@@ -54,6 +54,7 @@
     <Compile Include="Bootstrap\ConfigureContainerTaskBaseImpl.cs" />
     <Compile Include="Bootstrap\ConfigureContainerTaskBaseTests.cs" />
     <Compile Include="DirectoryFactoryTests.cs" />
+    <Compile Include="DirectorySearchProviderTests.cs" />
     <Compile Include="FileSystemDirectoryTests.cs" />
     <Compile Include="FileSystemFileTests.cs" />
     <Compile Include="Caching\BundlesCacheTests.cs" />

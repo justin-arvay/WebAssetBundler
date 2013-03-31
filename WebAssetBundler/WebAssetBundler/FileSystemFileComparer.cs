@@ -17,22 +17,18 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Collections.Generic;
 
-    public class DirectorySearchProvider : IDirectorySerachProvider
+    public class FileSystemFileComparer : IEqualityComparer<IFile>
     {
-        private Func<Type, DirectorySearch> directorySearchFactory;
-
-        public DirectorySearchProvider(Func<Type, DirectorySearch> directorySearchFactory)
+        public bool Equals(IFile x, IFile y)
         {
-            this.directorySearchFactory = directorySearchFactory;
+            return x.Path.Equals(y.Path, StringComparison.OrdinalIgnoreCase);
         }
 
-        public DirectorySearch Get<TBundle>() where TBundle : Bundle
+        public int GetHashCode(IFile obj)
         {
-            var directorySearch = directorySearchFactory(typeof(TBundle));
-            directorySearch.Extension = (Activator.CreateInstance<TBundle>()).Extension;
-
-            return directorySearch;
+            return obj.Path.GetHashCode();
         }
     }
 }
