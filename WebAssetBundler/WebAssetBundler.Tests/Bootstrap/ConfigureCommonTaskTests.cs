@@ -14,19 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace Examples
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
-    using WebAssetBundler.Web.Mvc;
+    using NUnit.Framework;
+    using Moq;
 
-    public class LayoutScriptBundle : BundleConfiguration<ScriptBundle>
+    [TestFixture]
+    public class ConfigureCommonTaskTests
     {
-        public override void Configure()
+        [Test]
+        public void Should()
         {
-            Name("Scripts");
-            Compress(true);
-            AddDirectory("~/Scripts", dir => dir
-                .Pattern("*"));
+            Assert.Fail();
         }
     }
 }

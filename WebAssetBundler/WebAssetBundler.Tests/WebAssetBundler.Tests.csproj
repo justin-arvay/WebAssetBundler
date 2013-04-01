@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssetBaseImpl.cs" />
+    <Compile Include="Bootstrap\ConfigureCommonTaskTests.cs" />
     <Compile Include="Bootstrap\ConfigureContainerTaskBaseImpl.cs" />
     <Compile Include="Bootstrap\ConfigureContainerTaskBaseTests.cs" />
     <Compile Include="DirectoryFactoryTests.cs" />

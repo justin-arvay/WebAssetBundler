@@ -24,15 +24,17 @@ namespace WebAssetBundler.Web.Mvc
         private IBundlesCache<StyleSheetBundle> cache;
         private IAssetProvider assetProvider;
         private IBundlePipeline<StyleSheetBundle> pipeline;
+        private IDirectorySearchProvider dirSearchProvider;
 
         private static bool isPrimed = false;
 
         public StyleSheetBundleCachePrimer(IAssetProvider assetProvider, IBundlePipeline<StyleSheetBundle> pipeline,
-            IBundlesCache<StyleSheetBundle> cache)
+            IBundlesCache<StyleSheetBundle> cache, IDirectorySearchProvider dirSearchProvider)
         {
             this.assetProvider = assetProvider;
             this.pipeline = pipeline;
             this.cache = cache;
+            this.dirSearchProvider = dirSearchProvider;
         }
 
         public bool IsPrimed
@@ -51,6 +53,7 @@ namespace WebAssetBundler.Web.Mvc
                 item.Bundle = new StyleSheetBundle();
                 item.Bundle.Name = item.GetType().Name;
                 item.AssetProvider = assetProvider;
+                item.DirectorySearchProvider = dirSearchProvider;
                 item.Configure();
 
                 pipeline.Process(item.Bundle);

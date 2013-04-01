@@ -34,7 +34,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<ITypeProvider>(typeProvider);
             container.Register<IAssetProvider, AssetProvider>();
             container.Register<SettingsContext>(new SettingsContext(DefaultSettings.DebugMode, DefaultSettings.MinifyIdentifier));
-            container.Register<IDirectorySerachProvider>((c, p) => new DirectorySearchProvider(
+            container.Register<IDirectorySearchProvider>((c, p) => new DirectorySearchProvider(
                 bundleType => c.Resolve<DirectorySearch>()));
 
             ConfigureHttpHandler(container);

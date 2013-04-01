@@ -18,7 +18,7 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class DirectorySearchProvider : IDirectorySerachProvider
+    public class DirectorySearchProvider : IDirectorySearchProvider
     {
         private Func<Type, DirectorySearch> directorySearchFactory;
 

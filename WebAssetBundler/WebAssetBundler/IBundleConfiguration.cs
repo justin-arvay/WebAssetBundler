@@ -21,14 +21,16 @@ namespace WebAssetBundler.Web.Mvc
     public interface IBundleConfiguration<TBundle> where TBundle : Bundle
     {
         void Add(string source);
-        void AddFromDirectory(string path);
-        void AddFromDirectory(string path, Action<DirectorySearchBuilder> builder);
+        void AddDirectory(string path);
+        void AddDirectory(string path, Action<DirectorySearchBuilder> builder);
+        void AddDirectory(string path, DirectorySearch dirSearch);
         void Name(string name);
         void Compress(bool compress);
         void Host(string host);
         void BrowserTtl(int timeToLive);
         TBundle Bundle { get; set; }
         IAssetProvider AssetProvider { get; set; }
+        IDirectorySearchProvider DirectorySearchProvider { get; set; }
         void Configure();
     }
 }

@@ -87,6 +87,25 @@ namespace WebAssetBundler.Web.Mvc.Tests
             plugin.Verify(p => p.Dispose());
         }
 
+        [Test]
+        public void Should_Modify_Pipeline()
+        {
+            Assert.Fail();
+        }
+
+        [Test]
+        public void Should_Register_Directory_Search()
+        {
+            var container = new TinyIoCContainer();
+            var patterns = new List<string>() { ".test" };
+
+            task.RegisterDirectorySearch<BundleImpl>(container, patterns);
+
+            var dirSearch = container.Resolve<IDirectorySearch>(DirectorySearch.GetDirectorySearchName<BundleImpl>());
+
+            Assert.IsInstanceOf<DirectorySearch>(dirSearch);
+        }
+
         internal class TestPlugin : IPlugin<BundleImpl>
         {
 

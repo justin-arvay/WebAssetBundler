@@ -42,10 +42,10 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
-        /// Adds all files in a directory of the correct file type.
+        /// Adds all files in a directory based on the default search constraints.
         /// </summary>
         /// <param name="path"></param>
-        public void AddFromDirectory(string path)
+        public void AddDirectory(string path)
         {
             var assets = AssetProvider.GetAssets(path, DirectorySearchProvider.Get<TBundle>());
 
@@ -59,11 +59,29 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
-        /// Adds files from a directory based on rulesets. Only looks at files of the correct type.
+        /// Adds all files in a directory based on the search constraints provided.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="dirSearch"></param>
+        public void AddDirectory(string path, DirectorySearch dirSearch)
+        {
+            var assets = AssetProvider.GetAssets(path, dirSearch);
+
+            foreach (var asset in assets)
+            {
+                if (AlreadyExists(asset) == false)
+                {
+                    Bundle.Assets.Add(asset);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds files from a directory based on search constraints.
         /// </summary>
         /// <param name="path"></param>
         /// <param name="builder"></param>
-        public void AddFromDirectory(string path, Action<DirectorySearchBuilder> builder)
+        public void AddDirectory(string path, Action<DirectorySearchBuilder> builder)
         {
             var component = DirectorySearchProvider.Get<TBundle>();
             builder(new DirectorySearchBuilder(component));
@@ -78,6 +96,8 @@ namespace WebAssetBundler.Web.Mvc
                 }
             }
         }
+
+
 
         /// <summary>
         /// Configure the bundle name. The bundle name is used in the url.
@@ -127,7 +147,7 @@ namespace WebAssetBundler.Web.Mvc
             set;
         }
 
-        public IDirectorySerachProvider DirectorySearchProvider
+        public IDirectorySearchProvider DirectorySearchProvider
         {
             get;
             set;

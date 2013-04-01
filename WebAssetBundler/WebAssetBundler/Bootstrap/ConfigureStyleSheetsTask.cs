@@ -37,6 +37,7 @@ namespace WebAssetBundler.Web.Mvc
             }
 
             ConfigureContainer(container, pipelineModifers);
+            RegisterDirectorySearch<StyleSheetBundle>(container, searchPatterns);
         }
 
         public void ConfigureContainer(TinyIoCContainer container, IEnumerable<IPipelineModifier<StyleSheetBundle>> pipelineModifiers)

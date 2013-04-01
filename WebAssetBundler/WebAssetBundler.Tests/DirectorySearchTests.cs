@@ -32,12 +32,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             
         }
 
-        [Test]
-        public void Should_Throw_Exception_If_Path_Is_Rooted()
-        {
-            Assert.Throws<FormatException>(() => new DirectorySearch());
-            Assert.Throws<FormatException>(() => new DirectorySearch());
-        }
 
         [Test]
         public void Should_Set_Defaults()
@@ -51,7 +45,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Directory_Search_Registration_Name()
         {
-            var name = DirectorySearch.GetDirectorySearchName(typeof(BundleImpl));
+            var name = DirectorySearch.GetDirectorySearchName<BundleImpl>();
 
             Assert.AreEqual("BundleImpl.DirectorySearch", name);
         }

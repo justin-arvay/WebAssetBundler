@@ -27,15 +27,18 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private BundleConfigurationImpl bundleConfig;
         private Mock<IAssetProvider> assetProvider;
+        private Mock<IDirectorySearchProvider> dirSearchProvider;
 
         [SetUp]
         public void Setup()
         {
             assetProvider = new Mock<IAssetProvider>();
+            dirSearchProvider = new Mock<IDirectorySearchProvider>();
             bundleConfig = new BundleConfigurationImpl();
             bundleConfig.Bundle = new BundleImpl();
 
             bundleConfig.AssetProvider = assetProvider.Object;
+            bundleConfig.DirectorySearchProvider = dirSearchProvider.Object;
         }
 
         [Test]
@@ -90,11 +93,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var assets = new List<AssetBase>();
             assets.Add(new AssetBaseImpl());
 
+            dirSearchProvider.Setup(d => d.Get<BundleImpl>())
+                .Returns(new DirectorySearch());
+
             assetProvider.Setup(l => l.GetAssets(It.IsAny<string>(), It.IsAny<DirectorySearch>()))
                 .Returns(assets);
 
 
-            bundleConfig.AddFromDirectory("~/Files/Configration", b => b.ToString());
+            bundleConfig.AddDirectory("~/Files/Configration", b => b.ToString());
 
             Assert.AreEqual(1, bundleConfig.Bundle.Assets.Count);
         }
@@ -105,10 +111,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var assets = new List<AssetBase>();
             assets.Add(new AssetBaseImpl());
 
+            dirSearchProvider.Setup(d => d.Get<BundleImpl>())
+                .Returns(new DirectorySearch());
+
             assetProvider.Setup(l => l.GetAssets(It.IsAny<string>(), It.IsAny<DirectorySearch>()))
                 .Returns(assets);
 
-            bundleConfig.AddFromDirectory("~/Files/Configration");
+            bundleConfig.AddDirectory("~/Files/Configration");
 
             Assert.AreEqual(1, bundleConfig.Bundle.Assets.Count);
         }
@@ -131,7 +140,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             assetProvider.Setup(p => p.GetAssets(It.IsAny<string>(), It.IsAny<DirectorySearch>()))
                 .Returns(assets);
 
-            bundleConfig.AddFromDirectory("~/Test");
+            bundleConfig.AddDirectory("~/Test");
 
             Assert.AreEqual(1, bundleConfig.Bundle.Assets.Count);
         }
@@ -154,7 +163,21 @@ namespace WebAssetBundler.Web.Mvc.Tests
             assetProvider.Setup(p => p.GetAssets(It.IsAny<string>(), It.IsAny<DirectorySearch>()))
                 .Returns(assets);
 
-            bundleConfig.AddFromDirectory("~/Test", b => b.ToString());
+            bundleConfig.AddDirectory("~/Test", b => b.ToString());
+
+            Assert.AreEqual(1, bundleConfig.Bundle.Assets.Count);
+        }
+
+        [Test]
+        public void Should_Locate_Assets_In_Directory_With_User_Created_Directory_Search()
+        {
+            var assets = new List<AssetBase>();
+            assets.Add(new AssetBaseImpl());
+
+            assetProvider.Setup(l => l.GetAssets(It.IsAny<string>(), It.IsAny<DirectorySearch>()))
+                .Returns(assets);
+
+            bundleConfig.AddDirectory("~/Files/Configration", new DirectorySearch());
 
             Assert.AreEqual(1, bundleConfig.Bundle.Assets.Count);
         }

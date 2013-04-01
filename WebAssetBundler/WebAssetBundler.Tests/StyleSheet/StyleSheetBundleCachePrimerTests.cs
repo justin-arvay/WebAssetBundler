@@ -29,6 +29,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
         private Mock<IBundlesCache<StyleSheetBundle>> cache;
+        private Mock<IDirectorySearchProvider> dirSearchProvider;
 
         [SetUp]
         public void Setup()
@@ -36,7 +37,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             assetProvider = new Mock<IAssetProvider>();
             pipeline = new Mock<IBundlePipeline<StyleSheetBundle>>();
             cache = new Mock<IBundlesCache<StyleSheetBundle>>();
-            primer = new StyleSheetBundleCachePrimer(assetProvider.Object, pipeline.Object, cache.Object);
+            dirSearchProvider = new Mock<IDirectorySearchProvider>();
+            primer = new StyleSheetBundleCachePrimer(assetProvider.Object, pipeline.Object, cache.Object, dirSearchProvider.Object);
         }
 
         [Test]
@@ -65,6 +67,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual(1, configTwo.CallCount);
             Assert.IsInstanceOf<IAssetProvider>(configOne.AssetProvider);
             Assert.IsInstanceOf<IAssetProvider>(configTwo.AssetProvider);
+            Assert.IsInstanceOf<IDirectorySearchProvider>(configOne.DirectorySearchProvider);
+            Assert.IsInstanceOf<IDirectorySearchProvider>(configTwo.DirectorySearchProvider);
             Assert.IsInstanceOf<StyleSheetBundle>(configOne.Bundle);
             Assert.IsInstanceOf<StyleSheetBundle>(configTwo.Bundle);
             Assert.AreEqual("StyleSheetBundleConfigurationImpl", configOne.Bundle.Name);

@@ -57,6 +57,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_All_Files_With_Correct_Extension()
         {
+            context.Patterns = new List<string>() { "*" };
+
             var assets = (IList<AssetBase>)provider.GetAssets("~/Files/AssetProvider/Mixed", context);
 
             Assert.AreEqual("../../Files/AssetProvider/Mixed\\FirstFile.min.css", assets[0].Source);
@@ -67,7 +69,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Raw_Assets()
         {
-            context = new DirectorySearch();
+            context.Patterns = new List<string>() { "*" };
 
             directory = new FileSystemDirectory("../../Files/AssetProvider/Raw");
 
@@ -85,6 +87,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Always_Get_Raw_Assets_In_Debug_Mode()
         {
             settings.DebugMode = true;
+            context.Patterns = new List<string>() { "*" };
 
             var assets = (IList<AssetBase>)provider.GetAssets("~/Files/AssetProvider/Mixed", context);
 
@@ -96,6 +99,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_MinifiedAssets()
         {
+            context.Patterns = new List<string>() { "*" };
+
             var assets = (IList<AssetBase>)provider.GetAssets("~/Files/AssetProvider/Mixed", context);
 
             Assert.AreEqual("../../Files/AssetProvider/Mixed\\FirstFile.min.css", assets[0].Source);
@@ -118,11 +123,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Throw_Exception_If_Not_Virtual_Source()
         {
-
             Assert.Throws<ArgumentException>(() => provider.GetAsset("File.css"));
-
             Assert.Throws<ArgumentException>(() => provider.GetAsset("File.css"));
-
         }
 
         [Test]

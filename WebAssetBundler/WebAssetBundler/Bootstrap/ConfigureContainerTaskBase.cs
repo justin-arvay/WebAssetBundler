@@ -88,6 +88,24 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
+        /// <summary>
+        /// Registers the directory search with the container. Specific to bundle type.
+        /// </summary>
+        /// <typeparam name="TBundle"></typeparam>
+        /// <param name="container"></param>
+        /// <param name="searchPatterns"></param>
+        public void RegisterDirectorySearch<TBundle>(TinyIoCContainer container, IEnumerable<string> searchPatterns)
+            where TBundle : Bundle
+        {
+            container.Register<DirectorySearch>((c, p) =>
+            {
+                return new DirectorySearch()
+                {
+                    Patterns = searchPatterns
+                };
+            }, DirectorySearch.GetDirectorySearchName<TBundle>());
+        }
+
         public void ShutDown()
         {
             if (Plugins != null)

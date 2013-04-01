@@ -29,6 +29,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<ScriptBundle>> pipeline;
         private Mock<IBundlesCache<ScriptBundle>> cache;
+        private Mock<IDirectorySearchProvider> dirSearchProvider;
 
         [SetUp]
         public void Setup()
@@ -36,7 +37,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
             assetProvider = new Mock<IAssetProvider>();
             pipeline = new Mock<IBundlePipeline<ScriptBundle>>();
             cache = new Mock<IBundlesCache<ScriptBundle>>();
-            primer = new ScriptBundleCachePrimer(assetProvider.Object, pipeline.Object, cache.Object);
+            dirSearchProvider = new Mock<IDirectorySearchProvider>();
+
+            primer = new ScriptBundleCachePrimer(assetProvider.Object, pipeline.Object, cache.Object, dirSearchProvider.Object);
         }
 
         [Test]
@@ -65,6 +68,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual(1, configTwo.CallCount);
             Assert.IsInstanceOf<IAssetProvider>(configOne.AssetProvider);
             Assert.IsInstanceOf<IAssetProvider>(configTwo.AssetProvider);
+            Assert.IsInstanceOf<IDirectorySearchProvider>(configOne.DirectorySearchProvider);
+            Assert.IsInstanceOf<IDirectorySearchProvider>(configTwo.DirectorySearchProvider);
             Assert.IsInstanceOf<ScriptBundle>(configOne.Bundle);
             Assert.IsInstanceOf<ScriptBundle>(configTwo.Bundle);
             Assert.AreEqual("ScriptBundleConfigurationImpl", configOne.Bundle.Name);

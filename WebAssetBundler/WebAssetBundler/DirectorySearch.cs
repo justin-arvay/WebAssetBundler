@@ -26,6 +26,7 @@ namespace WebAssetBundler.Web.Mvc
         public DirectorySearch()
         {
             SearchOption = SearchOption.AllDirectories;
+            Patterns = new List<string>();
         }
 
         public IEnumerable<string> Patterns
@@ -56,9 +57,10 @@ namespace WebAssetBundler.Web.Mvc
             return files.Distinct(new FileSystemFileComparer());
         }
 
-        public static string GetDirectorySearchName(Type bundleType)
+        public static string GetDirectorySearchName<TBundle>()
+            where TBundle : Bundle
         {
-            return bundleType.Name + ".DirectorySearch";
+            return typeof(TBundle).Name + ".DirectorySearch";
         }
     }
 }

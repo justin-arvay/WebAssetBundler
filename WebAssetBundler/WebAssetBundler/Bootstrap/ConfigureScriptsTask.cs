@@ -37,6 +37,7 @@ namespace WebAssetBundler.Web.Mvc
             }
 
             ConfigureContainer(container, pipelineModifers);
+            RegisterDirectorySearch<ScriptBundle>(container, searchPatterns);
         }
 
         public void ConfigureContainer(TinyIoCContainer container, IEnumerable<IPipelineModifier<ScriptBundle>> pipelineModifiers)
@@ -48,10 +49,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();
             container.Register<IBundleCachePrimer<ScriptBundle>, ScriptBundleCachePrimer>();
             container.Register<IBundleProvider<ScriptBundle>, ScriptBundleProvider>();
-            container.Register<DirectorySearch>((c, p) =>
-            {
-                return new DirectorySearch();
-            }, DirectorySearch.GetDirectorySearchName(typeof(ScriptBundle)));
+            
         }
 
         public IBundlePipeline<ScriptBundle> CreateScriptPipeline(TinyIoCContainer container, IEnumerable<IPipelineModifier<ScriptBundle>> pipelineModifiers)
