@@ -35,6 +35,6 @@ namespace WebAssetBundler.Web.Mvc
         /// <typeparam name="TBundle"></typeparam>
         /// <param name="component"></param>
         /// <returns></returns>
-        ICollection<AssetBase> GetAssets(string source, DirectorySearch component);
+        ICollection<AssetBase> GetAssets(string source, IDirectorySearch component);
     }
 }

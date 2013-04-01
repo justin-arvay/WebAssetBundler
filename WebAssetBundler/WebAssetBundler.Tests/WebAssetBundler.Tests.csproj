@@ -54,8 +54,10 @@
     <Compile Include="Bootstrap\ConfigureCommonTaskTests.cs" />
     <Compile Include="Bootstrap\ConfigureContainerTaskBaseImpl.cs" />
     <Compile Include="Bootstrap\ConfigureContainerTaskBaseTests.cs" />
+    <Compile Include="Bootstrap\ConfigureScriptsTaskTests.cs" />
+    <Compile Include="Bootstrap\ConfigureStyleSheetTaskTests.cs" />
     <Compile Include="DirectoryFactoryTests.cs" />
-    <Compile Include="DirectorySearchProviderTests.cs" />
+    <Compile Include="DirectorySearchFactoryTests.cs" />
     <Compile Include="FileSystemDirectoryTests.cs" />
     <Compile Include="FileSystemFileTests.cs" />
     <Compile Include="Caching\BundlesCacheTests.cs" />

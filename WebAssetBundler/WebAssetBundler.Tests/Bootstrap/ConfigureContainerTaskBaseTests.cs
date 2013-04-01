@@ -90,7 +90,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Modify_Pipeline()
         {
-            Assert.Fail();
+            var modifier = new Mock<IPipelineModifier<BundleImpl>>();
+            var modifiers = new List<IPipelineModifier<BundleImpl>>() { modifier.Object };
+
+            var pipeline = new BundlePipelineImpl(new TinyIoCContainer());
+
+            task.ModifyPipeline(pipeline, modifiers);
+
+            modifier.Verify(m => m.Modify(pipeline));
         }
 
         [Test]

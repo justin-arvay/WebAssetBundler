@@ -56,7 +56,7 @@
     <Compile Include="Configuration\WabConfigurationSection.cs" />
     <Compile Include="Container\TinyIocContainerImpl.cs" />
     <Compile Include="DirectoryFactory.cs" />
-    <Compile Include="DirectorySearchProvider.cs" />
+    <Compile Include="DirectorySearchFactory.cs" />
     <Compile Include="FileSystemFile.cs" />
     <Compile Include="Bootstrap\ConfigureContainerTaskBase.cs" />
     <Compile Include="Bootstrap\IBootstrapTask.cs" />
@@ -66,7 +66,7 @@
     <Compile Include="IDirectory.cs" />
     <Compile Include="IDirectoryFactory.cs" />
     <Compile Include="IDirectorySearch.cs" />
-    <Compile Include="IDirectorySearchProvider.cs" />
+    <Compile Include="IDirectorySearchFactory.cs" />
     <Compile Include="Minifiers\JSMin.cs" />
     <Compile Include="Minifiers\JSMinMinifier.cs" />
     <Compile Include="BundleProviderBase.cs" />

@@ -18,21 +18,11 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class DirectorySearchProvider : IDirectorySearchProvider
+    public interface IDirectorySearchFactory<TBundle> 
+        where TBundle : Bundle
+    
     {
-        private Func<Type, DirectorySearch> directorySearchFactory;
-
-        public DirectorySearchProvider(Func<Type, DirectorySearch> directorySearchFactory)
-        {
-            this.directorySearchFactory = directorySearchFactory;
-        }
-
-        public DirectorySearch Get<TBundle>() where TBundle : Bundle
-        {
-            var directorySearch = directorySearchFactory(typeof(TBundle));
-            directorySearch.Extension = (Activator.CreateInstance<TBundle>()).Extension;
-
-            return directorySearch;
-        }
+        IDirectorySearch Create(string extension);
     }
+           
 }

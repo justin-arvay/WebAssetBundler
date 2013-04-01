@@ -22,11 +22,10 @@ namespace WebAssetBundler.Web.Mvc
     [TaskOrder(3)]
     public class ConfigureScriptsTask : ConfigureContainerTaskBase<ScriptBundle>
     {
-
         public override void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
         {
             var pipelineModifers = new List<IPipelineModifier<ScriptBundle>>();
-            var searchPatterns = new List<string>();
+            var searchPatterns = CreateDefaultPatterns();
             var plugins = LoadPlugins(container, typeProvider);
 
             foreach (var plugin in plugins)
@@ -49,9 +48,15 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();
             container.Register<IBundleCachePrimer<ScriptBundle>, ScriptBundleCachePrimer>();
             container.Register<IBundleProvider<ScriptBundle>, ScriptBundleProvider>();
-            
+            container.Register<IDirectorySearchFactory<ScriptBundle>, DirectorySearchFactory<ScriptBundle>>();            
         }
 
+        /// <summary>
+        /// Creates the pipeline as well as modifies it using supplied modifiers.
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="pipelineModifiers"></param>
+        /// <returns></returns>
         public IBundlePipeline<ScriptBundle> CreateScriptPipeline(TinyIoCContainer container, IEnumerable<IPipelineModifier<ScriptBundle>> pipelineModifiers)
         {
             var pipeline = new ScriptPipeline(container);
@@ -59,6 +64,15 @@ namespace WebAssetBundler.Web.Mvc
             ModifyPipeline(pipeline, pipelineModifiers);
 
             return pipeline;
+        }
+
+        /// <summary>
+        /// Creates the default search patterns to be used in configuration by directory.
+        /// </summary>
+        /// <returns></returns>
+        public List<string> CreateDefaultPatterns()
+        {
+            return new List<string>() { "*.js" };
         }
     }
 }

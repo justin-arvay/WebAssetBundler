@@ -50,8 +50,15 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
             container.Register<IBundleCachePrimer<StyleSheetBundle>, StyleSheetBundleCachePrimer>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
+            container.Register<IDirectorySearchFactory<StyleSheetBundle>, DirectorySearchFactory<StyleSheetBundle>>();            
         }
 
+        /// <summary>
+        /// Creates the pipeline as well as modifies it using supplied modifiers.
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="pipelineModifiers"></param>
+        /// <returns></returns>
         public IBundlePipeline<StyleSheetBundle> CreateStyleSheetPipeline(TinyIoCContainer container, IEnumerable<IPipelineModifier<StyleSheetBundle>> pipelineModifiers)
         {
             var pipeline = new StyleSheetPipeline(container);
@@ -59,6 +66,15 @@ namespace WebAssetBundler.Web.Mvc
             ModifyPipeline(pipeline, pipelineModifiers);
 
             return pipeline;
+        }
+
+        /// <summary>
+        /// Creates the default search patterns to be used in configuration by directory.
+        /// </summary>
+        /// <returns></returns>
+        public List<string> CreateDefaultPatterns()
+        {
+            return new List<string>() { "*.css" };
         }
     }
 }

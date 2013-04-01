@@ -47,7 +47,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="path"></param>
         public void AddDirectory(string path)
         {
-            var assets = AssetProvider.GetAssets(path, DirectorySearchProvider.Get<TBundle>());
+            var assets = AssetProvider.GetAssets(path, DirectorySearchFactory.Create(Bundle.Extension));
 
             foreach (var asset in assets)
             {
@@ -83,8 +83,8 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="builder"></param>
         public void AddDirectory(string path, Action<DirectorySearchBuilder> builder)
         {
-            var component = DirectorySearchProvider.Get<TBundle>();
-            builder(new DirectorySearchBuilder(component));
+            var component = DirectorySearchFactory.Create(Bundle.Extension);
+            builder(new DirectorySearchBuilder((DirectorySearch)component));
 
             var assets = AssetProvider.GetAssets(path, component);
 
@@ -147,7 +147,7 @@ namespace WebAssetBundler.Web.Mvc
             set;
         }
 
-        public IDirectorySearchProvider DirectorySearchProvider
+        public IDirectorySearchFactory<TBundle> DirectorySearchFactory
         {
             get;
             set;

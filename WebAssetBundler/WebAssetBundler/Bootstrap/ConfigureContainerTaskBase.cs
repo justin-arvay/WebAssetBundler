@@ -56,6 +56,11 @@ namespace WebAssetBundler.Web.Mvc
             return plugins;
         }
 
+        /// <summary>
+        /// Gets the pipeline modifiers from the plugin.
+        /// </summary>
+        /// <param name="plugin"></param>
+        /// <returns></returns>
         public IEnumerable<IPipelineModifier<TBundle>> GetPipelineModifiers(IPlugin<TBundle> plugin)
         {
             var modifiers = new List<IPipelineModifier<TBundle>>();
@@ -65,6 +70,11 @@ namespace WebAssetBundler.Web.Mvc
             return modifiers;
         }
 
+        /// <summary>
+        /// Gets the search patterns to use from the plugin.
+        /// </summary>
+        /// <param name="plugin"></param>
+        /// <returns></returns>
         public IEnumerable<string> GetSearchPatterns(IPlugin<TBundle> plugin)
         {
             var patterns = new List<string>();
@@ -86,24 +96,6 @@ namespace WebAssetBundler.Web.Mvc
             {
                 modifier.Modify(pipeline);
             }
-        }
-
-        /// <summary>
-        /// Registers the directory search with the container. Specific to bundle type.
-        /// </summary>
-        /// <typeparam name="TBundle"></typeparam>
-        /// <param name="container"></param>
-        /// <param name="searchPatterns"></param>
-        public void RegisterDirectorySearch<TBundle>(TinyIoCContainer container, IEnumerable<string> searchPatterns)
-            where TBundle : Bundle
-        {
-            container.Register<DirectorySearch>((c, p) =>
-            {
-                return new DirectorySearch()
-                {
-                    Patterns = searchPatterns
-                };
-            }, DirectorySearch.GetDirectorySearchName<TBundle>());
         }
 
         public void ShutDown()

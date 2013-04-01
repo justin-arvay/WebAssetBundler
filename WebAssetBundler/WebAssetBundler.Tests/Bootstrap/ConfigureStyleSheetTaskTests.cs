@@ -14,23 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
+    using NUnit.Framework;
+    using Moq;
 
-    public interface IBundleConfiguration<TBundle> where TBundle : Bundle
+    [TestFixture]
+    public class ConfigureStyleSheetTaskTests
     {
-        void Add(string source);
-        void AddDirectory(string path);
-        void AddDirectory(string path, Action<DirectorySearchBuilder> builder);
-        void AddDirectory(string path, DirectorySearch dirSearch);
-        void Name(string name);
-        void Compress(bool compress);
-        void Host(string host);
-        void BrowserTtl(int timeToLive);
-        TBundle Bundle { get; set; }
-        IAssetProvider AssetProvider { get; set; }
-        IDirectorySearchFactory<TBundle> DirectorySearchFactory { get; set; }
-        void Configure();
+        [Test]
+        public void Should()
+        {
+            Assert.Fail();
+        }
     }
 }

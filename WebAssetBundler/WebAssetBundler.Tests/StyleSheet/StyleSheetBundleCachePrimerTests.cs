@@ -29,7 +29,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
         private Mock<IBundlesCache<StyleSheetBundle>> cache;
-        private Mock<IDirectorySearchProvider> dirSearchProvider;
+        private Mock<IDirectorySearchFactory<StyleSheetBundle>> dirSearchProvider;
 
         [SetUp]
         public void Setup()
@@ -37,7 +37,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             assetProvider = new Mock<IAssetProvider>();
             pipeline = new Mock<IBundlePipeline<StyleSheetBundle>>();
             cache = new Mock<IBundlesCache<StyleSheetBundle>>();
-            dirSearchProvider = new Mock<IDirectorySearchProvider>();
+            dirSearchProvider = new Mock<IDirectorySearchFactory<StyleSheetBundle>>();
             primer = new StyleSheetBundleCachePrimer(assetProvider.Object, pipeline.Object, cache.Object, dirSearchProvider.Object);
         }
 
@@ -67,8 +67,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual(1, configTwo.CallCount);
             Assert.IsInstanceOf<IAssetProvider>(configOne.AssetProvider);
             Assert.IsInstanceOf<IAssetProvider>(configTwo.AssetProvider);
-            Assert.IsInstanceOf<IDirectorySearchProvider>(configOne.DirectorySearchProvider);
-            Assert.IsInstanceOf<IDirectorySearchProvider>(configTwo.DirectorySearchProvider);
+            Assert.IsInstanceOf<IDirectorySearchProvider>(configOne.DirectorySearchFactory);
+            Assert.IsInstanceOf<IDirectorySearchProvider>(configTwo.DirectorySearchFactory);
             Assert.IsInstanceOf<StyleSheetBundle>(configOne.Bundle);
             Assert.IsInstanceOf<StyleSheetBundle>(configTwo.Bundle);
             Assert.AreEqual("StyleSheetBundleConfigurationImpl", configOne.Bundle.Name);

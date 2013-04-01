@@ -53,7 +53,7 @@ namespace WebAssetBundler.Web.Mvc
             return CreateAsset(ResolveFile(file));
         }        
 
-        public ICollection<AssetBase> GetAssets(string source, DirectorySearch context)
+        public ICollection<AssetBase> GetAssets(string source, IDirectorySearch context)
         {
             var directory = directoryFactory.Create(source);
 
@@ -63,9 +63,7 @@ namespace WebAssetBundler.Web.Mvc
             }
 
             //retrieve all files from the directory where the file ends in the extension
-            var files = context.FindFiles(directory)
-                 .Where((file) => file.Path.EndsWith(context.Extension));
-
+            var files = context.FindFiles(directory);
             var assets = new List<AssetBase>(files.Select((file) => CreateAsset(file)));
 
             return RemoveDuplicates(assets);

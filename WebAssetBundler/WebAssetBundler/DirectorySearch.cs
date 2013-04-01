@@ -41,12 +41,6 @@ namespace WebAssetBundler.Web.Mvc
             set; 
         }
 
-        public string Extension 
-        { 
-            get; 
-            set; 
-        }
-
         public IEnumerable<IFile> FindFiles(IDirectory directory)
         {
             IEnumerable<IFile> files =

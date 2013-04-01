@@ -46,7 +46,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             provider = new AssetProvider(directoryFactory.Object, server.Object, settings);
 
             context = new DirectorySearch();
-            context.Extension = "css";
 
             directory = new FileSystemDirectory("../../Files/AssetProvider/Mixed");
 
