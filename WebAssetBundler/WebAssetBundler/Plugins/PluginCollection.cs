@@ -20,7 +20,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.Linq;
 
-    public class PluginCollection<TBundle> : List<IPlugin<TBundle>>, IPlugin<TBundle>
+    public class PluginCollection<TBundle> : List<IPlugin<TBundle>>, IPlugin<TBundle>, IPluginCollection<TBundle>
         where TBundle : Bundle
     {
         public void Initialize(TinyIoCContainer container)
@@ -50,6 +50,17 @@ namespace WebAssetBundler.Web.Mvc
         public void Dispose()
         {
             this.ForEach(p => p.Dispose());
+        }
+
+
+        public ICollection<string> GetDirectoryPatterns()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICollection<IPipelineModifier<TBundle>> GetPipelineModifiers()
+        {
+            throw new NotImplementedException();
         }
     }
 }

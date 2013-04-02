@@ -17,14 +17,29 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.Collections.Generic;
 
-    public interface IPluginCollection<TBundle>
-        where TBundle : Bundle
+    public class PluginLoader : IPluginLoader
     {
-        void Initialize(TinyIoCContainer container);
-        void Dispose();
-        ICollection<string> GetDirectoryPatterns();
-        ICollection<IPipelineModifier<TBundle>> GetPipelineModifiers();
+        private ITypeProvider typeProvider;
+        private TinyIoCContainer container;
+
+        public PluginLoader(TinyIoCContainer container, ITypeProvider typeProvider)
+        {
+            this.container = container;
+            this.typeProvider = typeProvider;
+        }
+
+        public IPluginCollection<TBundle> LoadPlugins<TBundle>() where TBundle : Bundle
+        {
+            var pluginTypes = typeProvider.GetImplementationTypes(typeof(IPlugin<TBundle>));
+            var plugins = new PluginCollection<TBundle>();
+
+            foreach (var pluginType in pluginTypes)
+            {
+                plugins.Add((IPlugin<TBundle>)container.Resolve(pluginType));
+            }
+
+            return plugins;
+        }
     }
 }

@@ -32,7 +32,7 @@ namespace WebAssetBundler.Web.Mvc
             where TBundle : Bundle
         {
             var plugin = container.Resolve<IPluginCollection<TBundle>>();
-            var patterns = plugin.GetPatterns();
+            var patterns = plugin.GetDirectoryPatterns();
 
             patterns.Add("*." + extension);
 

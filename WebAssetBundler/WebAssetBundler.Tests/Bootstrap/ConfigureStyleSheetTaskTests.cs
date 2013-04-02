@@ -27,5 +27,34 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             Assert.Fail();
         }
+
+        [Test]
+        public void Should_Dispose_Of_Loaded_Plugins_On_Shut_Down()
+        {
+            var plugin = new Mock<IPlugin<BundleImpl>>();
+
+            task.Plugins = new List<IPlugin<BundleImpl>>()
+            {
+                plugin.Object
+            };
+
+            task.ShutDown();
+
+            plugin.Verify(p => p.Dispose());
+        }
+
+        [Test]
+        public void Should_Create_Pipeline()
+        {
+            var modifier = new Mock<IPipelineModifier<BundleImpl>>();
+            var modifiers = new List<IPipelineModifier<BundleImpl>>() { modifier.Object };
+
+            var pipeline = new BundlePipelineImpl(new TinyIoCContainer());
+
+            task.ModifyPipeline(pipeline, modifiers);
+
+            modifier.Verify(m => m.Modify(pipeline));
+            Assert.Fail();
+        }
     }
 }

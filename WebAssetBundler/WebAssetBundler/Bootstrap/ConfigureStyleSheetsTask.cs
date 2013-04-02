@@ -18,37 +18,42 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     [TaskOrder(2)]
-    public class ConfigureStyleSheetsTask : ConfigureContainerTaskBase<StyleSheetBundle>
+    public class ConfigureStyleSheetsTask : IBootstrapTask
     {
+        private IPluginLoader pluginLoader;
 
-        public override void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
+        public ConfigureStyleSheetsTask(IPluginLoader pluginLoader)
         {
-            var pipelineModifers = new List<IPipelineModifier<StyleSheetBundle>>();
-            var searchPatterns = new List<string>();
-            var plugins = LoadPlugins(container, typeProvider);
+            this.pluginLoader = pluginLoader;
+        }
 
-            foreach (var plugin in plugins)
-            {
-                plugin.Initialize(container);
-                pipelineModifers.AddRange(GetPipelineModifiers(plugin));
-                searchPatterns.AddRange(GetSearchPatterns(plugin));
-            }
 
-            ConfigureContainer(container, pipelineModifers);
+        public IPluginCollection<StyleSheetBundle> Plugins
+        { 
+            get; 
+            set; 
+        }
+
+        public void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
+        {
+            Plugins = pluginLoader.LoadPlugins<StyleSheetBundle>();
+
+            container.Register<IStyleSheetMinifier>((c, p) => DefaultSettings.StyleSheetMinifier);
+            container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();
+            container.Register<IBundleConfigurationProvider<StyleSheetBundle>>((c, p) => DefaultSettings.StyleSheetConfigurationProvider(c));
+            container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => CreateStyleSheetPipeline(c, Plugins.GetPipelineModifiers()));
+            container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
+            container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
+            container.Register<IBundleCachePrimer<StyleSheetBundle>, StyleSheetBundleCachePrimer>();
+            container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();  
         }
 
         public void ConfigureContainer(TinyIoCContainer container, IEnumerable<IPipelineModifier<StyleSheetBundle>> pipelineModifiers)
         {
-            container.Register<IStyleSheetMinifier>((c, p) => DefaultSettings.StyleSheetMinifier);
-            container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();
-            container.Register<IBundleConfigurationProvider<StyleSheetBundle>>((c, p) => DefaultSettings.StyleSheetConfigurationProvider(c));
-            container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => CreateStyleSheetPipeline(c, pipelineModifiers));
-            container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
-            container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
-            container.Register<IBundleCachePrimer<StyleSheetBundle>, StyleSheetBundleCachePrimer>();
-            container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();    
+              
         }
 
         /// <summary>
@@ -61,18 +66,14 @@ namespace WebAssetBundler.Web.Mvc
         {
             var pipeline = new StyleSheetPipeline(container);
 
-            ModifyPipeline(pipeline, pipelineModifiers);
+            pipelineModifiers.ToList().ForEach(m => m.Modify(pipeline));
 
             return pipeline;
         }
 
-        /// <summary>
-        /// Creates the default search patterns to be used in configuration by directory.
-        /// </summary>
-        /// <returns></returns>
-        public List<string> CreateDefaultPatterns()
+        public void ShutDown()
         {
-            return new List<string>() { "*.css" };
+            Plugins.Dispose();
         }
     }
 }

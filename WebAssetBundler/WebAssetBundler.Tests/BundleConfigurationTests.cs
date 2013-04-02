@@ -93,7 +93,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var assets = new List<AssetBase>();
             assets.Add(new AssetBaseImpl());
 
-            dirSearchFactory.Setup(d => d.CreateForType("css"))
+            dirSearchFactory.Setup(d => d.CreateForType<BundleImpl>("css"))
                 .Returns(new DirectorySearch());
 
             assetProvider.Setup(l => l.GetAssets(It.IsAny<string>(), It.IsAny<DirectorySearch>()))
@@ -111,7 +111,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var assets = new List<AssetBase>();
             assets.Add(new AssetBaseImpl());
 
-            dirSearchProvider.Setup(d => d.Get<BundleImpl>())
+            dirSearchFactory.Setup(d => d.CreateForType<BundleImpl>("css"))
                 .Returns(new DirectorySearch());
 
             assetProvider.Setup(l => l.GetAssets(It.IsAny<string>(), It.IsAny<DirectorySearch>()))

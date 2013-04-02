@@ -34,6 +34,8 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<ITypeProvider>(typeProvider);
             container.Register<IAssetProvider, AssetProvider>();
             container.Register<SettingsContext>(new SettingsContext(DefaultSettings.DebugMode, DefaultSettings.MinifyIdentifier));
+            container.Register<IDirectorySearchFactory, DirectorySearchFactory>();
+            container.Register<IPluginLoader, PluginLoader>();
 
             ConfigureHttpHandler(container);
         }

@@ -18,35 +18,35 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     [TaskOrder(3)]
-    public class ConfigureScriptsTask : ConfigureContainerTaskBase<ScriptBundle>
+    public class ConfigureScriptsTask : IBootstrapTask
     {
-        public override void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
+        private IPluginLoader pluginLoader;
+
+        public ConfigureScriptsTask(IPluginLoader pluginLoader)
         {
-            var pipelineModifers = new List<IPipelineModifier<ScriptBundle>>();
-            var searchPatterns = CreateDefaultPatterns();
-            var plugins = LoadPlugins(container, typeProvider);
-
-            foreach (var plugin in plugins)
-            {
-                plugin.Initialize(container);
-                pipelineModifers.AddRange(GetPipelineModifiers(plugin));
-                searchPatterns.AddRange(GetSearchPatterns(plugin));
-            }
-
-            ConfigureContainer(container, pipelineModifers);
+            this.pluginLoader = pluginLoader;
         }
 
-        public void ConfigureContainer(TinyIoCContainer container, IEnumerable<IPipelineModifier<ScriptBundle>> pipelineModifiers)
-        {
+        public IPluginCollection<ScriptBundle> Plugins
+        { 
+            get; 
+            set; 
+        }
+
+        public void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
+        {            
+            Plugins = pluginLoader.LoadPlugins<ScriptBundle>();
+
             container.Register<IScriptMinifier>((c, p) => DefaultSettings.ScriptMinifier);
             container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>();
             container.Register<IBundleConfigurationProvider<ScriptBundle>>((c, p) => DefaultSettings.ScriptConfigurationProvider(c));
-            container.Register<IBundlePipeline<ScriptBundle>>((c, p) => CreateScriptPipeline(c, pipelineModifiers));
+            container.Register<IBundlePipeline<ScriptBundle>>((c, p) => CreateScriptPipeline(c, Plugins.GetPipelineModifiers()));
             container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();
             container.Register<IBundleCachePrimer<ScriptBundle>, ScriptBundleCachePrimer>();
-            container.Register<IBundleProvider<ScriptBundle>, ScriptBundleProvider>();     
+            container.Register<IBundleProvider<ScriptBundle>, ScriptBundleProvider>();   
         }
 
         /// <summary>
@@ -55,22 +55,18 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="container"></param>
         /// <param name="pipelineModifiers"></param>
         /// <returns></returns>
-        public IBundlePipeline<ScriptBundle> CreateScriptPipeline(TinyIoCContainer container, IEnumerable<IPipelineModifier<ScriptBundle>> pipelineModifiers)
+        public IBundlePipeline<ScriptBundle> CreateScriptPipeline(TinyIoCContainer container, ICollection<IPipelineModifier<ScriptBundle>> pipelineModifiers)
         {
             var pipeline = new ScriptPipeline(container);
 
-            ModifyPipeline(pipeline, pipelineModifiers);
+            pipelineModifiers.ToList().ForEach(m => m.Modify(pipeline));
 
             return pipeline;
         }
 
-        /// <summary>
-        /// Creates the default search patterns to be used in configuration by directory.
-        /// </summary>
-        /// <returns></returns>
-        public List<string> CreateDefaultPatterns()
+        public void ShutDown()
         {
-            return new List<string>() { "*.js" };
+            Plugins.Dispose();
         }
     }
 }

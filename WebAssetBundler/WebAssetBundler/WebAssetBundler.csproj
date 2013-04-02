@@ -58,7 +58,6 @@
     <Compile Include="DirectoryFactory.cs" />
     <Compile Include="DirectorySearchFactory.cs" />
     <Compile Include="FileSystemFile.cs" />
-    <Compile Include="Bootstrap\ConfigureContainerTaskBase.cs" />
     <Compile Include="Bootstrap\IBootstrapTask.cs" />
     <Compile Include="FileSystemDirectory.cs" />
     <Compile Include="Container\IContainer.cs" />
@@ -77,7 +76,9 @@
     <Compile Include="Pipeline\UrlAssignmentProcessor.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Plugins\IPluginCollection.cs" />
+    <Compile Include="Plugins\IPluginLoader.cs" />
     <Compile Include="Plugins\PluginCollection.cs" />
+    <Compile Include="Plugins\PluginLoader.cs" />
     <Compile Include="Script\ScriptBundleCachePrimer.cs" />
     <Compile Include="Caching\BundlesCache.cs" />
     <Compile Include="Caching\CacheProvider.cs" />

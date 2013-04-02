@@ -14,12 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc.Tests
+namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class ConfigureContainerTaskBaseImpl : ConfigureContainerTaskBase<BundleImpl>
+    public interface IPluginLoader
     {
-
+        /// <summary>
+        /// Loads the plugins for the generic type.
+        /// </summary>
+        /// <typeparam name="TBundle"></typeparam>
+        /// <returns></returns>
+        IPluginCollection<TBundle> LoadPlugins<TBundle>()
+            where TBundle : Bundle;
     }
 }
