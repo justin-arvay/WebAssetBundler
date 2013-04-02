@@ -30,7 +30,6 @@ namespace WebAssetBundler.Web.Mvc
             this.pluginLoader = pluginLoader;
         }
 
-
         public IPluginCollection<StyleSheetBundle> Plugins
         { 
             get; 
@@ -48,7 +47,8 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
             container.Register<IBundleCachePrimer<StyleSheetBundle>, StyleSheetBundleCachePrimer>();
-            container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();  
+            container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
+            container.Register<IPluginCollection<StyleSheetBundle>>(Plugins);
         }
 
         public void ConfigureContainer(TinyIoCContainer container, IEnumerable<IPipelineModifier<StyleSheetBundle>> pipelineModifiers)

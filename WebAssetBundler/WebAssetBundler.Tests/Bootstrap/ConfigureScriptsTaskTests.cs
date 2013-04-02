@@ -18,22 +18,38 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System.Collections.Generic;
 
     [TestFixture]
     public class ConfigureScriptsTaskTests
     {
-        [Test]
-        public void Should()
+        private ConfigureScriptsTask task;
+        private Mock<IPluginLoader> pluginLoader;
+
+        [SetUp]
+        public void Setup()
         {
-            Assert.Fail();
+            pluginLoader = new Mock<IPluginLoader>();
+            task = new ConfigureScriptsTask(pluginLoader.Object);
+        }
+
+        [Test]
+        public void Should_Load_Plugins()
+        {
+            var container = new TinyIoCContainer();
+            var typeProvider = new Mock<ITypeProvider>();
+
+            task.StartUp(container, typeProvider.Object);
+
+            pluginLoader.Verify(p => p.LoadPlugins<ScriptBundle>());
         }
 
         [Test]
         public void Should_Dispose_Of_Loaded_Plugins_On_Shut_Down()
         {
-            var plugin = new Mock<IPlugin<BundleImpl>>();
+            var plugin = new Mock<IPlugin<ScriptBundle>>();
 
-            task.Plugins = new List<IPlugin<BundleImpl>>()
+            task.Plugins = new PluginCollection<ScriptBundle>()
             {
                 plugin.Object
             };
@@ -46,15 +62,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Create_Pipeline()
         {
-            var modifier = new Mock<IPipelineModifier<BundleImpl>>();
-            var modifiers = new List<IPipelineModifier<BundleImpl>>() { modifier.Object };
+            var container = new TinyIoCContainer();
+            var modifier = new Mock<IPipelineModifier<ScriptBundle>>();
+            var modifiers = new List<IPipelineModifier<ScriptBundle>>() { modifier.Object };
 
-            var pipeline = new BundlePipelineImpl(new TinyIoCContainer());
-
-            task.ModifyPipeline(pipeline, modifiers);
+            var pipeline = task.CreateScriptPipeline(container, modifiers);
 
             modifier.Verify(m => m.Modify(pipeline));
-            Assert.Fail();
+            Assert.IsInstanceOf<ScriptPipeline>(pipeline);            
         }
     }
 }

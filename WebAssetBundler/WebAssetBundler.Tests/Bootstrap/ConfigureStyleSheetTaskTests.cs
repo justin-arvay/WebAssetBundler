@@ -18,22 +18,38 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System.Collections.Generic;
 
     [TestFixture]
     public class ConfigureStyleSheetTaskTests
     {
-        [Test]
-        public void Should()
+        private ConfigureStyleSheetsTask task;
+        private Mock<IPluginLoader> pluginLoader;
+
+        [SetUp]
+        public void Setup()
         {
-            Assert.Fail();
+            pluginLoader = new Mock<IPluginLoader>();
+            task = new ConfigureStyleSheetsTask(pluginLoader.Object);
+        }
+
+        [Test]
+        public void Should_Load_Plugins()
+        {
+            var container = new TinyIoCContainer();
+            var typeProvider = new Mock<ITypeProvider>();
+
+            task.StartUp(container, typeProvider.Object);
+
+            pluginLoader.Verify(p => p.LoadPlugins<StyleSheetBundle>());
         }
 
         [Test]
         public void Should_Dispose_Of_Loaded_Plugins_On_Shut_Down()
         {
-            var plugin = new Mock<IPlugin<BundleImpl>>();
+            var plugin = new Mock<IPlugin<StyleSheetBundle>>();
 
-            task.Plugins = new List<IPlugin<BundleImpl>>()
+            task.Plugins = new PluginCollection<StyleSheetBundle>()
             {
                 plugin.Object
             };
@@ -46,15 +62,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Create_Pipeline()
         {
-            var modifier = new Mock<IPipelineModifier<BundleImpl>>();
-            var modifiers = new List<IPipelineModifier<BundleImpl>>() { modifier.Object };
+            var container = new TinyIoCContainer();
+            var modifier = new Mock<IPipelineModifier<StyleSheetBundle>>();
+            var modifiers = new List<IPipelineModifier<StyleSheetBundle>>() { modifier.Object };
 
-            var pipeline = new BundlePipelineImpl(new TinyIoCContainer());
-
-            task.ModifyPipeline(pipeline, modifiers);
+            var pipeline = task.CreateStyleSheetPipeline(container, modifiers);
 
             modifier.Verify(m => m.Modify(pipeline));
-            Assert.Fail();
+            Assert.IsInstanceOf<StyleSheetBundle>(pipeline); 
         }
     }
 }

@@ -19,7 +19,7 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public interface IPluginCollection<TBundle>
+    public interface IPluginCollection<TBundle> : IList<IPlugin<TBundle>>
         where TBundle : Bundle
     {
         void Initialize(TinyIoCContainer container);

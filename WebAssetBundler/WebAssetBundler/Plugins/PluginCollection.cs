@@ -44,7 +44,13 @@ namespace WebAssetBundler.Web.Mvc
 
         public void AddSearchPatterns(ICollection<string> patterns)
         {
-            throw new NotImplementedException();
+            this.ForEach(plugin =>
+            {
+                var innerPatterns = new List<string>();
+
+                plugin.AddSearchPatterns(innerPatterns);
+                innerPatterns.ForEach(pattern => patterns.Add(pattern));
+            });
         }
 
         public void Dispose()
@@ -55,12 +61,20 @@ namespace WebAssetBundler.Web.Mvc
 
         public ICollection<string> GetDirectoryPatterns()
         {
-            throw new NotImplementedException();
+            var patterns = new List<string>();
+
+            AddSearchPatterns(patterns);
+
+            return patterns;
         }
 
         public ICollection<IPipelineModifier<TBundle>> GetPipelineModifiers()
         {
-            throw new NotImplementedException();
+            var modifers = new List<IPipelineModifier<TBundle>>();
+
+            AddPipelineModifers(modifers);
+
+            return modifers;
         }
     }
 }

@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System.Collections.Generic;
 
     [TestFixture]
     public class PluginCollectionTests
@@ -33,47 +34,102 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Add_Search_Patterns()
         {
-            Assert.Fail();
+            var plugin = new TestPlugin();
+            var patterns = new List<string>();
+            
+            collection.Add(plugin);
+            collection.AddSearchPatterns(patterns);
+
+            Assert.AreEqual(".tst", patterns[0]);
         }
 
         [Test]
         public void Should_Add_Modifiers()
         {
-            Assert.Fail();
+            var plugin = new TestPlugin();
+            var modifiers = new List<IPipelineModifier<BundleImpl>>();
+
+            collection.Add(plugin);
+            collection.AddPipelineModifers(modifiers);
+
+            Assert.IsInstanceOf<IPipelineModifier<BundleImpl>>(modifiers[0]);
         }
 
         [Test]
         public void Should_Initialize()
         {
-            Assert.Fail();
+            var container = new TinyIoCContainer();
+            var plugin = new Mock<IPlugin<BundleImpl>>();            
+
+            collection.Add(plugin.Object);
+            collection.Initialize(container);
+
+            plugin.Verify(p => p.Initialize(container));
         }
 
         [Test]
         public void Should_Dispose()
         {
-            Assert.Fail();
+            var plugin = new Mock<IPlugin<BundleImpl>>();
+
+            collection.Add(plugin.Object);
+            collection.Dispose();
+
+            plugin.Verify(p => p.Dispose());
         }
 
         [Test]
         public void Should_Get_Search_Patterns()
         {
-            var plugin = new Mock<IPlugin<BundleImpl>>();
+            collection.Add(new TestPlugin());
 
-            task.GetSearchPatterns(plugin.Object)
-                .ToList<string>();
+            var patterns = collection.GetDirectoryPatterns();
 
-            plugin.Verify(p => p.AddSearchPatterns(It.IsAny<ICollection<string>>()));
+            Assert.IsTrue(patterns.Contains(".tst"));
         }
 
 
         [Test]
         public void Should_Get_Pipeline_Modifiers()
         {
-            var plugin = new Mock<IPlugin<BundleImpl>>();
+            var plugin = new TestPlugin();
 
-            task.GetPipelineModifiers(plugin.Object).ToList();
+            collection.Add(plugin);
 
-            plugin.Verify(p => p.AddPipelineModifers(It.IsAny<ICollection<IPipelineModifier<BundleImpl>>>()));
+            var modifiers = collection.GetPipelineModifiers();
+
+            Assert.IsTrue(modifiers.Contains(plugin.Modifier));
+        }
+
+        internal class TestPlugin : IPlugin<BundleImpl>
+        {
+            public IPipelineModifier<BundleImpl> Modifier
+            {
+                get;
+                set;
+            }
+
+            public void Initialize(TinyIoCContainer container)
+            {
+                throw new System.NotImplementedException();
+            }
+
+            public void AddPipelineModifers(System.Collections.Generic.ICollection<IPipelineModifier<BundleImpl>> modifiers)
+            {
+                Modifier = new Mock<IPipelineModifier<BundleImpl>>().Object;
+
+                modifiers.Add(Modifier);
+            }
+
+            public void AddSearchPatterns(System.Collections.Generic.ICollection<string> patterns)
+            {
+                patterns.Add(".tst");
+            }
+
+            public void Dispose()
+            {
+                throw new System.NotImplementedException();
+            }
         }
     }
 }

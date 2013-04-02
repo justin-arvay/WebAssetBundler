@@ -24,20 +24,30 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class PluginLoaderTests
     {
+        private TinyIoCContainer container;
+        private Mock<ITypeProvider> typeProvider;
+        private PluginLoader pluginLoader;
+
+        [SetUp]
+        public void Setup()
+        {
+            typeProvider = new Mock<ITypeProvider>();
+            container = new TinyIoCContainer();
+            pluginLoader = new PluginLoader(container, typeProvider.Object);
+        }
+
         [Test]
         public void Should_Load_Plugins()
         {
-            var container = new TinyIoCContainer();
-            container.Register<IPlugin<BundleImpl>, TestPlugin>();
+            var plugin = new TestPlugin();
+            container.Register<IPlugin<BundleImpl>>(plugin);
 
             typeProvider.Setup(p => p.GetImplementationTypes(typeof(IPlugin<BundleImpl>)))
                 .Returns(new List<Type>() { typeof(IPlugin<BundleImpl>) });
 
-            var plugins = new List<IPlugin<BundleImpl>>(task.LoadPlugins(container, typeProvider.Object));
+            var plugins = pluginLoader.LoadPlugins<BundleImpl>();
 
-            Assert.AreEqual(1, plugins.Count);
-            Assert.IsInstanceOf<TestPlugin>(plugins[0]);
-            Assert.AreEqual(task.Plugins, plugins);
+            Assert.IsTrue(plugins.Contains(plugin));
         }
 
         internal class TestPlugin : IPlugin<BundleImpl>

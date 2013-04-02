@@ -46,7 +46,8 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IBundlePipeline<ScriptBundle>>((c, p) => CreateScriptPipeline(c, Plugins.GetPipelineModifiers()));
             container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();
             container.Register<IBundleCachePrimer<ScriptBundle>, ScriptBundleCachePrimer>();
-            container.Register<IBundleProvider<ScriptBundle>, ScriptBundleProvider>();   
+            container.Register<IBundleProvider<ScriptBundle>, ScriptBundleProvider>();
+            container.Register<IPluginCollection<ScriptBundle>>(Plugins);
         }
 
         /// <summary>
