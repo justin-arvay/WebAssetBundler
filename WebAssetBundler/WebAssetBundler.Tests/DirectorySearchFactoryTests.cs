@@ -24,23 +24,24 @@ using System.Collections.Generic;
     [TestFixture]
     public class DirectorySearchFactoryTests
     {
-        private DirectorySearchFactory<BundleImpl> provider;
+        private IDirectorySearchFactory provider;
         private DirectorySearch dirSearch;
         private IList<string> patterns;
+        private TinyIoCContainer container;
 
         [SetUp]
         public void Setup()
         {
             patterns = new List<string>();
             dirSearch = new DirectorySearch();
-            provider = new DirectorySearchFactory<BundleImpl>(patterns);
+            provider = new DirectorySearchFactory(container);
         }
 
         [Test]
         public void Should_Get_Directory_Search()
         {
             var bundle = new BundleImpl();
-            var dirSearch = provider.Create(bundle.Extension);
+            var dirSearch = provider.CreateForType<BundleImpl>(bundle.Extension);
 
             Assert.AreEqual(this.dirSearch, dirSearch);
         }

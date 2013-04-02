@@ -76,6 +76,8 @@
     <Compile Include="Pipeline\IPipelineModifier.cs" />
     <Compile Include="Pipeline\UrlAssignmentProcessor.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
+    <Compile Include="Plugins\IPluginCollection.cs" />
+    <Compile Include="Plugins\PluginCollection.cs" />
     <Compile Include="Script\ScriptBundleCachePrimer.cs" />
     <Compile Include="Caching\BundlesCache.cs" />
     <Compile Include="Caching\CacheProvider.cs" />

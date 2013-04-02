@@ -27,13 +27,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private BundleConfigurationImpl bundleConfig;
         private Mock<IAssetProvider> assetProvider;
-        private Mock<IDirectorySearchFactory<BundleImpl>> dirSearchFactory;
+        private Mock<IDirectorySearchFactory> dirSearchFactory;
 
         [SetUp]
         public void Setup()
         {
             assetProvider = new Mock<IAssetProvider>();
-            dirSearchFactory = new Mock<IDirectorySearchFactory<BundleImpl>>();
+            dirSearchFactory = new Mock<IDirectorySearchFactory>();
             bundleConfig = new BundleConfigurationImpl();
             bundleConfig.Bundle = new BundleImpl();
 
@@ -93,7 +93,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var assets = new List<AssetBase>();
             assets.Add(new AssetBaseImpl());
 
-            dirSearchProvider.Setup(d => d.Create("css"))
+            dirSearchFactory.Setup(d => d.CreateForType("css"))
                 .Returns(new DirectorySearch());
 
             assetProvider.Setup(l => l.GetAssets(It.IsAny<string>(), It.IsAny<DirectorySearch>()))

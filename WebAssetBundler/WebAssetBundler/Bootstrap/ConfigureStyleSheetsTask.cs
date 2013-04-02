@@ -37,7 +37,6 @@ namespace WebAssetBundler.Web.Mvc
             }
 
             ConfigureContainer(container, pipelineModifers);
-            RegisterDirectorySearch<StyleSheetBundle>(container, searchPatterns);
         }
 
         public void ConfigureContainer(TinyIoCContainer container, IEnumerable<IPipelineModifier<StyleSheetBundle>> pipelineModifiers)
@@ -49,8 +48,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
             container.Register<IBundleCachePrimer<StyleSheetBundle>, StyleSheetBundleCachePrimer>();
-            container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
-            container.Register<IDirectorySearchFactory<StyleSheetBundle>, DirectorySearchFactory<StyleSheetBundle>>();            
+            container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();    
         }
 
         /// <summary>

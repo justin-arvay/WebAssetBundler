@@ -19,27 +19,9 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public class DirectorySearchFactory : IDirectorySearchFactory
+    public interface IPluginCollection<TBundle>
+        where TBundle : Bundle
     {
-        private TinyIoCContainer container;
-
-        public DirectorySearchFactory(TinyIoCContainer container)
-        {
-            this.container = container;
-        }
-
-        public IDirectorySearch CreateForType<TBundle>(string extension)
-            where TBundle : Bundle
-        {
-            var plugin = container.Resolve<IPluginCollection<TBundle>>();
-            var patterns = plugin.GetPatterns();
-
-            patterns.Add("*." + extension);
-
-            return new DirectorySearch()
-            {
-                Patterns = patterns
-            };
-        }
+        ICollection<string> GetPatterns();
     }
 }

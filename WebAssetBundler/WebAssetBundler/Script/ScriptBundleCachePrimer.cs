@@ -25,12 +25,12 @@ namespace WebAssetBundler.Web.Mvc
         private IBundlesCache<ScriptBundle> cache;
         private IAssetProvider assetProvider;
         private IBundlePipeline<ScriptBundle> pipeline;
-        private IDirectorySearchFactory<ScriptBundle> dirSearchFactory;
+        private IDirectorySearchFactory dirSearchFactory;
 
         private static bool isPrimed = false;
 
         public ScriptBundleCachePrimer(IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline,
-            IBundlesCache<ScriptBundle> cache, IDirectorySearchFactory<ScriptBundle> dirSearchFactory)
+            IBundlesCache<ScriptBundle> cache, IDirectorySearchFactory dirSearchFactory)
         {
             this.assetProvider = assetProvider;
             this.pipeline = pipeline;

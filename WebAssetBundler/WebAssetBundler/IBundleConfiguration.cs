@@ -30,7 +30,7 @@ namespace WebAssetBundler.Web.Mvc
         void BrowserTtl(int timeToLive);
         TBundle Bundle { get; set; }
         IAssetProvider AssetProvider { get; set; }
-        IDirectorySearchFactory<TBundle> DirectorySearchFactory { get; set; }
+        IDirectorySearchFactory DirectorySearchFactory { get; set; }
         void Configure();
     }
 }
