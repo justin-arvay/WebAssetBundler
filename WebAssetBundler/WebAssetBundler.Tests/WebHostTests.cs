@@ -35,6 +35,9 @@ namespace WebAssetBundler.Web.Mvc
         [Test]
         public void Should_Get_Tasks_In_Correct_Order()
         {
+            host.Container.Register<TinyIoCContainer>(host.Container);
+            host.Container.Register<IPluginLoader>(new Mock<IPluginLoader>().Object);
+
             var tasks = new List<IBootstrapTask>(host.GetBootstrapTasks());
 
             Assert.IsInstanceOf<LoadSettingsTask>(tasks[0]);
@@ -44,7 +47,7 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         [Test]
-        public void Should_Start_Up_And_Shut_Down_Tasks()
+        public void Should_Run_Tasks()
         {
             var host = new Mock<WebHost>();
             host.CallBase = true;
@@ -63,5 +66,16 @@ namespace WebAssetBundler.Web.Mvc
             task.Verify(t => t.ShutDown());
         }
 
+        [Test]
+        public void Should_Initialize()
+        {
+            var container = host.Container;
+
+            host.Initialize();
+
+            Assert.IsInstanceOf<TinyIoCContainer>(container.Resolve<TinyIoCContainer>());
+            Assert.IsInstanceOf<TypeProvider>(container.Resolve<ITypeProvider>());
+            Assert.IsInstanceOf<PluginLoader>(container.Resolve<IPluginLoader>());
+        }
     }
 }

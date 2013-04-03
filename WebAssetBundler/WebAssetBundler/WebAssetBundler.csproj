@@ -54,13 +54,11 @@
     <Compile Include="Bootstrap\LoadSettingsTask.cs" />
     <Compile Include="Bootstrap\ConfigureScriptsTask.cs" />
     <Compile Include="Configuration\WabConfigurationSection.cs" />
-    <Compile Include="Container\TinyIocContainerImpl.cs" />
     <Compile Include="DirectoryFactory.cs" />
     <Compile Include="DirectorySearchFactory.cs" />
     <Compile Include="FileSystemFile.cs" />
     <Compile Include="Bootstrap\IBootstrapTask.cs" />
     <Compile Include="FileSystemDirectory.cs" />
-    <Compile Include="Container\IContainer.cs" />
     <Compile Include="FileSystemFileComparer.cs" />
     <Compile Include="IDirectory.cs" />
     <Compile Include="IDirectoryFactory.cs" />

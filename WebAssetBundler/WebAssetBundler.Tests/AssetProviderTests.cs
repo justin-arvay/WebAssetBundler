@@ -56,7 +56,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_All_Files_With_Correct_Extension()
         {
-            context.Patterns = new List<string>() { "*" };
+            context.Patterns = new List<string>() { "*.css" };
 
             var assets = (IList<AssetBase>)provider.GetAssets("~/Files/AssetProvider/Mixed", context);
 
@@ -68,7 +68,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Raw_Assets()
         {
-            context.Patterns = new List<string>() { "*" };
+            context.Patterns = new List<string>() { "*.css" };
 
             directory = new FileSystemDirectory("../../Files/AssetProvider/Raw");
 
@@ -86,7 +86,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Always_Get_Raw_Assets_In_Debug_Mode()
         {
             settings.DebugMode = true;
-            context.Patterns = new List<string>() { "*" };
+            context.Patterns = new List<string>() { "*.css" };
 
             var assets = (IList<AssetBase>)provider.GetAssets("~/Files/AssetProvider/Mixed", context);
 
@@ -96,9 +96,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Get_MinifiedAssets()
+        public void Should_Get_Minified_Assets()
         {
-            context.Patterns = new List<string>() { "*" };
+            context.Patterns = new List<string>() { "*.css" };
 
             var assets = (IList<AssetBase>)provider.GetAssets("~/Files/AssetProvider/Mixed", context);
 

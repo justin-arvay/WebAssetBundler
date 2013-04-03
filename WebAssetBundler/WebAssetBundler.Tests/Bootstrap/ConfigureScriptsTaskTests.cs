@@ -66,6 +66,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var modifier = new Mock<IPipelineModifier<ScriptBundle>>();
             var modifiers = new List<IPipelineModifier<ScriptBundle>>() { modifier.Object };
 
+            container.Register<IScriptMinifier, MsScriptMinifier>();
+
             var pipeline = task.CreateScriptPipeline(container, modifiers);
 
             modifier.Verify(m => m.Modify(pipeline));

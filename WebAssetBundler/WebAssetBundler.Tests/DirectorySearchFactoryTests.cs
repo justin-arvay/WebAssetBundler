@@ -19,7 +19,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System;
     using NUnit.Framework;
     using Moq;
-using System.Collections.Generic;
+    using System.Collections.Generic;
+    using System.Linq;
 
     [TestFixture]
     public class DirectorySearchFactoryTests
@@ -32,6 +33,7 @@ using System.Collections.Generic;
         [SetUp]
         public void Setup()
         {
+            container = new TinyIoCContainer();
             patterns = new List<string>();
             dirSearch = new DirectorySearch();
             provider = new DirectorySearchFactory(container);
@@ -40,10 +42,11 @@ using System.Collections.Generic;
         [Test]
         public void Should_Get_Directory_Search()
         {
+            container.Register<IPluginCollection<BundleImpl>>(new PluginCollection<BundleImpl>());
             var bundle = new BundleImpl();
             var dirSearch = provider.CreateForType<BundleImpl>(bundle.Extension);
 
-            Assert.AreEqual(this.dirSearch, dirSearch);
+            Assert.AreEqual("*." + bundle.Extension, ((DirectorySearch)dirSearch).Patterns.ToList()[0]);
         }
     }
 }

@@ -19,24 +19,22 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Web;
 
-        [TaskOrder(1)]
+    [TaskOrder(1)]
     public class ConfigureCommonTask : IBootstrapTask
     {
         public void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
-        {
+        {            
             container.Register((c, p) => HttpContext());
             container.Register<HttpServerUtilityBase>(HttpContext().Server);
             container.Register((c, p) => HttpContext().Request);
             container.Register((c, p) => HttpContext().Response);
             container.Register((c, p) => HttpContext().Server);
             container.Register<ICacheProvider, CacheProvider>();
-            container.Register<IDirectoryFactory, DirectoryFactory>();
-            container.Register<ITypeProvider>(typeProvider);
+            container.Register<IDirectoryFactory, DirectoryFactory>();            
             container.Register<IAssetProvider, AssetProvider>();
             container.Register<SettingsContext>(new SettingsContext(DefaultSettings.DebugMode, DefaultSettings.MinifyIdentifier));
             container.Register<IDirectorySearchFactory, DirectorySearchFactory>();
-            container.Register<IPluginLoader, PluginLoader>();
-
+                      
             ConfigureHttpHandler(container);
         }
 

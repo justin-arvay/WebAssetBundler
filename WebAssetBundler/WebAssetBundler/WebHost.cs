@@ -47,9 +47,22 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
+        /// <summary>
+        /// Initialization required before bootstrapping.
+        /// </summary>
+        public void Initialize()
+        {
+            container.Register<TinyIoCContainer>(container);
+            container.Register<ITypeProvider>(typeProvider);
+            container.Register<IPluginLoader, PluginLoader>();  
+        }
+
+        /// <summary>
+        /// Bootstraps the application by prepairing the container and plugins.
+        /// </summary>
         public void RunBootstrapTasks()
         {
-
+            //TODO:: consider moving bootstraping to fascade to abstract implementation details from the web host.
             GetBootstrapTasks().ToList().ForEach(task =>
             {
                 task.StartUp(container, typeProvider);

@@ -51,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssetBaseImpl.cs" />
-    <Compile Include="Bootstrap\ConfigureCommonTaskTests.cs" />
     <Compile Include="Bootstrap\ConfigureScriptsTaskTests.cs" />
     <Compile Include="Bootstrap\ConfigureStyleSheetTaskTests.cs" />
     <Compile Include="DirectoryFactoryTests.cs" />
@@ -110,7 +109,6 @@
     <Compile Include="StyleSheet\StyleSheetMergeProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetPipelineTests.cs" />
     <Compile Include="TestHelper.cs" />
-    <Compile Include="TinyIocContainerImplTests.cs" />
     <Compile Include="WebHostTests.cs" />
   </ItemGroup>
   <ItemGroup>

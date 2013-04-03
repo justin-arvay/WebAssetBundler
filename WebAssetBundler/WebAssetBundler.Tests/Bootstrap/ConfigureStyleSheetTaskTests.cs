@@ -66,10 +66,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var modifier = new Mock<IPipelineModifier<StyleSheetBundle>>();
             var modifiers = new List<IPipelineModifier<StyleSheetBundle>>() { modifier.Object };
 
+            container.Register<SettingsContext>(new SettingsContext());
+            container.Register<IStyleSheetMinifier, MsStyleSheetMinifier>();
+
             var pipeline = task.CreateStyleSheetPipeline(container, modifiers);
 
             modifier.Verify(m => m.Modify(pipeline));
-            Assert.IsInstanceOf<StyleSheetBundle>(pipeline); 
+            Assert.IsInstanceOf<StyleSheetPipeline>(pipeline); 
         }
     }
 }
