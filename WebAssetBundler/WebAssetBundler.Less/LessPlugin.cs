@@ -14,31 +14,31 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Less
 {
     using System;
-    using System.IO;
-    using System.Collections.Generic;
 
-    public class DirectorySearchBuilder
+    public class LessPlugin : IPlugin<StyleSheetBundle>
     {
-        private DirectorySearch directorySearch;
 
-        public DirectorySearchBuilder(DirectorySearch directorySearch)
+        public void Initialize(TinyIoCContainer container)
         {
-            this.directorySearch = directorySearch;
+            
         }
 
-        public DirectorySearchBuilder Pattern(string pattern)
+        public void AddPipelineModifers(System.Collections.Generic.ICollection<IPipelineModifier<StyleSheetBundle>> modifiers)
         {
-            directorySearch.Patterns.Add(pattern);
-            return this;
+            modifiers.Add(new LessPipelineModifier());
         }
 
-        public DirectorySearchBuilder SearchOption(SearchOption option)
+        public void AddSearchPatterns(System.Collections.Generic.ICollection<string> patterns)
         {
-            directorySearch.SearchOption = option;
-            return this;
+            patterns.Add("*.less");
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }

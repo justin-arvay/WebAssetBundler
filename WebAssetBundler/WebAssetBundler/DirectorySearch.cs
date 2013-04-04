@@ -29,7 +29,7 @@ namespace WebAssetBundler.Web.Mvc
             Patterns = new List<string>();
         }
 
-        public IEnumerable<string> Patterns
+        public ICollection<string> Patterns
         { 
             get; 
             set; 
