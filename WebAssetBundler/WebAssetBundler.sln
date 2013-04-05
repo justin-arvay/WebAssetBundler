@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAssetBundler.Tests", "We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAssetBundler.Less", "WebAssetBundler.Less\WebAssetBundler.Less.csproj", "{9000799C-4762-4C84-ADA6-DDCA535B5D1E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAssetBundler.Less.Tests", "WebAssetBundler.Less.Tests\WebAssetBundler.Less.Tests.csproj", "{C2F105DA-2979-4493-AEDF-F4027FBEE1F2}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = ResourceCompiler.vsmdi
@@ -62,6 +64,16 @@ Global
 		{9000799C-4762-4C84-ADA6-DDCA535B5D1E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{9000799C-4762-4C84-ADA6-DDCA535B5D1E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{9000799C-4762-4C84-ADA6-DDCA535B5D1E}.Release|x86.ActiveCfg = Release|Any CPU
+		{C2F105DA-2979-4493-AEDF-F4027FBEE1F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2F105DA-2979-4493-AEDF-F4027FBEE1F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2F105DA-2979-4493-AEDF-F4027FBEE1F2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C2F105DA-2979-4493-AEDF-F4027FBEE1F2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C2F105DA-2979-4493-AEDF-F4027FBEE1F2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C2F105DA-2979-4493-AEDF-F4027FBEE1F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2F105DA-2979-4493-AEDF-F4027FBEE1F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2F105DA-2979-4493-AEDF-F4027FBEE1F2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C2F105DA-2979-4493-AEDF-F4027FBEE1F2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C2F105DA-2979-4493-AEDF-F4027FBEE1F2}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

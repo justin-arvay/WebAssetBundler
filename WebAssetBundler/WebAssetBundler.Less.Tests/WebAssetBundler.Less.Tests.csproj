@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9000799C-4762-4C84-ADA6-DDCA535B5D1E}</ProjectGuid>
+    <ProjectGuid>{C2F105DA-2979-4493-AEDF-F4027FBEE1F2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebAssetBundler.Less</RootNamespace>
-    <AssemblyName>WebAssetBundler.Less</AssemblyName>
+    <RootNamespace>WebAssetBundler.Less.Tests</RootNamespace>
+    <AssemblyName>WebAssetBundler.Less.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,8 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="dotless.ClientOnly">
-      <HintPath>..\packages\DotlessClientOnly.1.3.1.0\lib\dotless.ClientOnly.dll</HintPath>
+    <Reference Include="Moq">
+      <HintPath>..\..\Library\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,19 +47,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LessPipelineModifier.cs" />
-    <Compile Include="LessPlugin.cs" />
-    <Compile Include="LessProcessor.cs" />
+    <Compile Include="LessProcessorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WebAssetBundler.Less\WebAssetBundler.Less.csproj">
+      <Project>{9000799C-4762-4C84-ADA6-DDCA535B5D1E}</Project>
+      <Name>WebAssetBundler.Less</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebAssetBundler\WebAssetBundler.csproj">
       <Project>{2AC03817-4112-47FE-AF34-44A8AE4717AB}</Project>
       <Name>WebAssetBundler</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

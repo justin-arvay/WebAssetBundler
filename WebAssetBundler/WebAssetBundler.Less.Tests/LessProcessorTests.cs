@@ -14,23 +14,33 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc.Less
+namespace WebAssetBundler.Web.Mvc.Less.Tests
 {
-    using System;
-    using dotless.Core;
-    using System.Linq;
+    using NUnit.Framework;
+    using Moq;
 
-    public class LessProcessor : IPipelineProcessor<StyleSheetBundle>
+    [TestFixture]
+    public class LessProcessorTests
     {
+        private LessProcessor processor;
 
-        public void Process(StyleSheetBundle bundle)
+        [SetUp]
+        public void Setup()
         {
-            var config = new dotless.Core.configuration.DotlessConfiguration();            
+            processor = new LessProcessor();
+        }
+        
+        [Test]
+        public void Should_Process()
+        {
+            var asset = new MergedAsset("/* comment */ div { width: 1 + 1 }");
 
-            foreach (var asset in bundle.Assets)
-            {
-                asset.Content = dotless.Core.Less.Parse(asset.Content);
-            }            
+            var bundle = new StyleSheetBundle();
+            bundle.Assets.Add(asset);            
+
+            processor.Process(bundle);
+
+            Assert.AreEqual("div {\n  width: 2;\n}\n", bundle.Content);
         }
     }
 }
