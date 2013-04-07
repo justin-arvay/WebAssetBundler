@@ -22,6 +22,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.Reflection;
     using System.Web.Compilation;
+    using System.IO;
 
     public class WebHost : IDisposable
     {
@@ -95,10 +96,7 @@ namespace WebAssetBundler.Web.Mvc
 
         private  IEnumerable<Assembly> LoadAssemblies()
         {
-            return (from name in Assembly.GetEntryAssembly().GetReferencedAssemblies()
-                    select Assembly.Load(name)).ToList();
-
-            //return BuildManager.GetReferencedAssemblies().Cast<Assembly>();
+            return BuildManager.GetReferencedAssemblies().Cast<Assembly>();
         }
 
         public void Dispose()

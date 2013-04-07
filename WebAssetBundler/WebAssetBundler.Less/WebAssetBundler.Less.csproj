@@ -8,7 +8,7 @@
     <ProjectGuid>{9000799C-4762-4C84-ADA6-DDCA535B5D1E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebAssetBundler.Less</RootNamespace>
+    <RootNamespace>WebAssetBundlerWeb.Mvc</RootNamespace>
     <AssemblyName>WebAssetBundler.Less</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
