@@ -33,7 +33,7 @@ namespace WebAssetBundler.Web.Mvc.Less.Tests
         [Test]
         public void Should_Process()
         {
-            var asset = new MergedAsset("/* comment */ div { width: 1 + 1 }");
+            var asset = new MergedAsset("div { width: 1 + 1 }");
 
             var bundle = new StyleSheetBundle();
             bundle.Assets.Add(asset);            

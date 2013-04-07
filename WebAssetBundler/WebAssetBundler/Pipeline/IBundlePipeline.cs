@@ -51,5 +51,12 @@ namespace WebAssetBundler.Web.Mvc
         void Replace<OldProcessor, NewProcessor>()
             where OldProcessor : class, IPipelineProcessor<T>
             where NewProcessor : class, IPipelineProcessor<T>;
+
+        /// <summary>
+        /// Finds the index of type T.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        int IndexOf<T>();
     }
 }

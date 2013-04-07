@@ -78,5 +78,20 @@ namespace WebAssetBundler.Web.Mvc
                 }
             }
         }
+
+        public int IndexOf<T>()
+        {
+            var enumerator = this.GetEnumerator();
+            var index = 0;
+            while (enumerator.MoveNext())
+            {
+                if (enumerator.Current is T)
+                {
+                    return index;
+                }
+                index++;
+            }
+            return -1;
+        }
     }
 }
