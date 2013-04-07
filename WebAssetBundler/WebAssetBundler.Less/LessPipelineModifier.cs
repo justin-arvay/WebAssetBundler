@@ -23,7 +23,7 @@ namespace WebAssetBundler.Web.Mvc.Less
 
         public void Modify(IBundlePipeline<StyleSheetBundle> pipeline)
         {
-            pipeline.Add<LessProcessor>();
-            pipeline.Add<LessProcessor>();
+            pipeline.Insert<LessProcessor>(0);
         }
     }
+}

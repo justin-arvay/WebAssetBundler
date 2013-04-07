@@ -95,7 +95,10 @@ namespace WebAssetBundler.Web.Mvc
 
         private  IEnumerable<Assembly> LoadAssemblies()
         {
-            return AppDomain.CurrentDomain.GetAssemblies().ToArray();
+            return (from name in Assembly.GetEntryAssembly().GetReferencedAssemblies()
+                    select Assembly.Load(name)).ToList();
+
+            //return BuildManager.GetReferencedAssemblies().Cast<Assembly>();
         }
 
         public void Dispose()

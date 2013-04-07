@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAssetBundler.Less", "Web
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAssetBundler.Less.Tests", "WebAssetBundler.Less.Tests\WebAssetBundler.Less.Tests.csproj", "{C2F105DA-2979-4493-AEDF-F4027FBEE1F2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{942E22EA-D63B-4F48-9678-89E8159A70CC}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = ResourceCompiler.vsmdi
@@ -77,5 +79,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C2F105DA-2979-4493-AEDF-F4027FBEE1F2} = {942E22EA-D63B-4F48-9678-89E8159A70CC}
+		{9000799C-4762-4C84-ADA6-DDCA535B5D1E} = {942E22EA-D63B-4F48-9678-89E8159A70CC}
 	EndGlobalSection
 EndGlobal

@@ -14,31 +14,38 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc.Less
+namespace WebAssetBundler.Web.Mvc.Less.Tests
 {
-    using System;
+    using NUnit.Framework;
+    using Moq;
 
-    public class LessPlugin : IPlugin<StyleSheetBundle>
+    [TestFixture]
+    public class LessPipelineModifierTests
     {
+        private LessPipelineModifier modifier;
 
-        public void Initialize(TinyIoCContainer container)
+        [SetUp]
+        public void Setup()
         {
-            container.Register<LessProcessor>();
+            modifier = new LessPipelineModifier();
+        }        
+
+        [Test]
+        public void Should_Modify()
+        {
+            var container = new TinyIoCContainer();
+            var pipeline = new TestStyleSheetPipeline(container);
+
+            modifier.Modify(pipeline);
+
+            Assert.IsInstanceOf<LessProcessor>(pipeline[0]);
         }
 
-        public void AddPipelineModifers(System.Collections.Generic.ICollection<IPipelineModifier<StyleSheetBundle>> modifiers)
+        internal class TestStyleSheetPipeline : BundlePipeline<StyleSheetBundle>
         {
-            modifiers.Add(new LessPipelineModifier());
-        }
-
-        public void AddSearchPatterns(System.Collections.Generic.ICollection<string> patterns)
-        {
-            patterns.Add("*.less");
-        }
-
-        public void Dispose()
-        {
-            
+            public TestStyleSheetPipeline(TinyIoCContainer container) : base(container)
+            {
+            }
         }
     }
 }
