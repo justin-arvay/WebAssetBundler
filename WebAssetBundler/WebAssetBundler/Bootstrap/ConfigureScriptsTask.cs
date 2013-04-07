@@ -43,7 +43,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IScriptMinifier>((c, p) => DefaultSettings.ScriptMinifier);
             container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>();
             container.Register<IBundleConfigurationProvider<ScriptBundle>>((c, p) => DefaultSettings.ScriptConfigurationProvider(c));
-            container.Register<IBundlePipeline<ScriptBundle>>((c, p) => CreateScriptPipeline(c, Plugins.GetPipelineModifiers()));
+            container.Register<IBundlePipeline<ScriptBundle>>((c, p) => CreateScriptPipeline(c, Plugins));
             container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();
             container.Register<IBundleCachePrimer<ScriptBundle>, ScriptBundleCachePrimer>();
             container.Register<IBundleProvider<ScriptBundle>, ScriptBundleProvider>();
@@ -56,11 +56,11 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="container"></param>
         /// <param name="pipelineModifiers"></param>
         /// <returns></returns>
-        public IBundlePipeline<ScriptBundle> CreateScriptPipeline(TinyIoCContainer container, ICollection<IPipelineModifier<ScriptBundle>> pipelineModifiers)
+        public IBundlePipeline<ScriptBundle> CreateScriptPipeline(TinyIoCContainer container, IEnumerable<IPlugin<ScriptBundle>> plugins)
         {
             var pipeline = new ScriptPipeline(container);
 
-            pipelineModifiers.ToList().ForEach(m => m.Modify(pipeline));
+            plugins.ToList().ForEach(m => m.ModifyPipeline(pipeline));
 
             return pipeline;
         }

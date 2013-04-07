@@ -26,12 +26,12 @@ namespace WebAssetBundler.Web.Mvc.Less
             container.Register<LessProcessor>();
         }
 
-        public void AddPipelineModifers(System.Collections.Generic.ICollection<IPipelineModifier<StyleSheetBundle>> modifiers)
+        public void ModifyPipline(IBundlePipeline<StyleSheetBundle> pipeline)
         {
-            modifiers.Add(new LessPipelineModifier());
+            pipeline.Insert<LessProcessor>(0);
         }
 
-        public void AddSearchPatterns(System.Collections.Generic.ICollection<string> patterns)
+        public void ModifySearchPatterns(System.Collections.Generic.ICollection<string> patterns)
         {
             patterns.Add("*.less");
         }

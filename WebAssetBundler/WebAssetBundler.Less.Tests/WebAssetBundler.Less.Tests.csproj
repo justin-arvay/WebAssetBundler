@@ -47,7 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LessPipelineModifierTests.cs" />
     <Compile Include="LessPluginTests.cs" />
     <Compile Include="LessProcessorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

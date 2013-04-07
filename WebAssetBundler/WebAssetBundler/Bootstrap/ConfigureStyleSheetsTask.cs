@@ -43,17 +43,12 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IStyleSheetMinifier>((c, p) => DefaultSettings.StyleSheetMinifier);
             container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();
             container.Register<IBundleConfigurationProvider<StyleSheetBundle>>((c, p) => DefaultSettings.StyleSheetConfigurationProvider(c));
-            container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => CreateStyleSheetPipeline(c, Plugins.GetPipelineModifiers()));
+            container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => CreateStyleSheetPipeline(c, Plugins));
             container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
             container.Register<IBundleCachePrimer<StyleSheetBundle>, StyleSheetBundleCachePrimer>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
             container.Register<IPluginCollection<StyleSheetBundle>>(Plugins);
-        }
-
-        public void ConfigureContainer(TinyIoCContainer container, IEnumerable<IPipelineModifier<StyleSheetBundle>> pipelineModifiers)
-        {
-              
         }
 
         /// <summary>
@@ -62,11 +57,11 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="container"></param>
         /// <param name="pipelineModifiers"></param>
         /// <returns></returns>
-        public IBundlePipeline<StyleSheetBundle> CreateStyleSheetPipeline(TinyIoCContainer container, IEnumerable<IPipelineModifier<StyleSheetBundle>> pipelineModifiers)
+        public IBundlePipeline<StyleSheetBundle> CreateStyleSheetPipeline(TinyIoCContainer container, IEnumerable<IPlugin<StyleSheetBundle>> plugins)
         {
             var pipeline = new StyleSheetPipeline(container);
 
-            pipelineModifiers.ToList().ForEach(m => m.Modify(pipeline));
+            plugins.ToList().ForEach(m => m.ModifyPipeline(pipeline));
 
             return pipeline;
         }

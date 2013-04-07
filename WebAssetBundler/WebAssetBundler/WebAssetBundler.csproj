@@ -70,7 +70,6 @@
     <Compile Include="ExternalAsset.cs" />
     <Compile Include="IBundleConfiguration.cs" />
     <Compile Include="ITypeProvider.cs" />
-    <Compile Include="Pipeline\IPipelineModifier.cs" />
     <Compile Include="Pipeline\UrlAssignmentProcessor.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Plugins\IPluginCollection.cs" />

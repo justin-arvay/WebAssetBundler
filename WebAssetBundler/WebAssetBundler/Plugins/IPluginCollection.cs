@@ -24,7 +24,7 @@ namespace WebAssetBundler.Web.Mvc
     {
         void Initialize(TinyIoCContainer container);
         void Dispose();
-        ICollection<string> GetDirectoryPatterns();
-        ICollection<IPipelineModifier<TBundle>> GetPipelineModifiers();
+        void ModifySearchPatterns(ICollection<string> patterns);
+        void ModifyPipeline(IBundlePipeline<TBundle> pipeline);
     }
 }

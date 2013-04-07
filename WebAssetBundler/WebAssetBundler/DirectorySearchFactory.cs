@@ -32,9 +32,11 @@ namespace WebAssetBundler.Web.Mvc
             where TBundle : Bundle
         {
             var plugin = container.Resolve<IPluginCollection<TBundle>>();
-            var patterns = plugin.GetDirectoryPatterns();
 
+            var patterns = new List<string>();
             patterns.Add("*." + extension);
+
+            plugin.ModifySearchPatterns(patterns);           
 
             return new DirectorySearch()
             {

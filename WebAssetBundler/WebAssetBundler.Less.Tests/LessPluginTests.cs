@@ -42,23 +42,32 @@ namespace WebAssetBundler.Web.Mvc.Less.Tests
         }
 
         [Test]
-        public void Should_Add_Modifiers()
-        {
-            var modifiers = new List<IPipelineModifier<StyleSheetBundle>>();
-
-            plugin.AddPipelineModifers(modifiers);
-
-            Assert.IsInstanceOf<LessPipelineModifier>(modifiers[0]);
-        }
-
-        [Test]
-        public void Should_Add_Patterns()
+        public void Should_Modify_Patterns()
         {
             var patterns = new List<string>();
 
-            plugin.AddSearchPatterns(patterns);
+            plugin.ModifySearchPatterns(patterns);
 
             Assert.AreEqual("*.less", patterns[0]);
+        }
+
+        [Test]
+        public void Should_Modify()
+        {
+            var container = new TinyIoCContainer();
+            var pipeline = new TestStyleSheetPipeline(container);
+
+            plugin.ModifyPipline(pipeline);
+
+            Assert.IsInstanceOf<LessProcessor>(pipeline[0]);
+        }
+
+        internal class TestStyleSheetPipeline : BundlePipeline<StyleSheetBundle>
+        {
+            public TestStyleSheetPipeline(TinyIoCContainer container)
+                : base(container)
+            {
+            }
         }
     }
 }

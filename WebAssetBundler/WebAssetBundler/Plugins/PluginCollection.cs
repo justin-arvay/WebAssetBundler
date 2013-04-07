@@ -28,29 +28,9 @@ namespace WebAssetBundler.Web.Mvc
             this.ForEach(p => p.Initialize(container));
         }
 
-        public void AddPipelineModifers(ICollection<IPipelineModifier<TBundle>> modifiers)
+        public void ModifySearchPatterns(ICollection<string> patterns)
         {
-            foreach (var plugin in this)
-            {
-                var pluginModifiers = new List<IPipelineModifier<TBundle>>();
-                plugin.AddPipelineModifers(modifiers);
-
-                foreach (var pluginModifier in pluginModifiers)
-                {
-                    modifiers.Add(pluginModifier);
-                }
-            }
-        }
-
-        public void AddSearchPatterns(ICollection<string> patterns)
-        {
-            this.ForEach(plugin =>
-            {
-                var innerPatterns = new List<string>();
-
-                plugin.AddSearchPatterns(innerPatterns);
-                innerPatterns.ForEach(pattern => patterns.Add(pattern));
-            });
+            this.ForEach(p => p.ModifySearchPatterns(patterns));
         }
 
         public void Dispose()
@@ -59,22 +39,9 @@ namespace WebAssetBundler.Web.Mvc
         }
 
 
-        public ICollection<string> GetDirectoryPatterns()
+        public void ModifyPipeline(IBundlePipeline<TBundle> pipeline)
         {
-            var patterns = new List<string>();
-
-            AddSearchPatterns(patterns);
-
-            return patterns;
-        }
-
-        public ICollection<IPipelineModifier<TBundle>> GetPipelineModifiers()
-        {
-            var modifers = new List<IPipelineModifier<TBundle>>();
-
-            AddPipelineModifers(modifers);
-
-            return modifers;
+            this.ForEach(p => p.ModifyPipeline(pipeline));
         }
     }
 }
