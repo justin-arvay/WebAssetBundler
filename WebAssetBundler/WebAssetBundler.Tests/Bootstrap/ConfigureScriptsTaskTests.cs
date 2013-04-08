@@ -63,14 +63,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Create_Pipeline()
         {
             var container = new TinyIoCContainer();
-            var modifier = new Mock<IPipelineModifier<ScriptBundle>>();
-            var modifiers = new List<IPipelineModifier<ScriptBundle>>() { modifier.Object };
+            var plugins = new PluginCollection<ScriptBundle>();
 
             container.Register<IScriptMinifier, MsScriptMinifier>();
 
-            var pipeline = task.CreateScriptPipeline(container, modifiers);
+            var pipeline = task.CreateScriptPipeline(container, plugins);
 
-            modifier.Verify(m => m.Modify(pipeline));
             Assert.IsInstanceOf<ScriptPipeline>(pipeline);            
         }
     }

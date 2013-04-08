@@ -180,6 +180,8 @@
     <Content Include="Views\Documentation\PipelineCustomization.cshtml" />
     <Content Include="Views\Documentation\Plugins.cshtml" />
     <Content Include="Views\Documentation\Plugins\CreatePlugin.cshtml" />
+    <Content Include="Views\Documentation\Plugins\ModifyPipeline.cshtml" />
+    <Content Include="Views\Documentation\Plugins\ModifySearchPatterns.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

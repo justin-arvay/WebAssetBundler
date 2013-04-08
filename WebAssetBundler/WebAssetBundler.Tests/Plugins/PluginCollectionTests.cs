@@ -57,46 +57,34 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Modify_Search_Patterns()
         {
-            collection.Add(new TestPlugin());
+            var plugin = new Mock<IPlugin<BundleImpl>>();
+            var patterns = new List<string>();
 
-            var patterns = collection.ModifySearchPatterns();
+            collection.Add(plugin.Object);
+            collection.ModifySearchPatterns(patterns);
 
-            Assert.IsTrue(patterns.Contains(".tst"));
+            plugin.Verify(p => p.ModifySearchPatterns(patterns));
         }
 
 
         [Test]
         public void Should_Modify_Pipeline()
         {
-            var plugin = new TestPlugin();
+            var plugin = new Mock<IPlugin<BundleImpl>>();
+            var container = new TinyIoCContainer();
+            var pipeline = new TestStyleSheetPipeline(container);
 
-            collection.Add(plugin);
+            collection.Add(plugin.Object);
+            collection.ModifyPipeline(pipeline);
 
-            var modifiers = collection.ModifyPipeline();
-
-            Assert.IsTrue(modifiers.Contains(plugin.Modifier));
+            plugin.Verify(p => p.ModifyPipeline(pipeline));
         }
 
-        internal class TestPlugin : IPlugin<BundleImpl>
+        internal class TestStyleSheetPipeline : BundlePipeline<BundleImpl>
         {
-            public void Initialize(TinyIoCContainer container)
+            public TestStyleSheetPipeline(TinyIoCContainer container)
+                : base(container)
             {
-                throw new System.NotImplementedException();
-            }
-
-            public void ModifyPipeline(IBundlePipeline<BundleImpl> pipeline)
-            {
-
-            }
-
-            public void ModifySearchPatterns(System.Collections.Generic.ICollection<string> patterns)
-            {
-                patterns.Add(".tst");
-            }
-
-            public void Dispose()
-            {
-                throw new System.NotImplementedException();
             }
         }
     }

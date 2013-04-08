@@ -57,7 +57,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="container"></param>
         /// <param name="pipelineModifiers"></param>
         /// <returns></returns>
-        public IBundlePipeline<StyleSheetBundle> CreateStyleSheetPipeline(TinyIoCContainer container, IEnumerable<IPlugin<StyleSheetBundle>> plugins)
+        public IBundlePipeline<StyleSheetBundle> CreateStyleSheetPipeline(TinyIoCContainer container, IPluginCollection<StyleSheetBundle> plugins)
         {
             var pipeline = new StyleSheetPipeline(container);
 

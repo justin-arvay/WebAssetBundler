@@ -57,7 +57,7 @@ namespace WebAssetBundler.Web.Mvc.Less.Tests
             var container = new TinyIoCContainer();
             var pipeline = new TestStyleSheetPipeline(container);
 
-            plugin.ModifyPipline(pipeline);
+            plugin.ModifyPipeline(pipeline);
 
             Assert.IsInstanceOf<LessProcessor>(pipeline[0]);
         }

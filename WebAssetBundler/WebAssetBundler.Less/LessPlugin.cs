@@ -26,7 +26,7 @@ namespace WebAssetBundler.Web.Mvc.Less
             container.Register<LessProcessor>();
         }
 
-        public void ModifyPipline(IBundlePipeline<StyleSheetBundle> pipeline)
+        public void ModifyPipeline(IBundlePipeline<StyleSheetBundle> pipeline)
         {
             pipeline.Insert<LessProcessor>(0);
         }

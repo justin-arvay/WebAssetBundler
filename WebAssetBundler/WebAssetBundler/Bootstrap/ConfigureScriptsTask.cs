@@ -56,7 +56,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="container"></param>
         /// <param name="pipelineModifiers"></param>
         /// <returns></returns>
-        public IBundlePipeline<ScriptBundle> CreateScriptPipeline(TinyIoCContainer container, IEnumerable<IPlugin<ScriptBundle>> plugins)
+        public IBundlePipeline<ScriptBundle> CreateScriptPipeline(TinyIoCContainer container, IPluginCollection<ScriptBundle> plugins)
         {
             var pipeline = new ScriptPipeline(container);
 

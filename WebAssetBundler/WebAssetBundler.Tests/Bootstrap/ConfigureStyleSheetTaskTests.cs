@@ -63,16 +63,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Create_Pipeline()
         {
             var container = new TinyIoCContainer();
-            var modifier = new Mock<IPipelineModifier<StyleSheetBundle>>();
-            var modifiers = new List<IPipelineModifier<StyleSheetBundle>>() { modifier.Object };
+            var plugins = new PluginCollection<StyleSheetBundle>();
 
-            container.Register<SettingsContext>(new SettingsContext());
             container.Register<IStyleSheetMinifier, MsStyleSheetMinifier>();
 
-            var pipeline = task.CreateStyleSheetPipeline(container, modifiers);
+            var pipeline = task.CreateStyleSheetPipeline(container, plugins);
 
-            modifier.Verify(m => m.Modify(pipeline));
-            Assert.IsInstanceOf<StyleSheetPipeline>(pipeline); 
+            Assert.IsInstanceOf<StyleSheetPipeline>(pipeline);            
         }
     }
 }
