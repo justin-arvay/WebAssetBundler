@@ -4,3 +4,36 @@
 }
 
 <h2>Modifying the Pipeline</h2>
+
+<p>You can add and remove processors in any of the pipelines. This will give you full control over how the
+bundles are processed. See @Html.RouteLink("Bundle Pipelines", "Documentation", new { path = "bundle-pipelines" }) for 
+more information about pipelines.</p>
+
+<strong>1. Creating a Processor</strong>
+<p>Here is an example of a processor that will modify the style sheets by removing all spaces:</p>
+<pre data-language="csharp">
+@Html.Code(@"
+using WebAssetBundler.Web.Mvc;
+
+    public class TestProcessor : IPipelineProcessor<StyleSheetBundle>
+    {
+        public void Process(StyleSheetBundle bundle)
+        {
+            foreach (var asset in bundle.Assets)
+            {
+                asset.Content = asset.Content.Replace("" "", """"");
+            }
+        }
+    }
+");
+</pre>
+
+<strong>2. Modify the Pipeline with the New Processor</strong>
+<pre data-language="csharp">
+@Html.Code(@"
+public void ModifyPipeline(IBundlePipeline<StyleSheetBundle> pipeline)
+{
+    pipeline.Add(new TestProcessor());
+}
+");
+</pre>

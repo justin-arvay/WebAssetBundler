@@ -20,6 +20,13 @@
         <li>@Html.RouteLink("Extensibility", "Documentation", new { path = "extensibility" })</li>
         <li>@Html.RouteLink("Debug Mode", "Documentation", new { path = "debug-mode" })</li>
         <li>@Html.RouteLink("Browser Caching", "Documentation", new { path = "browser-caching" })</li>
+        <li>@Html.RouteLink("Plugins", "Documentation", new { path = "plugins" })
+            <ul>
+                <li>@Html.RouteLink("Create a Plugin", "Documentation", new { path = "create-plugin" })</li>
+                <li>@Html.RouteLink("Modify Pipeline", "Documentation", new { path = "modify-pipeline" })</li>
+                <li>@Html.RouteLink("Modify Patterns", "Documentation", new { path = "modify-search-patterns" })</li>
+            </ul>
+        </li>
         <li>@Html.RouteLink("Web.Config", "Documentation", new { path = "web-config" })</li>
     </ul>
         

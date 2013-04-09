@@ -182,6 +182,7 @@
     <Content Include="Views\Documentation\Plugins\CreatePlugin.cshtml" />
     <Content Include="Views\Documentation\Plugins\ModifyPipeline.cshtml" />
     <Content Include="Views\Documentation\Plugins\ModifySearchPatterns.cshtml" />
+    <Content Include="Views\Documentation\BundleTypes.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
