@@ -45,11 +45,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
             writer.Setup(w => w.IsNotModified(bundle)).Returns(true);
             cache.Setup(c => c.Get("name")).Returns(bundle);
 
-            handler.ProcessRequest("/asset/1.1/name", writer.Object, encoder.Object);
+            handler.ProcessRequest("/assets/1.1/name", writer.Object, encoder.Object);
 
             cache.Verify(c => c.Get("name"), Times.Once());
             writer.Verify(w => w.IsNotModified(bundle), Times.Once());
-            writer.Verify(w => w.WriteNotModified(bundle.Hash.ToHexString()), Times.Once());
+            writer.Verify(w => w.WriteNotModified(bundle), Times.Once());
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             writer.Setup(w => w.IsNotModified(bundle)).Returns(false);
             cache.Setup(c => c.Get("name")).Returns(bundle);
 
-            handler.ProcessRequest("/asset/1.1/name", writer.Object, encoder.Object);
+            handler.ProcessRequest("/assets/1.1/name", writer.Object, encoder.Object);
 
             cache.Verify(c => c.Get("name"), Times.Once());
             writer.Verify(w => w.IsNotModified(bundle), Times.Once());
@@ -69,7 +69,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Write_Not_Found()
         {            
-            handler.ProcessRequest("/asset/1.1/name", writer.Object, encoder.Object);
+            handler.ProcessRequest("/assets/1.1/name", writer.Object, encoder.Object);
 
             cache.Verify(c => c.Get("name"), Times.Once());
             writer.Verify(w => w.WriteNotFound(), Times.Once());

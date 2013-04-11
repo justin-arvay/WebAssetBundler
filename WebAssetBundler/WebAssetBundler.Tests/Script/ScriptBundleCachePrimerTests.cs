@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
     using System.Collections.Generic;
+    using System;
 
     [TestFixture]
     public class ScriptBundleCachePrimerTests
@@ -28,6 +29,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<ScriptBundle>> pipeline;
         private Mock<IBundlesCache<ScriptBundle>> cache;
+        private Mock<IDirectorySearchFactory> dirSearchFactory;
 
         [SetUp]
         public void Setup()
@@ -35,13 +37,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
             assetProvider = new Mock<IAssetProvider>();
             pipeline = new Mock<IBundlePipeline<ScriptBundle>>();
             cache = new Mock<IBundlesCache<ScriptBundle>>();
-            primer = new ScriptBundleCachePrimer(assetProvider.Object, pipeline.Object, cache.Object);
+            dirSearchFactory = new Mock<IDirectorySearchFactory>();
+
+            primer = new ScriptBundleCachePrimer(assetProvider.Object, pipeline.Object, cache.Object, dirSearchFactory.Object);
         }
 
         [Test]
         public void Should_Be_Primed()
         {
-            primer.Prime(new List<ScriptBundleConfiguration>());
+            primer.Prime(new List<IBundleConfiguration<ScriptBundle>>());
 
             Assert.IsTrue(primer.IsPrimed);
         }
@@ -52,7 +56,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var configOne = new ScriptBundleConfigurationImpl();
             var configTwo = new ScriptBundleConfigurationImpl();
 
-            var configs = new List<ScriptBundleConfiguration>();
+            var configs = new List<IBundleConfiguration<ScriptBundle>>();
             configs.Add(configOne);
             configs.Add(configTwo);
 
@@ -64,6 +68,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual(1, configTwo.CallCount);
             Assert.IsInstanceOf<IAssetProvider>(configOne.AssetProvider);
             Assert.IsInstanceOf<IAssetProvider>(configTwo.AssetProvider);
+            Assert.IsInstanceOf<IDirectorySearchFactory>(configOne.DirectorySearchFactory);
+            Assert.IsInstanceOf<IDirectorySearchFactory>(configTwo.DirectorySearchFactory);
+            Assert.IsInstanceOf<ScriptBundle>(configOne.Bundle);
+            Assert.IsInstanceOf<ScriptBundle>(configTwo.Bundle);
+            Assert.AreEqual("ScriptBundleConfigurationImpl", configOne.Bundle.Name);
+            Assert.AreEqual("ScriptBundleConfigurationImpl", configTwo.Bundle.Name);
 
         }
 
@@ -71,7 +81,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Not_Prime_Cache()
         {
 
-            primer.Prime(new List<ScriptBundleConfiguration>());
+            primer.Prime(new List<IBundleConfiguration<ScriptBundle>>());
 
             cache.Verify(c => c.Add(It.IsAny<ScriptBundle>()), Times.Never());
         }

@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
     using System.Collections.Generic;
+    using System;
 
     [TestFixture]
     public class StyleSheetBundleCachePrimerTests
@@ -28,6 +29,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
         private Mock<IBundlesCache<StyleSheetBundle>> cache;
+        private Mock<IDirectorySearchFactory> dirSearchProvider;
 
         [SetUp]
         public void Setup()
@@ -35,13 +37,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
             assetProvider = new Mock<IAssetProvider>();
             pipeline = new Mock<IBundlePipeline<StyleSheetBundle>>();
             cache = new Mock<IBundlesCache<StyleSheetBundle>>();
-            primer = new StyleSheetBundleCachePrimer(assetProvider.Object, pipeline.Object, cache.Object);
+            dirSearchProvider = new Mock<IDirectorySearchFactory>();
+            primer = new StyleSheetBundleCachePrimer(assetProvider.Object, pipeline.Object, cache.Object, dirSearchProvider.Object);
         }
 
         [Test]
         public void Should_Be_Primed()
         {
-            primer.Prime(new List<StyleSheetBundleConfiguration>());
+            primer.Prime(new List<IBundleConfiguration<StyleSheetBundle>>());
 
             Assert.IsTrue(primer.IsPrimed);
         }
@@ -52,7 +55,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var configOne = new StyleSheetBundleConfigurationImpl();
             var configTwo = new StyleSheetBundleConfigurationImpl();
 
-            var configs = new List<StyleSheetBundleConfiguration>();
+            var configs = new List<IBundleConfiguration<StyleSheetBundle>>();
             configs.Add(configOne);
             configs.Add(configTwo);
 
@@ -64,13 +67,19 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual(1, configTwo.CallCount);
             Assert.IsInstanceOf<IAssetProvider>(configOne.AssetProvider);
             Assert.IsInstanceOf<IAssetProvider>(configTwo.AssetProvider);
+            Assert.IsInstanceOf<IDirectorySearchFactory>(configOne.DirectorySearchFactory);
+            Assert.IsInstanceOf<IDirectorySearchFactory>(configTwo.DirectorySearchFactory);
+            Assert.IsInstanceOf<StyleSheetBundle>(configOne.Bundle);
+            Assert.IsInstanceOf<StyleSheetBundle>(configTwo.Bundle);
+            Assert.AreEqual("StyleSheetBundleConfigurationImpl", configOne.Bundle.Name);
+            Assert.AreEqual("StyleSheetBundleConfigurationImpl", configTwo.Bundle.Name);
 
         }
 
         [Test]
         public void Should_Not_Prime_Cache()
-        {                     
-            primer.Prime(new List<StyleSheetBundleConfiguration>());
+        {
+            primer.Prime(new List<IBundleConfiguration<StyleSheetBundle>>());
 
             cache.Verify(c => c.Add(It.IsAny<StyleSheetBundle>()), Times.Never());
         }

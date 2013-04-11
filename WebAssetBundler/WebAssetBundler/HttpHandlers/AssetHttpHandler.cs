@@ -41,7 +41,7 @@ namespace WebAssetBundler.Web.Mvc
             {
                 if (writer.IsNotModified(bundle))
                 {
-                    writer.WriteNotModified(bundle.Hash.ToHexString());
+                    writer.WriteNotModified(bundle);
                 }
                 else
                 {

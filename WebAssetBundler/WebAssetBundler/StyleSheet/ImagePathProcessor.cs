@@ -24,19 +24,11 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ImagePathProcessor : IPipelineProcessor<StyleSheetBundle>, IAssetTransformer
     {
-        private BundleContext context;
-        private IUrlGenerator<StyleSheetBundle> urlGenerator;
         private string outputUrl;
-
-        public ImagePathProcessor(IUrlGenerator<StyleSheetBundle> urlGenerator, BundleContext context)
-        {
-            this.context = context;
-            this.urlGenerator = urlGenerator;
-        }
 
         public void Process(StyleSheetBundle bundle)
         {
-            outputUrl = urlGenerator.Generate("a", "a", "", context);   
+            outputUrl = bundle.Url;
             bundle.TransformAssets(this);            
         }
 
@@ -48,7 +40,7 @@ namespace WebAssetBundler.Web.Mvc
             //TODO: handle absolute paths like: /image/icon.png
             //TODO: handle absolutepaths like: http://www.google.ca/image/icon.png
             var content = asset.Content;
-            //var source = asset.Source.StartsWith("~/") ? asset.Source.ReplaceFirst("~/", "/") : asset.Source;
+            //var source = assets.Source.StartsWith("~/") ? assets.Source.ReplaceFirst("~/", "/") : assets.Source;
             var paths = FindPaths(content);
 
             foreach (string path in paths)
@@ -56,7 +48,8 @@ namespace WebAssetBundler.Web.Mvc
                 //ignore all absolute paths
                 if (path.StartsWith("/") == false && path.StartsWith("http") == false && path.StartsWith("https") == false)
                 {
-                    content = content.Replace(path, RewritePath(path));  
+                    var newPath = RewritePath(path);
+                    content = content.Replace(path, newPath);  
                 }                
             }
                 

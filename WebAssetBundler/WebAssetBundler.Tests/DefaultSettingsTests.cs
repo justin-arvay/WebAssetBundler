@@ -23,6 +23,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using WebAssetBundler.Web.Mvc;
     using System.Reflection;
+    using Moq;
 
     [TestFixture]
     public class DefaultSettingsTests
@@ -50,12 +51,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Compressed_Should_Be_True_By_Default()
-        {
-            Assert.True(DefaultSettings.Compressed);
-        }
-
-        [Test]
         public void ScriptsFilesPath_Should_Use_MVC_Scripts_Folder_By_Default()
         {
             Assert.AreEqual("~/Scripts", DefaultSettings.ScriptFilesPath);
@@ -66,80 +61,67 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             Assert.AreEqual("~/Content", DefaultSettings.StyleSheetFilesPath);
         }
-
-        [Test]
-        public void Can_Set_Compressed()
-        {
-            DefaultSettings.Compressed = false;
-
-            Assert.False(DefaultSettings.Compressed);
-
-            //re-set the default
-            DefaultSettings.Compressed = true;
-        }
-
-        [Test]
-        public void Default_Group_Name_Should_Already_Be_Set()
-        {
-            Assert.AreEqual("Default", DefaultSettings.DefaultGroupName);
-        }
-
-        [Test]
-        public void Can_Set_Default_Group_Name()
-        {
-            var previous = DefaultSettings.DefaultGroupName;
-
-            DefaultSettings.DefaultGroupName = "SomeGroup";
-            Assert.AreEqual("SomeGroup", DefaultSettings.DefaultGroupName);
-
-            DefaultSettings.DefaultGroupName = previous;
-        }
-
+      
         [Test]
         public void Should_Use_Ms_Script_Compressor_By_Default()
         {
-            Assert.IsInstanceOf<MsScriptCompressor>(DefaultSettings.ScriptCompressor);
+            Assert.IsInstanceOf<MsScriptMinifier>(DefaultSettings.ScriptMinifier);
         }
 
         [Test]
         public void Can_Set_Script_Compressor()
         {
-            var previous = DefaultSettings.ScriptCompressor;
+            var previous = DefaultSettings.ScriptMinifier;
 
-            DefaultSettings.ScriptCompressor = new YuiScriptCompressor();
-            Assert.IsInstanceOf<YuiScriptCompressor>(DefaultSettings.ScriptCompressor);
+            DefaultSettings.ScriptMinifier = new YuiScriptMinifier();
+            Assert.IsInstanceOf<YuiScriptMinifier>(DefaultSettings.ScriptMinifier);
 
-            DefaultSettings.ScriptCompressor = previous;
+            DefaultSettings.ScriptMinifier = previous;
         }
 
         [Test]
         public void Should_Use_Ms_Style_Sheet_Compressor_By_Defaut()
         {
-            Assert.IsInstanceOf<MsStyleSheetCompressor>(DefaultSettings.StyleSheetCompressor);
+            Assert.IsInstanceOf<MsStyleSheetMinifier>(DefaultSettings.StyleSheetMinifier);
         }
 
         [Test]
         public void Can_Set_Style_Sheet_Compressor()
         {
-            var previous = DefaultSettings.StyleSheetCompressor;
+            var previous = DefaultSettings.StyleSheetMinifier;
 
-            DefaultSettings.StyleSheetCompressor = new YuiStyleSheetCompressor();
-            Assert.IsInstanceOf<YuiStyleSheetCompressor>(DefaultSettings.StyleSheetCompressor);
+            DefaultSettings.StyleSheetMinifier = new YuiStyleSheetMinifier();
+            Assert.IsInstanceOf<YuiStyleSheetMinifier>(DefaultSettings.StyleSheetMinifier);
 
-            DefaultSettings.StyleSheetCompressor = previous;
+            DefaultSettings.StyleSheetMinifier = previous;
         }
 
         [Test]
-        public void Should_Be_Default_Style_Sheet_Config_Provider()
+        public void Should_Be_Default_Style_Sheet_Config_Factory()
         {
-            Assert.IsInstanceOf<DefaultStyleSheetConfigProvider>(DefaultSettings.StyleSheetConfigProvider);
+            var container = new TinyIoCContainer();
+            container.Register<ITypeProvider>((new Mock<ITypeProvider>()).Object);
+            
+            var provider = DefaultSettings.StyleSheetConfigurationProvider(container);
+
+            Assert.IsInstanceOf<DefaultBundleConfigurationProvider<StyleSheetBundle>>(provider);
         }
 
         [Test]
-        public void Should_Be_Default_Script_Config_Provider()
+        public void Should_Be_Default_Script_Config_Factory()
         {
-            Assert.IsInstanceOf<DefaultScriptConfigProvider>(DefaultSettings.ScriptConfigProvider);
+            var container = new TinyIoCContainer();
+            container.Register<ITypeProvider>((new Mock<ITypeProvider>()).Object);
+
+            var provider = DefaultSettings.ScriptConfigurationProvider(container);
+
+            Assert.IsInstanceOf<DefaultBundleConfigurationProvider<ScriptBundle>>(provider);
         }
 
+        [Test]
+        public void Should_Be_Dot_Min_By_Default()
+        {
+            Assert.AreEqual(".min", DefaultSettings.MinifyIdentifier);
+        }
     }
 }

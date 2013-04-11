@@ -29,15 +29,16 @@ namespace WebAssetBundler.Web.Mvc
         private static string styleSheetFilesPath = "~/Content";
         private static string scriptFilesPath = "~/Scripts";
 
-        private static bool compressed = true;
+        private static string minifyIdentifier = ".min";
 
-        private static string defaultGroupName = "Default";
-        
-        private static IScriptCompressor scriptCompressor = new MsScriptCompressor();
-        private static IStyleSheetCompressor styleSheetCompressor = new MsStyleSheetCompressor();
+        private static IScriptMinifier scriptMinifier = new MsScriptMinifier();
+        private static IStyleSheetMinifier styleSheetMinfier = new MsStyleSheetMinifier();
 
-        private static IConfigProvider<StyleSheetBundleConfiguration> styleSheetConfigProvider = new DefaultStyleSheetConfigProvider();
-        private static IConfigProvider<ScriptBundleConfiguration> scriptConfigProvider = new DefaultScriptConfigProvider();
+        private static Func<TinyIoCContainer, IBundleConfigurationProvider<StyleSheetBundle>> styleSheetConfigurationProvider =
+            (c) => c.Resolve<DefaultBundleConfigurationProvider<StyleSheetBundle>>();
+
+        private static Func<TinyIoCContainer, IBundleConfigurationProvider<ScriptBundle>> scriptConfigurationProvider =
+            (c) => c.Resolve<DefaultBundleConfigurationProvider<ScriptBundle>>();
 
         /// <summary>
         /// Gets or sets the style sheet files path. Path must be a virtual path.
@@ -72,83 +73,33 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether assets should be served as compressed.
+        /// Gets or sets the default script minfier.
         /// </summary>
-        /// <value><c>true</c> if compressed; otherwise, <c>false</c>.</value>
-        public static bool Compressed
+        public static IScriptMinifier ScriptMinifier
         {
             get
             {
-                return compressed;
+                return scriptMinifier;
             }
             set
             {
-                compressed = value;
+                scriptMinifier = value;
             }
         }
 
         /// <summary>
-        /// Gets or sets the default bundle name.
+        /// Gets or sets the default style sheet minifier.
         /// </summary>
-        public static string DefaultGroupName
+        public static IStyleSheetMinifier StyleSheetMinifier
         {
             get
             {
-                return defaultGroupName;
+                return styleSheetMinfier;
             }
             set
             {
-                defaultGroupName = value;
+                styleSheetMinfier = value;
             }
-        }
-
-        /// <summary>
-        /// Gets or sets the default script compressor.
-        /// </summary>
-        public static IScriptCompressor ScriptCompressor
-        {
-            get
-            {
-                return scriptCompressor;
-            }
-            set
-            {
-                scriptCompressor = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the default style sheet compressor.
-        /// </summary>
-        public static IStyleSheetCompressor StyleSheetCompressor
-        {
-            get
-            {
-                return styleSheetCompressor;
-            }
-            set
-            {
-                styleSheetCompressor = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the javascript host.
-        /// </summary>
-        public static string ScriptHost
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the style sheet host.
-        /// </summary>
-        /// <returns></returns>
-        public static string StyleSheetHost
-        {
-            get;
-            set;
         }
 
         /// <summary>
@@ -163,30 +114,46 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Sets the configuration factory to be used when loading the style sheet bundles.
         /// </summary>
-        public static IConfigProvider<StyleSheetBundleConfiguration> StyleSheetConfigProvider
+        public static Func<TinyIoCContainer, IBundleConfigurationProvider<StyleSheetBundle>> StyleSheetConfigurationProvider
         {
             get
             {
-                return styleSheetConfigProvider;
+                return styleSheetConfigurationProvider;
             }
             set
             {
-                styleSheetConfigProvider = value;
+                styleSheetConfigurationProvider = value;
             }
         }
 
         /// <summary>
         /// Sets the configuration factory to be used when loading the script bundles.
         /// </summary>
-        public static IConfigProvider<ScriptBundleConfiguration> ScriptConfigProvider
+        public static Func<TinyIoCContainer, IBundleConfigurationProvider<ScriptBundle>> ScriptConfigurationProvider
         {
             get
             {
-                return scriptConfigProvider;
+                return scriptConfigurationProvider;
             }
             set
             {
-                scriptConfigProvider = value;
+                scriptConfigurationProvider = value;
+            }
+        }
+
+        /// <summary>
+        /// Sets the identifier use to identify files that are already minified. Eg: ~/file.min.js is a file that has already been 
+        /// minified. The application will not attempt to minify it again.
+        /// </summary>
+        public static string MinifyIdentifier
+        {
+            get
+            {
+                return minifyIdentifier;
+            }
+            set
+            {
+                minifyIdentifier = value;
             }
         }
     }

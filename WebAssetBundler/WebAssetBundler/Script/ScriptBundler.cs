@@ -28,7 +28,6 @@ namespace WebAssetBundler.Web.Mvc
     public class ScriptBundler
     {
         private ITagWriter<ScriptBundle> tagWriter;       
-        private BundleContext context;
         private IBundleProvider<ScriptBundle> bundleProvider;
 
         /// <summary>
@@ -38,12 +37,10 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="resolver"></param>
         public ScriptBundler(
             IBundleProvider<ScriptBundle> bundleProvider,
-            ITagWriter<ScriptBundle> tagWriter,
-            BundleContext context)
+            ITagWriter<ScriptBundle> tagWriter)
         {
             this.bundleProvider = bundleProvider;
             this.tagWriter = tagWriter;
-            this.context = context;
         }
 
         /// <summary>
@@ -55,7 +52,7 @@ namespace WebAssetBundler.Web.Mvc
 
             using (StringWriter textWriter = new StringWriter())
             {
-                tagWriter.Write(textWriter, bundle, context);
+                tagWriter.Write(textWriter, bundle);
                 return new HtmlString(textWriter.ToString());
             }            
         }
@@ -75,7 +72,7 @@ namespace WebAssetBundler.Web.Mvc
 
             using (StringWriter textWriter = new StringWriter())
             {
-                tagWriter.Write(textWriter, bundle, context);
+                tagWriter.Write(textWriter, bundle);
                 return new HtmlString(textWriter.ToString());
             } 
         }

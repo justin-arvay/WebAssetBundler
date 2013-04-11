@@ -22,28 +22,27 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ScriptBundleProvider : BundleProviderBase<ScriptBundle>
     {
-        private IConfigProvider<ScriptBundleConfiguration> configProvider;
+        private IBundleConfigurationProvider<ScriptBundle> configProvider;
         private IBundlesCache<ScriptBundle> cache;
         private IAssetProvider assetProvider;
         private IBundlePipeline<ScriptBundle> pipeline;
-        private BundleContext context;
-        private IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration> primer;
+        private IBundleCachePrimer<ScriptBundle> primer;
 
-        public ScriptBundleProvider(IConfigProvider<ScriptBundleConfiguration> configProvider, IBundlesCache<ScriptBundle> cache,
-            IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline, BundleContext context,
-            IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration> primer)
+        public ScriptBundleProvider(IBundleConfigurationProvider<ScriptBundle> configProvider, IBundlesCache<ScriptBundle> cache,
+            IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline, IBundleCachePrimer<ScriptBundle> primer,
+            SettingsContext settings)
+            : base(settings)
         {
             this.configProvider = configProvider;
             this.cache = cache;
             this.assetProvider = assetProvider;
             this.pipeline = pipeline;
-            this.context = context;
             this.primer = primer;
         }
 
         public override ScriptBundle GetNamedBundle(string name)
         {
-            if (primer.IsPrimed == false || context.DebugMode)
+            if (primer.IsPrimed == false || Settings.DebugMode)
             {
                 primer.Prime(configProvider.GetConfigs());
             }
@@ -56,7 +55,7 @@ namespace WebAssetBundler.Web.Mvc
             var name = source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source).Replace(".", "-");
             var bundle = cache.Get(name);
 
-            if (bundle == null || context.DebugMode)
+            if (bundle == null || Settings.DebugMode)
             {
                 var asset = assetProvider.GetAsset(source);
                 bundle = new ScriptBundle();

@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_BasicLayout.cshtml";
+}
+
+<p>Web Asset Bundler is a light weight .NET library that aims to make CSS and Javascript management easier. Key features:</p>
+
+<ul>
+    <li>Minifying and combing web assets into singe bundles.</li>
+    <li>Browser caching and versioning of bundles.</li>
+    <li>Agressive bundle caching.</li>
+    <li>Flexibility and extensibility.</li>
+    <li>Open-Source</li>
+    <li>Works in MVC and WebForms</li>
+</ul>
+
+<hr />
+
+<h2>1. Install</h2>
+<p></p><strong>GitHub:</strong> Get the: <a href="https://github.com/justin-arvay/WebAssetBundler">source</a> on GitHub.
+
+<h2>2. Configure</h2>
+<pre data-language="csharp">
+    using WebAssetBundler.Web.Mvc;
+
+    public class LayoutScriptBundle : ScriptBundleConfiguration
+    {
+        public override void Configure()
+        {
+            Name("Scripts");
+            Add("~/Scripts/jquery-1.8.3.js");
+            Add("~/Scripts/jquery-ui-1.9.2.custom.min.js");
+            Add("~/Scripts/rainbow-custom.min.js");
+        }
+    }
+
+    public class LayoutStyleSheetBundle : StyleSheetBundleConfiguration
+    {
+        public override void Configure()
+        {
+            Name("StyleSheets");
+            Add("~/Content/reset.css");
+            Add("~/Content/pepper-grinder/jquery-ui-1.9.2.custom.css");
+            Add("~/Content/layout.css");
+        }
+    }
+</pre>
+
+<h2>3. Render</h2>
+
+<pre data-language="csharp">
+    //in the head tag
+    @@Bundler.StyleSheets.Render("StyleSheets")
+
+    //before end of body tag
+    @@Bundler.Scripts.Render("Scripts")
+    @@Bundler.Scripts.Include("https://apis.google.com/js/plusone.js")
+</pre>

@@ -19,15 +19,13 @@ namespace Examples
     using System;
     using WebAssetBundler.Web.Mvc;
 
-    public class LayoutStyleSheetBundle : StyleSheetBundleConfiguration
+    public class LayoutStyleSheetBundle : BundleConfiguration<StyleSheetBundle>
     {
         public override void Configure()
         {
             Name("StyleSheets");
             Compress(true);
-            Add("~/Content/reset.css");
-            Add("~/Content/pepper-grinder/jquery-ui-1.9.2.custom.css");
-            Add("~/Content/layout.css");
+            AddDirectory("~/Content");
         }
     }
 }

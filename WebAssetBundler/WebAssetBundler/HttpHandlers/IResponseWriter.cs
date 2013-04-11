@@ -21,6 +21,6 @@ namespace WebAssetBundler.Web.Mvc
         bool IsNotModified(Bundle bundle);
         void WriteAsset(Bundle bundle, IEncoder encoder);
         void WriteNotFound();
-        void WriteNotModified(string etag);
+        void WriteNotModified(Bundle bundle);
     }
 }

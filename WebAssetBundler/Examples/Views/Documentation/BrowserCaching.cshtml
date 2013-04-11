@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Browser Caching";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<h2>Browser Caching</h2>
+
+<p>By default the borwser will cache all assets for 1 year. This can be overridden when configuring the 
+bundle (see @Html.RouteLink("Other Options", "Documentation", new { path = "bundle-configuration/other" })). Changes to the
+bundles will result in forcing the browser to download the changed bundle. It does this by putting a hash (unique to the bundle content) in
+the bundle url. Changing the bundle (adding assets, or changing content withing an asset) will generate a new hash, and thus a new url.</p>
+
+<p>Additionally all content sent to the browser is compressed with either Gzip or Deflate. It will automatically choose 
+based on the request headers.</p>

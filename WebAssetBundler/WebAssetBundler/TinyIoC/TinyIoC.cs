@@ -1,4 +1,4 @@
-﻿//===============================================================================
+//===============================================================================
 // TinyIoC
 //
 // An easy to use, hassle free, Inversion of Control Container for small projects
@@ -6,7 +6,7 @@
 //
 // https://github.com/grumpydev/TinyIoC
 //===============================================================================
-// Copyright © Steven Robbins.  All rights reserved.
+// Copyright � Steven Robbins.  All rights reserved.
 // THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY
 // OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT
 // LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
@@ -21,15 +21,12 @@
 // Preprocessor directives for enabling/disabling functionality
 // depending on platform features. If the platform has an appropriate
 // #DEFINE then these should be set automatically below.
+
 #define EXPRESSIONS                         // Platform supports System.Linq.Expressions
 #define APPDOMAIN_GETASSEMBLIES             // Platform supports getting all assemblies from the AppDomain object
 #define UNBOUND_GENERICS_GETCONSTRUCTORS    // Platform supports GetConstructors on unbound generic types
 #define GETPARAMETERS_OPEN_GENERICS         // Platform supports GetParameters on open generics
 #define RESOLVE_OPEN_GENERICS               // Platform supports resolving open generics
-
-//// NETFX_CORE
-//#if NETFX_CORE
-//#endif
 
 // CompactFramework / Windows Phone 7
 // By default does not support System.Linq.Expressions.
@@ -51,29 +48,15 @@
 #undef APPDOMAIN_GETASSEMBLIES
 #endif
 
-#if NETFX_CORE
-#undef APPDOMAIN_GETASSEMBLIES
-#undef RESOLVE_OPEN_GENERICS
-#endif
-
 #endregion
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Reflection;
-
-#if EXPRESSIONS
     using System.Linq.Expressions;
-#endif
-
-#if NETFX_CORE
-	using System.Threading.Tasks;
-	using Windows.Storage.Search;
-    using Windows.Storage;
-	using Windows.UI.Xaml.Shapes;
-#endif
+    using System.Reflection;
+    using System.Runtime.Serialization;
 
     #region SafeDictionary
     public class SafeDictionary<TKey, TValue> : IDisposable
@@ -174,12 +157,11 @@ namespace WebAssetBundler.Web.Mvc
             {
                 assemblies = new Type[] { };
             }
-#if !NETFX_CORE
-            catch (ReflectionTypeLoadException e)
+            catch (ReflectionTypeLoadException)
             {
-                assemblies = e.Types.Where(t => t != null).ToArray();
+                assemblies = new Type[] { };
             }
-#endif
+
             return assemblies;
         }
     }
@@ -193,34 +175,6 @@ namespace WebAssetBundler.Web.Mvc
             _genericMethodCache = new SafeDictionary<GenericMethodCacheKey, MethodInfo>();
         }
 
-        //#if NETFX_CORE
-        //		/// <summary>
-        //		/// Gets a generic method from a type given the method name, generic types and parameter types
-        //		/// </summary>
-        //		/// <param name="sourceType">Source type</param>
-        //		/// <param name="methodName">Name of the method</param>
-        //		/// <param name="genericTypes">Generic types to use to make the method generic</param>
-        //		/// <param name="parameterTypes">Method parameters</param>
-        //		/// <returns>MethodInfo or null if no matches found</returns>
-        //		/// <exception cref="System.Reflection.AmbiguousMatchException"/>
-        //		/// <exception cref="System.ArgumentException"/>
-        //		public static MethodInfo GetGenericMethod(this Type sourceType, string methodName, Type[] genericTypes, Type[] parameterTypes)
-        //		{
-        //			MethodInfo method;
-        //			var cacheKey = new GenericMethodCacheKey(sourceType, methodName, genericTypes, parameterTypes);
-
-        //			// Shouldn't need any additional locking
-        //			// we don't care if we do the method info generation
-        //			// more than once before it gets cached.
-        //			if (!_genericMethodCache.TryGetValue(cacheKey, out method))
-        //			{
-        //				method = GetMethod(sourceType, methodName, genericTypes, parameterTypes);
-        //				_genericMethodCache[cacheKey] = method;
-        //			}
-
-        //			return method;
-        //		}
-        //#else
         /// <summary>
         /// Gets a generic method from a type given the method name, binding flags, generic types and parameter types
         /// </summary>
@@ -232,7 +186,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns>MethodInfo or null if no matches found</returns>
         /// <exception cref="System.Reflection.AmbiguousMatchException"/>
         /// <exception cref="System.ArgumentException"/>
-        public static MethodInfo GetGenericMethod(this Type sourceType, BindingFlags bindingFlags, string methodName, Type[] genericTypes, Type[] parameterTypes)
+        public static MethodInfo GetGenericMethod(this Type sourceType, System.Reflection.BindingFlags bindingFlags, string methodName, Type[] genericTypes, Type[] parameterTypes)
         {
             MethodInfo method;
             var cacheKey = new GenericMethodCacheKey(sourceType, methodName, genericTypes, parameterTypes);
@@ -248,33 +202,13 @@ namespace WebAssetBundler.Web.Mvc
 
             return method;
         }
-        //#endif
 
-#if NETFX_CORE
-        private static MethodInfo GetMethod(Type sourceType, BindingFlags flags, string methodName, Type[] genericTypes, Type[] parameterTypes)
-        {
-            var methods =
-                sourceType.GetMethods(flags).Where(
-                    mi => string.Equals(methodName, mi.Name, StringComparison.Ordinal)).Where(
-                        mi => mi.ContainsGenericParameters).Where(mi => mi.GetGenericArguments().Length == genericTypes.Length).
-                    Where(mi => mi.GetParameters().Length == parameterTypes.Length).Select(
-                        mi => mi.MakeGenericMethod(genericTypes)).Where(
-                            mi => mi.GetParameters().Select(pi => pi.ParameterType).SequenceEqual(parameterTypes)).ToList();
-
-            if (methods.Count > 1)
-            {
-                throw new AmbiguousMatchException();
-            }
-
-            return methods.FirstOrDefault();
-        }
-#else
         private static MethodInfo GetMethod(Type sourceType, BindingFlags bindingFlags, string methodName, Type[] genericTypes, Type[] parameterTypes)
         {
 #if GETPARAMETERS_OPEN_GENERICS
             var methods =
                 sourceType.GetMethods(bindingFlags).Where(
-                    mi => string.Equals(methodName, mi.Name, StringComparison.Ordinal)).Where(
+                    mi => string.Equals(methodName, mi.Name, StringComparison.InvariantCulture)).Where(
                         mi => mi.ContainsGenericParameters).Where(mi => mi.GetGenericArguments().Length == genericTypes.Length).
                     Where(mi => mi.GetParameters().Length == parameterTypes.Length).Select(
                         mi => mi.MakeGenericMethod(genericTypes)).Where(
@@ -298,7 +232,6 @@ namespace WebAssetBundler.Web.Mvc
 
             return methods.FirstOrDefault();
         }
-#endif
 
         private sealed class GenericMethodCacheKey
         {
@@ -330,7 +263,7 @@ namespace WebAssetBundler.Web.Mvc
                 if (_sourceType != cacheKey._sourceType)
                     return false;
 
-                if (!String.Equals(_methodName, cacheKey._methodName, StringComparison.Ordinal))
+                if (!String.Equals(_methodName, cacheKey._methodName, StringComparison.InvariantCulture))
                     return false;
 
                 if (_genericTypes.Length != cacheKey._genericTypes.Length)
@@ -381,24 +314,11 @@ namespace WebAssetBundler.Web.Mvc
                 }
             }
         }
-
     }
-
-    // @mbrit - 2012-05-22 - shim for ForEach call on List<T>...
-#if NETFX_CORE
-	internal static class ListExtender
-	{
-		internal static void ForEach<T>(this List<T> list, Action<T> callback)
-		{
-			foreach (T obj in list)
-				callback(obj);
-		}
-	}
-#endif
-
     #endregion
 
     #region TinyIoC Exception Types
+    [Serializable]
     public class TinyIoCResolutionException : Exception
     {
         private const string ERROR_TEXT = "Unable to resolve type: {0}";
@@ -412,8 +332,19 @@ namespace WebAssetBundler.Web.Mvc
             : base(String.Format(ERROR_TEXT, type.FullName), innerException)
         {
         }
+
+        public TinyIoCResolutionException() {
+
+        }
+
+        public TinyIoCResolutionException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+
+}
     }
 
+    [Serializable]
     public class TinyIoCRegistrationTypeException : Exception
     {
         private const string REGISTER_ERROR_TEXT = "Cannot register type {0} - abstract classes or interfaces are not valid implementation types for {1}.";
@@ -429,6 +360,7 @@ namespace WebAssetBundler.Web.Mvc
         }
     }
 
+    [Serializable]
     public class TinyIoCRegistrationException : Exception
     {
         private const string CONVERT_ERROR_TEXT = "Cannot convert current registration of {0} to {1}";
@@ -455,6 +387,7 @@ namespace WebAssetBundler.Web.Mvc
         }
     }
 
+    [Serializable]
     public class TinyIoCWeakReferenceException : Exception
     {
         private const string ERROR_TEXT = "Unable to instantiate {0} - referenced object has been reclaimed";
@@ -470,6 +403,7 @@ namespace WebAssetBundler.Web.Mvc
         }
     }
 
+    [Serializable]
     public class TinyIoCConstructorResolutionException : Exception
     {
         private const string ERROR_TEXT = "Unable to resolve constructor for {0} using provided Expression.";
@@ -495,6 +429,7 @@ namespace WebAssetBundler.Web.Mvc
         }
     }
 
+    [Serializable]
     public class TinyIoCAutoRegistrationException : Exception
     {
         private const string ERROR_TEXT = "Duplicate implementation of type {0} found ({1}).";
@@ -651,53 +586,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public sealed partial class TinyIoCContainer : IDisposable
     {
-        #region Fake NETFX_CORE Classes
-#if NETFX_CORE
-        private sealed class MethodAccessException : Exception
-        {
-        }
-
-        private sealed class AppDomain
-        {
-            public static AppDomain CurrentDomain { get; private set; }
-
-            static AppDomain()
-            {
-                CurrentDomain = new AppDomain();
-            }
-
-			// @mbrit - 2012-05-30 - in WinRT, this should be done async...
-            public async Task<List<Assembly>> GetAssembliesAsync()
-            {
-                var folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
-
-                List<Assembly> assemblies = new List<Assembly>();
-
-				var files = await folder.GetFilesAsync();
-
-                foreach (StorageFile file in files)
-                {
-                    if (file.FileType == ".dll" || file.FileType == ".exe")
-                    {
-                        AssemblyName name = new AssemblyName() { Name = System.IO.Path.GetFileNameWithoutExtension(file.Name) };
-						try
-						{
-							var asm = Assembly.Load(name);
-							assemblies.Add(asm);
-						}
-						catch
-						{
-							// ignore exceptions here...
-						}
-                    }
-                }
-
-				return assemblies;
-            }
-        }
-#endif
-        #endregion
-
         #region "Fluent" API
         /// <summary>
         /// Registration options for "fluent" API
@@ -717,7 +605,7 @@ namespace WebAssetBundler.Web.Mvc
             /// Make registration a singleton (single instance) if possible
             /// </summary>
             /// <returns>RegisterOptions</returns>
-            /// <exception cref="TinyIoCInstantiationTypeException"></exception>
+            /// <exception cref="TinyIoCRegistrationException"></exception>
             public RegisterOptions AsSingleton()
             {
                 var currentFactory = _Container.GetCurrentFactory(_Registration);
@@ -732,7 +620,7 @@ namespace WebAssetBundler.Web.Mvc
             /// Make registration multi-instance if possible
             /// </summary>
             /// <returns>RegisterOptions</returns>
-            /// <exception cref="TinyIoCInstantiationTypeException"></exception>
+            /// <exception cref="TinyIoCRegistrationException"></exception>
             public RegisterOptions AsMultiInstance()
             {
                 var currentFactory = _Container.GetCurrentFactory(_Registration);
@@ -747,7 +635,7 @@ namespace WebAssetBundler.Web.Mvc
             /// Make registration hold a weak reference if possible
             /// </summary>
             /// <returns>RegisterOptions</returns>
-            /// <exception cref="TinyIoCInstantiationTypeException"></exception>
+            /// <exception cref="TinyIoCRegistrationException"></exception>
             public RegisterOptions WithWeakReference()
             {
                 var currentFactory = _Container.GetCurrentFactory(_Registration);
@@ -762,7 +650,7 @@ namespace WebAssetBundler.Web.Mvc
             /// Make registration hold a strong reference if possible
             /// </summary>
             /// <returns>RegisterOptions</returns>
-            /// <exception cref="TinyIoCInstantiationTypeException"></exception>
+            /// <exception cref="TinyIoCRegistrationException"></exception>
             public RegisterOptions WithStrongReference()
             {
                 var currentFactory = _Container.GetCurrentFactory(_Registration);
@@ -846,7 +734,7 @@ namespace WebAssetBundler.Web.Mvc
             /// Make registration a singleton (single instance) if possible
             /// </summary>
             /// <returns>RegisterOptions</returns>
-            /// <exception cref="TinyIoCInstantiationTypeException"></exception>
+            /// <exception cref="TinyIoCRegistrationException"></exception>
             public MultiRegisterOptions AsSingleton()
             {
                 _RegisterOptions = ExecuteOnAllRegisterOptions(ro => ro.AsSingleton());
@@ -857,7 +745,7 @@ namespace WebAssetBundler.Web.Mvc
             /// Make registration multi-instance if possible
             /// </summary>
             /// <returns>MultiRegisterOptions</returns>
-            /// <exception cref="TinyIoCInstantiationTypeException"></exception>
+            /// <exception cref="TinyIoCRegistrationException"></exception>
             public MultiRegisterOptions AsMultiInstance()
             {
                 _RegisterOptions = ExecuteOnAllRegisterOptions(ro => ro.AsMultiInstance());
@@ -898,7 +786,7 @@ namespace WebAssetBundler.Web.Mvc
 #if APPDOMAIN_GETASSEMBLIES
             AutoRegisterInternal(AppDomain.CurrentDomain.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), true, null);
 #else
-            AutoRegisterInternal(new Assembly[] {this.GetType().Assembly()}, true, null);
+            AutoRegisterInternal(new Assembly[] {this.GetType().Assembly}, true, null);
 #endif
         }
 
@@ -915,7 +803,7 @@ namespace WebAssetBundler.Web.Mvc
 #if APPDOMAIN_GETASSEMBLIES
             AutoRegisterInternal(AppDomain.CurrentDomain.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), true, registrationPredicate);
 #else
-            AutoRegisterInternal(new Assembly[] { this.GetType().Assembly()}, true, registrationPredicate);
+            AutoRegisterInternal(new Assembly[] {this.GetType().Assembly}, true, registrationPredicate);
 #endif
         }
 
@@ -929,7 +817,7 @@ namespace WebAssetBundler.Web.Mvc
 #if APPDOMAIN_GETASSEMBLIES
             AutoRegisterInternal(AppDomain.CurrentDomain.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), ignoreDuplicateImplementations, null);
 #else
-            AutoRegisterInternal(new Assembly[] { this.GetType().Assembly() }, ignoreDuplicateImplementations, null);
+            AutoRegisterInternal(new Assembly[] { this.GetType().Assembly }, ignoreDuplicateImplementations, null);
 #endif
         }
 
@@ -945,7 +833,7 @@ namespace WebAssetBundler.Web.Mvc
 #if APPDOMAIN_GETASSEMBLIES
             AutoRegisterInternal(AppDomain.CurrentDomain.GetAssemblies().Where(a => !IsIgnoredAssembly(a)), ignoreDuplicateImplementations, registrationPredicate);
 #else
-            AutoRegisterInternal(new Assembly[] { this.GetType().Assembly() }, ignoreDuplicateImplementations, registrationPredicate);
+            AutoRegisterInternal(new Assembly[] { this.GetType().Assembly }, ignoreDuplicateImplementations, registrationPredicate);
 #endif
         }
 
@@ -1118,7 +1006,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Creates/replaces a container class registration with default options.
         /// </summary>
-        /// <typeparam name="RegisterImplementation">Type to register</typeparam>
+        /// <typeparam name="RegisterType">Type to register</typeparam>
         /// <returns>RegisterOptions for fluent API</returns>
         public RegisterOptions Register<RegisterType>()
             where RegisterType : class
@@ -1129,7 +1017,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Creates/replaces a named container class registration with default options.
         /// </summary>
-        /// <typeparam name="RegisterImplementation">Type to register</typeparam>
+        /// <typeparam name="RegisterType">Type to register</typeparam>
         /// <param name="name">Name of registration</param>
         /// <returns>RegisterOptions for fluent API</returns>
         public RegisterOptions Register<RegisterType>(string name)
@@ -1281,11 +1169,7 @@ namespace WebAssetBundler.Web.Mvc
                 throw new ArgumentNullException("types", "types is null.");
 
             foreach (var type in implementationTypes)
-                //#if NETFX_CORE
-                //				if (!registrationType.GetTypeInfo().IsAssignableFrom(type.GetTypeInfo()))
-                //#else
                 if (!registrationType.IsAssignableFrom(type))
-                    //#endif
                     throw new ArgumentException(String.Format("types: The type {0} is not assignable from {1}", registrationType.FullName, type.FullName));
 
             if (implementationTypes.Count() != implementationTypes.Distinct().Count())
@@ -1550,11 +1434,10 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Attempts to predict whether a given type can be resolved with default options.
         ///
-        /// Note: Resolution may still fail if user defined factory registations fail to construct objects when called.
+        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
         /// <param name="resolveType">Type to resolve</param>
-        /// <param name="name">Name of registration</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
+        /// <returns>Boolean indicating whether the type can be resolved</returns>
         public bool CanResolve(Type resolveType)
         {
             return CanResolveInternal(new TypeRegistration(resolveType), NamedParameterOverloads.Default, ResolveOptions.Default);
@@ -1563,10 +1446,11 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Attempts to predict whether a given named type can be resolved with default options.
         ///
-        /// Note: Resolution may still fail if user defined factory registations fail to construct objects when called.
+        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
         /// <param name="resolveType">Type to resolve</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
+        /// <param name="name">Name of registration</param>
+        /// <returns>Boolean indicating whether the type can be resolved</returns>
         private bool CanResolve(Type resolveType, string name)
         {
             return CanResolveInternal(new TypeRegistration(resolveType, name), NamedParameterOverloads.Default, ResolveOptions.Default);
@@ -1575,12 +1459,11 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Attempts to predict whether a given type can be resolved with the specified options.
         ///
-        /// Note: Resolution may still fail if user defined factory registations fail to construct objects when called.
+        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
         /// <param name="resolveType">Type to resolve</param>
-        /// <param name="name">Name of registration</param>
         /// <param name="options">Resolution options</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
+        /// <returns>Boolean indicating whether the type can be resolved</returns>
         public bool CanResolve(Type resolveType, ResolveOptions options)
         {
             return CanResolveInternal(new TypeRegistration(resolveType), NamedParameterOverloads.Default, options);
@@ -1589,12 +1472,12 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Attempts to predict whether a given named type can be resolved with the specified options.
         ///
-        /// Note: Resolution may still fail if user defined factory registations fail to construct objects when called.
+        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
         /// <param name="resolveType">Type to resolve</param>
         /// <param name="name">Name of registration</param>
         /// <param name="options">Resolution options</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
+        /// <returns>Boolean indicating whether the type can be resolved</returns>
         public bool CanResolve(Type resolveType, string name, ResolveOptions options)
         {
             return CanResolveInternal(new TypeRegistration(resolveType, name), NamedParameterOverloads.Default, options);
@@ -1606,11 +1489,11 @@ namespace WebAssetBundler.Web.Mvc
         /// Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
         /// All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.
         /// 
-        /// Note: Resolution may still fail if user defined factory registations fail to construct objects when called.
+        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
         /// <param name="resolveType">Type to resolve</param>
         /// <param name="parameters">User supplied named parameter overloads</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
+        /// <returns>Boolean indicating whether the type can be resolved</returns>
         public bool CanResolve(Type resolveType, NamedParameterOverloads parameters)
         {
             return CanResolveInternal(new TypeRegistration(resolveType), parameters, ResolveOptions.Default);
@@ -1622,12 +1505,12 @@ namespace WebAssetBundler.Web.Mvc
         /// Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
         /// All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.
         /// 
-        /// Note: Resolution may still fail if user defined factory registations fail to construct objects when called.
+        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
         /// <param name="resolveType">Type to resolve</param>
         /// <param name="name">Name of registration</param>
         /// <param name="parameters">User supplied named parameter overloads</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
+        /// <returns>Boolean indicating whether the type can be resolved</returns>
         public bool CanResolve(Type resolveType, string name, NamedParameterOverloads parameters)
         {
             return CanResolveInternal(new TypeRegistration(resolveType, name), parameters, ResolveOptions.Default);
@@ -1639,12 +1522,12 @@ namespace WebAssetBundler.Web.Mvc
         /// Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
         /// All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.
         /// 
-        /// Note: Resolution may still fail if user defined factory registations fail to construct objects when called.
+        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
         /// <param name="resolveType">Type to resolve</param>
         /// <param name="parameters">User supplied named parameter overloads</param>
         /// <param name="options">Resolution options</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
+        /// <returns>Boolean indicating whether the type can be resolved</returns>
         public bool CanResolve(Type resolveType, NamedParameterOverloads parameters, ResolveOptions options)
         {
             return CanResolveInternal(new TypeRegistration(resolveType), parameters, options);
@@ -1656,13 +1539,13 @@ namespace WebAssetBundler.Web.Mvc
         /// Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
         /// All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.
         /// 
-        /// Note: Resolution may still fail if user defined factory registations fail to construct objects when called.
+        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
         /// <param name="resolveType">Type to resolve</param>
         /// <param name="name">Name of registration</param>
         /// <param name="parameters">User supplied named parameter overloads</param>
         /// <param name="options">Resolution options</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
+        /// <returns>Boolean indicating whether the type can be resolved</returns>
         public bool CanResolve(Type resolveType, string name, NamedParameterOverloads parameters, ResolveOptions options)
         {
             return CanResolveInternal(new TypeRegistration(resolveType, name), parameters, options);
@@ -1671,11 +1554,10 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Attempts to predict whether a given type can be resolved with default options.
         ///
-        /// Note: Resolution may still fail if user defined factory registations fail to construct objects when called.
+        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
         /// <typeparam name="ResolveType">Type to resolve</typeparam>
-        /// <param name="name">Name of registration</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
+        /// <returns>Boolean indicating whether the type can be resolved</returns>
         public bool CanResolve<ResolveType>()
             where ResolveType : class
         {
@@ -1685,10 +1567,10 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Attempts to predict whether a given named type can be resolved with default options.
         ///
-        /// Note: Resolution may still fail if user defined factory registations fail to construct objects when called.
+        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
         /// <typeparam name="ResolveType">Type to resolve</typeparam>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
+        /// <returns>Boolean indicating whether the type can be resolved</returns>
         public bool CanResolve<ResolveType>(string name)
             where ResolveType : class
         {
@@ -1698,12 +1580,11 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Attempts to predict whether a given type can be resolved with the specified options.
         ///
-        /// Note: Resolution may still fail if user defined factory registations fail to construct objects when called.
+        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
         /// <typeparam name="ResolveType">Type to resolve</typeparam>
-        /// <param name="name">Name of registration</param>
         /// <param name="options">Resolution options</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
+        /// <returns>Boolean indicating whether the type can be resolved</returns>
         public bool CanResolve<ResolveType>(ResolveOptions options)
             where ResolveType : class
         {
@@ -1713,12 +1594,12 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Attempts to predict whether a given named type can be resolved with the specified options.
         ///
-        /// Note: Resolution may still fail if user defined factory registations fail to construct objects when called.
+        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
         /// <typeparam name="ResolveType">Type to resolve</typeparam>
         /// <param name="name">Name of registration</param>
         /// <param name="options">Resolution options</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
+        /// <returns>Boolean indicating whether the type can be resolved</returns>
         public bool CanResolve<ResolveType>(string name, ResolveOptions options)
             where ResolveType : class
         {
@@ -1731,11 +1612,11 @@ namespace WebAssetBundler.Web.Mvc
         /// Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
         /// All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.
         /// 
-        /// Note: Resolution may still fail if user defined factory registations fail to construct objects when called.
+        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
         /// <typeparam name="ResolveType">Type to resolve</typeparam>
         /// <param name="parameters">User supplied named parameter overloads</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
+        /// <returns>Boolean indicating whether the type can be resolved</returns>
         public bool CanResolve<ResolveType>(NamedParameterOverloads parameters)
             where ResolveType : class
         {
@@ -1748,12 +1629,12 @@ namespace WebAssetBundler.Web.Mvc
         /// Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
         /// All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.
         /// 
-        /// Note: Resolution may still fail if user defined factory registations fail to construct objects when called.
+        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
         /// <typeparam name="ResolveType">Type to resolve</typeparam>
         /// <param name="name">Name of registration</param>
         /// <param name="parameters">User supplied named parameter overloads</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
+        /// <returns>Boolean indicating whether the type can be resolved</returns>
         public bool CanResolve<ResolveType>(string name, NamedParameterOverloads parameters)
             where ResolveType : class
         {
@@ -1766,12 +1647,12 @@ namespace WebAssetBundler.Web.Mvc
         /// Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
         /// All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.
         /// 
-        /// Note: Resolution may still fail if user defined factory registations fail to construct objects when called.
+        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
         /// <typeparam name="ResolveType">Type to resolve</typeparam>
         /// <param name="parameters">User supplied named parameter overloads</param>
         /// <param name="options">Resolution options</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
+        /// <returns>Boolean indicating whether the type can be resolved</returns>
         public bool CanResolve<ResolveType>(NamedParameterOverloads parameters, ResolveOptions options)
             where ResolveType : class
         {
@@ -1784,13 +1665,13 @@ namespace WebAssetBundler.Web.Mvc
         /// Parameters are used in conjunction with normal container resolution to find the most suitable constructor (if one exists).
         /// All user supplied parameters must exist in at least one resolvable constructor of RegisterType or resolution will fail.
         /// 
-        /// Note: Resolution may still fail if user defined factory registations fail to construct objects when called.
+        /// Note: Resolution may still fail if user defined factory registrations fail to construct objects when called.
         /// </summary>
         /// <typeparam name="ResolveType">Type to resolve</typeparam>
         /// <param name="name">Name of registration</param>
         /// <param name="parameters">User supplied named parameter overloads</param>
         /// <param name="options">Resolution options</param>
-        /// <returns>Bool indicating whether the type can be resolved</returns>
+        /// <returns>Boolean indicating whether the type can be resolved</returns>
         public bool CanResolve<ResolveType>(string name, NamedParameterOverloads parameters, ResolveOptions options)
             where ResolveType : class
         {
@@ -1800,7 +1681,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Attemps to resolve a type using the default options
         /// </summary>
-        /// <param name="ResolveType">Type to resolve</param>
+        /// <param name="resolveType">Type to resolve</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
         /// <returns>True if resolved sucessfully, false otherwise</returns>
         public bool TryResolve(Type resolveType, out object resolvedType)
@@ -1820,7 +1701,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Attemps to resolve a type using the given options
         /// </summary>
-        /// <param name="ResolveType">Type to resolve</param>
+        /// <param name="resolveType">Type to resolve</param>
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
         /// <returns>True if resolved sucessfully, false otherwise</returns>
@@ -1841,7 +1722,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Attemps to resolve a type using the default options and given name
         /// </summary>
-        /// <param name="ResolveType">Type to resolve</param>
+        /// <param name="resolveType">Type to resolve</param>
         /// <param name="name">Name of registration</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
         /// <returns>True if resolved sucessfully, false otherwise</returns>
@@ -1862,7 +1743,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Attemps to resolve a type using the given options and name
         /// </summary>
-        /// <param name="ResolveType">Type to resolve</param>
+        /// <param name="resolveType">Type to resolve</param>
         /// <param name="name">Name of registration</param>
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
@@ -1884,7 +1765,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Attemps to resolve a type using the default options and supplied constructor parameters
         /// </summary>
-        /// <param name="ResolveType">Type to resolve</param>
+        /// <param name="resolveType">Type to resolve</param>
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
         /// <returns>True if resolved sucessfully, false otherwise</returns>
@@ -1905,7 +1786,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Attemps to resolve a type using the default options and supplied name and constructor parameters
         /// </summary>
-        /// <param name="ResolveType">Type to resolve</param>
+        /// <param name="resolveType">Type to resolve</param>
         /// <param name="name">Name of registration</param>
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
@@ -1927,8 +1808,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Attemps to resolve a type using the supplied options and constructor parameters
         /// </summary>
-        /// <param name="ResolveType">Type to resolve</param>
-        /// <param name="name">Name of registration</param>
+        /// <param name="resolveType">Type to resolve</param>
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
@@ -1950,7 +1830,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Attemps to resolve a type using the supplied name, options and constructor parameters
         /// </summary>
-        /// <param name="ResolveType">Type to resolve</param>
+        /// <param name="resolveType">Type to resolve</param>
         /// <param name="name">Name of registration</param>
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="options">Resolution options</param>
@@ -2107,7 +1987,6 @@ namespace WebAssetBundler.Web.Mvc
         /// Attemps to resolve a type using the supplied options and constructor parameters
         /// </summary>
         /// <typeparam name="ResolveType">Type to resolve</typeparam>
-        /// <param name="name">Name of registration</param>
         /// <param name="parameters">User specified constructor parameters</param>
         /// <param name="options">Resolution options</param>
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
@@ -2154,7 +2033,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Returns all registrations of a type
         /// </summary>
-        /// <param name="ResolveType">Type to resolveAll</param>
+        /// <param name="resolveType">Type to resolveAll</param>
         /// <param name="includeUnnamed">Whether to include un-named (default) registrations</param>
         /// <returns>IEnumerable</returns>
         public IEnumerable<object> ResolveAll(Type resolveType, bool includeUnnamed)
@@ -2165,7 +2044,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Returns all registrations of a type, both named and unnamed
         /// </summary>
-        /// <param name="ResolveType">Type to resolveAll</param>
+        /// <param name="resolveType">Type to resolveAll</param>
         /// <returns>IEnumerable</returns>
         public IEnumerable<object> ResolveAll(Type resolveType)
         {
@@ -2188,7 +2067,6 @@ namespace WebAssetBundler.Web.Mvc
         /// Returns all registrations of a type, both named and unnamed
         /// </summary>
         /// <typeparam name="ResolveType">Type to resolveAll</typeparam>
-        /// <param name="includeUnnamed">Whether to include un-named (default) registrations</param>
         /// <returns>IEnumerable</returns>
         public IEnumerable<ResolveType> ResolveAll<ResolveType>()
             where ResolveType : class
@@ -2330,13 +2208,9 @@ namespace WebAssetBundler.Web.Mvc
 
             public MultiInstanceFactory(Type registerType, Type registerImplementation)
             {
-                //#if NETFX_CORE
-                //				if (registerImplementation.GetTypeInfo().IsAbstract() || registerImplementation.GetTypeInfo().IsInterface())
-                //					throw new TinyIoCRegistrationTypeException(registerImplementation, "MultiInstanceFactory");
-                //#else
-                if (registerImplementation.IsAbstract() || registerImplementation.IsInterface())
+                if (registerImplementation.IsAbstract || registerImplementation.IsInterface)
                     throw new TinyIoCRegistrationTypeException(registerImplementation, "MultiInstanceFactory");
-                //#endif
+
                 if (!IsValidAssignment(registerType, registerImplementation))
                     throw new TinyIoCRegistrationTypeException(registerImplementation, "MultiInstanceFactory");
 
@@ -2660,11 +2534,7 @@ namespace WebAssetBundler.Web.Mvc
 
             public SingletonFactory(Type registerType, Type registerImplementation)
             {
-                //#if NETFX_CORE
-                //				if (registerImplementation.GetTypeInfo().IsAbstract() || registerImplementation.GetTypeInfo().IsInterface())
-                //#else
-                if (registerImplementation.IsAbstract() || registerImplementation.IsInterface())
-                    //#endif
+                if (registerImplementation.IsAbstract || registerImplementation.IsInterface)
                     throw new TinyIoCRegistrationTypeException(registerImplementation, "SingletonFactory");
 
                 if (!IsValidAssignment(registerType, registerImplementation))
@@ -2751,11 +2621,7 @@ namespace WebAssetBundler.Web.Mvc
                 if (!IsValidAssignment(registerType, registerImplementation))
                     throw new TinyIoCRegistrationTypeException(registerImplementation, "SingletonFactory");
 
-                //#if NETFX_CORE
-                //				if (registerImplementation.GetTypeInfo().IsAbstract() || registerImplementation.GetTypeInfo().IsInterface())
-                //#else
-                if (registerImplementation.IsAbstract() || registerImplementation.IsInterface())
-                    //#endif
+                if (registerImplementation.IsAbstract || registerImplementation.IsInterface)
                     throw new TinyIoCRegistrationTypeException(registerImplementation, errorMessage);
 
                 this.registerType = registerType;
@@ -2914,7 +2780,7 @@ namespace WebAssetBundler.Web.Mvc
                 var types = assemblies.SelectMany(a => a.SafeGetTypes()).Where(t => !IsIgnoredType(t, registrationPredicate)).ToList();
 
                 var concreteTypes = from type in types
-                                    where (type.IsClass() == true) && (type.IsAbstract() == false) && (type != this.GetType() && (type.DeclaringType != this.GetType()) && (!type.IsGenericTypeDefinition()))
+                                    where (type.IsClass == true) && (type.IsAbstract == false) && (type != this.GetType() && (type.DeclaringType != this.GetType()) && (!type.IsGenericTypeDefinition))
                                     select type;
 
                 foreach (var type in concreteTypes)
@@ -2930,13 +2796,13 @@ namespace WebAssetBundler.Web.Mvc
                 }
 
                 var abstractInterfaceTypes = from type in types
-                                             where ((type.IsInterface() == true || type.IsAbstract() == true) && (type.DeclaringType != this.GetType()) && (!type.IsGenericTypeDefinition()))
+                                             where ((type.IsInterface == true || type.IsAbstract == true) && (type.DeclaringType != this.GetType()) && (!type.IsGenericTypeDefinition))
                                              select type;
 
                 foreach (var type in abstractInterfaceTypes)
                 {
                     var implementations = from implementationType in concreteTypes
-                                          where implementationType.GetInterfaces().Contains(type) || implementationType.BaseType() == type
+                                          where implementationType.GetInterfaces().Contains(type) || implementationType.BaseType == type
                                           select implementationType;
 
                     if (!ignoreDuplicateImplementations && implementations.Count() > 1)
@@ -2963,13 +2829,15 @@ namespace WebAssetBundler.Web.Mvc
             // TODO - find a better way to remove "system" assemblies from the auto registration
             var ignoreChecks = new List<Func<Assembly, bool>>()
             {
-                asm => asm.FullName.StartsWith("Microsoft.", StringComparison.Ordinal),
-                asm => asm.FullName.StartsWith("System.", StringComparison.Ordinal),
-                asm => asm.FullName.StartsWith("System,", StringComparison.Ordinal),
-                asm => asm.FullName.StartsWith("CR_ExtUnitTest", StringComparison.Ordinal),
-                asm => asm.FullName.StartsWith("mscorlib,", StringComparison.Ordinal),
-                asm => asm.FullName.StartsWith("CR_VSTest", StringComparison.Ordinal),
-                asm => asm.FullName.StartsWith("DevExpress.CodeRush", StringComparison.Ordinal),
+                asm => asm.FullName.StartsWith("Microsoft.", StringComparison.InvariantCulture),
+                asm => asm.FullName.StartsWith("System.", StringComparison.InvariantCulture),
+                asm => asm.FullName.StartsWith("System,", StringComparison.InvariantCulture),
+                asm => asm.FullName.StartsWith("CR_ExtUnitTest", StringComparison.InvariantCulture),
+                asm => asm.FullName.StartsWith("mscorlib,", StringComparison.InvariantCulture),
+                asm => asm.FullName.StartsWith("CR_VSTest", StringComparison.InvariantCulture),
+                asm => asm.FullName.StartsWith("DevExpress.CodeRush", StringComparison.InvariantCulture),
+                asm => asm.FullName.StartsWith("IronPython", StringComparison.InvariantCulture),
+                asm => asm.FullName.StartsWith("IronRuby", StringComparison.InvariantCulture),
             };
 
             foreach (var check in ignoreChecks)
@@ -2986,13 +2854,13 @@ namespace WebAssetBundler.Web.Mvc
             // TODO - find a better way to remove "system" types from the auto registration
             var ignoreChecks = new List<Func<Type, bool>>()
             {
-                t => t.FullName.StartsWith("System.", StringComparison.Ordinal),
-                t => t.FullName.StartsWith("Microsoft.", StringComparison.Ordinal),
-                t => t.IsPrimitive(),
+                t => t.FullName.StartsWith("System.", StringComparison.InvariantCulture),
+                t => t.FullName.StartsWith("Microsoft.", StringComparison.InvariantCulture),
+                t => t.IsPrimitive,
 #if !UNBOUND_GENERICS_GETCONSTRUCTORS
-                t => t.IsGenericTypeDefinition(),
+                t => t.IsGenericTypeDefinition,
 #endif
-                t => (t.GetConstructors(BindingFlags.Instance | BindingFlags.Public).Length == 0) && !(t.IsInterface() || t.IsAbstract()),
+                t => (t.GetConstructors(BindingFlags.Instance | BindingFlags.Public).Length == 0) && !(t.IsInterface || t.IsAbstract),
             };
 
             if (registrationPredicate != null)
@@ -3050,11 +2918,7 @@ namespace WebAssetBundler.Web.Mvc
 
         private ObjectFactoryBase GetDefaultObjectFactory(Type registerType, Type registerImplementation)
         {
-            //#if NETFX_CORE
-            //			if (registerType.GetTypeInfo().IsInterface() || registerType.GetTypeInfo().IsAbstract())
-            //#else
-            if (registerType.IsInterface() || registerType.IsAbstract())
-                //#endif
+            if (registerType.IsInterface || registerType.IsAbstract)
                 return new SingletonFactory(registerType, registerImplementation);
 
             return new MultiInstanceFactory(registerType, registerImplementation);
@@ -3107,7 +2971,7 @@ namespace WebAssetBundler.Web.Mvc
 
             // Attempt unregistered construction if possible and requested
             // If we cant', bubble if we have a parent
-            if ((options.UnregisteredResolutionAction == UnregisteredResolutionActions.AttemptResolve) || (checkType.IsGenericType() && options.UnregisteredResolutionAction == UnregisteredResolutionActions.GenericsOnly))
+            if ((options.UnregisteredResolutionAction == UnregisteredResolutionActions.AttemptResolve) || (checkType.IsGenericType && options.UnregisteredResolutionAction == UnregisteredResolutionActions.GenericsOnly))
                 return (GetBestConstructor(checkType, parameters, options) != null) ? true : (_Parent != null) ? _Parent.CanResolveInternal(registration, parameters, options) : false;
 
             // Bubble resolution up the container tree if we have a parent
@@ -3119,7 +2983,7 @@ namespace WebAssetBundler.Web.Mvc
 
         private bool IsIEnumerableRequest(Type type)
         {
-            if (!type.IsGenericType())
+            if (!type.IsGenericType)
                 return false;
 
             Type genericType = type.GetGenericTypeDefinition();
@@ -3132,7 +2996,7 @@ namespace WebAssetBundler.Web.Mvc
 
         private bool IsAutomaticLazyFactoryRequest(Type type)
         {
-            if (!type.IsGenericType())
+            if (!type.IsGenericType)
                 return false;
 
             Type genericType = type.GetGenericTypeDefinition();
@@ -3142,19 +3006,11 @@ namespace WebAssetBundler.Web.Mvc
                 return true;
 
             // 2 parameter func with string as first parameter (name)
-            //#if NETFX_CORE
-            //			if ((genericType == typeof(Func<,>) && type.GetTypeInfo().GenericTypeArguments[0] == typeof(string)))
-            //#else
             if ((genericType == typeof(Func<,>) && type.GetGenericArguments()[0] == typeof(string)))
-                //#endif
                 return true;
 
             // 3 parameter func with string as first parameter (name) and IDictionary<string, object> as second (parameters)
-            //#if NETFX_CORE
-            //			if ((genericType == typeof(Func<,,>) && type.GetTypeInfo().GenericTypeArguments[0] == typeof(string) && type.GetTypeInfo().GenericTypeArguments[1] == typeof(IDictionary<String, object>)))
-            //#else
             if ((genericType == typeof(Func<,,>) && type.GetGenericArguments()[0] == typeof(string) && type.GetGenericArguments()[1] == typeof(IDictionary<String, object>)))
-                //#endif
                 return true;
 
             return false;
@@ -3197,7 +3053,7 @@ namespace WebAssetBundler.Web.Mvc
 
 #if RESOLVE_OPEN_GENERICS
             // Attempt container resolution of open generic
-            if (registration.Type.IsGenericType())
+            if (registration.Type.IsGenericType)
             {
                 var openTypeRegistration = new TypeRegistration(registration.Type.GetGenericTypeDefinition(),
                                                                 registration.Name);
@@ -3270,10 +3126,15 @@ namespace WebAssetBundler.Web.Mvc
             if (IsIEnumerableRequest(registration.Type))
                 return GetIEnumerableRequest(registration.Type);
 
-            // Attempt unregistered construction if possible and requested
-            if ((options.UnregisteredResolutionAction == UnregisteredResolutionActions.AttemptResolve) || (registration.Type.IsGenericType() && options.UnregisteredResolutionAction == UnregisteredResolutionActions.GenericsOnly))
+            if (typeof(Delegate).IsAssignableFrom(registration.Type))
             {
-                if (!registration.Type.IsAbstract() && !registration.Type.IsInterface())
+                return delegateFactoryBuilder.GetDelegateFactory(registration.Type, this);
+            }
+
+            // Attempt unregistered construction if possible and requested
+            if ((options.UnregisteredResolutionAction == UnregisteredResolutionActions.AttemptResolve) || (registration.Type.IsGenericType && options.UnregisteredResolutionAction == UnregisteredResolutionActions.GenericsOnly))
+            {
+                if (!registration.Type.IsAbstract && !registration.Type.IsInterface)
                     return ConstructType(null, registration.Type, parameters, options);
             }
 
@@ -3281,29 +3142,101 @@ namespace WebAssetBundler.Web.Mvc
             throw new TinyIoCResolutionException(registration.Type);
         }
 
+        readonly DelegateFactoryBuilder delegateFactoryBuilder = new DelegateFactoryBuilder();
+
+        class DelegateFactoryBuilder
+        {
+            readonly Dictionary<Type, Delegate> delegateFactoryCache = new Dictionary<Type, Delegate>();
+            readonly MethodInfo genericResolveMethod = typeof(TinyIoCContainer).GetMethod("Resolve", new[] { typeof(NamedParameterOverloads) });
+            readonly MethodInfo addMethod = typeof(NamedParameterOverloads).GetMethod("Add");
+            readonly ConstructorInfo namedParameterOverloadsConstructor = typeof(NamedParameterOverloads).GetConstructor(new Type[0]);
+
+            TinyIoCContainer container;
+
+            public object GetDelegateFactory(Type delegateType, TinyIoCContainer container)
+            {
+                lock (delegateFactoryCache)
+                {
+                    this.container = container;
+                    Delegate factory;
+                    if (delegateFactoryCache.TryGetValue(delegateType, out factory))
+                    {
+                        return factory;
+                    }
+                    else
+                    {
+                        return CreateDelegateFactory(delegateType);
+                    }
+                }
+            }
+
+            object CreateDelegateFactory(Type delegateType)
+            {
+                // Create a delegate like this:
+                // (p1, p2, ...) => this.Resolve<T>(new NamedParameterOverloads() { { "p1", p1 }, { "p2", p2 }, ... })
+
+                var delegateInvokeMethod = delegateType.GetMethod("Invoke");
+                var parameters = CreateParameters(delegateInvokeMethod);
+                var resolveCall = CreateResolveCallExpression(delegateInvokeMethod.ReturnType, parameters);
+
+                var factory = Expression.Lambda(delegateType, resolveCall, parameters).Compile();
+
+                delegateFactoryCache[delegateType] = factory;
+                return factory;
+            }
+
+            MethodCallExpression CreateResolveCallExpression(Type returnType, IEnumerable<ParameterExpression> parameters)
+            {
+                var resolveMethod = genericResolveMethod.MakeGenericMethod(returnType);
+                var namedParameterOverloads = CreateNamedParameterOverloadsInitializerExpression(parameters);
+                return Expression.Call(
+                    Expression.Constant(container),
+                    resolveMethod,
+                    namedParameterOverloads
+                );
+            }
+
+            ListInitExpression CreateNamedParameterOverloadsInitializerExpression(IEnumerable<ParameterExpression> parameters)
+            {
+                return Expression.ListInit(
+                    Expression.New(namedParameterOverloadsConstructor),
+                    parameters.Select(CreateElementInit)
+                );
+            }
+
+            ElementInit CreateElementInit(ParameterExpression parameter)
+            {
+                return Expression.ElementInit(
+                    addMethod,
+                    Expression.Constant(parameter.Name),
+                    Expression.Convert(parameter, typeof(object))
+                );
+            }
+
+            static ParameterExpression[] CreateParameters(MethodInfo delegateInvokeMethod)
+            {
+                return delegateInvokeMethod
+                    .GetParameters()
+                    .Select(p => Expression.Parameter(p.ParameterType, p.Name))
+                    .ToArray();
+            }
+        }
+
 #if EXPRESSIONS
         private object GetLazyAutomaticFactoryRequest(Type type)
         {
-            if (!type.IsGenericType())
+            if (!type.IsGenericType)
                 return null;
 
             Type genericType = type.GetGenericTypeDefinition();
-            //#if NETFX_CORE
-            //			Type[] genericArguments = type.GetTypeInfo().GenericTypeArguments.ToArray();
-            //#else
             Type[] genericArguments = type.GetGenericArguments();
-            //#endif
 
             // Just a func
             if (genericType == typeof(Func<>))
             {
                 Type returnType = genericArguments[0];
 
-                //#if NETFX_CORE
-                //				MethodInfo resolveMethod = typeof(TinyIoCContainer).GetTypeInfo().GetDeclaredMethods("Resolve").First(mi => !mi.GetParameters().Any());
-                //#else
                 MethodInfo resolveMethod = typeof(TinyIoCContainer).GetMethod("Resolve", new Type[] { });
-                //#endif
                 resolveMethod = resolveMethod.MakeGenericMethod(returnType);
 
                 var resolveCall = Expression.Call(Expression.Constant(this), resolveMethod);
@@ -3318,11 +3251,7 @@ namespace WebAssetBundler.Web.Mvc
             {
                 Type returnType = genericArguments[1];
 
-                //#if NETFX_CORE
-                //				MethodInfo resolveMethod = typeof(TinyIoCContainer).GetTypeInfo().GetDeclaredMethods("Resolve").First(mi => mi.GetParameters().Length == 1 && mi.GetParameters()[0].GetType() == typeof(String));
-                //#else
                 MethodInfo resolveMethod = typeof(TinyIoCContainer).GetMethod("Resolve", new Type[] { typeof(String) });
-                //#endif
                 resolveMethod = resolveMethod.MakeGenericMethod(returnType);
 
                 ParameterExpression[] resolveParameters = new ParameterExpression[] { Expression.Parameter(typeof(String), "name") };
@@ -3334,22 +3263,14 @@ namespace WebAssetBundler.Web.Mvc
             }
 
             // 3 parameter func with string as first parameter (name) and IDictionary<string, object> as second (parameters)
-            //#if NETFX_CORE
-            //			if ((genericType == typeof(Func<,,>) && type.GenericTypeArguments[0] == typeof(string) && type.GenericTypeArguments[1] == typeof(IDictionary<string, object>)))
-            //#else
             if ((genericType == typeof(Func<,,>) && type.GetGenericArguments()[0] == typeof(string) && type.GetGenericArguments()[1] == typeof(IDictionary<string, object>)))
-            //#endif
             {
                 Type returnType = genericArguments[2];
 
                 var name = Expression.Parameter(typeof(string), "name");
                 var parameters = Expression.Parameter(typeof(IDictionary<string, object>), "parameters");
 
-                //#if NETFX_CORE
-                //				MethodInfo resolveMethod = typeof(TinyIoCContainer).GetTypeInfo().GetDeclaredMethods("Resolve").First(mi => mi.GetParameters().Length == 2 && mi.GetParameters()[0].GetType() == typeof(String) && mi.GetParameters()[1].GetType() == typeof(NamedParameterOverloads));
-                //#else
                 MethodInfo resolveMethod = typeof(TinyIoCContainer).GetMethod("Resolve", new Type[] { typeof(String), typeof(NamedParameterOverloads) });
-                //#endif
                 resolveMethod = resolveMethod.MakeGenericMethod(returnType);
 
                 var resolveCall = Expression.Call(Expression.Constant(this), resolveMethod, name, Expression.Call(typeof(NamedParameterOverloads), "FromIDictionary", null, parameters));
@@ -3364,11 +3285,7 @@ namespace WebAssetBundler.Web.Mvc
 #endif
         private object GetIEnumerableRequest(Type type)
         {
-            //#if NETFX_CORE
-            //			var genericResolveAllMethod = this.GetType().GetGenericMethod("ResolveAll", type.GenericTypeArguments, new[] { typeof(bool) });
-            //#else
             var genericResolveAllMethod = this.GetType().GetGenericMethod(BindingFlags.Public | BindingFlags.Instance, "ResolveAll", type.GetGenericArguments(), new[] { typeof(bool) });
-            //#endif
 
             return genericResolveAllMethod.Invoke(this, new object[] { false });
         }
@@ -3385,11 +3302,7 @@ namespace WebAssetBundler.Web.Mvc
 
                 var isParameterOverload = parameters.ContainsKey(parameter.Name);
 
-                //#if NETFX_CORE                
-                //				if (parameter.ParameterType.GetTypeInfo().IsPrimitive && !isParameterOverload)
-                //#else
-                if (parameter.ParameterType.IsPrimitive() && !isParameterOverload)
-                    //#endif
+                if (parameter.ParameterType.IsPrimitive && !isParameterOverload)
                     return false;
 
                 if (!isParameterOverload && !CanResolveInternal(new TypeRegistration(parameter.ParameterType), NamedParameterOverloads.Default, options))
@@ -3404,11 +3317,7 @@ namespace WebAssetBundler.Web.Mvc
             if (parameters == null)
                 throw new ArgumentNullException("parameters");
 
-            //#if NETFX_CORE
-            //			if (type.GetTypeInfo().IsValueType)
-            //#else
-            if (type.IsValueType())
-                //#endif
+            if (type.IsValueType)
                 return null;
 
             // Get constructors in reverse order based on the number of parameters
@@ -3420,11 +3329,7 @@ namespace WebAssetBundler.Web.Mvc
 
         private IEnumerable<ConstructorInfo> GetTypeConstructors(Type type)
         {
-            //#if NETFX_CORE
-            //			return type.GetTypeInfo().DeclaredConstructors.OrderByDescending(ctor => ctor.GetParameters().Count());
-            //#else
             return type.GetConstructors().OrderByDescending(ctor => ctor.GetParameters().Count());
-            //#endif
         }
 
         private object ConstructType(Type requestedType, Type implementationType, ResolveOptions options)
@@ -3447,20 +3352,12 @@ namespace WebAssetBundler.Web.Mvc
             var typeToConstruct = implementationType;
 
 #if RESOLVE_OPEN_GENERICS
-            if (implementationType.IsGenericTypeDefinition())
+            if (implementationType.IsGenericTypeDefinition)
             {
-                //#if NETFX_CORE
-                //				if (requestedType == null || !requestedType.IsGenericType() || !requestedType.GenericTypeArguments.Any())
-                //#else
-                if (requestedType == null || !requestedType.IsGenericType() || !requestedType.GetGenericArguments().Any())
-                    //#endif
+                if (requestedType == null || !requestedType.IsGenericType || !requestedType.GetGenericArguments().Any())
                     throw new TinyIoCResolutionException(typeToConstruct);
 
-                //#if NETFX_CORE
-                //				typeToConstruct = typeToConstruct.MakeGenericType(requestedType.GenericTypeArguments);
-                //#else
                 typeToConstruct = typeToConstruct.MakeGenericType(requestedType.GetGenericArguments());
-                //#endif
             }
 #endif
 
@@ -3517,15 +3414,9 @@ namespace WebAssetBundler.Web.Mvc
 
         private void BuildUpInternal(object input, ResolveOptions resolveOptions)
         {
-            //#if NETFX_CORE
-            //			var properties = from property in input.GetType().GetTypeInfo().DeclaredProperties
-            //							 where (property.GetMethod != null) && (property.SetMethod != null) && !property.PropertyType.GetTypeInfo().IsValueType
-            //							 select property;
-            //#else
             var properties = from property in input.GetType().GetProperties()
-                             where (property.GetGetMethod() != null) && (property.GetSetMethod() != null) && !property.PropertyType.IsValueType()
+                             where (property.GetGetMethod() != null) && (property.GetSetMethod() != null) && !property.PropertyType.IsValueType
                              select property;
-            //#endif
 
             foreach (var property in properties)
             {
@@ -3565,46 +3456,24 @@ namespace WebAssetBundler.Web.Mvc
 
         private static bool IsValidAssignment(Type registerType, Type registerImplementation)
         {
-            //#if NETFX_CORE
-            //			var registerTypeDef = registerType.GetTypeInfo();
-            //			var registerImplementationDef = registerImplementation.GetTypeInfo();
-
-            //			if (!registerTypeDef.IsGenericTypeDefinition)
-            //			{
-            //				if (!registerTypeDef.IsAssignableFrom(registerImplementationDef))
-            //					return false;
-            //			}
-            //			else
-            //			{
-            //				if (registerTypeDef.IsInterface())
-            //				{
-            //					if (!registerImplementationDef.ImplementedInterfaces.Any(t => t.GetTypeInfo().Name == registerTypeDef.Name))
-            //						return false;
-            //				}
-            //				else if (registerTypeDef.IsAbstract() && registerImplementationDef.BaseType() != registerType)
-            //				{
-            //					return false;
-            //				}
-            //			}
-            //#else
-            if (!registerType.IsGenericTypeDefinition())
+            if (!registerType.IsGenericTypeDefinition)
             {
                 if (!registerType.IsAssignableFrom(registerImplementation))
                     return false;
             }
             else
             {
-                if (registerType.IsInterface())
+                if (registerType.IsInterface)
                 {
                     if (!registerImplementation.FindInterfaces((t, o) => t.Name == registerType.Name, null).Any())
                         return false;
                 }
-                else if (registerType.IsAbstract() && registerImplementation.BaseType() != registerType)
+                else if (registerType.IsAbstract && registerImplementation.BaseType != registerType)
                 {
                     return false;
                 }
             }
-            //#endif
+
             return true;
         }
 
@@ -3627,62 +3496,3 @@ namespace WebAssetBundler.Web.Mvc
         #endregion
     }
 }
-
-// reverse shim for WinRT SR changes...
-#if !NETFX_CORE
-namespace System.Reflection
-{
-    public static class ReverseTypeExtender
-    {
-        public static bool IsClass(this Type type)
-        {
-            return type.IsClass;
-        }
-
-        public static bool IsAbstract(this Type type)
-        {
-            return type.IsAbstract;
-        }
-
-        public static bool IsInterface(this Type type)
-        {
-            return type.IsInterface;
-        }
-
-        public static bool IsPrimitive(this Type type)
-        {
-            return type.IsPrimitive;
-        }
-
-        public static bool IsValueType(this Type type)
-        {
-            return type.IsValueType;
-        }
-
-        public static bool IsGenericType(this Type type)
-        {
-            return type.IsGenericType;
-        }
-
-        public static bool IsGenericParameter(this Type type)
-        {
-            return type.IsGenericParameter;
-        }
-
-        public static bool IsGenericTypeDefinition(this Type type)
-        {
-            return type.IsGenericTypeDefinition;
-        }
-
-        public static Type BaseType(this Type type)
-        {
-            return type.BaseType;
-        }
-
-        public static Assembly Assembly(this Type type)
-        {
-            return type.Assembly;
-        }
-    }
-}
-#endif

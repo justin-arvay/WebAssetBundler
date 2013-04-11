@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="documentation" class="edge">
+    <div class="menu">
+    <ul>
+        <li>@Html.RouteLink("Introduction", "Documentation", new { path = "introduction" })</li>
+        <li>@Html.RouteLink("Bundle Configuration", "Documentation", new { path = "configuration" })
+            <ul>
+                <li>@Html.RouteLink("Adding Assets", "Documentation", new { path = "bundle-configuration/adding-assets" })</li>                
+                <li>@Html.RouteLink("Configuration Provider", "Documentation", new { path = "bundle-configuration/configuration-provider" })</li>
+                <li>@Html.RouteLink("Other Options", "Documentation", new { path = "bundle-configuration/other" })</li>
+            </ul>
+        </li>
+        <li>@Html.RouteLink("Rendering Bundles", "Documentation", new { path = "rendering-bundles" })</li>
+        <li>@Html.RouteLink("Bundle Pipelines", "Documentation", new { path = "bundle-pipelines" })</li>
+        <li>@Html.RouteLink("Pipeline Customization", "Documentation", new { path = "pipeline-customization" })</li>
+        <li>@Html.RouteLink("Customer Minifiers", "Documentation", new { path = "custom-minifiers" })</li>
+        <li>@Html.RouteLink("Extensibility", "Documentation", new { path = "extensibility" })</li>
+        <li>@Html.RouteLink("Debug Mode", "Documentation", new { path = "debug-mode" })</li>
+        <li>@Html.RouteLink("Browser Caching", "Documentation", new { path = "browser-caching" })</li>
+        <li>@Html.RouteLink("Plugins", "Documentation", new { path = "plugins" })
+            <ul>
+                <li>@Html.RouteLink("Create a Plugin", "Documentation", new { path = "create-plugin" })</li>
+                <li>@Html.RouteLink("Modify Pipeline", "Documentation", new { path = "modify-pipeline" })</li>
+                <li>@Html.RouteLink("Modify Patterns", "Documentation", new { path = "modify-search-patterns" })</li>
+            </ul>
+        </li>
+        <li>@Html.RouteLink("Web.Config", "Documentation", new { path = "web-config" })</li>
+    </ul>
+        
+    </div>
+
+    <div class="content">
+        @RenderBody()
+    </div>
+</div>
+   

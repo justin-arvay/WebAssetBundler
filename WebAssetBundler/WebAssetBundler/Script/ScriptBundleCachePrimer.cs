@@ -20,20 +20,22 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.Diagnostics;
 
-    public class ScriptBundleCachePrimer : IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>
+    public class ScriptBundleCachePrimer : IBundleCachePrimer<ScriptBundle>
     {
         private IBundlesCache<ScriptBundle> cache;
         private IAssetProvider assetProvider;
         private IBundlePipeline<ScriptBundle> pipeline;
+        private IDirectorySearchFactory dirSearchFactory;
 
         private static bool isPrimed = false;
 
         public ScriptBundleCachePrimer(IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline,
-            IBundlesCache<ScriptBundle> cache)
+            IBundlesCache<ScriptBundle> cache, IDirectorySearchFactory dirSearchFactory)
         {
             this.assetProvider = assetProvider;
             this.pipeline = pipeline;
             this.cache = cache;
+            this.dirSearchFactory = dirSearchFactory;
         }
 
         public bool IsPrimed
@@ -44,17 +46,18 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public void Prime(IList<ScriptBundleConfiguration> configs)
+        public void Prime(IList<IBundleConfiguration<ScriptBundle>> configs)
         {
-            foreach (ScriptBundleConfiguration item in configs)
+            foreach (IBundleConfiguration<ScriptBundle> item in configs)
             {
-                var bundle = item.GetBundle();
-
+                item.Bundle = new ScriptBundle();
+                item.Bundle.Name = item.GetType().Name;
                 item.AssetProvider = assetProvider;
+                item.DirectorySearchFactory = dirSearchFactory;
                 item.Configure();
 
-                pipeline.Process(bundle);
-                cache.Add(bundle);
+                pipeline.Process(item.Bundle);
+                cache.Add(item.Bundle);
             }
 
             isPrimed = true;

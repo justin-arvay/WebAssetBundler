@@ -30,26 +30,23 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [SetUp]
         public void Setup()
         {
-            var compressor = new Mock<IStyleSheetCompressor>();
+            var compressor = new Mock<IStyleSheetMinifier>();
             var server = new Mock<HttpServerUtilityBase>();
 
             container = new TinyIoCContainer();
-            container.Register<IStyleSheetCompressor>((a, c) => compressor.Object);
-            container.Register<IUrlGenerator<StyleSheetBundle>>((new Mock<IUrlGenerator<StyleSheetBundle>>()).Object);
+            container.Register<IStyleSheetMinifier>((a, c) => compressor.Object);
             container.Register<HttpServerUtilityBase>((a, c) => server.Object);
-            container.Register<BundleContext>((a, c) => new BundleContext());
 
-            pipeline = new StyleSheetPipeline(container);
-
-            
+            pipeline = new StyleSheetPipeline(container);  
         }
 
         [Test]
         public void Should_Contain_Default_Processors()
         {
-            Assert.IsInstanceOf<ImagePathProcessor>(pipeline[0]);
+            Assert.IsInstanceOf<StyleSheetMinifyProcessor>(pipeline[0]);
             Assert.IsInstanceOf<StyleSheetMergeProcessor>(pipeline[1]);
-            Assert.IsInstanceOf<StyleSheetCompressProcessor>(pipeline[2]);
+            Assert.IsInstanceOf<UrlAssignmentProcessor<StyleSheetBundle>>(pipeline[2]);
+            Assert.IsInstanceOf<ImagePathProcessor>(pipeline[3]);            
         }
     }
 

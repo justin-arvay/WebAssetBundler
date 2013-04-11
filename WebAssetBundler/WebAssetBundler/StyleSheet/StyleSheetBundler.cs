@@ -28,7 +28,6 @@ namespace WebAssetBundler.Web.Mvc
     public class StyleSheetBundler
     {
         private ITagWriter<StyleSheetBundle> tagWriter;
-        private BundleContext context;
         private IBundleProvider<StyleSheetBundle> bundleProvider;
 
         /// <summary>
@@ -39,12 +38,10 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="resolver"></param>
         public StyleSheetBundler(
             IBundleProvider<StyleSheetBundle> bundleProvider,
-            ITagWriter<StyleSheetBundle> tagWriter,                   
-            BundleContext context)
+            ITagWriter<StyleSheetBundle> tagWriter)
         {
             this.bundleProvider = bundleProvider;
-            this.tagWriter = tagWriter;      
-            this.context = context;
+            this.tagWriter = tagWriter;
         }
 
         /// <summary>
@@ -56,18 +53,27 @@ namespace WebAssetBundler.Web.Mvc
 
             using (StringWriter textWriter = new StringWriter())
             {
-                tagWriter.Write(textWriter, bundle, context);
+                tagWriter.Write(textWriter, bundle);
                 return new HtmlString(textWriter.ToString());
             }
         }
 
         public IHtmlString Include(string source)
         {
-            var bundle = bundleProvider.GetSourceBundle(source);
+            StyleSheetBundle bundle = null;
+
+            if (source.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+            {
+                bundle = bundleProvider.GetExternalBundle(source);
+            }
+            else
+            {
+                bundle = bundleProvider.GetSourceBundle(source);
+            }
 
             using (StringWriter textWriter = new StringWriter())
             {
-                tagWriter.Write(textWriter, bundle, context);
+                tagWriter.Write(textWriter, bundle);
                 return new HtmlString(textWriter.ToString());
             } 
         }

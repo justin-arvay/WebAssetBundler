@@ -49,10 +49,33 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssetFile.cs" />
-    <Compile Include="BundleContext.cs" />
-    <Compile Include="Configuration\BundleProviderBase.cs" />
+    <Compile Include="Bootstrap\ConfigureCommonTask.cs" />
+    <Compile Include="Bootstrap\ConfigureStyleSheetsTask.cs" />
+    <Compile Include="Bootstrap\LoadSettingsTask.cs" />
+    <Compile Include="Bootstrap\ConfigureScriptsTask.cs" />
+    <Compile Include="Configuration\WabConfigurationSection.cs" />
+    <Compile Include="DirectoryFactory.cs" />
+    <Compile Include="DirectorySearchFactory.cs" />
+    <Compile Include="FileSystemFile.cs" />
+    <Compile Include="Bootstrap\IBootstrapTask.cs" />
+    <Compile Include="FileSystemDirectory.cs" />
+    <Compile Include="FileSystemFileComparer.cs" />
+    <Compile Include="IDirectory.cs" />
+    <Compile Include="IDirectoryFactory.cs" />
+    <Compile Include="IDirectorySearch.cs" />
+    <Compile Include="IDirectorySearchFactory.cs" />
+    <Compile Include="Minifiers\JSMin.cs" />
+    <Compile Include="Minifiers\JSMinMinifier.cs" />
+    <Compile Include="BundleProviderBase.cs" />
     <Compile Include="ExternalAsset.cs" />
+    <Compile Include="IBundleConfiguration.cs" />
+    <Compile Include="ITypeProvider.cs" />
+    <Compile Include="Pipeline\UrlAssignmentProcessor.cs" />
+    <Compile Include="Plugins\IPlugin.cs" />
+    <Compile Include="Plugins\IPluginCollection.cs" />
+    <Compile Include="Plugins\IPluginLoader.cs" />
+    <Compile Include="Plugins\PluginCollection.cs" />
+    <Compile Include="Plugins\PluginLoader.cs" />
     <Compile Include="Script\ScriptBundleCachePrimer.cs" />
     <Compile Include="Caching\BundlesCache.cs" />
     <Compile Include="Caching\CacheProvider.cs" />
@@ -60,33 +83,29 @@
     <Compile Include="Caching\IBundlesCache.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
     <Compile Include="Bundler.cs" />
-    <Compile Include="Compressors\IScriptCompressor.cs" />
-    <Compile Include="Compressors\IStyleSheetCompressor.cs" />
-    <Compile Include="Compressors\MsScriptCompressor.cs" />
-    <Compile Include="Compressors\MsStyleSheetCompressor.cs" />
-    <Compile Include="Compressors\YuiScriptCompressor.cs" />
-    <Compile Include="Compressors\YuiStyleSheetCompressor.cs" />
-    <Compile Include="Script\DefaultScriptConfigProvider.cs" />
-    <Compile Include="Configuration\AssetProvider.cs" />
-    <Compile Include="Configuration\FileAsset.cs" />
-    <Compile Include="Configuration\FromDirectoryBuilder.cs" />
-    <Compile Include="Configuration\FromDirectoryComponent.cs" />
-    <Compile Include="Configuration\IAssetProvider.cs" />
-    <Compile Include="Configuration\IBundleProvider.cs" />
-    <Compile Include="Configuration\IConfigurable.cs" />
-    <Compile Include="IConfigProvider.cs" />
+    <Compile Include="Minifiers\IScriptMinifier.cs" />
+    <Compile Include="Minifiers\IStyleSheetMinifier.cs" />
+    <Compile Include="Minifiers\MsScriptMinifier.cs" />
+    <Compile Include="Minifiers\MsStyleSheetMinifier.cs" />
+    <Compile Include="Minifiers\YuiScriptMinifier.cs" />
+    <Compile Include="Minifiers\YuiStyleSheetMinifier.cs" />
+    <Compile Include="DefaultBundleConfigurationProvider.cs" />
+    <Compile Include="AssetProvider.cs" />
+    <Compile Include="FileAsset.cs" />
+    <Compile Include="DirectorySearchBuilder.cs" />
+    <Compile Include="DirectorySearch.cs" />
+    <Compile Include="IAssetProvider.cs" />
+    <Compile Include="IBundleProvider.cs" />
+    <Compile Include="IBundleConfigurationProvider.cs" />
     <Compile Include="Script\ScriptBundle.cs" />
-    <Compile Include="Script\ScriptBundleConfiguration.cs" />
     <Compile Include="Script\ScriptBundleProvider.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleCachePrimer.cs" />
     <Compile Include="StyleSheet\StyleSheetBundle.cs" />
-    <Compile Include="StyleSheet\StyleSheetBundleConfiguration.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleProvider.cs" />
     <Compile Include="Extensions\ByteArrayExensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Configuration\Bundle.cs" />
-    <Compile Include="StyleSheet\DefaultStyleSheetConfigProvider.cs" />
-    <Compile Include="Configuration\BundleConfiguration.cs" />
+    <Compile Include="Bundle.cs" />
+    <Compile Include="BundleConfiguration.cs" />
     <Compile Include="HttpHandlers\DeflateEncoder.cs" />
     <Compile Include="HttpHandlers\DoNothingEncoder.cs" />
     <Compile Include="HttpHandlers\EncoderFactory.cs" />
@@ -100,32 +119,30 @@
     <Compile Include="HttpHandlers\AssetHttpHandler.cs" />
     <Compile Include="HttpHandlers\WabHttpHandler.cs" />
     <Compile Include="IAssetTransformer.cs" />
-    <Compile Include="IBuilderContextFactory.cs" />
     <Compile Include="IFile.cs" />
     <Compile Include="ITagWriter.cs" />
     <Compile Include="Script\ScriptTagWriter.cs" />
-    <Compile Include="Script\ScriptUrlGenerator.cs" />
     <Compile Include="StyleSheet\StyleSheetTagWriter.cs" />
-    <Compile Include="StyleSheet\StyleSheetUrlGenerator.cs" />
     <Compile Include="ITransformable.cs" />
     <Compile Include="Script\ScriptBundler.cs" />
-    <Compile Include="MergedAsset.cs" />
+    <Compile Include="Pipeline\MergedAsset.cs" />
     <Compile Include="Pipeline\BundlePipeline.cs" />
     <Compile Include="Pipeline\IBundlePipeline.cs" />
     <Compile Include="Pipeline\IPipelineProcessor.cs" />
-    <Compile Include="IUrlGenerator.cs" />
     <Compile Include="DefaultSettings.cs" />
-    <Compile Include="Configuration\BundleCollection.cs" />
-    <Compile Include="Configuration\WebAssetType.cs" />
+    <Compile Include="BundleCollection.cs" />
+    <Compile Include="TypeProvider.cs" />
+    <Compile Include="SettingsContext.cs" />
+    <Compile Include="WebAssetType.cs" />
     <Compile Include="StyleSheet\StyleSheetBundler.cs" />
-    <Compile Include="Configuration\AssetBase.cs" />
+    <Compile Include="AssetBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Script\ScriptCompressProcessor.cs" />
+    <Compile Include="Script\ScriptMinifyProcessor.cs" />
     <Compile Include="Script\ScriptPipeline.cs" />
     <Compile Include="Script\ScriptMergeProcessor.cs" />
     <Compile Include="StyleSheet\ImagePathProcessor.cs" />
     <Compile Include="StyleSheet\StyleSheetMergeProcessor.cs" />
-    <Compile Include="StyleSheet\StyleSheetCompressProcessor.cs" />
+    <Compile Include="StyleSheet\StyleSheetMinifyProcessor.cs" />
     <Compile Include="StyleSheet\StyleSheetPipeline.cs" />
     <Compile Include="TextResource\Exceptions.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -143,6 +160,12 @@
       <LastGenOutput>Exceptions.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bootstrap\TaskOrderAttribute.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

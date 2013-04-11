@@ -36,5 +36,62 @@ namespace WebAssetBundler.Web.Mvc
                 processor.Process(bundle);
             }
         }
+
+        public void Add<TProcessor>() where TProcessor : class, IPipelineProcessor<T>
+        {
+            Add(container.Resolve<TProcessor>());
+        }
+
+        public void Insert<TProcessor>(int index) where TProcessor : class, IPipelineProcessor<T>
+        {
+            Insert(index, container.Resolve<TProcessor>());
+        }
+
+        public void Remove<TProcessor>() where TProcessor : class, IPipelineProcessor<T>
+        {
+            var type = typeof(TProcessor);            
+
+            for (int index = 0; index < Count - 1; index++)
+            {
+                if (this[index].GetType().Equals(type))
+                {
+                    RemoveAt(index);
+                    break;
+                }
+            }
+            
+        }
+
+        public void Replace<OldProcessor, NewProcessor>()
+            where OldProcessor : class, IPipelineProcessor<T>
+            where NewProcessor : class, IPipelineProcessor<T>
+        {
+            var type = typeof(OldProcessor);
+
+            for (int index = 0; index < Count - 1; index++)
+            {
+                if (this[index].GetType().Equals(type))
+                {
+                    RemoveAt(index);
+                    Insert<NewProcessor>(index);
+                    break;
+                }
+            }
+        }
+
+        public int IndexOf<T>()
+        {
+            var enumerator = this.GetEnumerator();
+            var index = 0;
+            while (enumerator.MoveNext())
+            {
+                if (enumerator.Current is T)
+                {
+                    return index;
+                }
+                index++;
+            }
+            return -1;
+        }
     }
 }

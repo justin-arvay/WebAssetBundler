@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Debug Mode";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<h2>Debug Mode</h2>
+<p>To make life easier for the developer a debug mode has been added. In order to use the debug mode you just need to change the default setting:</p>
+<pre data-language="csharp">
+protected void Application_Start()
+{
+    AreaRegistration.RegisterAllAreas();
+
+    RegisterGlobalFilters(GlobalFilters.Filters);
+    RegisterRoutes(RouteTable.Routes);
+
+    DefaultSettings.DebugMode = true;
+}
+</pre>
+
+<p>Using debug mode changes the behavior of the application like so:</p>
+<ul>
+    <li>Disables browser caching by changing the url every request.</li>
+    <li>Disables bundle caching so every request will process the bundles/assets.</li>
+    <li>Disables asset minifying so every asset will be combined with the source code.</li>
+    <li>Attempts to include assets that are not minifed (raw assets). See @Html.RouteLink("Adding Assets", "Documentation", new { path = "bundle-configuration/adding-assets" }).</li>
+</ul>

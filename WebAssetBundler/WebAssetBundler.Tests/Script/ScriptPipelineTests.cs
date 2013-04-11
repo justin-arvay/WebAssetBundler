@@ -28,10 +28,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [SetUp]
         public void Setup()
         {
-            var compressor = new Mock<IScriptCompressor>();
+            var compressor = new Mock<IScriptMinifier>();
 
             container = new TinyIoCContainer();
-            container.Register<IScriptCompressor>((a, c) => compressor.Object);
+            container.Register<IScriptMinifier>((a, c) => compressor.Object);            
 
             pipeline = new ScriptPipeline(container);            
         }
@@ -39,8 +39,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Contain_Default_Processors()
         {
-            Assert.IsInstanceOf<ScriptMergeProcessor>(pipeline[0]);
-            Assert.IsInstanceOf<ScriptCompressProcessor>(pipeline[1]);
+            Assert.IsInstanceOf<ScriptMinifyProcessor>(pipeline[0]);
+            Assert.IsInstanceOf<ScriptMergeProcessor>(pipeline[1]);
+            Assert.IsInstanceOf<UrlAssignmentProcessor<ScriptBundle>>(pipeline[2]);
+            
         }
     }
 }

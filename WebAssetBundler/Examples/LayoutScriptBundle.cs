@@ -19,14 +19,14 @@ namespace Examples
     using System;
     using WebAssetBundler.Web.Mvc;
 
-    public class LayoutScriptBundle : ScriptBundleConfiguration
+    public class LayoutScriptBundle : BundleConfiguration<ScriptBundle>
     {
         public override void Configure()
         {
             Name("Scripts");
-            Add("~/Scripts/jquery-1.8.3.js");
-            Add("~/Scripts/jquery-ui-1.9.2.custom.min.js");
-            Add("~/Scripts/rainbow-custom.min.js");
+            Compress(true);
+            AddDirectory("~/Scripts", dir => dir
+                .Pattern("*"));
         }
     }
 }

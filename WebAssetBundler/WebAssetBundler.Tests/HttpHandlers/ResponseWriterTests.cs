@@ -56,7 +56,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Set_Headers_For_Asset()
         {
-            bundle.Content = "test";
+            bundle.BrowserTtl = 10;
+            bundle.Assets.Add(new MergedAsset("test"));
 
             var collection = new NameValueCollection();
             collection.Add("Accept-Encoding", "some encoding");
@@ -64,8 +65,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             request.Setup(r => r.Headers).Returns(collection);
             writer.WriteAsset(bundle, encoder.Object);
 
+            cache.Verify(c => c.SetExpires(It.Is<DateTime>((e) => e.Minute == DateTime.UtcNow.AddMinutes(bundle.BrowserTtl).Minute)));
             cache.Verify(c => c.SetETag(bundle.Hash.ToHexString()));
-            cache.Verify(c => c.SetExpires(It.Is<DateTime>(e => e.ToShortDateString() == DateTime.UtcNow.AddYears(1).ToShortDateString())));
             cache.Verify(c => c.SetCacheability(HttpCacheability.Public));
             response.Verify(r => r.Write(bundle.Content));
             encoder.Verify(e => e.Encode(response.Object), Times.Once());
@@ -82,12 +83,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Set_Not_Modified_Headers()
         {
-            writer.WriteNotModified("eeeeee");
+            bundle.BrowserTtl = 10;
+            writer.WriteNotModified(bundle);
 
             response.VerifySet(r => r.StatusCode = 304);
             response.VerifySet(r => r.SuppressContent = true);
-            cache.Verify(c => c.SetETag("eeeeee"));
-            cache.Verify(c => c.SetExpires(It.Is<DateTime>(e => e.ToShortDateString() == DateTime.UtcNow.AddYears(1).ToShortDateString())));
+            cache.Verify(c => c.SetETag("d41d8cd98f00b204e9800998ecf8427e"));
+            cache.Verify(c => c.SetExpires(It.Is<DateTime>((e) => e.Minute == DateTime.UtcNow.AddMinutes(bundle.BrowserTtl).Minute)));
             cache.Verify(c => c.SetCacheability(HttpCacheability.Public));
         }
 
@@ -105,7 +107,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Be_Modified()
         {
-            bundle.Content = "test";
+            bundle.Assets.Add(new MergedAsset("test"));
    
             var collection = new NameValueCollection();
             collection.Add("If-None-Match", bundle.Hash.ToHexString());

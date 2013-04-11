@@ -28,7 +28,6 @@ namespace WebAssetBundler.Web.Mvc
 
             bundle.Assets.Clear();
             bundle.Assets.Add(new MergedAsset(content));
-            bundle.Content = content;
         }
     }
 }

@@ -34,20 +34,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private Mock<ITagWriter<StyleSheetBundle>> tagWriter;
         private StyleSheetBundler bundler;
-        private BundleContext context;
         private Mock<IBundleProvider<StyleSheetBundle>> bundleProvider;
 
         [SetUp]
         public void Setup()
         {
             bundleProvider = new Mock<IBundleProvider<StyleSheetBundle>>();
-            context = new BundleContext();
             tagWriter = new Mock<ITagWriter<StyleSheetBundle>>();
 
             bundler = new StyleSheetBundler(
                 bundleProvider.Object,
-                tagWriter.Object,
-                context);
+                tagWriter.Object);
         }
  
 
@@ -60,7 +57,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var htmlString = bundler.Render("test");
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
-            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), bundle, context), Times.Once());
+            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), bundle), Times.Once());
 
         }
 
@@ -74,7 +71,21 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var htmlString = bundler.Include("~/file.css");
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
-            tagWriter.Verify(w => w.Write(It.IsAny<TextWriter>(), bundle, context), Times.Once());
-        }       
+            tagWriter.Verify(w => w.Write(It.IsAny<TextWriter>(), bundle), Times.Once());
+        }
+
+        [Test]
+        public void Should_Incude_External_Bundle()
+        {
+            var bundle = new StyleSheetBundle();
+
+            bundleProvider.Setup(p => p.GetExternalBundle("http://www.google.com/file.css")).Returns(bundle);
+
+            var htmlString = bundler.Include("http://www.google.com/file.css");
+
+            Assert.IsInstanceOf<IHtmlString>(htmlString);
+            tagWriter.Verify(w => w.Write(It.IsAny<TextWriter>(), bundle), Times.Once());
+            bundleProvider.Verify(p => p.GetExternalBundle("http://www.google.com/file.css"), Times.Once());
+        }
     }
 }

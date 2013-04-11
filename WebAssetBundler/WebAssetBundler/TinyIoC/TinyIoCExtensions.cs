@@ -1,54 +1,33 @@
-﻿// Web Asset Bundler - Bundles web assets so you dont have to.
-// Copyright (C) 2012  Justin Arvay
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+using System;
 
 namespace WebAssetBundler.Web.Mvc
 {
-    using System;
-    using System.Web;
-
-    public class HttpContextLifetimeProvider : TinyIoCContainer.ITinyIoCObjectLifetimeProvider
+    public static class TinyIoCExtensions
     {
-        private readonly string _KeyName = String.Format("TinyIoC.HttpContext.{0}", Guid.NewGuid());
-
-        public object GetObject()
+        public static TinyIoCContainer.RegisterOptions AsPerRequestSingleton(this TinyIoCContainer.RegisterOptions registerOptions, TinyIoCContainer.ITinyIoCObjectLifetimeProvider lifetimeProvider)
         {
-            return HttpContext.Current.Items[_KeyName];
-        }
-
-        public void SetObject(object value)
-        {
-            HttpContext.Current.Items[_KeyName] = value;
-        }
-
-        public void ReleaseObject()
-        {
-            var item = GetObject() as IDisposable;
-
-            if (item != null)
-                item.Dispose();
-
-            SetObject(null);
+            return TinyIoCContainer.RegisterOptions.ToCustomLifetimeManager(
+                registerOptions, 
+                lifetimeProvider,
+                "per request singleton"
+            );
         }
     }
 
-    public static class TinyIoCAspNetExtensions
+    public abstract class RequestLifetimeProviderBase : TinyIoCContainer.ITinyIoCObjectLifetimeProvider
     {
-        public static TinyIoCContainer.RegisterOptions AsPerRequestSingleton(this TinyIoCContainer.RegisterOptions registerOptions)
+        public abstract object GetObject();
+
+        public abstract void SetObject(object value);
+
+        public virtual void ReleaseObject()
         {
-            return TinyIoCContainer.RegisterOptions.ToCustomLifetimeManager(registerOptions, new HttpContextLifetimeProvider(), "per request singleton");
+            var item = GetObject() as IDisposable;
+            if (item != null)
+            {
+                item.Dispose();
+            }
+            SetObject(null);
         }
     }
 }

@@ -21,29 +21,31 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System.Collections.Generic;
     using System.Web;
     using System.IO;
+using System;
 
     [TestFixture]
     public class StyleSheetBundleProviderTests
     {
         private StyleSheetBundleProvider provider;
-        private Mock<IConfigProvider<StyleSheetBundleConfiguration>> configProvider;
+        private Mock<IBundleConfigurationProvider<StyleSheetBundle>> configProvider;
         private Mock<IBundlesCache<StyleSheetBundle>> cache;
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
-        private BundleContext context;
-        private Mock<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>> primer;
+        private Mock<IBundleCachePrimer<StyleSheetBundle>> primer;
+        private SettingsContext settings;
 
         [SetUp]
         public void Setup()
         {
-            context = new BundleContext();
+            settings = new SettingsContext(false, ".min");
             pipeline = new Mock<IBundlePipeline<StyleSheetBundle>>();
-            configProvider = new Mock<IConfigProvider<StyleSheetBundleConfiguration>>();
+            configProvider = new Mock<IBundleConfigurationProvider<StyleSheetBundle>>();
             cache = new Mock<IBundlesCache<StyleSheetBundle>>();
             assetProvider = new Mock<IAssetProvider>();
-            primer = new Mock<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>>();
+            primer = new Mock<IBundleCachePrimer<StyleSheetBundle>>();
 
-            provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, pipeline.Object, assetProvider.Object, context, primer.Object);
+            provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, pipeline.Object, 
+                assetProvider.Object, primer.Object, settings);
         }
 
         [Test]
@@ -61,7 +63,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Prime_Cache_When_Getting_Named_Bundle()
         {
-            var configs = new List<StyleSheetBundleConfiguration>();
+            var configs = new List<IBundleConfiguration<StyleSheetBundle>>();
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
 
@@ -74,7 +76,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Prime_Cache_When_Getting_Named_Bundle()
         {
-            var configs = new List<StyleSheetBundleConfiguration>();
+            var configs = new List<IBundleConfiguration<StyleSheetBundle>>();
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
             primer.Setup(p => p.IsPrimed).Returns(true);
@@ -87,9 +89,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Always_Prime_Cache_When_Getting_Named_Bundle()
         {
-            context.DebugMode = true;
+            settings.DebugMode = true;
 
-            var configs = new List<StyleSheetBundleConfiguration>();
+            var configs = new List<IBundleConfiguration<StyleSheetBundle>>();
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
             primer.Setup(p => p.IsPrimed).Returns(true);
@@ -135,7 +137,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Always_Load_Asset_When_Debug_Mode()
         {
-            context.DebugMode = true;
+            settings.DebugMode = true;
 
             var bundle = new StyleSheetBundle();
             bundle.Name = "199b18f549a41c8d45fe0a5b526ac060-file";

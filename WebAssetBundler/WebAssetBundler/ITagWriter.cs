@@ -22,6 +22,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface ITagWriter<TBundle> where TBundle : Bundle
     {
-        void Write(TextWriter writer, TBundle bundle, BundleContext context);
+        void Write(TextWriter writer, TBundle bundle);
     }
 }

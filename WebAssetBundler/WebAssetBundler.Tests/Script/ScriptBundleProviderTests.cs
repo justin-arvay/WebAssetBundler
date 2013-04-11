@@ -20,31 +20,31 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
     using System.Collections.Generic;
     using System.Web;
+using System;
 
     [TestFixture]
     public class ScriptBundleProviderTests
     {
         private ScriptBundleProvider provider;
-        private Mock<IConfigProvider<ScriptBundleConfiguration>> configProvider;
+        private Mock<IBundleConfigurationProvider<ScriptBundle>> configProvider;
         private Mock<IBundlesCache<ScriptBundle>> cache;
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<ScriptBundle>> pipeline;
-        private Mock<HttpServerUtilityBase> server;
-        private Mock<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>> primer;
-        private BundleContext context;
+        private Mock<IBundleCachePrimer<ScriptBundle>> primer;
+        private SettingsContext settings;
 
         [SetUp]
         public void Setup()
         {
-            context = new BundleContext();
+            settings = new SettingsContext(false, ".min");
             pipeline = new Mock<IBundlePipeline<ScriptBundle>>();
-            configProvider = new Mock<IConfigProvider<ScriptBundleConfiguration>>();
+            configProvider = new Mock<IBundleConfigurationProvider<ScriptBundle>>();
             cache = new Mock<IBundlesCache<ScriptBundle>>();
             assetProvider = new Mock<IAssetProvider>();
-            primer = new Mock<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>>();
+            primer = new Mock<IBundleCachePrimer<ScriptBundle>>();
 
             provider = new ScriptBundleProvider(configProvider.Object, cache.Object, assetProvider.Object, 
-                pipeline.Object, context, primer.Object);
+                pipeline.Object, primer.Object, settings);
         }
 
         [Test]
@@ -62,7 +62,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Prime_Cache_When_Getting_Named_Bundle()
         {
-            var configs = new List<ScriptBundleConfiguration>();
+            var configs = new List<IBundleConfiguration<ScriptBundle>>();
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
 
@@ -75,7 +75,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Prime_Cache_When_Getting_Named_Bundle()
         {
-            var configs = new List<ScriptBundleConfiguration>();
+            var configs = new List<IBundleConfiguration<ScriptBundle>>();
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
             primer.Setup(p => p.IsPrimed).Returns(true);
@@ -88,9 +88,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Always_Prime_Cache_When_Getting_Named_Bundle()
         {
-            context.DebugMode = true;
+            settings.DebugMode = true;
 
-            var configs = new List<ScriptBundleConfiguration>();
+            var configs = new List<IBundleConfiguration<ScriptBundle>>();
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
             primer.Setup(p => p.IsPrimed).Returns(true);
@@ -101,7 +101,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             primer.Verify(p => p.Prime(configs), Times.Exactly(3));
         }
-
         
         [Test]
         public void Should_Get_Bundle_By_Source()
@@ -136,7 +135,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Always_Load_Asset_When_Debug_Mode()
         {
-            context.DebugMode = true;
+            settings.DebugMode = true;
 
             var bundle = new ScriptBundle();
             bundle.Name = "199b18f549a41c8d45fe0a5b526ac060-file";

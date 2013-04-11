@@ -21,6 +21,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,7 +45,10 @@
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -53,22 +57,20 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ExampleController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\DoumentationController.cs" />
+    <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="LayoutScriptBundle.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -80,6 +82,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Content Include="Content\documentation.css" />
+    <Content Include="Images\document-icon.png" />
+    <Content Include="Scripts\jquery-1.9.0.min.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\pepper-grinder\images\ui-bg_diagonal-maze_20_6e4f1c_10x10.png" />
@@ -103,9 +108,8 @@
     <Content Include="Global.asax" />
     <Content Include="Images\Logo.png" />
     <Content Include="Images\osi-logo.png" />
-    <Content Include="Scripts\jquery-1.8.3.js" />
-    <Content Include="Scripts\jquery-ui-1.9.2.custom.js" />
-    <Content Include="Scripts\jquery-ui-1.9.2.custom.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.0.custom.js" />
+    <Content Include="Scripts\jquery-ui-1.10.0.custom.min.js" />
     <Content Include="Scripts\rainbow-custom.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -132,10 +136,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Example\DefaultGroup.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Example\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -146,16 +147,42 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WebAssetBundler.Less\WebAssetBundler.Less.csproj">
+      <Project>{9000799C-4762-4C84-ADA6-DDCA535B5D1E}</Project>
+      <Name>WebAssetBundler.Less</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebAssetBundler\WebAssetBundler.csproj">
       <Project>{2AC03817-4112-47FE-AF34-44A8AE4717AB}</Project>
       <Name>WebAssetBundler</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\example.less" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="Views\Documentation\Introduction.cshtml" />
+    <Content Include="Views\Documentation\Configuration.cshtml" />
+    <Content Include="Views\Home\Download.cshtml" />
+    <Content Include="Views\Shared\_DocumentationLayout.cshtml" />
+    <Content Include="Views\Shared\_BasicLayout.cshtml" />
+    <Content Include="Views\Documentation\BundleConfiguration\AddingAssets.cshtml" />
+    <Content Include="Views\Documentation\BundleConfiguration\ConfigurationProvider.cshtml" />
+    <Content Include="Views\Documentation\BundleConfiguration\Other.cshtml" />
+    <Content Include="Views\Documentation\RenderingBundles.cshtml" />
+    <Content Include="Views\Documentation\BundlePipelines.cshtml" />
+    <Content Include="Views\Documentation\CustomMinifiers.cshtml" />
+    <Content Include="Views\Documentation\BrowserCaching.cshtml" />
+    <Content Include="Views\Documentation\DebugMode.cshtml" />
+    <Content Include="Views\Documentation\WebConfig.cshtml" />
+    <Content Include="Views\Documentation\Extensibility.cshtml" />
+    <Content Include="Views\Documentation\PipelineCustomization.cshtml" />
+    <Content Include="Views\Documentation\Plugins.cshtml" />
+    <Content Include="Views\Documentation\Plugins\CreatePlugin.cshtml" />
+    <Content Include="Views\Documentation\Plugins\ModifyPipeline.cshtml" />
+    <Content Include="Views\Documentation\Plugins\ModifySearchPatterns.cshtml" />
+    <Content Include="Views\Documentation\BundleTypes.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

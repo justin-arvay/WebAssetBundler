@@ -17,33 +17,32 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-using System.Web;
+    using System.Web;
     using System.IO;
 
     public class StyleSheetBundleProvider : BundleProviderBase<StyleSheetBundle>
     {
-        private IConfigProvider<StyleSheetBundleConfiguration> configProvider;
+        private IBundleConfigurationProvider<StyleSheetBundle> configProvider;
         private IBundlesCache<StyleSheetBundle> cache;
         private IAssetProvider assetProvider;
         private IBundlePipeline<StyleSheetBundle> pipeline;
-        private BundleContext context;
-        private IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration> primer;
+        private IBundleCachePrimer<StyleSheetBundle> primer;
 
-        public StyleSheetBundleProvider(IConfigProvider<StyleSheetBundleConfiguration> configProvider, IBundlesCache<StyleSheetBundle> cache, 
-            IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetProvider, BundleContext context,
-            IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration> primer)
+        public StyleSheetBundleProvider(IBundleConfigurationProvider<StyleSheetBundle> configProvider, IBundlesCache<StyleSheetBundle> cache,
+            IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetProvider, IBundleCachePrimer<StyleSheetBundle> primer,
+            SettingsContext settings)
+            : base(settings)
         {
             this.configProvider = configProvider;
             this.cache = cache;
             this.assetProvider = assetProvider;
             this.pipeline = pipeline;
-            this.context = context;
             this.primer = primer;
         }       
 
         public override StyleSheetBundle GetNamedBundle(string name)
         {
-            if (primer.IsPrimed == false || context.DebugMode)
+            if (primer.IsPrimed == false || Settings.DebugMode)
             {
                 primer.Prime(configProvider.GetConfigs());
             }
@@ -56,7 +55,7 @@ using System.Web;
             var name = source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source).Replace(".", "-");
             var bundle = cache.Get(name);
 
-            if (bundle == null || context.DebugMode)
+            if (bundle == null || Settings.DebugMode)
             {
                 var asset = assetProvider.GetAsset(source);
                 bundle = new StyleSheetBundle();

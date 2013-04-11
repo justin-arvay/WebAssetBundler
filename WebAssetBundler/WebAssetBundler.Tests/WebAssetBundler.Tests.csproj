@@ -12,6 +12,7 @@
     <AssemblyName>WebAssetBundler.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,25 +51,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssetBaseImpl.cs" />
-    <Compile Include="AssetFileTests.cs" />
-    <Compile Include="BundleContextTests.cs" />
+    <Compile Include="Bootstrap\ConfigureScriptsTaskTests.cs" />
+    <Compile Include="Bootstrap\ConfigureStyleSheetTaskTests.cs" />
+    <Compile Include="DirectoryFactoryTests.cs" />
+    <Compile Include="DirectorySearchFactoryTests.cs" />
+    <Compile Include="FileSystemDirectoryTests.cs" />
+    <Compile Include="FileSystemFileTests.cs" />
     <Compile Include="Caching\BundlesCacheTests.cs" />
     <Compile Include="ComponentBuilderTests.cs" />
-    <Compile Include="Configuration\AssetBaseTests.cs" />
-    <Compile Include="Configuration\BundleConfigurationImpl.cs" />
-    <Compile Include="Configuration\BundleConfigurationTests.cs" />
-    <Compile Include="Configuration\BundleImpl.cs" />
-    <Compile Include="Configuration\BundleProviderBaseImpl.cs" />
-    <Compile Include="Configuration\BundleProviderBaseTests.cs" />
-    <Compile Include="Configuration\BundleTests.cs" />
-    <Compile Include="Script\DefaultScriptConfigProviderTests.cs" />
-    <Compile Include="StyleSheet\DefaultStyleSheetConfigProviderTests.cs" />
-    <Compile Include="Configuration\DoNothingConfigurationFactory.cs" />
-    <Compile Include="Configuration\AssetProviderTests.cs" />
-    <Compile Include="Configuration\FileAssetTest.cs" />
-    <Compile Include="Configuration\FromDirectoryBuilderTests.cs" />
-    <Compile Include="Configuration\FromDirectoryComponentTests.cs" />
-    <Compile Include="Configuration\IConfigurationFactory.cs" />
+    <Compile Include="AssetBaseTests.cs" />
+    <Compile Include="BundleConfigurationImpl.cs" />
+    <Compile Include="BundleConfigurationTests.cs" />
+    <Compile Include="BundleImpl.cs" />
+    <Compile Include="BundleProviderBaseImpl.cs" />
+    <Compile Include="BundleProviderBaseTests.cs" />
+    <Compile Include="BundleTests.cs" />
+    <Compile Include="Pipeline\BundlePipelineImpl.cs" />
+    <Compile Include="Pipeline\BundlePipelineTests.cs" />
+    <Compile Include="Pipeline\ProcessorImpl.cs" />
+    <Compile Include="DefaultBundleConfigurationProviderTests.cs" />
+    <Compile Include="AssetProviderTests.cs" />
+    <Compile Include="FileAssetTest.cs" />
+    <Compile Include="DirectorySearchBuilderTests.cs" />
+    <Compile Include="DirectorySearchTests.cs" />
+    <Compile Include="Plugins\PluginCollectionTests.cs" />
+    <Compile Include="Plugins\PluginLoaderTests.cs" />
     <Compile Include="Script\ScriptBundleCachePrimerTests.cs" />
     <Compile Include="Script\ScriptBundleConfigurationImpl.cs" />
     <Compile Include="Script\ScriptBundleProviderTests.cs" />
@@ -79,7 +86,7 @@
     <Compile Include="StyleSheet\StyleSheetBundleProviderTests.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleTests.cs" />
     <Compile Include="StyleSheet\StyleSheetBundlerTests.cs" />
-    <Compile Include="Configuration\BundleCollectionTests.cs" />
+    <Compile Include="BundleCollectionTests.cs" />
     <Compile Include="DefaultSettingsTests.cs" />
     <Compile Include="Extensions\ByteArrayExtensionTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
@@ -90,28 +97,36 @@
     <Compile Include="HttpHandlers\HttpHandlerFactoryTests.cs" />
     <Compile Include="HttpHandlers\ResponseWriterTests.cs" />
     <Compile Include="Script\ScriptTagWriterTests.cs" />
-    <Compile Include="Script\ScriptUrlGeneratorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetTagWriterTests.cs" />
-    <Compile Include="StyleSheet\StyleSheetUrlGeneratorTests.cs" />
-    <Compile Include="MergedAssetTests.cs" />
+    <Compile Include="Pipeline\UrlAssignmentProcessorTests.cs" />
+    <Compile Include="Pipeline\MergedAssetTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Script\ScriptCompressProcessorTests.cs" />
+    <Compile Include="Script\ScriptMinifyProcessorTests.cs" />
     <Compile Include="Script\ScriptPipelineTests.cs" />
     <Compile Include="Script\ScriptMergeProcessorTests.cs" />
     <Compile Include="StyleSheet\ImagePathProcessorTests.cs" />
-    <Compile Include="StyleSheet\StyleSheetCompressProcessor.cs" />
+    <Compile Include="StyleSheet\StyleSheetMinifyProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetMergeProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetPipelineTests.cs" />
     <Compile Include="TestHelper.cs" />
+    <Compile Include="WebHostTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Files\AssetFileTest.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\Configuration\FirstFile.css" />
-    <Content Include="Files\Configuration\NotCorrectExt.txt" />
-    <Content Include="Files\Configuration\SecondFile.css" />
-    <Content Include="Files\Configuration\ThirdFile.min.css" />
+    <Content Include="Files\AssetProvider\Mixed\FirstFile.min.css" />
+    <Content Include="Files\AssetProvider\Mixed\FirstFile.css" />
+    <Content Include="Files\AssetProvider\Mixed\NotCorrectExt.txt" />
+    <Content Include="Files\AssetProvider\Mixed\SecondFile.css" />
+    <Content Include="Files\AssetProvider\Mixed\SecondFile.min.css" />
+    <Content Include="Files\AssetProvider\Raw\FirstFile.css" />
+    <Content Include="Files\AssetProvider\Raw\NotCorrectExt.txt" />
+    <Content Include="Files\AssetProvider\Raw\SecondFile.css" />
+    <Content Include="Files\FileSystem\DirOne\FileTwo.txt" />
+    <Content Include="Files\FileSystem\DirOne\FileOne.txt" />
+    <Content Include="Files\FileSystem\DirTwo\FileOne.txt" />
+    <Content Include="Files\FileSystem\DirTwo\FileTwo.txt" />
     <Content Include="Files\read.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -123,9 +138,7 @@
       <Name>WebAssetBundler</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="IO\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

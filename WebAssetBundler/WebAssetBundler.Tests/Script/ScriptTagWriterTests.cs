@@ -24,53 +24,38 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ScriptTagWriterTests
     {
-        private Mock<IUrlGenerator<ScriptBundle>> urlGenerator;
         private Mock<TextWriter> textWriter;
         private ScriptTagWriter tagWriter;
-        private BundleContext context;
         private ScriptBundle bundle;
 
         [SetUp]
         public void SetUp()
         {
-            urlGenerator = new Mock<IUrlGenerator<ScriptBundle>>();
             textWriter = new Mock<TextWriter>();
-            tagWriter = new ScriptTagWriter(urlGenerator.Object);
-            context = new BundleContext();
+            tagWriter = new ScriptTagWriter();
             bundle = new ScriptBundle();
-        }
-
-        [Test]
-        public void Should_Generate_Url()
-        {
-            bundle.Name = "test";
-            bundle.Host = "http://www.test.com";
-
-            tagWriter.Write(textWriter.Object, bundle, context);
-
-            urlGenerator.Verify(m => m.Generate(bundle.Name, bundle.Hash.ToHexString(), "http://www.test.com", context), Times.Exactly(1));
         }
 
         [Test]
         public void Should_Write_To_Writer()
         {
-            urlGenerator.Setup(u => u.Generate(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<BundleContext>()))
-                .Returns("http://dev.test.com/");
+            bundle.Url = "/test";
 
-            tagWriter.Write(textWriter.Object, bundle, context);
+            tagWriter.Write(textWriter.Object, bundle);
 
-            textWriter.Verify(m => m.WriteLine("<script type=\"text/javascript\" src=\"http://dev.test.com/\"></script>"), Times.Exactly(1));   
+            textWriter.Verify(m => m.WriteLine("<script type=\"text/javascript\" src=\"/test\"></script>"), Times.Exactly(1));   
         }
 
         [Test]
         public void Should_Write_External_Tag()
         {
+            bundle.Url = "/test";
             bundle.Assets.Add(new ExternalAsset()
             {
                 Source = "http://www.google.com/file.js"
             });
 
-            tagWriter.Write(textWriter.Object, bundle, context);
+            tagWriter.Write(textWriter.Object, bundle);
 
             textWriter.Verify(m => m.WriteLine("<script type=\"text/javascript\" src=\"http://www.google.com/file.js\"></script>"), Times.Exactly(1));   
         }

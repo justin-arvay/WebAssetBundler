@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Customizing the Pipeline";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<h2>Customizing the Pipeline</h2>
+
+<p>The pipeline can be modified by allowing you to insert processors anywhere in the pipe. This can give you more freedom to control how the
+bundle is resolved.</p>
+
+<p>In order to customize the pipleine you must first create a class that implements the <strong>IPipelineCustomizer@(Html.Code("<T>"))</strong> 
+interface. Example:</p>
+<pre data-language="csharp">
+@Html.Code(@"
+using WebAssetBundler.Web.Mvc;
+
+public class TestPipelineCustomizer : IPipelineCustomizer<StyleSheetBundle>
+{
+    public void Customize(IBundlePipeline<StyleSheetBundle> pipeline)
+    {
+
+    }
+}
+")
+</pre>
+
+<p>Now create a custom processor(s) to insert into the pipeline. Example:</p>
+<pre data-language="csharp">
+@Html.Code(@"
+public class TestColorReplacerProcessor : IPipelineProcessor<StyleSheetBundle>
+{
+    public void Process(StyleSheetBundle bundle)
+    {
+        bundle.Content.Replace(""red"", ""blue"");
+    }
+}
+")
+</pre>
+
+<p>Now you can add it, or insert it into the pipeline like so:</p>
+<pre data-language="csharp">
+@Html.Code(@"
+using WebAssetBundler.Web.Mvc;
+
+public class TestPipelineCustomizer : IPipelineCustomizer<StyleSheetBundle>
+{
+    public void Customize(IBundlePipeline<StyleSheetBundle> pipeline)
+    {
+        //Add a new instance at the end
+        Add(new TestColorReplacerProcessor());
+
+        //Add a new instance using the IOC container at the end
+        Add<TestColorReplacerProcessor>();
+
+        //Insert processor at position 4
+        Insert(4, new TestColorReplacerProcessor());
+
+        //Insert processor at position 4 using the IOC container
+        Insert<TestColorReplacerProcessor>(4);
+    }
+}
+")
+</pre>
+
+<p>Order is very important. One processor can effect the next. Please ensure you understand how the default processors 
+work. See @Html.RouteLink("Bundle Pipelines", "Documentation", new { path = "bundle-pipelines" }).</p>
+
+<p>Customizer classes are <strong>automatically registered</strong> and applied to the pipeline when the application is started. You do not 
+need to manually register the class.</p>

@@ -17,15 +17,27 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Linq;
     using System.Web;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Web.Compilation;
+    using System.IO;
 
     public class WebHost : IDisposable
     {
         private TinyIoCContainer container;
+        private TinyIoCContainer childContainer;
+        private Type[] allTypes;
+        private TypeProvider typeProvider;
+
 
         public WebHost()
         {
+            typeProvider = new TypeProvider(LoadAssemblies());
+            allTypes = typeProvider.GetAllTypes();
             container = new TinyIoCContainer();
+            childContainer = container.GetChildContainer();
         }
 
         public TinyIoCContainer Container
@@ -36,66 +48,61 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public void ConfigureContainer()
+        /// <summary>
+        /// Initialization required before bootstrapping.
+        /// </summary>
+        public void Initialize()
         {
-            container.Register((c, p) => HttpContext());
-            container.Register<HttpServerUtilityBase>(HttpContext().Server);
-            container.Register((c, p) => HttpContext().Request);
-            container.Register((c, p) => HttpContext().Response);
-            container.Register((c, p) => HttpContext().Server);
-            container.Register<BundleContext>((c, p) => (new BundleContext() {
-                DebugMode = DefaultSettings.DebugMode
-            }));
-            container.Register<ICacheProvider, CacheProvider>();
-
-            container.Register<IAssetProvider>((c, p) => new AssetProvider(
-                c.Resolve<HttpServerUtilityBase>(), 
-                HttpContext().Request.PhysicalApplicationPath));
-
-            ConfigureContainerForStyleSheets();
-            ConfigureContainerForScript();
-            ConfigureHttpHandler();
+            container.Register<TinyIoCContainer>(container);
+            container.Register<ITypeProvider>(typeProvider);
+            container.Register<IPluginLoader, PluginLoader>();  
         }
 
-        public void ConfigureContainerForStyleSheets()
+        /// <summary>
+        /// Bootstraps the application by prepairing the container and plugins.
+        /// </summary>
+        public void RunBootstrapTasks()
         {
-            container.Register<IUrlGenerator<StyleSheetBundle>>(new StyleSheetUrlGenerator());
-            container.Register<IStyleSheetCompressor>((c, p) => DefaultSettings.StyleSheetCompressor);
-            container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();
-            container.Register<IConfigProvider<StyleSheetBundleConfiguration>>((c, p) => DefaultSettings.StyleSheetConfigProvider);
-            container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => new StyleSheetPipeline(container));
-            container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
-            container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
-            container.Register<IBundleCachePrimer<StyleSheetBundle, StyleSheetBundleConfiguration>, StyleSheetBundleCachePrimer>();
+            //TODO:: consider moving bootstraping to fascade to abstract implementation details from the web host.
+            GetBootstrapTasks().ToList().ForEach(task =>
+            {
+                task.StartUp(container, typeProvider);
+                task.ShutDown();
+            });
         }
 
-        public void ConfigureContainerForScript()
+        /// <summary>
+        /// Gets the bootstrap tasks in correct order.
+        /// </summary>
+        /// <returns></returns>
+        public virtual IEnumerable<IBootstrapTask> GetBootstrapTasks()
         {
-            container.Register<IScriptCompressor>((c, p) => DefaultSettings.ScriptCompressor);
-            container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>();
-            container.Register<IConfigProvider<ScriptBundleConfiguration>>((c, p) => DefaultSettings.ScriptConfigProvider);
-            container.Register<IBundlePipeline<ScriptBundle>>((c, p) => new ScriptPipeline(container));
-            container.Register<IUrlGenerator<ScriptBundle>>(new ScriptUrlGenerator());
-            container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();
-            container.Register<IBundleProvider<ScriptBundle>, ScriptBundleProvider>();
-            container.Register<IBundleCachePrimer<ScriptBundle, ScriptBundleConfiguration>, ScriptBundleCachePrimer>();
+            childContainer.RegisterMultiple<IBootstrapTask>(typeProvider.GetImplementationTypes(typeof(IBootstrapTask)));
+            var tasks = childContainer.ResolveAll<IBootstrapTask>()
+                .OrderBy((t) =>
+                {
+                    TaskOrderAttribute attribute = (TaskOrderAttribute)t.GetType().GetCustomAttributes(typeof(TaskOrderAttribute), true)
+                        .SingleOrDefault();
+
+                    return attribute != null ? attribute.Order : int.MaxValue;
+                });
+
+
+            //TODO:: dispose of the child container using HttpApplication events
+            childContainer.Dispose();
+
+            return tasks;
         }
 
-        public void ConfigureHttpHandler()
+        private  IEnumerable<Assembly> LoadAssemblies()
         {
-            container.Register<HttpHandlerFactory>()
-                .AsSingleton();
-            container.Register<EncoderFactory>()
-                .AsSingleton();
-        }
-
-        private HttpContextBase HttpContext()
-        {
-            return new HttpContextWrapper(System.Web.HttpContext.Current);
+            return AppDomain.CurrentDomain.GetAssemblies();
+            //return BuildManager.GetReferencedAssemblies().Cast<Assembly>();
         }
 
         public void Dispose()
         {
+            childContainer.Dispose();
             container.Dispose();
         }
     }
