@@ -35,12 +35,15 @@ public class LessPlugin : IPlugin<StyleSheetBundle>
 
 <p><strong>Note: </strong>When implementing the IPlugin<> internface TBundle must be of type Bundle.</p>
 
-<p>Here is a breakdown of the methods in the interface and there general function:</p>
+<p>Here is a breakdown of the methods in the interface and their general function:</p>
 <ul>
-    <li>Initialize - Allows you to use the container to initialize any resources that may be consumed by the plugin. This is the first
+    <li><strong>Initialize</strong> - Allows you to use the container to initialize any resources that may be consumed by the plugin. This is the first
     method called after the plugins constructor is called.</li>
-    <li>ModifyPipeline - Allows you to modify the pipeline before any bundles are processed. This method is only called once
+    <li><strong>ModifyPipeline</strong> - Allows you to modify the pipeline before any bundles are processed. This method is only called once
     when the pipleine is created for the lifetime of the application.</li>
-    <li>ModifySearchPattern - Allows modification of the search terms used when adding assets from a directory. For example: *.css and *.js are used
+    <li><strong>ModifySearchPattern</strong> - Allows modification of the search terms used when adding assets from a directory. For example: *.css and *.js are used
     for style sheet and script bundles.</li>
 </ul>
+
+<p><strong>Note:</strong> If you create the plugin in its own library the plugins library will need to be <a href="http://msdn.microsoft.com/en-us/library/7314433t.aspx">referenced</a> by the startup project. As long as the plugin is referenced
+by the startup project it will automatically be run.</p>
