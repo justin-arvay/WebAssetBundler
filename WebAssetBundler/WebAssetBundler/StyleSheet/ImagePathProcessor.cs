@@ -37,8 +37,9 @@ namespace WebAssetBundler.Web.Mvc
         //target: /wab.axd/a/a
         public void Transform(AssetBase asset)
         {
-            //TODO: handle absolute paths like: /image/icon.png
-            //TODO: handle absolutepaths like: http://www.google.ca/image/icon.png
+            
+            //TODO:: should filter urls with or without quotes around urls as well as single quotes
+
             var content = asset.Content;
             //var source = assets.Source.StartsWith("~/") ? assets.Source.ReplaceFirst("~/", "/") : assets.Source;
             var paths = FindPaths(content);

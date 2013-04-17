@@ -69,6 +69,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual("url(\"http://www.google.com/img/test.jpg\");", bundle.Assets[0].Content);
         }
+         
         /*
         [Test]
         public void Should_Filter_With_Different_Directory_Names()
