@@ -22,9 +22,27 @@ namespace WebAssetBundler.Web.Mvc
     public interface IPluginCollection<TBundle> : IList<IPlugin<TBundle>>
         where TBundle : Bundle
     {
+        /// <summary>
+        /// Initialze all plugins in the collection.
+        /// </summary>
+        /// <param name="container"></param>
         void Initialize(TinyIoCContainer container);
+
+        /// <summary>
+        /// Dispose of all plugins in the collection.
+        /// </summary>
         void Dispose();
+
+        /// <summary>
+        /// Modifies the patterns by each plugin in the collection.
+        /// </summary>
+        /// <param name="patterns"></param>
         void ModifySearchPatterns(ICollection<string> patterns);
+
+        /// <summary>
+        /// Modifies the pipeline by each plugin in the collection.
+        /// </summary>
+        /// <param name="pipeline"></param>
         void ModifyPipeline(IBundlePipeline<TBundle> pipeline);
     }
 }

@@ -18,11 +18,8 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Linq;
-    using System.Web;
     using System.Collections.Generic;
     using System.Reflection;
-    using System.Web.Compilation;
-    using System.IO;
 
     public class WebHost : IDisposable
     {

@@ -20,7 +20,16 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IBootstrapTask
     {
+        /// <summary>
+        /// Run after initializing the task.
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="typeProvider"></param>
         void StartUp(TinyIoCContainer container, ITypeProvider typeProvider);
+
+        /// <summary>
+        /// Run when the task is finished.
+        /// </summary>
         void ShutDown();
     }
 }

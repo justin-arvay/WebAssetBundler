@@ -21,7 +21,15 @@ namespace WebAssetBundler.Web.Mvc
     public interface IBundleCachePrimer<TBundle> 
         where TBundle : Bundle
     {
+        /// <summary>
+        /// Returns true when the cache is primed.
+        /// </summary>
         bool IsPrimed { get; }
+
+        /// <summary>
+        /// Primes the cache from the provided configuration.S
+        /// </summary>
+        /// <param name="configs"></param>
         void Prime(IList<IBundleConfiguration<TBundle>> configs);
     }
 }
