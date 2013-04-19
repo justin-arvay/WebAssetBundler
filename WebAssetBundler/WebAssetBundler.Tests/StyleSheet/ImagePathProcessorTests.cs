@@ -32,7 +32,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundle = new StyleSheetBundle();
             bundle.Assets.Add(new AssetBaseImpl());
-
             processor = new ImagePathProcessor();
         }
 
@@ -69,84 +68,72 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual("url(\"http://www.google.com/img/test.jpg\");", bundle.Assets[0].Content);
         }
-         
-        /*
+
         [Test]
-        public void Should_Filter_With_Different_Directory_Names()
+        public void Should_Match_Url_With_Double_Quotes()
         {
-            string sourcePath = "C:\\Content\\file.css";
-            string outputPath = "C:\\Generated\\Sub\\file.css";
-            string content = "url(\"../img/test.jpg\");";
+            bundle.Assets[0].Content = "url(\"/img/test.jpg\");";
+            bundle.Url = "/a/a/a/a";
 
-            var filter = new ImagePathContentFilter();
+            processor.Process(bundle);
 
-            Assert.AreEqual("url(\"../../img/test.jpg\");", filter.Filter(outputPath, sourcePath, content));
+            Assert.AreEqual("url(\"/img/test.jpg\");", bundle.Assets[0].Content);
         }
 
         [Test]
-        public void Should_Filter_Without_Double_Quotes()
+        public void Should_Match_Url_With_Single_Quotes()
         {
-            string sourcePath = "C:\\Content\\file.css";
-            string outputPath = "C:\\Content\\Sub\\file.css";
-            string content = "url(../img/test.jpg);";
+            bundle.Assets[0].Content = "url('/img/test.jpg');";
+            bundle.Url = "/a/a/a/a";
 
-            var filter = new ImagePathContentFilter();
+            processor.Process(bundle);
 
-            Assert.AreEqual("url(../../img/test.jpg);", filter.Filter(outputPath, sourcePath, content));
+            Assert.AreEqual("url('/img/test.jpg');", bundle.Assets[0].Content);
         }
 
         [Test]
-        public void Should_Filter_With_Single_Quotes()
+        public void Should_Match_Url_With_No_Quotes()
         {
-            string sourcePath = "C:\\Content\\file.css";
-            string outputPath = "C:\\Content\\Sub\\file.css";
-            string content = "url('../img/test.jpg');";
+          
+            bundle.Assets[0].Content = "url(/img/test.jpg);";
+            bundle.Url = "/a/a/a/a";
 
-            var filter = new ImagePathContentFilter();
+            processor.Process(bundle);
 
-            Assert.AreEqual("url('../../img/test.jpg');", filter.Filter(outputPath, sourcePath, content));
+            Assert.AreEqual("url(/img/test.jpg);", bundle.Assets[0].Content);
         }
 
         [Test]
-        public void Should_Filter_With_Src()
+        public void Should_Match_Src_With_Double_Quotes()
         {
-            string sourcePath = "C:\\Content\\file.css";
-            string outputPath = "C:\\Content\\Sub\\file.css";
-            string content = "(src=\"../img/test.jpg\");";
+            bundle.Assets[0].Content = "src=\"/img/test.jpg\"";
+            bundle.Url = "/a/a/a/a";
 
-            var filter = new ImagePathContentFilter();
+            processor.Process(bundle);
 
-            Assert.AreEqual("(src=\"../../img/test.jpg\");", filter.Filter(outputPath, sourcePath, content));
+            Assert.AreEqual("src=\"/img/test.jpg\"", bundle.Assets[0].Content);
         }
 
         [Test]
-        public void Should_Filter_With_Src_And_With_Single_Quotes()
+        public void Should_Match_Src_With_Single_Quotes()
         {
-            string sourcePath = "C:\\Content\\file.css";
-            string outputPath = "C:\\Content\\Sub\\file.css";
-            string content = "(src='../img/test.jpg');";
+            bundle.Assets[0].Content = "src='/img/test.jpg'";
+            bundle.Url = "/a/a/a/a";
 
-            var filter = new ImagePathContentFilter();
+            processor.Process(bundle);
 
-            Assert.AreEqual("(src='../../img/test.jpg');", filter.Filter(outputPath, sourcePath, content));
+            Assert.AreEqual("src='/img/test.jpg'", bundle.Assets[0].Content);
         }
 
         [Test]
-        public void Should_Filter_With_Src_Without_Double_Quotes()
+        public void Should_Match_Src_With_No_Quotes()
         {
-            string sourcePath = "C:\\Content\\file.css";
-            string outputPath = "C:\\Content\\Sub\\file.css";
-            string content = "(src=../img/test.jpg);";
+            bundle.Assets[0].Content = "src=/img/test.jpg";
+            bundle.Url = "/a/a/a/a";
 
-            var filter = new ImagePathContentFilter();
+            processor.Process(bundle);
 
-            Assert.AreEqual("(src=../../img/test.jpg);", filter.Filter(outputPath, sourcePath, content));
-        }
-
-        [Test]
-        public void Should_Process_Each_Asset()
-        {
-        }
-         */
+            Assert.AreEqual("src=/img/test.jpg", bundle.Assets[0].Content);
+        }            
     }
 }

@@ -36,12 +36,8 @@ namespace WebAssetBundler.Web.Mvc
         // image: ../image/icon.png
         //target: /wab.axd/a/a
         public void Transform(AssetBase asset)
-        {
-            
-            //TODO:: should filter urls with or without quotes around urls as well as single quotes
-
+        {            
             var content = asset.Content;
-            //var source = assets.Source.StartsWith("~/") ? assets.Source.ReplaceFirst("~/", "/") : assets.Source;
             var paths = FindPaths(content);
 
             foreach (string path in paths)
@@ -93,7 +89,6 @@ namespace WebAssetBundler.Web.Mvc
                     level--;
                 }
             }
-
 
             return level;
         }

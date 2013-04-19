@@ -27,7 +27,7 @@ namespace WebAssetBundler.Web.Mvc
         bool IsPrimed { get; }
 
         /// <summary>
-        /// Primes the cache from the provided configuration.S
+        /// Primes the cache from the provided configuration.
         /// </summary>
         /// <param name="configs"></param>
         void Prime(IList<IBundleConfiguration<TBundle>> configs);
