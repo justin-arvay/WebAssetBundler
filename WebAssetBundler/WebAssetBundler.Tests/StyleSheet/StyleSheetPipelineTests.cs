@@ -46,7 +46,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.IsInstanceOf<StyleSheetMinifyProcessor>(pipeline[0]);
             Assert.IsInstanceOf<StyleSheetMergeProcessor>(pipeline[1]);
             Assert.IsInstanceOf<UrlAssignmentProcessor<StyleSheetBundle>>(pipeline[2]);
-            Assert.IsInstanceOf<ImagePathProcessor>(pipeline[3]);            
+            Assert.IsInstanceOf<ExpandPathProcessor>(pipeline[3]);            
         }
     }
 

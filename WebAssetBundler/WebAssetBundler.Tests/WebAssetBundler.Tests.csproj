@@ -104,7 +104,7 @@
     <Compile Include="Script\ScriptMinifyProcessorTests.cs" />
     <Compile Include="Script\ScriptPipelineTests.cs" />
     <Compile Include="Script\ScriptMergeProcessorTests.cs" />
-    <Compile Include="StyleSheet\ImagePathProcessorTests.cs" />
+    <Compile Include="StyleSheet\ExpandPathProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetMinifyProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetMergeProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetPipelineTests.cs" />

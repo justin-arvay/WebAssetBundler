@@ -26,7 +26,7 @@ namespace WebAssetBundler.Web.Mvc
             Add<StyleSheetMinifyProcessor>();
             Add(new StyleSheetMergeProcessor());
             Add<UrlAssignmentProcessor<StyleSheetBundle>>();
-            Add(new ImagePathProcessor());
+            Add(new ExpandPathProcessor());
         }
     }
 }

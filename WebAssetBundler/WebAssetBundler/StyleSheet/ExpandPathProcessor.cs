@@ -22,7 +22,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.Text.RegularExpressions;
     using System.IO;
 
-    public class ImagePathProcessor : IPipelineProcessor<StyleSheetBundle>, IAssetTransformer
+    public class ExpandPathProcessor : IPipelineProcessor<StyleSheetBundle>, IAssetTransformer
     {
         private string outputUrl;
 

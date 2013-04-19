@@ -140,7 +140,7 @@
     <Compile Include="Script\ScriptMinifyProcessor.cs" />
     <Compile Include="Script\ScriptPipeline.cs" />
     <Compile Include="Script\ScriptMergeProcessor.cs" />
-    <Compile Include="StyleSheet\ImagePathProcessor.cs" />
+    <Compile Include="StyleSheet\ExpandPathProcessor.cs" />
     <Compile Include="StyleSheet\StyleSheetMergeProcessor.cs" />
     <Compile Include="StyleSheet\StyleSheetMinifyProcessor.cs" />
     <Compile Include="StyleSheet\StyleSheetPipeline.cs" />

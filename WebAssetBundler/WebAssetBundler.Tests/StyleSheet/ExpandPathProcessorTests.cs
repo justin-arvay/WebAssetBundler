@@ -22,9 +22,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System.Web;
 
     [TestFixture]
-    public class ImagePathProcessorTests
+    public class ExpandPathProcessorTests
     {
-        private ImagePathProcessor processor;
+        private ExpandPathProcessor processor;
         private StyleSheetBundle bundle;
 
         [SetUp]
@@ -32,7 +32,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundle = new StyleSheetBundle();
             bundle.Assets.Add(new AssetBaseImpl());
-            processor = new ImagePathProcessor();
+            processor = new ExpandPathProcessor();
         }
 
         [Test]
