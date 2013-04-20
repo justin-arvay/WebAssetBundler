@@ -25,8 +25,9 @@ namespace WebAssetBundler.Web.Mvc
     {      
 
         public string Minify(string content)
-        {            
-            return JavaScriptCompressor.Compress(content, true, true, false, false, -1, Encoding.UTF8, CultureInfo.InvariantCulture, false);
+        {
+            var minifier = new JavaScriptCompressor();
+            return minifier.Compress(content);
         }
     }
 }

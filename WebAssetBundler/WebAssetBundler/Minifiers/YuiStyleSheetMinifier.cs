@@ -23,7 +23,8 @@ namespace WebAssetBundler.Web.Mvc
     {
         public string Minify(string content)
         {
-            return CssCompressor.Compress(content, 0, CssCompressionType.StockYuiCompressor);
+            var minifier = new CssCompressor();
+            return minifier.Compress(content);
         }
     }
 }
