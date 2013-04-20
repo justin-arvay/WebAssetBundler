@@ -3,12 +3,26 @@
     Layout = "~/Views/Shared/_BasicLayout.cshtml";
 }
 
-<h2>Install via NuGet</h2>
-The easiest way to start using WebAssetBunder is to install the WebAssetBundler NuGet package.
+<div id="download">
+    <div class="section">
+        <h2><img src="../Images/nugetlogo.png" /><span>Install via NuGet</span></h2>
+        
+        <p>The easiest way to start using WebAssetBunder is to install the WebAssetBundler NuGet package. Visit 
+        the <a href="http://docs.nuget.org/">NuGet docs</a> to get started.</p>
+        <pre>PM> Install-Package WebAssetBundler</pre>
+    </div>
 
-Visit the <a href="http://docs.nuget.org/">NuGet docs</a> to get started.
-<pre>PM> Install-Package WebAssetBundler</pre>
+    <div class="section">
+        <h2><img src="../Images/octocat.png" /><span>Fork from GitHub</span></h2>
+        
+        <p>You can grab the full source code of WebAssetBunder from the GitHub repository:</p>
+        <a href="https://github.com/justin-arvay/WebAssetBundler">https://github.com/justin-arvay/WebAssetBundler</a>
+    </div>
 
-<h2>Fork from GitHub</h2>
-<p>You can grab the full source code of WebAssetBunder from the GitHub repository:</p>
-<a href="https://github.com/justin-arvay/WebAssetBundler">https://github.com/justin-arvay/WebAssetBundler</a>
+
+    <div class="bottom-section">
+        <h2>Getting Started</h2>
+        <p>Web asset bundler only requires minimal configuration. For help getting started, read the 
+         @Html.RouteLink("getting started", "Documentation", new { path = "introduction" }) guide.</p>
+     </div>
+ </div>

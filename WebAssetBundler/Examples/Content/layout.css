@@ -20,10 +20,10 @@ body{background-color:#e6e6e6;font-size:10px; font-family:Arial, Sans-Serif;marg
 #header div.top img.logo { margin-top: 10px; }
 #header div.top div.right {float: right; width:100px; margin-top:10px;}
 #header div.top div.right div.button {float:left; padding:2px 0px;}
-#header div.top div.download {float:right; height: 40px; margin:28px 40px 0px 0px; }
-    
-#header div.top div.download a {text-shadow: 1px 1px 0 #5e8426; line-height: 40px; color: white; padding: 8px 20px; font-size: 20px; font-weight:bold; 
-    border: 2px solid #5e8426; moz-border-radius: 12px; -webkit-border-radius: 12px; border-radius: 12px; text-decoration: none;
+#header div.top div.download {float:right; height: 40px; margin:28px 40px 0px 0px;}
+#header div.top div.download img {margin: 0px 10px -8px 0px; }    
+#header div.top div.download a {text-shadow: 1px 1px 0 #5e8426; line-height: 40px; color: white; padding: 8px 20px 8px 10px; font-size: 20px; font-weight:bold; 
+    border: 2px solid #5e8426; moz-border-radius: 12px; -webkit-border-radius: 12px; border-radius: 12px; text-decoration: none;      
     background: #b4e391; /* Old browsers */
     background: -moz-linear-gradient(top,  #b4e391 0%, #61c419 100%, #b4e391 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b4e391), color-stop(100%,#61c419), color-stop(100%,#b4e391)); /* Chrome,Safari4+ */
