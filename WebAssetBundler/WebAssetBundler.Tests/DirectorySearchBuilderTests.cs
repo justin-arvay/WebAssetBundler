@@ -37,7 +37,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Set_Pattern()
         {
-            var returnBuilder = builder.Pattern("*.js");
+            var returnBuilder = builder.AddPattern("*.js");
 
             Assert.AreEqual("*.js", context.Patterns.ToList()[0]);
             Assert.IsInstanceOf<DirectorySearchBuilder>(returnBuilder);

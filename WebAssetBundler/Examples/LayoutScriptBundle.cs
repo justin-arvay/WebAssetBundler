@@ -26,7 +26,7 @@ namespace Examples
             Name("Scripts");
             Compress(true);
             AddDirectory("~/Scripts", dir => dir
-                .Pattern("*"));
+                .AddPattern("*"));
         }
     }
 }

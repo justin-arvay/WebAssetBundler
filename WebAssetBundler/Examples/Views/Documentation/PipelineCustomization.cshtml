@@ -37,30 +37,10 @@ public class TestColorReplacerProcessor : IPipelineProcessor<StyleSheetBundle>
 ")
 </pre>
 
-<p>Now you can add it, or insert it into the pipeline like so:</p>
-<pre data-language="csharp">
-@Html.Code(@"
-using WebAssetBundler.Web.Mvc;
+<p>Now you can add it, or insert it into the pipeline. To do so you must create a plugin. Head over to 
+@Html.RouteLink("Create a Plugin", "Documentation", new { path = "plugins/create-plugin" }).<</p>
 
-public class TestPipelineCustomizer : IPipelineCustomizer<StyleSheetBundle>
-{
-    public void Customize(IBundlePipeline<StyleSheetBundle> pipeline)
-    {
-        //Add a new instance at the end
-        Add(new TestColorReplacerProcessor());
-
-        //Add a new instance using the IOC container at the end
-        Add<TestColorReplacerProcessor>();
-
-        //Insert processor at position 4
-        Insert(4, new TestColorReplacerProcessor());
-
-        //Insert processor at position 4 using the IOC container
-        Insert<TestColorReplacerProcessor>(4);
-    }
-}
-")
-</pre>
+<h2>Processor Ordering</h2>
 
 <p>Order is very important. One processor can effect the next. Please ensure you understand how the default processors 
 work. See @Html.RouteLink("Bundle Pipelines", "Documentation", new { path = "bundle-pipelines" }).</p>

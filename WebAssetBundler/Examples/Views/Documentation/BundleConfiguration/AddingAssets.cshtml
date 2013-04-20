@@ -25,10 +25,10 @@ public override void Configure()
 public override void Configure()
 {
     //adds all assets in a specific directory
-    AddFromDirectory("~/Script");
+    AddDirectory("~/Script");
 
     //adds assets based on criteria
-    AddFromDirectory("~/Script", a => a
+    AddDirectory("~/Script", a => a
         .Pattern("jQuery*")));
 }
 </pre>
@@ -37,11 +37,13 @@ wildcards can be used. For instance:</p>
 <pre data-language="csharp">
 public override void Configure()
 {
-    AddFromDirectory("~/Script", a => a
+    AddDirectory("~/Script", a => a
         .Pattern("*jQuery*")));
 }
 </pre>
 <p>This example will include all assets with the word jQuery in it.</p>
+<p><strong>Note: </strong>When adding by directory be aware that by default it will only add assets that end in the bundles
+corresponding extension (.css or .js for example). This can also be modified heavily by installed plugins.</p>
 
 <h2>Additional Behavior</h2>
 <p>When adding an asset a check is done to see if the asset is already considered minified. This check is done to ensure we do not 

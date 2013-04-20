@@ -29,7 +29,7 @@ namespace WebAssetBundler.Web.Mvc
             this.directorySearch = directorySearch;
         }
 
-        public DirectorySearchBuilder Pattern(string pattern)
+        public DirectorySearchBuilder AddPattern(string pattern)
         {
             directorySearch.Patterns.Add(pattern);
             return this;
