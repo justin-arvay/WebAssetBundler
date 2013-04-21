@@ -20,5 +20,10 @@ namespace Examples.Controllers
         {
             return View();
         }
+
+        public ActionResult License()
+        {
+            return View();
+        }
     }
 }

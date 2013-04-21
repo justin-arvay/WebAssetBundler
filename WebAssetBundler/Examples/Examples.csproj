@@ -175,7 +175,6 @@
     <Content Include="Views\Documentation\BrowserCaching.cshtml" />
     <Content Include="Views\Documentation\DebugMode.cshtml" />
     <Content Include="Views\Documentation\WebConfig.cshtml" />
-    <Content Include="Views\Documentation\Extensibility.cshtml" />
     <Content Include="Views\Documentation\PipelineCustomization.cshtml" />
     <Content Include="Views\Documentation\Plugins.cshtml" />
     <Content Include="Views\Documentation\Plugins\CreatePlugin.cshtml" />
@@ -184,6 +183,7 @@
     <Content Include="Views\Documentation\BundleTypes.cshtml" />
     <Content Include="Views\Home\Support.cshtml" />
     <Content Include="Views\Documentation\Introduction.cshtml" />
+    <Content Include="Views\Home\License.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
