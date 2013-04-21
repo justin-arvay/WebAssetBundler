@@ -162,7 +162,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="Views\Documentation\Introduction.cshtml" />
     <Content Include="Views\Documentation\Configuration.cshtml" />
     <Content Include="Views\Home\Download.cshtml" />
     <Content Include="Views\Shared\_DocumentationLayout.cshtml" />
@@ -184,6 +183,7 @@
     <Content Include="Views\Documentation\Plugins\ModifySearchPatterns.cshtml" />
     <Content Include="Views\Documentation\BundleTypes.cshtml" />
     <Content Include="Views\Home\Support.cshtml" />
+    <Content Include="Views\Documentation\Introduction.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

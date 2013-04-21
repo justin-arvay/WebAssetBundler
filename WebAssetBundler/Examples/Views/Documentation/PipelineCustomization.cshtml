@@ -5,7 +5,7 @@
 
 <h2>Customizing the Pipeline</h2>
 
-<p>The pipeline can be modified by allowing you to insert processors anywhere in the pipe. This can give you more freedom to control how the
+<p>The pipeline can be modified by allowing you to insert processors anywhere in the pipeline. This can give you more freedom to control how the
 bundle is resolved.</p>
 
 <p>In order to customize the pipleine you must first create a class that implements the <strong>IPipelineCustomizer@(Html.Code("<T>"))</strong> 
@@ -38,7 +38,7 @@ public class TestColorReplacerProcessor : IPipelineProcessor<StyleSheetBundle>
 </pre>
 
 <p>Now you can add it, or insert it into the pipeline. To do so you must create a plugin. Head over to 
-@Html.RouteLink("Create a Plugin", "Documentation", new { path = "plugins/create-plugin" }).<</p>
+@Html.RouteLink("Create a Plugin", "Documentation", new { path = "plugins/create-plugin" }).</p>
 
 <h2>Processor Ordering</h2>
 

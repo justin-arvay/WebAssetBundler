@@ -3,10 +3,48 @@
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
 }
 
-<h2>What is it?</h2>
 
-<p>Web Asset Bundler is a light weight and extensible .NET library that aims to make CSS and Javascript management easier. With Web Asset Bundler you can minify,
-combine, version and cache your CSS and Javascript files. </p>
+<p>Web asset bundler only requires minimal configuration to get started. Configuration is easy and straight forward. Just follow the steps below:</p>
 
-<p>An asset is a javascript or stylesheet file. Assets are combined into bundles. Bundles are optimized to reduce load for your web application.</p>
+<h2>1. Install via NuGet</h2>
+<pre>PM> Install-Package WebAssetBundler</pre>
 
+<p>@Html.RouteLink("View a list of plugins", "Documentation", new { path = "plugins" })</p>
+
+<h2>2. Configure</h2>
+<pre data-language="csharp">
+    using WebAssetBundler.Web.Mvc;
+
+    public class LayoutScriptBundle : ScriptBundleConfiguration
+    {
+        public override void Configure()
+        {
+            Name("Scripts");
+            Add("~/Scripts/jquery-1.8.3.js");
+            Add("~/Scripts/jquery-ui-1.9.2.custom.min.js");
+            Add("~/Scripts/rainbow-custom.min.js");
+        }
+    }
+
+    public class LayoutStyleSheetBundle : StyleSheetBundleConfiguration
+    {
+        public override void Configure()
+        {
+            Name("StyleSheets");
+            Add("~/Content/reset.css");
+            Add("~/Content/pepper-grinder/jquery-ui-1.9.2.custom.css");
+            Add("~/Content/layout.css");
+        }
+    }
+</pre>
+
+<h2>3. Render</h2>
+
+<pre data-language="csharp">
+    //in the head tag
+    @@Bundler.StyleSheets.Render("StyleSheets")
+
+    //before end of body tag
+    @@Bundler.Scripts.Render("Scripts")
+    @@Bundler.Scripts.Include("https://apis.google.com/js/plusone.js")
+</pre>

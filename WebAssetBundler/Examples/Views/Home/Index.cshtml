@@ -3,50 +3,21 @@
     Layout = "~/Views/Shared/_BasicLayout.cshtml";
 }
 
-<p>Web Asset Bundler is a light weight .NET library that aims to make CSS and Javascript management easier. With web asset bundler you can combine, compress and version
-all of your javascript and css files allowing you to optimize your web applications resources.</p>
+<h2>What is it?</h2>
 
-<hr />
+<p>Web Asset Bundler is a light weight and extensible .NET library that aims to make CSS and Javascript management easier. With Web Asset Bundler you can minify,
+combine, version and cache your CSS and Javascript files. </p>
 
-<h2>1. Install via NuGet</h2>
-<pre>PM> Install-Package WebAssetBundler</pre>
+<p>An asset is a javascript or stylesheet file. Assets are combined into bundles. Bundles are optimized to reduce load for your web application.</p>
 
-<p>@Html.RouteLink("View a list of plugins", "Documentation", new { path = "plugins" })</p>
+<h2>Alternatives</h2>
+<p>If web asset bundle just isn't doing it for you, check out some of the alternatives:</p>
+<ul>
+    <li><a href="http://requestreduce.org/">Request Reduce</a></li>
+    <li><a href="http://http://getcassette.net/">Cassette</a></li>
+    <li><a href="https://github.com/jetheredge/SquishIt">Squish It</a></li>
+    <li><a href="https://github.com/buunguyen/combres">Combres</a></li>
+</ul>
 
-<h2>2. Configure</h2>
-<pre data-language="csharp">
-    using WebAssetBundler.Web.Mvc;
-
-    public class LayoutScriptBundle : ScriptBundleConfiguration
-    {
-        public override void Configure()
-        {
-            Name("Scripts");
-            Add("~/Scripts/jquery-1.8.3.js");
-            Add("~/Scripts/jquery-ui-1.9.2.custom.min.js");
-            Add("~/Scripts/rainbow-custom.min.js");
-        }
-    }
-
-    public class LayoutStyleSheetBundle : StyleSheetBundleConfiguration
-    {
-        public override void Configure()
-        {
-            Name("StyleSheets");
-            Add("~/Content/reset.css");
-            Add("~/Content/pepper-grinder/jquery-ui-1.9.2.custom.css");
-            Add("~/Content/layout.css");
-        }
-    }
-</pre>
-
-<h2>3. Render</h2>
-
-<pre data-language="csharp">
-    //in the head tag
-    @@Bundler.StyleSheets.Render("StyleSheets")
-
-    //before end of body tag
-    @@Bundler.Scripts.Render("Scripts")
-    @@Bundler.Scripts.Include("https://apis.google.com/js/plusone.js")
-</pre>
+<p>Please contact me through <a href="https://github.com/justin-arvay/WebAssetBundler/issues">github</a> by opening a issue if you have, or 
+know of, other projects that I should add to this list.</p>
