@@ -85,6 +85,11 @@
     <Content Include="Content\documentation.css" />
     <Content Include="Content\download.css" />
     <Content Include="Images\document-icon.png" />
+    <Content Include="Images\download-icon.png" />
+    <Content Include="Images\nugetlogo.png" />
+    <Content Include="Images\octocat.png" />
+    <Content Include="Images\ScreenCaps\debug-mode-no-browser-cache.png" />
+    <Content Include="Images\ScreenCaps\no-debug-mode-browser-caching.png" />
     <Content Include="Scripts\jquery-1.9.0.min.js" />
   </ItemGroup>
   <ItemGroup>
@@ -141,11 +146,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Bundler.config">
-      <SubType>Designer</SubType>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebAssetBundler.Less\WebAssetBundler.Less.csproj">

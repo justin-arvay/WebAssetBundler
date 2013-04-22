@@ -53,9 +53,8 @@ body{background-color:#e6e6e6;font-size:10px; font-family:Arial, Sans-Serif;marg
 #main div.wrapper { width: 1000px; margin: 0px auto;}
 #main div.wrapper div.content {font-size: 12px;}
 #main div.wrapper blockquote {margin: 1em 3em; color: #999; border-left: 2px solid #999; padding-left: 1em; font-style: italic;}
-#main div.wrapper pre { font-family: Consolas,Inconsolata,monospace; display: block; width: auto; overflow: auto; max-height: 600px; 
-    white-space: pre; word-wrap: normal; padding: 10px; border: 1px solid #ccc; background-color: #f9f9f9; moz-border-radius: 12px; 
-    -webkit-border-radius: 12px; border-radius: 12px;}
+#main div.wrapper pre { font-family: Consolas,Inconsolata,monospace; display: block; width: auto; overflow: auto;
+    white-space: pre; word-wrap: normal; padding: 10px; border: 1px solid #ccc; background-color: #f9f9f9; }
 #main div.edge { -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18), 0 0 5px 0 rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18), 0 0 5px 0 rgba(0, 0, 0, 0.2); box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18), 0 0 5px 0 rgba(0, 0, 0, 0.2);
     background-color: White; display:inline-block; padding: 20px;}
@@ -95,10 +94,17 @@ body{background-color:#e6e6e6;font-size:10px; font-family:Arial, Sans-Serif;marg
 
 
 #main div.content h1,
-#main div.content h2, 
+#main div.content h2 {font-size:1.8em;color:#FF8B24; margin:20px 0px 10px 0px;}
 #main div.content h3,
 #main div.content h4,
 #main div.content h5,
-#main div.content h6{font-size:1.8em;color:#FF8B24; margin:20px 0px 10px 0px;}
+#main div.content h6{font-size:1.2em; margin:10px 0px 10px 0px;}
 
 #main div.content hr {margin: 20px 0px;}
+
+#main table {font-size:12px;  }
+#main table th {padding:10px 10px 10px 10px; border-top:1px solid #fafafa; border-bottom:1px solid #ccc; border-top:1px solid #ccc; background: #ededed;}
+#main table tr {text-align: center;	padding-left:20px;}
+#main table td {padding:18px; border-top: 1px solid #ffffff; border-bottom:1px solid #ccc; text-align:left;}
+#main table tr.even td { background: #f6f6f6;}
+#main table tr:last-child td { border-bottom:0;}

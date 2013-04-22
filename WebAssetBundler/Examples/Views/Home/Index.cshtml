@@ -13,16 +13,78 @@ combine, version and cache your CSS and Javascript files. </p>
 <h6>Simple Install via NuGet</h6>
 <pre>
 PM> Install-Package WebAssetBundler
-PM> Install-Package WebAssetBundler.Less
 </pre>
 <p>@Html.RouteLink("View a list of plugins", "Documentation", new { path = "plugins" })</p>
 
 <h6>Quick Configuration</h6>
+<p>Easily set up and configure each bundle. Configuration allows you to set up bundles exactly the way you need.</p>
+<pre data-language="csharp">
+using WebAssetBundler.Web.Mvc;
+
+public class LayoutScriptBundle : ScriptBundleConfiguration
+{
+    public override void Configure()
+    {
+        Name("Scripts");
+        Add("~/Scripts/jquery-1.9.0.min.js");
+        Add("~/Scripts/jquery-ui-1.10.0.custom.min.js");
+    }
+}
+</pre>
+
 <h6>Rendering</h6>
+<p>Use helpers to easily render your configured bundles anywhere on the page.</p>
+<pre data-language="html">
+@Html.Code(@"
+<html>
+<head>
+  <title>Web App</title>
+   @Bundler.StyleSheets.Render(""StyleSheets"")
+</head>
+<body>
+  ...
+   @Bundler.Scripts.Render(""Scripts"")
+</body>
+</html>
+")
+</pre>
+
 <h6>Production Output</h6>
+<p>With @Html.RouteLink("debug mode", "Documentation", new { path = "debug-mode" }) off bundles are complied (combined/minified) and then 
+cached for the lifetime of the application. Additionally cache headers are sent to the browser which will cache for 1 year (modifiable). Url 
+will change if bundle is changed, breaking the browser cache and forcing it to download the new bundle.</p>
+<pre data-language="html">
+<html>
+@Html.Code(@"
+<head>
+  <title>Web App</title>
+  <link type=""text/css"" href=""/wab.axd/css/abfdfee9fe0d761c6daa84cc84436816/StyleSheets"" rel=""stylesheet"">
+</head>
+<body>
+  ...
+  <script type=""text/javascript"" src=""/wab.axd/js/71342a7deb366a76263940d937b4d44c/Scripts""></script>
+</body>
+</html>
+")
+</pre>
+
 <h6>Debug Mode</h6>
-
-
+<p>When @Html.RouteLink("debug mode", "Documentation", new { path = "debug-mode" }) is on, bundles are compiled every request to include 
+changes. The url is also changed every request to ensure the browser refreshes its cache.</p>
+<pre data-language="html">
+<html>
+@Html.Code(@"
+<head>
+  <title>Web App</title>
+  <link type=""text/css"" href=""/wab.axd/css/abfdfee9fe0d761c6daa84cc8443681604221384210/StyleSheets"" rel=""stylesheet"">
+</head>
+<body>
+  ...
+  <script type=""text/javascript"" src=""/wab.axd/js/71342a7deb366a76263940d937b4d44c04221384330/Scripts""></script>
+</body>
+</html>
+")
+</pre>
 
 <h2>Alternatives</h2>
 <p>If web asset bundle just isn't doing it for you, check out some of the alternatives:</p>

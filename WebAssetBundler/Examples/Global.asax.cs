@@ -40,25 +40,12 @@ namespace Examples
 
         }
 
-        public class Test : IStyleSheetMinifier
-        {
-            public string Minify(string content)
-            {
-                return content;
-            }
-        }
-
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
-            RegisterRoutes(RouteTable.Routes);
-
-            //DefaultSettings.StyleSheetHost = "192.168.1.69";
-           // DefaultSettings.ScriptHost = "6.6.6.6";
-            //DefaultSettings.DebugMode = true;
-            DefaultSettings.ScriptMinifier = new JSMinMinifier();            
+            RegisterRoutes(RouteTable.Routes);        
         }
     }
 }

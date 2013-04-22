@@ -3,4 +3,63 @@
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
 }
 
-<h2>Web Config</h2>
+<h2>Web Config Setup</h2>
+<p>In order to use the web.config you must first setup the section:</p>
+<pre>
+@Html.Code(@"
+<configuration>
+    <configSections>
+        <section name=""wab"" type=""WebAssetBundler.Web.Mvc.WabConfigurationSection, WebAssetBundler"" />
+    </configSections>
+
+    ...
+</configuration>
+")
+</pre>
+
+<p>Now you can add the web asset bundler tag:</p>
+<pre>
+@Html.Code(@"
+<configuration>
+    ...
+
+    <!-- Web Asset Bundler Config -->
+    <wab 
+        debugMode=""true|false"" 
+        minifyIdentifier="".min"" />
+
+</configuration>
+")
+</pre>
+
+<br />
+<h6>Tag Properties:</h6>
+<table>
+    <thead>
+        <tr>
+            <th>Property</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    
+    </thead>
+    <tbody>
+        <tr>
+            <td>debugMode</td>
+            <td>false</td>
+            <td>
+                When false bundles are are cached by the browser and application for speed. When true, bundles will be refreshed every request to allow 
+                for developer changes. For more information see @Html.RouteLink("Debug Mode", "Documentation", new { path = "debug-mode" }).
+            </td>
+        </tr>
+        <tr>
+            <td>minifyIdentifier</td>
+            <td>.min</td>
+            <td>
+                Specifies an identifier in an asset file name that identifies that asset as already being minified. Minified/packed assets will not get minifed again.
+                Different behavior in debug mode vs production mode. 
+                See @Html.RouteLink("Adding Assets", "Documentation", new { path = "bundle-configuration/adding-assets" }).
+            </td>
+        </tr>
+    </tbody>
+</table>
