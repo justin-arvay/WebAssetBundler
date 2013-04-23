@@ -32,6 +32,20 @@
 ")
 </pre>
 
+<p>Finally, you need to add a namespace so you can call the render helpers in the view:</p>
+<pre>
+@Html.Code(@"
+<pages>
+    <namespaces>
+        <add namespace=""System.Web.Helpers"" />
+        ...
+        
+        <add namespace=""WebAssetBundler.Web.Mvc"" />
+    </namespaces>
+</pages>
+")
+</pre>
+
 <br />
 <h6>Tag Properties:</h6>
 <table>
