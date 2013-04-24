@@ -32,7 +32,7 @@
 ")
 </pre>
 
-<p>Finally, you need to add a namespace so you can call the render helpers in the view:</p>
+<p>Finally, you need to add a namespace, module and handlers:</p>
 <pre>
 @Html.Code(@"
 <pages>
@@ -43,6 +43,18 @@
         <add namespace=""WebAssetBundler.Web.Mvc"" />
     </namespaces>
 </pages>
+
+...
+
+<httpHandlers>
+    <add path=""wab.axd"" verb=""*"" type=""WebAssetBundler.Web.Mvc.WabHttpHandler"" />
+</httpHandlers>
+
+...
+
+<httpModules>
+    <add type=""WebAssetBundler.Web.Mvc.WabHttpModule"" name=""WabHttpModule"" />
+</httpModules>
 ")
 </pre>
 
