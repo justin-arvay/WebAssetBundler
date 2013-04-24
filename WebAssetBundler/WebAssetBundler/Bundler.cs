@@ -20,19 +20,19 @@ namespace WebAssetBundler.Web.Mvc
 
     public static class Bundler
     {
-
         private static StyleSheetBundler styleSheetBundler;
         private static ScriptBundler scriptBundler;
+
+        static Bundler()
+        {
+            styleSheetBundler = WabHttpModule.Host.Container.Resolve<StyleSheetBundler>();
+            scriptBundler = WabHttpModule.Host.Container.Resolve<ScriptBundler>();
+        }
 
         public static StyleSheetBundler StyleSheets
         {
             get
             {
-                if (styleSheetBundler == null)
-                {
-                    styleSheetBundler = WabHttpModule.Host.Container.Resolve<StyleSheetBundler>();
-                }
-
                 return styleSheetBundler;
             }
         }
@@ -41,11 +41,6 @@ namespace WebAssetBundler.Web.Mvc
         {
             get
             {
-                if (scriptBundler == null)
-                {
-                    scriptBundler = WabHttpModule.Host.Container.Resolve<ScriptBundler>();
-                }
-
                 return scriptBundler;
             }
         }

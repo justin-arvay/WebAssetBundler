@@ -55,6 +55,17 @@
 <httpModules>
     <add type=""WebAssetBundler.Web.Mvc.WabHttpModule"" name=""WabHttpModule"" />
 </httpModules>
+
+<system.webServer>
+    ...
+
+    <modules>
+      <add name=""WabHttpModule"" type=""WebAssetBundler.Web.Mvc.WabHttpModule, WebAssetBundler"" />
+    </modules>
+    <handlers>
+      <add name=""WabHttpHandler"" path=""wab.axd"" verb=""*"" allowPathInfo=""true"" type=""WebAssetBundler.Web.Mvc.WabHttpHandler, WebAssetBundler"" />
+    </handlers>
+  </system.webServer>
 ")
 </pre>
 
