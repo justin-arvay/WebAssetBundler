@@ -32,7 +32,7 @@
 ")
 </pre>
 
-<p>Finally, you need to add a namespace, module and handlers:</p>
+<p>Add a namespace so you can use the helpers:</p>
 <pre>
 @Html.Code(@"
 <pages>
@@ -43,29 +43,49 @@
         <add namespace=""WebAssetBundler.Web.Mvc"" />
     </namespaces>
 </pages>
+")
+</pre>
 
-...
+<p>Finally, we need to add the modules and http handler. Depending on your environment you will need to configure 
+one of the below (or both if you arn't sure):</p>
 
-<httpHandlers>
-    <add path=""wab.axd"" verb=""*"" type=""WebAssetBundler.Web.Mvc.WabHttpHandler"" />
-</httpHandlers>
+<p><strong>IIS 6.0 and IIS 7.0 running in Classic Mode</strong></p>
+<pre>
+@Html.Code(@"
+<configuration>
+    <system.web>
 
-...
+        ...
 
-<httpModules>
-    <add type=""WebAssetBundler.Web.Mvc.WabHttpModule"" name=""WabHttpModule"" />
-</httpModules>
+        <httpHandlers>
+            <add path=""wab.axd"" verb=""*"" type=""WebAssetBundler.Web.Mvc.WabHttpHandler"" />
+        </httpHandlers>
 
-<system.webServer>
-    ...
+        ...
 
-    <modules>
-      <add name=""WabHttpModule"" type=""WebAssetBundler.Web.Mvc.WabHttpModule, WebAssetBundler"" />
-    </modules>
-    <handlers>
-      <add name=""WabHttpHandler"" path=""wab.axd"" verb=""*"" allowPathInfo=""true"" type=""WebAssetBundler.Web.Mvc.WabHttpHandler, WebAssetBundler"" />
-    </handlers>
-  </system.webServer>
+        <httpModules>
+            <add type=""WebAssetBundler.Web.Mvc.WabHttpModule"" name=""WabHttpModule"" />
+        </httpModules>
+    </system.web>
+</configuration>
+")
+</pre>
+
+<p>Or <strong>IIS 7.0 running in Integrated Mode</strong></p>
+<pre>
+@Html.Code(@"
+<configuration>
+    <system.webServer>
+        ...
+
+        <modules>
+          <add name=""WabHttpModule"" type=""WebAssetBundler.Web.Mvc.WabHttpModule, WebAssetBundler"" />
+        </modules>
+        <handlers>
+          <add name=""WabHttpHandler"" path=""wab.axd"" verb=""*"" allowPathInfo=""true"" type=""WebAssetBundler.Web.Mvc.WabHttpHandler, WebAssetBundler"" />
+        </handlers>
+    </system.webServer>
+</configuration>
 ")
 </pre>
 
