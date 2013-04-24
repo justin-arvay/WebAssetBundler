@@ -69,6 +69,10 @@
     <Compile Include="IDirectoryFactory.cs" />
     <Compile Include="IDirectorySearch.cs" />
     <Compile Include="IDirectorySearchFactory.cs" />
+    <Compile Include="Image\ImageAsset.cs" />
+    <Compile Include="Image\ImageBundle.cs" />
+    <Compile Include="Image\ImageUrlGenerator.cs" />
+    <Compile Include="IUrlGenerator.cs" />
     <Compile Include="Minifiers\JSMin.cs" />
     <Compile Include="Minifiers\JSMinMinifier.cs" />
     <Compile Include="BundleProviderBase.cs" />
@@ -170,7 +174,6 @@
     <Compile Include="Bootstrap\TaskOrderAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
