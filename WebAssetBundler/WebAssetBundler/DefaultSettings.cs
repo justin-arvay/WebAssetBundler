@@ -29,8 +29,6 @@ namespace WebAssetBundler.Web.Mvc
         private static string styleSheetFilesPath = "~/Content";
         private static string scriptFilesPath = "~/Scripts";
 
-        private static string minifyIdentifier = ".min";
-
         private static IScriptMinifier scriptMinifier = new MsScriptMinifier();
         private static IStyleSheetMinifier styleSheetMinfier = new MsStyleSheetMinifier();
 
@@ -103,15 +101,6 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
-        /// Enables or disables debug mode.
-        /// </summary>
-        public static bool DebugMode
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// Sets the configuration factory to be used when loading the style sheet bundles.
         /// </summary>
         public static Func<TinyIoCContainer, IBundleConfigurationProvider<StyleSheetBundle>> StyleSheetConfigurationProvider
@@ -138,22 +127,6 @@ namespace WebAssetBundler.Web.Mvc
             set
             {
                 scriptConfigurationProvider = value;
-            }
-        }
-
-        /// <summary>
-        /// Sets the identifier use to identify files that are already minified. Eg: ~/file.min.js is a file that has already been 
-        /// minified. The application will not attempt to minify it again.
-        /// </summary>
-        public static string MinifyIdentifier
-        {
-            get
-            {
-                return minifyIdentifier;
-            }
-            set
-            {
-                minifyIdentifier = value;
             }
         }
     }

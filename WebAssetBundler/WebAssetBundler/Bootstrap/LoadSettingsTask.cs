@@ -29,10 +29,18 @@ namespace WebAssetBundler.Web.Mvc
             var section = (WebConfigurationManager.GetSection("wab") as WabConfigurationSection)
                    ?? new WabConfigurationSection();
 
-            DefaultSettings.DebugMode = section.DebugMode;
-            DefaultSettings.MinifyIdentifier = section.MinifyIdentifier;
+            container.Register<SettingsContext>(CreateSettingsContext(section));
         }
 
+        public SettingsContext CreateSettingsContext(WabConfigurationSection section)
+        {
+            return new SettingsContext
+            {
+                DebugMode = section.DebugMode,
+                MinifyIdentifier = section.MinifyIdentifier,
+                VersionCssImages = section.VersionCssImages
+            };
+        }
 
         public void ShutDown()
         {
