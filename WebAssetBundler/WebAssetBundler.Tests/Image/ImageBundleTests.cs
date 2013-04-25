@@ -14,12 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
+    using NUnit.Framework;
+    using Moq;
 
-    public class ImageAsset : AssetBase
+    [TestFixture]
+    public class ImageBundleTests
     {
+        private ImageBundle bundle;
 
+        [SetUp]
+        public void Setup()
+        {
+            bundle = new ImageBundle("image/png", "~/image.png"); 
+        }
+
+        [Test]
+        public void Should_Set_Values()
+        {
+            Assert.AreEqual("image/png", bundle.ContentType);
+            Assert.AreEqual("~/image.png", bundle.Url);
+        }
     }
 }

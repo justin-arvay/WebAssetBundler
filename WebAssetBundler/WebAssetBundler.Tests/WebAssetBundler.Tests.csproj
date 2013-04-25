@@ -66,7 +66,8 @@
     <Compile Include="BundleProviderBaseImpl.cs" />
     <Compile Include="BundleProviderBaseTests.cs" />
     <Compile Include="BundleTests.cs" />
-    <Compile Include="Image\ImageUrlGeneratorTest.cs" />
+    <Compile Include="Image\ImageBundleTests.cs" />
+    <Compile Include="Image\ImageUrlGeneratorTests.cs" />
     <Compile Include="Pipeline\BundlePipelineImpl.cs" />
     <Compile Include="Pipeline\BundlePipelineTests.cs" />
     <Compile Include="Pipeline\ProcessorImpl.cs" />

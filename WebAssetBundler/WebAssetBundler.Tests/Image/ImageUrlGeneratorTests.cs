@@ -18,17 +18,45 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System;
     
     [TestFixture]
-    public class ImageUrlGeneratorTest
+    public class ImageUrlGeneratorTests
     {
         private ImageUrlGenerator generator;
         private SettingsContext settings;
+        private ImageBundle bundle;
+
         [SetUp]
         public void Setup()
         {
             settings = new SettingsContext();
             generator = new ImageUrlGenerator(settings);
+            bundle = new ImageBundle("img/png", "~/Image/img.png");
+        }
+
+        [Test]
+        public void Should_Generate_Url()
+        {
+            bundle.Name = "test";
+            bundle.Assets.Add(new ImageAsset());
+
+            var url = generator.Generate(bundle);
+
+            Assert.AreEqual("/wab.axd/image/c4ca4238a0b923820dcc509a6f75849b/test", url);
+        }
+
+        [Test]
+        public void Should_Generate_Cache_Breaker_Url()
+        {
+            bundle.Name = "test";
+            bundle.Assets.Add(new ImageAsset());
+
+            settings.DebugMode = true;
+
+            var url = generator.Generate(bundle);
+
+            Assert.AreEqual("/wab.axd/image/c4ca4238a0b923820dcc509a6f75849b" + DateTime.Now.ToString("MMddyyHmmss") + "/test", bundle.Url);
         }
     }
 }

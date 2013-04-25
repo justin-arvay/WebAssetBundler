@@ -42,15 +42,35 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (string path in paths)
             {
-                //ignore all absolute paths
-                if (path.StartsWith("/") == false && path.StartsWith("http") == false && path.StartsWith("https") == false)
-                {
-                    var newPath = RewritePath(path);
-                    content = content.Replace(path, newPath);  
-                }                
+                content = TransformToUncachedImage(path, content);        
             }
                 
             asset.Content = content;
+        }
+
+        public string TransformToUncachedImage(string path, string content)
+        {
+            //ignore all absolute paths
+            if (path.StartsWith("/") == false && path.StartsWith("http") == false && path.StartsWith("https") == false)
+            {
+                var newPath = RewritePath(path);
+                content = content.Replace(path, newPath);
+            }
+
+            return content;
+        }
+
+        public string TransformToVersionedImage(string path)
+        {
+            //ignore external paths, we cannot version those
+            if (path.StartsWith("http") == false)
+            {
+            }
+        }
+
+        public ImageBundle CreateImageBundle(string path)
+        {
+
         }
 
 

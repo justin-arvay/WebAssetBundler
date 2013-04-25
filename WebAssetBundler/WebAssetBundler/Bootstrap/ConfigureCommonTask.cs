@@ -32,7 +32,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<ICacheProvider, CacheProvider>();
             container.Register<IDirectoryFactory, DirectoryFactory>();            
             container.Register<IAssetProvider, AssetProvider>();
-            container.Register<SettingsContext>(new SettingsContext(DefaultSettings.DebugMode, DefaultSettings.MinifyIdentifier));
+            container.Register<SettingsContext>(CreateSettingsContext());
             container.Register<IDirectorySearchFactory, DirectorySearchFactory>();
                       
             ConfigureHttpHandler(container);
@@ -44,6 +44,11 @@ namespace WebAssetBundler.Web.Mvc
                 .AsSingleton();
             container.Register<EncoderFactory>()
                 .AsSingleton();
+        }
+
+        public SettingsContext CreateSettingsContext()
+        {
+            return new SettingsContext(DefaultSettings.DebugMode, DefaultSettings.MinifyIdentifier);
         }
 
         private HttpContextBase HttpContext()

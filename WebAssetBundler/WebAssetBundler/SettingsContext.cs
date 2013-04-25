@@ -43,5 +43,11 @@ namespace WebAssetBundler.Web.Mvc
             get;
             set;
         }
+
+        public bool VersionCssImages
+        {
+            get;
+            set;
+        }
     }
 }

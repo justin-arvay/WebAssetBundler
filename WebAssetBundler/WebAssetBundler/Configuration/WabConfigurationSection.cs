@@ -34,5 +34,12 @@ namespace WebAssetBundler.Web.Mvc
             get { return (string)this["minifyIdentifier"]; }
             set { this["minifyIdentifier"] = value; }
         }
+
+        [ConfigurationProperty("versionCssImages", DefaultValue = ".min")]
+        public bool VersionCssImages
+        {
+            get { return (bool)this["versionCssImages"]; }
+            set { this["versionCssImages"] = value; }
+        }
     }
 }

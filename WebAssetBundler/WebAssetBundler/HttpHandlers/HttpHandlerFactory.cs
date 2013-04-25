@@ -38,6 +38,12 @@ namespace WebAssetBundler.Web.Mvc
                 return new AssetHttpHandler<StyleSheetBundle>(cache);
             }
 
+            if (urlExtension.StartsWith("/image"))
+            {
+                var cache = new BundlesCache<ImageBundle>(cacheProvider);
+                return new AssetHttpHandler<ImageBundle>(cache);
+            }
+
             throw new HttpException(404, "Resource not found.");
         }
     }
