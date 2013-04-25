@@ -42,6 +42,8 @@ namespace WebAssetBundler.Web.Mvc
 
             container.Register<IStyleSheetMinifier>((c, p) => DefaultSettings.StyleSheetMinifier);
             container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();
+            container.Register<IBundlesCache<ImageBundle>, BundlesCache<ImageBundle>>();
+            container.Register<IUrlGenerator<ImageBundle>, ImageUrlGenerator>();
             container.Register<IBundleConfigurationProvider<StyleSheetBundle>>((c, p) => DefaultSettings.StyleSheetConfigurationProvider(c));
             container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => CreateStyleSheetPipeline(c, Plugins));
             container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();

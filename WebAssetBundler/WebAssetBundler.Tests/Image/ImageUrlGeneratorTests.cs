@@ -38,25 +38,25 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Generate_Url()
         {
-            bundle.Name = "test";
-            bundle.Assets.Add(new ImageAsset());
+            bundle.Name = "asdf-test-png";
+            bundle.Assets.Add(new AssetBaseImpl());
 
             var url = generator.Generate(bundle);
 
-            Assert.AreEqual("/wab.axd/image/c4ca4238a0b923820dcc509a6f75849b/test", url);
+            Assert.AreEqual("/wab.axd/image/d41d8cd98f00b204e9800998ecf8427e/asdf-test-png", url);
         }
 
         [Test]
         public void Should_Generate_Cache_Breaker_Url()
         {
-            bundle.Name = "test";
-            bundle.Assets.Add(new ImageAsset());
+            bundle.Name = "asdf-test-png";
+            bundle.Assets.Add(new AssetBaseImpl());
 
             settings.DebugMode = true;
 
             var url = generator.Generate(bundle);
 
-            Assert.AreEqual("/wab.axd/image/c4ca4238a0b923820dcc509a6f75849b" + DateTime.Now.ToString("MMddyyHmmss") + "/test", bundle.Url);
+            Assert.AreEqual("/wab.axd/image/d41d8cd98f00b204e9800998ecf8427e" + DateTime.Now.ToString("MMddyyHmmss") + "/asdf-test-png", url);
         }
     }
 }

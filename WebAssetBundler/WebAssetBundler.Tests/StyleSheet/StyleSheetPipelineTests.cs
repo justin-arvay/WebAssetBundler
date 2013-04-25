@@ -37,6 +37,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
             container.Register<IStyleSheetMinifier>((a, c) => compressor.Object);
             container.Register<HttpServerUtilityBase>((a, c) => server.Object);
 
+            container.Register<ICacheProvider, CacheProvider>();
+            container.Register<IBundlesCache<ImageBundle>, BundlesCache<ImageBundle>>();
+            container.Register<IUrlGenerator<ImageBundle>, ImageUrlGenerator>();
+            container.Register<SettingsContext>(new SettingsContext());
+
             pipeline = new StyleSheetPipeline(container);  
         }
 

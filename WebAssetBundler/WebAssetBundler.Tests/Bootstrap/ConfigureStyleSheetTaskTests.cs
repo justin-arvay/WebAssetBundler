@@ -62,11 +62,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Create_Pipeline()
         {
-            var container = new TinyIoCContainer();
-            var plugins = new PluginCollection<StyleSheetBundle>();
-
+            var container = new TinyIoCContainer();        
             container.Register<IStyleSheetMinifier, MsStyleSheetMinifier>();
+            container.Register<ICacheProvider, CacheProvider>();
+            container.Register<IBundlesCache<ImageBundle>, BundlesCache<ImageBundle>>();
+            container.Register<IUrlGenerator<ImageBundle>, ImageUrlGenerator>();
+            container.Register<SettingsContext>(new SettingsContext());
 
+            var plugins = new PluginCollection<StyleSheetBundle>();
             var pipeline = task.CreateStyleSheetPipeline(container, plugins);
 
             Assert.IsInstanceOf<StyleSheetPipeline>(pipeline);            

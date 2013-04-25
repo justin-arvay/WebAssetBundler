@@ -25,6 +25,17 @@ namespace WebAssetBundler.Web.Mvc
     public class ExpandPathProcessor : IPipelineProcessor<StyleSheetBundle>, IAssetTransformer
     {
         private string outputUrl;
+        private IBundlesCache<ImageBundle> bundleCache;
+        private IUrlGenerator<ImageBundle> urlGenerator;
+        private SettingsContext settings;
+
+        public ExpandPathProcessor(SettingsContext settings, IUrlGenerator<ImageBundle> urlGenerator, 
+            IBundlesCache<ImageBundle> bundleCache)
+        {
+            this.urlGenerator = urlGenerator;
+            this.bundleCache = bundleCache;
+            this.settings = settings;
+        }
 
         public void Process(StyleSheetBundle bundle)
         {
@@ -42,7 +53,14 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (string path in paths)
             {
-                content = TransformToUncachedImage(path, content);        
+                if (settings.VersionCssImages)
+                {
+                    content = TransformToVersionedImage(path, content);     
+                }
+                else
+                {
+                    content = TransformToUncachedImage(path, content);     
+                }                 
             }
                 
             asset.Content = content;
@@ -60,17 +78,57 @@ namespace WebAssetBundler.Web.Mvc
             return content;
         }
 
-        public string TransformToVersionedImage(string path)
+        public string TransformToVersionedImage(string path, string content)
         {
             //ignore external paths, we cannot version those
             if (path.StartsWith("http") == false)
             {
+                var bundle = CreateImageBundle(path);
+                bundleCache.Add(bundle);
+
+                content = content.Replace(path, urlGenerator.Generate(bundle));
             }
+
+            return content;
         }
 
         public ImageBundle CreateImageBundle(string path)
         {
+            var contentType = GetContentType(path);
+            var asset = new FileAsset(new FileSystemFile(path));
+            
+            var bundle = new ImageBundle(contentType, path);
+            bundle.Assets.Add(asset);
 
+            return bundle;
+        }
+
+        /// <summary>
+        /// Gets the content type.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public string GetContentType(string path)
+        {
+            switch (Path.GetExtension(path).ToLower())
+            {
+                case "gif":
+                    return "image/gif";
+                case "jpeg":
+                case "jpg":
+                case "jpe":
+                    return "image/jpeg";
+                case "tiff":
+                case "tif":
+                    return "image/tiff";
+                case "png":
+                    return "image/x-png";
+                case "bmp":
+                    return "image/x-ms-bmp";
+
+            }
+
+            return "";
         }
 
 

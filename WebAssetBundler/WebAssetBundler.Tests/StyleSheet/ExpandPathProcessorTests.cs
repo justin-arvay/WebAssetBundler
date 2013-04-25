@@ -26,13 +26,20 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private ExpandPathProcessor processor;
         private StyleSheetBundle bundle;
+        private Mock<IUrlGenerator<ImageBundle>> urlGenerator;
+        private Mock<IBundlesCache<ImageBundle>> bundlesCache;
+        private SettingsContext settings;
 
         [SetUp]
         public void Setup()
         {
+            settings = new SettingsContext();
+            urlGenerator = new Mock<IUrlGenerator<ImageBundle>>();
+            bundlesCache = new Mock<IBundlesCache<ImageBundle>>();
+
             bundle = new StyleSheetBundle();
             bundle.Assets.Add(new AssetBaseImpl());
-            processor = new ExpandPathProcessor();
+            processor = new ExpandPathProcessor(settings, urlGenerator.Object, bundlesCache.Object);
         }
 
         [Test]
@@ -134,6 +141,36 @@ namespace WebAssetBundler.Web.Mvc.Tests
             processor.Process(bundle);
 
             Assert.AreEqual("src=/img/test.jpg", bundle.Assets[0].Content);
-        }            
+        }
+
+        [Test]
+        public void Should_Replace_With_Versioned_Url()
+        {
+            var path = "../test/test.png";
+
+            bundle.Assets[0].Content = "url(" + path + ")";
+            settings.VersionCssImages = true;
+
+            urlGenerator.Setup(u => u.Generate(It.IsAny<ImageBundle>())).Returns("/wab.axd/image/asd/img-png");
+
+            processor.Process(bundle);
+
+            Assert.AreEqual("url(/wab.axd/image/asd/img-png)", bundle.Assets[0].Content);
+            bundlesCache.Verify(b => b.Add(It.IsAny<ImageBundle>()));
+        }
+
+        [Test]
+        public void Should_Not_Replace_With_Versioned_Path_When_External()
+        {
+
+            bundle.Assets[0].Content = "url(http://www.google.com/image,jpg)";
+            settings.VersionCssImages = true;
+
+            processor.Process(bundle);
+
+            Assert.AreEqual("url(http://www.google.com/image,jpg)", bundle.Assets[0].Content);
+            bundlesCache.Verify(b => b.Add(It.IsAny<ImageBundle>()), Times.Never());
+            urlGenerator.Verify(b => b.Generate(It.IsAny<ImageBundle>()), Times.Never());
+        }
     }
 }

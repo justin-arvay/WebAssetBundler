@@ -30,16 +30,11 @@ namespace WebAssetBundler.Web.Mvc
         public string Generate(ImageBundle bundle)
         {
             var version = bundle.Hash.ToHexString();
-            var path = "wab.axd/image/{0}/{1}";
+            var path = "/wab.axd/image/{0}/{1}";
 
             if (settings.DebugMode)
             {
                 version = version + DateTime.Now.ToString("MMddyyHmmss");
-            }
-
-            if (bundle.Host.EndsWith("/") == false)
-            {
-                bundle.Host += "/";
             }
 
             return path.FormatWith(version, bundle.Name);
