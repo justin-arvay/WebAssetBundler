@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.Linq;
     using System.Collections.Generic;
     using System.Reflection;
+    using System.Web;
 
     public class WebHost : IDisposable
     {
@@ -52,7 +53,13 @@ namespace WebAssetBundler.Web.Mvc
         {
             container.Register<TinyIoCContainer>(container);
             container.Register<ITypeProvider>(typeProvider);
-            container.Register<IPluginLoader, PluginLoader>();  
+            container.Register<IPluginLoader, PluginLoader>();
+
+            var httpContext = CreateHttpContext();
+            container.Register((c, p) => httpContext);            
+            container.Register((c, p) => httpContext.Request);
+            container.Register((c, p) => httpContext.Response);
+            container.Register((c, p) => httpContext.Server);
         }
 
         /// <summary>
@@ -89,6 +96,11 @@ namespace WebAssetBundler.Web.Mvc
             childContainer.Dispose();
 
             return tasks;
+        }
+
+        private HttpContextBase CreateHttpContext()
+        {
+            return new HttpContextWrapper(System.Web.HttpContext.Current);
         }
 
         private  IEnumerable<Assembly> LoadAssemblies()

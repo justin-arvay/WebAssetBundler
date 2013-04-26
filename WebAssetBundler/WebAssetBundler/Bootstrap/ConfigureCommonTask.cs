@@ -23,12 +23,7 @@ namespace WebAssetBundler.Web.Mvc
     public class ConfigureCommonTask : IBootstrapTask
     {
         public void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
-        {            
-            container.Register((c, p) => HttpContext());
-            container.Register<HttpServerUtilityBase>(HttpContext().Server);
-            container.Register((c, p) => HttpContext().Request);
-            container.Register((c, p) => HttpContext().Response);
-            container.Register((c, p) => HttpContext().Server);
+        {
             container.Register<ICacheProvider, CacheProvider>();
             container.Register<IDirectoryFactory, DirectoryFactory>();            
             container.Register<IAssetProvider, AssetProvider>();
@@ -44,12 +39,6 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<EncoderFactory>()
                 .AsSingleton();
         }
-
-        private HttpContextBase HttpContext()
-        {
-            return new HttpContextWrapper(System.Web.HttpContext.Current);
-        }
-
 
         public void ShutDown()
         {

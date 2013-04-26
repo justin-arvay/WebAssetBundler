@@ -18,33 +18,30 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Web.Configuration;
+    using System.Web;
 
     [TaskOrder(0)]
     public class LoadSettingsTask : IBootstrapTask
     {
-
         public void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
         {
 
             var section = (WebConfigurationManager.GetSection("wab") as WabConfigurationSection)
                    ?? new WabConfigurationSection();
 
-            container.Register<SettingsContext>(CreateSettingsContext(section));
+            var rootPath = container.Resolve<HttpContextBase>().Server.MapPath("~/");
+            container.Register<SettingsContext>(CreateSettingsContext(section, rootPath));
         }
 
-        public SettingsContext CreateSettingsContext(WabConfigurationSection section)
+        public SettingsContext CreateSettingsContext(WabConfigurationSection section, string rootPath)
         {
             return new SettingsContext
             {
                 DebugMode = section.DebugMode,
                 MinifyIdentifier = section.MinifyIdentifier,
-                VersionCssImages = section.VersionCssImages
+                VersionCssImages = section.VersionCssImages,
+                AppRootDirectory = new FileSystemDirectory(rootPath)
             };
-        }
-
-        private HttpContextBase HttpContext()
-        {
-            return new HttpContextWrapper(System.Web.HttpContext.Current);
         }
 
         public void ShutDown()

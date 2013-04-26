@@ -37,6 +37,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Load_Settings()
         {
+            container.
+
             task.StartUp(container, typeProvider.Object);
 
             Assert.IsInstanceOf<SettingsContext>(container.Resolve<SettingsContext>());
