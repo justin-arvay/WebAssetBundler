@@ -38,7 +38,7 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public string Path
+        public string AbsolutePath
         {
             get 
             {
@@ -53,7 +53,22 @@ namespace WebAssetBundler.Web.Mvc
 
         public IDirectory GetDirectory(string path)
         {
-            throw new NotImplementedException();
+            if (path.Length == 0)
+            {
+                return this;
+            }
+
+            if (path[0] == '~')
+            {
+                path = path.Length == 1 ? "" : path.Substring(2);
+
+                return GetRootDirectory().GetDirectory(path);
+            }
+
+            return new FileSystemDirectory(fullPath)
+            {
+                Parent = this
+            };
         }
 
         public IEnumerable<IDirectory> GetDirectories()
@@ -82,9 +97,19 @@ namespace WebAssetBundler.Web.Mvc
 
         public FileSystemDirectory GetRootDirectory()
         {
+            //If it is already the root, return the same directory object, otherwise get parent
             return Parent == null ? this : ((FileSystemDirectory)Parent).GetRootDirectory();
         }
 
+        public string GetAbsolutePath(string filename)
+        {
+            if (filename.StartsWith("~/"))
+            {
+                return GetRootDirectory().GetAbsolutePath(filename.Substring(2));
+            }
+
+            return Path.Combine(fullPath, filename);
+        }
 
         public bool Exists
         {

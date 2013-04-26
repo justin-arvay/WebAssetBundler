@@ -42,6 +42,11 @@ namespace WebAssetBundler.Web.Mvc
             };
         }
 
+        private HttpContextBase HttpContext()
+        {
+            return new HttpContextWrapper(System.Web.HttpContext.Current);
+        }
+
         public void ShutDown()
         {
 

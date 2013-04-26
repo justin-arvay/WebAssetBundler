@@ -58,8 +58,52 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Get_Root_Directory()
+        public void Should_Get_Path()
         {
+        }
+
+        [Test]
+        public void Should_Exist()
+        {
+        }
+
+        [Test]
+        public void Should_Get_Attributes()
+        {
+        }
+
+        [Test]
+        public void Should_Get_Root_Directory()
+        {           
+            var directories = directory.GetDirectories();
+
+            foreach (var dir in directories)
+            {
+                Assert.AreSame(dir.Parent, directory.GetRootDirectory());
+            }
+
+        }
+
+        [Test]
+        public void Should_Not_Get_Root_Directory()
+        {           
+            Assert.AreSame(directory, directory.GetRootDirectory());
+        }
+
+        [Test]
+        public void Should_Get_Absolute_Path_From_Virtual()
+        {
+            var path = directory.GetAbsolutePath("~/AssetFileTest.css");
+
+            Assert.AreEqual("../../Files/FileSystem\\AssetFileTest.css", path);
+        }
+
+        [Test]
+        public void Should_Get_Absolute_Path_From_Relative()
+        {
+            var path = directory.GetAbsolutePath("AssetFileTest.css");
+
+            Assert.AreEqual("../../Files/FileSystem\\AssetFileTest.css", path);
         }
     }
 }

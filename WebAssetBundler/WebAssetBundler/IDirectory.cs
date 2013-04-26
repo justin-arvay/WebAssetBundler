@@ -23,7 +23,7 @@ namespace WebAssetBundler.Web.Mvc
     public interface IDirectory
     {
         FileAttributes Attributes { get; }
-        string Path { get; }
+        string AbsolutePath { get; }
         IDirectory Parent { get; }
         bool Exists { get; }
 

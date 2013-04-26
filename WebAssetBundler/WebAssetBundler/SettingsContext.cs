@@ -49,5 +49,11 @@ namespace WebAssetBundler.Web.Mvc
             get;
             set;
         }
+
+        public IDirectory AppRootDirectory
+        {
+            get;
+            set;
+        }
     }
 }
