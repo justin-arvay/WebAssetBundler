@@ -38,7 +38,7 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public string AbsolutePath
+        public string FullPath
         {
             get 
             {
@@ -48,7 +48,16 @@ namespace WebAssetBundler.Web.Mvc
 
         public IFile GetFile(string filename)
         {
-            throw new NotImplementedException();
+            if (filename.Replace('\\', '/').StartsWith(fullPath))
+            {
+                filename = filename.Substring(fullPath.Length + 1);
+            }
+
+            var directoryPath = Path.GetDirectoryName(filename);
+            var directory = GetDirectory(directoryPath);
+            var filePath = Path.Combine(directory.FullPath, Path.GetFileName(filename));
+
+            return new FileSystemFile(filePath, directory);
         }
 
         public IDirectory GetDirectory(string path)
@@ -65,7 +74,7 @@ namespace WebAssetBundler.Web.Mvc
                 return GetRootDirectory().GetDirectory(path);
             }
 
-            return new FileSystemDirectory(fullPath)
+            return new FileSystemDirectory(GetAbsolutePath(path))
             {
                 Parent = this
             };
@@ -117,6 +126,11 @@ namespace WebAssetBundler.Web.Mvc
             { 
                 return Directory.Exists(fullPath); 
             }
+        }
+
+        public bool IsRoot
+        {
+            get { throw new NotImplementedException(); }
         }
     }
 }

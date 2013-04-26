@@ -29,7 +29,11 @@ namespace WebAssetBundler.Web.Mvc
             var section = (WebConfigurationManager.GetSection("wab") as WabConfigurationSection)
                    ?? new WabConfigurationSection();
 
-            var rootPath = container.Resolve<HttpContextBase>().Server.MapPath("~/");
+            var httpContext = container.Resolve<HttpContextBase>();
+            var rootPath = httpContext.Request.ApplicationPath;
+
+            var path = httpContext.Server.MapPath("~/Images/octocat.png");
+
             container.Register<SettingsContext>(CreateSettingsContext(section, rootPath));
         }
 

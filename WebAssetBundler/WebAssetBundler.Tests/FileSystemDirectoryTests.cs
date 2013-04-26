@@ -105,5 +105,73 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual("../../Files/FileSystem\\AssetFileTest.css", path);
         }
+
+        [Test]
+        public void Should_Get_Directory_By_Virtual_Path()
+        {
+            //all virtuals should be based on the root, regardless of heirarchy
+
+            var dir1 = directory.GetDirectory("~/Test/");
+            var dir2 = dir1.GetDirectory("~/TestTwo/Inner");
+
+            Assert.AreEqual("../../Files/FileSystem\\Test/", dir1.FullPath);
+            Assert.AreEqual("../../Files/FileSystem\\TestTwo/Inner", dir2.FullPath);
+        }
+
+        [Test]
+        public void Should_Get_Directory_By_Relative_Path()
+        {
+            //relative paths should get the directory as if it where inside the current directory
+
+            var dir1 = directory.GetDirectory("Test/");
+            var dir2 = dir1.GetDirectory("TestTwo/Inner");
+
+            Assert.AreEqual("../../Files/FileSystem\\Test/", dir1.FullPath);
+            Assert.AreEqual("../../Files/FileSystem\\Test/TestTwo/Inner", dir2.FullPath);
+        }
+
+        [Test]
+        public void Should_Get_Directory_By_Absolute_Path()
+        {
+            //relative paths should get the directory as if it where inside the current directory
+
+            var dir1 = directory.GetDirectory("../../Files/FileSystem/Test/");
+            var dir2 = dir1.GetDirectory("../../Files/FileSystem/TestTwo/Inner");
+
+            Assert.AreEqual("../../Files/FileSystem/Test/", dir1.FullPath);
+            Assert.AreEqual("../../Files/FileSystem/TestTwo/Inner", dir2.FullPath);
+        }
+
+        [Test]
+        public void Should_Get_Current_Directory_If_Path_Emtpy()
+        {
+            var dir1 = directory.GetDirectory("");
+
+            Assert.AreSame(dir1, directory);
+        }
+
+        [Test]
+        public void Should_Get_File_By_Virtual_Path()
+        {
+            var file = directory.GetFile("~/Dir/Test.css");
+
+            Assert.AreEqual("../../Files/FileSystem\\Dir\\Test.css", file.Path);
+        }
+
+        [Test]
+        public void Should_Get_File_By_Relative_Path()
+        {
+            var file = directory.GetFile("Dir/Test.css");
+
+            Assert.AreEqual("../../Files/FileSystem\\Dir\\Test.css", file.Path);
+        }
+
+        [Test]
+        public void Should_Get_File_By_Absolute_Path()
+        {
+            var file = directory.GetFile("../../Files/FileSystem/Dir/Test.css");
+
+            Assert.AreEqual("../../Files/FileSystem\\Dir\\Test.css", file.Path);
+        }
     }
 }

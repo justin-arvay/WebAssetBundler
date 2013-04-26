@@ -37,7 +37,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Load_Settings()
         {
-            container.
+            Assert.Fail();
 
             task.StartUp(container, typeProvider.Object);
 
