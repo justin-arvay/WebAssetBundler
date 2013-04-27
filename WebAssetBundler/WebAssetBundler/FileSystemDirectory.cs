@@ -62,6 +62,8 @@ namespace WebAssetBundler.Web.Mvc
 
         public IDirectory GetDirectory(string path)
         {
+            //TODO:: remove file name if path is a file?
+
             if (path.Length == 0)
             {
                 return this;

@@ -51,6 +51,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IBundleCachePrimer<StyleSheetBundle>, StyleSheetBundleCachePrimer>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
             container.Register<IPluginCollection<StyleSheetBundle>>(Plugins);
+            container.Register<IImagePathResolverProvider, ImagePathResolverProvider>();
         }
 
         /// <summary>

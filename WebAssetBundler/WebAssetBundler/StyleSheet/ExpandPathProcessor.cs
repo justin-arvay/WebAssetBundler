@@ -25,16 +25,13 @@ namespace WebAssetBundler.Web.Mvc
     public class ExpandPathProcessor : IPipelineProcessor<StyleSheetBundle>, IAssetTransformer
     {
         private string outputUrl;
-        private IBundlesCache<ImageBundle> bundleCache;
-        private IUrlGenerator<ImageBundle> urlGenerator;
         private SettingsContext settings;
+        private IImagePathResolverProvider pathResolverProvider;
 
-        public ExpandPathProcessor(SettingsContext settings, IUrlGenerator<ImageBundle> urlGenerator, 
-            IBundlesCache<ImageBundle> bundleCache)
+        public ExpandPathProcessor(SettingsContext settings, IImagePathResolverProvider pathResolverProvider)
         {
-            this.urlGenerator = urlGenerator;
-            this.bundleCache = bundleCache;
             this.settings = settings;
+            this.pathResolverProvider = pathResolverProvider;
         }
 
         public void Process(StyleSheetBundle bundle)
@@ -53,123 +50,11 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (string path in paths)
             {
-                if (settings.VersionCssImages)
-                {
-                    content = TransformToVersionedImage(path, content);     
-                }
-                else
-                {
-                    content = TransformToUncachedImage(path, content);     
-                }                 
+                content = pathResolverProvider.GetResolver(settings).Resolve(path, outputUrl, content);
             }
                 
             asset.Content = content;
-        }
-
-        public string TransformToUncachedImage(string path, string content)
-        {
-            //ignore all absolute paths
-            if (path.StartsWith("/") == false && path.StartsWith("http") == false && path.StartsWith("https") == false)
-            {
-                var newPath = RewritePath(path);
-                content = content.Replace(path, newPath);
-            }
-
-            return content;
-        }
-
-        public string TransformToVersionedImage(string path, string content)
-        {
-            //ignore external paths, we cannot version those
-            if (path.StartsWith("http") == false)
-            {
-                var bundle = CreateImageBundle(path);
-                bundleCache.Add(bundle);
-
-                content = content.Replace(path, urlGenerator.Generate(bundle));
-            }
-
-            return content;
-        }
-
-        public ImageBundle CreateImageBundle(string path)
-        {
-            var contentType = GetContentType(path);
-            var asset = new FileAsset(new FileSystemFile(path));
-            
-            var bundle = new ImageBundle(contentType, path);
-            bundle.Assets.Add(asset);
-
-            return bundle;
-        }
-
-        /// <summary>
-        /// Gets the content type.
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public string GetContentType(string path)
-        {
-            switch (Path.GetExtension(path).ToLower())
-            {
-                case "gif":
-                    return "image/gif";
-                case "jpeg":
-                case "jpg":
-                case "jpe":
-                    return "image/jpeg";
-                case "tiff":
-                case "tif":
-                    return "image/tiff";
-                case "png":
-                    return "image/x-png";
-                case "bmp":
-                    return "image/x-ms-bmp";
-
-            }
-
-            return "";
-        }
-
-
-        private string RewritePath(string imagePath)
-        {
-            var levels = DirectoryLevelDifference(imagePath);
-
-            for (; levels > 0; levels--)
-            {
-                imagePath = "../" + imagePath;
-            }
-
-            return imagePath;
-        }
-
-        private int DirectoryLevelDifference(string imagePath)
-        {
-            var level = 0;
-            string[] urlPieces = outputUrl.Split('/');
-            string[] imagePathPieces = imagePath.Split('/');
-
-            foreach (var piece in urlPieces)
-            {
-                if (piece == "")
-                {
-                    continue;
-                }
-
-                level++;
-            }
-
-            foreach (var piece in imagePathPieces)
-            {
-                if (piece == "..")
-                {
-                    level--;
-                }
-            }
-
-            return level;
-        }
+        }         
         
         private IEnumerable<string> FindPaths(string css)
         {

@@ -84,6 +84,7 @@
     <Compile Include="Script\ScriptBundleProviderTests.cs" />
     <Compile Include="Script\ScriptBundleTests.cs" />
     <Compile Include="Script\ScriptBundlerTests.cs" />
+    <Compile Include="StyleSheet\ImagePathResolverProviderTests.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleCachePrimerTests.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleConfigurationImpl.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleProviderTests.cs" />
@@ -111,6 +112,8 @@
     <Compile Include="StyleSheet\StyleSheetMinifyProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetMergeProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetPipelineTests.cs" />
+    <Compile Include="StyleSheet\UnversionedImagePathResolverTests.cs" />
+    <Compile Include="StyleSheet\VersionedImagePathResolverTests.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="WebHostTests.cs" />
   </ItemGroup>
