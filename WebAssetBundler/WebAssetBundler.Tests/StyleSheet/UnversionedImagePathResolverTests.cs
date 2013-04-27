@@ -22,10 +22,118 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class UnversionedImagePathResolverTests
     {
-        [Test]
-        public void Test()
+        private UnversionedImagePathResolver processor;
+        private StyleSheetBundle bundle;
+        private SettingsContext settings;
+
+        [SetUp]
+        public void Setup()
         {
-            Assert.Fail();
+            settings = new SettingsContext();
+            bundle = new StyleSheetBundle();
+            bundle.Assets.Add(new AssetBaseImpl());
+            processor = new ExpandPathProcessor(settings, urlGenerator.Object, bundlesCache.Object);
+        }
+
+        [Test]
+        public void Should_Filter_Relative_Path()
+        {
+            bundle.Assets[0].Content = "url(\"../img/test.jpg\");";
+            bundle.Url = "/a/a/a/a";
+
+            processor.Process(bundle);
+
+
+            Assert.AreEqual("url(\"../../../../img/test.jpg\");", bundle.Assets[0].Content);
+        }
+
+        [Test]
+        public void Should_Filter_Absolute_Path()
+        {
+            bundle.Assets[0].Content = "url(\"/img/test.jpg\");";
+            bundle.Url = "/a/a/a/a";
+
+            processor.Process(bundle);
+
+            Assert.AreEqual("url(\"/img/test.jpg\");", bundle.Assets[0].Content);
+        }
+
+        [Test]
+        public void Should_Filter_Full_Path()
+        {
+            bundle.Assets[0].Content = "url(\"http://www.google.com/img/test.jpg\");";
+            bundle.Url = "/a/a/a/a";
+
+            processor.Process(bundle);
+
+            Assert.AreEqual("url(\"http://www.google.com/img/test.jpg\");", bundle.Assets[0].Content);
+        }
+
+        [Test]
+        public void Should_Match_Url_With_Double_Quotes()
+        {
+            bundle.Assets[0].Content = "url(\"/img/test.jpg\");";
+            bundle.Url = "/a/a/a/a";
+
+            processor.Process(bundle);
+
+            Assert.AreEqual("url(\"/img/test.jpg\");", bundle.Assets[0].Content);
+        }
+
+        [Test]
+        public void Should_Match_Url_With_Single_Quotes()
+        {
+            bundle.Assets[0].Content = "url('/img/test.jpg');";
+            bundle.Url = "/a/a/a/a";
+
+            processor.Process(bundle);
+
+            Assert.AreEqual("url('/img/test.jpg');", bundle.Assets[0].Content);
+        }
+
+        [Test]
+        public void Should_Match_Url_With_No_Quotes()
+        {
+
+            bundle.Assets[0].Content = "url(/img/test.jpg);";
+            bundle.Url = "/a/a/a/a";
+
+            processor.Process(bundle);
+
+            Assert.AreEqual("url(/img/test.jpg);", bundle.Assets[0].Content);
+        }
+
+        [Test]
+        public void Should_Match_Src_With_Double_Quotes()
+        {
+            bundle.Assets[0].Content = "src=\"/img/test.jpg\"";
+            bundle.Url = "/a/a/a/a";
+
+            processor.Process(bundle);
+
+            Assert.AreEqual("src=\"/img/test.jpg\"", bundle.Assets[0].Content);
+        }
+
+        [Test]
+        public void Should_Match_Src_With_Single_Quotes()
+        {
+            bundle.Assets[0].Content = "src='/img/test.jpg'";
+            bundle.Url = "/a/a/a/a";
+
+            processor.Process(bundle);
+
+            Assert.AreEqual("src='/img/test.jpg'", bundle.Assets[0].Content);
+        }
+
+        [Test]
+        public void Should_Match_Src_With_No_Quotes()
+        {
+            bundle.Assets[0].Content = "src=/img/test.jpg";
+            bundle.Url = "/a/a/a/a";
+
+            processor.Process(bundle);
+
+            Assert.AreEqual("src=/img/test.jpg", bundle.Assets[0].Content);
         }
     }
 }
