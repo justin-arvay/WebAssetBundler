@@ -22,22 +22,54 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class ImagePathResolverProviderTests
     {
+        private Mock<IUrlGenerator<ImageBundle>> urlGenerator;
+        private Mock<IBundlesCache<ImageBundle>> bundleCache;
+        private ImagePathResolverProvider provider;
+        private SettingsContext settings;
+
+        [SetUp]
+        public void SetUp()
+        {
+            urlGenerator = new Mock<IUrlGenerator<ImageBundle>>();
+            bundleCache = new Mock<IBundlesCache<ImageBundle>>();
+            provider = new ImagePathResolverProvider();
+            settings = new SettingsContext();
+        }
+
         [Test]
         public void Should_Create_Unversioned_Resolver()
         {
-            Assert.Fail();
+            settings.VersionCssImages = false;
+
+            var resolver = provider.GetResolver(settings);
+
+            Assert.IsInstanceOf<UnversionedImagePathResolver>(resolver);
         }
 
         [Test]
         public void Should_Create_Versioned_Resolver()
         {
-            Assert.Fail();
+            settings.VersionCssImages = true;
+
+            var resolver = provider.GetResolver(settings);
+
+            Assert.IsInstanceOf<VersionedImagePathResolver>(resolver);
         }
 
         [Test]
         public void Should_Reuse_Instances_For_Performance()
         {
-            Assert.Fail();
+            settings.VersionCssImages = true;
+            var resolver1 = provider.GetResolver(settings);
+            var resolver2 = provider.GetResolver(settings);
+
+            Assert.AreSame(resolver1, resolver2);
+
+            settings.VersionCssImages = false;
+            var resolver3 = provider.GetResolver(settings);
+            var resolver4 = provider.GetResolver(settings);
+
+            Assert.AreSame(resolver3, resolver4);
         }
     }
 }

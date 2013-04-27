@@ -22,10 +22,46 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class VersionedImagePathResolverTests
     {
-        [Test]
-        public void Test()
+        private Mock<IUrlGenerator<ImageBundle>> urlGenerator;
+        private Mock<IBundlesCache<ImageBundle>> bundleCache;
+        private VersionedImagePathResolver resolver;
+        private SettingsContext settings;
+
+        [TestFixture]
+        public void Setup()
         {
-            Assert.Fail();
+            urlGenerator = new Mock<IUrlGenerator<ImageBundle>>();
+            bundleCache = new Mock<IBundlesCache<ImageBundle>>();
+            settings = new SettingsContext();
+            resolver = new VersionedImagePathResolver(settings, bundleCache.Object, urlGenerator.Object);
+        }
+
+        [Test]
+        public void Should_Replace_With_Versioned_Url()
+        {
+            var path = "../test/test.png";
+            var content = "url(" + path + ")";
+
+            urlGenerator.Setup(u => u.Generate(It.IsAny<ImageBundle>())).Returns("/wab.axd/image/asd/img-png");
+
+            var newContent = resolver.Resolve(path, null, content);
+
+            Assert.AreEqual("url(/wab.axd/image/asd/img-png)", newContent);
+            bundleCache.Verify(b => b.Add(It.IsAny<ImageBundle>()));
+            urlGenerator.Verify(u => u.Generate(It.IsAny<ImageBundle>()));
+        }
+
+        [Test]
+        public void Should_Not_Replace_With_Versioned_Path_When_External()
+        {
+            var path = "http://www.google.com/image,jpg";
+            var content = "url(" + path + ")";
+
+            var newContent = resolver.Resolve(path, null, content);
+
+            Assert.AreEqual(content, newContent);
+            bundleCache.Verify(b => b.Add(It.IsAny<ImageBundle>()), Times.Never());
+            urlGenerator.Verify(u => u.Generate(It.IsAny<ImageBundle>()), Times.Never());
         }
     }
 }

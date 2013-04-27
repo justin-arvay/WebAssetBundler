@@ -20,7 +20,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public class UnversionedImagePathResolver : IImagePathResolver
     {
-
         public string Resolve(string path, string targetPath, string content)
         {
             //ignore all absolute paths

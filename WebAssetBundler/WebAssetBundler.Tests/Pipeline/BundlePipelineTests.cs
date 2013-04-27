@@ -60,8 +60,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Add_Processor_With_Factory()
         {
-            var processor = new Mock<IPipelineProcessor<BundleImpl>>();
-            ioc.Register<IPipelineProcessor<BundleImpl>>(processor.Object);
+            var resolver = new Mock<IPipelineProcessor<BundleImpl>>();
+            ioc.Register<IPipelineProcessor<BundleImpl>>(resolver.Object);
 
             pipeline.Add<ProcessorImpl.Factory>(c => c("test"));
 
