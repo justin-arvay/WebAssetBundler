@@ -18,15 +18,24 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public interface IImagePathResolver
+    public class PathRewriteResult
     {
-        /// <summary>
-        /// Changes the path and returns the difference as a result.
-        /// </summary>
-        /// <param name="path">The image path that is being changed</param>
-        /// <param name="targetPath">The relative path that we need the original path to work with</param>
-        /// <param name="filePath">The path of the file the image path was used in</param>
-        /// <returns></returns>
-        PathRewriteResult Resolve(string path, string targetPath, string filePath);
+        public string OldPath
+        {
+            get;
+            set;
+        }
+
+        public string NewPath
+        {
+            get;
+            set;
+        }
+
+        public bool Changed
+        {
+            get;
+            set;
+        }
     }
 }

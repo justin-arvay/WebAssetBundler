@@ -49,22 +49,21 @@ namespace WebAssetBundler.Web.Mvc
             return content;
         }
 
-        public string GetImageAbsolutePath(string imagePath, string cssFilePath)
+        public AssetBase GetAsset(string imagePath, string cssFilePath)
         {
             //test for: ../Image/img.png and /Image/image.png
 
             var directory = settings.AppRootDirectory.GetDirectory(cssFilePath);
 
-            return directory.GetFile(imagePath).Path;
+            return new FileAsset(directory.GetFile(imagePath));
         }
 
-        public ImageBundle CreateImageBundle(string path)
+        public ImageBundle CreateImageBundle(string path, string cssFilePath)
         {
             var contentType = GetContentType(path);
-            var asset = new FileAsset(new FileSystemFile(path));
 
             var bundle = new ImageBundle(contentType, path);
-            bundle.Assets.Add(asset);
+            bundle.Assets.Add(GetAsset(path, cssFilePath));
 
             return bundle;
         }
