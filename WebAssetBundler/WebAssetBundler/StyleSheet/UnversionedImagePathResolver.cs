@@ -25,7 +25,9 @@ namespace WebAssetBundler.Web.Mvc
             var result = new PathRewriteResult();
 
             //ignore all absolute paths
-            if (path.StartsWith("/") == false && path.StartsWith("http") == false && path.StartsWith("https") == false)
+            if (path.StartsWith("/") == false &&
+                path.StartsWith("http", StringComparison.OrdinalIgnoreCase) == false &&
+                path.StartsWith("https", StringComparison.OrdinalIgnoreCase) == false)
             {
                 result.NewPath = RewritePath(path, targetPath);
                 result.Changed = true;

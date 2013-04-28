@@ -26,13 +26,19 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IBundlesCache<ImageBundle>> bundleCache;
         private VersionedImagePathResolver resolver;
         private SettingsContext settings;
+        private Mock<IDirectory> appDirectory;
 
         [SetUp]
         public void Setup()
         {
             urlGenerator = new Mock<IUrlGenerator<ImageBundle>>();
             bundleCache = new Mock<IBundlesCache<ImageBundle>>();
+            
+            appDirectory = new Mock<IDirectory>();
+            
             settings = new SettingsContext();
+            settings.AppRootDirectory = appDirectory.Object;
+
             resolver = new VersionedImagePathResolver(settings, bundleCache.Object, urlGenerator.Object);
         }
 
@@ -40,28 +46,56 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Replace_With_Versioned_Url()
         {
             var path = "../test/test.png";
-            var content = "url(" + path + ")";
+            var assetDirectory = new Mock<IDirectory>();
+            var file = new FileSystemFile("/test/test.png");
 
-            urlGenerator.Setup(u => u.Generate(It.IsAny<ImageBundle>())).Returns("/wab.axd/image/asd/img-png");
+            urlGenerator.Setup(u => u.Generate(It.IsAny<ImageBundle>()))
+                .Returns("/wab.axd/image/asd/img-png");
 
-            var newContent = resolver.Resolve(path, null, content);
+            appDirectory.Setup(a => a.GetDirectory(It.IsAny<string>()))
+                .Returns(assetDirectory.Object);
 
-            Assert.AreEqual("url(/wab.axd/image/asd/img-png)", newContent);
+            assetDirectory.Setup(a => a.GetFile(It.IsAny<string>()))
+                .Returns(file);
+
+            var result = resolver.Resolve(path, null, "/Content/file.css");
+
+            Assert.AreEqual("/wab.axd/image/asd/img-png", result.NewPath);
             bundleCache.Verify(b => b.Add(It.IsAny<ImageBundle>()));
             urlGenerator.Verify(u => u.Generate(It.IsAny<ImageBundle>()));
+            Assert.IsTrue(result.Changed);
         }
 
         [Test]
-        public void Should_Not_Replace_With_Versioned_Path_When_External()
+        public void Should_Not_Replace_With_Versioned_Path_When_Http()
         {
-            var path = "http://www.google.com/image,jpg";
-            var content = "url(" + path + ")";
+            var path = "http://www.google.com/image,jpg";            
 
-            var newContent = resolver.Resolve(path, null, content);
+            var result = resolver.Resolve(path, null, "/Content/file.css");
 
-            Assert.AreEqual(content, newContent);
+            Assert.AreEqual(null, result.NewPath);
             bundleCache.Verify(b => b.Add(It.IsAny<ImageBundle>()), Times.Never());
             urlGenerator.Verify(u => u.Generate(It.IsAny<ImageBundle>()), Times.Never());
+            Assert.IsFalse(result.Changed);
+        }
+
+        [Test]
+        public void Should_Not_Replace_With_Versioned_Path_When_Https()
+        {
+            var path = "https://www.google.com/image,jpg";
+
+            var result = resolver.Resolve(path, null, "/Content/file.css");
+
+            Assert.AreEqual(null, result.NewPath);
+            bundleCache.Verify(b => b.Add(It.IsAny<ImageBundle>()), Times.Never());
+            urlGenerator.Verify(u => u.Generate(It.IsAny<ImageBundle>()), Times.Never());
+            Assert.IsFalse(result.Changed);
+        }
+
+        [Test]
+        public void Should_Get_Content_Types()
+        {
+            Assert.Fail();
         }
     }
 }

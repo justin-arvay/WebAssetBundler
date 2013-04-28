@@ -51,10 +51,20 @@ namespace WebAssetBundler.Web.Mvc.Tests
             bundle.Assets[0].Content = "url(\"/img/test.jpg\");";
             bundle.Url = "/a/a/a/a";
 
+            var result = new PathRewriteResult
+            {
+                Changed = true,
+                NewPath = "/newimage/test.jpg"
+            };
+
+            resolver.Setup(r => r.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(result);
+
             processor.Process(bundle);
 
             resolverProvider.Verify(r => r.GetResolver(settings));
-            resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Content));
+            resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Source));
+            Assert.IsTrue(bundle.Assets[0].Content.Contains(result.NewPath));
         }
 
         [Test]
@@ -63,10 +73,20 @@ namespace WebAssetBundler.Web.Mvc.Tests
             bundle.Assets[0].Content = "url('/img/test.jpg');";
             bundle.Url = "/a/a/a/a";
 
+            var result = new PathRewriteResult
+            {
+                Changed = true,
+                NewPath = "/newimage/test.jpg"
+            };
+
+            resolver.Setup(r => r.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(result);
+
             processor.Process(bundle);
 
             resolverProvider.Verify(r => r.GetResolver(settings));
-            resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Content));
+            resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Source));
+            Assert.IsTrue(bundle.Assets[0].Content.Contains(result.NewPath));
         }
 
         [Test]
@@ -76,10 +96,20 @@ namespace WebAssetBundler.Web.Mvc.Tests
             bundle.Assets[0].Content = "url(/img/test.jpg);";
             bundle.Url = "/a/a/a/a";
 
+            var result = new PathRewriteResult
+            {
+                Changed = true,
+                NewPath = "/newimage/test.jpg"
+            };
+
+            resolver.Setup(r => r.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(result);
+
             processor.Process(bundle);
 
             resolverProvider.Verify(r => r.GetResolver(settings));
-            resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Content));
+            resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Source));
+            Assert.IsTrue(bundle.Assets[0].Content.Contains(result.NewPath));
         }
 
         [Test]
@@ -88,22 +118,42 @@ namespace WebAssetBundler.Web.Mvc.Tests
             bundle.Assets[0].Content = "src=\"/img/test.jpg\"";
             bundle.Url = "/a/a/a/a";
 
+            var result = new PathRewriteResult
+            {
+                Changed = true,
+                NewPath = "/newimage/test.jpg"
+            };
+
+            resolver.Setup(r => r.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(result);
+
             processor.Process(bundle);
 
             resolverProvider.Verify(r => r.GetResolver(settings));
-            resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Content));
+            resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Source));
+            Assert.IsTrue(bundle.Assets[0].Content.Contains(result.NewPath));
         }
 
         [Test]
         public void Should_Match_Src_With_Single_Quotes()
         {
-            bundle.Assets[0].Content = "src='/img/test.jpg'";
+            bundle.Assets[0].Content = "(src='/img/test.jpg')";
             bundle.Url = "/a/a/a/a";
+
+            var result = new PathRewriteResult
+                {
+                    Changed = true,
+                    NewPath = "/newimage/test.jpg"
+                };
+
+            resolver.Setup(r => r.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(result);
 
             processor.Process(bundle);
 
             resolverProvider.Verify(r => r.GetResolver(settings));
             resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Content));
+            Assert.IsTrue(bundle.Assets[0].Content.Contains(result.NewPath));
         }
 
         [Test]
@@ -112,10 +162,21 @@ namespace WebAssetBundler.Web.Mvc.Tests
             bundle.Assets[0].Content = "src=/img/test.jpg";
             bundle.Url = "/a/a/a/a";
 
+            var result = new PathRewriteResult
+            {
+                Changed = true,
+                NewPath = "/newimage/test.jpg"
+            };
+
+            resolver.Setup(r => r.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(result);
+
+
             processor.Process(bundle);
 
             resolverProvider.Verify(r => r.GetResolver(settings));
-            resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Content));
+            resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Source));
+            Assert.IsTrue(bundle.Assets[0].Content.Contains(result.NewPath));
         }
 
     }

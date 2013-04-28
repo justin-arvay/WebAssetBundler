@@ -40,7 +40,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             response = new Mock<HttpResponseBase>();
             cache = new Mock<HttpCachePolicyBase>();
             encoder = new Mock<IEncoder>();
-            bundle = new ImageBundle("image/jpeg", "");
+            bundle = new ImageBundle("image/jpeg", "/Image/test.jpg");
 
             response.Setup(r => r.Cache).Returns(cache.Object);
             response.Setup(r => r.Headers).Returns(new NameValueCollection());

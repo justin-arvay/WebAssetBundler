@@ -37,35 +37,47 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var path = "../img/test.jpg";
             var targetPath = "/a/a/a/a";
-            var content = "url(\"../img/test.jpg\");";
 
-            var newContent = resolver.Resolve(path, targetPath, content);
+            var result = resolver.Resolve(path, targetPath, "/Content/file.css");
 
-            Assert.AreEqual("url(\"../../../../img/test.jpg\");", newContent);
+            Assert.AreEqual("../../../../img/test.jpg", result.NewPath);
+            Assert.IsTrue(result.Changed);
         }
 
         [Test]
-        public void Should_Filter_Absolute_Path()
+        public void Should_Not_Filter_Absolute_Path()
         {
             var path = "/img/test.jpg";
             var targetPath = "/a/a/a/a";
-            var content = "url(\"/img/test.jpg\");";
 
-            var newContent = resolver.Resolve(path, targetPath, content);
+            var result = resolver.Resolve(path, targetPath, "/Content/file.css");
 
-            Assert.AreEqual("url(\"../../../../img/test.jpg\");", newContent);
+            Assert.AreEqual(null, result.NewPath);
+            Assert.IsFalse(result.Changed);
         }
 
         [Test]
-        public void Should_Filter_Full_Path()
+        public void Should_Not_Filter_When_Http_Domain()
         {
             var path = "http://www.google.com/img/test.jpg";
             var targetPath = "/a/a/a/a";
-            var content = "url(\"http://www.google.com/img/test.jpg\");";
 
-            var newContent = resolver.Resolve(path, targetPath, content);
+            var result = resolver.Resolve(path, targetPath, "/Content/file.css");
 
-            Assert.AreEqual("url(\"../../../../img/test.jpg\");", newContent);
+            Assert.AreEqual(null, result.NewPath);
+            Assert.IsFalse(result.Changed);
+        }
+
+        [Test]
+        public void Should_Not_Filter_When_Https_Domain()
+        {
+            var path = "https://www.google.com/img/test.jpg";
+            var targetPath = "/a/a/a/a";
+
+            var result = resolver.Resolve(path, targetPath, "/Content/file.css");
+
+            Assert.AreEqual(null, result.NewPath);
+            Assert.IsFalse(result.Changed);
         }
     }
 }

@@ -38,7 +38,8 @@ namespace WebAssetBundler.Web.Mvc
             var result = new PathRewriteResult();
 
             //ignore external paths, we cannot version those
-            if (path.StartsWith("http") == false)
+            if (path.ToLower().StartsWith("http", StringComparison.OrdinalIgnoreCase) == false &&
+                path.ToLower().StartsWith("https", StringComparison.OrdinalIgnoreCase) == false)
             {
                 var bundle = CreateImageBundle(path, filePath);
                 bundlesCache.Add(bundle);
