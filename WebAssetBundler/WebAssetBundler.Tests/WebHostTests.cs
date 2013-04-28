@@ -14,12 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System;
     using Moq;
     using NUnit.Framework;
     using System.Collections.Generic;
+    using System.Web;
+    using System.IO;
 
     [TestFixture]
     public class WebHostTests
@@ -69,6 +71,11 @@ namespace WebAssetBundler.Web.Mvc
         [Test]
         public void Should_Initialize()
         {
+            var request = new HttpRequest("", "http://www.google.com", "");
+            var response = new HttpResponse(new StringWriter());
+
+            System.Web.HttpContext.Current = new HttpContext(request, response);
+
             var container = host.Container;
 
             host.Initialize();
@@ -76,6 +83,10 @@ namespace WebAssetBundler.Web.Mvc
             Assert.IsInstanceOf<TinyIoCContainer>(container.Resolve<TinyIoCContainer>());
             Assert.IsInstanceOf<TypeProvider>(container.Resolve<ITypeProvider>());
             Assert.IsInstanceOf<PluginLoader>(container.Resolve<IPluginLoader>());
+            Assert.IsInstanceOf<HttpContextBase>(container.Resolve<HttpContextBase>());
+            Assert.IsInstanceOf<HttpResponseBase>(container.Resolve<HttpResponseBase>());
+            Assert.IsInstanceOf<HttpRequestBase>(container.Resolve<HttpRequestBase>());
+            Assert.IsInstanceOf<HttpServerUtilityBase>(container.Resolve<HttpServerUtilityBase>());
         }
     }
 }

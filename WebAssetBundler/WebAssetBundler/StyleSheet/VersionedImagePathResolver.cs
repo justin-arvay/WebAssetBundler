@@ -53,8 +53,8 @@ namespace WebAssetBundler.Web.Mvc
         public AssetBase GetAsset(string imagePath, string cssFilePath)
         {
             //test for: ../Image/img.png and /Image/image.png
-
-            var directory = settings.AppRootDirectory.GetDirectory(cssFilePath);
+            var directoryName = Path.GetDirectoryName(cssFilePath);
+            var directory = settings.AppRootDirectory.GetDirectory(directoryName);
             var file = directory.GetFile(imagePath);
 
             return new FileAsset(file);

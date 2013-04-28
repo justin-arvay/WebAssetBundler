@@ -25,12 +25,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private HttpHandlerFactory factory;
         private Mock<HttpContextBase> httpContext;
+        private Mock<ICacheProvider> cacheProvider;
 
         [SetUp]
         public void Setup()
         {
+            cacheProvider = new Mock<ICacheProvider>();
             httpContext = new Mock<HttpContextBase>();
-            factory = new HttpHandlerFactory();
+            factory = new HttpHandlerFactory(cacheProvider.Object);
         }
 
         [Test]

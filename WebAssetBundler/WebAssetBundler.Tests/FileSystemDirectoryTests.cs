@@ -19,6 +19,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
     using System.Collections.Generic;
+    using System.IO;
 
     [TestFixture]
     public class FileSystemDirectoryTests
@@ -58,18 +59,21 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Get_Path()
+        public void Should_Get_Full_Path()
         {
+            Assert.AreEqual("../../Files/FileSystem", directory.FullPath);
         }
 
         [Test]
         public void Should_Exist()
         {
+            Assert.IsTrue(directory.Exists);
         }
 
         [Test]
         public void Should_Get_Attributes()
         {
+            Assert.AreEqual(FileAttributes.Directory, directory.Attributes);
         }
 
         [Test]
@@ -107,11 +111,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Remove_File_Name_When_Getting_Directory()
-        {
-        }
-
-        [Test]
         public void Should_Get_Directory_By_Virtual_Path()
         {
             //all virtuals should be based on the root, regardless of heirarchy
@@ -129,10 +128,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
             //relative paths should get the directory as if it where inside the current directory
 
             var dir1 = directory.GetDirectory("Test/");
-            var dir2 = dir1.GetDirectory("TestTwo/Inner");
+            var dir2 = dir1.GetDirectory("TestTwo/Inner/");
 
             Assert.AreEqual("../../Files/FileSystem\\Test/", dir1.FullPath);
-            Assert.AreEqual("../../Files/FileSystem\\Test/TestTwo/Inner", dir2.FullPath);
+            Assert.AreEqual("../../Files/FileSystem\\Test/TestTwo/Inner/", dir2.FullPath);
         }
 
         [Test]
@@ -150,9 +149,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Current_Directory_If_Path_Emtpy()
         {
-            var dir1 = directory.GetDirectory("");
+            var dir = directory.GetDirectory("");
 
-            Assert.AreSame(dir1, directory);
+            Assert.AreSame(dir, directory);
         }
 
         [Test]

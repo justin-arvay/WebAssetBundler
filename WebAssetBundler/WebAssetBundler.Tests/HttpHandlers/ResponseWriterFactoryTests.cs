@@ -19,20 +19,37 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using Moq;
     using NUnit.Framework;
+    using System.Web;
 
     [TestFixture]
     public class ResponseWriterFactoryTests
     {
+        private Mock<HttpContextBase> httpContext;
+        private ResponseWriterFactory writerFactory;
+
+        [SetUp]
+        public void Setup()
+        {
+            writerFactory = new ResponseWriterFactory();
+            httpContext = new Mock<HttpContextBase>();
+        }
+
         [Test]
         public void Should_Create_Image_Response_Writer()
         {
-            Assert.Fail();
+            httpContext.Setup(c => c.Request.PathInfo).Returns("/image");
+            var writer = writerFactory.Create(httpContext.Object);
+
+            Assert.IsInstanceOf<ImageResponseWriter>(writer);
         }
 
         [Test]
         public void Should_Create_Response_Writer()
         {
-            Assert.Fail();
+            httpContext.Setup(c => c.Request.PathInfo).Returns("/anythingelse");
+            var writer = writerFactory.Create(httpContext.Object);
+
+            Assert.IsInstanceOf<ResponseWriter>(writer);
         }
     }
 }

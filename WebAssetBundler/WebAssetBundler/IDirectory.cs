@@ -75,9 +75,6 @@ namespace WebAssetBundler.Web.Mvc
         /// d2.GetDirectory("Test") would return c:\webroot\app\Test\
         /// The above returned an IDirectory based on the current directory object
         /// 
-        /// d2.GetDirectory("Test/File.css") would return c:\webroot\app\Test\
-        /// The above returned an IDirectory based on the current directory object and ignoring the file
-        /// 
         /// Note: The IDirectory returned does not garentee that the file actually exists. You need to use the Exists function.
         /// </summary>
         /// <param name="path"></param>
