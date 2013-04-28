@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
@@ -65,6 +66,7 @@
     <Compile Include="Bootstrap\IBootstrapTask.cs" />
     <Compile Include="FileSystemDirectory.cs" />
     <Compile Include="FileSystemFileComparer.cs" />
+    <Compile Include="HttpHandlers\ImageResponseWriter.cs" />
     <Compile Include="IDirectory.cs" />
     <Compile Include="IDirectoryFactory.cs" />
     <Compile Include="IDirectorySearch.cs" />

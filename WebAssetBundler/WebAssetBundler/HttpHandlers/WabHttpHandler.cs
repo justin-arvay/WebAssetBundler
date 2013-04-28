@@ -50,6 +50,12 @@ namespace WebAssetBundler.Web.Mvc
             var writer = new ResponseWriter(contextWrapper);
 
             var handler = handlerFactory.Create(contextWrapper);
+
+            if (handler is AssetHttpHandler<ImageBundle>)
+            {
+                writer = new ImageResponseWriter(contextWrapper);
+            }
+
             handler.ProcessRequest(context.Request.PathInfo, writer, encoderFactory.Create(contextWrapper.Request));
         }
     }

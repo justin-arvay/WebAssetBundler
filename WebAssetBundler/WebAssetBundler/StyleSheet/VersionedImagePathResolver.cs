@@ -77,7 +77,8 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public string GetContentType(string path)
         {
-            switch (Path.GetExtension(path).ToLower())
+            var ext = Path.GetExtension(path).ToLower().Replace(".", String.Empty);
+            switch (ext)
             {
                 case "gif":
                     return "image/gif";

@@ -23,8 +23,8 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ResponseWriter : IResponseWriter
     {
-        private HttpResponseBase response;
-        private HttpRequestBase request;
+        protected HttpResponseBase response;
+        protected HttpRequestBase request;
 
         public ResponseWriter(HttpContextBase httpContext)
         {            
@@ -32,7 +32,7 @@ namespace WebAssetBundler.Web.Mvc
             this.request = httpContext.Request;
         }
 
-        public void WriteAsset(Bundle bundle, IEncoder encoder)
+        public virtual void WriteAsset(Bundle bundle, IEncoder encoder)
         {
             response.ContentType = bundle.ContentType;
             CacheLongTime(bundle.Hash.ToHexString(), bundle.BrowserTtl);
@@ -71,7 +71,7 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="actualETag"></param>
         /// <param name="ttl">In minutes.</param>
-        private void CacheLongTime(string actualETag, int ttl)
+        protected void CacheLongTime(string actualETag, int ttl)
         {
             var expires = DateTime.UtcNow.AddMinutes(ttl);
             response.Cache.SetCacheability(HttpCacheability.Public);
