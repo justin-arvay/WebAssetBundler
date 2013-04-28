@@ -53,8 +53,7 @@ namespace WebAssetBundler.Web.Mvc
                 filename = filename.Substring(fullPath.Length + 1);
             }
 
-            var directoryPath = Path.GetDirectoryName(filename);
-            var directory = GetDirectory(directoryPath);
+            var directory = GetDirectory(filename);
             var filePath = Path.Combine(directory.FullPath, Path.GetFileName(filename));
 
             return new FileSystemFile(filePath, directory);
@@ -62,7 +61,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public IDirectory GetDirectory(string path)
         {
-            //TODO:: remove file name if path is a file?
+            path = Path.GetDirectoryName(path);
 
             if (path.Length == 0)
             {

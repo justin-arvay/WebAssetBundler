@@ -50,7 +50,12 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (string path in paths)
             {
-                content = pathResolverProvider.GetResolver(settings).Resolve(path, outputUrl, content);
+                var result = pathResolverProvider.GetResolver(settings).Resolve(path, outputUrl, asset.Source);
+
+                if (result.Changed)
+                {
+                    content = content.Replace(path, result.NewPath);
+                }
             }
                 
             asset.Content = content;

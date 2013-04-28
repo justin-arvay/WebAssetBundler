@@ -20,12 +20,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public class PathRewriteResult
     {
-        public string OldPath
-        {
-            get;
-            set;
-        }
-
         public string NewPath
         {
             get;

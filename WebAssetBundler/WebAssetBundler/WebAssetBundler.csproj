@@ -110,6 +110,7 @@
     <Compile Include="StyleSheet\IImagePathResolver.cs" />
     <Compile Include="StyleSheet\IImagePathResolverProvider.cs" />
     <Compile Include="StyleSheet\ImagePathResolverProvider.cs" />
+    <Compile Include="StyleSheet\PathRewriteResult.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleCachePrimer.cs" />
     <Compile Include="StyleSheet\StyleSheetBundle.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleProvider.cs" />

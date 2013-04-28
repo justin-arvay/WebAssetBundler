@@ -66,14 +66,17 @@ namespace WebAssetBundler.Web.Mvc
         /// Gets a dirrectory in the current directory or a directory defined by a virtual path. The root of the directory tree is defined as
         /// the first directory created (aka the highest level parent).
         /// 
-        ///         /// d1 = Directory Root: C:\webroot\app\
+        /// d1 = Directory Root: C:\webroot\app\
         /// d2 = Directory Under Root: C:\webroot\app\Content\
         /// 
-        /// d2.GetFile("~/Content/test.css") would return c:\webroot\app\Content\test.css
-        /// The above returned an IFile based on the directory root.
+        /// d2.GetDirectory("~/Content/Test") would return c:\webroot\app\Content\Test
+        /// The above returned an IDirectory based on the directory root.
         /// 
-        /// d2.GetFile("test.css") would return c:\webroot\app\test.css
-        /// The above returned an IFile based on the current directory object
+        /// d2.GetDirectory("Test") would return c:\webroot\app\Test\
+        /// The above returned an IDirectory based on the current directory object
+        /// 
+        /// d2.GetDirectory("Test/File.css") would return c:\webroot\app\Test\
+        /// The above returned an IDirectory based on the current directory object and ignoring the file
         /// 
         /// Note: The IDirectory returned does not garentee that the file actually exists. You need to use the Exists function.
         /// </summary>

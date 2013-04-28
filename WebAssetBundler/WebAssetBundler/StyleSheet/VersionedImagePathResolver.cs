@@ -21,32 +21,33 @@ namespace WebAssetBundler.Web.Mvc
 
     public class VersionedImagePathResolver : IImagePathResolver
     {
-        private IBundlesCache<ImageBundle> bundleCache;
+        private IBundlesCache<ImageBundle> bundlesCache;
         private IUrlGenerator<ImageBundle> urlGenerator;
         private SettingsContext settings;
 
-        public VersionedImagePathResolver(SettingsContext settings, IBundlesCache<ImageBundle> bundleCache, 
+        public VersionedImagePathResolver(SettingsContext settings, IBundlesCache<ImageBundle> bundlesCache, 
             IUrlGenerator<ImageBundle> urlGenerator)
         {
             this.settings = settings;
             this.urlGenerator = urlGenerator;
-            this.bundleCache = bundleCache;
+            this.bundlesCache = bundlesCache;
         }
 
-        public string Resolve(string path, string targetPath, string content)
+        public PathRewriteResult Resolve(string path, string targetPath, string filePath)
         {
-            //targetPath is ignored because we are writing the url to be a handler
+            var result = new PathRewriteResult();
 
             //ignore external paths, we cannot version those
             if (path.StartsWith("http") == false)
             {
-                var bundle = CreateImageBundle(path);
-                bundleCache.Add(bundle);
+                var bundle = CreateImageBundle(path, filePath);
+                bundlesCache.Add(bundle);
 
-                content = content.Replace(path, urlGenerator.Generate(bundle));
+                result.NewPath = urlGenerator.Generate(bundle);
+                result.Changed = true;
             }
 
-            return content;
+            return result;
         }
 
         public AssetBase GetAsset(string imagePath, string cssFilePath)
@@ -54,8 +55,9 @@ namespace WebAssetBundler.Web.Mvc
             //test for: ../Image/img.png and /Image/image.png
 
             var directory = settings.AppRootDirectory.GetDirectory(cssFilePath);
+            var file = directory.GetFile(imagePath);
 
-            return new FileAsset(directory.GetFile(imagePath));
+            return new FileAsset(file);
         }
 
         public ImageBundle CreateImageBundle(string path, string cssFilePath)

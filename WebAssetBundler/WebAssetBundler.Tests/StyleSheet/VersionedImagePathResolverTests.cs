@@ -27,7 +27,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private VersionedImagePathResolver resolver;
         private SettingsContext settings;
 
-        [TestFixture]
+        [SetUp]
         public void Setup()
         {
             urlGenerator = new Mock<IUrlGenerator<ImageBundle>>();

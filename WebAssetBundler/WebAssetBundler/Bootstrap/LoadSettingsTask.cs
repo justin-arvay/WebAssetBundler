@@ -32,7 +32,7 @@ namespace WebAssetBundler.Web.Mvc
             var httpContext = container.Resolve<HttpContextBase>();
             var rootPath = httpContext.Request.ApplicationPath;
 
-            var path = httpContext.Server.MapPath("~/Images/octocat.png");
+            var path = httpContext.Server.MapPath("~/");
 
             container.Register<SettingsContext>(CreateSettingsContext(section, rootPath));
         }

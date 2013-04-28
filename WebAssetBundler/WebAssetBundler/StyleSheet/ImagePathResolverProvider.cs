@@ -20,11 +20,17 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ImagePathResolverProvider : IImagePathResolverProvider
     {
-        private IBundlesCache<ImageBundle> bundleCache;
+        private IBundlesCache<ImageBundle> bundlesCache;
         private IUrlGenerator<ImageBundle> urlGenerator;
 
         private IImagePathResolver versionedResolver;
         private IImagePathResolver unversionedResolver;
+
+        public ImagePathResolverProvider(IBundlesCache<ImageBundle> bundlesCache, IUrlGenerator<ImageBundle> urlGenerator)
+        {
+            this.bundlesCache = bundlesCache;
+            this.urlGenerator = urlGenerator;
+        }
 
         public IImagePathResolver GetResolver(SettingsContext settings)
         {
@@ -33,7 +39,7 @@ namespace WebAssetBundler.Web.Mvc
                 //only create one instance of this for the lifetime of the provider                
                 if (versionedResolver == null) 
                 {
-                    versionedResolver =  new VersionedImagePathResolver(settings, bundleCache, urlGenerator);
+                    versionedResolver =  new VersionedImagePathResolver(settings, bundlesCache, urlGenerator);
                 }
 
                 return versionedResolver;

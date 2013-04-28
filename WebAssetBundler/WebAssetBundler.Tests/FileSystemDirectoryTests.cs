@@ -107,6 +107,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
+        public void Should_Remove_File_Name_When_Getting_Directory()
+        {
+        }
+
+        [Test]
         public void Should_Get_Directory_By_Virtual_Path()
         {
             //all virtuals should be based on the root, regardless of heirarchy

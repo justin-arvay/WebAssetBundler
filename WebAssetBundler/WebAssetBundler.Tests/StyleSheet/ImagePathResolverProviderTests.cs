@@ -32,7 +32,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             urlGenerator = new Mock<IUrlGenerator<ImageBundle>>();
             bundleCache = new Mock<IBundlesCache<ImageBundle>>();
-            provider = new ImagePathResolverProvider();
+            provider = new ImagePathResolverProvider(bundleCache.Object, urlGenerator.Object);
             settings = new SettingsContext();
         }
 

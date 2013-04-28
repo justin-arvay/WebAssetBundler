@@ -20,16 +20,18 @@ namespace WebAssetBundler.Web.Mvc
 
     public class UnversionedImagePathResolver : IImagePathResolver
     {
-        public string Resolve(string path, string targetPath, string content)
+        public PathRewriteResult Resolve(string path, string targetPath, string content)
         {
+            var result = new PathRewriteResult();
+
             //ignore all absolute paths
             if (path.StartsWith("/") == false && path.StartsWith("http") == false && path.StartsWith("https") == false)
             {
-                var newPath = RewritePath(path, targetPath);
-                content = content.Replace(path, newPath);
+                result.NewPath = RewritePath(path, targetPath);
+                result.Changed = true;
             }
 
-            return content;
+            return result;
         }
 
         private string RewritePath(string imagePath, string targetPath)
