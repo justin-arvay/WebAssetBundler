@@ -17,28 +17,10 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.Web;
-    using System.Drawing;
-    using System.Drawing.Imaging;
-    using System.IO;
+using System.Web;
 
-    public class ImageResponseWriter : ResponseWriter
+    public interface IResponseWriterFactory
     {
-        public ImageResponseWriter(HttpContextBase httpContext)
-            :base (httpContext)
-        {            
-
-        }
-
-        public override void WriteAsset(Bundle bundle, IEncoder encoder)
-        {            
-            var file = new FileSystemFile(bundle.Assets[0].Source);
-            var stream = file.Open(FileMode.Open);
-
-            stream.CopyTo(response.OutputStream);
-
-            response.ContentType = bundle.ContentType;
-            CacheLongTime(bundle.Hash.ToHexString(), bundle.BrowserTtl);
-        }
+        IResponseWriter Create(HttpContextBase httpContext);
     }
 }

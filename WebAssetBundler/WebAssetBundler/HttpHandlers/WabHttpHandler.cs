@@ -21,22 +21,25 @@ namespace WebAssetBundler.Web.Mvc
 
     public class WabHttpHandler : IHttpHandler
     {
-        private HttpHandlerFactory handlerFactory;
-        private EncoderFactory encoderFactory;
+        private IHttpHandlerFactory handlerFactory;
+        private IEncoderFactory encoderFactory;
+        private IResponseWriterFactory writerFactory;
 
 
         public WabHttpHandler() : 
             this(
-            WabHttpModule.Host.Container.Resolve<HttpHandlerFactory>(), 
-            WabHttpModule.Host.Container.Resolve<EncoderFactory>())
+            WabHttpModule.Host.Container.Resolve<IHttpHandlerFactory>(),
+            WabHttpModule.Host.Container.Resolve<IEncoderFactory>(),
+            WabHttpModule.Host.Container.Resolve<IResponseWriterFactory>())
         {
 
         }
 
-        public WabHttpHandler(HttpHandlerFactory handlerFactory, EncoderFactory encoderFactory)
+        public WabHttpHandler(IHttpHandlerFactory handlerFactory, IEncoderFactory encoderFactory, IResponseWriterFactory writerFactory)
         {            
             this.handlerFactory = handlerFactory;
             this.encoderFactory = encoderFactory;
+            this.writerFactory = writerFactory;
         }
 
         public bool IsReusable
@@ -47,14 +50,8 @@ namespace WebAssetBundler.Web.Mvc
         public void ProcessRequest(HttpContext context)
         {            
             var contextWrapper = new HttpContextWrapper(context);
-            var writer = new ResponseWriter(contextWrapper);
-
+            var writer = writerFactory.Create(contextWrapper);
             var handler = handlerFactory.Create(contextWrapper);
-
-            if (handler is AssetHttpHandler<ImageBundle>)
-            {
-                writer = new ImageResponseWriter(contextWrapper);
-            }
 
             handler.ProcessRequest(context.Request.PathInfo, writer, encoderFactory.Create(contextWrapper.Request));
         }

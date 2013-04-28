@@ -42,14 +42,14 @@ namespace WebAssetBundler.Web.Mvc
             encoder.Encode(response);                                             
         }
 
-        public bool IsNotModified(Bundle bundle)
+        public virtual bool IsNotModified(Bundle bundle)
         {
             var actualETag = bundle.Hash.ToHexString();
             var givenETag = request.Headers["If-None-Match"];
             return givenETag == actualETag;
         }
 
-        public void WriteNotFound()
+        public virtual void WriteNotFound()
         {
             response.StatusCode = 404;
         }
@@ -59,7 +59,7 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="etag"></param>
         /// <param name="ttl">In minutes.</param>
-        public void WriteNotModified(Bundle bundle)
+        public virtual void WriteNotModified(Bundle bundle)
         {
             CacheLongTime(bundle.Hash.ToHexString(), bundle.BrowserTtl); // Some browsers seem to require a reminder to keep caching?!
             response.StatusCode = 304; // Not Modified

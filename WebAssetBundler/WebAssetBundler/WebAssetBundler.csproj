@@ -66,7 +66,10 @@
     <Compile Include="Bootstrap\IBootstrapTask.cs" />
     <Compile Include="FileSystemDirectory.cs" />
     <Compile Include="FileSystemFileComparer.cs" />
+    <Compile Include="HttpHandlers\IHttpHandlerFactory.cs" />
     <Compile Include="HttpHandlers\ImageResponseWriter.cs" />
+    <Compile Include="HttpHandlers\IResponseWriterFactory.cs" />
+    <Compile Include="HttpHandlers\ResponseWriterFactory.cs" />
     <Compile Include="IDirectory.cs" />
     <Compile Include="IDirectoryFactory.cs" />
     <Compile Include="IDirectorySearch.cs" />

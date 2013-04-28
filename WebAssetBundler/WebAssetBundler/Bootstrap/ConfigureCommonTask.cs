@@ -34,9 +34,13 @@ namespace WebAssetBundler.Web.Mvc
 
         public void ConfigureHttpHandler(TinyIoCContainer container)
         {
-            container.Register<HttpHandlerFactory>()
+            container.Register<IHttpHandlerFactory, HttpHandlerFactory>()
                 .AsSingleton();
-            container.Register<EncoderFactory>()
+
+            container.Register<IEncoderFactory, EncoderFactory>()
+                .AsSingleton();
+
+            container.Register<IResponseWriterFactory, ResponseWriterFactory>()
                 .AsSingleton();
         }
 

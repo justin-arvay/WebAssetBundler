@@ -17,40 +17,19 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.Web;
 
-    public class HttpHandlerFactory : IHttpHandlerFactory
+    public class ResponseWriterFactory : IResponseWriterFactory
     {
-        private ICacheProvider cacheProvider;
-
-        public HttpHandlerFactory(ICacheProvider cacheProvider)
-        {
-            this.cacheProvider = cacheProvider;
-        }
-
-        public IWabHttpHandler Create(HttpContextBase httpContext)
+        public IResponseWriter Create(System.Web.HttpContextBase httpContext)
         {
             var urlExtension = httpContext.Request.PathInfo;
 
-            if (urlExtension.StartsWith("/js"))
-            {
-                var cache = new BundlesCache<ScriptBundle>(cacheProvider); 
-                return new AssetHttpHandler<ScriptBundle>(cache);
-            }
-
-            if (urlExtension.StartsWith("/css"))
-            {
-                var cache = new BundlesCache<StyleSheetBundle>(cacheProvider);
-                return new AssetHttpHandler<StyleSheetBundle>(cache);
-            }
-
             if (urlExtension.StartsWith("/image"))
             {
-                var cache = new BundlesCache<ImageBundle>(cacheProvider);
-                return new AssetHttpHandler<ImageBundle>(cache);
+                return new ImageResponseWriter(httpContext);
             }
 
-            throw new HttpException(404, "Resource not found.");
+            return new ResponseWriter(httpContext);
         }
     }
 }

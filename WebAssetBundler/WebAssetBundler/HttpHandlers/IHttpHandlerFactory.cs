@@ -1,4 +1,4 @@
-﻿// Web Asset Bundler - Bundles web assets so you dont have to.
+// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -16,29 +16,10 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
-    using System;
     using System.Web;
-    using System.Drawing;
-    using System.Drawing.Imaging;
-    using System.IO;
 
-    public class ImageResponseWriter : ResponseWriter
+    public interface IHttpHandlerFactory
     {
-        public ImageResponseWriter(HttpContextBase httpContext)
-            :base (httpContext)
-        {            
-
-        }
-
-        public override void WriteAsset(Bundle bundle, IEncoder encoder)
-        {            
-            var file = new FileSystemFile(bundle.Assets[0].Source);
-            var stream = file.Open(FileMode.Open);
-
-            stream.CopyTo(response.OutputStream);
-
-            response.ContentType = bundle.ContentType;
-            CacheLongTime(bundle.Hash.ToHexString(), bundle.BrowserTtl);
-        }
+        IWabHttpHandler Create(HttpContextBase httpContext);
     }
 }

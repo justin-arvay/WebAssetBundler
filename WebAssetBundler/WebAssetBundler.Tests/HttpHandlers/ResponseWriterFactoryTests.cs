@@ -17,28 +17,22 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.Web;
-    using System.Drawing;
-    using System.Drawing.Imaging;
-    using System.IO;
+    using Moq;
+    using NUnit.Framework;
 
-    public class ImageResponseWriter : ResponseWriter
+    [TestFixture]
+    public class ResponseWriterFactoryTests
     {
-        public ImageResponseWriter(HttpContextBase httpContext)
-            :base (httpContext)
-        {            
-
+        [Test]
+        public void Should_Create_Image_Response_Writer()
+        {
+            Assert.Fail();
         }
 
-        public override void WriteAsset(Bundle bundle, IEncoder encoder)
-        {            
-            var file = new FileSystemFile(bundle.Assets[0].Source);
-            var stream = file.Open(FileMode.Open);
-
-            stream.CopyTo(response.OutputStream);
-
-            response.ContentType = bundle.ContentType;
-            CacheLongTime(bundle.Hash.ToHexString(), bundle.BrowserTtl);
+        [Test]
+        public void Should_Create_Response_Writer()
+        {
+            Assert.Fail();
         }
     }
 }
