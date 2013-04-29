@@ -48,13 +48,8 @@ namespace WebAssetBundler.Web.Mvc
 
         public IFile GetFile(string filename)
         {
-            if (filename.Replace('\\', '/').StartsWith(fullPath))
-            {
-                filename = filename.Substring(fullPath.Length + 1);
-            }
-
             var directory = GetDirectory(Path.GetDirectoryName(filename));
-            var filePath = Path.Combine(directory.FullPath, Path.GetFileName(filename));
+            var filePath = PathHelper.NormalizePath(Path.Combine(directory.FullPath, Path.GetFileName(filename)));
 
             return new FileSystemFile(filePath, directory);
         }
@@ -82,13 +77,7 @@ namespace WebAssetBundler.Web.Mvc
         public IEnumerable<IDirectory> GetDirectories()
         {
             return Directory.GetDirectories(fullPath)
-                .Select((d) =>
-                {
-                    return new FileSystemDirectory(d)
-                    {
-                        Parent = this
-                    };
-                });
+                .Select(GetDirectory);
         }
 
         public IEnumerable<IFile> GetFiles(string searchPattern, SearchOption searchOption)
@@ -116,7 +105,13 @@ namespace WebAssetBundler.Web.Mvc
                 return GetRootDirectory().GetAbsolutePath(filename.Substring(2));
             }
 
-            return Path.Combine(fullPath, filename);
+            //if already absolute path
+            if (filename.Replace("\\", "/").StartsWith(fullPath))
+            {
+                return PathHelper.NormalizePath(filename);
+            }
+
+            return PathHelper.NormalizePath(Path.Combine(fullPath, filename));
         }
 
         public bool Exists

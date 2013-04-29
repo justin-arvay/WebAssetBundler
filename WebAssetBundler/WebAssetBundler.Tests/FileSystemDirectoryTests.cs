@@ -20,48 +20,53 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
     using System.Collections.Generic;
     using System.IO;
+    using System;
 
     [TestFixture]
     public class FileSystemDirectoryTests
     {
         private FileSystemDirectory directory;
+        private string root;
 
         [SetUp]
         public void Setup()
         {
-            directory = new FileSystemDirectory("../../Files/FileSystem");
+            root = PathHelper.NormalizePath(AppDomain.CurrentDomain.BaseDirectory + "/../../");
+            directory = new FileSystemDirectory(root);            
         }
 
         [Test]
         public void Should_Get_Child_Directories()
         {
-            var directories = new List<IDirectory>(directory.GetDirectories());
+            var parentDir = directory.GetDirectory("Files/FileSystem");
+            var directories = new List<IDirectory>(parentDir.GetDirectories());
 
             Assert.AreEqual(2, directories.Count);
 
             foreach (var dir in directories)
             {
-                Assert.AreSame(directory, dir.Parent);
+                Assert.AreSame(parentDir, dir.Parent);
             }
         }
 
         [Test]
         public void Should_Get_Files()
         {
-            var files = new List<IFile>(directory.GetFiles("*", System.IO.SearchOption.AllDirectories));
+            var parentDir = directory.GetDirectory("Files/FileSystem");
+            var files = new List<IFile>(parentDir.GetFiles("*", System.IO.SearchOption.AllDirectories));
 
             Assert.AreEqual(4, files.Count);
 
             foreach (var file in files)
             {
-                Assert.AreSame(directory, file.Directory);
+                Assert.AreSame(parentDir, file.Directory);
             }
         }
 
         [Test]
         public void Should_Get_Full_Path()
         {
-            Assert.AreEqual("../../Files/FileSystem", directory.FullPath);
+            Assert.AreEqual(root, directory.FullPath);
         }
 
         [Test]
@@ -97,17 +102,23 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Absolute_Path_From_Virtual()
         {
-            var path = directory.GetAbsolutePath("~/AssetFileTest.css");
+            var path = directory.GetAbsolutePath("~/dir/test.css");
 
-            Assert.AreEqual("../../Files/FileSystem\\AssetFileTest.css", path);
+            Assert.AreEqual(root + "/dir/test.css", path);
         }
 
         [Test]
         public void Should_Get_Absolute_Path_From_Relative()
         {
-            var path = directory.GetAbsolutePath("AssetFileTest.css");
+            var path = directory.GetAbsolutePath("test.css");
 
-            Assert.AreEqual("../../Files/FileSystem\\AssetFileTest.css", path);
+            Assert.AreEqual(root + "/test.css", path);
+        }
+
+        [Test]
+        public void Should_Return_Normalized_Path_If_Already_Absolute()
+        {
+            Assert.Fail();
         }
 
         [Test]
@@ -118,8 +129,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var dir1 = directory.GetDirectory("~/Test/");
             var dir2 = dir1.GetDirectory("~/TestTwo/Inner");
 
-            Assert.AreEqual("../../Files/FileSystem\\Test/", dir1.FullPath);
-            Assert.AreEqual("../../Files/FileSystem\\TestTwo/Inner", dir2.FullPath);
+            Assert.AreEqual(root + "/Test", dir1.FullPath);
+            Assert.AreEqual(root + "/TestTwo/Inner", dir2.FullPath);
         }
 
         [Test]
@@ -130,8 +141,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var dir1 = directory.GetDirectory("Test/");
             var dir2 = dir1.GetDirectory("TestTwo/Inner/");
 
-            Assert.AreEqual("../../Files/FileSystem\\Test/", dir1.FullPath);
-            Assert.AreEqual("../../Files/FileSystem\\Test/TestTwo/Inner/", dir2.FullPath);
+            Assert.AreEqual(root + "/Test", dir1.FullPath);
+            Assert.AreEqual(root + "/Test/TestTwo/Inner", dir2.FullPath);
         }
 
         [Test]
@@ -139,11 +150,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             //relative paths should get the directory as if it where inside the current directory
 
-            var dir1 = directory.GetDirectory("../../Files/FileSystem/Test/");
-            var dir2 = dir1.GetDirectory("../../Files/FileSystem/TestTwo/Inner");
+            var dir1 = directory.GetDirectory(root + "/Test");
+            var dir2 = dir1.GetDirectory(root + "/TestTwo/Inner");
 
-            Assert.AreEqual("../../Files/FileSystem/Test/", dir1.FullPath);
-            Assert.AreEqual("../../Files/FileSystem/TestTwo/Inner", dir2.FullPath);
+            Assert.AreEqual(root + "/Test", dir1.FullPath);
+            Assert.AreEqual(root + "/TestTwo/Inner", dir2.FullPath);
         }
 
         [Test]
@@ -159,7 +170,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var file = directory.GetFile("~/Dir/Test.css");
 
-            Assert.AreEqual("../../Files/FileSystem\\Dir\\Test.css", file.Path);
+            Assert.AreEqual(root + "/Dir/Test.css", file.Path);
         }
 
         [Test]
@@ -167,15 +178,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var file = directory.GetFile("Dir/Test.css");
 
-            Assert.AreEqual("../../Files/FileSystem\\Dir\\Test.css", file.Path);
+            Assert.AreEqual(root + "/Dir/Test.css", file.Path);
         }
 
         [Test]
         public void Should_Get_File_By_Absolute_Path()
         {
-            var file = directory.GetFile("../../Files/FileSystem/Dir/Test.css");
+            var file = directory.GetFile(root + "/Dir/Test.css");
 
-            Assert.AreEqual("../../Files/FileSystem\\Dir\\Test.css", file.Path);
+            Assert.AreEqual(root + "/Dir/Test.css", file.Path);
         }
     }
 }
