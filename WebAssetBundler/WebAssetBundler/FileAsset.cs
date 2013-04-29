@@ -21,7 +21,7 @@ namespace WebAssetBundler.Web.Mvc
 
     public class FileAsset : AssetBase
     {
-        private IFile sourceFile;
+        private readonly IFile sourceFile;
         private string content;
 
         public FileAsset(IFile sourceFile)

@@ -24,9 +24,27 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class PathHelperTests
     {
         [Test]
-        public void test()
+        public void Should_Ignore_Single_Dot()
         {
-            Assert.Fail();
+            Assert.AreEqual("test/file.css", PathHelper.NormalizePath("test/./file.css"));
+        }
+
+        [Test]
+        public void Should_Handle_Double_Dot()
+        {
+            Assert.AreEqual("file.css", PathHelper.NormalizePath("test/../file.css"));
+        }
+
+        [Test]
+        public void Should_Convert_Back_Slashes_To_Forward_Slash()
+        {
+            Assert.AreEqual("test/file.css", PathHelper.NormalizePath("test\\file.css"));
+        }
+
+        [Test]
+        public void Should_Keep_Forward_Slash_At_Start()
+        {
+            Assert.AreEqual("/test/file.css", PathHelper.NormalizePath("/test/file.css"));
         }
     }
 }

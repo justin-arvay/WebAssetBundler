@@ -19,9 +19,12 @@ namespace WebAssetBundler.Web.Mvc
     using System.IO;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public abstract class AssetBase : ITransformable<IAssetTransformer>
     {
+        public readonly List<IAssetTransformer> transformers = new List<IAssetTransformer>();
+
         public string Name
         {
             get
@@ -56,9 +59,29 @@ namespace WebAssetBundler.Web.Mvc
             set;
         }
 
-        public void Transform(IAssetTransformer transformer)
+        public void AddAssetTransformer(IAssetTransformer transformer)
         {
-            transformer.Transform(this);
+            transformers.Add(transformer);
         }
+
+        public Stream OpenStream()
+        {
+            Func<Stream> openStream = OpenStreamSource;
+
+            foreach (var transformer in transformers)
+            {
+                transformer.Transform(openStream, this);
+            }
+
+            return openStream();
+
+            //var createStream = transformers.Aggregate<IAssetTransformer, Func<Stream>>(
+            //    OpenStreamSource,
+            //    (current, transformer) => transformer.Transform(current, this)
+            //);
+            //return createStream();
+        }
+
+        protected abstract Stream OpenStreamSource();
     }
 }

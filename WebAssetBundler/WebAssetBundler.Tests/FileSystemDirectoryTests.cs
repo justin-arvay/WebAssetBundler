@@ -118,7 +118,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Return_Normalized_Path_If_Already_Absolute()
         {
-            Assert.Fail();
+            var path = directory.GetAbsolutePath(root + "\\test.css");
+
+            Assert.AreEqual(root + "/test.css", path);
         }
 
         [Test]

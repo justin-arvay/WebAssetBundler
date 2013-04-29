@@ -17,6 +17,7 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Collections.Generic;
 
     public class UnversionedImagePathResolver : IImagePathResolver
     {
@@ -38,19 +39,14 @@ namespace WebAssetBundler.Web.Mvc
 
         private string RewritePath(string imagePath, string targetPath)
         {
-            var levels = DirectoryLevelDifference(imagePath, targetPath);
-
-            for (; levels > 0; levels--)
-            {
-                imagePath = "../" + imagePath;
-            }
+            imagePath = GetDirectoryLevelDifference(imagePath, targetPath) + imagePath;
 
             return imagePath;
         }
 
-        private int DirectoryLevelDifference(string imagePath, string targetPath)
+        private string GetDirectoryLevelDifference(string imagePath, string targetPath)
         {
-            var level = 0;
+            var stack = new Stack<string>();
             string[] urlPieces = targetPath.Split('/');
             string[] imagePathPieces = imagePath.Split('/');
 
@@ -61,18 +57,18 @@ namespace WebAssetBundler.Web.Mvc
                     continue;
                 }
 
-                level++;
+                stack.Push("..");
             }
 
             foreach (var piece in imagePathPieces)
             {
                 if (piece == "..")
                 {
-                    level--;
+                    stack.Pop();
                 }
             }
 
-            return level;
+            return string.Join("/", stack.ToArray()) + "/";
         }
     }
 }

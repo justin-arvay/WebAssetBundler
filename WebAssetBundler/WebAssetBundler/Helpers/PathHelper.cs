@@ -25,10 +25,11 @@ namespace WebAssetBundler.Web.Mvc
     {
         public static string NormalizePath(string path)
         {
-            var isNetworkSharePath = path.StartsWith(@"\\");
+            var isNetworkShare = path.StartsWith(@"\\");
+            var stack = new Stack<string>();
             var slashes = new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar };
             var parts = path.Split(slashes, StringSplitOptions.RemoveEmptyEntries);
-            var stack = new Stack<string>();
+            
             foreach (var part in parts)
             {
                 if (part == "..")
@@ -44,15 +45,20 @@ namespace WebAssetBundler.Web.Mvc
                 }
             }
 
-            if (isNetworkSharePath)
+            if (isNetworkShare)
             {
                 return @"\\" + string.Join(@"\", stack.Reverse().ToArray());
             }
-            else
+
+            var returnPath = string.Join("/", stack.Reverse().ToArray());
+
+            //keep forward slash if it existed in original path
+            if (path[0] == '/')
             {
-                var returnPath = string.Join("/", stack.Reverse().ToArray());
-                return (path[0] == '/' ? "/" : "") + returnPath;
+                returnPath = "/" + returnPath;
             }
+
+            return returnPath;
         }
     }
 }

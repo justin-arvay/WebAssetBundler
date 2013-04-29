@@ -41,5 +41,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual("css", webAsset.Extension);
         }
+
+        [Test]
+        public void Should_Add_Transformer()
+        {
+            Assert.Fail();
+        }
+
+        [Test]
+        public void Should_Open_Stream()
+        {
+            Assert.Fail();
+        }
     }
 }
