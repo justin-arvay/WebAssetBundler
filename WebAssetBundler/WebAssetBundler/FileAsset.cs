@@ -36,7 +36,7 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        protected override Stream OpenStreamSource()
+        protected override Stream OpenSourceStream()
         {
             return sourceFile.Open(FileMode.Open, FileAccess.Read, FileShare.Read);
         }

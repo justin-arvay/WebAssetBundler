@@ -26,5 +26,10 @@ namespace WebAssetBundler.Web.Mvc
             var minifier = new Minifier();
             return minifier.MinifyStyleSheet(content);
         }
+
+        public System.IO.Stream Transform(System.IO.Stream openStream, AssetBase asset)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

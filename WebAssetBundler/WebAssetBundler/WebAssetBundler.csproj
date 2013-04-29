@@ -80,12 +80,14 @@
     <Compile Include="Image\ImageBundle.cs" />
     <Compile Include="Image\ImageUrlGenerator.cs" />
     <Compile Include="IUrlGenerator.cs" />
+    <Compile Include="Minifiers\IMinifier.cs" />
     <Compile Include="Minifiers\JSMin.cs" />
     <Compile Include="Minifiers\JSMinMinifier.cs" />
     <Compile Include="BundleProviderBase.cs" />
     <Compile Include="ExternalAsset.cs" />
     <Compile Include="IBundleConfiguration.cs" />
     <Compile Include="ITypeProvider.cs" />
+    <Compile Include="Minifiers\MinifyTransformer.cs" />
     <Compile Include="Pipeline\UrlAssignmentProcessor.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Plugins\IPluginCollection.cs" />

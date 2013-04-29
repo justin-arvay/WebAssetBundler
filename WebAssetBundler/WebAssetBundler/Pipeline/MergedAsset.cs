@@ -18,17 +18,47 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Collections.Generic;
+using System.IO;
 
     public class MergedAsset : AssetBase
     {
-        public MergedAsset(string content)            
+        private Stream stream;
+
+        public MergedAsset(AssetCollection assets)            
         {
-            Content = content;
+            stream = MergeAssetsIntoSingleStream(assets);
         }
 
         public override string Source
         {
             get { throw new NotSupportedException("Asset is not a real file."); }
+        }
+
+        Stream MergeAssetsIntoSingleStream(AssetCollection assets)
+        {
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+
+            assets.ForEach(a => WriteAsset(a, writer));
+
+            writer.Flush();
+            stream.Position = 0;
+
+            return stream;
+        }
+
+        public void WriteAsset(AssetBase asset, StreamWriter writer)
+        {
+            using (var reader = new StreamReader(asset.Content))
+            {
+                var content = reader.ReadToEnd();
+                writer.Write(content);
+            }
+        }
+
+        protected override Stream OpenSourceStream()
+        {
+            return stream;
         }
     }
 }

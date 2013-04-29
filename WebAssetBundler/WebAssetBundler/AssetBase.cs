@@ -66,14 +66,14 @@ namespace WebAssetBundler.Web.Mvc
         {
             get
             {
-                var createStream = transformers.Aggregate<IAssetTransformer, Func<Stream>>(
-                OpenStreamSource,
+                var createStream = transformers.Aggregate<IAssetTransformer, Stream>(
+                OpenSourceStream(),
                 (openStream, transformer) => transformer.Transform(openStream, this));
 
-                return createStream();
+                return createStream;
             }
         }
 
-        protected abstract Stream OpenStreamSource();
+        protected abstract Stream OpenSourceStream();
     }
 }

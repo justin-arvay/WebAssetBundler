@@ -105,7 +105,7 @@ using System.Text;
         /// </summary>
         /// <param name="s">The string to convert into a stream.</param>
         /// <returns>A new stream.</returns>
-        public static Stream AsStream(this string s)
+        public static Stream ToStream(this string s)
         {
             var stream = new MemoryStream();
             var writer = new StreamWriter(stream);

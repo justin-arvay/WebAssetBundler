@@ -37,31 +37,28 @@ namespace WebAssetBundler.Web.Mvc
         public void Process(StyleSheetBundle bundle)
         {
             outputUrl = bundle.Url;
-            bundle.TransformAssets(this);            
+            bundle.Assets.AddTransformer(this);      
         }
 
         // source: ~/Content/file.css
         // image: ../image/icon.png
         //target: /wab.axd/a/a
-        public Func<Stream> Transform(Func<Stream> openStream, AssetBase asset)        
+        public Stream Transform(Stream openStream, AssetBase asset)        
         {
-            return delegate
+            var content = openStream.ReadToEnd();
+            var paths = FindPaths(content);
+
+            foreach (string path in paths)
             {
-                var content = openStream().ReadToEnd();
-                var paths = FindPaths(content);
+                var result = pathResolverProvider.GetResolver(settings).Resolve(path, outputUrl, asset.Source);
 
-                foreach (string path in paths)
+                if (result.Changed)
                 {
-                    var result = pathResolverProvider.GetResolver(settings).Resolve(path, outputUrl, asset.Source);
-
-                    if (result.Changed)
-                    {
-                        content = content.Replace(path, result.NewPath);
-                    }
+                    content = content.Replace(path, result.NewPath);
                 }
+            }
 
-                return content.AsStream();
-            };
+            return content.ToStream();
         }         
         
         private IEnumerable<string> FindPaths(string css)

@@ -24,7 +24,7 @@ namespace WebAssetBundler.Web.Mvc
         public static string ReadToEnd(this Stream stream)
         {
             using (var reader = new StreamReader(stream))
-            {
+            {                
                 return reader.ReadToEnd();
             }
         }

@@ -17,9 +17,14 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.IO;
 
     public class ExternalAsset : AssetBase
     {
 
+        protected override Stream OpenSourceStream()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
