@@ -95,7 +95,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Content_Types()
         {
-            Assert.Fail();
+            Assert.AreEqual("image/x-png", resolver.GetContentType("/test.png"));
+            Assert.AreEqual("image/gif", resolver.GetContentType("/test.gif"));
+            Assert.AreEqual("image/jpeg", resolver.GetContentType("/test.jpeg"));
+            Assert.AreEqual("image/jpeg", resolver.GetContentType("/test.jpg"));
+            Assert.AreEqual("image/jpeg", resolver.GetContentType("/test.jpe"));
+            Assert.AreEqual("image/tiff", resolver.GetContentType("/test.tiff"));
+            Assert.AreEqual("image/tiff", resolver.GetContentType("/test.tif"));
+            Assert.AreEqual("image/x-ms-bmp", resolver.GetContentType("/test.bmp"));
         }
     }
 }

@@ -18,6 +18,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System.IO;
+    using System.Web;
 
     [TestFixture]
     public class LoadSettingsTaskTests
@@ -37,11 +39,19 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Load_Settings()
         {
-            Assert.Fail();
+            var httpContext = TestHelper.CreateMockedHttpContext(true);
+
+            container.Register<HttpContextBase>(httpContext.Object);
 
             task.StartUp(container, typeProvider.Object);
 
-            Assert.IsInstanceOf<SettingsContext>(container.Resolve<SettingsContext>());
+            var settings = container.Resolve<SettingsContext>();
+
+            //useful for checking default of config section
+            Assert.IsFalse(settings.DebugMode);
+            Assert.AreEqual(".min", settings.MinifyIdentifier);
+            Assert.IsTrue(settings.VersionCssImages);
+            Assert.AreEqual(TestHelper.ApplicationPath, settings.AppRootDirectory.FullPath);
         }
     }
 }
