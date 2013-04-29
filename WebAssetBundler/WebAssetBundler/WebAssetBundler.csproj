@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssetCollection.cs" />
     <Compile Include="Bootstrap\ConfigureCommonTask.cs" />
     <Compile Include="Bootstrap\ConfigureStyleSheetsTask.cs" />
     <Compile Include="Bootstrap\LoadSettingsTask.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Configuration\WabConfigurationSection.cs" />
     <Compile Include="DirectoryFactory.cs" />
     <Compile Include="DirectorySearchFactory.cs" />
+    <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="FileSystemFile.cs" />
     <Compile Include="Bootstrap\IBootstrapTask.cs" />
     <Compile Include="FileSystemDirectory.cs" />

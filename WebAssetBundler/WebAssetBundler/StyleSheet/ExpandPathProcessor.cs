@@ -43,22 +43,25 @@ namespace WebAssetBundler.Web.Mvc
         // source: ~/Content/file.css
         // image: ../image/icon.png
         //target: /wab.axd/a/a
-        public void Transform(AssetBase asset)
-        {            
-            var content = asset.Content;
-            var paths = FindPaths(content);
-
-            foreach (string path in paths)
+        public Func<Stream> Transform(Func<Stream> openStream, AssetBase asset)        
+        {
+            return delegate
             {
-                var result = pathResolverProvider.GetResolver(settings).Resolve(path, outputUrl, asset.Source);
+                var content = openStream().ReadToEnd();
+                var paths = FindPaths(content);
 
-                if (result.Changed)
+                foreach (string path in paths)
                 {
-                    content = content.Replace(path, result.NewPath);
+                    var result = pathResolverProvider.GetResolver(settings).Resolve(path, outputUrl, asset.Source);
+
+                    if (result.Changed)
+                    {
+                        content = content.Replace(path, result.NewPath);
+                    }
                 }
-            }
-                
-            asset.Content = content;
+
+                return content.AsStream();
+            };
         }         
         
         private IEnumerable<string> FindPaths(string css)
@@ -84,6 +87,5 @@ namespace WebAssetBundler.Web.Mvc
         {
             return match.Groups[1].Captures[0].Value;
         }
-         
     }
 }

@@ -18,6 +18,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using WebAssetBundler.Web.Mvc;
+    using Moq;
+    using System.IO;
+    using System;
 
     [TestFixture]
     public class AssetBaseTests
@@ -43,15 +46,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Add_Transformer()
+        public void Should_Get_Content_And_Apply_Transformer()
         {
-            Assert.Fail();
+            var webAsset = new AssetBaseImpl();
+            var transformer = new Mock<IAssetTransformer>();
+
+            webAsset.Transformers.Add(transformer.Object);
+            var stream = webAsset.Content;
+
+            transformer.Verify(t => t.Transform(It.IsAny<Func<Stream>>(), webAsset));
+            Assert.IsInstanceOf<MemoryStream>(stream);            
         }
 
-        [Test]
-        public void Should_Open_Stream()
-        {
-            Assert.Fail();
-        }
     }
 }

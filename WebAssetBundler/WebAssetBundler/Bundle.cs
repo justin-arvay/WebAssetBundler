@@ -6,13 +6,14 @@
     using System.Linq;
     using System.Text;
     using System.Security.Cryptography;
+    using System.IO;
 
     public abstract class Bundle
     {
         public Bundle()
         {
             Minify = true;
-            Assets = new InternalCollection();
+            Assets = new AssetCollection();
             BrowserTtl = 525949; //1 year default
             Host = "";
         }
@@ -26,13 +27,18 @@
         public int BrowserTtl { get; set; }
         public string Url { get; set; }
 
-        public IList<AssetBase> Assets { get; set; }
+        public AssetCollection Assets { get; set; }
 
-        public string Content
+        public Stream Content
         {
             get
             {
-                return Assets.Aggregate<AssetBase, string>("", (a, b) => a + b.Content);
+                if (Assets.Count > 0)
+                {
+                    return Stream.Null;
+                }
+
+                return Assets[0].Content;
             }
         }
 
@@ -49,24 +55,8 @@
             get
             {
                 MD5CryptoServiceProvider x = new MD5CryptoServiceProvider();
-                byte[] bs = Encoding.UTF8.GetBytes(Content);
+                byte[] bs = Encoding.UTF8.GetBytes(Content.ToString());
                 return x.ComputeHash(bs);
-            }
-        }
-
-        public void TransformAssets(IAssetTransformer transformer)
-        {
-            ((InternalCollection)Assets).Transform(transformer);
-        }
-
-        private sealed class InternalCollection : Collection<AssetBase>, ITransformable<IAssetTransformer>
-        {
-            public void Transform(IAssetTransformer transformer)
-            {
-                foreach (var asset in this)
-                {
-                    asset.Transform(transformer);
-                }
             }
         }
     }

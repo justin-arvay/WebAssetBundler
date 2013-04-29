@@ -17,28 +17,14 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.IO;
+    using System.Linq;
+    using System.Collections.Generic;
 
-    public class FileAsset : AssetBase
+    public class AssetCollection : List<AssetBase>
     {
-        private readonly IFile sourceFile;
-
-        public FileAsset(IFile sourceFile)
+        public void AddTransformer(IAssetTransformer transformer)
         {
-            this.sourceFile = sourceFile;
-        }
-
-        public override string Source
-        {
-            get 
-            {
-                return sourceFile.Path;
-            }
-        }
-
-        protected override Stream OpenStreamSource()
-        {
-            return sourceFile.Open(FileMode.Open, FileAccess.Read, FileShare.Read);
+            ForEach((a) => a.Transformers.Add(transformer));
         }
     }
 }

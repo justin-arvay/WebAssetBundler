@@ -17,8 +17,13 @@
 namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System;
+    using System.IO;
 
     public class AssetBaseImpl : AssetBase
     {
+        protected override Stream OpenStreamSource()
+        {
+            return new MemoryStream();
+        }
     }
 }

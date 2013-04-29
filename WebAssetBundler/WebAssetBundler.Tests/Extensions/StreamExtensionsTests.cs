@@ -14,31 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
-    using System.IO;
+    using NUnit.Framework;
+    using Moq;
 
-    public class FileAsset : AssetBase
+    [TestFixture]
+    public class StreamExtensionsTests
     {
-        private readonly IFile sourceFile;
-
-        public FileAsset(IFile sourceFile)
+        [Test]
+        public void Should_Read_To_End()
         {
-            this.sourceFile = sourceFile;
-        }
-
-        public override string Source
-        {
-            get 
-            {
-                return sourceFile.Path;
-            }
-        }
-
-        protected override Stream OpenStreamSource()
-        {
-            return sourceFile.Open(FileMode.Open, FileAccess.Read, FileShare.Read);
+            Assert.Fail();
         }
     }
 }

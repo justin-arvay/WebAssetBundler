@@ -19,26 +19,14 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.IO;
 
-    public class FileAsset : AssetBase
+    public static class StreamExtensions
     {
-        private readonly IFile sourceFile;
-
-        public FileAsset(IFile sourceFile)
+        public static string ReadToEnd(this Stream stream)
         {
-            this.sourceFile = sourceFile;
-        }
-
-        public override string Source
-        {
-            get 
+            using (var reader = new StreamReader(stream))
             {
-                return sourceFile.Path;
+                return reader.ReadToEnd();
             }
-        }
-
-        protected override Stream OpenStreamSource()
-        {
-            return sourceFile.Open(FileMode.Open, FileAccess.Read, FileShare.Read);
         }
     }
 }

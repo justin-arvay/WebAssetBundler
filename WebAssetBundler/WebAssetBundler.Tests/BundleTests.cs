@@ -74,7 +74,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Return_Content_From_All_Assets()
+        public void Should_Return_Content()
         {
             var assetOne = new AssetBaseImpl();
             assetOne.Content = "test";

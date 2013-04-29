@@ -21,9 +21,9 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.Linq;
 
-    public abstract class AssetBase : ITransformable<IAssetTransformer>
+    public abstract class AssetBase
     {
-        public readonly List<IAssetTransformer> transformers = new List<IAssetTransformer>();
+        readonly List<IAssetTransformer> transformers = new List<IAssetTransformer>();
 
         public string Name
         {
@@ -32,6 +32,15 @@ namespace WebAssetBundler.Web.Mvc
                 return Path.GetFileNameWithoutExtension(Source);
             }
         }
+
+        public List<IAssetTransformer> Transformers
+        {
+            get 
+            { 
+                return transformers; 
+            }
+        }
+
         
         public virtual string Source
         {
@@ -53,33 +62,16 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public virtual string Content
+        public virtual Stream Content
         {
-            get;
-            set;
-        }
-
-        public void AddAssetTransformer(IAssetTransformer transformer)
-        {
-            transformers.Add(transformer);
-        }
-
-        public Stream OpenStream()
-        {
-            Func<Stream> openStream = OpenStreamSource;
-
-            foreach (var transformer in transformers)
+            get
             {
-                transformer.Transform(openStream, this);
+                var createStream = transformers.Aggregate<IAssetTransformer, Func<Stream>>(
+                OpenStreamSource,
+                (openStream, transformer) => transformer.Transform(openStream, this));
+
+                return createStream();
             }
-
-            return openStream();
-
-            //var createStream = transformers.Aggregate<IAssetTransformer, Func<Stream>>(
-            //    OpenStreamSource,
-            //    (current, transformer) => transformer.Transform(current, this)
-            //);
-            //return createStream();
         }
 
         protected abstract Stream OpenStreamSource();
