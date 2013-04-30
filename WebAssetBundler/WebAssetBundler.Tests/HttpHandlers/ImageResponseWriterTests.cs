@@ -107,7 +107,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Be_Modified()
         {
-            bundle.Assets.Add(new MergedAsset("test"));
+            bundle.Assets.Add(new AssetBaseImpl("test"));
 
             var collection = new NameValueCollection();
             collection.Add("If-None-Match", bundle.Hash.ToHexString());

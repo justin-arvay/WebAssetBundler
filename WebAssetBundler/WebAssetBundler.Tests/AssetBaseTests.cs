@@ -54,7 +54,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             webAsset.Transformers.Add(transformer.Object);
             var stream = webAsset.Content;
 
-            transformer.Verify(t => t.Transform(It.IsAny<Func<Stream>>(), webAsset));
+            transformer.Verify(t => t.Transform(It.IsAny<Stream>(), webAsset));
             Assert.IsInstanceOf<MemoryStream>(stream);            
         }
 

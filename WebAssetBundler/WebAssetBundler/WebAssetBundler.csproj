@@ -88,6 +88,8 @@
     <Compile Include="IBundleConfiguration.cs" />
     <Compile Include="ITypeProvider.cs" />
     <Compile Include="Minifiers\MinifyTransformer.cs" />
+    <Compile Include="Pipeline\CompileTransformer.cs" />
+    <Compile Include="Pipeline\ICompiler.cs" />
     <Compile Include="Pipeline\UrlAssignmentProcessor.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Plugins\IPluginCollection.cs" />
@@ -191,6 +193,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
