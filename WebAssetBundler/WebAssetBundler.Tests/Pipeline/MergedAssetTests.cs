@@ -26,9 +26,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Set_Content()
         {
-            var asset = new MergedAsset("content");
+            var assets = new AssetCollection()
+            {
+                new AssetBaseImpl("function(){}"),
+                new AssetBaseImpl("function(){}")
 
-            Assert.AreEqual("content", asset.Content);
+            };
+
+            var asset = new MergedAsset(assets);
+            asset.Separator = ";";
+
+            Assert.AreEqual("function(){};function(){}", asset.Content.ToString());
         }
     }
 }

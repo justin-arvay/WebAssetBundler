@@ -29,6 +29,12 @@ using System.IO;
             stream = MergeAssetsIntoSingleStream(assets);
         }
 
+        public string Separator
+        {
+            get;
+            set;
+        }
+
         public override string Source
         {
             get { throw new NotSupportedException("Asset is not a real file."); }
@@ -53,6 +59,7 @@ using System.IO;
             {
                 var content = reader.ReadToEnd();
                 writer.Write(content);
+                writer.Write(Separator);
             }
         }
 

@@ -57,7 +57,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             Assert.Fail();
             bundle.BrowserTtl = 10;
-            bundle.Assets.Add(new MergedAsset("test"));
+            bundle.Assets.Add(new AssetBaseImpl("test"));
 
             var collection = new NameValueCollection();
             collection.Add("Accept-Encoding", "some encoding");

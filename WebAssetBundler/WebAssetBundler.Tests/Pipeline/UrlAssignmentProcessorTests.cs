@@ -40,7 +40,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Generate_Url_Without_Host()
         {
             bundle.Name = "test";
-            bundle.Assets.Add(new MergedAsset("1"));
+            bundle.Assets.Add(new AssetBaseImpl("1"));
 
             processor.Process(bundle);
 
@@ -52,7 +52,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundle.Name = "test";
             bundle.Host = "http://www.google.ca";
-            bundle.Assets.Add(new MergedAsset("1"));
+            bundle.Assets.Add(new AssetBaseImpl("1"));
 
             processor.Process(bundle);
 
@@ -63,7 +63,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Generate_Cache_Breaker_Url()
         {
             bundle.Name = "test";
-            bundle.Assets.Add(new MergedAsset("1"));
+            bundle.Assets.Add(new AssetBaseImpl("1"));
 
             settings.DebugMode = true;
 

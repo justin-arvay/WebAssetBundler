@@ -29,6 +29,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IImagePathResolverProvider> resolverProvider;
         private Mock<IImagePathResolver> resolver;
         private SettingsContext settings;
+        private AssetBaseImpl asset;
 
         [SetUp]
         public void Setup()
@@ -40,15 +41,16 @@ namespace WebAssetBundler.Web.Mvc.Tests
             resolverProvider.Setup(r => r.GetResolver(settings))
                 .Returns(resolver.Object);
 
+            asset = new AssetBaseImpl();
             bundle = new StyleSheetBundle();
-            bundle.Assets.Add(new AssetBaseImpl());
+            bundle.Assets.Add(asset);
             processor = new ExpandPathProcessor(settings, resolverProvider.Object);
         }
 
         [Test]
         public void Should_Match_Url_With_Double_Quotes()
         {
-            bundle.Assets[0].Content = "url(\"/img/test.jpg\");";
+            asset.StreamContent = "url(\"/img/test.jpg\");";
             bundle.Url = "/a/a/a/a";
 
             var result = new PathRewriteResult
@@ -64,13 +66,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             resolverProvider.Verify(r => r.GetResolver(settings));
             resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Source));
-            Assert.IsTrue(bundle.Assets[0].Content.Contains(result.NewPath));
+            Assert.IsTrue(bundle.Assets[0].Content.ToString().Contains(result.NewPath));
         }
 
         [Test]
         public void Should_Match_Url_With_Single_Quotes()
         {
-            bundle.Assets[0].Content = "url('/img/test.jpg');";
+            asset.StreamContent = "url('/img/test.jpg');";
             bundle.Url = "/a/a/a/a";
 
             var result = new PathRewriteResult
@@ -86,14 +88,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             resolverProvider.Verify(r => r.GetResolver(settings));
             resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Source));
-            Assert.IsTrue(bundle.Assets[0].Content.Contains(result.NewPath));
+            Assert.IsTrue(bundle.Assets[0].Content.ToString().Contains(result.NewPath));
         }
 
         [Test]
         public void Should_Match_Url_With_No_Quotes()
-        {
-          
-            bundle.Assets[0].Content = "url(/img/test.jpg);";
+        {          
+            asset.StreamContent = "url(/img/test.jpg);";
             bundle.Url = "/a/a/a/a";
 
             var result = new PathRewriteResult
@@ -109,13 +110,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             resolverProvider.Verify(r => r.GetResolver(settings));
             resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Source));
-            Assert.IsTrue(bundle.Assets[0].Content.Contains(result.NewPath));
+            Assert.IsTrue(bundle.Assets[0].Content.ToString().Contains(result.NewPath));
         }
 
         [Test]
         public void Should_Match_Src_With_Double_Quotes()
         {
-            bundle.Assets[0].Content = "src=\"/img/test.jpg\"";
+            asset.StreamContent = "src=\"/img/test.jpg\"";
             bundle.Url = "/a/a/a/a";
 
             var result = new PathRewriteResult
@@ -130,14 +131,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
             processor.Process(bundle);
 
             resolverProvider.Verify(r => r.GetResolver(settings));
-            resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Source));
-            Assert.IsTrue(bundle.Assets[0].Content.Contains(result.NewPath));
+            resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, ""));
+            Assert.IsTrue(bundle.Assets[0].Content.ToString().Contains(result.NewPath));
         }
 
         [Test]
         public void Should_Match_Src_With_Single_Quotes()
         {
-            bundle.Assets[0].Content = "(src='/img/test.jpg')";
+            asset.StreamContent = "(src='/img/test.jpg')";
             bundle.Url = "/a/a/a/a";
 
             var result = new PathRewriteResult
@@ -152,14 +153,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
             processor.Process(bundle);
 
             resolverProvider.Verify(r => r.GetResolver(settings));
-            resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Content));
-            Assert.IsTrue(bundle.Assets[0].Content.Contains(result.NewPath));
+            resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, ""));
+            Assert.IsTrue(bundle.Assets[0].Content.ToString().Contains(result.NewPath));
         }
 
         [Test]
         public void Should_Match_Src_With_No_Quotes()
         {
-            bundle.Assets[0].Content = "src=/img/test.jpg";
+            asset.StreamContent = "src=/img/test.jpg";
             bundle.Url = "/a/a/a/a";
 
             var result = new PathRewriteResult
@@ -175,8 +176,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             processor.Process(bundle);
 
             resolverProvider.Verify(r => r.GetResolver(settings));
-            resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Source));
-            Assert.IsTrue(bundle.Assets[0].Content.Contains(result.NewPath));
+            resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, ""));
+            Assert.IsTrue(bundle.Assets[0].Content.ToString().Contains(result.NewPath));
         }
 
     }

@@ -24,11 +24,13 @@ namespace WebAssetBundler.Web.Mvc
 
         public void Process(ScriptBundle bundle)
         {
-            var seperator = ";";
-            var content = bundle.Assets.Aggregate<AssetBase, string>("", (a, b) => a + b.Content + seperator);
+            var asset = new MergedAsset(bundle.Assets)
+            {
+                Separator = ";"
+            };
 
             bundle.Assets.Clear();
-            bundle.Assets.Add(new MergedAsset(content));
+            bundle.Assets.Add(asset);
         }
     }
 }

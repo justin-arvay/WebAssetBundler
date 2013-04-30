@@ -21,9 +21,26 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
     public class AssetBaseImpl : AssetBase
     {
+        public AssetBaseImpl()
+        {
+            StreamContent = "";
+        }
+
+        public AssetBaseImpl(string content)
+            : base()
+        {
+            StreamContent = content;
+        }
+
+        public string StreamContent
+        {
+            get;
+            set;
+        }
+
         protected override Stream OpenSourceStream()
         {
-            return new MemoryStream();
+            return StreamContent.ToStream();
         }
     }
 }
