@@ -22,7 +22,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.Text.RegularExpressions;
     using System.IO;
 
-    public class ExpandPathProcessor : IPipelineProcessor<StyleSheetBundle>, IAssetTransformer
+    public class ExpandPathProcessor : IPipelineProcessor<StyleSheetBundle>, IAssetModifier
     {
         private string outputUrl;
         private SettingsContext settings;
@@ -37,13 +37,13 @@ namespace WebAssetBundler.Web.Mvc
         public void Process(StyleSheetBundle bundle)
         {
             outputUrl = bundle.Url;
-            bundle.Assets.AddTransformer(this);      
+            bundle.Assets.AddModifier(this);      
         }
 
         // source: ~/Content/file.css
         // image: ../image/icon.png
         //target: /wab.axd/a/a
-        public Stream Transform(Stream openStream, AssetBase asset)        
+        public Stream Modify(Stream openStream, AssetBase asset)        
         {
             var content = openStream.ReadToEnd();
             var paths = FindPaths(content);

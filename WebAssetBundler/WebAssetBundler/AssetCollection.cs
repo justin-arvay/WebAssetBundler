@@ -22,9 +22,9 @@ namespace WebAssetBundler.Web.Mvc
 
     public class AssetCollection : List<AssetBase>
     {
-        public void AddTransformer(IAssetTransformer transformer)
+        public void AddModifier(IAssetModifier modifier)
         {
-            ForEach((a) => a.Transformers.Add(transformer));
+            ForEach((a) => a.Modifiers.Add(modifier));
         }
     }
 }

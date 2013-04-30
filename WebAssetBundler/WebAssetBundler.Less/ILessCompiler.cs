@@ -18,8 +18,8 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public interface ITransformable<T>
+    public interface ILessCompiler : ICompiler
     {
-        void Transform(T transformer);
+
     }
 }

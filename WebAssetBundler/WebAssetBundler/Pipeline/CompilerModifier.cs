@@ -17,16 +17,20 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using Moq;
-    using NUnit.Framework;
+    using System.IO;
 
-    [TestFixture]
-    public class MinifyTransformerTests
+    public class CompilerModifier : IAssetModifier
     {
-        [Test]
-        public void test()
+        private ICompiler compiler;
+
+        public CompilerModifier(ICompiler compiler)
         {
-            Assert.Fail();
+            this.compiler = compiler;
+        }
+
+        public Stream Modify(Stream openStream, AssetBase asset)
+        {
+            return compiler.Compile(openStream);
         }
     }
 }

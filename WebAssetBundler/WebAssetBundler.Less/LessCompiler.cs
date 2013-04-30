@@ -14,28 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc.Less
+namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.Linq;
+    using dotless.Core;
+    using System.IO;
 
-    public class LessProcessor : IPipelineProcessor<StyleSheetBundle>
+    public class LessCompiler : ICompiler
     {
-        private ICompiler compiler;
 
-        public LessProcessor(ILessCompiler compiler)
+        public Stream Compile(Stream openStream)
         {
-            this.compiler = compiler;
-        }
-
-        public void Process(StyleSheetBundle bundle)
-        {          
-            bundle.Assets.ForEach((asset) => {               
-                if (asset.Source.EndsWith(".less"))
-                {
-                    asset.Modifiers.Add(new CompilerModifier(compiler));
-                }
-            });
+            return dotless.Core.Less.Parse(openStream.ReadToEnd()).ToStream();
         }
     }
 }

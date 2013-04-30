@@ -18,22 +18,25 @@ namespace WebAssetBundler.Web.Mvc.Less.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using WebAssetBundler.Web.Mvc.Tests;
 
     [TestFixture]
     public class LessProcessorTests
     {
         private LessProcessor processor;
+        private Mock<ICompiler> compiler;
 
         [SetUp]
         public void Setup()
         {
-            processor = new LessProcessor();
+            compiler = new Mock<ICompiler>();
+            processor = new LessProcessor(compiler.Object);
         }
         
         [Test]
         public void Should_Process()
         {
-            var asset = new MergedAsset("div { width: 1 + 1 }");
+            var asset = new AssetBaseImpl("div { width: 1 + 1 }");
 
             var bundle = new StyleSheetBundle();
             bundle.Assets.Add(asset);            

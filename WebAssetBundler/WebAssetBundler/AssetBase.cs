@@ -23,7 +23,7 @@ namespace WebAssetBundler.Web.Mvc
 
     public abstract class AssetBase
     {
-        readonly List<IAssetTransformer> transformers = new List<IAssetTransformer>();
+        readonly List<IAssetModifier> modifiers = new List<IAssetModifier>();
 
         public string Name
         {
@@ -33,11 +33,11 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public List<IAssetTransformer> Transformers
+        public List<IAssetModifier> Modifiers
         {
             get 
             { 
-                return transformers; 
+                return modifiers; 
             }
         }
 
@@ -66,9 +66,9 @@ namespace WebAssetBundler.Web.Mvc
         {
             get
             {
-                var createStream = transformers.Aggregate<IAssetTransformer, Stream>(
+                var createStream = modifiers.Aggregate<IAssetModifier, Stream>(
                 OpenSourceStream(),
-                (openStream, transformer) => transformer.Transform(openStream, this));
+                (openStream, modifier) => modifier.Modify(openStream, this));
 
                 return createStream;
             }

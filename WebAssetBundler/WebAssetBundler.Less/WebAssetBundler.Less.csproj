@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ILessCompiler.cs" />
+    <Compile Include="LessCompiler.cs" />
     <Compile Include="LessPlugin.cs" />
     <Compile Include="LessProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

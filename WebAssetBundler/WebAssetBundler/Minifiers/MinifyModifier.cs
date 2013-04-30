@@ -14,28 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc.Less
+namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.Linq;
+    using System.IO;
 
-    public class LessProcessor : IPipelineProcessor<StyleSheetBundle>
+    public class MinifyModifier<T> : IAssetModifier where T : IMinifier
     {
-        private ICompiler compiler;
+        private readonly T minifier;
 
-        public LessProcessor(ILessCompiler compiler)
+        public MinifyModifier(T minifier)
         {
-            this.compiler = compiler;
+            this.minifier = minifier;
         }
 
-        public void Process(StyleSheetBundle bundle)
-        {          
-            bundle.Assets.ForEach((asset) => {               
-                if (asset.Source.EndsWith(".less"))
-                {
-                    asset.Modifiers.Add(new CompilerModifier(compiler));
-                }
-            });
+        public Stream Modify(Stream openStream, AssetBase asset)
+        {
+            var content = openStream.ReadToEnd();
+            content = minifier.Minify(content);
+
+            return content.ToStream();
         }
     }
 }

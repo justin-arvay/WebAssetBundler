@@ -56,6 +56,10 @@
       <Project>{9000799C-4762-4C84-ADA6-DDCA535B5D1E}</Project>
       <Name>WebAssetBundler.Less</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WebAssetBundler.Tests\WebAssetBundler.Tests.csproj">
+      <Project>{625B8BE8-CB57-4033-842A-CFBF16CAD089}</Project>
+      <Name>WebAssetBundler.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebAssetBundler\WebAssetBundler.csproj">
       <Project>{2AC03817-4112-47FE-AF34-44A8AE4717AB}</Project>
       <Name>WebAssetBundler</Name>

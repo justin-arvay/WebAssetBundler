@@ -40,7 +40,7 @@ namespace WebAssetBundler.Web.Mvc
                     {
                         if (IsAlreadyMinified(asset) == false)
                         {
-                            asset.Transformers.Add(new MinifyTransformer<IScriptMinifier>(minifier));
+                            asset.Modifiers.Add(new MinifyModifier<IScriptMinifier>(minifier));
                         }
                     }
                 }

@@ -87,8 +87,8 @@
     <Compile Include="ExternalAsset.cs" />
     <Compile Include="IBundleConfiguration.cs" />
     <Compile Include="ITypeProvider.cs" />
-    <Compile Include="Minifiers\MinifyTransformer.cs" />
-    <Compile Include="Pipeline\CompileTransformer.cs" />
+    <Compile Include="Minifiers\MinifyModifier.cs" />
+    <Compile Include="Pipeline\CompilerModifier.cs" />
     <Compile Include="Pipeline\ICompiler.cs" />
     <Compile Include="Pipeline\UrlAssignmentProcessor.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
@@ -142,12 +142,11 @@
     <Compile Include="HttpHandlers\ResponseWriter.cs" />
     <Compile Include="HttpHandlers\AssetHttpHandler.cs" />
     <Compile Include="HttpHandlers\WabHttpHandler.cs" />
-    <Compile Include="IAssetTransformer.cs" />
+    <Compile Include="IAssetModifier.cs" />
     <Compile Include="IFile.cs" />
     <Compile Include="ITagWriter.cs" />
     <Compile Include="Script\ScriptTagWriter.cs" />
     <Compile Include="StyleSheet\StyleSheetTagWriter.cs" />
-    <Compile Include="ITransformable.cs" />
     <Compile Include="Script\ScriptBundler.cs" />
     <Compile Include="Pipeline\MergedAsset.cs" />
     <Compile Include="Pipeline\BundlePipeline.cs" />

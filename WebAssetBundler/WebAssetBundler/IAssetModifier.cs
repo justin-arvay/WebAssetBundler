@@ -19,21 +19,8 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.IO;
 
-    public class MinifyTransformer<T> : IAssetTransformer where T : IMinifier
+    public interface IAssetModifier
     {
-        private readonly T minifier;
-
-        public MinifyTransformer(T minifier)
-        {
-            this.minifier = minifier;
-        }
-
-        public Stream Transform(Stream openStream, AssetBase asset)
-        {
-            var content = openStream.ReadToEnd();
-            content = minifier.Minify(content);
-
-            return content.ToStream();
-        }
+        Stream Modify(Stream openStream, AssetBase asset);
     }
 }

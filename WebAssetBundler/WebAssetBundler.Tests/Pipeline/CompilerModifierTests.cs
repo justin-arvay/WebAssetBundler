@@ -14,13 +14,33 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System;
-    using System.IO;
+    using Moq;
+    using NUnit.Framework;
 
-    public interface IAssetTransformer
+    [TestFixture]
+    public class CompilerModifierTests
     {
-        Stream Transform(Stream openStream, AssetBase asset);
+        private CompilerModifier modifier;
+        private Mock<ICompiler> compiler;
+
+        [SetUp]
+        public void Setup()
+        {
+            compiler = new Mock<ICompiler>();
+            modifier = new CompilerModifier(compiler.Object);
+        }
+
+        [Test]
+        public void Should_Transform_Asset_By_Compiling()
+        {
+            var asset = new AssetBaseImpl("test");
+
+            modifier.Modify(asset.Content, asset);
+
+            compiler.Verify(c => c.Compile(asset.Content));
+        }
     }
 }

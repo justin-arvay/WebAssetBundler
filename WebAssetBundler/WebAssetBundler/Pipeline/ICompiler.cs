@@ -17,9 +17,10 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.IO;
 
     public interface ICompiler
-   {r
-        string Compile(string source)
+    {
+        Stream Compile(Stream openStream);
     }
 }

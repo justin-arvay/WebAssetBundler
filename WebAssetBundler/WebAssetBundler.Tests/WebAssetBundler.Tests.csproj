@@ -73,9 +73,10 @@
     <Compile Include="HttpHandlers\ResponseWriterFactoryTests.cs" />
     <Compile Include="Image\ImageBundleTests.cs" />
     <Compile Include="Image\ImageUrlGeneratorTests.cs" />
-    <Compile Include="Minifiers\MinifyTransformerTests.cs" />
+    <Compile Include="Minifiers\MinifyModifierTests.cs" />
     <Compile Include="Pipeline\BundlePipelineImpl.cs" />
     <Compile Include="Pipeline\BundlePipelineTests.cs" />
+    <Compile Include="Pipeline\CompilerModifierTests.cs" />
     <Compile Include="Pipeline\ProcessorImpl.cs" />
     <Compile Include="DefaultBundleConfigurationProviderTests.cs" />
     <Compile Include="AssetProviderTests.cs" />
