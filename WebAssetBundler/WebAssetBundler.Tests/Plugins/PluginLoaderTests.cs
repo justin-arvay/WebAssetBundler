@@ -39,39 +39,16 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Load_Plugins()
         {
-            var plugin = new TestPlugin();
-            container.Register<IPlugin<BundleImpl>>(plugin);
+            var plugin = new Mock<IPlugin<BundleImpl>>();
+            container.Register<IPlugin<BundleImpl>>(plugin.Object);
 
             typeProvider.Setup(p => p.GetImplementationTypes(typeof(IPlugin<BundleImpl>)))
                 .Returns(new List<Type>() { typeof(IPlugin<BundleImpl>) });
 
             var plugins = pluginLoader.LoadPlugins<BundleImpl>();
 
-            Assert.IsTrue(plugins.Contains(plugin));
-        }
-
-        internal class TestPlugin : IPlugin<BundleImpl>
-        {
-
-            public void Initialize(TinyIoCContainer container)
-            {
-                throw new System.NotImplementedException();
-            }
-
-            public void Dispose()
-            {
-                throw new System.NotImplementedException();
-            }
-
-            public void ModifyPipeline(IBundlePipeline<BundleImpl> pipeline)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void ModifySearchPatterns(ICollection<string> patterns)
-            {
-                throw new NotImplementedException();
-            }
+            Assert.IsTrue(plugins.Contains(plugin.Object));
+            plugin.Verify(p => p.Initialize(container));
         }
     }
 }

@@ -33,10 +33,13 @@ namespace WebAssetBundler.Web.Mvc
         {
             var pluginTypes = typeProvider.GetImplementationTypes(typeof(IPlugin<TBundle>));
             var plugins = new PluginCollection<TBundle>();
+            IPlugin<TBundle> plugin;
 
             foreach (var pluginType in pluginTypes)
             {
-                plugins.Add((IPlugin<TBundle>)container.Resolve(pluginType));
+                plugin = (IPlugin<TBundle>)container.Resolve(pluginType);
+                plugin.Initialize(container);
+                plugins.Add(plugin);
             }
 
             return plugins;

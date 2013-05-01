@@ -21,7 +21,7 @@ namespace WebAssetBundler.Web.Mvc
     public interface IPluginLoader
     {
         /// <summary>
-        /// Loads the plugins for the generic type.
+        /// Loads the plugins for the generic type. Plugins are initialized when loaded.
         /// </summary>
         /// <typeparam name="TBundle"></typeparam>
         /// <returns></returns>

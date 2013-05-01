@@ -31,14 +31,11 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         public override void WriteAsset(Bundle bundle, IEncoder encoder)
-        {            
-            var file = new FileSystemFile(bundle.Assets[0].Source);
-            var stream = file.Open(FileMode.Open);
-
-            stream.CopyTo(response.OutputStream);
-
+        {                        
             response.ContentType = bundle.ContentType;
             CacheLongTime(bundle.Hash.ToHexString(), bundle.BrowserTtl);
+
+            bundle.Content.CopyTo(response.OutputStream);
         }
     }
 }

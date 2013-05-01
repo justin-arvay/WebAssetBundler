@@ -24,7 +24,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class StyleSheetMinifyProcessorTests
     {
         private StyleSheetMinifyProcessor processor;
-        private Mock<IStyleSheetMinifier> compressor;
+        private Mock<IStyleSheetMinifier> minifier;
         private StyleSheetBundle bundle;
         private SettingsContext settings;
 
@@ -32,16 +32,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Setup()
         {
             bundle = new StyleSheetBundle();
-            compressor = new Mock<IStyleSheetMinifier>();
+            minifier = new Mock<IStyleSheetMinifier>();
             settings = new SettingsContext(false, ".min");
-            processor = new StyleSheetMinifyProcessor(settings, compressor.Object);
+            processor = new StyleSheetMinifyProcessor(settings, minifier.Object);
         }
 
         [Test]
         public void Should_Compress_Assets()
         {
-            var asset = new AssetBaseImpl();
-            asset.Content = "#div { color: #123; }";
+            var asset = new AssetBaseImpl("#div { color: #123; }");
             asset.Source = "~/file.css";
 
             bundle.Assets.Add(asset);
@@ -49,28 +48,26 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            compressor.Verify(c => c.Minify("#div { color: #123; }"), Times.Once());
+            minifier.Verify(c => c.Minify("#div { color: #123; }"), Times.Once());
         }
 
         [Test]
         public void Should_Not_Compress_Asset()
         {
-            var asset = new AssetBaseImpl();
-            asset.Content = "#div { color: #123; }";
+            var asset = new AssetBaseImpl("#div { color: #123; }");
 
             bundle.Assets.Add(asset);
             bundle.Minify = false;
 
             processor.Process(bundle);
 
-            compressor.Verify(c => c.Minify("#div { color: #123; }"), Times.Never());
+            minifier.Verify(c => c.Minify("#div { color: #123; }"), Times.Never());
         }
 
         [Test]
         public void Should_Not_Compress_Asset_When_Already_Minified()
         {
-            var asset = new AssetBaseImpl();
-            asset.Content = "#div { color: #123; }";
+            var asset = new AssetBaseImpl("#div { color: #123; }");
             asset.Source = "~/file.min.css";
 
             bundle.Assets.Add(asset);
@@ -78,7 +75,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            compressor.Verify(c => c.Minify("#div { color: #123; }"), Times.Never());
+            minifier.Verify(c => c.Minify("#div { color: #123; }"), Times.Never());
         }
 
         [Test]
@@ -86,8 +83,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             settings.DebugMode = true;
 
-            var asset = new AssetBaseImpl();
-            asset.Content = "#div { color: #123; }";
+            var asset = new AssetBaseImpl("#div { color: #123; }");
             asset.Source = "~/file.css";
 
             bundle.Assets.Add(asset);
@@ -95,7 +91,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            compressor.Verify(c => c.Minify("#div { color: #123; }"), Times.Never());
+            minifier.Verify(c => c.Minify("#div { color: #123; }"), Times.Never());
         }
     }
 }

@@ -24,26 +24,36 @@ namespace WebAssetBundler.Web.Mvc.Less.Tests
     public class LessProcessorTests
     {
         private LessProcessor processor;
-        private Mock<ICompiler> compiler;
+        private Mock<ILessCompiler> compiler;
 
         [SetUp]
         public void Setup()
         {
-            compiler = new Mock<ICompiler>();
+            compiler = new Mock<ILessCompiler>();
             processor = new LessProcessor(compiler.Object);
         }
         
         [Test]
         public void Should_Process()
         {
-            var asset = new AssetBaseImpl("div { width: 1 + 1 }");
+            var asset = new AssetBaseImpl()
+            {
+                Source = "~/File.css"
+            };
+
+            var lessAsset = new AssetBaseImpl()
+            {
+                Source = "~/File.less"
+            };
 
             var bundle = new StyleSheetBundle();
-            bundle.Assets.Add(asset);            
+            bundle.Assets.Add(asset);
+            bundle.Assets.Add(lessAsset);
 
             processor.Process(bundle);
 
-            Assert.AreEqual("div {\n  width: 2;\n}\n", bundle.Content);
+            Assert.AreEqual(1, lessAsset.Modifiers.Count);
+            Assert.AreEqual(0, asset.Modifiers.Count);
         }
     }
 }

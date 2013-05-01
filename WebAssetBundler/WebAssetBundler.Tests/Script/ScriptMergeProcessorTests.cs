@@ -35,23 +35,20 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Merge()
         {
-            bundle.Assets.Add(new AssetBaseImpl() 
+            bundle.Assets.Add(new AssetBaseImpl("test") 
             { 
-                Source = "~/file1.js",
-                Content = "test"
+                Source = "~/file1.js"
             });
 
-            bundle.Assets.Add(new AssetBaseImpl() 
+            bundle.Assets.Add(new AssetBaseImpl("test") 
             { 
-                Source = "~/file2.js",
-                Content = "test"
+                Source = "~/file2.js"
             });
 
 
-            bundle.Assets.Add(new AssetBaseImpl()
+            bundle.Assets.Add(new AssetBaseImpl("test")
             {
-                Source = "~/file3.js",
-                Content = "test"
+                Source = "~/file3.js"
             });
 
             processor.Process(bundle);

@@ -76,11 +76,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Return_Content()
         {
-            var assetOne = new AssetBaseImpl();
-            assetOne.Content = "test";
-
-            var assetTwo = new AssetBaseImpl();
-            assetTwo.Content = "test";
+            var assetOne = new AssetBaseImpl( "test");
+            var assetTwo = new AssetBaseImpl("test");
 
             bundle.Assets.Add(assetOne);
             bundle.Assets.Add(assetTwo);

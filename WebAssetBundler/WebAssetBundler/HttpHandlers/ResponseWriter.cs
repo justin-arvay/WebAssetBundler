@@ -37,7 +37,7 @@ namespace WebAssetBundler.Web.Mvc
             response.ContentType = bundle.ContentType;
             CacheLongTime(bundle.Hash.ToHexString(), bundle.BrowserTtl);
 
-            response.Write(bundle.Content);
+            bundle.Content.CopyTo(response.OutputStream);
 
             encoder.Encode(response);                                             
         }

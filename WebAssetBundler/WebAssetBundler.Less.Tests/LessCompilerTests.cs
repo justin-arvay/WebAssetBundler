@@ -14,32 +14,31 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc.Less
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
+    using NUnit.Framework;
+    using Moq;
+    using System.IO;
 
-    public class LessPlugin : IPlugin<StyleSheetBundle>
+    [TestFixture]
+    public class LessCompilerTests
     {
+        private LessCompiler compiler;
 
-        public void Initialize(TinyIoCContainer container)
+        [SetUp]
+        public void Setup()
         {
-            container.Register<ILessCompiler, LessCompiler>();
-            container.Register<LessProcessor>();            
+            compiler = new LessCompiler();
         }
 
-        public void ModifyPipeline(IBundlePipeline<StyleSheetBundle> pipeline)
+        [Test]
+        public void Should_Compile()
         {
-            pipeline.Insert<LessProcessor>(0);
-        }
+            var stream = "div { width: 1 + 1 }".ToStream();
 
-        public void ModifySearchPatterns(System.Collections.Generic.ICollection<string> patterns)
-        {
-            patterns.Add("*.less");
-        }
+            var returnStream = compiler.Compile(stream);
 
-        public void Dispose()
-        {
-            
+            Assert.AreEqual("div {\n  width: 2;\n}\n", returnStream.ReadToEnd());
         }
     }
 }

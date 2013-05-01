@@ -40,8 +40,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Compress_Assets()
         {
-            var asset = new AssetBaseImpl();
-            asset.Content = "var value = 1;";
+            var asset = new AssetBaseImpl("var value = 1;");
             asset.Source = "~/file.js";
 
             bundle.Assets.Add(asset);
@@ -55,8 +54,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Compress_Assets()
         {
-            var asset = new AssetBaseImpl();
-            asset.Content = "var value = 1;";
+            var asset = new AssetBaseImpl("var value = 1;");
 
             bundle.Assets.Add(asset);
             bundle.Minify = false;
@@ -69,9 +67,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Compress_Asset_When_Already_Minified()
         {
-            var asset = new AssetBaseImpl();
+            var asset = new AssetBaseImpl("var value = 1;");
             asset.Source = "~/file.min.js";
-            asset.Content = "var value = 1;";
 
             bundle.Assets.Add(asset);
             bundle.Minify = true;
@@ -86,8 +83,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             settings = new SettingsContext(true, ".min");
 
-            var asset = new AssetBaseImpl();
-            asset.Content = "#div { color: #123; }";
+            var asset = new AssetBaseImpl("#div { color: #123; }");
             asset.Source = "~/file.js";
 
             bundle.Assets.Add(asset);

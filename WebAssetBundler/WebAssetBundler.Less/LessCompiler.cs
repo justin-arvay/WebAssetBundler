@@ -20,9 +20,8 @@ namespace WebAssetBundler.Web.Mvc
     using dotless.Core;
     using System.IO;
 
-    public class LessCompiler : ICompiler
+    public class LessCompiler : ILessCompiler
     {
-
         public Stream Compile(Stream openStream)
         {
             return dotless.Core.Less.Parse(openStream.ReadToEnd()).ToStream();
