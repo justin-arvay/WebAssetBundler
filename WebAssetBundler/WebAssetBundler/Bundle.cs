@@ -33,7 +33,7 @@
         {
             get
             {
-                if (Assets.Count > 0)
+                if (Assets.Count == 0)
                 {
                     return Stream.Null;
                 }

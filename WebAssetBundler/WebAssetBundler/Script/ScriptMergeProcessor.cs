@@ -24,10 +24,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public void Process(ScriptBundle bundle)
         {
-            var asset = new MergedAsset(bundle.Assets)
-            {
-                Separator = ";"
-            };
+            var asset = new MergedAsset(bundle.Assets, ";");
 
             bundle.Assets.Clear();
             bundle.Assets.Add(asset);

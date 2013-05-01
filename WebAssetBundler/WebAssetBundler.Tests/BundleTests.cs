@@ -76,13 +76,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Return_Content()
         {
-            var assetOne = new AssetBaseImpl( "test");
+            var assetOne = new AssetBaseImpl("test");
             var assetTwo = new AssetBaseImpl("test");
 
             bundle.Assets.Add(assetOne);
             bundle.Assets.Add(assetTwo);
 
-            Assert.AreEqual("testtest", bundle.Content);
+            //should ignore second asset
+            Assert.AreEqual("test", bundle.Content.ReadToEnd());
         }
     }
 }

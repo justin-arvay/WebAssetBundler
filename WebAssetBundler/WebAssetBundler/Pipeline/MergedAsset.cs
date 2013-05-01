@@ -23,16 +23,12 @@ using System.IO;
     public class MergedAsset : AssetBase
     {
         private Stream stream;
+        private string separator;
 
-        public MergedAsset(AssetCollection assets)            
+        public MergedAsset(AssetCollection assets, string separator)            
         {
             stream = MergeAssetsIntoSingleStream(assets);
-        }
-
-        public string Separator
-        {
-            get;
-            set;
+            this.separator = separator;
         }
 
         public override string Source
@@ -59,7 +55,7 @@ using System.IO;
             {
                 var content = reader.ReadToEnd();
                 writer.Write(content);
-                writer.Write(Separator);
+                writer.Write(separator);
             }
         }
 

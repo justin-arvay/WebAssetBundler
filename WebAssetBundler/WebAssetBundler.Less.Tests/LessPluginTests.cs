@@ -55,6 +55,8 @@ namespace WebAssetBundler.Web.Mvc.Less.Tests
         public void Should_Modify()
         {
             var container = new TinyIoCContainer();
+            container.Register<ILessCompiler>((new Mock<ILessCompiler>()).Object);
+
             var pipeline = new TestStyleSheetPipeline(container);
 
             plugin.ModifyPipeline(pipeline);

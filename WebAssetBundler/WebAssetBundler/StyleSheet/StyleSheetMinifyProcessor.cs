@@ -40,7 +40,7 @@ namespace WebAssetBundler.Web.Mvc
                     {
                         if (IsAlreadyMinified(asset) == false)
                         {
-                            asset.Modifiers.Add(new MinifyModifier<IStyleSheetMinifier>(minifier));
+                            asset.Modifiers.Add(new MinifyModifier(minifier));
                         }
                     }
                 }

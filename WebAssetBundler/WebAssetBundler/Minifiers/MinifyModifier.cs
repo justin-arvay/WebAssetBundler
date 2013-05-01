@@ -19,11 +19,11 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.IO;
 
-    public class MinifyModifier<T> : IAssetModifier where T : IMinifier
+    public class MinifyModifier : IAssetModifier
     {
-        private readonly T minifier;
+        private readonly IMinifier minifier;
 
-        public MinifyModifier(T minifier)
+        public MinifyModifier(IMinifier minifier)
         {
             this.minifier = minifier;
         }

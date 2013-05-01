@@ -33,10 +33,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             };
 
-            var asset = new MergedAsset(assets);
-            asset.Separator = ";";
+            var asset = new MergedAsset(assets, ";");
 
-            Assert.AreEqual("function(){};function(){}", asset.Content.ToString());
+            Assert.AreEqual("function(){};function(){}", asset.Content.ReadToEnd());
         }
     }
 }

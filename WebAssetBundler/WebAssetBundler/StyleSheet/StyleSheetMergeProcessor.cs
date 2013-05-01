@@ -24,7 +24,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public void Process(StyleSheetBundle bundle)
         {
-            var asset = new MergedAsset(bundle.Assets);
+            var asset = new MergedAsset(bundle.Assets, "");
 
             bundle.Assets.Clear();
             bundle.Assets.Add(asset);
