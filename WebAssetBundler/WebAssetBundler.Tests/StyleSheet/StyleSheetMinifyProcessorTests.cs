@@ -38,7 +38,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Compress_Assets()
+        public void Should_Add_Minify_Modifier()
         {
             var asset = new AssetBaseImpl("#div { color: #123; }");
             asset.Source = "~/file.css";
@@ -48,11 +48,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            minifier.Verify(c => c.Minify("#div { color: #123; }"), Times.Once());
+            Assert.AreEqual(1, bundle.Assets[0].Modifiers.Count);
         }
 
         [Test]
-        public void Should_Not_Compress_Asset()
+        public void Should_Not_Add_Minify_Modifier()
         {
             var asset = new AssetBaseImpl("#div { color: #123; }");
 
@@ -61,11 +61,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            minifier.Verify(c => c.Minify("#div { color: #123; }"), Times.Never());
+            Assert.AreEqual(0, bundle.Assets[0].Modifiers.Count);
         }
 
         [Test]
-        public void Should_Not_Compress_Asset_When_Already_Minified()
+        public void Should_Not_Add_Minify_Modifier_When_Already_Minified()
         {
             var asset = new AssetBaseImpl("#div { color: #123; }");
             asset.Source = "~/file.min.css";
@@ -75,11 +75,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            minifier.Verify(c => c.Minify("#div { color: #123; }"), Times.Never());
+            Assert.AreEqual(0, bundle.Assets[0].Modifiers.Count);
         }
 
         [Test]
-        public void Should_Not_Compress_Assets_When_Debug_Mode()
+        public void Should_Not_Add_Minify_Modifier_When_Debug_Mode()
         {
             settings.DebugMode = true;
 
@@ -91,7 +91,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            minifier.Verify(c => c.Minify("#div { color: #123; }"), Times.Never());
+            Assert.AreEqual(0, bundle.Assets[0].Modifiers.Count);
         }
     }
 }

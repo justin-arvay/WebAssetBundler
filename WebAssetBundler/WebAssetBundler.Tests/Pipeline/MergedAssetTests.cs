@@ -35,7 +35,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var asset = new MergedAsset(assets, ";");
 
-            Assert.AreEqual("function(){};function(){}", asset.Content.ReadToEnd());
+            Assert.AreEqual("function(){};function(){};", asset.Content.ReadToEnd());
         }
     }
 }

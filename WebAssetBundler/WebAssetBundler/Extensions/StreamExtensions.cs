@@ -23,10 +23,12 @@ namespace WebAssetBundler.Web.Mvc
     {
         public static string ReadToEnd(this Stream stream)
         {
+            stream.Position = 0;
+
             using (var reader = new StreamReader(stream))
             {                
                 return reader.ReadToEnd();
-            }
+            }           
         }
     }
 }

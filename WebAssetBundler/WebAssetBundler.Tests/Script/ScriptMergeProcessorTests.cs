@@ -45,7 +45,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 Source = "~/file2.js"
             });
 
-
             bundle.Assets.Add(new AssetBaseImpl("test")
             {
                 Source = "~/file3.js"
@@ -55,8 +54,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual(1, bundle.Assets.Count);
             Assert.IsInstanceOf<MergedAsset>(bundle.Assets[0]);
-            Assert.AreEqual("test;test;test;", bundle.Assets[0].Content);
-            Assert.AreEqual("test;test;test;", bundle.Content);
+            Assert.AreEqual("test;test;test;", bundle.Assets[0].Content.ReadToEnd());
         }
     }
 }

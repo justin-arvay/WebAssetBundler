@@ -23,12 +23,10 @@ using System.IO;
     public class MergedAsset : AssetBase
     {
         private Stream stream;
-        private string separator;
 
         public MergedAsset(AssetCollection assets, string separator)            
         {
-            stream = MergeAssetsIntoSingleStream(assets);
-            this.separator = separator;
+            stream = MergeAssetsIntoSingleStream(assets, separator);
         }
 
         public override string Source
@@ -36,12 +34,12 @@ using System.IO;
             get { throw new NotSupportedException("Asset is not a real file."); }
         }
 
-        Stream MergeAssetsIntoSingleStream(AssetCollection assets)
+        Stream MergeAssetsIntoSingleStream(AssetCollection assets, string separator)
         {
             var stream = new MemoryStream();
             var writer = new StreamWriter(stream);
 
-            assets.ForEach(a => WriteAsset(a, writer));
+            assets.ForEach(a => WriteAsset(a, writer, separator));
 
             writer.Flush();
             stream.Position = 0;
@@ -49,7 +47,7 @@ using System.IO;
             return stream;
         }
 
-        public void WriteAsset(AssetBase asset, StreamWriter writer)
+        public void WriteAsset(AssetBase asset, StreamWriter writer, string separator)
         {
             using (var reader = new StreamReader(asset.Content))
             {

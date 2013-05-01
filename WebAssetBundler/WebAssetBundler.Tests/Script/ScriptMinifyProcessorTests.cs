@@ -24,7 +24,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class ScriptMinifyProcessorTests
     {
         private ScriptMinifyProcessor processor;
-        private Mock<IScriptMinifier> compressor;
+        private Mock<IScriptMinifier> minifier;
         private ScriptBundle bundle;
         private SettingsContext settings;
 
@@ -33,12 +33,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             settings = new SettingsContext(false, ".min");
             bundle = new ScriptBundle();
-            compressor = new Mock<IScriptMinifier>();
-            processor = new ScriptMinifyProcessor(settings, compressor.Object);
+            minifier = new Mock<IScriptMinifier>();
+            processor = new ScriptMinifyProcessor(settings, minifier.Object);
         }
 
         [Test]
-        public void Should_Compress_Assets()
+        public void Should_Add_Minify_Modifier()
         {
             var asset = new AssetBaseImpl("var value = 1;");
             asset.Source = "~/file.js";
@@ -48,11 +48,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            compressor.Verify(c => c.Minify("var value = 1;"), Times.Once());
+            Assert.AreEqual(1, bundle.Assets[0].Modifiers.Count);
         }
 
         [Test]
-        public void Should_Not_Compress_Assets()
+        public void Should_Not_Add_Minify_Modifier()
         {
             var asset = new AssetBaseImpl("var value = 1;");
 
@@ -61,11 +61,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            compressor.Verify(c => c.Minify("var value = 1;"), Times.Never());
+            Assert.AreEqual(0, bundle.Assets[0].Modifiers.Count);
         }
 
         [Test]
-        public void Should_Not_Compress_Asset_When_Already_Minified()
+        public void Should_Not_Add_Minify_Modifier_When_Already_Minified()
         {
             var asset = new AssetBaseImpl("var value = 1;");
             asset.Source = "~/file.min.js";
@@ -75,13 +75,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            compressor.Verify(c => c.Minify("var value = 1;"), Times.Never());
+            Assert.AreEqual(0, bundle.Assets[0].Modifiers.Count);
         }
 
         [Test]
-        public void Should_Not_Compress_Assets_When_Debug_Mode()
+        public void Should_Not_Add_Minify_Modifier_When_Debug_Mode()
         {
-            settings = new SettingsContext(true, ".min");
+            settings.DebugMode = true;
 
             var asset = new AssetBaseImpl("#div { color: #123; }");
             asset.Source = "~/file.js";
@@ -91,7 +91,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            compressor.Verify(c => c.Minify("var value = 1;"), Times.Never());
+            Assert.AreEqual(0, bundle.Assets[0].Modifiers.Count);
         }
     }
 }

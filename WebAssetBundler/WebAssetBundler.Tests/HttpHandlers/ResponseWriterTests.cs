@@ -63,12 +63,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
             collection.Add("Accept-Encoding", "some encoding");
 
             request.Setup(r => r.Headers).Returns(collection);
+            response.SetupGet(x => x.OutputStream).Returns(new MemoryStream());
+
             writer.WriteAsset(bundle, encoder.Object);
 
             cache.Verify(c => c.SetExpires(It.Is<DateTime>((e) => e.Minute == DateTime.UtcNow.AddMinutes(bundle.BrowserTtl).Minute)));
             cache.Verify(c => c.SetETag(bundle.Hash.ToHexString()));
             cache.Verify(c => c.SetCacheability(HttpCacheability.Public));
-            response.Verify(r => r.Write(bundle.Content));
+            Assert.AreEqual(bundle.Content.ReadToEnd(), response.Object.OutputStream.ReadToEnd());
             encoder.Verify(e => e.Encode(response.Object), Times.Once());
         }
 

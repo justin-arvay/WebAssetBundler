@@ -27,5 +27,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             Assert.Fail();
         }
+
+        [Test]
+        public void Should_Reset_Position_Before_Read()
+        {
+            Assert.Fail();
+        }
     }
 }
