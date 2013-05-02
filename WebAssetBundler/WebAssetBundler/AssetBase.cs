@@ -71,9 +71,9 @@ namespace WebAssetBundler.Web.Mvc
                 OpenSourceStream(),
                 (openStream, modifier) => 
                     {
-                        modifier.Modify(openStream, this);
-                        //openStream.Position = 0;
-                        return openStream;
+                        var stream = modifier.Modify(openStream, this);
+                        stream.Position = 0;
+                        return stream;
                     });
 
                 return createStream;

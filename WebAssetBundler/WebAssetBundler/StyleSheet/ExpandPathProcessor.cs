@@ -65,14 +65,8 @@ namespace WebAssetBundler.Web.Mvc
         {
             var matchesHash = new HashSet<string>();
             var urlMatches = Regex.Matches(css, @"url\([""']{0,1}(.+?)[""']{0,1}\)", RegexOptions.IgnoreCase);
-            var srcMatches = Regex.Matches(css, @"\(src\=[""']{0,1}(.+?)[""']{0,1}\)", RegexOptions.IgnoreCase);
 
             foreach (Match match in urlMatches)
-            {
-                matchesHash.Add(GetUrlFromMatch(match));
-            }
-
-            foreach (Match match in srcMatches)
             {
                 matchesHash.Add(GetUrlFromMatch(match));
             }

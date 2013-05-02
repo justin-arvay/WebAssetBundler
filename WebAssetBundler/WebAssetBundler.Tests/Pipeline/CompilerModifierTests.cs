@@ -19,6 +19,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System;
     using Moq;
     using NUnit.Framework;
+    using System.IO;
 
     [TestFixture]
     public class CompilerModifierTests
@@ -38,9 +39,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var asset = new AssetBaseImpl("test");
 
-            modifier.Modify(asset.Content, asset);
+            compiler.Setup(c => c.Compile(It.IsAny<Stream>())).Returns(() => asset.Content);
 
-            compiler.Verify(c => c.Compile(asset.Content));
+            var stream = modifier.Modify(asset.Content, asset);            
+
+            compiler.Verify(c => c.Compile(It.IsAny<Stream>()));
+            Assert.AreEqual(stream, asset.Content);
         }
     }
 }

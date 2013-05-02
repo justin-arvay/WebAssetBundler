@@ -31,7 +31,7 @@ namespace WebAssetBundler.Web.Mvc.Less
         public void Process(StyleSheetBundle bundle)
         {          
             bundle.Assets.ForEach((asset) => {               
-                if (asset.Source.EndsWith(".less"))
+                if (asset.Source.EndsWith(".less", StringComparison.OrdinalIgnoreCase))
                 {
                     asset.Modifiers.Add(new CompilerModifier(compiler));
                 }

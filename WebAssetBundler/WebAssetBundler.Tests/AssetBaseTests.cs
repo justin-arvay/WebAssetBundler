@@ -51,15 +51,22 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var webAsset = new AssetBaseImpl("test");
             var modifier = new Mock<IAssetModifier>();
 
-            modifier.Setup(m => m.Modify(It.IsAny<Stream>(), webAsset)).Returns();
+            //simulate a stream that was read in the modifier
+            var returnStream = "return test".ToStream();
+            returnStream.Position = 4;
+
+            modifier.Setup(m => m.Modify(It.IsAny<Stream>(), webAsset))
+                .Returns(returnStream);
 
             webAsset.Modifiers.Add(modifier.Object);
             webAsset.Modifiers.Add(modifier.Object);
+
             var stream = webAsset.Content;
 
             modifier.Verify(t => t.Modify(It.IsAny<Stream>(), webAsset), Times.Exactly(2));
             Assert.IsInstanceOf<MemoryStream>(stream);
             Assert.AreEqual(0, stream.Position);
+            Assert.AreEqual("return test", stream.ReadToEnd());
         }
 
     }

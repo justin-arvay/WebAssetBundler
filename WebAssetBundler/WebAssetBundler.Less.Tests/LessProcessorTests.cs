@@ -43,7 +43,7 @@ namespace WebAssetBundler.Web.Mvc.Less.Tests
 
             var lessAsset = new AssetBaseImpl()
             {
-                Source = "~/File.less"
+                Source = "~/File.lEsS"
             };
 
             var bundle = new StyleSheetBundle();
