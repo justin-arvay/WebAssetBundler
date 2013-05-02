@@ -55,8 +55,7 @@
             get
             {
                 MD5CryptoServiceProvider x = new MD5CryptoServiceProvider();
-                byte[] bs = Encoding.UTF8.GetBytes(Content.ReadToEnd());
-                return x.ComputeHash(bs);
+                return x.ComputeHash(Content);
             }
         }
     }
