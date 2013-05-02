@@ -18,6 +18,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System;
+    using System.IO;
+    using System.Collections.Generic;
+    using System.Linq;
 
     [TestFixture]
     public class StreamExtensionsTests
@@ -25,13 +29,32 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Read_To_End()
         {
-            Assert.Fail();
+            var stream = "test".ToStream();
+            Func<Stream> func = () =>
+            {
+                return stream;
+            };
+
+            func = Run(func);
+            func = Run(func);
+            func = Run(func);
+
+            var end = func();
+
+
+            Assert.AreEqual("test", "test".ToStream().ReadToEnd());
         }
 
-        [Test]
-        public void Should_Reset_Position_Before_Read()
+        public Func<Stream> Run(Func<Stream> streamOpen)
         {
-            Assert.Fail();
+            return delegate
+            {
+                var stream = streamOpen();
+                var byteArray = new byte[stream.Length];
+                stream.Read(byteArray, 1, 1);
+
+                return stream;
+            };
         }
     }
 }

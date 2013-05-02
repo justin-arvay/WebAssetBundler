@@ -21,10 +21,13 @@ namespace WebAssetBundler.Web.Mvc
 
     public static class StreamExtensions
     {
+        /// <summary>
+        /// Reads all the bytes to a string. The stream is closed after read.
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns></returns>
         public static string ReadToEnd(this Stream stream)
         {
-            stream.Position = 0;
-
             using (var reader = new StreamReader(stream))
             {                
                 return reader.ReadToEnd();

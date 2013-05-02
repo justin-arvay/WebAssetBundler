@@ -63,9 +63,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
             collection.Add("Accept-Encoding", "some encoding");
 
             request.Setup(r => r.Headers).Returns(collection);
-            response.SetupGet(x => x.OutputStream).Returns(new MemoryStream());
+            response.Setup(x => x.OutputStream).Returns(new MemoryStream());
 
             writer.WriteAsset(bundle, encoder.Object);
+
+            //reset position so i can test output
+            response.Object.OutputStream.Position = 0;
 
             cache.Verify(c => c.SetExpires(It.Is<DateTime>((e) => e.Minute == DateTime.UtcNow.AddMinutes(bundle.BrowserTtl).Minute)));
             cache.Verify(c => c.SetETag(bundle.Hash.ToHexString()));

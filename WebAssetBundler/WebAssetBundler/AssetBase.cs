@@ -66,9 +66,15 @@ namespace WebAssetBundler.Web.Mvc
         {
             get
             {
+                //TODO: isolate stream incase half read stream is returned?
                 var createStream = modifiers.Aggregate<IAssetModifier, Stream>(
                 OpenSourceStream(),
-                (openStream, modifier) => modifier.Modify(openStream, this));
+                (openStream, modifier) => 
+                    {
+                        modifier.Modify(openStream, this);
+                        //openStream.Position = 0;
+                        return openStream;
+                    });
 
                 return createStream;
             }

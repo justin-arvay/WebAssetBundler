@@ -48,14 +48,18 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Content_And_Apply_Modifier()
         {
-            var webAsset = new AssetBaseImpl();
+            var webAsset = new AssetBaseImpl("test");
             var modifier = new Mock<IAssetModifier>();
 
+            modifier.Setup(m => m.Modify(It.IsAny<Stream>(), webAsset)).Returns();
+
+            webAsset.Modifiers.Add(modifier.Object);
             webAsset.Modifiers.Add(modifier.Object);
             var stream = webAsset.Content;
 
-            modifier.Verify(t => t.Modify(It.IsAny<Stream>(), webAsset));
-            Assert.IsInstanceOf<MemoryStream>(stream);            
+            modifier.Verify(t => t.Modify(It.IsAny<Stream>(), webAsset), Times.Exactly(2));
+            Assert.IsInstanceOf<MemoryStream>(stream);
+            Assert.AreEqual(0, stream.Position);
         }
 
     }

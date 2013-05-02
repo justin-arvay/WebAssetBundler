@@ -21,6 +21,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
     using System.Web;
     using System.Collections.Specialized;
+    using System.IO;
 
     [TestFixture]
     public class ImageResponseWriterTests
@@ -53,23 +54,27 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Write_Asset()
+        public void Should_Set_Headers_For_Asset()
         {
-            Assert.Fail();
             bundle.BrowserTtl = 10;
-            bundle.Assets.Add(new AssetBaseImpl("test"));
+            bundle.Assets.Add(new AssetBaseImpl("just a string converted to bytes for testing"));
 
             var collection = new NameValueCollection();
             collection.Add("Accept-Encoding", "some encoding");
 
             request.Setup(r => r.Headers).Returns(collection);
+            response.Setup(x => x.OutputStream).Returns(new MemoryStream());
+
             writer.WriteAsset(bundle, encoder.Object);
+
+            //reset position so i can test output
+            response.Object.OutputStream.Position = 0;
 
             cache.Verify(c => c.SetExpires(It.Is<DateTime>((e) => e.Minute == DateTime.UtcNow.AddMinutes(bundle.BrowserTtl).Minute)));
             cache.Verify(c => c.SetETag(bundle.Hash.ToHexString()));
             cache.Verify(c => c.SetCacheability(HttpCacheability.Public));
-            response.Verify(r => r.Write(bundle.Content));
-            encoder.Verify(e => e.Encode(response.Object), Times.Once());
+            Assert.AreEqual(bundle.Content.ReadToEnd(), response.Object.OutputStream.ReadToEnd());
+            encoder.Verify(e => e.Encode(response.Object), Times.Never());
         }
 
         [Test]
