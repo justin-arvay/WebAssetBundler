@@ -22,7 +22,7 @@ using System.IO;
 
     public class MergedAsset : AssetBase
     {
-        private Stream stream;
+        private MemoryStream stream;
 
         public MergedAsset(AssetCollection assets, string separator)            
         {
@@ -34,7 +34,7 @@ using System.IO;
             get { throw new NotSupportedException("Asset is not a real file."); }
         }
 
-        Stream MergeAssetsIntoSingleStream(AssetCollection assets, string separator)
+        MemoryStream MergeAssetsIntoSingleStream(AssetCollection assets, string separator)
         {
             var stream = new MemoryStream();
             var writer = new StreamWriter(stream);
@@ -59,7 +59,9 @@ using System.IO;
 
         protected override Stream OpenSourceStream()
         {
-            return stream;
+            //toArray ensures the entire contents of the stream are copied to the new stream regardless of position
+            //aka simulates a new stream being open
+            return new MemoryStream(stream.ToArray());            
         }
     }
 }

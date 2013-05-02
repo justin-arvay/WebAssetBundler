@@ -75,6 +75,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
             cache.Verify(c => c.SetCacheability(HttpCacheability.Public));
             Assert.AreEqual(bundle.Content.ReadToEnd(), response.Object.OutputStream.ReadToEnd());
             encoder.Verify(e => e.Encode(response.Object), Times.Never());
+
+            //should throw exception the second time we call because the stream is closed
+            Assert.Throws<ObjectDisposedException>(() => writer.WriteAsset(bundle, encoder.Object));
         }
 
         [Test]

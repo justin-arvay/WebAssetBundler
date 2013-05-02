@@ -37,5 +37,25 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual("function(){};function(){};", asset.Content.ReadToEnd());
         }
+
+        [Test]
+        public void Should_Return_New_Stream_And_Full_Content()
+        {
+            var assets = new AssetCollection()
+            {
+                new AssetBaseImpl("function(){}"),
+                new AssetBaseImpl("function(){}")
+
+            };
+
+            var asset = new MergedAsset(assets, ";");
+
+            //will throw exception if we do not return new stream
+
+            var content = asset.Content.ReadToEnd();
+            var content2 = asset.Content.ReadToEnd();
+
+            Assert.AreEqual(content2, content);
+        }
     }
 }
