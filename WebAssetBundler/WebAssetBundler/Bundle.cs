@@ -1,11 +1,7 @@
 ﻿namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Linq;
-    using System.Text;
-    using System.Security.Cryptography;
     using System.IO;
 
     public abstract class Bundle
@@ -49,14 +45,11 @@
                 return Assets.Count == 1 && Assets[0] is ExternalAsset;
             }
         }
-        
+
         public byte[] Hash
         {
-            get
-            {
-                MD5CryptoServiceProvider x = new MD5CryptoServiceProvider();
-                return x.ComputeHash(Content);
-            }
+            get;
+            set;
         }
     }
 }

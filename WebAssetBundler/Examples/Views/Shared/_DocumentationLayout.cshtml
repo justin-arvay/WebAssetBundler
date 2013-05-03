@@ -26,7 +26,11 @@
                 <li>@Html.RouteLink("Modify Patterns", "Documentation", new { path = "plugins/modify-search-patterns" })</li>
             </ul>
         </li>
-        <li>@Html.RouteLink("Web.Config", "Documentation", new { path = "web-config" })</li>
+        <li>@Html.RouteLink("Web.Config", "Documentation", new { path = "web-config" })
+            <ul>
+                <li>@Html.RouteLink("WAB Section", "Documentation", new { path = "web-config/wab-section" })</li>
+            </ul>        
+        </li>
     </ul>
         
     </div>

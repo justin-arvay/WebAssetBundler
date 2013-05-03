@@ -74,6 +74,7 @@
     <Compile Include="Image\ImageBundleTests.cs" />
     <Compile Include="Image\ImageUrlGeneratorTests.cs" />
     <Compile Include="Minifiers\MinifyModifierTests.cs" />
+    <Compile Include="Pipeline\AssignHashProcessorTests.cs" />
     <Compile Include="Pipeline\BundlePipelineImpl.cs" />
     <Compile Include="Pipeline\BundlePipelineTests.cs" />
     <Compile Include="Pipeline\CompilerModifierTests.cs" />

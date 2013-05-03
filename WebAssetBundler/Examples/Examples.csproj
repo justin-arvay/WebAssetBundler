@@ -206,6 +206,7 @@
     <Content Include="Views\Documentation\Introduction.cshtml" />
     <Content Include="Views\Home\License.cshtml" />
     <Content Include="Views\Shared\Benefits.cshtml" />
+    <Content Include="Views\Documentation\WebConfig\WabSection.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

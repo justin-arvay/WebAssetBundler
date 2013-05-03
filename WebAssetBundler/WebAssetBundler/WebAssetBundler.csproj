@@ -88,6 +88,7 @@
     <Compile Include="IBundleConfiguration.cs" />
     <Compile Include="ITypeProvider.cs" />
     <Compile Include="Minifiers\MinifyModifier.cs" />
+    <Compile Include="Pipeline\AssignHashProcessor.cs" />
     <Compile Include="Pipeline\CompilerModifier.cs" />
     <Compile Include="Pipeline\ICompiler.cs" />
     <Compile Include="Pipeline\UrlAssignmentProcessor.cs" />
