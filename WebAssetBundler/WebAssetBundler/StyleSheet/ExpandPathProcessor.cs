@@ -64,7 +64,7 @@ namespace WebAssetBundler.Web.Mvc
         private IEnumerable<string> FindPaths(string css)
         {
             var matchesHash = new HashSet<string>();
-            var urlMatches = Regex.Matches(css, @"url\([""']{0,1}(.+?)[""']{0,1}\)", RegexOptions.IgnoreCase);
+            var urlMatches = Regex.Matches(css, @"url\s*\(\s*[""']{0,1}(.+?)[""']{0,1}\s*\)", RegexOptions.IgnoreCase);
 
             foreach (Match match in urlMatches)
             {
