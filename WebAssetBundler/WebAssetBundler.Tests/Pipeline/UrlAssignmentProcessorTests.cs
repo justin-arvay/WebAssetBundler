@@ -33,6 +33,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             settings = new SettingsContext(false, ".min");
             bundle = new BundleImpl();
             bundle.Extension = "css";
+            bundle.Hash = new byte[1];
             processor = new UrlAssignmentProcessor<BundleImpl>(settings);
         }
 
@@ -44,7 +45,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            Assert.AreEqual("/wab.axd/css/c4ca4238a0b923820dcc509a6f75849b/test", bundle.Url);
+            Assert.AreEqual("/wab.axd/css/00/test", bundle.Url);
         }
 
         [Test]
@@ -56,7 +57,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            Assert.AreEqual("http://www.google.ca/wab.axd/css/c4ca4238a0b923820dcc509a6f75849b/test", bundle.Url);
+            Assert.AreEqual("http://www.google.ca/wab.axd/css/00/test", bundle.Url);
         }
 
         [Test]
@@ -69,7 +70,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            Assert.AreEqual("/wab.axd/css/c4ca4238a0b923820dcc509a6f75849b" + DateTime.Now.ToString("MMddyyHmmss") + "/test", bundle.Url);
+            Assert.AreEqual("/wab.axd/css/00" + DateTime.Now.ToString("MMddyyHmmss") + "/test", bundle.Url);
         }
     }
 }

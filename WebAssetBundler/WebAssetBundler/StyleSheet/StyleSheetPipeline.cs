@@ -22,11 +22,12 @@ namespace WebAssetBundler.Web.Mvc
     {
         public StyleSheetPipeline(TinyIoCContainer container)
             : base(container)
-        {            
+        {
+            Add<AssignHashProcessor>();
             Add<StyleSheetMinifyProcessor>();            
             Add<UrlAssignmentProcessor<StyleSheetBundle>>();
             Add<ExpandPathProcessor>();
-            Add(new StyleSheetMergeProcessor());
+            Add(new StyleSheetMergeProcessor());            
         }
     }
 }

@@ -49,10 +49,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Contain_Default_Processors()
         {
-            Assert.IsInstanceOf<StyleSheetMinifyProcessor>(pipeline[0]);
-            Assert.IsInstanceOf<UrlAssignmentProcessor<StyleSheetBundle>>(pipeline[1]);
-            Assert.IsInstanceOf<ExpandPathProcessor>(pipeline[2]);
-            Assert.IsInstanceOf<StyleSheetMergeProcessor>(pipeline[3]);
+            Assert.IsInstanceOf<AssignHashProcessor>(pipeline[0]);
+            Assert.IsInstanceOf<StyleSheetMinifyProcessor>(pipeline[1]);
+            Assert.IsInstanceOf<UrlAssignmentProcessor<StyleSheetBundle>>(pipeline[2]);
+            Assert.IsInstanceOf<ExpandPathProcessor>(pipeline[3]);
+            Assert.IsInstanceOf<StyleSheetMergeProcessor>(pipeline[4]);
         }
     }
 

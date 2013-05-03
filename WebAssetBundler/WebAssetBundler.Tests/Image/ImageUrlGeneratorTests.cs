@@ -33,6 +33,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             settings = new SettingsContext();
             generator = new ImageUrlGenerator(settings);
             bundle = new ImageBundle("img/png", "~/Image/img.png");
+            bundle.Hash = new byte[1];
         }
 
         [Test]
@@ -43,7 +44,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var url = generator.Generate(bundle);
 
-            Assert.AreEqual("/wab.axd/image/d41d8cd98f00b204e9800998ecf8427e/asdf-test-png", url);
+            Assert.AreEqual("/wab.axd/image/00/asdf-test-png", url);
         }
 
         [Test]
@@ -56,7 +57,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var url = generator.Generate(bundle);
 
-            Assert.AreEqual("/wab.axd/image/d41d8cd98f00b204e9800998ecf8427e" + DateTime.Now.ToString("MMddyyHmmss") + "/asdf-test-png", url);
+            Assert.AreEqual("/wab.axd/image/00" + DateTime.Now.ToString("MMddyyHmmss") + "/asdf-test-png", url);
         }
     }
 }

@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System;
 
     [TestFixture]
     public class VersionedImagePathResolverTests
@@ -47,7 +48,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var path = "../test/test.png";
             var assetDirectory = new Mock<IDirectory>();
-            var file = new FileSystemFile("/test/test.png");
+            var file = new FileSystemFile(AppDomain.CurrentDomain.BaseDirectory + "/../../Files/Images/VersionImageTest.png");
 
             urlGenerator.Setup(u => u.Generate(It.IsAny<ImageBundle>()))
                 .Returns("/wab.axd/image/asd/img-png");

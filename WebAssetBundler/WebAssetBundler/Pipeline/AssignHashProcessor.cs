@@ -18,13 +18,22 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Security.Cryptography;
+    using System.IO;
+    using System.Linq;
 
-    public class AssignHashProcessor<TBundle> : IPipelineProcessor<TBundle> where TBundle : Bundle
+    public class AssignHashProcessor : IPipelineProcessor<Bundle> 
     {
-        public void Process(TBundle bundle)
+        public void Process(Bundle bundle)
         {
-            MD5CryptoServiceProvider x = new MD5CryptoServiceProvider();
-            bundle.Hash = x.ComputeHash(bundle.Content);
+            using (var stream = new MemoryStream())
+            {
+                bundle.Assets.ForEach((asset) => {
+                    asset.Content.CopyTo(stream);
+
+                    MD5CryptoServiceProvider x = new MD5CryptoServiceProvider();
+                    bundle.Hash = x.ComputeHash(stream);
+                });
+            }            
         }
     }
 }

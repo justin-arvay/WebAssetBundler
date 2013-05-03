@@ -22,12 +22,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class AssignHashProcessorTests
     {
-        private AssignHashProcessor<Bundle> processor;
+        private AssignHashProcessor processor;
 
         [SetUp]
         public void Setup()
         {
-            processor = new AssignHashProcessor<Bundle>();
+            processor = new AssignHashProcessor();
         }
 
         [Test]
@@ -35,10 +35,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var bundle = new BundleImpl();
             bundle.Assets.Add(new AssetBaseImpl("test"));
+            bundle.Assets.Add(new AssetBaseImpl("test"));
 
             processor.Process(bundle);
 
-            Assert.AreEqual(new byte[4], bundle.Hash);
+            Assert.AreEqual(16, bundle.Hash.Length);
+            Assert.AreEqual("testtest", bundle.Assets[0].Content.ReadToEnd() + bundle.Assets[1].Content.ReadToEnd());
         }
     }
 }

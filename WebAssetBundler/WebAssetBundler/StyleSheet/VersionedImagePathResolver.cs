@@ -68,6 +68,9 @@ namespace WebAssetBundler.Web.Mvc
             var bundle = new ImageBundle(contentType, path);
             bundle.Assets.Add(GetAsset(path, cssFilePath));
 
+            var hashProcessor = new AssignHashProcessor();
+            hashProcessor.Process(bundle);
+
             return bundle;
         }
 

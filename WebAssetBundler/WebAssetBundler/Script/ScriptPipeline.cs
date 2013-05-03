@@ -23,9 +23,10 @@ namespace WebAssetBundler.Web.Mvc
         public ScriptPipeline(TinyIoCContainer container)
             : base(container)
         {
+            Add<AssignHashProcessor>();
             Add<ScriptMinifyProcessor>();
             Add(new ScriptMergeProcessor());
-            Add<UrlAssignmentProcessor<ScriptBundle>>();
+            Add<UrlAssignmentProcessor<ScriptBundle>>();            
         }
     }
 }

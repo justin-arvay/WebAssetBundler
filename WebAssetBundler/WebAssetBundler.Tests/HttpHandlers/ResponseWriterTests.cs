@@ -42,6 +42,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             cache = new Mock<HttpCachePolicyBase>();
             encoder = new Mock<IEncoder>();
             bundle = new BundleImpl();
+            bundle.Hash = new byte[1];
 
             response.Setup(r => r.Cache).Returns(cache.Object);
             response.Setup(r => r.Headers).Returns(new NameValueCollection());
@@ -96,7 +97,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             response.VerifySet(r => r.StatusCode = 304);
             response.VerifySet(r => r.SuppressContent = true);
-            cache.Verify(c => c.SetETag("d41d8cd98f00b204e9800998ecf8427e"));
+            cache.Verify(c => c.SetETag("00"));
             cache.Verify(c => c.SetExpires(It.Is<DateTime>((e) => e.Minute == DateTime.UtcNow.AddMinutes(bundle.BrowserTtl).Minute)));
             cache.Verify(c => c.SetCacheability(HttpCacheability.Public));
         }

@@ -39,9 +39,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Contain_Default_Processors()
         {
-            Assert.IsInstanceOf<ScriptMinifyProcessor>(pipeline[0]);
-            Assert.IsInstanceOf<ScriptMergeProcessor>(pipeline[1]);
-            Assert.IsInstanceOf<UrlAssignmentProcessor<ScriptBundle>>(pipeline[2]);
+            Assert.IsInstanceOf<AssignHashProcessor>(pipeline[0]);
+            Assert.IsInstanceOf<ScriptMinifyProcessor>(pipeline[1]);
+            Assert.IsInstanceOf<ScriptMergeProcessor>(pipeline[2]);
+            Assert.IsInstanceOf<UrlAssignmentProcessor<ScriptBundle>>(pipeline[3]);
             
         }
     }
