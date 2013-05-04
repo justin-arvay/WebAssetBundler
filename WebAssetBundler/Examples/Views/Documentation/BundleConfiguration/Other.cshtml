@@ -33,13 +33,10 @@ DefaultSettings.MinifyIdentifier = ".minified";
 <p>Bundles must be named in order to render them. The bundle name is used to reference the bundle on the page. The bundle name is also used 
 as an identifier in the rendered url. For example this bundle:</p>
 <pre data-language="csharp">
-public class LayoutScriptBundle : ScriptBundleConfiguration
+public override void Configure()
 {
-    public override void Configure()
-    {
-        Name("Scripts");
-        Add("~/Scripts/jquery-1.9.0.min.js");
-    }
+    Name("Scripts");
+    Add("~/Scripts/jquery-1.9.0.min.js");
 }
 </pre>
 
@@ -56,14 +53,11 @@ public class LayoutScriptBundle : ScriptBundleConfiguration
 <h2>Setting a Host</h2>
 <p>You can manually override the host for each bundle if you wish. For example:</p>
 <pre data-language="csharp">
-public class LayoutScriptBundle : ScriptBundleConfiguration
+public override void Configure()
 {
-    public override void Configure()
-    {
-        Name("Scripts");
-        Host("https://cdn.mydomain.com");
-        Add("~/Scripts/jquery-1.9.0.min.js");
-    }
+    Name("Scripts");
+    Host("https://cdn.mydomain.com");
+    Add("~/Scripts/jquery-1.9.0.min.js");
 }
 </pre>
 

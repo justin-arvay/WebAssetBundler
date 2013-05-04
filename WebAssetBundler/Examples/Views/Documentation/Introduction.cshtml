@@ -13,29 +13,31 @@
 
 <h6>2. Configure</h6>
 <pre data-language="csharp">
-    using WebAssetBundler.Web.Mvc;
+@Html.Code(@"
+using WebAssetBundler.Web.Mvc;
 
-    public class LayoutScriptBundle : ScriptBundleConfiguration
+public class LayoutScriptBundle : BundleConfiguration<ScriptBundle>
+{
+    public override void Configure()
     {
-        public override void Configure()
-        {
-            Name("Scripts");
-            Add("~/Scripts/jquery-1.8.3.js");
-            Add("~/Scripts/jquery-ui-1.9.2.custom.min.js");
-            Add("~/Scripts/rainbow-custom.min.js");
-        }
+        Name(""Scripts"");
+        Add(""~/Scripts/jquery-1.8.3.js"");
+        Add(""~/Scripts/jquery-ui-1.9.2.custom.min.js"");
+        Add(""~/Scripts/rainbow-custom.min.js"");
     }
+}
 
-    public class LayoutStyleSheetBundle : StyleSheetBundleConfiguration
+public class LayoutStyleSheetBundle : BundleConfiguration<StyleSheetBundle>
+{
+    public override void Configure()
     {
-        public override void Configure()
-        {
-            Name("StyleSheets");
-            Add("~/Content/reset.css");
-            Add("~/Content/pepper-grinder/jquery-ui-1.9.2.custom.css");
-            Add("~/Content/layout.css");
-        }
+        Name(""StyleSheets"");
+        Add(""~/Content/reset.css"");
+        Add(""~/Content/pepper-grinder/jquery-ui-1.9.2.custom.css"");
+        Add(""~/Content/layout.css"");
     }
+}
+")
 </pre>
 
 <h6>3. Render</h6>
