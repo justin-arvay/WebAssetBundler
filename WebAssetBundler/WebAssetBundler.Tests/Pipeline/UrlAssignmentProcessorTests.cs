@@ -24,53 +24,27 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class UrlAssignmentProcessorTests
     {
         private UrlAssignmentProcessor<BundleImpl> processor;
-        private BundleImpl bundle;
-        private SettingsContext settings;
+        private Mock<IUrlGenerator<BundleImpl>> urlGenerator;
 
         [SetUp]
         public void Setup()
         {
-            settings = new SettingsContext(false, ".min");
-            bundle = new BundleImpl();
-            bundle.Extension = "css";
-            bundle.Hash = new byte[1];
-            processor = new UrlAssignmentProcessor<BundleImpl>(settings);
+            urlGenerator = new Mock<IUrlGenerator<BundleImpl>>();
+            processor = new UrlAssignmentProcessor<BundleImpl>(urlGenerator.Object);
         }
 
         [Test]
-        public void Should_Generate_Url_Without_Host()
+        public void Should_Generate_Url()
         {
-            bundle.Name = "test";
-            bundle.Assets.Add(new AssetBaseImpl("1"));
+            var bundle = new BundleImpl();
+            var url = "/wab.axd/css/asd/file-css";
+
+            urlGenerator.Setup(g => g.Generate(bundle)).Returns(url);
 
             processor.Process(bundle);
 
-            Assert.AreEqual("/wab.axd/css/00/test", bundle.Url);
-        }
-
-        [Test]
-        public void Should_Generate_Url_With_Host()
-        {
-            bundle.Name = "test";
-            bundle.Host = "http://www.google.ca";
-            bundle.Assets.Add(new AssetBaseImpl("1"));
-
-            processor.Process(bundle);
-
-            Assert.AreEqual("http://www.google.ca/wab.axd/css/00/test", bundle.Url);
-        }
-
-        [Test]
-        public void Should_Generate_Cache_Breaker_Url()
-        {
-            bundle.Name = "test";
-            bundle.Assets.Add(new AssetBaseImpl("1"));
-
-            settings.DebugMode = true;
-
-            processor.Process(bundle);
-
-            Assert.AreEqual("/wab.axd/css/00" + DateTime.Now.ToString("MMddyyHmmss") + "/test", bundle.Url);
+            Assert.AreEqual(url, bundle.Url);
+            urlGenerator.Verify(g => g.Generate(bundle));
         }
     }
 }

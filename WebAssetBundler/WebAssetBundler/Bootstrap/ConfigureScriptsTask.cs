@@ -41,6 +41,7 @@ namespace WebAssetBundler.Web.Mvc
             Plugins = pluginLoader.LoadPlugins<ScriptBundle>();
 
             container.Register<IScriptMinifier>((c, p) => DefaultSettings.ScriptMinifier);
+            container.Register<IUrlGenerator<ScriptBundle>, BasicUrlGenerator<ScriptBundle>>();
             container.Register<IBundlesCache<ScriptBundle>, BundlesCache<ScriptBundle>>();
             container.Register<IBundleConfigurationProvider<ScriptBundle>>((c, p) => DefaultSettings.ScriptConfigurationProvider(c));
             container.Register<IBundlePipeline<ScriptBundle>>((c, p) => CreateScriptPipeline(c, Plugins));

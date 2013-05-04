@@ -18,19 +18,31 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class UrlAssignmentProcessor<TBundle> : IPipelineProcessor<TBundle>
-        where TBundle : Bundle
+    public class BasicUrlGenerator<TBundle> : IUrlGenerator<TBundle> where TBundle : Bundle
     {
-        private IUrlGenerator<TBundle> urlGenerator;
+        private SettingsContext settings;
 
-        public UrlAssignmentProcessor(IUrlGenerator<TBundle> urlGenerator)
+        public BasicUrlGenerator(SettingsContext settings)
         {
-            this.urlGenerator = urlGenerator;
+            this.settings = settings;
         }
 
-        public void Process(TBundle bundle)
+        public string Generate(TBundle bundle)
         {
-            bundle.Url = urlGenerator.Generate(bundle);
+            var version = bundle.Hash.ToHexString();
+            var path = "wab.axd/" + bundle.Extension + "/{0}/{1}";
+
+            if (settings.DebugMode)
+            {
+                version = version + DateTime.Now.ToString("MMddyyHmmss");
+            }
+
+            if (bundle.Host.EndsWith("/") == false)
+            {
+                bundle.Host += "/";
+            }
+
+            return bundle.Host + path.FormatWith(version, bundle.Name);
         }
     }
 }

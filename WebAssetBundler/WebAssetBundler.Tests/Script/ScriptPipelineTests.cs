@@ -33,6 +33,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             container = new TinyIoCContainer();
             container.Register<IScriptMinifier>((a, c) => minifier.Object);
+            container.Register<IUrlGenerator<ScriptBundle>, BasicUrlGenerator<ScriptBundle>>();
 
             settings = new SettingsContext();            
         }

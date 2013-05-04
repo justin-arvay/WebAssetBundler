@@ -66,6 +66,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var plugins = new PluginCollection<ScriptBundle>();
 
             container.Register<IScriptMinifier, MsScriptMinifier>();
+            container.Register<IUrlGenerator<ScriptBundle>, BasicUrlGenerator<ScriptBundle>>();
 
             var pipeline = task.CreateScriptPipeline(container, plugins);
 
