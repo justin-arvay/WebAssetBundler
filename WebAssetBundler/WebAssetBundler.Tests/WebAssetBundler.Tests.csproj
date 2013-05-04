@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssetBaseImpl.cs" />
+    <Compile Include="BasicUrlGeneratorTests.cs" />
     <Compile Include="Bootstrap\ConfigureScriptsTaskTests.cs" />
     <Compile Include="Bootstrap\ConfigureStyleSheetTaskTests.cs" />
     <Compile Include="Bootstrap\LoadSettingsTaskTests.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Pipeline\BundlePipelineImpl.cs" />
     <Compile Include="Pipeline\BundlePipelineTests.cs" />
     <Compile Include="Pipeline\CompilerModifierTests.cs" />
+    <Compile Include="Pipeline\MergeProcessorTests.cs" />
     <Compile Include="Pipeline\MinifyProcessorTests.cs" />
     <Compile Include="Pipeline\ProcessorImpl.cs" />
     <Compile Include="DefaultBundleConfigurationProviderTests.cs" />
@@ -114,9 +116,7 @@
     <Compile Include="Pipeline\MergedAssetTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Script\ScriptPipelineTests.cs" />
-    <Compile Include="Script\ScriptMergeProcessorTests.cs" />
     <Compile Include="StyleSheet\ExpandPathProcessorTests.cs" />
-    <Compile Include="StyleSheet\StyleSheetMergeProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetPipelineTests.cs" />
     <Compile Include="StyleSheet\UnversionedImagePathResolverTests.cs" />
     <Compile Include="StyleSheet\VersionedImagePathResolverTests.cs" />

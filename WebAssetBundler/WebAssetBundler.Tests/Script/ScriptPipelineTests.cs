@@ -33,6 +33,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             container = new TinyIoCContainer();
             container.Register<IScriptMinifier>((a, c) => minifier.Object);
+            container.Register<IUrlGenerator<ScriptBundle>, BasicUrlGenerator<ScriptBundle>>();
 
             settings = new SettingsContext();            
         }
@@ -46,8 +47,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             pipeline = new ScriptPipeline(container, settings);            
 
             Assert.IsInstanceOf<AssignHashProcessor>(pipeline[0]);
-            Assert.IsInstanceOf<UrlAssignmentProcessor<ScriptBundle>>(pipeline[1]);            
-            Assert.IsInstanceOf<ScriptMergeProcessor>(pipeline[2]);    
+            Assert.IsInstanceOf<UrlAssignmentProcessor<ScriptBundle>>(pipeline[1]);
+            Assert.IsInstanceOf<MergeProcessor<ScriptBundle>>(pipeline[2]);    
         }
 
         [Test]
@@ -60,7 +61,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.IsInstanceOf<AssignHashProcessor>(pipeline[0]);
             Assert.IsInstanceOf<UrlAssignmentProcessor<ScriptBundle>>(pipeline[1]);
             Assert.IsInstanceOf<MinifyProcessor<ScriptBundle>>(pipeline[2]);
-            Assert.IsInstanceOf<ScriptMergeProcessor>(pipeline[3]);            
+            Assert.IsInstanceOf<MergeProcessor<ScriptBundle>>(pipeline[3]);            
         }
     }
 }

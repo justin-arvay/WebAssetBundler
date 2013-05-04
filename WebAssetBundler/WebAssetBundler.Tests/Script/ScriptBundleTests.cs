@@ -47,5 +47,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             Assert.AreEqual("text/javascript", bundle.ContentType);
         }
+
+        [Test]
+        public void Should_Return_Asset_Separator()
+        {
+            Assert.AreEqual(";", bundle.AssetSeparator);
+        }
     }
 }

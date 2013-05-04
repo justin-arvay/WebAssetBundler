@@ -18,25 +18,31 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class ScriptBundle : Bundle
+    public class BasicUrlGenerator<TBundle> : IUrlGenerator<TBundle> where TBundle : Bundle
     {
-        public ScriptBundle()
+        private SettingsContext settings;
+
+        public BasicUrlGenerator(SettingsContext settings)
         {
-            Type = WebAssetType.Script;
-            Extension = "js";
+            this.settings = settings;
         }
 
-        public override string ContentType
+        public string Generate(TBundle bundle)
         {
-            get { return "text/javascript"; }
-        }
+            var version = bundle.Hash.ToHexString();
+            var path = "wab.axd/" + bundle.Extension + "/{0}/{1}";
 
-        public override string AssetSeparator
-        {
-            get
+            if (settings.DebugMode)
             {
-                return ";";
+                version = version + DateTime.Now.ToString("MMddyyHmmss");
             }
+
+            if (bundle.Host.EndsWith("/") == false)
+            {
+                bundle.Host += "/";
+            }
+
+            return bundle.Host + path.FormatWith(version, bundle.Name);
         }
     }
 }

@@ -43,6 +43,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             container.Register<ICacheProvider, CacheProvider>();
             container.Register<IBundlesCache<ImageBundle>, BundlesCache<ImageBundle>>();
             container.Register<IUrlGenerator<ImageBundle>, ImageUrlGenerator>();
+            container.Register<IUrlGenerator<StyleSheetBundle>, BasicUrlGenerator<StyleSheetBundle>>();
             container.Register<SettingsContext>(new SettingsContext());
             container.Register<IImagePathResolverProvider, ImagePathResolverProvider>();            
         }
@@ -57,8 +58,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.IsInstanceOf<AssignHashProcessor>(pipeline[0]);
             Assert.IsInstanceOf<UrlAssignmentProcessor<StyleSheetBundle>>(pipeline[1]);
-            Assert.IsInstanceOf<ExpandPathProcessor>(pipeline[2]);            
-            Assert.IsInstanceOf<StyleSheetMergeProcessor>(pipeline[3]);
+            Assert.IsInstanceOf<ExpandPathProcessor>(pipeline[2]);
+            Assert.IsInstanceOf<MergeProcessor<StyleSheetBundle>>(pipeline[3]);
         }
 
         [Test]
@@ -72,7 +73,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.IsInstanceOf<UrlAssignmentProcessor<StyleSheetBundle>>(pipeline[1]);
             Assert.IsInstanceOf<ExpandPathProcessor>(pipeline[2]);
             Assert.IsInstanceOf<MinifyProcessor<StyleSheetBundle>>(pipeline[3]);
-            Assert.IsInstanceOf<StyleSheetMergeProcessor>(pipeline[4]);
+            Assert.IsInstanceOf<MergeProcessor<StyleSheetBundle>>(pipeline[4]);
         }
     }
 

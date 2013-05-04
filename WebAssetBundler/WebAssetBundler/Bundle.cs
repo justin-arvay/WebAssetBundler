@@ -18,10 +18,12 @@
         public bool Minify { get; set; }
         public WebAssetType Type { get; protected set; }
         public string Host { get; set; }
-        public string Extension { get; set; }
-        public abstract string ContentType { get; }
+        public string Extension { get; set; }        
         public int BrowserTtl { get; set; }
         public string Url { get; set; }
+
+        public abstract string ContentType { get; }
+        public abstract string AssetSeparator { get; }
 
         public AssetCollection Assets { get; set; }
 

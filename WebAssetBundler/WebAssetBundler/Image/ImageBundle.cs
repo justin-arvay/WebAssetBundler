@@ -45,5 +45,13 @@ namespace WebAssetBundler.Web.Mvc
 
             return directoryName.ToHash() + "-" + fileName.Replace('.', '-');
         }
+
+        public override string AssetSeparator
+        {
+            get 
+            { 
+                return String.Empty; 
+            }
+        }
     }
 }

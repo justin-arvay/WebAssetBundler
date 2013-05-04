@@ -30,5 +30,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             get { return "text/html"; }
         }
+
+        public override string AssetSeparator
+        {
+            get { return ";"; }
+        }
     }
 }

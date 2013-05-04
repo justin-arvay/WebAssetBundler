@@ -37,5 +37,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual("~/test/image.png", bundle.Url);
             Assert.AreEqual("0cda79a4083842efcc13b2042d35eadb-image-png", bundle.Name);
         }
+
+        [Test]
+        public void Should_Return_Asset_Separator()
+        {
+            Assert.AreEqual("", bundle.AssetSeparator);
+        }
     }
 }

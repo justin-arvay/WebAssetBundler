@@ -32,7 +32,7 @@ namespace WebAssetBundler.Web.Mvc
                 Add(new MinifyProcessor<ScriptBundle>(minifier, settings.MinifyIdentifier));         
             }
 
-            Add(new ScriptMergeProcessor());                  
+            Add<MergeProcessor<ScriptBundle>>();            
         }
     }
 }

@@ -41,6 +41,7 @@ namespace WebAssetBundler.Web.Mvc
             Plugins = pluginLoader.LoadPlugins<StyleSheetBundle>();
 
             container.Register<IStyleSheetMinifier>((c, p) => DefaultSettings.StyleSheetMinifier);
+            container.Register<IUrlGenerator<StyleSheetBundle>, BasicUrlGenerator<StyleSheetBundle>>();
             container.Register<IBundlesCache<StyleSheetBundle>, BundlesCache<StyleSheetBundle>>();
             container.Register<IBundlesCache<ImageBundle>, BundlesCache<ImageBundle>>();
             container.Register<IUrlGenerator<ImageBundle>, ImageUrlGenerator>();

@@ -20,36 +20,41 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
 
     [TestFixture]
-    public class StyleSheetMergeProcessorTests
+    public class MergeProcessorTests
     {
-        private StyleSheetMergeProcessor processor;
-        private StyleSheetBundle bundle;
+        private MergeProcessor<BundleImpl> processor;
+        private BundleImpl bundle;
 
         [SetUp]
         public void Setup()
         {
-            processor = new StyleSheetMergeProcessor();
-            bundle = new StyleSheetBundle();
+            processor = new MergeProcessor<BundleImpl>();
+            bundle = new BundleImpl();
         }
 
         [Test]
         public void Should_Merge()
         {
-            bundle.Assets.Add(new AssetBaseImpl("test") 
-            { 
-                Source = "~/File1.css"
+            bundle.Assets.Add(new AssetBaseImpl("test")
+            {
+                Source = "~/file1.js"
             });
 
-            bundle.Assets.Add(new AssetBaseImpl("test") 
-            { 
-                Source = "~/File2.css"
+            bundle.Assets.Add(new AssetBaseImpl("test")
+            {
+                Source = "~/file2.js"
+            });
+
+            bundle.Assets.Add(new AssetBaseImpl("test")
+            {
+                Source = "~/file3.js"
             });
 
             processor.Process(bundle);
 
             Assert.AreEqual(1, bundle.Assets.Count);
             Assert.IsInstanceOf<MergedAsset>(bundle.Assets[0]);
-            Assert.AreEqual("testtest", bundle.Assets[0].Content.ReadToEnd());
+            Assert.AreEqual("test;test;test;", bundle.Assets[0].Content.ReadToEnd());
         }
     }
 }

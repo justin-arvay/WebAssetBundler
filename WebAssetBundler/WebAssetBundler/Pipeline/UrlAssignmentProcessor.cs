@@ -21,29 +21,16 @@ namespace WebAssetBundler.Web.Mvc
     public class UrlAssignmentProcessor<TBundle> : IPipelineProcessor<TBundle>
         where TBundle : Bundle
     {
-        private SettingsContext settings;
+        private IUrlGenerator<TBundle> urlGenerator;
 
-        public UrlAssignmentProcessor(SettingsContext settings)
+        public UrlAssignmentProcessor(IUrlGenerator<TBundle> urlGenerator)
         {
-            this.settings = settings;
+            this.urlGenerator = urlGenerator;
         }
 
         public void Process(TBundle bundle)
         {
-            var version = bundle.Hash.ToHexString();
-            var path = "wab.axd/" + bundle.Extension + "/{0}/{1}";
-
-            if (settings.DebugMode)
-            {
-                version = version + DateTime.Now.ToString("MMddyyHmmss");
-            }            
-
-            if (bundle.Host.EndsWith("/") == false)
-            {
-                bundle.Host += "/";
-            }
-
-            bundle.Url = bundle.Host + path.FormatWith(version, bundle.Name);
+            bundle.Url = urlGenerator.Generate(bundle);
         }
     }
 }
