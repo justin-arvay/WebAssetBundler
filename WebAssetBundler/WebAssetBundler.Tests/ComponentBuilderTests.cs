@@ -29,51 +29,30 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class ComponentBuilderTests
     {
+        /*
         private Mock<ICacheProvider> cacheProvider;
 
-        private StyleSheetManagerBuilder CreateStyleSheetManagerBuilder()
+        private StyleSheetBundler CreateStyleSheetManagerBuilder()
         {
-            var builderContext = new BuilderContext();
-            var tagWriter = new Mock<ITagWriter>();
-            var server = new Mock<HttpServerUtilityBase>();
-            var collection = new WebAssetGroupCollection();            
-            var resolverFactory = new Mock<IWebAssetResolverFactory>();
-            var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory.Object);
-            var writer = new Mock<IWebAssetWriter>();
-            var merger = new Mock<IWebAssetMerger>();
-            var generator = new Mock<IWebAssetGenerator>();
+            var builderContext = new BundleContext();
+            var tagWriter = new Mock<ITagWriter<StyleSheetBundle>>();
+            var bundleProvider = new Mock<IBundleProvider<StyleSheetBundle>>();
 
-            return new StyleSheetManagerBuilder(
-                new StyleSheetManager(collection),
-                collection,
-                TestHelper.CreateViewContext(),
-                collectionResolver,
+            return new StyleSheetBundler(
+                bundleProvider.Object,
                 tagWriter.Object,
-                merger.Object,
-                generator.Object,
                 builderContext);
         }
 
-        private ScriptManagerBuilder CreateScriptManagerBuilder()
+        private ScriptBundler CreateScriptManagerBuilder()
         {
-            var builderContext = new BuilderContext();
-            var tagWriter = new Mock<ITagWriter>();
-            var server = new Mock<HttpServerUtilityBase>();
-            var collection = new WebAssetGroupCollection();
-            var pathResolver = new Mock<IPathResolver>();
-            var merger = new Mock<IWebAssetMerger>();
-            var resolverFactory = new Mock<IWebAssetResolverFactory>();
-            var collectionResolver = new WebAssetGroupCollectionResolver(resolverFactory.Object);
-            var generator = new Mock<IWebAssetGenerator>();
+            var builderContext = new BundleContext();
+            var tagWriter = new Mock<ITagWriter<ScriptBundle>>();
+            var bundleProvider = new Mock<IBundleProvider<ScriptBundle>>();
 
-            return new ScriptManagerBuilder(
-                new ScriptManager(collection),
-                collection,
-                TestHelper.CreateViewContext(),
-                collectionResolver,
+            return new ScriptBundler(
+                bundleProvider.Object,
                 tagWriter.Object,
-                merger.Object,
-                generator.Object,
                 builderContext);
         }
 
@@ -88,7 +67,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var factory = new ComponentBuilder(CreateStyleSheetManagerBuilder(), CreateScriptManagerBuilder());
 
-            Assert.IsInstanceOf<StyleSheetManagerBuilder>(factory.StyleSheetManager());
+            Assert.IsInstanceOf<StyleSheetBundler>(factory.StyleSheetManager());
         }
 
         [Test]
@@ -107,7 +86,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var factory = new ComponentBuilder(CreateStyleSheetManagerBuilder(), CreateScriptManagerBuilder());
 
-            Assert.IsInstanceOf<ScriptManagerBuilder>(factory.ScriptManager());
+            Assert.IsInstanceOf<ScriptBundler>(factory.ScriptManager());
         }
 
         [Test]
@@ -120,5 +99,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreSame(builderOne, builderTwo);
         }
+         * */
     }
 }

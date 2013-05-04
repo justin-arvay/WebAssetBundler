@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Bundle Configuration";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<h2>Bundle Configuration</h2>
+
+<p>Bundles are configured through a code-based API. You will need to inherit from either the ScriptBundleConfiguration class or the 
+StyleSheetBundeConfiguration for javascript and style sheet configuration.</p>
+
+<p>Here is a basic example of a script and style sheet bundle configuration using the jQuery library:</p>
+<pre data-language="csharp">
+using WebAssetBundler.Web.Mvc;
+
+public class LayoutScriptBundle : ScriptBundleConfiguration
+{
+    public override void Configure()
+    {
+        Name("Scripts");
+        Add("~/Scripts/jquery-1.9.0.min.js");
+        Add("~/Scripts/jquery-ui-1.10.0.custom.min.js");
+    }
+}
+
+using WebAssetBundler.Web.Mvc;
+
+public class LayoutStyleSheetBundle : StyleSheetBundleConfiguration
+{
+    public override void Configure()
+    {
+        Name("StyleSheets");
+        Add("~/Content/pepper-grinder/jquery-ui-1.9.2.custom.min.css");
+    }
+}
+</pre>
+
+<p>The idea is to create a new configuration class for each bundle that you want to make. That is, a configuration class is one to one with a bundle. You are 
+required to name your bundles. The bundle name will be needed when trying to render the bundle. The bundle name will also be part of the rendered url. Here is an
+example of the output from the above configuration:</p>
+<pre data-language="html">
+@Html.Code("<link type=\"text/css\" href=\"/wab.axd/css/ea6a28569fbedb21230d1c620dc5bddb0/StyleSheets\" rel=\"stylesheet\" />");
+
+@Html.Code("<script type=\"text/javascript\" src=\"/wab.axd/js/95fee1d9571e0b4a0764d7773/Script\"></script>");
+</pre>

@@ -28,16 +28,15 @@ namespace WebAssetBundler.Web.Mvc
     {
         private static string styleSheetFilesPath = "~/Content";
         private static string scriptFilesPath = "~/Scripts";
-        private static string generatedFilesPath = "~/Generated";
 
-        private static string version = new AssemblyName(typeof(DefaultSettings).Assembly.FullName).Version.ToString(3);
-        private static bool compressed = true;
-        private static bool combined = true;
+        private static IScriptMinifier scriptMinifier = new MsScriptMinifier();
+        private static IStyleSheetMinifier styleSheetMinfier = new MsStyleSheetMinifier();
 
-        private static string defaultGroupName = "Default";
-        
-        private static IScriptCompressor scriptCompressor = new MsScriptCompressor();
-        private static IStyleSheetCompressor styleSheetCompressor = new MsStyleSheetCompressor();
+        private static Func<TinyIoCContainer, IBundleConfigurationProvider<StyleSheetBundle>> styleSheetConfigurationProvider =
+            (c) => c.Resolve<DefaultBundleConfigurationProvider<StyleSheetBundle>>();
+
+        private static Func<TinyIoCContainer, IBundleConfigurationProvider<ScriptBundle>> scriptConfigurationProvider =
+            (c) => c.Resolve<DefaultBundleConfigurationProvider<ScriptBundle>>();
 
         /// <summary>
         /// Gets or sets the style sheet files path. Path must be a virtual path.
@@ -72,170 +71,62 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
-        /// Gets or sets the generated files path. Path must be a virtual path.
+        /// Gets or sets the default script minfier.
         /// </summary>
-        /// <value>The style sheet files path.</value>
-        public static string GeneratedFilesPath
+        public static IScriptMinifier ScriptMinifier
         {
             get
             {
-                return generatedFilesPath;
+                return scriptMinifier;
             }
             set
             {
-                generatedFilesPath = value;
+                scriptMinifier = value;
             }
         }
 
         /// <summary>
-        /// Gets or sets the version.
+        /// Gets or sets the default style sheet minifier.
         /// </summary>
-        /// <value>The version.</value>
-        public static string Version
+        public static IStyleSheetMinifier StyleSheetMinifier
         {
             get
             {
-                return version;
+                return styleSheetMinfier;
             }
             set
             {
-                version = value;
+                styleSheetMinfier = value;
             }
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether assets should be served as compressed.
+        /// Sets the configuration factory to be used when loading the style sheet bundles.
         /// </summary>
-        /// <value><c>true</c> if compressed; otherwise, <c>false</c>.</value>
-        public static bool Compressed
+        public static Func<TinyIoCContainer, IBundleConfigurationProvider<StyleSheetBundle>> StyleSheetConfigurationProvider
         {
             get
             {
-                return compressed;
+                return styleSheetConfigurationProvider;
             }
             set
             {
-                compressed = value;
+                styleSheetConfigurationProvider = value;
             }
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether assets shoule be combined.
+        /// Sets the configuration factory to be used when loading the script bundles.
         /// </summary>
-        /// <value><c>true</c> if combined; otherwise, <c>false</c>.</value>
-        public static bool Combined
+        public static Func<TinyIoCContainer, IBundleConfigurationProvider<ScriptBundle>> ScriptConfigurationProvider
         {
             get
             {
-                return combined;
+                return scriptConfigurationProvider;
             }
             set
             {
-                combined = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the default group name.
-        /// </summary>
-        public static string DefaultGroupName
-        {
-            get
-            {
-                return defaultGroupName;
-            }
-            set
-            {
-                defaultGroupName = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the default script compressor.
-        /// </summary>
-        public static IScriptCompressor ScriptCompressor
-        {
-            get
-            {
-                return scriptCompressor;
-            }
-            set
-            {
-                scriptCompressor = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the default style sheet compressor.
-        /// </summary>
-        public static IStyleSheetCompressor StyleSheetCompressor
-        {
-            get
-            {
-                return styleSheetCompressor;
-            }
-            set
-            {
-                styleSheetCompressor = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the javascript host.
-        /// </summary>
-        public static string ScriptHost
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the style sheet host.
-        /// </summary>
-        /// <returns></returns>
-        public static string StyleSheetHost
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Enables or disables debug mode.
-        /// </summary>
-        public static bool DebugMode
-        {
-            get;
-            set;
-        }
-
-
-        public static class DebugModeSettings
-        {            
-            /// <summary>
-            /// Allows enabling or disabling of combining when in debug mode. False by default.
-            /// </summary>
-            public static bool EnableCombining
-            {
-                get;
-                set;
-            }
-
-            /// <summary>
-            /// Allows enabling or disabling of compressing when in debug mode. False by default.
-            /// </summary>
-            public static bool EnableCompressing
-            {
-                get;
-                set;
-            }
-
-            /// <summary>
-            /// Forces client side cache breaking when enabled. False by default. Note: Overrides all versioning for all groups.
-            /// </summary>
-            public static bool EnableCacheBreaker
-            {
-                get;
-                set;
+                scriptConfigurationProvider = value;
             }
         }
     }

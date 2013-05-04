@@ -18,6 +18,9 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Globalization;
+    using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 
     public static class StringExtensions
     {
@@ -77,6 +80,53 @@ namespace WebAssetBundler.Web.Mvc
         public static bool IsNotNullOrEmpty(this string value)
         {
             return !string.IsNullOrEmpty(value);
+        }
+
+        /// <summary>
+        /// Replaces the first occurance of the search param with the replace param.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="search"></param>
+        /// <param name="replace"></param>
+        /// <returns></returns>
+        public static string ReplaceFirst(this string text, string search, string replace)
+        {
+            int pos = text.IndexOf(search);
+            if (pos < 0)
+            {
+                return text;
+            }
+            return text.Substring(0, pos) + replace + text.Substring(pos + search.Length);
+        }
+
+        /// <summary>
+        /// Returns a new stream containing the contents of the string, using UTF-8 encoding.
+        /// The stream's Position property is set to zero.
+        /// </summary>
+        /// <param name="s">The string to convert into a stream.</param>
+        /// <returns>A new stream.</returns>
+        public static Stream ToStream(this string s)
+        {
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+
+            writer.Write(s);
+            writer.Flush();
+
+            stream.Position = 0;
+            return stream;
+        }
+
+        /// <summary>
+        /// Converts the string to an md5 hash
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string ToHash(this string s)
+        {
+            MD5CryptoServiceProvider x = new MD5CryptoServiceProvider();
+            byte[] bs = Encoding.UTF8.GetBytes(s);
+            return x.ComputeHash(bs).ToHexString();
         }
     }
 }

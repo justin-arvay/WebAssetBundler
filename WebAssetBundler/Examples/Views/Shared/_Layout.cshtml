@@ -1,38 +1,114 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
     <title>@ViewBag.Title</title>
 
-     @{Html.Bundler().StyleSheetManager()
-        .StyleSheets(style => style
-            .AddGroup("Test", g => g
-                .Add("Site.css")
-                .Add("themes/base/jquery.ui.all.css")
-                .Version("1.2")))
-        .Render();}
+    @Bundler.StyleSheets.Render("StyleSheets")
 
-        @{Html.Bundler().ScriptManager()
-
-              .Render();}
 </head>
 <body>
-    <div class="page">
+    <div id="wrap-all">
         <div id="header">
-            <div id="title">
-                <h1>My MVC Application</h1>
-            </div>
+            <div class="top">
+                <div class="wrapper">
+                    <a href="@Url.RouteUrl("Home")">
+                        <img alt="Logo" class="logo" src="/Images/Logo.png" width="170" height="80"/>
+                    </a>
 
-            <div id="menucontainer">
-                <ul id="menu">
-                    <li>@Html.ActionLink("DefaultGroup", "DefaultGroup", "Example")</li>                    
-                </ul>
+                    <div class="right">
+                        <div class="button">
+                            <div class="g-plusone" data-size="medium"></div>
+                        </div>
+
+                        <div class="button">
+                            <div class="fb-like" data-send="false" data-layout="button_count" data-width="50" data-show-faces="true"></div>
+                        </div>
+
+                        <div class="button">
+                            <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+                        </div>
+                    </div>
+
+                    
+                    <div class="download">
+                        <a href="@Url.RouteUrl("Download")">
+                            <img src="/Images/download-icon.png" /> 
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom">
+
+                <div class="wrapper">
+                    @Html.RouteLink("Getting Started", "Documentation", new { path = "introduction" })                   
+                    @Html.RouteLink("Documentation", "Documentation", new { path = "introduction" })   
+                    @Html.RouteLink("License", "License")                 
+                    @Html.RouteLink("Download", "Download")
+                    
+                </div>
             </div>
         </div>
+
         <div id="main">
-            @RenderBody()
+            <div class="wrapper">
+                @RenderBody()
+            </div>            
         </div>
-        <div id="footer">
-        </div>
+
+        <div class="push"></div>
     </div>
+
+    <div id="footer">
+        <div class="wrapper">
+            <div class="content">
+                <span>© 2013 Justin Arvay</span>
+                <a href="https://github.com/justin-arvay/WebAssetBundler">Git Hub</a>
+                <a href="https://github.com/justin-arvay/WebAssetBundler/issues">Report a Bug</a>
+        
+                <div class="osi">
+                    <a href="http://opensource.org/">
+                        <img alt="This software fully supports the Open Source Initiative" src="/Images/osi-logo.png" />        
+                        <span><strong>Open</strong> Source Initiative</span>
+                    </a>
+                </div>
+            </div>
+        </div>        
+    </div>
+    <script type="text/javascript">
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-40359736-1', 'getwab.net');
+            ga('send', 'pageview');
+
+    </script>
+
+    @Bundler.Scripts.Render("Scripts")
+    @Bundler.Scripts.Include("https://apis.google.com/js/plusone.js")
+    @Bundler.Scripts.Include("http://platform.twitter.com/widgets.js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Rainbow.color();
+        });
+    </script>
+
+    <div id="fb-root"></div>
+    <script type="text/javascript">    
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
+            fjs.parentNode.insertBefore(js, fjs);
+        } (document, 'script', 'facebook-jssdk'));
+    </script>
 </body>
 </html>

@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Rendering Bundles";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<h2>Rendering Configured Bundles</h2>
+<p>Configured bundles are rendered using the name provided in the configuration step. For example:</p>
+<pre data-language="csharp">
+public override void Configure()
+{
+    Name("Scripts");
+    Add("~/Scripts/jquery-1.9.0.min.js");
+}
+</pre>
+
+<p>In order to render the script bundle in the view you would:</p>
+<pre data-language="csharp">
+@@Bundler.Scripts.Render("Script")
+</pre>
+
+<p>If you want to render a style sheet bundle in the view you would:</p>
+<pre data-language="csharp">
+@@Bundler.StyleSheets.Render("StyleSheet")
+</pre>
+
+<h2>Including Assets</h2>
+<p>If you need to render a single asset, but want that asset to take advantage of the bundle pipeline, you can do it like so:</p>
+<pre data-language="csharp">
+//javascript include
+@@Bundler.Scripts.Include("~/Script/test.js")
+
+//style sheet include
+@@Bundler.StyleSheets.Include("~/Content/test.css")
+</pre>
+<p>You must provide the relative or virtual path to the asset. From there it will be processed by the pipeline like any other bundle. </p>
+
+<h3>External Assets</h3>
+<p>You can also render external assets. This does not provide any tangible benefits. For now, it merely allows for consistency.</p>
+<pre data-language="csharp">
+//javascript external include
+@@Bundler.Scripts.Include("https://apis.google.com/js/plusone.js")
+
+//style sheet external include
+@@Bundler.StyleSheets.Include("https://apis.google.com/test.css")
+</pre>

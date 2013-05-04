@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Browser Caching";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<h2>Browser Caching</h2>
+
+<p>By default the borwser will cache all assets for 1 year. This can be overridden when configuring the 
+bundle (see @Html.RouteLink("Browser TTL", "Documentation", new { path = "bundle-configuration/other" })). Changes to the
+bundles will result in forcing the browser to download the changed bundle. It does this by putting a hash (unique to the bundle content) in
+the bundle url. Changing the bundle (adding assets, or changing content within an asset) will generate a new hash, and thus a new url.</p>
+
+<p>Additionally all content sent to the browser is compressed with either Gzip or Deflate. It will automatically choose 
+based on the request headers.</p>
+
+<h6>Caching in Browser</h6>
+<img src="../../Images/ScreenCaps/no-debug-mode-browser-caching.png" />
+<pre>
+@Html.Code(@"
+Request URL:http://localhost:10000/wab.axd/css/313ebe1e217ecf8b9470b903023a4ca8/StyleSheets
+Request Method:GET
+Status Code:200 OK (from cache)
+Request Headersview source
+Accept:text/css,*/*;q=0.1
+Accept-Charset:ISO-8859-1,utf-8;q=0.7,*;q=0.3
+Accept-Encoding:gzip,deflate,sdch
+Accept-Language:en-US,en;q=0.8
+Connection:keep-alive
+Host:localhost:10000
+Referer:http://localhost:10000/
+User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31
+Response Headersview source
+Cache-Control:public
+Connection:Close
+Content-Encoding:deflate
+Content-Length:7270
+Content-Type:text/css; charset=utf-8
+Date:Wed, 24 Apr 2013 22:04:18 GMT
+ETag:6a4ec27f021f276479dd92e5afe08981
+Expires:Thu, 24 Apr 2014 22:04:17 GMT
+Server:ASP.NET Development Server/10.0.0.0
+X-AspNet-Version:4.0.30319
+
+Request URL:http://localhost:10000/wab.axd/js/95fee1d9571e0b4a0764d77739d54a16/Scripts
+Request Method:GET
+Status Code:200 OK (from cache)
+Request Headersview source
+Accept:*/*
+Accept-Charset:ISO-8859-1,utf-8;q=0.7,*;q=0.3
+Accept-Encoding:gzip,deflate,sdch
+Accept-Language:en-US,en;q=0.8
+Connection:keep-alive
+Host:localhost:10000
+Referer:http://localhost:10000/
+User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31
+Response Headersview source
+Cache-Control:public
+Connection:Close
+Content-Encoding:deflate
+Content-Length:97759
+Content-Type:text/javascript; charset=utf-8
+Date:Wed, 24 Apr 2013 22:04:18 GMT
+ETag:95fee1d9571e0b4a0764d77739d54a16
+Expires:Thu, 24 Apr 2014 22:04:18 GMT
+Server:ASP.NET Development Server/10.0.0.0
+X-AspNet-Version:4.0.30319
+")
+</pre>

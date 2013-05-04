@@ -22,6 +22,17 @@ namespace Examples
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute("Home", "", new { controller = "Home", action = "Index" });
+            routes.MapRoute("Download", "download", new { controller = "Home", action = "Download" });
+            routes.MapRoute("License", "license", new { controller = "Home", action = "License" });
+            //routes.MapRoute("Benefits", "benefits", new { controller = "Home", action = "Benefits" });
+
+            routes.MapRoute(
+                "Documentation",
+                "docs/{*path}",
+                new { controller = "Documentation", action = "Index" }
+            );
+
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}", // URL with parameters
@@ -35,19 +46,7 @@ namespace Examples
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
-            RegisterRoutes(RouteTable.Routes);
-
-            //DefaultSettings.StyleSheetHost = "192.168.1.69";
-           // DefaultSettings.ScriptHost = "6.6.6.6";
-            DefaultSettings.DebugMode = true;
-            DefaultSettings.DebugModeSettings.EnableCombining = false;
-            DefaultSettings.DebugModeSettings.EnableCompressing = true;
-            DefaultSettings.DebugModeSettings.EnableCacheBreaker = true;
-
-            SharedGroups.Scripts(s =>s
-                .AddGroup("jQuery2", g => g
-                    .Add("jquery-1.5.1.js")
-                    .Version("YEAH")));
+            RegisterRoutes(RouteTable.Routes);        
         }
     }
 }

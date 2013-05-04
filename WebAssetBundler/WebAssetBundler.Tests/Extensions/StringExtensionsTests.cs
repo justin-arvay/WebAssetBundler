@@ -52,5 +52,21 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual(2, value.CountOccurance("is"));
         }
+
+        [Test]
+        public void Should_Replace_First_Occurance()
+        {
+            string value = "This is a test. This is a test.";
+
+            Assert.AreEqual("This is not a test. This is a test.", value.ReplaceFirst("a test", "not a test"));
+        }
+
+        [Test]
+        public void Should_Convert_To_MD5_Hash()
+        {
+            string value = "test";
+
+            Assert.AreEqual("098f6bcd4621d373cade4e832627b4f6", value.ToHash());
+        }
     }
 }

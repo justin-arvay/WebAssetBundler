@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Modifying the Pipeline";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<h2>Modifying the Pipeline</h2>
+
+<p>You can add and remove processors in any of the pipelines. This will give you full control over how the
+bundles are processed. See @Html.RouteLink("Bundle Pipelines", "Documentation", new { path = "bundle-pipelines" }) for 
+more information about pipelines.</p>
+
+<p><strong>1. Creating a Processor</strong></p>
+<p>Here is an example of a processor:</p>
+<pre data-language="csharp">
+@Html.Code(@"
+using WebAssetBundler.Web.Mvc;
+
+public class TestProcessor : IPipelineProcessor<StyleSheetBundle>
+{
+    public void Process(StyleSheetBundle bundle)
+    {
+        //modify something here
+    }
+}
+")
+</pre>
+
+<p><strong>2. Modify the Pipeline with the New Processor</strong></p>
+<pre data-language="csharp">
+@Html.Code(@"
+public void ModifyPipeline(IBundlePipeline<StyleSheetBundle> pipeline)
+{
+    pipeline.Add(new TestProcessor());
+}
+")
+</pre>
+
+<p>When the pipeline is created the pipeline will now be modified based on all loaded plugins. Be aware that modifing the pipeline through the plugin is affected
+by other plugins. Special attention need to be taken when running multiple plugins as a conflict could occure.</p>

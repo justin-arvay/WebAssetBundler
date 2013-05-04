@@ -3,17 +3,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>
-    </ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9FEF5FAF-C2E6-4943-ACCC-7B89C13013C0}</ProjectGuid>
+    <ProjectGuid>{625B8BE8-CB57-4033-842A-CFBF16CAD089}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WebAssetBundler.Tests</RootNamespace>
     <AssemblyName>WebAssetBundler.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -34,85 +32,118 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxMin">
-      <HintPath>..\..\Library\Compressors\microsoft-ajax-minifer\AjaxMin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Moq, Version=4.0.10827.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Library\Moq.dll</HintPath>
+      <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=2.6.0.12051, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+    <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Library\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Yahoo.Yui.Compressor">
-      <HintPath>..\..\Library\Compressors\yui-compressor\Yahoo.Yui.Compressor.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
-      <Visible>False</Visible>
-    </CodeAnalysisDependentAssemblyPaths>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="BuilderContextFactoryTests.cs" />
-    <Compile Include="BuilderContextTests.cs" />
-    <Compile Include="AssetFactoryTests.cs" />
-    <Compile Include="Caching\MergedResultCacheTests.cs" />
+    <Compile Include="AssetBaseImpl.cs" />
+    <Compile Include="Bootstrap\ConfigureScriptsTaskTests.cs" />
+    <Compile Include="Bootstrap\ConfigureStyleSheetTaskTests.cs" />
+    <Compile Include="Bootstrap\LoadSettingsTaskTests.cs" />
+    <Compile Include="DirectoryFactoryTests.cs" />
+    <Compile Include="DirectorySearchFactoryTests.cs" />
+    <Compile Include="Extensions\StreamExtensionsTests.cs" />
+    <Compile Include="FileSystemDirectoryTests.cs" />
+    <Compile Include="FileSystemFileTests.cs" />
+    <Compile Include="Caching\BundlesCacheTests.cs" />
     <Compile Include="ComponentBuilderTests.cs" />
-    <Compile Include="Configuration\AssetConfigurationFactoryTests.cs" />
-    <Compile Include="Configuration\ConfigurationTestHelper.cs" />
-    <Compile Include="Configuration\SharedGroupManagerLoaderTests.cs" />
-    <Compile Include="Extensions\StringExtensionsTests.cs" />
-    <Compile Include="Fluent\SharedGroupsTests.cs" />
-    <Compile Include="Fluent\SharedWebAssetGroupCollectionBuilderTests.cs" />
-    <Compile Include="HtmlHelperExtensionTests.cs" />
-    <Compile Include="IO\ScriptTagWriterTests.cs" />
-    <Compile Include="IO\ScriptWebAssetMergerTests.cs" />
-    <Compile Include="IO\DirectoryWriterTests.cs" />
-    <Compile Include="IO\StyleSheetTagWriterTests.cs" />
-    <Compile Include="IO\StyleSheetWebAssetMergerTests.cs" />
-    <Compile Include="IO\WebAssetGeneratorTests.cs" />
-    <Compile Include="IO\WebAssetMergerResultTest.cs" />
-    <Compile Include="IO\WebAssetWriterTests.cs" />
-    <Compile Include="IO\WebAssetReaderTests.cs" />
-    <Compile Include="Fluent\ManagerBuilderFactoryTests.cs" />
-    <Compile Include="Fluent\ScriptManagerBuilderTests.cs" />
-    <Compile Include="Fluent\ScriptManagerTests.cs" />
-    <Compile Include="Fluent\SharedGroupManagerTests.cs" />
-    <Compile Include="Caching\MergedContentCacheTests.cs" />
-    <Compile Include="Resolvers\CombinedWebAssetGroupResolverTest.cs" />
-    <Compile Include="Resolvers\DoNothingWebAssetResolverTest.cs" />
-    <Compile Include="Resolvers\PathResolverTests.cs" />
-    <Compile Include="Resolvers\VersionedWebAssetGroupResolverTests.cs" />
-    <Compile Include="Resolvers\WebAssetGroupCollectionResolverTests.cs" />
-    <Compile Include="Resolvers\WebAssetGroupResolverTests.cs" />
-    <Compile Include="Resolvers\WebAssetResolverFactoryTests.cs" />
-    <Compile Include="Resolvers\UrlResolverTests.cs" />
+    <Compile Include="AssetBaseTests.cs" />
+    <Compile Include="BundleConfigurationImpl.cs" />
+    <Compile Include="BundleConfigurationTests.cs" />
+    <Compile Include="BundleImpl.cs" />
+    <Compile Include="BundleProviderBaseImpl.cs" />
+    <Compile Include="BundleProviderBaseTests.cs" />
+    <Compile Include="BundleTests.cs" />
+    <Compile Include="Helpers\PathHelperTests.cs" />
+    <Compile Include="HttpHandlers\ImageResponseWriterTests.cs" />
+    <Compile Include="HttpHandlers\ResponseWriterFactoryTests.cs" />
+    <Compile Include="Image\ImageBundleTests.cs" />
+    <Compile Include="Image\ImageUrlGeneratorTests.cs" />
+    <Compile Include="Minifiers\MinifyModifierTests.cs" />
+    <Compile Include="Pipeline\AssignHashProcessorTests.cs" />
+    <Compile Include="Pipeline\BundlePipelineImpl.cs" />
+    <Compile Include="Pipeline\BundlePipelineTests.cs" />
+    <Compile Include="Pipeline\CompilerModifierTests.cs" />
+    <Compile Include="Pipeline\MinifyProcessorTests.cs" />
+    <Compile Include="Pipeline\ProcessorImpl.cs" />
+    <Compile Include="DefaultBundleConfigurationProviderTests.cs" />
+    <Compile Include="AssetProviderTests.cs" />
+    <Compile Include="FileAssetTest.cs" />
+    <Compile Include="DirectorySearchBuilderTests.cs" />
+    <Compile Include="DirectorySearchTests.cs" />
+    <Compile Include="Plugins\PluginCollectionTests.cs" />
+    <Compile Include="Plugins\PluginLoaderTests.cs" />
+    <Compile Include="Script\ScriptBundleCachePrimerTests.cs" />
+    <Compile Include="Script\ScriptBundleConfigurationImpl.cs" />
+    <Compile Include="Script\ScriptBundleProviderTests.cs" />
+    <Compile Include="Script\ScriptBundleTests.cs" />
+    <Compile Include="Script\ScriptBundlerTests.cs" />
+    <Compile Include="StyleSheet\ImagePathResolverProviderTests.cs" />
+    <Compile Include="StyleSheet\StyleSheetBundleCachePrimerTests.cs" />
+    <Compile Include="StyleSheet\StyleSheetBundleConfigurationImpl.cs" />
+    <Compile Include="StyleSheet\StyleSheetBundleProviderTests.cs" />
+    <Compile Include="StyleSheet\StyleSheetBundleTests.cs" />
+    <Compile Include="StyleSheet\StyleSheetBundlerTests.cs" />
+    <Compile Include="BundleCollectionTests.cs" />
     <Compile Include="DefaultSettingsTests.cs" />
-    <Compile Include="Fluent\WebAssetGroupBuilderTests.cs" />
-    <Compile Include="Fluent\WebAssetGroupCollectionBuilderTests.cs" />
-    <Compile Include="Fluent\WebAssetGroupCollectionTests.cs" />
-    <Compile Include="Fluent\WebAssetTests.cs" />
-    <Compile Include="Fluent\WebAssetGroupTests.cs" />
-    <Compile Include="Fluent\StyleSheetManagerTests.cs" />
-    <Compile Include="Fluent\StyleSheetManagerBuilderTests.cs" />
-    <Compile Include="Resolvers\ResolverResultTests.cs" />
+    <Compile Include="Extensions\ByteArrayExtensionTests.cs" />
+    <Compile Include="Extensions\StringExtensionsTests.cs" />
+    <Compile Include="HttpHandlers\AssetHttpHandlerTests.cs" />
+    <Compile Include="HttpHandlers\DeflateEncoderTests.cs" />
+    <Compile Include="HttpHandlers\EncoderFactoryTests.cs" />
+    <Compile Include="HttpHandlers\GZipEncoderTests.cs" />
+    <Compile Include="HttpHandlers\HttpHandlerFactoryTests.cs" />
+    <Compile Include="HttpHandlers\ResponseWriterTests.cs" />
+    <Compile Include="Script\ScriptTagWriterTests.cs" />
+    <Compile Include="StyleSheet\StyleSheetTagWriterTests.cs" />
+    <Compile Include="Pipeline\UrlAssignmentProcessorTests.cs" />
+    <Compile Include="Pipeline\MergedAssetTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Script\ScriptPipelineTests.cs" />
+    <Compile Include="Script\ScriptMergeProcessorTests.cs" />
+    <Compile Include="StyleSheet\ExpandPathProcessorTests.cs" />
+    <Compile Include="StyleSheet\StyleSheetMergeProcessorTests.cs" />
+    <Compile Include="StyleSheet\StyleSheetPipelineTests.cs" />
+    <Compile Include="StyleSheet\UnversionedImagePathResolverTests.cs" />
+    <Compile Include="StyleSheet\VersionedImagePathResolverTests.cs" />
     <Compile Include="TestHelper.cs" />
-    <Compile Include="Filters\ImagePathContentFilterTests.cs" />
+    <Compile Include="WebHostTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Files\AssetFileTest.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\AssetProvider\Mixed\FirstFile.min.css" />
+    <Content Include="Files\AssetProvider\Mixed\FirstFile.css" />
+    <Content Include="Files\AssetProvider\Mixed\NotCorrectExt.txt" />
+    <Content Include="Files\AssetProvider\Mixed\SecondFile.css" />
+    <Content Include="Files\AssetProvider\Mixed\SecondFile.min.css" />
+    <Content Include="Files\AssetProvider\Raw\FirstFile.css" />
+    <Content Include="Files\AssetProvider\Raw\NotCorrectExt.txt" />
+    <Content Include="Files\AssetProvider\Raw\SecondFile.css" />
+    <Content Include="Files\FileSystem\DirOne\FileTwo.txt" />
+    <Content Include="Files\FileSystem\DirOne\FileOne.txt" />
+    <Content Include="Files\FileSystem\DirTwo\FileOne.txt" />
+    <Content Include="Files\FileSystem\DirTwo\FileTwo.txt" />
+    <Content Include="Files\Images\VersionImageTest.png" />
+    <Content Include="Files\read.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebAssetBundler\WebAssetBundler.csproj">
@@ -120,15 +151,8 @@
       <Name>WebAssetBundler</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Files\read.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
