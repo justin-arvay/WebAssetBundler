@@ -33,7 +33,7 @@ namespace WebAssetBundler.Web.Mvc
                 Add(new MinifyProcessor<StyleSheetBundle>(minifier, settings.MinifyIdentifier));
             }
 
-            Add(new StyleSheetMergeProcessor());            
+            Add<MergeProcessor<StyleSheetBundle>>();            
         }
     }
 }

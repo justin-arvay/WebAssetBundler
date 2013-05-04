@@ -18,25 +18,15 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class ScriptBundle : Bundle
+    public class MergeProcessor<TBundle> : IPipelineProcessor<TBundle> 
+        where TBundle : Bundle
     {
-        public ScriptBundle()
+        public void Process(TBundle bundle)
         {
-            Type = WebAssetType.Script;
-            Extension = "js";
-        }
+            var asset = new MergedAsset(bundle.Assets, bundle.AssetSeparator);
 
-        public override string ContentType
-        {
-            get { return "text/javascript"; }
-        }
-
-        public override string AssetSeparator
-        {
-            get
-            {
-                return ";";
-            }
+            bundle.Assets.Clear();
+            bundle.Assets.Add(asset);
         }
     }
 }

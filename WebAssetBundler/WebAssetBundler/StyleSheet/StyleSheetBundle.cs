@@ -30,5 +30,13 @@ namespace WebAssetBundler.Web.Mvc
         {
             get { return "text/css"; }
         }
+
+        public override string AssetSeparator
+        {
+            get
+            {
+                return String.Empty;
+            }
+        }
     }
 }

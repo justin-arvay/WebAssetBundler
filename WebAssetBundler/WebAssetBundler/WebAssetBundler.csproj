@@ -92,6 +92,7 @@
     <Compile Include="Pipeline\AssignHashProcessor.cs" />
     <Compile Include="Pipeline\CompilerModifier.cs" />
     <Compile Include="Pipeline\ICompiler.cs" />
+    <Compile Include="Pipeline\MergeProcessor.cs" />
     <Compile Include="Pipeline\MinifyProcessor.cs" />
     <Compile Include="Pipeline\UrlAssignmentProcessor.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
