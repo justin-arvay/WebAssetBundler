@@ -1,4 +1,4 @@
-﻿// ResourceCompiler - Compiles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -21,20 +21,18 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
 
     [TestFixture]
-    public class ScriptMinifyProcessorTests
-    {
-        private ScriptMinifyProcessor processor;
-        private Mock<IScriptMinifier> minifier;
-        private ScriptBundle bundle;
-        private SettingsContext settings;
+    public class MinifyProcessorTests
+    {        
+        private MinifyProcessor<BundleImpl> processor;
+        private Mock<IMinifier> minifier;
+        private BundleImpl bundle;
 
         [SetUp]
         public void Setup()
         {
-            settings = new SettingsContext(false, ".min");
-            bundle = new ScriptBundle();
-            minifier = new Mock<IScriptMinifier>();
-            processor = new ScriptMinifyProcessor(settings, minifier.Object);
+            bundle = new BundleImpl();
+            minifier = new Mock<IMinifier>();
+            processor = new MinifyProcessor<BundleImpl>(minifier.Object, ".min");
         }
 
         [Test]
@@ -77,21 +75,5 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual(0, bundle.Assets[0].Modifiers.Count);
         }
-
-        [Test]
-        public void Should_Not_Add_Minify_Modifier_When_Debug_Mode()
-        {
-            settings.DebugMode = true;
-
-            var asset = new AssetBaseImpl("#div { color: #123; }");
-            asset.Source = "~/file.js";
-
-            bundle.Assets.Add(asset);
-            bundle.Minify = true;
-
-            processor.Process(bundle);
-
-            Assert.AreEqual(0, bundle.Assets[0].Modifiers.Count);
-        }
-    }
+    }    
 }

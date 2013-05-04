@@ -17,18 +17,41 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.IO;
 
     public class MinifyProcessor<TBundle> : IPipelineProcessor<TBundle> 
         where TBundle : Bundle
     {
-        public MinifyProcessor(IMinifier minifier)
+        private IMinifier minifier;
+        private string minifyIdentifier;
+
+        public MinifyProcessor(IMinifier minifier, string minifyIdentifier)
         {
-
+            this.minifier = minifier;
+            this.minifyIdentifier = minifyIdentifier;
         }
-
         public void Process(TBundle bundle)
         {
-            throw new NotImplementedException();
+            if (bundle.Minify)
+            {
+                foreach (var asset in bundle.Assets)
+                {
+                    if (IsAlreadyMinified(asset) == false)
+                    {
+                        asset.Modifiers.Add(new MinifyModifier(minifier));
+                    }
+                }
+            }
+        }
+
+        public bool IsAlreadyMinified(AssetBase asset)
+        {
+            if (minifyIdentifier.Length == 0)
+            {
+                return false;
+            }
+
+            return Path.GetFileNameWithoutExtension(asset.Source).EndsWith(minifyIdentifier, StringComparison.OrdinalIgnoreCase);
         }
     }
 }

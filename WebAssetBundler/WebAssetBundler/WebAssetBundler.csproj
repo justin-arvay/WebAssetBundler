@@ -91,6 +91,7 @@
     <Compile Include="Pipeline\AssignHashProcessor.cs" />
     <Compile Include="Pipeline\CompilerModifier.cs" />
     <Compile Include="Pipeline\ICompiler.cs" />
+    <Compile Include="Pipeline\MinifyProcessor.cs" />
     <Compile Include="Pipeline\UrlAssignmentProcessor.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Plugins\IPluginCollection.cs" />
@@ -163,12 +164,10 @@
     <Compile Include="StyleSheet\StyleSheetBundler.cs" />
     <Compile Include="AssetBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Script\ScriptMinifyProcessor.cs" />
     <Compile Include="Script\ScriptPipeline.cs" />
     <Compile Include="Script\ScriptMergeProcessor.cs" />
     <Compile Include="StyleSheet\ExpandPathProcessor.cs" />
     <Compile Include="StyleSheet\StyleSheetMergeProcessor.cs" />
-    <Compile Include="StyleSheet\StyleSheetMinifyProcessor.cs" />
     <Compile Include="StyleSheet\StyleSheetPipeline.cs" />
     <Compile Include="TextResource\Exceptions.Designer.cs">
       <AutoGen>True</AutoGen>

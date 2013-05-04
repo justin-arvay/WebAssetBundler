@@ -20,13 +20,19 @@ namespace WebAssetBundler.Web.Mvc
 
     public class StyleSheetPipeline : BundlePipeline<StyleSheetBundle>
     {
-        public StyleSheetPipeline(TinyIoCContainer container)
+        public StyleSheetPipeline(TinyIoCContainer container, SettingsContext settings)
             : base(container)
         {
-            Add<AssignHashProcessor>();
-            Add<StyleSheetMinifyProcessor>();            
+            Add<AssignHashProcessor>();            
             Add<UrlAssignmentProcessor<StyleSheetBundle>>();
             Add<ExpandPathProcessor>();
+
+            if (settings.DebugMode == false)
+            {
+                var minifier = container.Resolve<IStyleSheetMinifier>();
+                Add(new MinifyProcessor<StyleSheetBundle>(minifier, settings.MinifyIdentifier));
+            }
+
             Add(new StyleSheetMergeProcessor());            
         }
     }

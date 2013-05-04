@@ -58,7 +58,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public IBundlePipeline<ScriptBundle> CreateScriptPipeline(TinyIoCContainer container, IPluginCollection<ScriptBundle> plugins)
         {
-            var pipeline = new ScriptPipeline(container);
+            var pipeline = container.Resolve<ScriptPipeline>();
 
             plugins.ToList().ForEach(m => m.ModifyPipeline(pipeline));
 

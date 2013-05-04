@@ -62,7 +62,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public IBundlePipeline<StyleSheetBundle> CreateStyleSheetPipeline(TinyIoCContainer container, IPluginCollection<StyleSheetBundle> plugins)
         {
-            var pipeline = new StyleSheetPipeline(container);
+            var pipeline = container.Resolve<StyleSheetPipeline>();
 
             plugins.ToList().ForEach(m => m.ModifyPipeline(pipeline));
 

@@ -24,26 +24,43 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private ScriptPipeline pipeline;
         private TinyIoCContainer container;
+        private SettingsContext settings;
 
         [SetUp]
         public void Setup()
         {
-            var compressor = new Mock<IScriptMinifier>();
+            var minifier = new Mock<IScriptMinifier>();
 
             container = new TinyIoCContainer();
-            container.Register<IScriptMinifier>((a, c) => compressor.Object);            
+            container.Register<IScriptMinifier>((a, c) => minifier.Object);
 
-            pipeline = new ScriptPipeline(container);            
+            settings = new SettingsContext();            
         }
 
         [Test]
-        public void Should_Contain_Default_Processors()
+        public void Should_Contain_Default_Processors_In_Debug_Mode()
         {
+            settings.DebugMode = true;
+            settings.MinifyIdentifier = ".min";
+
+            pipeline = new ScriptPipeline(container, settings);            
+
             Assert.IsInstanceOf<AssignHashProcessor>(pipeline[0]);
-            Assert.IsInstanceOf<ScriptMinifyProcessor>(pipeline[1]);
-            Assert.IsInstanceOf<ScriptMergeProcessor>(pipeline[2]);
-            Assert.IsInstanceOf<UrlAssignmentProcessor<ScriptBundle>>(pipeline[3]);
-            
+            Assert.IsInstanceOf<UrlAssignmentProcessor<ScriptBundle>>(pipeline[1]);            
+            Assert.IsInstanceOf<ScriptMergeProcessor>(pipeline[2]);    
+        }
+
+        [Test]
+        public void Should_Contain_Default_Processors_Non_Debug_Mode()
+        {
+            settings.DebugMode = false;
+
+            pipeline = new ScriptPipeline(container, settings);            
+           
+            Assert.IsInstanceOf<AssignHashProcessor>(pipeline[0]);
+            Assert.IsInstanceOf<UrlAssignmentProcessor<ScriptBundle>>(pipeline[1]);
+            Assert.IsInstanceOf<MinifyProcessor<ScriptBundle>>(pipeline[2]);
+            Assert.IsInstanceOf<ScriptMergeProcessor>(pipeline[3]);            
         }
     }
 }

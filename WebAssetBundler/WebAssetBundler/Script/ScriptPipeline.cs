@@ -20,13 +20,19 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ScriptPipeline : BundlePipeline<ScriptBundle>
     {
-        public ScriptPipeline(TinyIoCContainer container)
+        public ScriptPipeline(TinyIoCContainer container, SettingsContext settings)
             : base(container)
         {
             Add<AssignHashProcessor>();
-            Add<ScriptMinifyProcessor>();
-            Add(new ScriptMergeProcessor());
-            Add<UrlAssignmentProcessor<ScriptBundle>>();            
+            Add<UrlAssignmentProcessor<ScriptBundle>>();                
+
+            if (settings.DebugMode == false)
+            {
+                var minifier = container.Resolve<IScriptMinifier>();
+                Add(new MinifyProcessor<ScriptBundle>(minifier, settings.MinifyIdentifier));         
+            }
+
+            Add(new ScriptMergeProcessor());                  
         }
     }
 }

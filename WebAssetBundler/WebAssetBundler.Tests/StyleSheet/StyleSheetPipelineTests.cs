@@ -26,12 +26,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private StyleSheetPipeline pipeline;
         private TinyIoCContainer container;
+        private SettingsContext settings;
 
         [SetUp]
         public void Setup()
         {
             var compressor = new Mock<IStyleSheetMinifier>();
             var server = new Mock<HttpServerUtilityBase>();
+
+            settings = new SettingsContext();
 
             container = new TinyIoCContainer();
             container.Register<IStyleSheetMinifier>((a, c) => compressor.Object);
@@ -41,18 +44,34 @@ namespace WebAssetBundler.Web.Mvc.Tests
             container.Register<IBundlesCache<ImageBundle>, BundlesCache<ImageBundle>>();
             container.Register<IUrlGenerator<ImageBundle>, ImageUrlGenerator>();
             container.Register<SettingsContext>(new SettingsContext());
-            container.Register<IImagePathResolverProvider, ImagePathResolverProvider>();
-
-            pipeline = new StyleSheetPipeline(container);  
+            container.Register<IImagePathResolverProvider, ImagePathResolverProvider>();            
         }
 
         [Test]
-        public void Should_Contain_Default_Processors()
+        public void Should_Contain_Default_Processors_In_Debug_Mode()
         {
+            settings.DebugMode = true;
+            settings.MinifyIdentifier = ".min";
+
+            pipeline = new StyleSheetPipeline(container, settings);  
+
             Assert.IsInstanceOf<AssignHashProcessor>(pipeline[0]);
-            Assert.IsInstanceOf<StyleSheetMinifyProcessor>(pipeline[1]);
-            Assert.IsInstanceOf<UrlAssignmentProcessor<StyleSheetBundle>>(pipeline[2]);
-            Assert.IsInstanceOf<ExpandPathProcessor>(pipeline[3]);
+            Assert.IsInstanceOf<UrlAssignmentProcessor<StyleSheetBundle>>(pipeline[1]);
+            Assert.IsInstanceOf<ExpandPathProcessor>(pipeline[2]);            
+            Assert.IsInstanceOf<StyleSheetMergeProcessor>(pipeline[3]);
+        }
+
+        [Test]
+        public void Should_Contain_Default_Processors_Not_In_Debug_Mode()
+        {
+            settings.DebugMode = false;
+
+            pipeline = new StyleSheetPipeline(container, settings);  
+
+            Assert.IsInstanceOf<AssignHashProcessor>(pipeline[0]);
+            Assert.IsInstanceOf<UrlAssignmentProcessor<StyleSheetBundle>>(pipeline[1]);
+            Assert.IsInstanceOf<ExpandPathProcessor>(pipeline[2]);
+            Assert.IsInstanceOf<MinifyProcessor<StyleSheetBundle>>(pipeline[3]);
             Assert.IsInstanceOf<StyleSheetMergeProcessor>(pipeline[4]);
         }
     }

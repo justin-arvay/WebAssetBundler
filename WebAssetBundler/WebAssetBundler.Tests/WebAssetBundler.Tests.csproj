@@ -78,6 +78,7 @@
     <Compile Include="Pipeline\BundlePipelineImpl.cs" />
     <Compile Include="Pipeline\BundlePipelineTests.cs" />
     <Compile Include="Pipeline\CompilerModifierTests.cs" />
+    <Compile Include="Pipeline\MinifyProcessorTests.cs" />
     <Compile Include="Pipeline\ProcessorImpl.cs" />
     <Compile Include="DefaultBundleConfigurationProviderTests.cs" />
     <Compile Include="AssetProviderTests.cs" />
@@ -112,11 +113,9 @@
     <Compile Include="Pipeline\UrlAssignmentProcessorTests.cs" />
     <Compile Include="Pipeline\MergedAssetTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Script\ScriptMinifyProcessorTests.cs" />
     <Compile Include="Script\ScriptPipelineTests.cs" />
     <Compile Include="Script\ScriptMergeProcessorTests.cs" />
     <Compile Include="StyleSheet\ExpandPathProcessorTests.cs" />
-    <Compile Include="StyleSheet\StyleSheetMinifyProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetMergeProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetPipelineTests.cs" />
     <Compile Include="StyleSheet\UnversionedImagePathResolverTests.cs" />
