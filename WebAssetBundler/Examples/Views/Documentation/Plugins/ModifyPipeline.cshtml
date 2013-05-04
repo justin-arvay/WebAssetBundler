@@ -10,7 +10,7 @@ bundles are processed. See @Html.RouteLink("Bundle Pipelines", "Documentation", 
 more information about pipelines.</p>
 
 <p><strong>1. Creating a Processor</strong></p>
-<p>Here is an example of a processor that will modify the style sheets by removing all spaces:</p>
+<p>Here is an example of a processor:</p>
 <pre data-language="csharp">
 @Html.Code(@"
 using WebAssetBundler.Web.Mvc;
@@ -19,10 +19,7 @@ public class TestProcessor : IPipelineProcessor<StyleSheetBundle>
 {
     public void Process(StyleSheetBundle bundle)
     {
-        foreach (var asset in bundle.Assets)
-        {
-            asset.Content = asset.Content.Replace("" "", """"");
-        }
+        //modify something here
     }
 }
 ")

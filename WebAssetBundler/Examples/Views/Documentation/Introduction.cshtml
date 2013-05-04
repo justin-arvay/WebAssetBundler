@@ -3,15 +3,15 @@
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
 }
 
-
+<h1>Getting Started</h1>
 <p>Web asset bundler only requires minimal configuration to get started. Configuration is easy and straight forward. Just follow the steps below:</p>
 
-<h2>1. Install via NuGet</h2>
+<h6>1. Install via NuGet</h6>
 <pre>PM> Install-Package WebAssetBundler</pre>
 
 <p>@Html.RouteLink("View a list of plugins", "Documentation", new { path = "plugins" })</p>
 
-<h2>2. Configure</h2>
+<h6>2. Configure</h6>
 <pre data-language="csharp">
     using WebAssetBundler.Web.Mvc;
 
@@ -38,7 +38,7 @@
     }
 </pre>
 
-<h2>3. Render</h2>
+<h6>3. Render</h6>
 
 <pre data-language="csharp">
     //in the head tag
