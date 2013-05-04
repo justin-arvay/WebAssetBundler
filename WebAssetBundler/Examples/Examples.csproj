@@ -106,6 +106,7 @@
     </Compile>
     <Content Include="Content\documentation.css" />
     <Content Include="Content\download.css" />
+    <Content Include="google52b0af22e33782b5.html" />
     <Content Include="Images\document-icon.png" />
     <Content Include="Images\download-icon.png" />
     <Content Include="Images\nugetlogo.png" />
