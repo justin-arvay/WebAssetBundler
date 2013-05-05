@@ -1,0 +1,3 @@
+﻿User-agent: *
+
+Sitemap: https://www.gowfb.com/sitemap.xml
