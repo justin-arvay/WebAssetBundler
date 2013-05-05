@@ -46,7 +46,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public virtual void ShutDown()
         {
-
+            Plugins.Dispose();
         }
     }
 }

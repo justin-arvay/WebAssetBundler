@@ -21,7 +21,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.Linq;
 
     [TaskOrder(4)]
-    public class ConfigureImagesTask : IBootstrapTask
+    public class ConfigureImagesTask : BundleBaseTask<ImageBundle>
     {
         private IPluginLoader pluginLoader;
 
@@ -30,39 +30,14 @@ namespace WebAssetBundler.Web.Mvc
             this.pluginLoader = pluginLoader;
         }
 
-        public IPluginCollection<ImageBundle> Plugins
-        { 
-            get; 
-            set; 
-        }
 
         public void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
         {
             Plugins = pluginLoader.LoadPlugins<ImageBundle>();
 
             container.Register<IUrlGenerator<ImageBundle>, ImageUrlGenerator>();
-            container.Register<IBundlePipeline<ImageBundle>>(CreatePipeline(container, Plugins))
+            container.Register<IBundlePipeline<ImageBundle>>(CreatePipeline<ImagePipeline>(container, Plugins))
                 .AsSingleton();
-        }
-
-        /// <summary>
-        /// Creates the pipeline as well as modifies it using supplied modifiers.
-        /// </summary>
-        /// <param name="container"></param>
-        /// <param name="pipelineModifiers"></param>
-        /// <returns></returns>
-        public IBundlePipeline<ImageBundle> CreatePipeline(TinyIoCContainer container, IPluginCollection<ImageBundle> plugins)
-        {
-            var pipeline = container.Resolve<ImagePipeline>();
-
-            plugins.ToList().ForEach(m => m.ModifyPipeline(pipeline));
-
-            return pipeline;
-        }
-
-        public void ShutDown()
-        {
-            Plugins.Dispose();
         }
     }
 }
