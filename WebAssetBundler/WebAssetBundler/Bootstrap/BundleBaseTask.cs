@@ -18,48 +18,35 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
-
-    public class SettingsContext
+    public abstract class BundleBaseTask<TBundle> : IBootstrapTask 
+        where TBundle : Bundle
     {
-        public SettingsContext()
-        {
-        }
-
-        public SettingsContext(bool debugMode, string minifyIdentifier)
-        {
-            DebugMode = debugMode;
-            MinifyIdentifier = minifyIdentifier;
-        }
-
-        public string MinifyIdentifier 
-        { 
-            get; 
-            set; 
-        }
-
-        public bool DebugMode
+        public IPluginCollection<TBundle> Plugins
         {
             get;
             set;
         }
 
-        public bool VersionCssImages
+        public IBundlePipeline<TBundle> CreatePipeline<TPipeline>(TinyIoCContainer container, IPluginCollection<TBundle> plugins)
+            where TPipeline : IBundlePipeline<TBundle>
         {
-            get;
-            set;
+            var pipeline = container.Resolve<TPipeline>();
+
+            plugins.ToList().ForEach(m => m.ModifyPipeline(pipeline));
+
+            return pipeline;
         }
 
-        public bool EnableImagePipeline
+        public virtual void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
         {
-            get;
-            set;
+            throw new NotImplementedException();
         }
 
-        public IDirectory AppRootDirectory
+        public virtual void ShutDown()
         {
-            get;
-            set;
+
         }
     }
 }

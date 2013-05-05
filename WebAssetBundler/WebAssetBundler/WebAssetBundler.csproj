@@ -57,8 +57,10 @@
   <ItemGroup>
     <Compile Include="AssetCollection.cs" />
     <Compile Include="BasicUrlGenerator.cs" />
+    <Compile Include="Bootstrap\BundleBaseTask.cs" />
     <Compile Include="Bootstrap\ConfigureCommonTask.cs" />
     <Compile Include="Bootstrap\ConfigureStyleSheetsTask.cs" />
+    <Compile Include="Bootstrap\ConfigureImagesTask.cs" />
     <Compile Include="Bootstrap\LoadSettingsTask.cs" />
     <Compile Include="Bootstrap\ConfigureScriptsTask.cs" />
     <Compile Include="Configuration\WabConfigurationSection.cs" />
@@ -78,7 +80,9 @@
     <Compile Include="IDirectoryFactory.cs" />
     <Compile Include="IDirectorySearch.cs" />
     <Compile Include="IDirectorySearchFactory.cs" />
+    <Compile Include="StyleSheet\ImageProcessor.cs" />
     <Compile Include="Image\ImageBundle.cs" />
+    <Compile Include="Image\ImagePipeline.cs" />
     <Compile Include="Image\ImageUrlGenerator.cs" />
     <Compile Include="IUrlGenerator.cs" />
     <Compile Include="Minifiers\IMinifier.cs" />

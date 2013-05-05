@@ -75,6 +75,18 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.IsInstanceOf<MinifyProcessor<StyleSheetBundle>>(pipeline[3]);
             Assert.IsInstanceOf<MergeProcessor<StyleSheetBundle>>(pipeline[4]);
         }
+
+        [Test]
+        public void Should_Use_Image_Processor()
+        {
+            Assert.Fail();
+        }
+
+        [Test]
+        public void Should_Use_Expand_Path_Processor()
+        {
+            Assert.Fail();
+        }
     }
 
 

@@ -18,31 +18,13 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class StyleSheetPipeline : BundlePipeline<StyleSheetBundle>
+    public class ImagePipeline : BundlePipeline<ImageBundle>
     {
-        public StyleSheetPipeline(TinyIoCContainer container, SettingsContext settings)
+        public ImagePipeline(TinyIoCContainer container, SettingsContext settings)
             : base(container)
         {
-            Add<AssignHashProcessor>();            
-            Add<UrlAssignmentProcessor<StyleSheetBundle>>();
-
-            if (settings.EnableImagePipeline)
-            {
-                Add<ImageProcessor>();
-            }
-            else
-            {
-
-                Add<ExpandPathProcessor>();
-            }
-
-            if (settings.DebugMode == false)
-            {
-                var minifier = container.Resolve<IStyleSheetMinifier>();
-                Add(new MinifyProcessor<StyleSheetBundle>(minifier, settings.MinifyIdentifier));
-            }
-
-            Add<MergeProcessor<StyleSheetBundle>>();            
+            Add<AssignHashProcessor>();
+            Add(new UrlAssignmentProcessor<ImageBundle>(new ImageUrlGenerator(settings)));
         }
     }
 }

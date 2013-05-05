@@ -73,6 +73,7 @@
     <Compile Include="HttpHandlers\ImageResponseWriterTests.cs" />
     <Compile Include="HttpHandlers\ResponseWriterFactoryTests.cs" />
     <Compile Include="Image\ImageBundleTests.cs" />
+    <Compile Include="Image\ImagePipelineTests.cs" />
     <Compile Include="Image\ImageUrlGeneratorTests.cs" />
     <Compile Include="Minifiers\MinifyModifierTests.cs" />
     <Compile Include="Pipeline\AssignHashProcessorTests.cs" />
@@ -95,6 +96,8 @@
     <Compile Include="Script\ScriptBundleTests.cs" />
     <Compile Include="Script\ScriptBundlerTests.cs" />
     <Compile Include="StyleSheet\ImagePathResolverProviderTests.cs" />
+    <Compile Include="StyleSheet\ImageProcessor.cs" />
+    <Compile Include="StyleSheet\ImageProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleCachePrimerTests.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleConfigurationImpl.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleProviderTests.cs" />

@@ -14,52 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
-    using System.Collections.Generic;
+    using NUnit.Framework;
+    using Moq;
 
-
-    public class SettingsContext
+    [TestFixture]
+    public class ImageProcessorTests
     {
-        public SettingsContext()
+        private Mock<IBundlePipeline<ImageBundle>> pipeline;
+        private ImageProcessor processor;
+
+        [SetUp]
+        public void Setup()
         {
+            pipeline = new Mock<IBundlePipeline<ImageBundle>>();
+            processor = new ImageProcessor(pipeline.Object);
         }
 
-        public SettingsContext(bool debugMode, string minifyIdentifier)
+        [Test]
+        public void Should_Process_Image_Bundle()
         {
-            DebugMode = debugMode;
-            MinifyIdentifier = minifyIdentifier;
-        }
-
-        public string MinifyIdentifier 
-        { 
-            get; 
-            set; 
-        }
-
-        public bool DebugMode
-        {
-            get;
-            set;
-        }
-
-        public bool VersionCssImages
-        {
-            get;
-            set;
-        }
-
-        public bool EnableImagePipeline
-        {
-            get;
-            set;
-        }
-
-        public IDirectory AppRootDirectory
-        {
-            get;
-            set;
+            Assert.Fail();
         }
     }
 }
