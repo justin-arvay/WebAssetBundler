@@ -18,32 +18,10 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Collections.Generic;
-    using System.Text.RegularExpressions;
+    using System.IO;
 
-    public class BackgroundImageLocator
+    public interface IBackgroundImageReader
     {
-        public IEnumerable<string> Locate(AssetBase asset)
-        {
-            var content = asset.Content.ReadToEnd();
-            return FindPaths(content);
-        }
-
-        private IEnumerable<string> FindPaths(string css)
-        {
-            var matchesHash = new HashSet<string>();
-            var urlMatches = Regex.Matches(css, @"url\s*\(\s*[""']{0,1}(.+?)[""']{0,1}\s*\)", RegexOptions.IgnoreCase);
-
-            foreach (Match match in urlMatches)
-            {
-                matchesHash.Add(GetUrlFromMatch(match));
-            }
-
-            return matchesHash;
-        }
-
-        private string GetUrlFromMatch(Match match)
-        {
-            return match.Groups[1].Captures[0].Value;
-        }
+        IEnumerable<string> ReadAll(Stream stream);
     }
 }
