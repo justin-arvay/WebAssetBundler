@@ -43,40 +43,6 @@ namespace WebAssetBundler.Web.Mvc
         // source: ~/Content/file.css
         // image: ../image/icon.png
         //target: /wab.axd/a/a
-        public Stream Modify(Stream openStream, AssetBase asset)        
-        {
-            var content = openStream.ReadToEnd();
-            var paths = FindPaths(content);
-
-            foreach (string path in paths)
-            {
-                var result = pathResolverProvider.GetResolver(settings).Resolve(path, outputUrl, asset.Source);
-
-                if (result.Changed)
-                {
-                    content = content.Replace(path, result.NewPath);
-                }
-            }
-
-            return content.ToStream();
-        }         
         
-        private IEnumerable<string> FindPaths(string css)
-        {
-            var matchesHash = new HashSet<string>();
-            var urlMatches = Regex.Matches(css, @"url\s*\(\s*[""']{0,1}(.+?)[""']{0,1}\s*\)", RegexOptions.IgnoreCase);
-
-            foreach (Match match in urlMatches)
-            {
-                matchesHash.Add(GetUrlFromMatch(match));
-            }
-
-            return matchesHash;
-        }
-
-        private string GetUrlFromMatch(Match match)
-        {
-            return match.Groups[1].Captures[0].Value;
-        }
     }
 }

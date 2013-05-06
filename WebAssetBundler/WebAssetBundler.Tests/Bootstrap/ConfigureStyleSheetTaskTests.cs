@@ -72,7 +72,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             container.Register<IUrlGenerator<StyleSheetBundle>, BasicUrlGenerator<StyleSheetBundle>>();
 
             var plugins = new PluginCollection<StyleSheetBundle>();
-            var pipeline = task.CreateStyleSheetPipeline(container, plugins);
+            var pipeline = task.CreatePipeline<StyleSheetPipeline>(container, plugins);
 
             Assert.IsInstanceOf<StyleSheetPipeline>(pipeline);            
         }

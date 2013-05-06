@@ -17,20 +17,33 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Collections.Generic;
+    using System.Text.RegularExpressions;
 
-    public class ImageProcessor : IPipelineProcessor<ImageBundle>
+    public class BackgroundImageLocator
     {
-        private IBundlePipeline<ImageBundle> pipeline;
-
-        public ImageProcessor(IBundlePipeline<ImageBundle> pipeline)
+        public IEnumerable<string> Locate(AssetBase asset)
         {
-            this.pipeline = pipeline;
+            var content = asset.Content.ReadToEnd();
+            return FindPaths(content);
         }
 
-        public void Process(ImageBundle bundle)
+        private IEnumerable<string> FindPaths(string css)
         {
-            pipeline.Process(bundle);
-            //TODO
+            var matchesHash = new HashSet<string>();
+            var urlMatches = Regex.Matches(css, @"url\s*\(\s*[""']{0,1}(.+?)[""']{0,1}\s*\)", RegexOptions.IgnoreCase);
+
+            foreach (Match match in urlMatches)
+            {
+                matchesHash.Add(GetUrlFromMatch(match));
+            }
+
+            return matchesHash;
+        }
+
+        private string GetUrlFromMatch(Match match)
+        {
+            return match.Groups[1].Captures[0].Value;
         }
     }
 }

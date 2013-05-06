@@ -71,6 +71,7 @@
     <Compile Include="BundleProviderBaseImpl.cs" />
     <Compile Include="BundleProviderBaseTests.cs" />
     <Compile Include="BundleTests.cs" />
+    <Compile Include="Helpers\ImageHelperTests.cs" />
     <Compile Include="Helpers\PathHelperTests.cs" />
     <Compile Include="HttpHandlers\ImageResponseWriterTests.cs" />
     <Compile Include="HttpHandlers\ResponseWriterFactoryTests.cs" />
@@ -98,7 +99,6 @@
     <Compile Include="Script\ScriptBundleTests.cs" />
     <Compile Include="Script\ScriptBundlerTests.cs" />
     <Compile Include="StyleSheet\ImagePathResolverProviderTests.cs" />
-    <Compile Include="StyleSheet\ImageProcessor.cs" />
     <Compile Include="StyleSheet\ImageProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleCachePrimerTests.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleConfigurationImpl.cs" />

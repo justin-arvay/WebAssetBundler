@@ -31,13 +31,12 @@ namespace WebAssetBundler.Web.Mvc
         }
 
 
-        public void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
+        public override void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
         {
             Plugins = pluginLoader.LoadPlugins<ImageBundle>();
 
             container.Register<IUrlGenerator<ImageBundle>, ImageUrlGenerator>();
-            container.Register<IBundlePipeline<ImageBundle>>(CreatePipeline<ImagePipeline>(container, Plugins))
-                .AsSingleton();
+            container.Register<IBundlePipeline<ImageBundle>>(CreatePipeline<ImagePipeline>(container, Plugins));                
         }
     }
 }

@@ -20,39 +20,19 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
 
     [TestFixture]
-    public class BundleBaseTaskTests
+    public class ImageHelperTests
     {
-        private BundleBaseTaskImpl task;
-
-        [SetUp]
-        public void Setup()
-        {
-            task = new BundleBaseTaskImpl();
-        }
-
         [Test]
-        public void Should_Dispose_Of_Loaded_Plugins_On_Shut_Down()
+        public void Should_Get_Content_Types()
         {
-            var plugin = new Mock<IPlugin<BundleImpl>>();
-
-            task.Plugins = new PluginCollection<BundleImpl>()
-            {
-                plugin.Object
-            };
-
-            task.ShutDown();
-
-            plugin.Verify(p => p.Dispose());
-        }
-
-        [Test]
-        public void Should_Create_Pipeline()
-        {
-            var container = new TinyIoCContainer();
-            var plugins = new PluginCollection<BundleImpl>();
-            var pipeline = task.CreatePipeline<BundlePipelineImpl>(container, plugins);
-
-            Assert.IsInstanceOf<BundlePipelineImpl>(pipeline);
+            Assert.AreEqual("image/x-png", ImageHelper.GetContentType("/test.png"));
+            Assert.AreEqual("image/gif", ImageHelper.GetContentType("/test.gif"));
+            Assert.AreEqual("image/jpeg", ImageHelper.GetContentType("/test.jpeg"));
+            Assert.AreEqual("image/jpeg", ImageHelper.GetContentType("/test.jpg"));
+            Assert.AreEqual("image/jpeg", ImageHelper.GetContentType("/test.jpe"));
+            Assert.AreEqual("image/tiff", ImageHelper.GetContentType("/test.tiff"));
+            Assert.AreEqual("image/tiff", ImageHelper.GetContentType("/test.tif"));
+            Assert.AreEqual("image/x-ms-bmp", ImageHelper.GetContentType("/test.bmp"));
         }
     }
 }

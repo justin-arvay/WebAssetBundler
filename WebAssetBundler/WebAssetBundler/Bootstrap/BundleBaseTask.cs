@@ -29,10 +29,16 @@ namespace WebAssetBundler.Web.Mvc
             set;
         }
 
+        /// <summary>
+        /// Creates the pipeline as well as modifies it using supplied modifiers.
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="pipelineModifiers"></param>
+        /// <returns></returns>
         public IBundlePipeline<TBundle> CreatePipeline<TPipeline>(TinyIoCContainer container, IPluginCollection<TBundle> plugins)
             where TPipeline : IBundlePipeline<TBundle>
         {
-            var pipeline = container.Resolve<TPipeline>();
+            var pipeline = (TPipeline)container.Resolve(typeof(TPipeline));
 
             plugins.ToList().ForEach(m => m.ModifyPipeline(pipeline));
 

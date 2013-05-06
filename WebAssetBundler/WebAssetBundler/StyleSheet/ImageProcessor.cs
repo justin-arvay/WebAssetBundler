@@ -20,17 +20,57 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ImageProcessor : IPipelineProcessor<StyleSheetBundle>
     {
-        private IBundlePipeline<StyleSheetBundle> pipeline;
+        private IBundlePipeline<ImageBundle> pipeline;
+        private SettingsContext settings;
+        private IBundlesCache<ImageBundle> bundlesCache;
 
-        public ImageProcessor(IBundlePipeline<StyleSheetBundle> pipeline)
+        public ImageProcessor(IBundlePipeline<ImageBundle> pipeline, IBundlesCache<ImageBundle> bundlesCache, SettingsContext settings)
         {
             this.pipeline = pipeline;
+            this.settings = settings;
+            this.bundlesCache = bundlesCache;
         }
 
-        public void Process(ImageBundle bundle)
+        public void Process(StyleSheetBundle bundle)
         {
-            pipeline.Process(bundle);
+            //pipeline.Process(bundle);
             //TODO: move the versioned image path resolver code into here
+        }
+
+        public void ProcessImage(string path, string targetPath, string filePath)
+        {
+            //ignore external paths, we cannot deal with these (yet)
+            if (path.ToLower().StartsWith("http", StringComparison.OrdinalIgnoreCase) == false &&
+                path.ToLower().StartsWith("https", StringComparison.OrdinalIgnoreCase) == false)
+            {
+                var bundle = CreateImageBundle(path, filePath);
+                bundlesCache.Add(bundle);
+
+                pipeline.Process(bundle);
+            }
+        }
+
+        public AssetBase GetAsset(string imagePath, string cssFilePath)
+        {
+            //test for: ../Image/img.png and /Image/image.png
+            var directoryName = Path.GetDirectoryName(cssFilePath);
+            var directory = settings.AppRootDirectory.GetDirectory(directoryName);
+            var file = directory.GetFile(imagePath);
+
+            return new FileAsset(file);
+        }
+
+        public ImageBundle CreateImageBundle(string path, string cssFilePath)
+        {
+            var contentType = ImageHelper.GetContentType(path);
+
+            var bundle = new ImageBundle(contentType, path);
+            bundle.Assets.Add(GetAsset(path, cssFilePath));
+
+            var hashProcessor = new AssignHashProcessor();
+            hashProcessor.Process(bundle);
+
+            return bundle;
         }
     }
 }

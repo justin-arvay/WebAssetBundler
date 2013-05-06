@@ -19,18 +19,35 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.IO;
 
-    public class VersionedImagePathResolver : IImagePathResolver
+    public static class ImageHelper
     {
-        private IBundlesCache<ImageBundle> bundlesCache;
-        private IUrlGenerator<ImageBundle> urlGenerator;
-        private SettingsContext settings;
-
-        public VersionedImagePathResolver(SettingsContext settings, IBundlesCache<ImageBundle> bundlesCache, 
-            IUrlGenerator<ImageBundle> urlGenerator)
+        /// <summary>
+        /// Gets the content type.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string GetContentType(string path)
         {
-            this.settings = settings;
-            this.urlGenerator = urlGenerator;
-            this.bundlesCache = bundlesCache;
-        }        
+            var ext = Path.GetExtension(path).ToLower().Replace(".", String.Empty);
+            switch (ext)
+            {
+                case "gif":
+                    return "image/gif";
+                case "jpeg":
+                case "jpg":
+                case "jpe":
+                    return "image/jpeg";
+                case "tiff":
+                case "tif":
+                    return "image/tiff";
+                case "png":
+                    return "image/x-png";
+                case "bmp":
+                    return "image/x-ms-bmp";
+
+            }
+
+            return "";
+        }
     }
 }

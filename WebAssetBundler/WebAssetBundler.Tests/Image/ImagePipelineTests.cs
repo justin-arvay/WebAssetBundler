@@ -23,12 +23,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class ImagePipelineTests
     {
         private ImagePipeline pipeline;
+        private SettingsContext settings;
         private TinyIoCContainer container;
 
         [SetUp]
         public void Setup()
         {
-            pipeline = new ImagePipeline(container);
+            settings = new SettingsContext();
+            pipeline = new ImagePipeline(container, settings);
         }
 
         [Test]
