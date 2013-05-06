@@ -45,7 +45,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             container.Register<IUrlGenerator<ImageBundle>, ImageUrlGenerator>();
             container.Register<IUrlGenerator<StyleSheetBundle>, BasicUrlGenerator<StyleSheetBundle>>();
             container.Register<SettingsContext>(new SettingsContext());
-            container.Register<IImagePathResolverProvider, ImagePathResolverProvider>();            
         }
 
         [Test]

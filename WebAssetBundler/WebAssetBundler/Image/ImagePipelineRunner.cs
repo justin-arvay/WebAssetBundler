@@ -18,18 +18,8 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class PathRewriteResult
+    public class ImagePipelineRunner : IImagePipelineRunner
     {
-        public string NewPath
-        {
-            get;
-            set;
-        }
 
-        public bool Changed
-        {
-            get;
-            set;
-        }
     }
 }

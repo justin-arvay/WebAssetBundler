@@ -81,6 +81,8 @@
     <Compile Include="IDirectoryFactory.cs" />
     <Compile Include="IDirectorySearch.cs" />
     <Compile Include="IDirectorySearchFactory.cs" />
+    <Compile Include="Image\IImagePipelineRunner.cs" />
+    <Compile Include="Image\ImagePipelineRunner.cs" />
     <Compile Include="StyleSheet\BackgroundImageReader.cs" />
     <Compile Include="StyleSheet\BackgroundImageModifier.cs" />
     <Compile Include="StyleSheet\IBackgroundImageReader.cs" />
@@ -131,10 +133,7 @@
     <Compile Include="IBundleConfigurationProvider.cs" />
     <Compile Include="Script\ScriptBundle.cs" />
     <Compile Include="Script\ScriptBundleProvider.cs" />
-    <Compile Include="StyleSheet\IImagePathResolver.cs" />
-    <Compile Include="StyleSheet\IImagePathResolverProvider.cs" />
-    <Compile Include="StyleSheet\ImagePathResolverProvider.cs" />
-    <Compile Include="StyleSheet\PathRewriteResult.cs" />
+    <Compile Include="Image\ImagePipelineRunnerResult.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleCachePrimer.cs" />
     <Compile Include="StyleSheet\StyleSheetBundle.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleProvider.cs" />
@@ -166,8 +165,6 @@
     <Compile Include="Pipeline\IPipelineProcessor.cs" />
     <Compile Include="DefaultSettings.cs" />
     <Compile Include="BundleCollection.cs" />
-    <Compile Include="StyleSheet\UnversionedImagePathResolver.cs" />
-    <Compile Include="StyleSheet\VersionedImagePathResolver.cs" />
     <Compile Include="TypeProvider.cs" />
     <Compile Include="SettingsContext.cs" />
     <Compile Include="WebAssetType.cs" />

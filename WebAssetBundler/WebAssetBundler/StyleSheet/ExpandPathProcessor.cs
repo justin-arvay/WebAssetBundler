@@ -25,13 +25,11 @@ namespace WebAssetBundler.Web.Mvc
     public class ExpandPathProcessor : IPipelineProcessor<StyleSheetBundle>, IAssetModifier
     {
         private string outputUrl;
-        private SettingsContext settings;
-        private IImagePathResolverProvider pathResolverProvider;
+        //private SettingsContext settings;
 
-        public ExpandPathProcessor(SettingsContext settings, IImagePathResolverProvider pathResolverProvider)
+        public ExpandPathProcessor(SettingsContext settings)
         {
-            this.settings = settings;
-            this.pathResolverProvider = pathResolverProvider;
+            //this.settings = settings;
         }
 
         public void Process(StyleSheetBundle bundle)
@@ -40,9 +38,59 @@ namespace WebAssetBundler.Web.Mvc
             bundle.Assets.AddModifier(this);      
         }
 
-        // source: ~/Content/file.css
-        // image: ../image/icon.png
-        //target: /wab.axd/a/a
-        
+        public Stream Modify(Stream openStream, AssetBase asset)
+        {
+            var reader = new BackgroundImageReader();
+            var paths = reader.ReadAll(openStream);
+            var content = openStream.ReadToEnd();
+
+            foreach (var path in paths)
+            {
+                //ignore all absolute paths
+                if (path.StartsWith("/") == false &&
+                    path.StartsWith("http", StringComparison.OrdinalIgnoreCase) == false &&
+                    path.StartsWith("https", StringComparison.OrdinalIgnoreCase) == false)
+                {
+                    var newPath = RewritePath(path, outputUrl);
+                    content = content.Replace(path, newPath);
+                }
+            }
+
+            return content.ToStream();            
+        }
+
+        private string RewritePath(string imagePath, string targetPath)
+        {
+            imagePath = GetDirectoryLevelDifference(imagePath, targetPath) + imagePath;
+
+            return imagePath;
+        }
+
+        private string GetDirectoryLevelDifference(string imagePath, string targetPath)
+        {
+            var stack = new Stack<string>();
+            string[] urlPieces = targetPath.Split('/');
+            string[] imagePathPieces = imagePath.Split('/');
+
+            foreach (var piece in urlPieces)
+            {
+                if (piece == "")
+                {
+                    continue;
+                }
+
+                stack.Push("..");
+            }
+
+            foreach (var piece in imagePathPieces)
+            {
+                if (piece == "..")
+                {
+                    stack.Pop();
+                }
+            }
+
+            return string.Join("/", stack.ToArray()) + "/";
+        }
     }
 }

@@ -14,32 +14,39 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
-    using System.IO;
-using System.Collections.Generic;
+    using NUnit.Framework;
+    using Moq;
+    using System.Collections.Generic;
 
-    public class BackgroundImageModifier : IAssetModifier
+    [TestFixture]
+    public class BackgroundImageModifierTests
     {
+        private BackgroundImageModifier modifier;
         private IList<ImagePipelineRunnerResult> results;
 
-        public BackgroundImageModifier(IList<ImagePipelineRunnerResult> results)
+        [SetUp]
+        public void Setup()
         {
-            this.results = results;
+            modifier = new BackgroundImageModifier(results);
         }
 
-        public Stream Modify(Stream openStream, AssetBase asset)
+        [Test]
+        public void Should_Replace_Old_With_New()
         {
-            var content = openStream.ReadToEnd();
-
-            foreach (var result in results)
+            var stream = "/Image/test.png".ToStream();
+            var result = new ImagePipelineRunnerResult
             {
-                content = content.Replace(result.OldPath, result.NewPath);
-            }
+                OldPath = "/Image/test.png",
+                NewPath = "/New/Image/test.png"
+            };
 
-            return content.ToStream();
+            results.Add(result);
+
+            var returnStream = modifier.Modify(stream, new AssetBaseImpl());
+
+            Assert.AreEqual("/New/Image/test.png", returnStream.ReadToEnd());
         }
-        
     }
 }

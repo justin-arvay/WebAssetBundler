@@ -17,20 +17,25 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.IO;
 
-    public class VersionedImagePathResolver : IImagePathResolver
+    public class ImagePipelineRunnerResult
     {
-        private IBundlesCache<ImageBundle> bundlesCache;
-        private IUrlGenerator<ImageBundle> urlGenerator;
-        private SettingsContext settings;
-
-        public VersionedImagePathResolver(SettingsContext settings, IBundlesCache<ImageBundle> bundlesCache, 
-            IUrlGenerator<ImageBundle> urlGenerator)
+        public string OldPath
         {
-            this.settings = settings;
-            this.urlGenerator = urlGenerator;
-            this.bundlesCache = bundlesCache;
-        }        
+            get;
+            set;
+        }
+        
+        public string NewPath
+        {
+            get;
+            set;
+        }
+
+        public bool Changed
+        {
+            get;
+            set;
+        }
     }
 }

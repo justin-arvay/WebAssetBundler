@@ -98,7 +98,8 @@
     <Compile Include="Script\ScriptBundleProviderTests.cs" />
     <Compile Include="Script\ScriptBundleTests.cs" />
     <Compile Include="Script\ScriptBundlerTests.cs" />
-    <Compile Include="StyleSheet\ImagePathResolverProviderTests.cs" />
+    <Compile Include="StyleSheet\BackgroundImageModifierTests.cs" />
+    <Compile Include="StyleSheet\BackgroundImageReaderTests.cs" />
     <Compile Include="StyleSheet\ImageProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleCachePrimerTests.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleConfigurationImpl.cs" />
@@ -123,8 +124,6 @@
     <Compile Include="Script\ScriptPipelineTests.cs" />
     <Compile Include="StyleSheet\ExpandPathProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetPipelineTests.cs" />
-    <Compile Include="StyleSheet\UnversionedImagePathResolverTests.cs" />
-    <Compile Include="StyleSheet\VersionedImagePathResolverTests.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="WebHostTests.cs" />
   </ItemGroup>

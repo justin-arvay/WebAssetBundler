@@ -18,8 +18,8 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public interface IImagePathResolverProvider
+    public interface IImagePipelineRunner
     {
-        IImagePathResolver GetResolver(SettingsContext settings);
+
     }
 }

@@ -17,6 +17,8 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Collections.Generic;
+    using System.IO;
 
     public class ImageProcessor : IPipelineProcessor<StyleSheetBundle>
     {
@@ -35,26 +37,56 @@ namespace WebAssetBundler.Web.Mvc
         {
             var reader = new BackgroundImageReader();
 
-            //read each asset stream for paths
-            //create bundle and process each bundle with the image pipleine
-            //add modifier to asset that uses the bundles urls (created when processing in pipeline)
+            //go through each asset to read the image paths
+            //we need to run the pipeline for each image
+            foreach (var asset in bundle.Assets)
+            {
+                var results = new List<ImagePipelineRunnerResult>();
+                var paths = reader.ReadAll(asset.Content);
 
-            bundle.Assets.AddModifier(new BackgroundImageModifier(reader));
-            //pipeline.Process(bundle);
-            //TODO: move the versioned image path resolver code into here
+                foreach (var path in paths)
+                {
+                    //this is where we execute the image pipeline
+                    var result = ProcessImage(path, asset.Source);
+
+                    if (result.Changed)
+                    {
+                        //results for he modifier to change the css file to whatever new url was generated in the pipeline
+                        results.Add(result);
+                    }
+                }
+
+                if (results.Count > 0)
+                {
+                    //a separate instance of the modifier for each instance since the results are unique to each asset
+                    asset.Modifiers.Add(new BackgroundImageModifier(results));
+                }
+            }
         }
 
-        public void ProcessImage(string path, string filePath)
+        public ImagePipelineRunnerResult ProcessImage(string path, string filePath)
         {
+            var result = new ImagePipelineRunnerResult
+            {
+                OldPath = path
+            };
+
             //ignore external paths, we cannot deal with these (yet)
             if (path.ToLower().StartsWith("http", StringComparison.OrdinalIgnoreCase) == false &&
                 path.ToLower().StartsWith("https", StringComparison.OrdinalIgnoreCase) == false)
             {
-                var bundle = CreateImageBundle(path, filePath);
+
+                //one bundle and one asset is created for each image
+                //bundles are processed and cached like other bundles
+                var bundle = CreateImageBundle(path, filePath);                
+                pipeline.Process(bundle);
                 bundlesCache.Add(bundle);
 
-                pipeline.Process(bundle);
+                result.NewPath = bundle.Url;
+                result.Changed = true;
             }
+
+            return result;
         }
 
         public AssetBase GetAsset(string imagePath, string cssFilePath)
