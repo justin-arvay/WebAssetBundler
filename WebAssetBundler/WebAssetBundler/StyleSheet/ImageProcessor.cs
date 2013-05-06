@@ -22,15 +22,11 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ImageProcessor : IPipelineProcessor<StyleSheetBundle>
     {
-        private IBundlePipeline<ImageBundle> pipeline;
-        private SettingsContext settings;
-        private IBundlesCache<ImageBundle> bundlesCache;
+        private IImagePipelineRunner runner;
 
-        public ImageProcessor(IBundlePipeline<ImageBundle> pipeline, IBundlesCache<ImageBundle> bundlesCache, SettingsContext settings)
+        public ImageProcessor(IImagePipelineRunner runner)
         {
-            this.pipeline = pipeline;
-            this.settings = settings;
-            this.bundlesCache = bundlesCache;
+            this.runner = runner;
         }
 
         public void Process(StyleSheetBundle bundle)
@@ -47,7 +43,7 @@ namespace WebAssetBundler.Web.Mvc
                 foreach (var path in paths)
                 {
                     //this is where we execute the image pipeline
-                    var result = ProcessImage(path, asset.Source);
+                    var result = runner.Execute(path, asset.Source);
 
                     if (result.Changed)
                     {
@@ -62,51 +58,6 @@ namespace WebAssetBundler.Web.Mvc
                     asset.Modifiers.Add(new BackgroundImageModifier(results));
                 }
             }
-        }
-
-        public ImagePipelineRunnerResult ProcessImage(string path, string filePath)
-        {
-            var result = new ImagePipelineRunnerResult
-            {
-                OldPath = path
-            };
-
-            //ignore external paths, we cannot deal with these (yet)
-            if (path.ToLower().StartsWith("http", StringComparison.OrdinalIgnoreCase) == false &&
-                path.ToLower().StartsWith("https", StringComparison.OrdinalIgnoreCase) == false)
-            {
-
-                //one bundle and one asset is created for each image
-                //bundles are processed and cached like other bundles
-                var bundle = CreateImageBundle(path, filePath);                
-                pipeline.Process(bundle);
-                bundlesCache.Add(bundle);
-
-                result.NewPath = bundle.Url;
-                result.Changed = true;
-            }
-
-            return result;
-        }
-
-        public AssetBase GetAsset(string imagePath, string cssFilePath)
-        {
-            //test for: ../Image/img.png and /Image/image.png
-            var directoryName = Path.GetDirectoryName(cssFilePath);
-            var directory = settings.AppRootDirectory.GetDirectory(directoryName);
-            var file = directory.GetFile(imagePath);
-
-            return new FileAsset(file);
-        }
-
-        public ImageBundle CreateImageBundle(string path, string cssFilePath)
-        {
-            var contentType = ImageHelper.GetContentType(path);
-
-            var bundle = new ImageBundle(contentType, path);
-            bundle.Assets.Add(GetAsset(path, cssFilePath));
-
-            return bundle;
-        }
+        }        
     }
 }

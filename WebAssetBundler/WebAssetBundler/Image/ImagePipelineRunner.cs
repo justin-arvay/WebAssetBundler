@@ -17,9 +17,62 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.IO;
 
     public class ImagePipelineRunner : IImagePipelineRunner
     {
+        private IBundlePipeline<ImageBundle> pipeline;
+        private IBundlesCache<ImageBundle> bundlesCache;
 
+        public ImagePipelineRunner(IBundlePipeline<ImageBundle> pipeline, IBundlesCache<ImageBundle> bundlesCache)
+        {
+            this.pipeline = pipeline;
+            this.bundlesCache = bundlesCache;
+        }
+
+        public ImagePipelineRunnerResult Execute(ImagePipelineRunnerContext context)
+        {
+            var result = new ImagePipelineRunnerResult
+            {
+                OldPath = context.ImagePath
+            };
+
+            //ignore external paths, we cannot deal with these (yet)
+            if (context.ImagePath.ToLower().StartsWith("http", StringComparison.OrdinalIgnoreCase) == false &&
+                context.ImagePath.ToLower().StartsWith("https", StringComparison.OrdinalIgnoreCase) == false)
+            {
+
+                //one bundle and one asset is created for each image
+                //bundles are processed and cached like other bundles
+                var bundle = CreateImageBundle(context);                
+                pipeline.Process(bundle);
+                bundlesCache.Add(bundle);
+
+                result.NewPath = bundle.Url;
+                result.Changed = true;
+            }
+
+            return result;
+        }
+
+        public AssetBase GetAsset(ImagePipelineRunnerContext context)
+        {
+            //test for: ../Image/img.png and /Image/image.png
+            var directoryName = Path.GetDirectoryName(context.SourcePath);
+            var directory = context.AppRootDirectory.GetDirectory(directoryName);
+            var file = directory.GetFile(context.ImagePath);
+
+            return new FileAsset(file);
+        }
+
+        public ImageBundle CreateImageBundle(ImagePipelineRunnerContext context)
+        {
+            var contentType = ImageHelper.GetContentType(context.ImagePath);
+
+            var bundle = new ImageBundle(contentType, context.ImagePath);
+            bundle.Assets.Add(GetAsset(context));
+
+            return bundle;
+        }
     }
 }

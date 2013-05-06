@@ -18,8 +18,24 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public interface IImagePipelineRunner
+    public class ImagePipelineRunnerContext
     {
-        ImagePipelineRunnerResult Execute(string path, string filePath);
+        public string ImagePath
+        {
+            get;
+            set;
+        }
+
+        public string SourcePath
+        {
+            get;
+            set;
+        }
+
+        public IDirectory AppRootDirectory
+        {
+            get;
+            set;
+        }
     }
 }

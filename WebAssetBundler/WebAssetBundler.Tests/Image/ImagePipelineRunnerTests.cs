@@ -14,12 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System;
+    using NUnit.Framework;
+    using Moq;
 
-    public interface IImagePipelineRunner
+    [TestFixture]
+    public class ImagePipelineRunnerTests
     {
-        ImagePipelineRunnerResult Execute(string path, string filePath);
+        [Test]
+        public void test()
+        {
+            Assert.Fail();
+        }
     }
 }
