@@ -33,11 +33,18 @@ namespace WebAssetBundler.Web.Mvc
 
         public void Process(StyleSheetBundle bundle)
         {
+            var reader = new BackgroundImageReader();
+
+            //read each asset stream for paths
+            //create bundle and process each bundle with the image pipleine
+            //add modifier to asset that uses the bundles urls (created when processing in pipeline)
+
+            bundle.Assets.AddModifier(new BackgroundImageModifier(reader));
             //pipeline.Process(bundle);
             //TODO: move the versioned image path resolver code into here
         }
 
-        public void ProcessImage(string path, string targetPath, string filePath)
+        public void ProcessImage(string path, string filePath)
         {
             //ignore external paths, we cannot deal with these (yet)
             if (path.ToLower().StartsWith("http", StringComparison.OrdinalIgnoreCase) == false &&
@@ -66,9 +73,6 @@ namespace WebAssetBundler.Web.Mvc
 
             var bundle = new ImageBundle(contentType, path);
             bundle.Assets.Add(GetAsset(path, cssFilePath));
-
-            var hashProcessor = new AssignHashProcessor();
-            hashProcessor.Process(bundle);
 
             return bundle;
         }

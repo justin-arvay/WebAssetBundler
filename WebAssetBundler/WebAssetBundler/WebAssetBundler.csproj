@@ -82,6 +82,8 @@
     <Compile Include="IDirectorySearch.cs" />
     <Compile Include="IDirectorySearchFactory.cs" />
     <Compile Include="StyleSheet\BackgroundImageReader.cs" />
+    <Compile Include="StyleSheet\BackgroundImageModifier.cs" />
+    <Compile Include="StyleSheet\IBackgroundImageReader.cs" />
     <Compile Include="StyleSheet\ImageProcessor.cs" />
     <Compile Include="Image\ImageBundle.cs" />
     <Compile Include="Image\ImagePipeline.cs" />
@@ -132,7 +134,6 @@
     <Compile Include="StyleSheet\IImagePathResolver.cs" />
     <Compile Include="StyleSheet\IImagePathResolverProvider.cs" />
     <Compile Include="StyleSheet\ImagePathResolverProvider.cs" />
-    <Compile Include="StyleSheet\IBackgroundImageReader.cs" />
     <Compile Include="StyleSheet\PathRewriteResult.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleCachePrimer.cs" />
     <Compile Include="StyleSheet\StyleSheetBundle.cs" />

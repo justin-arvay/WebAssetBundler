@@ -21,9 +21,9 @@ namespace WebAssetBundler.Web.Mvc
     using System.Text.RegularExpressions;
     using System.IO;
 
-    public class BackgroundImageReader
+    public class BackgroundImageReader : IBackgroundImageReader
     {
-        public IEnumerable<string> Locate(Stream stream)
+        public IEnumerable<string> ReadAll(Stream stream)
         {
             var content = stream.ReadToEnd();
             return FindPaths(content);

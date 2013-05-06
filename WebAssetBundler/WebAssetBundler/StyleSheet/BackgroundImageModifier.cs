@@ -17,11 +17,29 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-using System.Collections.Generic;
-using System.IO;
+    using System.IO;
 
-    public interface IBackgroundImageReader
+    public class BackgroundImageModifier : IAssetModifier
     {
-        IEnumerable<string> ReadAll(Stream stream);
+        private IBackgroundImageReader reader;
+        private IBundlePipeline<ImageBundle> pipeline;
+        private SettingsContext settings;
+        private IBundlesCache<ImageBundle> bundlesCache;
+
+        public BackgroundImageModifier(IBackgroundImageReader reader, IBundlePipeline<ImageBundle> pipeline, 
+            IBundlesCache<ImageBundle> bundlesCache, SettingsContext settings)
+        {
+            this.reader = reader;
+            this.pipeline = pipeline;
+            this.settings = settings;
+            this.bundlesCache = bundlesCache;
+        }
+
+        public Stream Modify(Stream openStream, AssetBase asset)
+        {
+
+        }
+
+        
     }
 }
