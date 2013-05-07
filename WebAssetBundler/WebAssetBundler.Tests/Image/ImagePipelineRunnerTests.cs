@@ -23,10 +23,67 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class ImagePipelineRunnerTests
     {
-        [Test]
-        public void test()
+        private ImagePipelineRunner runner;
+        private Mock<IBundlesCache<ImageBundle>> bundlesCache;
+        private Mock<IBundlePipeline<ImageBundle>> pipeline;
+        private ImagePipelineRunnerContext context;
+        private string root;
+        private Mock<IDirectory> directory;
+
+        [SetUp]
+        public void Setup()
         {
-            Assert.Fail();
+            root = PathHelper.NormalizePath(AppDomain.CurrentDomain.BaseDirectory + "/../../");
+            directory = new Mock<IDirectory>();
+
+            context = new ImagePipelineRunnerContext();
+            context.AppRootDirectory = directory.Object;
+
+            bundlesCache = new Mock<IBundlesCache<ImageBundle>>();
+            pipeline = new Mock<IBundlePipeline<ImageBundle>>();
+            runner = new ImagePipelineRunner(pipeline.Object, bundlesCache.Object);
+        }
+
+        [Test]
+        public void Should_Execute_Pipeline()
+        {
+            var newUrl = "/wab.axd/image/aaa/aaa.png";
+
+            context.ImagePath = "../Image/image.png";
+            context.SourcePath = root + "Files/Test.css";
+
+            pipeline.Setup(c => c.Process(It.IsAny<ImageBundle>()))
+                .Callback((ImageBundle bundle) => {
+                    bundle.Url = newUrl;
+
+                    Assert.AreEqual(1, bundle.Assets.Count);
+                });
+
+            var fileDirectory = new Mock<IDirectory>();
+            var file = new Mock<IFile>();
+
+            directory.Setup(d => d.GetDirectory(""))
+                .Returns(fileDirectory.Object);
+
+            fileDirectory.Setup(d => d.GetFile(""))
+                .Returns(file.Object);
+
+            var result = runner.Execute(context);
+
+            Assert.IsTrue(result.Changed);
+            Assert.AreEqual(newUrl, result.NewPath);
+            Assert.AreEqual(context.ImagePath, result.OldPath);
+            pipeline.Verify(p => p.Process(It.IsAny<ImageBundle>()))
+        }
+
+        [Test]
+        public void Should_Not_Execute_Pipeline_For_Http()
+        {
+        }
+
+        [Test]
+        public void Should_Not_Execute_Pipeline_For_Https()
+        {
         }
     }
 }

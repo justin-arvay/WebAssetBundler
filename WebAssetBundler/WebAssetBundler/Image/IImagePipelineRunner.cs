@@ -20,6 +20,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IImagePipelineRunner
     {
-        ImagePipelineRunnerResult Execute(string path, string filePath);
+        ImagePipelineRunnerResult Execute(ImagePipelineRunnerContext context);
     }
 }
