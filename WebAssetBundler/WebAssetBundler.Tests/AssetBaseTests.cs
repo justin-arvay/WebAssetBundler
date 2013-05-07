@@ -55,7 +55,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var returnStream = "return test".ToStream();
             returnStream.Position = 4;
 
-            modifier.Setup(m => m.Modify(It.IsAny<Stream>(), webAsset))
+            modifier.Setup(m => m.Modify(It.IsAny<Stream>()))
                 .Returns(returnStream);
 
             webAsset.Modifiers.Add(modifier.Object);
@@ -63,7 +63,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var stream = webAsset.Content;
 
-            modifier.Verify(t => t.Modify(It.IsAny<Stream>(), webAsset), Times.Exactly(2));
+            modifier.Verify(t => t.Modify(It.IsAny<Stream>()), Times.Exactly(2));
             Assert.IsInstanceOf<MemoryStream>(stream);
             Assert.AreEqual(0, stream.Position);
             Assert.AreEqual("return test", stream.ReadToEnd());

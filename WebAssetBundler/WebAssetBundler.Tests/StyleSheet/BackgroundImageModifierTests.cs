@@ -45,7 +45,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             results.Add(result);
 
-            var returnStream = modifier.Modify(stream, new AssetBaseImpl());
+            var returnStream = modifier.Modify(stream);
 
             Assert.AreEqual("/New/Image/test.png", returnStream.ReadToEnd());
         }

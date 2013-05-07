@@ -41,7 +41,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             compiler.Setup(c => c.Compile(It.IsAny<Stream>())).Returns(() => asset.Content);
 
-            var stream = modifier.Modify(asset.Content, asset);            
+            var stream = modifier.Modify(asset.Content);            
 
             compiler.Verify(c => c.Compile(It.IsAny<Stream>()));
             Assert.AreEqual(stream, asset.Content);

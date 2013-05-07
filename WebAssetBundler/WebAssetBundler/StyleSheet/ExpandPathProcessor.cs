@@ -38,7 +38,7 @@ namespace WebAssetBundler.Web.Mvc
             bundle.Assets.AddModifier(this);      
         }
 
-        public Stream Modify(Stream openStream, AssetBase asset)
+        public Stream Modify(Stream openStream)
         {
             var reader = new BackgroundImageReader();
             var paths = reader.ReadAll(openStream);
