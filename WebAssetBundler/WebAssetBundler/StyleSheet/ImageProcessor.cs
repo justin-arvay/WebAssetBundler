@@ -23,10 +23,12 @@ namespace WebAssetBundler.Web.Mvc
     public class ImageProcessor : IPipelineProcessor<StyleSheetBundle>
     {
         private IImagePipelineRunner runner;
-
-        public ImageProcessor(IImagePipelineRunner runner)
+        private SettingsContext settings;
+            
+        public ImageProcessor(SettingsContext settings, IImagePipelineRunner runner)
         {
             this.runner = runner;
+            this.settings = settings;
         }
 
         public void Process(StyleSheetBundle bundle)
@@ -43,7 +45,7 @@ namespace WebAssetBundler.Web.Mvc
                 foreach (var path in paths)
                 {
                     //this is where we execute the image pipeline
-                    var result = runner.Execute(path, asset.Source);
+                    var result = runner.Execute(CreateRunnerContext(path, asset));
 
                     if (result.Changed)
                     {
@@ -58,6 +60,16 @@ namespace WebAssetBundler.Web.Mvc
                     asset.Modifiers.Add(new BackgroundImageModifier(results));
                 }
             }
-        }        
+        }
+
+        public ImagePipelineRunnerContext CreateRunnerContext(string path, AssetBase asset)
+        {
+            return new ImagePipelineRunnerContext
+            {
+                ImagePath = path,
+                SourcePath = asset.Source,
+                AppRootDirectory = settings.AppRootDirectory
+            };
+        }
     }
 }

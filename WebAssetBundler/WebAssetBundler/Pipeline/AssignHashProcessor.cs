@@ -30,8 +30,10 @@ namespace WebAssetBundler.Web.Mvc
                 bundle.Assets.ForEach((asset) => {
                     asset.Content.CopyTo(stream);
 
-                    MD5CryptoServiceProvider x = new MD5CryptoServiceProvider();
-                    bundle.Hash = x.ComputeHash(stream);
+                    MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+
+                    stream.Position = 0;
+                    bundle.Hash = md5.ComputeHash(stream);
                 });
             }            
         }

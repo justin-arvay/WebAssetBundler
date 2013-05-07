@@ -72,18 +72,19 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.IsTrue(result.Changed);
             Assert.AreEqual(newUrl, result.NewPath);
-            Assert.AreEqual(context.ImagePath, result.OldPath);
-            pipeline.Verify(p => p.Process(It.IsAny<ImageBundle>()))
+            Assert.AreEqual(context.ImagePath, result.OldPath);            
         }
 
         [Test]
         public void Should_Not_Execute_Pipeline_For_Http()
         {
+            Assert.Fail();
         }
 
         [Test]
         public void Should_Not_Execute_Pipeline_For_Https()
         {
+            Assert.Fail();
         }
     }
 }

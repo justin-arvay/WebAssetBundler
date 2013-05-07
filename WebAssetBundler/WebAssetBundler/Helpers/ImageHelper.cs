@@ -41,9 +41,9 @@ namespace WebAssetBundler.Web.Mvc
                 case "tif":
                     return "image/tiff";
                 case "png":
-                    return "image/x-png";
+                    return "image/md5-png";
                 case "bmp":
-                    return "image/x-ms-bmp";
+                    return "image/md5-ms-bmp";
 
             }
 

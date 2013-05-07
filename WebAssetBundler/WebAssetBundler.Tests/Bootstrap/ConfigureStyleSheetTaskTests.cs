@@ -68,7 +68,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             container.Register<IBundlesCache<ImageBundle>, BundlesCache<ImageBundle>>();
             container.Register<IUrlGenerator<ImageBundle>, ImageUrlGenerator>();
             container.Register<SettingsContext>(new SettingsContext());
-            container.Register<IImagePathResolverProvider, ImagePathResolverProvider>();
             container.Register<IUrlGenerator<StyleSheetBundle>, BasicUrlGenerator<StyleSheetBundle>>();
 
             var plugins = new PluginCollection<StyleSheetBundle>();

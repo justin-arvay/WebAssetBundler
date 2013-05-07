@@ -39,7 +39,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            Assert.AreEqual(16, bundle.Hash.Length);
+            Assert.AreEqual("05a671c66aefea124cc08b76ea6d30bb", bundle.Hash.ToHexString());
             Assert.AreEqual("testtest", bundle.Assets[0].Content.ReadToEnd() + bundle.Assets[1].Content.ReadToEnd());
         }
     }

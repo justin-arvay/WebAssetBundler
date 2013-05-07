@@ -28,6 +28,7 @@ namespace WebAssetBundler.Web.Mvc
             using (var newStream = new MemoryStream())
             {
                 stream.CopyTo(newStream);
+                newStream.Position = 0;
                 var content = newStream.ReadToEnd();
                 return FindPaths(content);
             }
