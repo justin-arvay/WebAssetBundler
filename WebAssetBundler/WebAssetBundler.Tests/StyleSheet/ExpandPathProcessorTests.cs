@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
     using NUnit.Framework;
     using System.Web;
+    using System.IO;
 
     [TestFixture]
     public class ExpandPathProcessorTests
@@ -45,19 +46,19 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Filter_Relative_Path()
         {
-            asset.StreamContent = "../img/test.jpg";
+            var stream = "url(../img/test.jpg)".ToStream();
             bundle.Url = "/a/a/a/a";
 
             processor.Process(bundle);
-            var stream = processor.Modify(asset.Content, asset);
+            var returnStream = processor.Modify(stream, asset);
 
-            Assert.AreEqual("../../../../img/test.jpg", stream.ReadToEnd());
+            Assert.AreEqual("url(../../../../img/test.jpg", returnStream.ReadToEnd());
         }
 
         [Test]
         public void Should_Not_Filter_Absolute_Path()
         {
-            asset.StreamContent = "/img/test.jpg";
+            asset.StreamContent = "url(/img/test.jpg)";
             bundle.Url = "/a/a/a/a";
 
             processor.Process(bundle);
@@ -69,7 +70,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Filter_When_Http_Domain()
         {
-            asset.StreamContent = "http://www.google.com/img/test.jpg";
+            asset.StreamContent = "url(http://www.google.com/img/test.jpg)";
             bundle.Url = "/a/a/a/a";
 
             processor.Process(bundle);
@@ -81,7 +82,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Filter_When_Https_Domain()
         {
-            asset.StreamContent = "https://www.google.com/img/test.jpg";
+            asset.StreamContent = "url(https://www.google.com/img/test.jpg)";
             bundle.Url = "/a/a/a/a";
 
             processor.Process(bundle);

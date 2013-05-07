@@ -45,7 +45,8 @@ namespace WebAssetBundler.Web.Mvc
                 foreach (var path in paths)
                 {
                     //this is where we execute the image pipeline
-                    var result = runner.Execute(CreateRunnerContext(path, asset));
+                    var context = CreateRunnerContext(path, asset);
+                    var result = runner.Execute(context);
 
                     if (result.Changed)
                     {

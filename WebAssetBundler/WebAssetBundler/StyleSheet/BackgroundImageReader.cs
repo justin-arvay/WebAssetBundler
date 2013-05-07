@@ -25,10 +25,8 @@ namespace WebAssetBundler.Web.Mvc
     {
         public IEnumerable<string> ReadAll(Stream stream)
         {
-            using (var newStream = new MemoryStream())
+            using (var newStream = new StreamReader(stream))
             {
-                stream.CopyTo(newStream);
-                newStream.Position = 0;
                 var content = newStream.ReadToEnd();
                 return FindPaths(content);
             }

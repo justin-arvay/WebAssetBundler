@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System;
 
     [TestFixture]
     public class ImageProcessorTests
@@ -49,23 +50,67 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var bundle = new StyleSheetBundle();
             bundle.Assets.Add(asset);
 
-            var context = processor.CreateRunnerContext("/image/file.css", asset);
+            var context = processor.CreateRunnerContext("../image/file.css", asset);
+
             var result = new Mock<ImagePipelineRunnerResult>();
             result.Object.Changed = true;
+            result.Object.OldPath = "../image/file.css";
+            result.Object.NewPath = "/image/file.css";
+            
+            Func<ImagePipelineRunnerContext, bool> isContextEqual = (c) =>
+                {
+                    var isEqual = c.ImagePath == context.ImagePath &&
+                        c.SourcePath == context.SourcePath &&
+                        c.AppRootDirectory == directory.Object;
 
-            runner.Setup(r => r.Execute(context)).Returns(result.Object);
+                    return isEqual;
+                };
+
+            runner.Setup(r => r.Execute(It.Is<ImagePipelineRunnerContext>(c => isContextEqual(c))))
+                .Returns(result.Object);
             
             processor.Process(bundle);
-            asset.Content.ReadToEnd(); //execute modifier so we can test for results
-            
-            runner.Verify(r => r.Execute(context));
+            var content = asset.Content.ReadToEnd(); //execute modifier so we can test for results
+
+            runner.Verify(r => r.Execute(It.Is<ImagePipelineRunnerContext>(c => isContextEqual(c))));
+            Assert.AreEqual("url(/image/file.css);", content);
             Assert.IsInstanceOf<BackgroundImageModifier>(asset.Modifiers[0]);
         }
 
         [Test]
         public void Should_Execute_Runner_And_Not_Modifier()
         {
+            var asset = new AssetBaseImpl();
+            asset.StreamContent = "url(../image/file.css);";
+            asset.Source = "/Source/file.css";
 
+            var bundle = new StyleSheetBundle();
+            bundle.Assets.Add(asset);
+
+            var context = processor.CreateRunnerContext("../image/file.css", asset);
+
+            var result = new Mock<ImagePipelineRunnerResult>();
+            result.Object.Changed = false;
+            result.Object.OldPath = "../image/file.css";
+
+            Func<ImagePipelineRunnerContext, bool> isContextEqual = (c) =>
+            {
+                var isEqual = c.ImagePath == context.ImagePath &&
+                    c.SourcePath == context.SourcePath &&
+                    c.AppRootDirectory == directory.Object;
+
+                return isEqual;
+            };
+
+            runner.Setup(r => r.Execute(It.Is<ImagePipelineRunnerContext>(c => isContextEqual(c))))
+                .Returns(result.Object);
+
+            processor.Process(bundle);
+            var content = asset.Content.ReadToEnd(); //execute modifier so we can test for no results
+
+            runner.Verify(r => r.Execute(It.Is<ImagePipelineRunnerContext>(c => isContextEqual(c))));
+            Assert.AreEqual("url(../image/file.css);", content);
+            Assert.AreEqual(0, asset.Modifiers.Count);
         }
     }
 }

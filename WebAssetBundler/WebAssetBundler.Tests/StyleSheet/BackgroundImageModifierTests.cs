@@ -29,7 +29,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [SetUp]
         public void Setup()
         {
-            modifier = new BackgroundImageModifier(results);
+            results = new List<ImagePipelineRunnerResult>();
+            modifier = new BackgroundImageModifier(results);            
         }
 
         [Test]
