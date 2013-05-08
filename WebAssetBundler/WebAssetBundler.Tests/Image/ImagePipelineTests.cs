@@ -29,7 +29,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [SetUp]
         public void Setup()
         {
-            settings = new SettingsContext();            
+            settings = new SettingsContext();
+            container = new TinyIoCContainer();
         }
 
         [Test]

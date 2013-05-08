@@ -13,8 +13,12 @@
             </ul>
         </li>
         <li>@Html.RouteLink("Rendering Bundles", "Documentation", new { path = "rendering-bundles" })</li>
-        <li>@Html.RouteLink("Bundle Pipelines", "Documentation", new { path = "bundle-pipelines" })</li>
-        <li>@Html.RouteLink("Pipeline Customization", "Documentation", new { path = "pipeline-customization" })</li>
+        <li>@Html.RouteLink("Pipelines", "Documentation", new { path = "pipelines" })
+            <ul>
+                <li>@Html.RouteLink("Customization", "Documentation", new { path = "pipelines/customization" })</li>
+            </ul>
+        </li>
+        
         <li>@Html.RouteLink("Customer Minifiers", "Documentation", new { path = "custom-minifiers" })</li>
         <li>@Html.RouteLink("Debug Mode", "Documentation", new { path = "debug-mode" })</li>
         <li>@Html.RouteLink("Browser Caching", "Documentation", new { path = "browser-caching" })</li>

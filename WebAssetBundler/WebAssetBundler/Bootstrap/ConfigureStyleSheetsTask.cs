@@ -36,12 +36,13 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IBundlesCache<ImageBundle>, BundlesCache<ImageBundle>>();
             container.Register<IUrlGenerator<ImageBundle>, ImageUrlGenerator>();
             container.Register<IBundleConfigurationProvider<StyleSheetBundle>>((c, p) => DefaultSettings.StyleSheetConfigurationProvider(c));
-            container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => CreatePipeline<StyleSheetPipeline>(c, Plugins));
             container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
             container.Register<IBundleCachePrimer<StyleSheetBundle>, StyleSheetBundleCachePrimer>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
             container.Register<IPluginCollection<StyleSheetBundle>>(Plugins);
+            container.Register<IImagePipelineRunner, ImagePipelineRunner>();
+            container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => CreatePipeline<StyleSheetPipeline>(c, Plugins));
         }
     }
 }

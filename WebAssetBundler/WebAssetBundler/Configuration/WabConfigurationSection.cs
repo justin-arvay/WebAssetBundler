@@ -35,11 +35,11 @@ namespace WebAssetBundler.Web.Mvc
             set { this["minifyIdentifier"] = value; }
         }
 
-        [ConfigurationProperty("versionCssImages", DefaultValue = "true")]
-        public bool VersionCssImages
+        [ConfigurationProperty("enableImagePipeline", DefaultValue = "true")]
+        public bool EnableImagePipeline
         {
-            get { return (bool)this["versionCssImages"]; }
-            set { this["versionCssImages"] = value; }
+            get { return (bool)this["enableImagePipeline"]; }
+            set { this["enableImagePipeline"] = value; }
         }
     }
 }

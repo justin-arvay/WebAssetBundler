@@ -41,7 +41,7 @@ namespace WebAssetBundler.Web.Mvc
             {
                 DebugMode = section.DebugMode,
                 MinifyIdentifier = section.MinifyIdentifier,
-                VersionCssImages = section.VersionCssImages,
+                EnableImagePipeline = section.EnableImagePipeline,
                 AppRootDirectory = new FileSystemDirectory(rootPath)
             };
         }

@@ -194,12 +194,12 @@
     <Content Include="Views\Documentation\BundleConfiguration\ConfigurationProvider.cshtml" />
     <Content Include="Views\Documentation\BundleConfiguration\Other.cshtml" />
     <Content Include="Views\Documentation\RenderingBundles.cshtml" />
-    <Content Include="Views\Documentation\BundlePipelines.cshtml" />
+    <Content Include="Views\Documentation\Pipelines.cshtml" />
     <Content Include="Views\Documentation\CustomMinifiers.cshtml" />
     <Content Include="Views\Documentation\BrowserCaching.cshtml" />
     <Content Include="Views\Documentation\DebugMode.cshtml" />
     <Content Include="Views\Documentation\WebConfig.cshtml" />
-    <Content Include="Views\Documentation\PipelineCustomization.cshtml" />
+    <Content Include="Views\Documentation\Pipelines\Customization.cshtml" />
     <Content Include="Views\Documentation\Plugins.cshtml" />
     <Content Include="Views\Documentation\Plugins\CreatePlugin.cshtml" />
     <Content Include="Views\Documentation\Plugins\ModifyPipeline.cshtml" />
