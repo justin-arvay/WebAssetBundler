@@ -40,7 +40,7 @@ namespace WebAssetBundler.Web.Mvc
             foreach (var asset in bundle.Assets)
             {
                 var results = new List<ImagePipelineRunnerResult>();
-                var paths = reader.ReadAll(asset.Content);
+                var paths = reader.ReadAll(asset.Content.ReadToEnd());
 
                 foreach (var path in paths)
                 {

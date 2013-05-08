@@ -62,32 +62,34 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public virtual Stream Content()
+        public virtual Stream Content
         {
-            //Passing func to the modifier allows the modifier to control when the stream is opened
-            //Additionally this allows the user to open multi streams if needed
+            get
+            {
+                //Passing func to the modifier allows the modifier to control when the stream is opened
+                //Additionally this allows the user to open multi streams if needed
 
-            var createStream = modifiers.Aggregate<IAssetModifier, Func<Stream>>(
-            OpenSourceStream,
-            (openStream, modifier) => 
-                //modifers return a new stream, wrap it in a delegate for the next modifier so the user does not need to
-                delegate {
-                    var stream = modifier.Modify(openStream);
+                var createStream = modifiers.Aggregate<IAssetModifier, Stream>(
+                OpenSourceStream(),
+                (openStream, modifier) =>                    
+                    {
+                        var stream = modifier.Modify(openStream);
 
-                    //make sure position is 0 
-                    stream.Position = 0;
+                        //make sure position is 0 
+                        stream.Position = 0;
 
-                    //if (streamReader.CanRead == false)
-                    //{
-                    //    //if we get here the stream is not in a correct state
-                    //    //TODO: check if the stream is closed and log / throw exception
-                    //    //stream must be open for next modifier
-                    //}
+                        //if (streamReader.CanRead == false)
+                        //{
+                        //    //if we get here the stream is not in a correct state
+                        //    //TODO: check if the stream is closed and log / throw exception
+                        //    //stream must be open for next modifier
+                        //}
 
-                    return stream;              
-                });
+                        return stream;
+                    });
 
-            return createStream();            
+                return createStream;
+            }
         }
 
         protected abstract Stream OpenSourceStream();

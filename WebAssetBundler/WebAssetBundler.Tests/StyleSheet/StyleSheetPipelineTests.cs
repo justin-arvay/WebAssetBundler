@@ -78,13 +78,25 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Use_Image_Processor()
         {
-            Assert.Fail();
+            settings.EnableImagePipeline = true;
+
+            container.Register<IImagePipelineRunner>((new Mock<IImagePipelineRunner>()).Object);
+
+            pipeline = new StyleSheetPipeline(container, settings);
+
+            Assert.IsInstanceOf<ImageProcessor>(pipeline[2]);
         }
 
         [Test]
         public void Should_Use_Expand_Path_Processor()
         {
-            Assert.Fail();
+            settings.EnableImagePipeline = false;
+
+            container.Register<IImagePipelineRunner>((new Mock<IImagePipelineRunner>()).Object);
+
+            pipeline = new StyleSheetPipeline(container, settings);
+
+            Assert.IsInstanceOf<ExpandPathProcessor>(pipeline[2]);
         }
     }
 

@@ -23,13 +23,9 @@ namespace WebAssetBundler.Web.Mvc
 
     public class BackgroundImageReader : IBackgroundImageReader
     {
-        public IEnumerable<string> ReadAll(Stream stream)
+        public IEnumerable<string> ReadAll(string cssContent)
         {
-            using (var newStream = new StreamReader(stream))
-            {
-                var content = newStream.ReadToEnd();
-                return FindPaths(content);
-            }
+            return FindPaths(cssContent);
         }
 
         private IEnumerable<string> FindPaths(string css)

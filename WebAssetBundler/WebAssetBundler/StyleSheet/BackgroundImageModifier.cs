@@ -29,9 +29,9 @@ using System.Collections.Generic;
             this.results = results;
         }
 
-        public Stream Modify(Func<StreamReader> openStream)
+        public Stream Modify(Stream openStream)
         {
-            var content = openStream().ReadToEnd();
+            var content = openStream.ReadToEnd();
 
             foreach (var result in results)
             {

@@ -40,9 +40,9 @@ namespace WebAssetBundler.Web.Mvc
 
         public Stream Modify(Stream openStream)
         {
-            var reader = new BackgroundImageReader();
-            var paths = reader.ReadAll(openStream);
+            var reader = new BackgroundImageReader();            
             var content = openStream.ReadToEnd();
+            var paths = reader.ReadAll(content);
 
             foreach (var path in paths)
             {

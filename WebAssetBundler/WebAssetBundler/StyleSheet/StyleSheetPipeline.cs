@@ -32,7 +32,6 @@ namespace WebAssetBundler.Web.Mvc
             }
             else
             {
-
                 Add<ExpandPathProcessor>();
             }
 

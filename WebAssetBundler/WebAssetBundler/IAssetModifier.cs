@@ -27,6 +27,6 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="openStream"></param>
         /// <returns></returns>
-        Stream Modify(Func<Stream> openStream);
+        Stream Modify(Stream openStream);
     }
 }

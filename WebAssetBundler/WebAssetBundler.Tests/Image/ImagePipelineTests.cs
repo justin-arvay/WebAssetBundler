@@ -29,14 +29,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [SetUp]
         public void Setup()
         {
-            settings = new SettingsContext();
-            pipeline = new ImagePipeline(container, settings);
+            settings = new SettingsContext();            
         }
 
         [Test]
         public void Should_Use_Default_Processors()
         {
-            Assert.Fail();
+            pipeline = new ImagePipeline(container, settings);
+
+            Assert.IsInstanceOf<AssignHashProcessor>(pipeline[0]);
+            Assert.IsInstanceOf<UrlAssignmentProcessor<ImageBundle>>(pipeline[1]);                           
         }
+
     }
 }

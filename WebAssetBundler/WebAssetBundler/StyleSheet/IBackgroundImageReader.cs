@@ -22,6 +22,6 @@ using System.IO;
 
     public interface IBackgroundImageReader
     {
-        IEnumerable<string> ReadAll(Stream stream);
+        IEnumerable<string> ReadAll(string cssContent);
     }
 }

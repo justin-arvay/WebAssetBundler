@@ -34,8 +34,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Match_Url_With_Double_Quotes()
         {
-            var stream = "url(\"/img/test.jpg\");".ToStream();
-            var paths = new List<string>(reader.ReadAll(stream));
+            var content = "url(\"/img/test.jpg\");";
+            var paths = new List<string>(reader.ReadAll(content));
 
             Assert.AreEqual("/img/test.jpg", paths[0]);
         }
@@ -43,8 +43,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Match_Url_With_Single_Quotes()
         {
-            var stream = "url('/img/test.jpg');".ToStream();
-            var paths = new List<string>(reader.ReadAll(stream));
+            var content = "url('/img/test.jpg');";
+            var paths = new List<string>(reader.ReadAll(content));
 
             Assert.AreEqual("/img/test.jpg", paths[0]);
         }
@@ -52,8 +52,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Match_Url_With_No_Quotes()
         {
-            var stream = "url(/img/test.jpg);".ToStream();
-            var paths = new List<string>(reader.ReadAll(stream));
+            var content = "url(/img/test.jpg);";
+            var paths = new List<string>(reader.ReadAll(content));
 
             Assert.AreEqual("/img/test.jpg", paths[0]);
         }
@@ -61,8 +61,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Match_Url_With_Spacing()
         {
-            var stream = "url ( /img/test.jpg );".ToStream();
-            var paths = new List<string>(reader.ReadAll(stream));
+            var content = "url ( /img/test.jpg );";
+            var paths = new List<string>(reader.ReadAll(content));
 
             Assert.AreEqual("/img/test.jpg", paths[0]);
         }
