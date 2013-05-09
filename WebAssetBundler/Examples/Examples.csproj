@@ -104,6 +104,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Content Include="Content\change-log.css" />
     <Content Include="robots.txt" />
     <Content Include="Content\documentation.css" />
     <Content Include="Content\download.css" />
@@ -204,12 +205,13 @@
     <Content Include="Views\Documentation\Plugins\CreatePlugin.cshtml" />
     <Content Include="Views\Documentation\Plugins\ModifyPipeline.cshtml" />
     <Content Include="Views\Documentation\Plugins\ModifySearchPatterns.cshtml" />
-    <Content Include="Views\Documentation\BundleTypes.cshtml" />
+    <Content Include="Views\Documentation\Plugins\BundleTypes.cshtml" />
     <Content Include="Views\Home\Support.cshtml" />
     <Content Include="Views\Documentation\Introduction.cshtml" />
     <Content Include="Views\Home\License.cshtml" />
     <Content Include="Views\Shared\Benefits.cshtml" />
     <Content Include="Views\Documentation\WebConfig\WabSection.cshtml" />
+    <Content Include="Views\Home\ChangeLog.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

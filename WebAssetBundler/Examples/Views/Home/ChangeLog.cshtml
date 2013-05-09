@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "ChangeLog";
+    Layout = "~/Views/Shared/_BasicLayout.cshtml";
+}
+
+<div id="change-log">
+    <h1>Change  Log</h1>
+
+    <h3>0.10.1 - Beta</h3>
+    <p>Breaking Changes:</p>
+    <ul>
+        <li>The <strong>versionCssImages</strong> property has been removed from the WAB configuration section and 
+        replaced with <strong>enableImagePipeline</strong>. If you do not want css images versioned, set enambleImagePipeline to false.</li>
+    </ul>
+
+    <p>Improvements:</p>
+    <ul>
+        <li>Added an ImagePipeline. When enabled css images are processed in a pipeline like scripts or style sheets. Plugins can also be used to 
+        target the image pipeline.</li>
+    </ul>
+</div>
