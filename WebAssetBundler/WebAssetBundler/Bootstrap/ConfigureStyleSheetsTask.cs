@@ -20,7 +20,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.Linq;
 
-    [TaskOrder(2)]
+    [TaskOrder(3)]
     public class ConfigureStyleSheetsTask : BundleBaseTask<StyleSheetBundle>
     {
         public ConfigureStyleSheetsTask(IPluginLoader pluginLoader)

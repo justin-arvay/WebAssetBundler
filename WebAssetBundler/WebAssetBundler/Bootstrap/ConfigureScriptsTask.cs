@@ -20,7 +20,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.Linq;
 
-    [TaskOrder(3)]
+    [TaskOrder(4)]
     public class ConfigureScriptsTask : BundleBaseTask<ScriptBundle>
     {
         public ConfigureScriptsTask(IPluginLoader pluginLoader)

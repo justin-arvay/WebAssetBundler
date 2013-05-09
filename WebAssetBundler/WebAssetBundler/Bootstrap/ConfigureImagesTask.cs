@@ -20,7 +20,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.Linq;
 
-    [TaskOrder(4)]
+    [TaskOrder(2)]
     public class ConfigureImagesTask : BundleBaseTask<ImageBundle>
     {
         private IPluginLoader pluginLoader;

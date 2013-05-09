@@ -44,8 +44,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.IsInstanceOf<LoadSettingsTask>(tasks[0]);
             Assert.IsInstanceOf<ConfigureCommonTask>(tasks[1]);
-            Assert.IsInstanceOf<ConfigureStyleSheetsTask>(tasks[2]);
-            Assert.IsInstanceOf<ConfigureScriptsTask>(tasks[3]);
+            Assert.IsInstanceOf<ConfigureImagesTask>(tasks[2]);
+            Assert.IsInstanceOf<ConfigureStyleSheetsTask>(tasks[3]);
+            Assert.IsInstanceOf<ConfigureScriptsTask>(tasks[4]);
         }
 
         [Test]
