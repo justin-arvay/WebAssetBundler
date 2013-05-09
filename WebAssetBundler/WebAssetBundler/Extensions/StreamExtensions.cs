@@ -33,5 +33,15 @@ namespace WebAssetBundler.Web.Mvc
                 return reader.ReadToEnd();
             }           
         }
+
+        public static byte[] ToArray(this Stream input)
+        {
+            input.Position = 0;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                input.CopyTo(ms);
+                return ms.ToArray();
+            }
+        }
     }
 }

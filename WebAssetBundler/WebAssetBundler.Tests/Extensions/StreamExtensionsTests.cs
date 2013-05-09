@@ -29,32 +29,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Read_To_End()
         {
-            var stream = "test".ToStream();
-            Func<Stream> func = () =>
-            {
-                return stream;
-            };
-
-            func = Run(func);
-            func = Run(func);
-            func = Run(func);
-
-            var end = func();
-
-
             Assert.AreEqual("test", "test".ToStream().ReadToEnd());
         }
 
-        public Func<Stream> Run(Func<Stream> streamOpen)
+        [Test]
+        public void Should_Read_To_Array()
         {
-            return delegate
-            {
-                var stream = streamOpen();
-                var byteArray = new byte[stream.Length];
-                stream.Read(byteArray, 1, 1);
-
-                return stream;
-            };
+            Assert.Fail();
         }
     }
 }

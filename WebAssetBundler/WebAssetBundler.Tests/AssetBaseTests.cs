@@ -69,5 +69,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual("return test", stream.ReadToEnd());
         }
 
+        [Test]
+        public void Should_Save_Stream()
+        {
+            Assert.Fail();
+        }
     }
 }

@@ -24,6 +24,7 @@ namespace WebAssetBundler.Web.Mvc
     public abstract class AssetBase
     {
         readonly List<IAssetModifier> modifiers = new List<IAssetModifier>();
+        private Stream modifiedStream;
 
         public string Name
         {
@@ -62,15 +63,29 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public virtual Stream Content
+        public void SaveModifiedStream(Stream stream)
+        {
+            using (stream)
+            {
+                stream.Position = 1;
+                //forcing the stream to an array allows us to close the underlying stream without affecting the new stream
+                //aka frees resources
+                this.modifiedStream = new MemoryStream(stream.ToArray());
+            }
+        }
+
+        public Stream Content
         {
             get
             {
-                //Passing func to the modifier allows the modifier to control when the stream is opened
-                //Additionally this allows the user to open multi streams if needed
+                //if we havent modified it yet, create a snapshot after this point OpenSourceStream will not be used anymore
+                if (modifiedStream == null)
+                {
+                    SaveModifiedStream(OpenSourceStream());
+                }                
 
                 var createStream = modifiers.Aggregate<IAssetModifier, Stream>(
-                OpenSourceStream(),
+                modifiedStream,
                 (openStream, modifier) =>                    
                     {
                         var stream = modifier.Modify(openStream);
@@ -88,10 +103,16 @@ namespace WebAssetBundler.Web.Mvc
                         return stream;
                     });
 
-                return createStream;
+                //save the changes made to the stream
+                SaveModifiedStream(createStream);
+
+                //clear modifiers because we saved the snapshot and do not want to re-process next time the stream is opened
+                Modifiers.Clear();
+
+                return modifiedStream;
             }
         }
 
-        protected abstract Stream OpenSourceStream();
+        protected abstract Stream OpenSourceStream();        
     }
 }
