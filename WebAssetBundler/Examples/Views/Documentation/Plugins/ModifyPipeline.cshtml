@@ -3,8 +3,6 @@
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
 }
 
-<h1>Modifying the Pipeline</h1>
-
 <p>You can add and remove processors in any of the pipelines. This will give you full control over how the
 bundles are processed. See @Html.RouteLink("Bundle Pipelines", "Documentation", new { path = "bundle-pipelines" }) for 
 more information about pipelines.</p>
@@ -31,6 +29,11 @@ public class TestProcessor : IPipelineProcessor<StyleSheetBundle>
 public void ModifyPipeline(IBundlePipeline<StyleSheetBundle> pipeline)
 {
     pipeline.Add(new TestProcessor());
+    
+    //or
+
+    //Takes advantage of the container and tries to resolve the processor.
+    pipeline.Add<TestProcessor>();
 }
 ")
 </pre>
