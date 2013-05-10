@@ -70,14 +70,25 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Save_Stream()
+        public void Should_Return_Open_Stream_Everytime()
         {
             var asset = new AssetBaseImpl("test");
+            asset.Modifiers.Add(new ModTest());
 
             var stream = asset.Content;
             var streamTwo = asset.Content;
 
-            Assert.AreEqual(stream, streamTwo);
+            Assert.AreEqual(stream.ReadToEnd(), streamTwo.ReadToEnd());
+        }
+
+        public class ModTest : IAssetModifier
+        {
+            public Stream Modify(Stream openStream)
+            {
+                var content = openStream.ReadToEnd();
+                content = content + 1;
+                return content.ToStream();
+            }
         }
     }
 }

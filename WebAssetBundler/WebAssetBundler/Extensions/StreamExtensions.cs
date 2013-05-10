@@ -36,20 +36,33 @@ namespace WebAssetBundler.Web.Mvc
 
         public static byte[] ToArray(this Stream input)
         {
-            using (input)
-            {
-                if (input is MemoryStream)
-                {
-                    //return input.ToArray();
-                }
+            MemoryStream ms = new MemoryStream();
+                
+            input.Position = 0;
+            input.CopyTo(ms);
+            input.Position = 0;
 
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    input.Position = 0;
-                    input.CopyTo(ms);
-                    return ms.ToArray();
-                }
+            return ms.ToArray();
+        }
+
+        public static byte[] ReadAllBytes(this Stream stream)
+        {
+            byte[] assetBytes = null;
+
+            // Create the file stream to be used 
+            // to read the asset file.
+            using (stream)
+            {
+                // Instantiate the byte array.
+                int bytesInFile = (int)stream.Length;
+                assetBytes = new Byte[bytesInFile];
+
+                // Convert the file stream into a byte array.
+                stream.Read(assetBytes, 0, bytesInFile);
+
             }
+
+            return assetBytes;
         }
     }
 }

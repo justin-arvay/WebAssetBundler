@@ -24,7 +24,7 @@ namespace WebAssetBundler.Web.Mvc
     public abstract class AssetBase
     {
         readonly List<IAssetModifier> modifiers = new List<IAssetModifier>();
-        private Stream modifiedStream;
+        private byte[] modifiedStream;
 
         public string Name
         {
@@ -63,29 +63,12 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public void SaveModifiedStream(Stream stream)
-        {
-            using (stream)
-            {
-                stream.Position = 0;
-                //forcing the stream to an array allows us to close the underlying stream without affecting the new stream
-                //aka frees resources
-                this.modifiedStream = new MemoryStream(stream.ToArray());
-            }
-        }
-
         public Stream Content
         {
             get
             {
-                //if we havent modified it yet, create a snapshot after this point OpenSourceStream will not be used anymore
-                if (modifiedStream == null)
-                {
-                    SaveModifiedStream(OpenSourceStream());
-                }                
-
                 var createStream = modifiers.Aggregate<IAssetModifier, Stream>(
-                new MemoryStream(modifiedStream.ToArray()),
+                OpenInternalStream(),
                 (openStream, modifier) =>                    
                     {
                         var stream = modifier.Modify(openStream);
@@ -104,15 +87,31 @@ namespace WebAssetBundler.Web.Mvc
                     });
 
                 //save the changes made to the stream
-                SaveModifiedStream(createStream);
+                SaveStream(createStream);
 
                 //clear modifiers because we saved the snapshot and do not want to re-process next time the stream is opened
                 Modifiers.Clear();
 
-                return modifiedStream;
+                return OpenInternalStream();
             }
         }
 
+        private void SaveStream(Stream stream)
+        {
+            modifiedStream = stream.ReadAllBytes();
+        }
+
+        private Stream OpenInternalStream()
+        {
+            //if we havent modified it yet, create a snapshot after this point OpenSourceStream will not be used anymore
+            if (modifiedStream == null)
+            {
+                modifiedStream = OpenSourceStream().ReadAllBytes();
+            }
+
+            return new MemoryStream(modifiedStream.ToArray());
+        }
+        
         protected abstract Stream OpenSourceStream();        
     }
 }
