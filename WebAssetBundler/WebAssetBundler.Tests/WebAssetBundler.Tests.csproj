@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssetBaseImpl.cs" />
+    <Compile Include="AssetCollectionTests.cs" />
     <Compile Include="BasicUrlGeneratorTests.cs" />
     <Compile Include="Bootstrap\BundleBaseTaskImpl.cs" />
     <Compile Include="Bootstrap\BundleBaseTaskTests.cs" />

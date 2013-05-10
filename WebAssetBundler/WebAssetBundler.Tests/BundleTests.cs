@@ -19,6 +19,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
     using System;
+    using System.IO;
 
     [TestFixture]
     public class BundleTests
@@ -84,6 +85,31 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             //should ignore second asset
             Assert.AreEqual("test", bundle.Content.ReadToEnd());
+        }
+
+        [Test]
+        public void Should_Modify_Assets()
+        {
+            var assetOne = new AssetBaseImpl("test");
+            var assetTwo = new AssetBaseImpl("test");
+
+            bundle.Assets.Add(assetOne);
+            bundle.Assets.Add(assetTwo);
+
+            bundle.Modify(new TestModifier());
+
+            Assert.AreEqual("testtest", assetOne.OpenStream().ReadToEnd());
+            Assert.AreEqual("testtest", assetTwo.OpenStream().ReadToEnd());
+        }
+
+        private class TestModifier : IAssetModifier
+        {
+            public Stream Modify(Stream openStream)
+            {
+                var content = openStream.ReadToEnd();
+                content += content;
+                return content.ToStream();
+            }
         }
     }
 }

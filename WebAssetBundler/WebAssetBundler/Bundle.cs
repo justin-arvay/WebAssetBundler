@@ -40,6 +40,11 @@
             }
         }
 
+        public void Modify(IAssetModifier modifier)
+        {
+            Assets.Modify(modifier);
+        }
+
         public bool IsExternal
         {
             get
