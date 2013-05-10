@@ -36,11 +36,19 @@ namespace WebAssetBundler.Web.Mvc
 
         public static byte[] ToArray(this Stream input)
         {
-            input.Position = 0;
-            using (MemoryStream ms = new MemoryStream())
+            using (input)
             {
-                input.CopyTo(ms);
-                return ms.ToArray();
+                if (input is MemoryStream)
+                {
+                    //return input.ToArray();
+                }
+
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    input.Position = 0;
+                    input.CopyTo(ms);
+                    return ms.ToArray();
+                }
             }
         }
     }

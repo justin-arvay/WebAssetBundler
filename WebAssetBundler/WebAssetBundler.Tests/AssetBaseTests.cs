@@ -72,7 +72,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Save_Stream()
         {
-            Assert.Fail();
+            var asset = new AssetBaseImpl("test");
+
+            var stream = asset.Content;
+            var streamTwo = asset.Content;
+
+            Assert.AreEqual(stream, streamTwo);
         }
     }
 }

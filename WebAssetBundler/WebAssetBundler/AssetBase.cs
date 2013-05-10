@@ -67,7 +67,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             using (stream)
             {
-                stream.Position = 1;
+                stream.Position = 0;
                 //forcing the stream to an array allows us to close the underlying stream without affecting the new stream
                 //aka frees resources
                 this.modifiedStream = new MemoryStream(stream.ToArray());
@@ -85,7 +85,7 @@ namespace WebAssetBundler.Web.Mvc
                 }                
 
                 var createStream = modifiers.Aggregate<IAssetModifier, Stream>(
-                modifiedStream,
+                new MemoryStream(modifiedStream.ToArray()),
                 (openStream, modifier) =>                    
                     {
                         var stream = modifier.Modify(openStream);
