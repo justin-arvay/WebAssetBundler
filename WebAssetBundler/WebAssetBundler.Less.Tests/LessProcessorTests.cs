@@ -19,6 +19,7 @@ namespace WebAssetBundler.Web.Mvc.Less.Tests
     using NUnit.Framework;
     using Moq;
     using WebAssetBundler.Web.Mvc.Tests;
+    using System.IO;
 
     [TestFixture]
     public class LessProcessorTests
@@ -52,8 +53,7 @@ namespace WebAssetBundler.Web.Mvc.Less.Tests
 
             processor.Process(bundle);
 
-            Assert.AreEqual(1, lessAsset.Modifiers.Count);
-            Assert.AreEqual(0, asset.Modifiers.Count);
+            compiler.Verify(c => c.Compile(It.IsAny<Stream>()));
         }
     }
 }

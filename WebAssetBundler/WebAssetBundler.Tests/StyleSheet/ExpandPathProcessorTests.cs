@@ -62,7 +62,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             bundle.Url = "/a/a/a/a";
 
             processor.Process(bundle);
-            var stream = processor.Modify(asset.Content);
+            var stream = processor.Modify(asset.OpenStream());
 
             Assert.AreEqual("url(/img/test.jpg)", stream.ReadToEnd());
         }
@@ -74,7 +74,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             bundle.Url = "/a/a/a/a";
 
             processor.Process(bundle);
-            var stream = processor.Modify(asset.Content);
+            var stream = processor.Modify(asset.OpenStream());
 
             Assert.AreEqual("url(http://www.google.com/img/test.jpg)", stream.ReadToEnd());
         }
@@ -86,7 +86,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             bundle.Url = "/a/a/a/a";
 
             processor.Process(bundle);
-            var stream = processor.Modify(asset.Content);
+            var stream = processor.Modify(asset.OpenStream());
 
             Assert.AreEqual("url(https://www.google.com/img/test.jpg)", stream.ReadToEnd());
         }

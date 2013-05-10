@@ -35,7 +35,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Read_To_Array()
         {
-            Assert.Fail();
+            var bytes = new byte[] { 1, 2, 3 };
+            var stream = new MemoryStream(bytes);
+
+            Assert.AreEqual(bytes, stream.ReadAllBytes());
         }
     }
 }

@@ -36,7 +36,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Add_Minify_Modifier()
+        public void Should_Minify()
         {
             var asset = new AssetBaseImpl("var value = 1;");
             asset.Source = "~/file.js";
@@ -46,11 +46,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            Assert.AreEqual(1, bundle.Assets[0].Modifiers.Count);
+            minifier.Verify(m => m.Minify(It.IsAny<string>()));
         }
 
         [Test]
-        public void Should_Not_Add_Minify_Modifier()
+        public void Should_Not_Minify()
         {
             var asset = new AssetBaseImpl("var value = 1;");
 
@@ -59,11 +59,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            Assert.AreEqual(0, bundle.Assets[0].Modifiers.Count);
+            minifier.Verify(m => m.Minify(It.IsAny<string>()), Times.Never());
         }
 
         [Test]
-        public void Should_Not_Add_Minify_Modifier_When_Already_Minified()
+        public void Should_Not_Minify_When_Already_Minified()
         {
             var asset = new AssetBaseImpl("var value = 1;");
             asset.Source = "~/file.min.js";
@@ -73,7 +73,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            Assert.AreEqual(0, bundle.Assets[0].Modifiers.Count);
+            minifier.Verify(m => m.Minify(It.IsAny<string>()), Times.Never());
         }
     }    
 }

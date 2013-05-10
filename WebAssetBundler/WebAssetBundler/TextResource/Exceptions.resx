@@ -126,6 +126,9 @@
   <data name="ItemWithSpecifiedSourceAlreadyExists" xml:space="preserve">
     <value>Item with specified source already exists. Source: {0}</value>
   </data>
+  <data name="ModifierNotReadable" xml:space="preserve">
+    <value>Modifier ""{0}"" must return readable stream.</value>
+  </data>
   <data name="PathMustBeVirtual" xml:space="preserve">
     <value>The supplied path must be virtual. Source: {0}</value>
   </data>

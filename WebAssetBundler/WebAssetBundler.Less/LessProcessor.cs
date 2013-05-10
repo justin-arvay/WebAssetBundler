@@ -33,7 +33,7 @@ namespace WebAssetBundler.Web.Mvc.Less
             bundle.Assets.ForEach((asset) => {               
                 if (asset.Source.EndsWith(".less", StringComparison.OrdinalIgnoreCase))
                 {
-                    asset.Modifiers.Add(new CompilerModifier(compiler));
+                    asset.Modify(new CompilerModifier(compiler));
                 }
             });
         }

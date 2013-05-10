@@ -34,17 +34,11 @@ namespace WebAssetBundler.Web.Mvc
             }           
         }
 
-        public static byte[] ToArray(this Stream input)
-        {
-            MemoryStream ms = new MemoryStream();
-                
-            input.Position = 0;
-            input.CopyTo(ms);
-            input.Position = 0;
-
-            return ms.ToArray();
-        }
-
+        /// <summary>
+        /// Reads all bytes in the stream from the current position.
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns></returns>
         public static byte[] ReadAllBytes(this Stream stream)
         {
             byte[] assetBytes = null;

@@ -23,8 +23,7 @@ namespace WebAssetBundler.Web.Mvc
 
     public abstract class AssetBase
     {
-        readonly List<IAssetModifier> modifiers = new List<IAssetModifier>();
-        private byte[] modifiedStream;
+        private byte[] assetBytes;
 
         public string Name
         {
@@ -33,15 +32,6 @@ namespace WebAssetBundler.Web.Mvc
                 return Path.GetFileNameWithoutExtension(Source);
             }
         }
-
-        public List<IAssetModifier> Modifiers
-        {
-            get 
-            { 
-                return modifiers; 
-            }
-        }
-
         
         public virtual string Source
         {
@@ -63,53 +53,38 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public Stream Content
+        public void Modify(IAssetModifier modifier)
         {
-            get
+            var stream = modifier.Modify(OpenInternalStream());            
+
+            if (stream.CanRead == false)
             {
-                var createStream = modifiers.Aggregate<IAssetModifier, Stream>(
-                OpenInternalStream(),
-                (openStream, modifier) =>                    
-                    {
-                        var stream = modifier.Modify(openStream);
-
-                        //make sure position is 0 
-                        stream.Position = 0;
-
-                        //if (streamReader.CanRead == false)
-                        //{
-                        //    //if we get here the stream is not in a correct state
-                        //    //TODO: check if the stream is closed and log / throw exception
-                        //    //stream must be open for next modifier
-                        //}
-
-                        return stream;
-                    });
-
-                //save the changes made to the stream
-                SaveStream(createStream);
-
-                //clear modifiers because we saved the snapshot and do not want to re-process next time the stream is opened
-                Modifiers.Clear();
-
-                return OpenInternalStream();
+                throw new InvalidDataException(TextResource.Exceptions.ModifierNotReadable.FormatWith(modifier.GetType().FullName));
             }
+
+            SaveInternalStream(stream);
         }
 
-        private void SaveStream(Stream stream)
+        public Stream OpenStream()
         {
-            modifiedStream = stream.ReadAllBytes();
+            return OpenInternalStream();
+        }
+
+        private void SaveInternalStream(Stream stream)
+        {
+            stream.Position = 0;
+            assetBytes = stream.ReadAllBytes();
         }
 
         private Stream OpenInternalStream()
         {
             //if we havent modified it yet, create a snapshot after this point OpenSourceStream will not be used anymore
-            if (modifiedStream == null)
+            if (assetBytes == null)
             {
-                modifiedStream = OpenSourceStream().ReadAllBytes();
+                assetBytes = OpenSourceStream().ReadAllBytes();
             }
 
-            return new MemoryStream(modifiedStream.ToArray());
+            return new MemoryStream(assetBytes.ToArray());
         }
         
         protected abstract Stream OpenSourceStream();        

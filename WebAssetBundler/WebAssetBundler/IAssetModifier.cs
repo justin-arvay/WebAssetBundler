@@ -22,7 +22,7 @@ namespace WebAssetBundler.Web.Mvc
     public interface IAssetModifier
     {
         /// <summary>
-        /// Modifies the content of an asset as a stream. Allows for multiple streams to be open and read from. An open stream 
+        /// Modifies the content of an asset as a stream. An open stream 
         /// must be returned containing the modifications.
         /// </summary>
         /// <param name="openStream"></param>

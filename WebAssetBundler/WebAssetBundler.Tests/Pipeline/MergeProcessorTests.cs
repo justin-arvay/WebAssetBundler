@@ -54,7 +54,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual(1, bundle.Assets.Count);
             Assert.IsInstanceOf<MergedAsset>(bundle.Assets[0]);
-            Assert.AreEqual("test;test;test;", bundle.Assets[0].Content.ReadToEnd());
+            Assert.AreEqual("test;test;test;", bundle.Assets[0].OpenStream().ReadToEnd());
         }
     }
 }

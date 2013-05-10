@@ -36,7 +36,7 @@
                     return Stream.Null;
                 }
 
-                return Assets[0].Content;
+                return Assets[0].OpenStream();
             }
         }
 

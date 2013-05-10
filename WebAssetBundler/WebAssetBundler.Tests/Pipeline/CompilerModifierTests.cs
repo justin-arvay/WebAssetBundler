@@ -39,12 +39,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var asset = new AssetBaseImpl("test");
 
-            compiler.Setup(c => c.Compile(It.IsAny<Stream>())).Returns(() => asset.Content);
+            compiler.Setup(c => c.Compile(It.IsAny<Stream>())).Returns(() => asset.OpenStream());
 
-            var stream = modifier.Modify(asset.Content);            
+            var stream = modifier.Modify(asset.OpenStream());            
 
             compiler.Verify(c => c.Compile(It.IsAny<Stream>()));
-            Assert.AreEqual(stream, asset.Content);
+            Assert.AreEqual(stream, asset.OpenStream());
         }
     }
 }

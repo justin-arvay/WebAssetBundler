@@ -70,11 +70,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 .Returns(result.Object);
             
             processor.Process(bundle);
-            var content = asset.Content.ReadToEnd(); //execute modifier so we can test for results
+            var content = asset.OpenStream().ReadToEnd(); //execute modifier so we can test for results
 
             runner.Verify(r => r.Execute(It.Is<ImagePipelineRunnerContext>(c => isContextEqual(c))));
             Assert.AreEqual("url(/image/file.css);", content);
-            Assert.IsInstanceOf<BackgroundImageModifier>(asset.Modifiers[0]);
         }
 
         [Test]
@@ -92,6 +91,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var result = new Mock<ImagePipelineRunnerResult>();
             result.Object.Changed = false;
             result.Object.OldPath = "../image/file.css";
+            result.Object.NewPath = "/image/file.css";
 
             Func<ImagePipelineRunnerContext, bool> isContextEqual = (c) =>
             {
@@ -106,11 +106,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 .Returns(result.Object);
 
             processor.Process(bundle);
-            var content = asset.Content.ReadToEnd(); //execute modifier so we can test for no results
+            var content = asset.OpenStream().ReadToEnd(); //execute modifier so we can test for no results
 
             runner.Verify(r => r.Execute(It.Is<ImagePipelineRunnerContext>(c => isContextEqual(c))));
             Assert.AreEqual("url(../image/file.css);", content);
-            Assert.AreEqual(0, asset.Modifiers.Count);
         }
     }
 }

@@ -40,7 +40,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             minifier.Setup(m => m.Minify("test")).Returns("test");
 
-            var returnStream = modifier.Modify(asset.Content);
+            var returnStream = modifier.Modify(asset.OpenStream());
 
             minifier.Verify(m => m.Minify("test"));
             Assert.AreEqual("test", returnStream.ReadToEnd());

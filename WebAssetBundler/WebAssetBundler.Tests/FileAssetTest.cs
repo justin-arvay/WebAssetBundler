@@ -48,7 +48,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Stream stream = new MemoryStream(Encoding.ASCII.GetBytes("test"));
             file.Setup(f => f.Open(FileMode.Open, FileAccess.Read, FileShare.Read)).Returns(stream);
 
-            Assert.AreEqual("test", asset.Content.ReadToEnd());
+            Assert.AreEqual("test", asset.OpenStream().ReadToEnd());
         }
     }
 }

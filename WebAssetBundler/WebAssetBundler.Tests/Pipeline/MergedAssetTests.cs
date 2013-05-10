@@ -35,7 +35,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var asset = new MergedAsset(assets, ";");
 
-            Assert.AreEqual("function(){};function(){};", asset.Content.ReadToEnd());
+            Assert.AreEqual("function(){};function(){};", asset.OpenStream().ReadToEnd());
         }
 
         [Test]
@@ -52,8 +52,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             //will throw exception if we do not return new stream
 
-            var content = asset.Content.ReadToEnd();
-            var content2 = asset.Content.ReadToEnd();
+            var content = asset.OpenStream().ReadToEnd();
+            var content2 = asset.OpenStream().ReadToEnd();
 
             Assert.AreEqual(content2, content);
         }

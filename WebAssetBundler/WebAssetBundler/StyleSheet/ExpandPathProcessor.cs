@@ -35,7 +35,7 @@ namespace WebAssetBundler.Web.Mvc
         public void Process(StyleSheetBundle bundle)
         {
             outputUrl = bundle.Url;
-            bundle.Assets.AddModifier(this);      
+            bundle.Assets.Modify(this);
         }
 
         public Stream Modify(Stream openStream)

@@ -88,6 +88,15 @@ namespace WebAssetBundler.TextResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modifier &quot;&quot;{0}&quot;&quot; must return readable stream..
+        /// </summary>
+        internal static string ModifierNotReadable {
+            get {
+                return ResourceManager.GetString("ModifierNotReadable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The supplied path must be virtual. Source: {0}.
         /// </summary>
         internal static string PathMustBeVirtual {

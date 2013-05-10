@@ -40,7 +40,7 @@ namespace WebAssetBundler.Web.Mvc
             foreach (var asset in bundle.Assets)
             {
                 var results = new List<ImagePipelineRunnerResult>();
-                var paths = reader.ReadAll(asset.Content.ReadToEnd());
+                var paths = reader.ReadAll(asset.OpenStream().ReadToEnd());
 
                 foreach (var path in paths)
                 {
@@ -58,7 +58,7 @@ namespace WebAssetBundler.Web.Mvc
                 if (results.Count > 0)
                 {
                     //a separate instance of the modifier for each instance since the results are unique to each asset
-                    asset.Modifiers.Add(new BackgroundImageModifier(results));
+                    asset.Modify(new BackgroundImageModifier(results));
                 }
             }
         }
