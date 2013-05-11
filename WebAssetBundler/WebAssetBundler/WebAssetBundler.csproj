@@ -82,8 +82,11 @@
     <Compile Include="IDirectorySearch.cs" />
     <Compile Include="IDirectorySearchFactory.cs" />
     <Compile Include="Image\IImagePipelineRunner.cs" />
+    <Compile Include="Image\ImageBundleProvider.cs" />
+    <Compile Include="Image\ImageBundler.cs" />
     <Compile Include="Image\ImagePipelineRunner.cs" />
     <Compile Include="Image\ImagePipelineRunnerContext.cs" />
+    <Compile Include="Image\ImageTagWriter.cs" />
     <Compile Include="StyleSheet\BackgroundImageReader.cs" />
     <Compile Include="StyleSheet\BackgroundImageModifier.cs" />
     <Compile Include="StyleSheet\IBackgroundImageReader.cs" />
