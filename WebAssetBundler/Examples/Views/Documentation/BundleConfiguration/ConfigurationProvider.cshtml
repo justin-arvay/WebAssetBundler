@@ -1,9 +1,8 @@
 ﻿@{
-    ViewBag.Title = "Configuration Provider";
+    ViewBag.Title = "Custom Configuration Factory";
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
 }
 
-<h1>Custom Configuration Factory</h1>
 <p>By default there is a build in configuration provider for each bundle type that will find and instantiate the different configuration types
 that are inheriting from @Html.Code("IBundleConfigurationProvider<TBundle>"). You can override this and provide your own implementation if you need
 to inject your own behavior.</p>

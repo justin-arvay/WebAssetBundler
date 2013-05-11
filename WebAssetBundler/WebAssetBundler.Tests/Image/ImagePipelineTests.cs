@@ -41,6 +41,5 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.IsInstanceOf<AssignHashProcessor>(pipeline[0]);
             Assert.IsInstanceOf<UrlAssignmentProcessor<ImageBundle>>(pipeline[1]);                           
         }
-
     }
 }
