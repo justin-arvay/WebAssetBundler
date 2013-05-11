@@ -22,11 +22,13 @@ namespace WebAssetBundler.Web.Mvc
     {
         private static StyleSheetBundler styleSheetBundler;
         private static ScriptBundler scriptBundler;
+        private static ImageBundler imageBundler;
 
         static Bundler()
         {
             styleSheetBundler = WabHttpModule.Host.Container.Resolve<StyleSheetBundler>();
             scriptBundler = WabHttpModule.Host.Container.Resolve<ScriptBundler>();
+            imageBundler = WabHttpModule.Host.Container.Resolve<ImageBundler>();
         }
 
         public static StyleSheetBundler StyleSheets

@@ -37,7 +37,8 @@ namespace WebAssetBundler.Web.Mvc
             Plugins = pluginLoader.LoadPlugins<ImageBundle>();
 
             container.Register<IUrlGenerator<ImageBundle>, ImageUrlGenerator>();
-            container.Register<IBundlePipeline<ImageBundle>>(CreatePipeline<ImagePipeline>(container, Plugins));                
+            container.Register<IBundlePipeline<ImageBundle>>(CreatePipeline<ImagePipeline>(container, Plugins));
+            container.Register<IBundleProvider<ImageBundle>, ImageBundleProvider>(); 
         }
     }
 }

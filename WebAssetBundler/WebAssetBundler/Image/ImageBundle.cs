@@ -38,6 +38,18 @@ namespace WebAssetBundler.Web.Mvc
             get { return contentType; }
         }
 
+        public int Width
+        {
+            get;
+            set;
+        }
+
+        public int Height
+        {
+            get;
+            set;
+        }
+
         public string GetName(string url)
         {
             var directoryName = Path.GetDirectoryName(url);
