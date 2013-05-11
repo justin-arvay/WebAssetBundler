@@ -22,6 +22,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System.Collections.Generic;
     using System.Web;
     using System.IO;
+    using TinyIoC;
 
     [TestFixture]
     public class WebHostTests

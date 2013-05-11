@@ -21,6 +21,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
     using System.Collections.Generic;
     using System.Linq;
+    using TinyIoC;
 
     [TestFixture]
     public class DirectorySearchFactoryTests

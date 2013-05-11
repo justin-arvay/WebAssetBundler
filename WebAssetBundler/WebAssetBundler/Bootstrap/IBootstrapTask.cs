@@ -17,6 +17,7 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using TinyIoC;
 
     public interface IBootstrapTask
     {

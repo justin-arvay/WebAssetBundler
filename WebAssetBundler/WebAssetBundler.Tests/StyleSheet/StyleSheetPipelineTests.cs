@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
     using System;
     using System.Web;
+    using TinyIoC;
 
     [TestFixture]
     public class StyleSheetPipelineTests

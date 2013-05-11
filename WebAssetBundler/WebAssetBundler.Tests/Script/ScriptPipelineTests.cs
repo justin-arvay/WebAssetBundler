@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using TinyIoC;
 
     [TestFixture]
     public class ScriptPipelineTests

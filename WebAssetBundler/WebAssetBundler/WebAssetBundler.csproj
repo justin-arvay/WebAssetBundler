@@ -166,6 +166,8 @@
     <Compile Include="Pipeline\IPipelineProcessor.cs" />
     <Compile Include="DefaultSettings.cs" />
     <Compile Include="BundleCollection.cs" />
+    <Compile Include="TinyIoC.cs" />
+    <Compile Include="TinyIoCAspNetExtensions.cs" />
     <Compile Include="TypeProvider.cs" />
     <Compile Include="SettingsContext.cs" />
     <Compile Include="WebAssetType.cs" />
@@ -182,8 +184,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Exceptions.resx</DependentUpon>
     </Compile>
-    <Compile Include="TinyIoC\TinyIoC.cs" />
-    <Compile Include="TinyIoC\TinyIoCExtensions.cs" />
     <Compile Include="WabHttpModule.cs" />
     <Compile Include="WebHost.cs" />
   </ItemGroup>

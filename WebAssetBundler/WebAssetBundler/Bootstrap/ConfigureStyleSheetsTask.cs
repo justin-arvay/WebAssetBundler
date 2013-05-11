@@ -19,6 +19,7 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using TinyIoC;
 
     [TaskOrder(3)]
     public class ConfigureStyleSheetsTask : BundleBaseTask<StyleSheetBundle>

@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
     using System.IO;
     using System.Web;
+    using TinyIoC;
 
     [TestFixture]
     public class LoadSettingsTaskTests

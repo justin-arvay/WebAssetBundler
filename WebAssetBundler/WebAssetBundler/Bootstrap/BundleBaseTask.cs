@@ -19,6 +19,7 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using TinyIoC;
 
     public abstract class BundleBaseTask<TBundle> : IBootstrapTask 
         where TBundle : Bundle

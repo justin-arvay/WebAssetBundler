@@ -17,6 +17,7 @@
 namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System;
+    using TinyIoC;
 
     public class BundlePipelineImpl : BundlePipeline<BundleImpl>
     {

@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
     using System;
     using System.Collections.Generic;
+    using TinyIoC;
 
     [TestFixture]
     public class PluginLoaderTests

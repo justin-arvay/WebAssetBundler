@@ -19,6 +19,7 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Web.Configuration;
     using System.Web;
+    using TinyIoC;
 
     [TaskOrder(0)]
     public class LoadSettingsTask : IBootstrapTask

@@ -19,6 +19,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
     using System.Collections.Generic;
+    using TinyIoC;
 
     [TestFixture]
     public class ConfigureStyleSheetTaskTests
