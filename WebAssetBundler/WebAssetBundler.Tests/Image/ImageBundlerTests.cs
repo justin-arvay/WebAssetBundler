@@ -14,22 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
-    using System.IO;
+    using NUnit.Framework;
+    using Moq;
 
-    public class ImageTagWriter : ITagWriter<ImageBundle>
+    [TestFixture]
+    public class ImageBundlerTests
     {
-        public void Write(TextWriter writer, ImageBundle bundle)
+        [Test]
+        public void test()
         {
-            var tag = "<img src=\"{0}\" alt=\"{1}\" height=\"{2}\" width=\"{3}\" />";
-
-            writer.Write(tag.FormatWith(
-                bundle.Url,
-                bundle.Alt,
-                bundle.Height,
-                bundle.Width));
+            Assert.Fail();
         }
     }
 }

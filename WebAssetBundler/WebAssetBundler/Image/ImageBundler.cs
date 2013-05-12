@@ -17,14 +17,32 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Web;
+    using System.IO;
 
     public class ImageBundler
     {
         private IBundleProvider<ImageBundle> bundleProvider;
+        private ITagWriter<ImageBundle> tagWriter;
 
-        public ImageBundler(IBundleProvider<ImageBundle> bundleProvider)
+        public ImageBundler(IBundleProvider<ImageBundle> bundleProvider, ITagWriter<ImageBundle> tagWriter)
         {
             this.bundleProvider = bundleProvider;
+            this.tagWriter = tagWriter;
+        }
+
+        /// <summary>
+        /// Renders the image into the responce stream.
+        /// </summary>
+        public IHtmlString Render(string source)
+        {
+            var bundle = bundleProvider.GetSourceBundle(source);
+
+            using (StringWriter textWriter = new StringWriter())
+            {
+                tagWriter.Write(textWriter, bundle);
+                return new HtmlString(textWriter.ToString());
+            }
         }
     }
 }

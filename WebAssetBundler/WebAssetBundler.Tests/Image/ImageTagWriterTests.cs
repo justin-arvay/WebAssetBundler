@@ -18,14 +18,34 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System;
     using NUnit.Framework;
+    using System.IO;
+    using System.Web.UI;
+    using Moq;
 
     [TestFixture]
     public class ImageTagWriterTests
     {
-        [Test]
-        public void test()
+        private ImageTagWriter writer;
+        private Mock<TextWriter> textWriter;
+
+        [SetUp]
+        public void Setup()
         {
-            Assert.Fail();
+            writer = new ImageTagWriter();
+            textWriter = new Mock<TextWriter>();
+        }
+
+        [Test]
+        public void Should_Write_Tag()
+        {
+            var bundle = new ImageBundle("", "/wab.axd/image/asdasd/image-png");
+            bundle.Height = 99;
+            bundle.Width = 98;
+            bundle.Alt = "this is alt";
+
+            writer.Write(textWriter.Object, bundle);
+
+            textWriter.Verify(w => w.Write("<img src=\"/wab.axd/image/asdasd/image-png\" alt=\"this is alt\" height=\"99\" width=\"98\" />"));
         }
     }
 }

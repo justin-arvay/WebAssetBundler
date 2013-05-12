@@ -46,5 +46,13 @@ namespace WebAssetBundler.Web.Mvc
                 return scriptBundler;
             }
         }
+
+        public static ImageBundler Images
+        {
+            get
+            {
+                return imageBundler;
+            }
+        }
     }
 }

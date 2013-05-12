@@ -50,6 +50,12 @@ namespace WebAssetBundler.Web.Mvc
             set;
         }
 
+        public string Alt
+        {
+            get;
+            set;
+        }
+
         public string GetName(string url)
         {
             var directoryName = Path.GetDirectoryName(url);

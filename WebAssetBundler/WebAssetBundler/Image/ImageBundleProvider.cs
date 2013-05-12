@@ -20,15 +20,42 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ImageBundleProvider : IBundleProvider<ImageBundle>
     {
+        private IBundlesCache<ImageBundle> cache;
+        private IAssetProvider assetProvider;
+        private IBundlePipeline<ImageBundle> pipeline;
+        private SettingsContext settings;
+
+        public ImageBundleProvider(IBundlesCache<ImageBundle> cache, IAssetProvider assetProvider,
+            IBundlePipeline<ImageBundle> pipeline, SettingsContext settings)
+        {
+            this.cache = cache;
+            this.assetProvider = assetProvider;
+            this.pipeline = pipeline;
+            this.settings = settings;
+        }
 
         public ImageBundle GetNamedBundle(string name)
         {
             throw new NotSupportedException();
         }
 
-        public ImageBundle GetSourceBundle(string soure)
+        public ImageBundle GetSourceBundle(string source)
         {
-            
+            var bundle = cache.Get("");
+            var contentType = ImageHelper.GetContentType(source);
+
+            if (bundle == null || settings.DebugMode)
+            {
+                var asset = assetProvider.GetAsset(source);
+                bundle = new ImageBundle(contentType, );
+                bundle.Assets.Add(asset);
+                bundle.Name = name;
+
+                pipeline.Process(bundle);
+                cache.Add(bundle);
+            }
+
+            return bundle;
         }
 
         public ImageBundle GetExternalBundle(string source)
