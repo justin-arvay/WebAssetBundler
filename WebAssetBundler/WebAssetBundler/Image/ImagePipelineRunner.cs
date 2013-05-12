@@ -44,6 +44,7 @@ namespace WebAssetBundler.Web.Mvc
 
                 //one bundle and one asset is created for each image
                 //bundles are processed and cached like other bundles
+
                 ImageBundle bundle = CreateImageBundle(context);                
                 pipeline.Process(bundle);
                 bundlesCache.Add(bundle);
@@ -67,6 +68,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public ImageBundle CreateImageBundle(ImagePipelineRunnerContext context)
         {
+            //TODO:: replace with ImageBundleFactory
             string contentType = ImageHelper.GetContentType(context.ImagePath);
             string name = ImageHelper.CreateBundleName(context.ImagePath);
 

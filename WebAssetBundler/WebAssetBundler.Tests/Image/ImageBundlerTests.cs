@@ -18,14 +18,39 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System.Web;
+    using System.IO;
 
     [TestFixture]
     public class ImageBundlerTests
     {
-        [Test]
-        public void test()
+        private Mock<ITagWriter<ImageBundle>> tagWriter;
+        private ImageBundler bundler;
+        private Mock<IBundleProvider<ImageBundle>> bundleProvider;
+
+        [SetUp]
+        public void Setup()
         {
-            Assert.Fail();
+            bundleProvider = new Mock<IBundleProvider<ImageBundle>>();
+            tagWriter = new Mock<ITagWriter<ImageBundle>>();
+
+            bundler = new ImageBundler(
+                bundleProvider.Object,
+                tagWriter.Object);
+        }
+
+        [Test]
+        public void Should_Render_Bundle()
+        {
+            var bundle = new ImageBundle("image/png");
+            string source = "~/image.png";
+
+            bundleProvider.Setup(p => p.GetSourceBundle(source)).Returns(bundle);
+
+            IHtmlString htmlString = bundler.Render(source);
+
+            Assert.IsInstanceOf<IHtmlString>(htmlString);
+            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), bundle), Times.Once());
         }
     }
 }

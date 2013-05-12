@@ -38,7 +38,8 @@ namespace WebAssetBundler.Web.Mvc
 
             container.Register<IUrlGenerator<ImageBundle>, ImageUrlGenerator>();
             container.Register<IBundlePipeline<ImageBundle>>(CreatePipeline<ImagePipeline>(container, Plugins));
-            container.Register<IBundleProvider<ImageBundle>, ImageBundleProvider>(); 
+            container.Register<IBundleProvider<ImageBundle>, ImageBundleProvider>();
+            container.Register<ITagWriter<ImageBundle>, ImageTagWriter>();
         }
     }
 }

@@ -43,9 +43,8 @@ namespace WebAssetBundler.Web.Mvc
         {
             string name = ImageHelper.CreateBundleName(source);
             string contentType = ImageHelper.GetContentType(source);
-            ImageBundle bundle = cache.Get("");
+            ImageBundle bundle = cache.Get(name);
             
-
             if (bundle == null || settings.DebugMode)
             {
                 AssetBase asset = assetProvider.GetAsset(source);

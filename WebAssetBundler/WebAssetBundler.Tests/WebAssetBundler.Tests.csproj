@@ -76,6 +76,7 @@
     <Compile Include="Helpers\PathHelperTests.cs" />
     <Compile Include="HttpHandlers\ImageResponseWriterTests.cs" />
     <Compile Include="HttpHandlers\ResponseWriterFactoryTests.cs" />
+    <Compile Include="Image\ImageBundleFactoryTests.cs" />
     <Compile Include="Image\ImageBundleProviderTests.cs" />
     <Compile Include="Image\ImageBundlerTests.cs" />
     <Compile Include="Image\ImageBundleTests.cs" />

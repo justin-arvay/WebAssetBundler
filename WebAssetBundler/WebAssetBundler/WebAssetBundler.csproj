@@ -81,6 +81,8 @@
     <Compile Include="IDirectoryFactory.cs" />
     <Compile Include="IDirectorySearch.cs" />
     <Compile Include="IDirectorySearchFactory.cs" />
+    <Compile Include="IBundleFactory.cs" />
+    <Compile Include="Image\ImageBundleFactory.cs" />
     <Compile Include="Image\IImagePipelineRunner.cs" />
     <Compile Include="Image\ImageBundleProvider.cs" />
     <Compile Include="Image\ImageBundler.cs" />
