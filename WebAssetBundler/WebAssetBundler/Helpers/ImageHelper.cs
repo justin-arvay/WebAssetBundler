@@ -28,7 +28,8 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public static string GetContentType(string path)
         {
-            var ext = Path.GetExtension(path).ToLower().Replace(".", String.Empty);
+            string ext = Path.GetExtension(path).ToLower().Replace(".", String.Empty);
+
             switch (ext)
             {
                 case "gif":
@@ -41,13 +42,26 @@ namespace WebAssetBundler.Web.Mvc
                 case "tif":
                     return "image/tiff";
                 case "png":
-                    return "image/md5-png";
+                    return "image/png";
                 case "bmp":
-                    return "image/md5-ms-bmp";
+                    return "image/bmp";
 
             }
 
             return "";
+        }
+
+        /// <summary>
+        /// Creates a bundle name from a relative url.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string CreateBundleName(string url)
+        {
+            string directoryName = Path.GetDirectoryName(url);
+            string fileName = Path.GetFileName(url);
+
+            return directoryName.ToHash() + "-" + fileName.Replace('.', '-');
         }
     }
 }

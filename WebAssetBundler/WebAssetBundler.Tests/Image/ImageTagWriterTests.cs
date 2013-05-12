@@ -38,10 +38,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Write_Tag()
         {
-            var bundle = new ImageBundle("", "/wab.axd/image/asdasd/image-png");
+            var bundle = new ImageBundle("");
             bundle.Height = 99;
             bundle.Width = 98;
             bundle.Alt = "this is alt";
+            bundle.Url = "/wab.axd/image/asdasd/image-png";
 
             writer.Write(textWriter.Object, bundle);
 

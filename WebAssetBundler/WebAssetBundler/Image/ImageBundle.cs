@@ -23,14 +23,9 @@ namespace WebAssetBundler.Web.Mvc
     {
         private string contentType;
 
-        public ImageBundle(string contentType, string url)
+        public ImageBundle(string contentType)
         {
             this.contentType = contentType;
-            Url = url;
-
-            //TODO:: need unique name. use the image file name without .ext, but instead -ext then hash path
-            // example: asdfsas123sasaf-nugetlogo-png
-            Name = GetName(url);
         }
 
         public override string ContentType
@@ -54,14 +49,6 @@ namespace WebAssetBundler.Web.Mvc
         {
             get;
             set;
-        }
-
-        public string GetName(string url)
-        {
-            var directoryName = Path.GetDirectoryName(url);
-            var fileName = Path.GetFileName(url);
-
-            return directoryName.ToHash() + "-" + fileName.Replace('.', '-');
         }
 
         public override string AssetSeparator

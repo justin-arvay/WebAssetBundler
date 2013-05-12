@@ -44,7 +44,7 @@ namespace WebAssetBundler.Web.Mvc
 
                 //one bundle and one asset is created for each image
                 //bundles are processed and cached like other bundles
-                var bundle = CreateImageBundle(context);                
+                ImageBundle bundle = CreateImageBundle(context);                
                 pipeline.Process(bundle);
                 bundlesCache.Add(bundle);
 
@@ -58,18 +58,20 @@ namespace WebAssetBundler.Web.Mvc
         public AssetBase GetAsset(ImagePipelineRunnerContext context)
         {
             //test for: ../Image/img.png and /Image/image.png
-            var directoryName = Path.GetDirectoryName(context.SourcePath);
-            var directory = context.AppRootDirectory.GetDirectory(directoryName);
-            var file = directory.GetFile(context.ImagePath);
+            string directoryName = Path.GetDirectoryName(context.SourcePath);
+            IDirectory directory = context.AppRootDirectory.GetDirectory(directoryName);
+            IFile file = directory.GetFile(context.ImagePath);
 
             return new FileAsset(file);
         }
 
         public ImageBundle CreateImageBundle(ImagePipelineRunnerContext context)
         {
-            var contentType = ImageHelper.GetContentType(context.ImagePath);
+            string contentType = ImageHelper.GetContentType(context.ImagePath);
+            string name = ImageHelper.CreateBundleName(context.ImagePath);
 
-            var bundle = new ImageBundle(contentType, context.ImagePath);
+            var bundle = new ImageBundle(contentType);
+            bundle.Name = name;
             bundle.Assets.Add(GetAsset(context));
 
             return bundle;

@@ -27,15 +27,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [SetUp]
         public void Setup()
         {
-            bundle = new ImageBundle("image/png", "~/test/image.png"); 
+            bundle = new ImageBundle("image/png"); 
         }
 
         [Test]
         public void Should_Set_Values()
         {
             Assert.AreEqual("image/png", bundle.ContentType);
-            Assert.AreEqual("~/test/image.png", bundle.Url);
-            Assert.AreEqual("0cda79a4083842efcc13b2042d35eadb-image-png", bundle.Name);
         }
 
         [Test]

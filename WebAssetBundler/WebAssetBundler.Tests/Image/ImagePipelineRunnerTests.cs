@@ -57,6 +57,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
                     bundle.Url = newUrl;
 
                     Assert.AreEqual(root + "/Image/image.png", bundle.Assets[0].Source);
+                    Assert.AreEqual("80f753d5d213d931f205fdcb29c9e7a0-image-png", bundle.Name);
+                    Assert.AreEqual("image/png", bundle.ContentType);
                 });
 
             var fileDirectory = new Mock<IDirectory>();

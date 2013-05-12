@@ -41,13 +41,15 @@ namespace WebAssetBundler.Web.Mvc
 
         public ImageBundle GetSourceBundle(string source)
         {
-            var bundle = cache.Get("");
-            var contentType = ImageHelper.GetContentType(source);
+            string name = ImageHelper.CreateBundleName(source);
+            string contentType = ImageHelper.GetContentType(source);
+            ImageBundle bundle = cache.Get("");
+            
 
             if (bundle == null || settings.DebugMode)
             {
-                var asset = assetProvider.GetAsset(source);
-                bundle = new ImageBundle(contentType, );
+                AssetBase asset = assetProvider.GetAsset(source);
+                bundle = new ImageBundle(contentType);
                 bundle.Assets.Add(asset);
                 bundle.Name = name;
 

@@ -41,7 +41,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             response = new Mock<HttpResponseBase>();
             cache = new Mock<HttpCachePolicyBase>();
             encoder = new Mock<IEncoder>();
-            bundle = new ImageBundle("image/jpeg", "/Image/test.jpg");
+            bundle = new ImageBundle("image/jpeg");
             bundle.Hash = new byte[1];
 
             response.Setup(r => r.Cache).Returns(cache.Object);
@@ -59,6 +59,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundle.BrowserTtl = 10;
             bundle.Assets.Add(new AssetBaseImpl("just a string converted to bytes for testing"));
+            bundle.Url = "/Image/test.jpg";
 
             var collection = new NameValueCollection();
             collection.Add("Accept-Encoding", "some encoding");
