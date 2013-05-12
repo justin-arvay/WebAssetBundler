@@ -80,6 +80,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual("test11", streamTwo.ReadToEnd());
         }
 
+        [Test]
+        public void Should_Close_Internal_Stream()
+        {
+            Assert.Fail();
+        }
+
         public class ModTest : IAssetModifier
         {
             public Stream Modify(Stream openStream)

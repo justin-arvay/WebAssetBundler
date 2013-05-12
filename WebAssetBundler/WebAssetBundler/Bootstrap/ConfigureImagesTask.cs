@@ -31,7 +31,6 @@ namespace WebAssetBundler.Web.Mvc
             this.pluginLoader = pluginLoader;
         }
 
-
         public override void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
         {
             Plugins = pluginLoader.LoadPlugins<ImageBundle>();
@@ -40,6 +39,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IBundlePipeline<ImageBundle>>(CreatePipeline<ImagePipeline>(container, Plugins));
             container.Register<IBundleProvider<ImageBundle>, ImageBundleProvider>();
             container.Register<ITagWriter<ImageBundle>, ImageTagWriter>();
+            container.Register<IBundleFactory<ImageBundle>, ImageBundleFactory>();
         }
     }
 }

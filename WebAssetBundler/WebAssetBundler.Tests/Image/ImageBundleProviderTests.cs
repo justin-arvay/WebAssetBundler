@@ -24,9 +24,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private ImageBundleProvider provider;
         private Mock<IBundlesCache<ImageBundle>> cache;
-        private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<ImageBundle>> pipeline;
         private SettingsContext settings;
+        private Mock<IBundleFactory<ImageBundle>> bundleFactory;
 
         [SetUp]
         public void Setup()
@@ -34,24 +34,23 @@ namespace WebAssetBundler.Web.Mvc.Tests
             settings = new SettingsContext(false, ".min");
             pipeline = new Mock<IBundlePipeline<ImageBundle>>();
             cache = new Mock<IBundlesCache<ImageBundle>>();
-            assetProvider = new Mock<IAssetProvider>();
+            bundleFactory = new Mock<IBundleFactory<ImageBundle>>();
 
-            provider = new ImageBundleProvider(cache.Object, assetProvider.Object,
-                pipeline.Object, settings);
+            provider = new ImageBundleProvider(cache.Object, pipeline.Object, bundleFactory.Object, settings);
         }
 
         [Test]
         public void Should_Get_Bundle_By_Source()
         {
-            assetProvider.Setup(p => p.GetAsset("~/image.png")).Returns(new AssetBaseImpl());
+            var bundle = new ImageBundle("image/png");            
 
-            ImageBundle bundle = provider.GetSourceBundle("~/image.png");
+            bundleFactory.Setup(p => p.CreateFromSource("~/image.png")).Returns(bundle);
 
-            pipeline.Verify(p => p.Process(It.IsAny<ImageBundle>()), Times.Once());
-            cache.Verify(c => c.Add(bundle), Times.Once());
-            Assert.IsInstanceOf<AssetBaseImpl>(bundle.Assets[0]);
-            Assert.IsNotNull(bundle);
-            Assert.AreEqual("4c761f170e016836ff84498202b99827-image-png", bundle.Name);
+            ImageBundle returnBundle = provider.GetSourceBundle("~/image.png");
+
+            pipeline.Verify(p => p.Process(bundle));
+            cache.Verify(c => c.Add(returnBundle));
+            Assert.IsNotNull(returnBundle);            
         }
 
         [Test]
@@ -74,25 +73,23 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Always_Get_Bundle_By_Source_When_In_Debug()
         {
             string source = "~/image.png";
-            var bundle = new ImageBundle("image/png");
+            var cachedBundle = new ImageBundle("image/png");
+            var factoryBundle = new ImageBundle("image/png");
 
             settings.DebugMode = true;
 
             //should not use this bundle
             cache.Setup(c => c.Get(ImageHelper.CreateBundleName(source)))
-                .Returns(bundle);
+                .Returns(cachedBundle);
 
-            assetProvider.Setup(p => p.GetAsset("~/image.png"))
-                .Returns(new AssetBaseImpl());
+            bundleFactory.Setup(f => f.CreateFromSource("~/image.png"))
+                .Returns(factoryBundle);
 
             ImageBundle returnBundle = provider.GetSourceBundle("~/image.png");
 
-            pipeline.Verify(p => p.Process(It.IsAny<ImageBundle>()), Times.Once());
-            cache.Verify(c => c.Add(returnBundle), Times.Once());
-            Assert.IsInstanceOf<AssetBaseImpl>(returnBundle.Assets[0]);
-            Assert.IsNotNull(returnBundle);
-            Assert.AreEqual("4c761f170e016836ff84498202b99827-image-png", returnBundle.Name);
-            Assert.AreNotSame(returnBundle, bundle);
+            pipeline.Verify(p => p.Process(It.IsAny<ImageBundle>()));
+            cache.Verify(c => c.Add(returnBundle));
+            Assert.AreNotSame(returnBundle, cachedBundle);
         }
     }
 }

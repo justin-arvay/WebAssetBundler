@@ -21,24 +21,22 @@ namespace WebAssetBundler.Web.Mvc
 
     public class FileAsset : AssetBase
     {
-        private readonly IFile sourceFile;
-
         public FileAsset(IFile sourceFile)
         {
-            this.sourceFile = sourceFile;
+            File = sourceFile;
         }
 
         public override string Source
         {
             get 
             {
-                return sourceFile.Path;
+                return File.Path;
             }
         }
 
         protected override Stream OpenSourceStream()
         {
-            return sourceFile.Open(FileMode.Open, FileAccess.Read, FileShare.Read);
+            return File.Open(FileMode.Open, FileAccess.Read, FileShare.Read);
         }
     }
 }

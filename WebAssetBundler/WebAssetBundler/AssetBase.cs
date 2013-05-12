@@ -32,6 +32,12 @@ namespace WebAssetBundler.Web.Mvc
                 return Path.GetFileNameWithoutExtension(Source);
             }
         }
+
+        public IFile File
+        {
+            get;
+            protected set;
+        }
         
         public virtual string Source
         {
@@ -81,7 +87,10 @@ namespace WebAssetBundler.Web.Mvc
             //if we havent modified it yet, create a snapshot after this point OpenSourceStream will not be used anymore
             if (assetBytes == null)
             {
-                assetBytes = OpenSourceStream().ReadAllBytes();
+                using (Stream stream = OpenSourceStream())
+                {
+                    assetBytes = stream.ReadAllBytes();
+                }                
             }
 
             return new MemoryStream(assetBytes.ToArray());

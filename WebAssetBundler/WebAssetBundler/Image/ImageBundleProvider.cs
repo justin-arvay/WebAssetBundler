@@ -21,17 +21,17 @@ namespace WebAssetBundler.Web.Mvc
     public class ImageBundleProvider : IBundleProvider<ImageBundle>
     {
         private IBundlesCache<ImageBundle> cache;
-        private IAssetProvider assetProvider;
         private IBundlePipeline<ImageBundle> pipeline;
         private SettingsContext settings;
+        private IBundleFactory<ImageBundle> bundleFactory;
 
-        public ImageBundleProvider(IBundlesCache<ImageBundle> cache, IAssetProvider assetProvider,
-            IBundlePipeline<ImageBundle> pipeline, SettingsContext settings)
+        public ImageBundleProvider(IBundlesCache<ImageBundle> cache, IBundlePipeline<ImageBundle> pipeline, 
+            IBundleFactory<ImageBundle> bundleFactory, SettingsContext settings)
         {
             this.cache = cache;
-            this.assetProvider = assetProvider;
             this.pipeline = pipeline;
             this.settings = settings;
+            this.bundleFactory = bundleFactory;
         }
 
         public ImageBundle GetNamedBundle(string name)
@@ -47,10 +47,7 @@ namespace WebAssetBundler.Web.Mvc
             
             if (bundle == null || settings.DebugMode)
             {
-                AssetBase asset = assetProvider.GetAsset(source);
-                bundle = new ImageBundle(contentType);
-                bundle.Assets.Add(asset);
-                bundle.Name = name;
+                bundle = bundleFactory.CreateFromSource(source);
 
                 pipeline.Process(bundle);
                 cache.Add(bundle);
