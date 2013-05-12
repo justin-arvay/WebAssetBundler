@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.IO;
+    using System.Drawing;
 
     public static class ImageHelper
     {
@@ -49,6 +50,18 @@ namespace WebAssetBundler.Web.Mvc
             }
 
             return "";
+        }
+
+        /// <summary>
+        /// Gets the
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public static SizeF GetDimensions(IFile file)
+        {
+            Bitmap image = new Bitmap(file.Open(FileMode.Open));
+
+            return image.PhysicalDimension;
         }
 
         /// <summary>

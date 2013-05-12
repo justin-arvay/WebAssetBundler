@@ -42,5 +42,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual("0cda79a4083842efcc13b2042d35eadb-image-png", name);
         }
+
+        [Test]
+        public void Should_Get_Dimensions()
+        {
+            Assert.Fail();
+        }
     }
 }

@@ -22,8 +22,18 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class ImageBundleFactoryTests
     {
+        private ImageBundleFactory factory;
+        private Mock<IAssetProvider> assetProvider;
+
+        [SetUp]
+        public void Setup()
+        {
+            assetProvider = new Mock<IAssetProvider>();
+            factory = new ImageBundleFactory(assetProvider.Object);
+        }
+
         [Test]
-        public void test()
+        public void Should_Create_Bundle()
         {
             Assert.Fail();
         }

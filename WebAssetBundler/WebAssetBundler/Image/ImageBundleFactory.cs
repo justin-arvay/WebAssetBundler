@@ -17,6 +17,7 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Drawing;
 
     public class ImageBundleFactory : IBundleFactory<ImageBundle>
     {
@@ -29,16 +30,19 @@ namespace WebAssetBundler.Web.Mvc
 
         public ImageBundle CreateFromSource(string source)
         {
+            AssetBase asset = assetProvider.GetAsset(source);
+
             string name = ImageHelper.CreateBundleName(source);
             string contentType = ImageHelper.GetContentType(source);
-
-            AssetBase asset = assetProvider.GetAsset(source);
+            SizeF dimensions= ImageHelper.GetDimensions(asset.File);            
 
             var bundle = new ImageBundle(contentType);
             bundle.Assets.Add(asset);
             bundle.Name = name;
-            bundle.Width = 0;
-            bundle.Height = 0;
+
+            //convert to int because SizeF values for bitmap files are in pixels
+            bundle.Width = Convert.ToInt32(dimensions.Width);
+            bundle.Height = Convert.ToInt32(dimensions.Height);
 
             return bundle;
         }
