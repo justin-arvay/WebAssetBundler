@@ -66,7 +66,7 @@ namespace WebAssetBundler.Web.Mvc
             IDirectory directory = context.AppRootDirectory.GetDirectory(directoryName);
             IFile file = directory.GetFile(context.ImagePath);
 
-            return new FileAsset(file);
+            return new FileSystemAsset(file);
         }
 
         public ImageBundle CreateImageBundle(ImagePipelineRunnerContext context)

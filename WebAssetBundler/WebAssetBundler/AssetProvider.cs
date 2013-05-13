@@ -69,9 +69,9 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        public FileAsset CreateAsset(IFile file)
+        public FileSystemAsset CreateAsset(IFile file)
         {
-            return new FileAsset(ResolveFile(file));
+            return new FileSystemAsset(ResolveFile(file));
         }
 
         /// <summary>

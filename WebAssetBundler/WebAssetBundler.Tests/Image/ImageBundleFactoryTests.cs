@@ -37,7 +37,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             string source = "~/image.png";
             var file = new FileSystemFile("../../Files/Images/ImageBundleFactoryTests.png");
-            var asset = new FileAsset(file);
+            var asset = new FileSystemAsset(file);
 
             assetProvider.Setup(p => p.GetAsset(source))
                 .Returns(asset);
@@ -56,7 +56,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             string source = "~/image.png";
             var file = new FileSystemFile("../../Files/Images/ImageBundleFactoryTests.png");
-            var asset = new FileAsset(file);
+            var asset = new FileSystemAsset(file);
 
             ImageBundle returnBundle = factory.Create(asset);
 

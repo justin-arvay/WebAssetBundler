@@ -22,16 +22,16 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System.Text;
 
     [TestFixture]
-    public class FileAssetTest
+    public class FileSystemAssetTest
     {
         private Mock<IFile> file;
-        private FileAsset asset;
+        private FileSystemAsset asset;
 
         [SetUp]
         public void Setup()
         {
             file = new Mock<IFile>();
-            asset = new FileAsset(file.Object);
+            asset = new FileSystemAsset(file.Object);
         }
 
         [Test]

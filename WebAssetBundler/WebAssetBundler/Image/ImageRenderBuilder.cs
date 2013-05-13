@@ -17,26 +17,27 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.IO;
 
-    public class FileAsset : AssetBase
+    public class ImageRenderBuilder : ComponentBuilder
     {
-        public FileAsset(IFile sourceFile)
+        public ImageBundle bundle;
+
+        public ImageRenderBuilder(ImageBundle bundle)
         {
-            File = sourceFile;
+            this.bundle = bundle;
         }
 
-        public override string Source
+        public void Width(int width)
         {
-            get 
-            {
-                return File.Path;
-            }
+
         }
 
-        protected override Stream OpenSourceStream()
+        public void Height(int height)
         {
-            return File.Open(FileMode.Open, FileAccess.Read, FileShare.Read);
         }
+
+        public void Alt(string alt)
+        {
+        }        
     }
 }

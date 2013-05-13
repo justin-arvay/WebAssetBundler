@@ -83,7 +83,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Close_Internal_Stream()
         {
-            Assert.Fail();
+            string root = TestHelper.RootPath;
+            var file = new FileSystemFile(root + "/Files/AssetFileTest.css");
+            var asset = new FileSystemAsset(file);
+
+            asset.OpenStream();
+            Assert.DoesNotThrow(() => asset.OpenStream());
         }
 
         public class ModTest : IAssetModifier

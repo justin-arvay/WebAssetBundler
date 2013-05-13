@@ -88,6 +88,7 @@
     <Compile Include="Image\ImageBundler.cs" />
     <Compile Include="Image\ImagePipelineRunner.cs" />
     <Compile Include="Image\ImagePipelineRunnerContext.cs" />
+    <Compile Include="Image\ImageRenderBuilder.cs" />
     <Compile Include="Image\ImageTagWriter.cs" />
     <Compile Include="StyleSheet\BackgroundImageReader.cs" />
     <Compile Include="StyleSheet\BackgroundImageModifier.cs" />
@@ -131,7 +132,7 @@
     <Compile Include="Minifiers\YuiStyleSheetMinifier.cs" />
     <Compile Include="DefaultBundleConfigurationProvider.cs" />
     <Compile Include="AssetProvider.cs" />
-    <Compile Include="FileAsset.cs" />
+    <Compile Include="FileSystemAsset.cs" />
     <Compile Include="DirectorySearchBuilder.cs" />
     <Compile Include="DirectorySearch.cs" />
     <Compile Include="IAssetProvider.cs" />
@@ -175,6 +176,8 @@
     <Compile Include="TinyIoCAspNetExtensions.cs" />
     <Compile Include="TypeProvider.cs" />
     <Compile Include="SettingsContext.cs" />
+    <Compile Include="View\Component.cs" />
+    <Compile Include="View\ComponentBuilder.cs" />
     <Compile Include="WebAssetType.cs" />
     <Compile Include="StyleSheet\StyleSheetBundler.cs" />
     <Compile Include="AssetBase.cs" />
