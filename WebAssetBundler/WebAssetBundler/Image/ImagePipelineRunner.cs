@@ -73,15 +73,6 @@ namespace WebAssetBundler.Web.Mvc
         {
             AssetBase asset = GetAsset(context);
             return bundleFactory.Create(asset);
-            //TODO:: replace with ImageBundleFactory
-            string contentType = ImageHelper.GetContentType(context.ImagePath);
-            string name = ImageHelper.CreateBundleName(context.ImagePath);
-
-            var bundle = new ImageBundle(contentType);
-            bundle.Name = name;
-            bundle.Assets.Add(GetAsset(context));
-
-            return bundle;
         }
     }
 }

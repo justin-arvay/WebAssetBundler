@@ -50,21 +50,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Execute_Pipeline()
         {
             var newUrl = "/wab.axd/image/aaa/aaa.png";
+            var bundle = new ImageBundle("image/png");
+            bundle.Url = newUrl;
 
             context.ImagePath = "../Image/image.png";
             context.SourcePath = root + "Files/Test.css";
 
-            pipeline.Setup(c => c.Process(It.IsAny<ImageBundle>()))
-                .Callback((ImageBundle bundle) => {
-                    bundle.Url = newUrl;
-
-                    Assert.AreEqual(root + "/Image/image.png", bundle.Assets[0].Source);
-                    Assert.AreEqual("80f753d5d213d931f205fdcb29c9e7a0-image-png", bundle.Name);
-                    Assert.AreEqual("image/png", bundle.ContentType);
-                });
-
             var fileDirectory = new Mock<IDirectory>();
             var file = new Mock<IFile>();
+
             file.Setup(f => f.Path).Returns(root + "/Image/image.png");
 
             directory.Setup(d => d.GetDirectory(It.IsAny<string>()))
@@ -72,6 +66,21 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             fileDirectory.Setup(d => d.GetFile(It.IsAny<string>()))
                 .Returns(file.Object);
+
+            bundleFactory.Setup(b => b.Create(It.IsAny<AssetBase>()))
+                .Callback((AssetBase asset) => {
+
+                    //make sure the created asset uses the correct source
+                    Assert.AreEqual(root + "/Image/image.png", asset.Source);
+                })
+                .Returns(bundle);
+
+            pipeline.Setup(c => c.Process(It.IsAny<ImageBundle>()))
+                .Callback((ImageBundle calledBundle) => {
+
+                    //set the url like we would if the processor actually ran
+                    bundle.Url = newUrl;
+                });
 
             var result = runner.Execute(context);
 
@@ -90,24 +99,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             context.ImagePath = "http://www.google.com/Image/image.png";
             context.SourcePath = root + "Files/Test.css";
 
-            pipeline.Setup(c => c.Process(It.IsAny<ImageBundle>()))
-                .Callback((ImageBundle bundle) =>
-                {
-                    bundle.Url = newUrl;
-
-                    Assert.AreEqual(root + "/Image/image.png", bundle.Assets[0].Source);
-                });
-
-            var fileDirectory = new Mock<IDirectory>();
-            var file = new Mock<IFile>();
-            file.Setup(f => f.Path).Returns(root + "/Image/image.png");
-
-            directory.Setup(d => d.GetDirectory(It.IsAny<string>()))
-                .Returns(fileDirectory.Object);
-
-            fileDirectory.Setup(d => d.GetFile(It.IsAny<string>()))
-                .Returns(file.Object);
-
             var result = runner.Execute(context);
 
             Assert.IsFalse(result.Changed);
@@ -124,24 +115,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             context.ImagePath = "https://www.google.com/Image/image.png";
             context.SourcePath = root + "Files/Test.css";
-
-            pipeline.Setup(c => c.Process(It.IsAny<ImageBundle>()))
-                .Callback((ImageBundle bundle) =>
-                {
-                    bundle.Url = newUrl;
-
-                    Assert.AreEqual(root + "/Image/image.png", bundle.Assets[0].Source);
-                });
-
-            var fileDirectory = new Mock<IDirectory>();
-            var file = new Mock<IFile>();
-            file.Setup(f => f.Path).Returns(root + "/Image/image.png");
-
-            directory.Setup(d => d.GetDirectory(It.IsAny<string>()))
-                .Returns(fileDirectory.Object);
-
-            fileDirectory.Setup(d => d.GetFile(It.IsAny<string>()))
-                .Returns(file.Object);
 
             var result = runner.Execute(context);
 

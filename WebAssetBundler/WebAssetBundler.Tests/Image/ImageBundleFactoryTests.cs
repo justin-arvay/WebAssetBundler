@@ -33,7 +33,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Create_Bundle()
+        public void Should_Create_Bundle_From_Source()
         {
             string source = "~/image.png";
             var file = new FileSystemFile("../../Files/Images/ImageBundleFactoryTests.png");
@@ -45,7 +45,23 @@ namespace WebAssetBundler.Web.Mvc.Tests
             ImageBundle returnBundle = factory.Create(source);
 
             Assert.AreEqual(1, returnBundle.Assets.Count);
-            Assert.AreEqual("4c761f170e016836ff84498202b99827-image-png", returnBundle.Name);
+            Assert.AreEqual("093e4bfea387f8f7f7948f0853b29f1d-ImageBundleFactoryTests-png", returnBundle.Name);
+            Assert.AreEqual("image/png", returnBundle.ContentType);
+            Assert.AreEqual(187, returnBundle.Height);
+            Assert.AreEqual(196, returnBundle.Width);
+        }
+
+        [Test]
+        public void Should_Create_Bundle_From_Asset()
+        {
+            string source = "~/image.png";
+            var file = new FileSystemFile("../../Files/Images/ImageBundleFactoryTests.png");
+            var asset = new FileAsset(file);
+
+            ImageBundle returnBundle = factory.Create(asset);
+
+            Assert.AreEqual(1, returnBundle.Assets.Count);
+            Assert.AreEqual("093e4bfea387f8f7f7948f0853b29f1d-ImageBundleFactoryTests-png", returnBundle.Name);
             Assert.AreEqual("image/png", returnBundle.ContentType);
             Assert.AreEqual(187, returnBundle.Height);
             Assert.AreEqual(196, returnBundle.Width);

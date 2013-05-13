@@ -18,6 +18,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System;
+    using System.Drawing;
 
     [TestFixture]
     public class ImageHelperTests
@@ -46,7 +48,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Dimensions()
         {
-            Assert.Fail();
+            var root = TestHelper.RootPath;
+            IFile file = new FileSystemFile(root + "/Files/Images/ImageHelperTests.png");
+            
+            SizeF dimensions = ImageHelper.GetDimensions(file);
+            //second call should trigger exception if stream was not closed properly
+            dimensions = ImageHelper.GetDimensions(file);
+
+            Assert.AreEqual(187.0f, dimensions.Height);
+            Assert.AreEqual(196.0f, dimensions.Width);
         }
     }
 }

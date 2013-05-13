@@ -210,5 +210,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
             RegisterDummyRoutes(RouteTable.Routes);
         }
 
+        public static string RootPath
+        {
+            get
+            {
+                return PathHelper.NormalizePath(AppDomain.CurrentDomain.BaseDirectory + "/../../");
+            }
+        }
     }
 }

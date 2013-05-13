@@ -25,7 +25,6 @@ namespace WebAssetBundler.Web.Mvc
     {
         public static string NormalizePath(string path)
         {
-            var isNetworkShare = path.StartsWith(@"\\");
             var stack = new Stack<string>();
             var slashes = new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar };
             var parts = path.Split(slashes, StringSplitOptions.RemoveEmptyEntries);
@@ -45,7 +44,7 @@ namespace WebAssetBundler.Web.Mvc
                 }
             }
 
-            if (isNetworkShare)
+            if (path.StartsWith(@"\\"))
             {
                 return @"\\" + string.Join(@"\", stack.Reverse().ToArray());
             }
