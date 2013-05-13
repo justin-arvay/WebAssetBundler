@@ -44,7 +44,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var bundle = new ImageBundle("image/png");            
 
-            bundleFactory.Setup(p => p.CreateFromSource("~/image.png")).Returns(bundle);
+            bundleFactory.Setup(p => p.Create("~/image.png")).Returns(bundle);
 
             ImageBundle returnBundle = provider.GetSourceBundle("~/image.png");
 
@@ -82,7 +82,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             cache.Setup(c => c.Get(ImageHelper.CreateBundleName(source)))
                 .Returns(cachedBundle);
 
-            bundleFactory.Setup(f => f.CreateFromSource("~/image.png"))
+            bundleFactory.Setup(f => f.Create("~/image.png"))
                 .Returns(factoryBundle);
 
             ImageBundle returnBundle = provider.GetSourceBundle("~/image.png");

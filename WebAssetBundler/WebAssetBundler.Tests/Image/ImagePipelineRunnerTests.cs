@@ -29,19 +29,21 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private ImagePipelineRunnerContext context;
         private string root;
         private Mock<IDirectory> directory;
+        private Mock<IBundleFactory<ImageBundle>> bundleFactory;
 
         [SetUp]
         public void Setup()
         {
             root = PathHelper.NormalizePath(AppDomain.CurrentDomain.BaseDirectory + "/../../");
             directory = new Mock<IDirectory>();
+            bundleFactory = new Mock<IBundleFactory<ImageBundle>>();
 
             context = new ImagePipelineRunnerContext();
             context.AppRootDirectory = directory.Object;
 
             bundlesCache = new Mock<IBundlesCache<ImageBundle>>();
             pipeline = new Mock<IBundlePipeline<ImageBundle>>();
-            runner = new ImagePipelineRunner(pipeline.Object, bundlesCache.Object);
+            runner = new ImagePipelineRunner(pipeline.Object, bundlesCache.Object, bundleFactory.Object);
         }
 
         [Test]

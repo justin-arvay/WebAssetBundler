@@ -23,11 +23,14 @@ namespace WebAssetBundler.Web.Mvc
     {
         private IBundlePipeline<ImageBundle> pipeline;
         private IBundlesCache<ImageBundle> bundlesCache;
+        private IBundleFactory<ImageBundle> bundleFactory;
 
-        public ImagePipelineRunner(IBundlePipeline<ImageBundle> pipeline, IBundlesCache<ImageBundle> bundlesCache)
+        public ImagePipelineRunner(IBundlePipeline<ImageBundle> pipeline, IBundlesCache<ImageBundle> bundlesCache,
+            IBundleFactory<ImageBundle> bundleFactory)
         {
             this.pipeline = pipeline;
             this.bundlesCache = bundlesCache;
+            this.bundleFactory = bundleFactory;
         }
 
         public ImagePipelineRunnerResult Execute(ImagePipelineRunnerContext context)
@@ -68,6 +71,8 @@ namespace WebAssetBundler.Web.Mvc
 
         public ImageBundle CreateImageBundle(ImagePipelineRunnerContext context)
         {
+            AssetBase asset = GetAsset(context);
+            return bundleFactory.Create(asset);
             //TODO:: replace with ImageBundleFactory
             string contentType = ImageHelper.GetContentType(context.ImagePath);
             string name = ImageHelper.CreateBundleName(context.ImagePath);

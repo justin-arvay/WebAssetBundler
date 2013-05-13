@@ -42,12 +42,11 @@ namespace WebAssetBundler.Web.Mvc
         public ImageBundle GetSourceBundle(string source)
         {
             string name = ImageHelper.CreateBundleName(source);
-            string contentType = ImageHelper.GetContentType(source);
             ImageBundle bundle = cache.Get(name);
             
             if (bundle == null || settings.DebugMode)
             {
-                bundle = bundleFactory.CreateFromSource(source);
+                bundle = bundleFactory.Create(source);
 
                 pipeline.Process(bundle);
                 cache.Add(bundle);

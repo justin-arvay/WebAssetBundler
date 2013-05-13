@@ -28,13 +28,18 @@ namespace WebAssetBundler.Web.Mvc
             this.assetProvider = assetProvider;
         }
 
-        public ImageBundle CreateFromSource(string source)
+        public ImageBundle Create(string source)
         {
             AssetBase asset = assetProvider.GetAsset(source);
 
-            string name = ImageHelper.CreateBundleName(source);
-            string contentType = ImageHelper.GetContentType(source);
-            SizeF dimensions= ImageHelper.GetDimensions(asset.File);            
+            return Create(asset);
+        }
+
+        public ImageBundle Create(AssetBase asset)
+        {
+            string name = ImageHelper.CreateBundleName(asset.Source);
+            string contentType = ImageHelper.GetContentType(asset.Source);
+            SizeF dimensions = ImageHelper.GetDimensions(asset.File);
 
             var bundle = new ImageBundle(contentType);
             bundle.Assets.Add(asset);

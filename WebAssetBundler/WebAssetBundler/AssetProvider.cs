@@ -37,13 +37,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public AssetBase GetAsset(string source)
         {
-
-            if (source.StartsWith("~/") == false && source.StartsWith("/") == false)
-            {
-                throw new ArgumentException(TextResource.Exceptions.PathMustBeVirtual.FormatWith(source));  
-            }
-
-            IFile file = new FileSystemFile(server.MapPath(source));
+            IFile file = settings.AppRootDirectory.GetFile(source);
 
             if (file.Exists == false)
             {

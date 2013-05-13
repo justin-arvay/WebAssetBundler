@@ -21,6 +21,7 @@ namespace WebAssetBundler.Web.Mvc
     public interface IBundleFactory<TBundle> 
         where TBundle : Bundle
     {
-        TBundle CreateFromSource(string source);
+        TBundle Create(string source);
+        TBundle Create(AssetBase asset);
     }
 }

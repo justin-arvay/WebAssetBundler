@@ -59,9 +59,11 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public static SizeF GetDimensions(IFile file)
         {
-            Bitmap image = new Bitmap(file.Open(FileMode.Open));
-
-            return image.PhysicalDimension;
+            using (var stream = file.Open(FileMode.Open, FileAccess.Read))
+            using (var image = new Bitmap(stream))
+            {
+                return image.PhysicalDimension;
+            }
         }
 
         /// <summary>

@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.Web.Configuration;
     using System.Web;
     using TinyIoC;
+    using System.IO;
 
     [TaskOrder(0)]
     public class LoadSettingsTask : IBootstrapTask
@@ -31,7 +32,7 @@ namespace WebAssetBundler.Web.Mvc
                    ?? new WabConfigurationSection();
 
             var httpContext = container.Resolve<HttpContextBase>();
-            var rootPath = httpContext.Request.ApplicationPath;
+            var rootPath = MappedApplicationPath(httpContext);
 
             container.Register<SettingsContext>(CreateSettingsContext(section, rootPath));
         }
@@ -45,6 +46,13 @@ namespace WebAssetBundler.Web.Mvc
                 EnableImagePipeline = section.EnableImagePipeline,
                 AppRootDirectory = new FileSystemDirectory(rootPath)
             };
+        }
+
+        public string MappedApplicationPath(HttpContextBase httpContext)
+        {
+            string appPath = httpContext.Request.ApplicationPath;
+
+            return httpContext.Server.MapPath(appPath);
         }
 
         public void ShutDown()

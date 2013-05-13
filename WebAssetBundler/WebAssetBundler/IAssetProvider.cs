@@ -22,7 +22,7 @@ namespace WebAssetBundler.Web.Mvc
     public interface IAssetProvider
     {
         /// <summary>
-        /// Gets the asset by source for bundle.
+        /// Gets the asset by source for bundle. Excepts virtual, relative or full paths.
         /// </summary>
         /// <typeparam name="TBundle"></typeparam>
         /// <param name="source"></param>

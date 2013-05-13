@@ -149,6 +149,7 @@
     <Content Include="Files\FileSystem\DirOne\FileOne.txt" />
     <Content Include="Files\FileSystem\DirTwo\FileOne.txt" />
     <Content Include="Files\FileSystem\DirTwo\FileTwo.txt" />
+    <Content Include="Files\Images\ImageBundleFactoryTests.png" />
     <Content Include="Files\Images\VersionImageTest.png" />
     <Content Include="Files\read.txt" />
   </ItemGroup>
