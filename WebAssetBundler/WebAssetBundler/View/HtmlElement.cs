@@ -64,7 +64,7 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public IHtmlNode Attribute(string key, string value)
+        public IHtmlNode AddAttribute(string key, string value)
         {
             if (value != null && name != null)
             {
@@ -77,11 +77,11 @@ namespace WebAssetBundler.Web.Mvc
             return this;
         }
 
-        public IHtmlNode Attributes(IDictionary<string, string> attributesIn)
+        public IHtmlNode MergeAttributes(IDictionary<string, string> attributesIn)
         {
             foreach (var attributeIn in attributesIn)
             {
-                Attribute(attributeIn.Key, attributeIn.Value);
+                AddAttribute(attributeIn.Key, attributeIn.Value);
             }
 
             return this;
@@ -134,6 +134,23 @@ namespace WebAssetBundler.Web.Mvc
             }
 
             output.Write(outputBuilder);
+        }
+
+
+        public IDictionary<string, string> GetAttributes()
+        {
+            return attributes;
+        }
+
+
+        public string GetAttribute(string key)
+        {
+            if (attributes.ContainsKey(key))
+            {
+                return attributes[key];
+            }
+
+            return string.Empty;
         }
     }
 }

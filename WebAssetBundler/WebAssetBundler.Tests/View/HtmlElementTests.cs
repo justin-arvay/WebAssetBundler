@@ -22,10 +22,82 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class HtmlElementTests
     {
-        [Test]
-        public void test()
+        private HtmlElement node;
+
+        [SetUp]
+        public void Setup()
         {
-            Assert.Fail();
+            node = new HtmlElement("div");
+        }
+
+        [Test]
+        public void Should_Set_Name()
+        {
+            var node = new HtmlElement("test");
+
+            Assert.AreEqual("test", node.Name);
+            Assert.False(node.SelfClosing);
+        }
+
+        [Test]
+        public void Should_Be_Self_Closing()
+        {
+            var node = new HtmlElement("test", true);
+
+            Assert.True(node.SelfClosing);
+        }
+
+        [Test]
+        public void Should_Add_Attribute()
+        {
+            node.AddAttribute("testkey", "testvalue");
+
+            Assert.AreEqual("testvalue", node.GetAttribute("testkey"));
+        }
+
+        [Test]
+        public void Should_Not_Add_Attribute()
+        {
+            node.AddAttribute(null, null);
+            Assert.AreEqual(0, node.GetAttributes().Count);
+
+            node.AddAttribute(null, "test");
+            Assert.AreEqual(0, node.GetAttributes().Count);
+
+            node.AddAttribute("test", null);
+            Assert.AreEqual(0, node.GetAttributes().Count);
+
+            node.AddAttribute("", "");
+            Assert.AreEqual(0, node.GetAttributes().Count);
+
+            node.AddAttribute("", "test");
+            Assert.AreEqual(0, node.GetAttributes().Count);
+
+            node.AddAttribute("test", "");
+            Assert.AreEqual(0, node.GetAttributes().Count);
+
+            node.AddAttribute("", null);
+            Assert.AreEqual(0, node.GetAttributes().Count);
+        }
+
+        [Test]
+        public void Should_Merge_Attributes()
+        {
+        }
+
+        [Test]
+        public void Should_Add_Class()
+        {
+        }
+
+        [Test]
+        public void Should_Write_To_Output()
+        {
+        }
+
+        [Test]
+        public void Should_Write_Self_Closing_To_Output()
+        {
         }
     }
 }

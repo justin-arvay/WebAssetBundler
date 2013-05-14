@@ -24,11 +24,11 @@ namespace WebAssetBundler.Web.Mvc
         public void Write(TextWriter writer, ImageBundle bundle)
         {
             var node = new HtmlElement("img", true);
-            node.Attribute("src", bundle.Url);
-            node.Attribute("height", bundle.Height.ToString());
-            node.Attribute("width", bundle.Width.ToString());
-            node.Attribute("alt", bundle.Alt);
-            node.Attributes(bundle.Attributes);
+            node.AddAttribute("src", bundle.Url);
+            node.AddAttribute("height", bundle.Height.ToString());
+            node.AddAttribute("width", bundle.Width.ToString());
+            node.AddAttribute("alt", bundle.Alt);
+            node.MergeAttributes(bundle.Attributes);
 
             node.WriteTo(writer);
         }
