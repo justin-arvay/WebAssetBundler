@@ -88,7 +88,7 @@
     <Compile Include="Image\ImageBundler.cs" />
     <Compile Include="Image\ImagePipelineRunner.cs" />
     <Compile Include="Image\ImagePipelineRunnerContext.cs" />
-    <Compile Include="Image\ImageRenderBuilder.cs" />
+    <Compile Include="Image\ImageTagBuilder.cs" />
     <Compile Include="Image\ImageTagWriter.cs" />
     <Compile Include="StyleSheet\BackgroundImageReader.cs" />
     <Compile Include="StyleSheet\BackgroundImageModifier.cs" />
@@ -176,7 +176,7 @@
     <Compile Include="TinyIoCAspNetExtensions.cs" />
     <Compile Include="TypeProvider.cs" />
     <Compile Include="SettingsContext.cs" />
-    <Compile Include="View\Component.cs" />
+    <Compile Include="View\HtmlAttributeDictionary.cs" />
     <Compile Include="View\ComponentBuilder.cs" />
     <Compile Include="View\HtmlElement.cs" />
     <Compile Include="View\IHtmlNode.cs" />

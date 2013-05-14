@@ -18,28 +18,27 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public abstract class ComponentBuilder<TBundle>
-        where TBundle : Bundle
+    public class ImageTagBuilder : ComponentBuilder<ImageBundle>
     {
-        public ComponentBuilder(TBundle bundle)
+        public ImageTagBuilder(ImageBundle bundle) : 
+            base(bundle)
         {
-            Bundle = bundle;
+          
         }
 
-        public TBundle Bundle
+        public void Width(int width)
         {
-            get;
-            set;
+            Bundle.Width = width;
         }
 
-        public void AddClass(string cssClass)
+        public void Height(int height)
         {
-            Bundle.Attributes.AddClass(cssClass);
+            Bundle.Height = height;
         }
 
-        public void AddAttribute(string name, string value)
+        public void Alt(string alt)
         {
-            Bundle.Attributes.Add(name, value);
-        }
+            Bundle.Alt = alt;
+        }        
     }
 }

@@ -14,32 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
+    using NUnit.Framework;
+    using Moq;
 
-    public abstract class ComponentBuilder<TBundle>
-        where TBundle : Bundle
+    [TestFixture]
+    public class HtmlElementTests
     {
-        public ComponentBuilder(TBundle bundle)
+        [Test]
+        public void test()
         {
-            Bundle = bundle;
-        }
-
-        public TBundle Bundle
-        {
-            get;
-            set;
-        }
-
-        public void AddClass(string cssClass)
-        {
-            Bundle.Attributes.AddClass(cssClass);
-        }
-
-        public void AddAttribute(string name, string value)
-        {
-            Bundle.Attributes.Add(name, value);
+            Assert.Fail();
         }
     }
 }

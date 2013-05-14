@@ -132,6 +132,8 @@
     <Compile Include="StyleSheet\ExpandPathProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetPipelineTests.cs" />
     <Compile Include="TestHelper.cs" />
+    <Compile Include="View\HtmlAttributeDictionaryTests.cs" />
+    <Compile Include="View\HtmlElementTests.cs" />
     <Compile Include="WebHostTests.cs" />
   </ItemGroup>
   <ItemGroup>

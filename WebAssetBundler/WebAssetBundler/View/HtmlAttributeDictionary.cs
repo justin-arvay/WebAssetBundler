@@ -19,33 +19,22 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public abstract class Component
+    public class HtmlAttributeDictionary : Dictionary<string, string>
     {
-        private IDictionary<string, string> attributes = new Dictionary<string, string>();
-
-        public IDictionary<string, string> Attributes
-        {
-            get
-            {
-                return attributes;
-            }
-            private set;
-        }
-
         public string Id
         {
             get
             {
-                if (attributes.ContainsKey("id") == false)
+                if (ContainsKey("id") == false)
                 {
                     return string.Empty;
                 }
 
-                return attributes["id"];
+                return this["id"];
             }
             set
             {
-                attributes.Add("id", value);
+                Add("id", value);
             }
         }
 
@@ -53,30 +42,30 @@ namespace WebAssetBundler.Web.Mvc
         {
             get
             {
-                if (attributes.ContainsKey("name") == false)
+                if (ContainsKey("name") == false)
                 {
                     return string.Empty;
                 }
 
-                return attributes["name"];
+                return this["name"];
             }
             set
             {
-                attributes.Add("name", value);
+                Add("name", value);
             }
         }
 
-        public void AddCssClass(string cssClass)
+        public void AddClass(string cssClass)
         {
             string key = "class";
-            if (attributes.ContainsKey(key))
+            if (ContainsKey(key))
             {
-                var newValue = attributes[key] + " " + cssClass;
-                attributes.Add(key, newValue);
+                var newValue = this[key] + " " + cssClass;
+                Add(key, newValue);
             }
             else
             {
-                attributes.Add(key, cssClass);
+                Add(key, cssClass);
             }
         }
     }

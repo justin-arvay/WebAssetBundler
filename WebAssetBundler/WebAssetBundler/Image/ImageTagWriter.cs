@@ -23,13 +23,15 @@ namespace WebAssetBundler.Web.Mvc
     {
         public void Write(TextWriter writer, ImageBundle bundle)
         {
-            var tag = "<img src=\"{0}\" alt=\"{1}\" height=\"{2}\" width=\"{3}\" />";
+            var node = new HtmlElement("img", true);
+            node.Attribute("src", bundle.Url);
+            node.Attribute("height", bundle.Height.ToString());
+            node.Attribute("width", bundle.Width.ToString());
+            node.Attribute("alt", bundle.Alt);
+            node.Attributes(bundle.Attributes);
 
-            writer.Write(tag.FormatWith(
-                bundle.Url,
-                bundle.Alt,
-                bundle.Height,
-                bundle.Width));
+            node.WriteTo(writer);
         }
     }
 }
+

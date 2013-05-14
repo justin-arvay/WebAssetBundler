@@ -14,30 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
+    using NUnit.Framework;
+    using Moq;
 
-    public class ImageRenderBuilder : ComponentBuilder
+    [TestFixture]
+    public class HtmlAttributeDictionaryTests
     {
-        public ImageBundle bundle;
-
-        public ImageRenderBuilder(ImageBundle bundle)
+        [Test]
+        public void test()
         {
-            this.bundle = bundle;
+            Assert.Fail();
         }
-
-        public void Width(int width)
-        {
-
-        }
-
-        public void Height(int height)
-        {
-        }
-
-        public void Alt(string alt)
-        {
-        }        
     }
 }

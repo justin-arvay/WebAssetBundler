@@ -14,7 +14,8 @@
             <div class="top">
                 <div class="wrapper">
                     <a href="@Url.RouteUrl("Home")">
-                        @Bundler.Images.Render("~/Images/Logo.png")
+                        @Bundler.Images.Render("~/Images/Logo.png", b => b
+                            .AddClass("logo"))
                     </a>
 
                     <div class="right">

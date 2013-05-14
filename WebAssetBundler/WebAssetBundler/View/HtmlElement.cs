@@ -20,76 +20,120 @@ namespace WebAssetBundler.Web.Mvc
     using System.IO;
     using System.Collections.Generic;
     using System.Text;
+    using System.Linq;
 
     public class HtmlElement : IHtmlNode
     {
+        private IDictionary<string, string> attributes = new Dictionary<string, string>();
+        private IList<IHtmlNode> children = new List<IHtmlNode>();
+        private bool selfClosing = false;
+        private string name;        
+
+        public HtmlElement(string name)
+        {
+            this.name = name;
+        }
+
+        public HtmlElement(string name, bool selfClosing) :
+            this(name)
+        {
+            this.selfClosing = selfClosing;
+        }
+
         public string Name
         {
-            get { throw new NotImplementedException(); }
+            get 
+            { 
+                return name; 
+            }
         }
 
         public bool SelfClosing
         {
-            get { throw new NotImplementedException(); }
+            get 
+            { 
+                return selfClosing; 
+            }
         }
 
-        public System.Collections.Generic.IList<IHtmlNode> Children
+        public IList<IHtmlNode> Children
         {
-            get { throw new NotImplementedException(); }
-        }
-
-        public IDictionary<string, string> Attributes()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string Attribute(string key)
-        {
-            throw new NotImplementedException();
+            get 
+            { 
+                return children; 
+            }
         }
 
         public IHtmlNode Attribute(string key, string value)
         {
-            throw new NotImplementedException();
+            if (value != null && name != null)
+            {
+                if (value.Length > 0 && key.Length > 0)
+                {
+                    attributes.Add(key, value);
+                }
+            }
+
+            return this;
         }
 
-        public IHtmlNode Attributes<TKey, TValue>(IDictionary<TKey, TValue> attributes)
+        public IHtmlNode Attributes(IDictionary<string, string> attributesIn)
         {
-            throw new NotImplementedException();
+            foreach (var attributeIn in attributesIn)
+            {
+                Attribute(attributeIn.Key, attributeIn.Value);
+            }
+
+            return this;
         }
 
-        public IHtmlNode AddClass(string key, string value)
+        public IHtmlNode AddClass(string value)
         {
-            throw new NotImplementedException();
+            string key = "class";
+            if (attributes.ContainsKey(key))
+            {
+                var newValue = attributes[key] + " " + value;
+                attributes.Add(key, newValue);
+            }
+            else
+            {
+                attributes.Add(key, value);
+            }
+
+            return this;
         }
 
         public void WriteTo(TextWriter output)
         {
-            var output = new StringBuilder();
+            var outputBuilder = new StringBuilder();
+            outputBuilder.Append("<");
+            outputBuilder.Append(Name);
+
+            foreach (var pair in attributes)
+            {                
+                outputBuilder.Append(" {0}=\"{1}\"".FormatWith(pair.Key, pair.Value));
+            }
 
             if (SelfClosing)
             {
-                output.Append(
-
-                if (TemplateCallback != null)
-                {
-                    TemplateCallback(output);
-                }
-                else if (Children.Any())
-                {
-                    Children.Each(child => child.WriteTo(output));
-                }
-                else
-                {
-                    output.Write(tagBuilder.InnerHtml);
-                }
-
-                output.Write(tagBuilder.ToString(TagRenderMode.EndTag));
+                outputBuilder.Append("/>");
             }
             else
             {
-                output.Write(tagBuilder.ToString(TagRenderMode.SelfClosing));
+                outputBuilder.Append(">");
+                
+                if (children.Count > 0)
+                {
+                    foreach (var child in Children)
+                    {
+                        child.WriteTo(output);
+                    }
+                }
+
+                outputBuilder.Append("</{0}>".FormatWith(name));
             }
+
+            output.Write(outputBuilder);
         }
     }
 }

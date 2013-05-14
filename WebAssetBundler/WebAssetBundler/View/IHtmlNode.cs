@@ -37,16 +37,32 @@ namespace WebAssetBundler.Web.Mvc
             get;
         }
 
-        IDictionary<string, string> Attributes();
-
-        string Attribute(string key);
-
+        /// <summary>
+        /// Adds an attribute.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         IHtmlNode Attribute(string key, string value);
 
-        IHtmlNode Attributes<TKey, TValue>(IDictionary<TKey, TValue> attributes);
+        /// <summary>
+        /// Merges with the attributes in the node. Replaces all values that already exist in the node with matching key.
+        /// </summary>
+        /// <param name="attributesIn"></param>
+        /// <returns></returns>
+        IHtmlNode Attributes(IDictionary<string, string> attributesIn);
 
-        IHtmlNode AddClass(string key, string value);
+        /// <summary>
+        /// Adds class to attributes. Appends new class if it already contains a class.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        IHtmlNode AddClass(string value);
 
+        /// <summary>
+        /// Writes the node to the output.
+        /// </summary>
+        /// <param name="output"></param>
         void WriteTo(TextWriter output);
     }
 }

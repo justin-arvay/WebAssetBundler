@@ -44,5 +44,18 @@ namespace WebAssetBundler.Web.Mvc
                 return new HtmlString(textWriter.ToString());
             }
         }
+
+        public IHtmlString Render(string source, Action<ImageTagBuilder> builder)
+        {
+            var bundle = bundleProvider.GetSourceBundle(source);
+
+            builder(new ImageTagBuilder(bundle));
+
+            using (StringWriter textWriter = new StringWriter())
+            {
+                tagWriter.Write(textWriter, bundle);
+                return new HtmlString(textWriter.ToString());
+            }
+        }
     }
 }
