@@ -178,6 +178,8 @@
     <Compile Include="SettingsContext.cs" />
     <Compile Include="View\Component.cs" />
     <Compile Include="View\ComponentBuilder.cs" />
+    <Compile Include="View\HtmlElement.cs" />
+    <Compile Include="View\IHtmlNode.cs" />
     <Compile Include="WebAssetType.cs" />
     <Compile Include="StyleSheet\StyleSheetBundler.cs" />
     <Compile Include="AssetBase.cs" />
