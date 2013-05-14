@@ -23,7 +23,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class ComponentBuilderTests
     {
-        private ComponentBuilder<BundleImpl> builder;
+        private ComponentBuilderImpl builder;
         private BundleImpl bundle;
 
         [SetUp]
@@ -36,17 +36,19 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Add_Class()
         {
-            builder.AddClass("test");
+            var returnBuilder = builder.AddClass("test");
 
             Assert.AreEqual("test", builder.Bundle.Attributes["class"]);
+            Assert.IsInstanceOf<ComponentBuilderImpl>(returnBuilder);
         }
 
         [Test]
         public void Should_Add_Attribute()
         {
-            builder.AddAttribute("test", "testvalue");
+            var returnBuilder = builder.AddAttribute("test", "testvalue");
 
             Assert.AreEqual("testvalue", builder.Bundle.Attributes["test"]);
+            Assert.IsInstanceOf<ComponentBuilderImpl>(returnBuilder);
         }
 
         [Test]

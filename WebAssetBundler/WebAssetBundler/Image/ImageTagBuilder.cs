@@ -18,7 +18,7 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public class ImageTagBuilder : ComponentBuilder<ImageBundle>
+    public class ImageTagBuilder : ComponentBuilder<ImageBundle, ImageTagBuilder>
     {
         public ImageTagBuilder(ImageBundle bundle) : 
             base(bundle)

@@ -82,6 +82,7 @@
     <Compile Include="Image\ImageBundleTests.cs" />
     <Compile Include="Image\ImagePipelineRunnerTests.cs" />
     <Compile Include="Image\ImagePipelineTests.cs" />
+    <Compile Include="Image\ImageTagBuilderTests.cs" />
     <Compile Include="Image\ImageTagWriterTests.cs" />
     <Compile Include="Image\ImageUrlGeneratorTests.cs" />
     <Compile Include="Minifiers\MinifyModifierTests.cs" />

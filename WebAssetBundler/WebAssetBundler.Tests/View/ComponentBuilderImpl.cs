@@ -18,7 +18,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System;
 
-    public class ComponentBuilderImpl : ComponentBuilder<BundleImpl>
+    public class ComponentBuilderImpl : ComponentBuilder<BundleImpl, ComponentBuilderImpl>
     {
         public ComponentBuilderImpl(BundleImpl bundle) :
             base(bundle)
