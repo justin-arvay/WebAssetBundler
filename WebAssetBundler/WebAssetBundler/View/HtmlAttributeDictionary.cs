@@ -61,7 +61,7 @@ namespace WebAssetBundler.Web.Mvc
             if (ContainsKey(key))
             {
                 var newValue = this[key] + " " + cssClass;
-                Add(key, newValue);
+                this[key] = newValue;
             }
             else
             {

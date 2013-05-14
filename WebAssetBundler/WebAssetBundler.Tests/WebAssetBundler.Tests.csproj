@@ -65,7 +65,6 @@
     <Compile Include="FileSystemDirectoryTests.cs" />
     <Compile Include="FileSystemFileTests.cs" />
     <Compile Include="Caching\BundlesCacheTests.cs" />
-    <Compile Include="ComponentBuilderTests.cs" />
     <Compile Include="AssetBaseTests.cs" />
     <Compile Include="BundleConfigurationImpl.cs" />
     <Compile Include="BundleConfigurationTests.cs" />
@@ -132,6 +131,8 @@
     <Compile Include="StyleSheet\ExpandPathProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetPipelineTests.cs" />
     <Compile Include="TestHelper.cs" />
+    <Compile Include="View\ComponentBuilderImpl.cs" />
+    <Compile Include="View\ComponentBuilderTests.cs" />
     <Compile Include="View\HtmlAttributeDictionaryTests.cs" />
     <Compile Include="View\HtmlElementTests.cs" />
     <Compile Include="WebHostTests.cs" />

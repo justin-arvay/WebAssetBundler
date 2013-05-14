@@ -16,49 +16,43 @@
 
 namespace WebAssetBundler.Web.Mvc.Tests
 {
+    using System;
     using NUnit.Framework;
     using Moq;
 
     [TestFixture]
-    public class HtmlAttributeDictionaryTests
+    public class ComponentBuilderTests
     {
-        private HtmlAttributeDictionary dictionary;
+        private ComponentBuilder<BundleImpl> builder;
+        private BundleImpl bundle;
 
         [SetUp]
         public void Setup()
         {
-            dictionary = new HtmlAttributeDictionary();
+            bundle = new BundleImpl();
+            builder = new ComponentBuilderImpl(bundle);
         }
 
         [Test]
-        public void Should_Get_And_Set_Id()
+        public void Should_Add_Class()
         {
-            dictionary.Id = "test-id";
+            builder.AddClass("test");
 
-            var value = dictionary.Id;
-
-            Assert.AreEqual("test-id", value);
-            Assert.AreEqual("test-id", dictionary["id"]);
+            Assert.AreEqual("test", builder.Bundle.Attributes["class"]);
         }
 
         [Test]
-        public void Should_Get_And_Set_Name()
+        public void Should_Add_Attribute()
         {
-            dictionary.Name = "test-name";
+            builder.AddAttribute("test", "testvalue");
 
-            var value = dictionary.Name;
-
-            Assert.AreEqual("test-name", value);
-            Assert.AreEqual("test-name", dictionary["name"]);
+            Assert.AreEqual("testvalue", builder.Bundle.Attributes["test"]);
         }
 
         [Test]
-        public void Should_Add_Classes()
+        public void Should_Get_Bundle()
         {
-            dictionary.AddClass("test-one");
-            dictionary.AddClass("test-two");
-
-            Assert.AreEqual("test-one test-two", dictionary["class"]);
+            Assert.AreSame(bundle, builder.Bundle);
         }
     }
 }

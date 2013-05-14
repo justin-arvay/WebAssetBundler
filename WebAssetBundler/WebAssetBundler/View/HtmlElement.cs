@@ -66,11 +66,18 @@ namespace WebAssetBundler.Web.Mvc
 
         public IHtmlNode AddAttribute(string key, string value)
         {
-            if (value != null && name != null)
+            if (value != null && key != null)
             {
                 if (value.Length > 0 && key.Length > 0)
                 {
-                    attributes.Add(key, value);
+                    if (attributes.ContainsKey(key))
+                    {
+                        attributes[key] = value;
+                    }
+                    else
+                    {
+                        attributes.Add(key, value);
+                    }                    
                 }
             }
 
@@ -93,7 +100,7 @@ namespace WebAssetBundler.Web.Mvc
             if (attributes.ContainsKey(key))
             {
                 var newValue = attributes[key] + " " + value;
-                attributes.Add(key, newValue);
+                attributes[key] = newValue;
             }
             else
             {

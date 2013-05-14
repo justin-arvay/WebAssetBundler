@@ -18,6 +18,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System.Collections.Generic;
+    using System.Web.UI;
+    using System.IO;
 
     [TestFixture]
     public class HtmlElementTests
@@ -83,21 +86,57 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Merge_Attributes()
         {
+            var attrIn = new Dictionary<string, string>();
+            attrIn.Add("test", "testone");
+            attrIn.Add("testtwo", "testtwo");
+
+            node.AddAttribute("test", "test");
+            node.MergeAttributes(attrIn);
+
+            Assert.AreEqual("testone", node.GetAttribute("test"));
+            Assert.AreEqual("testtwo", node.GetAttribute("testtwo"));
         }
 
         [Test]
         public void Should_Add_Class()
         {
+            node.AddClass("css-test");
+            node.AddClass("css-testtwo");
+
+            Assert.AreEqual("css-test css-testtwo", node.GetAttribute("class"));
         }
 
         [Test]
         public void Should_Write_To_Output()
         {
+            var writer = new StringWriter();
+
+            node.AddClass("test");
+            node.AddAttribute("test", "test");
+
+            node.WriteTo(writer);
+
+            Assert.AreEqual("<div class=\"test\" test=\"test\"></div>", writer.ToString());
         }
 
         [Test]
         public void Should_Write_Self_Closing_To_Output()
         {
+            var writer = new StringWriter();
+            var node = new HtmlElement("div", true);
+
+            node.AddClass("test");
+            node.AddAttribute("test", "test");
+
+            node.WriteTo(writer);
+
+            Assert.AreEqual("<div class=\"test\" test=\"test\"/>", writer.ToString());
+        }
+
+        [Test]
+        public void Should_Write_Children_To_Output()
+        {
+            Assert.Ignore();
         }
     }
 }
