@@ -36,7 +36,7 @@
                     
                     <div class="download">
                         <a href="@Url.RouteUrl("Download")">
-                            <img src="/Images/download-icon.png" /> 
+                            @Bundler.Images.Render("~/Images/download-icon.png")                            
                             Download
                         </a>
                     </div>
@@ -73,7 +73,8 @@
         
                 <div class="osi">
                     <a href="http://opensource.org/">
-                        <img alt="This software fully supports the Open Source Initiative" src="/Images/osi-logo.png" />        
+                        @Bundler.Images.Render("~/Images/osi-logo.png", b => b
+                            .Alt("This software full supports the Open Source Initiative"))      
                         <span><strong>Open</strong> Source Initiative</span>
                     </a>
                 </div>

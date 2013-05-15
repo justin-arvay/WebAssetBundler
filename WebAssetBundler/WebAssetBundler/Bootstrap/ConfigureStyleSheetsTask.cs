@@ -44,6 +44,6 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IPluginCollection<StyleSheetBundle>>(Plugins);
             container.Register<IImagePipelineRunner, ImagePipelineRunner>();
             container.Register<IBundlePipeline<StyleSheetBundle>>((c, p) => CreatePipeline<StyleSheetPipeline>(c, Plugins));
-        }
+        }        
     }
 }

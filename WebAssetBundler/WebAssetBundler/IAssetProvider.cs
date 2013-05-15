@@ -22,7 +22,7 @@ namespace WebAssetBundler.Web.Mvc
     public interface IAssetProvider
     {
         /// <summary>
-        /// Gets the asset by source for bundle. Excepts virtual, relative or full paths.
+        /// Gets the asset by source. Excepts virtual, relative or full paths.
         /// </summary>
         /// <typeparam name="TBundle"></typeparam>
         /// <param name="source"></param>
@@ -30,11 +30,11 @@ namespace WebAssetBundler.Web.Mvc
         AssetBase GetAsset(string source);
         
         /// <summary>
-        /// Get all assets based on the search context for bundle.
+        /// Get all assets based on the search context.
         /// </summary>
         /// <typeparam name="TBundle"></typeparam>
-        /// <param name="component"></param>
+        /// <param name="context"></param>
         /// <returns></returns>
-        ICollection<AssetBase> GetAssets(string source, IDirectorySearch component);
+        ICollection<AssetBase> GetAssets(string source, IDirectorySearch context);
     }
 }
