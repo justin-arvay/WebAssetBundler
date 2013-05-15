@@ -22,10 +22,38 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class ImageTagBuilderTests
     {
-        [Test]
-        public void test()
+        private ImageTagBuilder builder;
+        private ImageBundle bundle;
+
+        [SetUp]
+        public void Setup()
         {
-            Assert.Fail();
+            bundle = new ImageBundle("image/png");
+            builder = new ImageTagBuilder(bundle);
+        }
+
+        [Test]
+        public void Should_Set_Width()
+        {
+            builder.Width(99);
+
+            Assert.AreEqual(99, bundle.Width);
+        }
+
+        [Test]
+        public void Should_Set_Height()
+        {
+            builder.Height(99);
+
+            Assert.AreEqual(99, bundle.Height);
+        }
+
+        [Test]
+        public void Should_Set_Alt()
+        {
+            builder.Alt("test");
+
+            Assert.AreEqual("test", bundle.Alt);
         }
     }
 }

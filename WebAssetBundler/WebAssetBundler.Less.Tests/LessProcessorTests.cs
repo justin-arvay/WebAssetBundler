@@ -37,14 +37,19 @@ namespace WebAssetBundler.Web.Mvc.Less.Tests
         [Test]
         public void Should_Process()
         {
+            compiler.Setup(c => c.Compile(It.IsAny<Stream>()))
+                .Returns("test".ToStream());
+
             var asset = new AssetBaseImpl()
             {
-                Source = "~/File.css"
+                Source = "~/File.css",
+                StreamContent = "test"
             };
 
             var lessAsset = new AssetBaseImpl()
             {
-                Source = "~/File.lEsS"
+                Source = "~/File.lEsS",
+                StreamContent = "test"
             };
 
             var bundle = new StyleSheetBundle();

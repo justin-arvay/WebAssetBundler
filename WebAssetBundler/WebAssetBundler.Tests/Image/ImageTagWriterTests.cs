@@ -26,13 +26,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class ImageTagWriterTests
     {
         private ImageTagWriter writer;
-        private Mock<TextWriter> textWriter;
+        private StringWriter textWriter;
 
         [SetUp]
         public void Setup()
         {
             writer = new ImageTagWriter();
-            textWriter = new Mock<TextWriter>();
+            textWriter = new StringWriter();
         }
 
         [Test]
@@ -44,9 +44,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
             bundle.Alt = "this is alt";
             bundle.Url = "/wab.axd/image/asdasd/image-png";
 
-            writer.Write(textWriter.Object, bundle);
+            writer.Write(textWriter, bundle);
 
-            textWriter.Verify(w => w.Write("<img src=\"/wab.axd/image/asdasd/image-png\" alt=\"this is alt\" height=\"99\" width=\"98\" />"));
+            Assert.AreEqual("<img src=\"/wab.axd/image/asdasd/image-png\" height=\"99\" width=\"98\" alt=\"this is alt\"/>", textWriter.ToString());
         }
     }
 }

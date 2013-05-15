@@ -23,6 +23,22 @@ public override void Configure()
 @@Bundler.StyleSheets.Render("StyleSheet")
 </pre>
 
+<h6>Rending Images</h6>
+<p>You can render images as bundles which will process the image using the @Html.RouteLink("image pipeline", "Documentation", new { path = "pipelines" }). Like
+other bundles, image bundles are cached and versioned. Example:</p>
+<pre data-language="csharp">
+@Html.Code(@"
+@Bundler.Images.Render(""~/Images/logo.png"");
+
+//additionally you can modify the html element
+
+@Bundler.Images.Render(""~/Images/Logo.png"", b => b
+    .AddClass(""logo"")
+    .Alt(""Web Asset Bundler Logo""))
+")
+</pre>
+<p>The <strong>Render</strong> method excepts a virtual path to the image like other resources. It will render the image tag for you</p>
+
 <h2>Including Assets</h2>
 <p>If you need to render a single asset, but want that asset to take advantage of the bundle pipeline, you can do it like so:</p>
 <pre data-language="csharp">
