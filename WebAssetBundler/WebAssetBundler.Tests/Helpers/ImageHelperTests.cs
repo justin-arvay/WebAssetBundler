@@ -40,7 +40,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Create_Name()
         {
-            var name = ImageHelper.CreateBundleName("~/test/image.png");
+            var asset = new AssetBaseImpl();
+            asset.Source = "~/test/image.png";
+
+            var name = ImageHelper.CreateBundleName(asset);
 
             Assert.AreEqual("0cda79a4083842efcc13b2042d35eadb-image-png", name);
         }

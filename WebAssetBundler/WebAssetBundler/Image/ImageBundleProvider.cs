@@ -24,14 +24,16 @@ namespace WebAssetBundler.Web.Mvc
         private IBundlePipeline<ImageBundle> pipeline;
         private SettingsContext settings;
         private IBundleFactory<ImageBundle> bundleFactory;
+        private IAssetProvider assetProvider;
 
         public ImageBundleProvider(IBundlesCache<ImageBundle> cache, IBundlePipeline<ImageBundle> pipeline, 
-            IBundleFactory<ImageBundle> bundleFactory, SettingsContext settings)
+            IBundleFactory<ImageBundle> bundleFactory, IAssetProvider assetProvider, SettingsContext settings)
         {
             this.cache = cache;
             this.pipeline = pipeline;
             this.settings = settings;
             this.bundleFactory = bundleFactory;
+            this.assetProvider = assetProvider;
         }
 
         public ImageBundle GetNamedBundle(string name)
@@ -41,12 +43,13 @@ namespace WebAssetBundler.Web.Mvc
 
         public ImageBundle GetSourceBundle(string source)
         {
-            string name = ImageHelper.CreateBundleName(source);
+            AssetBase asset = assetProvider.GetAsset(source);
+            string name = ImageHelper.CreateBundleName(asset);
             ImageBundle bundle = cache.Get(name);
             
             if (bundle == null || settings.DebugMode)
             {
-                bundle = bundleFactory.Create(source);
+                bundle = bundleFactory.Create(asset);
 
                 pipeline.Process(bundle);
                 cache.Add(bundle);

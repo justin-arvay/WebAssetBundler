@@ -69,12 +69,12 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Creates a bundle name from a relative url.
         /// </summary>
-        /// <param name="url"></param>
+        /// <param name="source"></param>
         /// <returns></returns>
-        public static string CreateBundleName(string url)
+        public static string CreateBundleName(AssetBase asset)
         {
-            string directoryName = Path.GetDirectoryName(url);
-            string fileName = Path.GetFileName(url);
+            string directoryName = Path.GetDirectoryName(asset.Source);
+            string fileName = Path.GetFileName(asset.Source);
 
             return directoryName.ToHash() + "-" + fileName.Replace('.', '-');
         }

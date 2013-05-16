@@ -28,16 +28,9 @@ namespace WebAssetBundler.Web.Mvc
             this.assetProvider = assetProvider;
         }
 
-        public ImageBundle Create(string source)
-        {
-            AssetBase asset = assetProvider.GetAsset(source);
-
-            return Create(asset);
-        }
-
         public ImageBundle Create(AssetBase asset)
         {
-            string name = ImageHelper.CreateBundleName(asset.Source);
+            string name = ImageHelper.CreateBundleName(asset);
             string contentType = ImageHelper.GetContentType(asset.Source);
             SizeF dimensions = ImageHelper.GetDimensions(asset.File);
 

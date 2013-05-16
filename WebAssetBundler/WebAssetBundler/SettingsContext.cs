@@ -55,5 +55,11 @@ namespace WebAssetBundler.Web.Mvc
             get;
             set;
         }
+
+        public IAssetProvider AssetProvider
+        {
+            get;
+            set;
+        }
     }
 }

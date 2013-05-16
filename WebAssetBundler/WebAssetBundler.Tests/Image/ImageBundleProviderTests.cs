@@ -27,6 +27,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IBundlePipeline<ImageBundle>> pipeline;
         private SettingsContext settings;
         private Mock<IBundleFactory<ImageBundle>> bundleFactory;
+        private Mock<IAssetProvider> assetProvider;
 
         [SetUp]
         public void Setup()
@@ -35,16 +36,22 @@ namespace WebAssetBundler.Web.Mvc.Tests
             pipeline = new Mock<IBundlePipeline<ImageBundle>>();
             cache = new Mock<IBundlesCache<ImageBundle>>();
             bundleFactory = new Mock<IBundleFactory<ImageBundle>>();
+            assetProvider = new Mock<IAssetProvider>();
 
-            provider = new ImageBundleProvider(cache.Object, pipeline.Object, bundleFactory.Object, settings);
+            provider = new ImageBundleProvider(cache.Object, pipeline.Object, bundleFactory.Object, assetProvider.Object, settings);
         }
 
         [Test]
         public void Should_Get_Bundle_By_Source()
         {
-            var bundle = new ImageBundle("image/png");            
+            var bundle = new ImageBundle("image/png");
+            var asset = new AssetBaseImpl();
+            asset.Source = "~/image.png";
 
-            bundleFactory.Setup(p => p.Create("~/image.png")).Returns(bundle);
+            assetProvider.Setup(a => a.GetAsset(asset.Source))
+                .Returns(asset);
+
+            bundleFactory.Setup(p => p.Create(asset)).Returns(bundle);
 
             ImageBundle returnBundle = provider.GetSourceBundle("~/image.png");
 
@@ -56,13 +63,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Bundle_By_Source_And_From_Cache()
         {
-            string source = "~/image.png";
             var bundle = new ImageBundle("image/png");
+            var asset = new AssetBaseImpl();
+            asset.Source = "~/image.png";
 
-            cache.Setup(c => c.Get(ImageHelper.CreateBundleName(source)))
+            assetProvider.Setup(a => a.GetAsset(asset.Source))
+                .Returns(asset);
+
+            cache.Setup(c => c.Get(ImageHelper.CreateBundleName(asset)))
                 .Returns(bundle);
 
-            ImageBundle returnBundle = provider.GetSourceBundle(source);
+            ImageBundle returnBundle = provider.GetSourceBundle(asset.Source);
 
             pipeline.Verify(p => p.Process(It.IsAny<ImageBundle>()), Times.Never());
             cache.Verify(c => c.Add(bundle), Times.Never());
@@ -72,17 +83,21 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Always_Get_Bundle_By_Source_When_In_Debug()
         {
-            string source = "~/image.png";
             var cachedBundle = new ImageBundle("image/png");
             var factoryBundle = new ImageBundle("image/png");
+            var asset = new AssetBaseImpl();
+            asset.Source = "~/image.png";
+
+            assetProvider.Setup(a => a.GetAsset(asset.Source))
+                .Returns(asset);
 
             settings.DebugMode = true;
 
             //should not use this bundle
-            cache.Setup(c => c.Get(ImageHelper.CreateBundleName(source)))
+            cache.Setup(c => c.Get(ImageHelper.CreateBundleName(asset)))
                 .Returns(cachedBundle);
 
-            bundleFactory.Setup(f => f.Create("~/image.png"))
+            bundleFactory.Setup(f => f.Create(asset))
                 .Returns(factoryBundle);
 
             ImageBundle returnBundle = provider.GetSourceBundle("~/image.png");
