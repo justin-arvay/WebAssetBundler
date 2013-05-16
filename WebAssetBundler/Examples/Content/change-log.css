@@ -1,2 +1,5 @@
 ﻿#main div.content #change-log h3 { padding:5px 20px 5px 10px; background-color: #FFA74B; color: White; font-size: 18px;}
 #main div.content #change-log h3 span { color: white; float: right; font-size: 11px; padding: 5px 0px 0px 0px; font-weight: normal;}
+#main div.content #change-log div.release { margin-bottom: 40px;}
+#main div.content #change-log div.release p {margin-left: 10px;}
+#main div.content #change-log div.release ul li {margin-left: 40px;}
