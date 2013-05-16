@@ -31,6 +31,9 @@ namespace WebAssetBundler.Web.Mvc
                     asset.OpenStream().CopyTo(stream);                                                         
                 });
 
+                //reset position so we can compute hash
+                stream.Position = 0;
+
                 MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
                 bundle.Hash = md5.ComputeHash(stream);
             }            
