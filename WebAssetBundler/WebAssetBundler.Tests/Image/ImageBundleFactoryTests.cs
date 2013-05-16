@@ -33,25 +33,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Create_Bundle_From_Source()
-        {
-            string source = "~/image.png";
-            var file = new FileSystemFile("../../Files/Images/ImageBundleFactoryTests.png");
-            var asset = new FileSystemAsset(file);
-
-            assetProvider.Setup(p => p.GetAsset(source))
-                .Returns(asset);
-
-            ImageBundle returnBundle = factory.Create(source);
-
-            Assert.AreEqual(1, returnBundle.Assets.Count);
-            Assert.AreEqual("093e4bfea387f8f7f7948f0853b29f1d-ImageBundleFactoryTests-png", returnBundle.Name);
-            Assert.AreEqual("image/png", returnBundle.ContentType);
-            Assert.AreEqual(187, returnBundle.Height);
-            Assert.AreEqual(196, returnBundle.Width);
-        }
-
-        [Test]
         public void Should_Create_Bundle_From_Asset()
         {
             string source = "~/image.png";
