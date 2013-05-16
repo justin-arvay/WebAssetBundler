@@ -44,7 +44,7 @@ namespace WebAssetBundler.Web.Mvc
             set;
         }
 
-        public bool VersionCssImages
+        public bool EnableImagePipeline
         {
             get;
             set;

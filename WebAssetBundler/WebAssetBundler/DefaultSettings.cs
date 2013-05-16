@@ -23,6 +23,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.Linq;
     using System.Text;
     using System.Reflection;
+    using TinyIoC;
 
     public static class DefaultSettings
     {

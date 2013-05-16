@@ -28,11 +28,14 @@ namespace WebAssetBundler.Web.Mvc
             using (var stream = new MemoryStream())
             {
                 bundle.Assets.ForEach((asset) => {
-                    asset.Content.CopyTo(stream);
-
-                    MD5CryptoServiceProvider x = new MD5CryptoServiceProvider();
-                    bundle.Hash = x.ComputeHash(stream);
+                    asset.OpenStream().CopyTo(stream);                                                         
                 });
+
+                //reset position so we can compute hash
+                stream.Position = 0;
+
+                MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+                bundle.Hash = md5.ComputeHash(stream);
             }            
         }
     }

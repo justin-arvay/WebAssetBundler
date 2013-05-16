@@ -32,7 +32,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             settings = new SettingsContext();
             generator = new ImageUrlGenerator(settings);
-            bundle = new ImageBundle("img/png", "~/Image/img.png");
+            bundle = new ImageBundle("img/png");
             bundle.Hash = new byte[1];
         }
 
@@ -41,6 +41,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundle.Name = "asdf-test-png";
             bundle.Assets.Add(new AssetBaseImpl());
+            bundle.Url = "~/Image/img.png";
 
             var url = generator.Generate(bundle);
 
@@ -52,6 +53,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundle.Name = "asdf-test-png";
             bundle.Assets.Add(new AssetBaseImpl());
+            bundle.Url = "~/Image/img.png";
 
             settings.DebugMode = true;
 

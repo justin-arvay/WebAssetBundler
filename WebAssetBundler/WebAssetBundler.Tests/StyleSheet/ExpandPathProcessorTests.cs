@@ -20,14 +20,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
     using NUnit.Framework;
     using System.Web;
+    using System.IO;
 
     [TestFixture]
     public class ExpandPathProcessorTests
     {
         private ExpandPathProcessor processor;
         private StyleSheetBundle bundle;
-        private Mock<IImagePathResolverProvider> resolverProvider;
-        private Mock<IImagePathResolver> resolver;
         private SettingsContext settings;
         private AssetBaseImpl asset;
 
@@ -35,108 +34,61 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Setup()
         {
             settings = new SettingsContext();
-            resolverProvider = new Mock<IImagePathResolverProvider>();
-            resolver = new Mock<IImagePathResolver>();
-
-            resolverProvider.Setup(r => r.GetResolver(settings))
-                .Returns(resolver.Object);
 
             asset = new AssetBaseImpl();
             bundle = new StyleSheetBundle();
             bundle.Assets.Add(asset);
-            processor = new ExpandPathProcessor(settings, resolverProvider.Object);
+            processor = new ExpandPathProcessor(settings);
+        }        
+
+        //---------------------------------------------------------------------------------------------
+
+        [Test]
+        public void Should_Filter_Relative_Path()
+        {
+            var stream = "url(../img/test.jpg)".ToStream();
+            bundle.Url = "/a/a/a/a";
+
+            processor.Process(bundle);
+            var returnStream = processor.Modify(stream);
+
+            Assert.AreEqual("url(../../../../img/test.jpg)", returnStream.ReadToEnd());
         }
 
         [Test]
-        public void Should_Match_Url_With_Double_Quotes()
+        public void Should_Not_Filter_Absolute_Path()
         {
-            asset.StreamContent = "url(\"/img/test.jpg\");";
+            asset.StreamContent = "url(/img/test.jpg)";
             bundle.Url = "/a/a/a/a";
 
-            var result = new PathRewriteResult
-            {
-                Changed = true,
-                NewPath = "/newimage/test.jpg"
-            };
-
-            resolver.Setup(r => r.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(result);
-
             processor.Process(bundle);
-            processor.Modify(asset.Content, asset);
+            var stream = processor.Modify(asset.OpenStream());
 
-            resolverProvider.Verify(r => r.GetResolver(settings));
-            resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Source));
-            Assert.IsTrue(bundle.Assets[0].Content.ReadToEnd().Contains(result.NewPath));
+            Assert.AreEqual("url(/img/test.jpg)", stream.ReadToEnd());
         }
 
         [Test]
-        public void Should_Match_Url_With_Single_Quotes()
+        public void Should_Not_Filter_When_Http_Domain()
         {
-            asset.StreamContent = "url('/img/test.jpg');";
+            asset.StreamContent = "url(http://www.google.com/img/test.jpg)";
             bundle.Url = "/a/a/a/a";
 
-            var result = new PathRewriteResult
-            {
-                Changed = true,
-                NewPath = "/newimage/test.jpg"
-            };
-
-            resolver.Setup(r => r.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(result);
-
             processor.Process(bundle);
-            processor.Modify(asset.Content, asset);
+            var stream = processor.Modify(asset.OpenStream());
 
-            resolverProvider.Verify(r => r.GetResolver(settings));
-            resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Source));
-            Assert.IsTrue(bundle.Assets[0].Content.ReadToEnd().Contains(result.NewPath));
+            Assert.AreEqual("url(http://www.google.com/img/test.jpg)", stream.ReadToEnd());
         }
 
         [Test]
-        public void Should_Match_Url_With_No_Quotes()
-        {          
-            asset.StreamContent = "url(/img/test.jpg);";
-            bundle.Url = "/a/a/a/a";
-
-            var result = new PathRewriteResult
-            {
-                Changed = true,
-                NewPath = "/newimage/test.jpg"
-            };
-
-            resolver.Setup(r => r.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(result);
-
-            processor.Process(bundle);
-            processor.Modify(asset.Content, asset);
-
-            resolverProvider.Verify(r => r.GetResolver(settings));
-            resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Source));
-            Assert.IsTrue(bundle.Assets[0].Content.ReadToEnd().Contains(result.NewPath));
-        }           
-
-        [Test]
-        public void Should_Match_Url_With_Spacing()
+        public void Should_Not_Filter_When_Https_Domain()
         {
-            asset.StreamContent = "url ( /img/test.jpg );";
+            asset.StreamContent = "url(https://www.google.com/img/test.jpg)";
             bundle.Url = "/a/a/a/a";
 
-            var result = new PathRewriteResult
-            {
-                Changed = true,
-                NewPath = "/newimage/test.jpg"
-            };
-
-            resolver.Setup(r => r.Resolve(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(result);
-
             processor.Process(bundle);
-            processor.Modify(asset.Content, asset);
+            var stream = processor.Modify(asset.OpenStream());
 
-            resolverProvider.Verify(r => r.GetResolver(settings));
-            resolver.Verify(r => r.Resolve("/img/test.jpg", bundle.Url, bundle.Assets[0].Source));
-            Assert.IsTrue(bundle.Assets[0].Content.ReadToEnd().Contains(result.NewPath));
+            Assert.AreEqual("url(https://www.google.com/img/test.jpg)", stream.ReadToEnd());
         }
     }
 }

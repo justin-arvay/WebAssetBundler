@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Web;
+    using TinyIoC;
 
     [TaskOrder(1)]
     public class ConfigureCommonTask : IBootstrapTask

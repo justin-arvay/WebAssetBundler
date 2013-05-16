@@ -24,6 +24,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using WebAssetBundler.Web.Mvc;
     using System.Reflection;
     using Moq;
+    using TinyIoC;
 
     [TestFixture]
     public class DefaultSettingsTests

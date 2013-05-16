@@ -17,6 +17,7 @@
 namespace WebAssetBundler.Web.Mvc.Less
 {
     using System;
+    using TinyIoC;
 
     public class LessPlugin : IPlugin<StyleSheetBundle>
     {

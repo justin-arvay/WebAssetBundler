@@ -25,58 +25,72 @@ namespace WebAssetBundler.Web.Mvc
     public class ExpandPathProcessor : IPipelineProcessor<StyleSheetBundle>, IAssetModifier
     {
         private string outputUrl;
-        private SettingsContext settings;
-        private IImagePathResolverProvider pathResolverProvider;
+        //private SettingsContext settings;
 
-        public ExpandPathProcessor(SettingsContext settings, IImagePathResolverProvider pathResolverProvider)
+        public ExpandPathProcessor(SettingsContext settings)
         {
-            this.settings = settings;
-            this.pathResolverProvider = pathResolverProvider;
+            //this.settings = settings;
         }
 
         public void Process(StyleSheetBundle bundle)
         {
             outputUrl = bundle.Url;
-            bundle.Assets.AddModifier(this);      
+            bundle.Assets.Modify(this);
         }
 
-        // source: ~/Content/file.css
-        // image: ../image/icon.png
-        //target: /wab.axd/a/a
-        public Stream Modify(Stream openStream, AssetBase asset)        
+        public Stream Modify(Stream openStream)
         {
+            var reader = new BackgroundImageReader();            
             var content = openStream.ReadToEnd();
-            var paths = FindPaths(content);
+            var paths = reader.ReadAll(content);
 
-            foreach (string path in paths)
+            foreach (var path in paths)
             {
-                var result = pathResolverProvider.GetResolver(settings).Resolve(path, outputUrl, asset.Source);
-
-                if (result.Changed)
+                //ignore all absolute paths
+                if (path.StartsWith("/") == false &&
+                    path.StartsWith("http", StringComparison.OrdinalIgnoreCase) == false &&
+                    path.StartsWith("https", StringComparison.OrdinalIgnoreCase) == false)
                 {
-                    content = content.Replace(path, result.NewPath);
+                    var newPath = RewritePath(path, outputUrl);
+                    content = content.Replace(path, newPath);
                 }
             }
 
-            return content.ToStream();
-        }         
-        
-        private IEnumerable<string> FindPaths(string css)
-        {
-            var matchesHash = new HashSet<string>();
-            var urlMatches = Regex.Matches(css, @"url\s*\(\s*[""']{0,1}(.+?)[""']{0,1}\s*\)", RegexOptions.IgnoreCase);
-
-            foreach (Match match in urlMatches)
-            {
-                matchesHash.Add(GetUrlFromMatch(match));
-            }
-
-            return matchesHash;
+            return content.ToStream();            
         }
 
-        private string GetUrlFromMatch(Match match)
+        private string RewritePath(string imagePath, string targetPath)
         {
-            return match.Groups[1].Captures[0].Value;
+            imagePath = GetDirectoryLevelDifference(imagePath, targetPath) + imagePath;
+
+            return imagePath;
+        }
+
+        private string GetDirectoryLevelDifference(string imagePath, string targetPath)
+        {
+            var stack = new Stack<string>();
+            string[] urlPieces = targetPath.Split('/');
+            string[] imagePathPieces = imagePath.Split('/');
+
+            foreach (var piece in urlPieces)
+            {
+                if (piece == "")
+                {
+                    continue;
+                }
+
+                stack.Push("..");
+            }
+
+            foreach (var piece in imagePathPieces)
+            {
+                if (piece == "..")
+                {
+                    stack.Pop();
+                }
+            }
+
+            return string.Join("/", stack.ToArray()) + "/";
         }
     }
 }

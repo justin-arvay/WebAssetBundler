@@ -19,6 +19,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
     using System.Collections.Generic;
+    using TinyIoC;
 
     [TestFixture]
     public class ConfigureScriptsTaskTests
@@ -68,7 +69,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             container.Register<IScriptMinifier, MsScriptMinifier>();
             container.Register<IUrlGenerator<ScriptBundle>, BasicUrlGenerator<ScriptBundle>>();
 
-            var pipeline = task.CreateScriptPipeline(container, plugins);
+            var pipeline = task.CreatePipeline<ScriptPipeline>(container, plugins);
 
             Assert.IsInstanceOf<ScriptPipeline>(pipeline);            
         }

@@ -1,12 +1,11 @@
 ﻿@{
-    ViewBag.Title = "WabSection";
+    ViewBag.Title = "Section Properties";
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
 }
 
-<h2>WAB Section</h2>
+<h2>Tag Properties</h2>
 <p>The below table shows all the available properties:</p>
 
-<h6>Tag Properties:</h6>
 <table>
     <thead>
         <tr>
@@ -35,9 +34,10 @@
             </td>
         </tr>
         <tr>
-            <td>versionCssImages</td>
+            <td>enableImagePipeline</td>
             <td>true</td>
-            <td>When true, all images in css files will be versioned like javascript and css bundles. Images are served through the HttpHandler.</td>
+            <td>When true, images found in style sheets will be put through the image pipeline. Additionally all images in css files will be versioned 
+            like javascript and css bundles. Images are served through the HttpHandler.</td>
         </tr>
     </tbody>
 </table>

@@ -37,13 +37,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public AssetBase GetAsset(string source)
         {
-
-            if (source.StartsWith("~/") == false && source.StartsWith("/") == false)
-            {
-                throw new ArgumentException(TextResource.Exceptions.PathMustBeVirtual.FormatWith(source));  
-            }
-
-            IFile file = new FileSystemFile(server.MapPath(source));
+            IFile file = settings.AppRootDirectory.GetFile(source);
 
             if (file.Exists == false)
             {
@@ -75,9 +69,9 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        public FileAsset CreateAsset(IFile file)
+        public FileSystemAsset CreateAsset(IFile file)
         {
-            return new FileAsset(ResolveFile(file));
+            return new FileSystemAsset(ResolveFile(file));
         }
 
         /// <summary>

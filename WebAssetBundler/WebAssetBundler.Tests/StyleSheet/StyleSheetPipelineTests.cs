@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
     using System;
     using System.Web;
+    using TinyIoC;
 
     [TestFixture]
     public class StyleSheetPipelineTests
@@ -45,7 +46,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             container.Register<IUrlGenerator<ImageBundle>, ImageUrlGenerator>();
             container.Register<IUrlGenerator<StyleSheetBundle>, BasicUrlGenerator<StyleSheetBundle>>();
             container.Register<SettingsContext>(new SettingsContext());
-            container.Register<IImagePathResolverProvider, ImagePathResolverProvider>();            
         }
 
         [Test]
@@ -74,6 +74,30 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.IsInstanceOf<ExpandPathProcessor>(pipeline[2]);
             Assert.IsInstanceOf<MinifyProcessor<StyleSheetBundle>>(pipeline[3]);
             Assert.IsInstanceOf<MergeProcessor<StyleSheetBundle>>(pipeline[4]);
+        }
+
+        [Test]
+        public void Should_Use_Image_Processor()
+        {
+            settings.EnableImagePipeline = true;
+
+            container.Register<IImagePipelineRunner>((new Mock<IImagePipelineRunner>()).Object);
+
+            pipeline = new StyleSheetPipeline(container, settings);
+
+            Assert.IsInstanceOf<ImageProcessor>(pipeline[2]);
+        }
+
+        [Test]
+        public void Should_Use_Expand_Path_Processor()
+        {
+            settings.EnableImagePipeline = false;
+
+            container.Register<IImagePipelineRunner>((new Mock<IImagePipelineRunner>()).Object);
+
+            pipeline = new StyleSheetPipeline(container, settings);
+
+            Assert.IsInstanceOf<ExpandPathProcessor>(pipeline[2]);
         }
     }
 

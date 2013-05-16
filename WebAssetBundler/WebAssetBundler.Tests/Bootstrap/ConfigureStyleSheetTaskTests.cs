@@ -19,6 +19,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
     using System.Collections.Generic;
+    using TinyIoC;
 
     [TestFixture]
     public class ConfigureStyleSheetTaskTests
@@ -68,11 +69,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
             container.Register<IBundlesCache<ImageBundle>, BundlesCache<ImageBundle>>();
             container.Register<IUrlGenerator<ImageBundle>, ImageUrlGenerator>();
             container.Register<SettingsContext>(new SettingsContext());
-            container.Register<IImagePathResolverProvider, ImagePathResolverProvider>();
             container.Register<IUrlGenerator<StyleSheetBundle>, BasicUrlGenerator<StyleSheetBundle>>();
 
             var plugins = new PluginCollection<StyleSheetBundle>();
-            var pipeline = task.CreateStyleSheetPipeline(container, plugins);
+            var pipeline = task.CreatePipeline<StyleSheetPipeline>(container, plugins);
 
             Assert.IsInstanceOf<StyleSheetPipeline>(pipeline);            
         }

@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
     using System.IO;
     using System.Web;
+    using TinyIoC;
 
     [TestFixture]
     public class LoadSettingsTaskTests
@@ -39,7 +40,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Load_Settings()
         {
-            var httpContext = TestHelper.CreateMockedHttpContext(true);
+            var server = new Mock<HttpServerUtilityBase>();
+            server.Setup(s => s.MapPath(TestHelper.ApplicationPath)).Returns("c://");
+
+            Mock<HttpContextBase> httpContext = TestHelper.CreateMockedHttpContext(true);
+            httpContext.Setup(h => h.Server).Returns(server.Object);
 
             container.Register<HttpContextBase>(httpContext.Object);
 
@@ -50,8 +55,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
             //useful for checking default of config section
             Assert.IsFalse(settings.DebugMode);
             Assert.AreEqual(".min", settings.MinifyIdentifier);
-            Assert.IsTrue(settings.VersionCssImages);
-            Assert.AreEqual(TestHelper.ApplicationPath, settings.AppRootDirectory.FullPath);
+            Assert.IsTrue(settings.EnableImagePipeline);
+            Assert.AreEqual("c://", settings.AppRootDirectory.FullPath);
         }
     }
 }

@@ -3,19 +3,25 @@
 }
 
 <div id="documentation" class="edge">
+    <div class="title">
+        <h1>@ViewBag.Title</h1>
+    </div>
     <div class="menu">
     <ul>
         <li>@Html.RouteLink("Getting Started", "Documentation", new { path = "introduction" })</li>
         <li>@Html.RouteLink("Bundle Configuration", "Documentation", new { path = "configuration" })
             <ul>
-                <li>@Html.RouteLink("Adding Assets", "Documentation", new { path = "bundle-configuration/adding-assets" })</li>                
-                <li>@Html.RouteLink("Configuration Provider", "Documentation", new { path = "bundle-configuration/configuration-provider" })</li>
+                <li>@Html.RouteLink("Adding Assets", "Documentation", new { path = "bundle-configuration/adding-assets" })</li>                                
                 <li>@Html.RouteLink("Other Options", "Documentation", new { path = "bundle-configuration/other" })</li>
             </ul>
         </li>
         <li>@Html.RouteLink("Rendering Bundles", "Documentation", new { path = "rendering-bundles" })</li>
-        <li>@Html.RouteLink("Bundle Pipelines", "Documentation", new { path = "bundle-pipelines" })</li>
-        <li>@Html.RouteLink("Pipeline Customization", "Documentation", new { path = "pipeline-customization" })</li>
+        <li>@Html.RouteLink("Pipelines", "Documentation", new { path = "pipelines" })
+            <ul>
+                <li>@Html.RouteLink("Customization", "Documentation", new { path = "pipelines/customization" })</li>
+            </ul>
+        </li>
+        
         <li>@Html.RouteLink("Customer Minifiers", "Documentation", new { path = "custom-minifiers" })</li>
         <li>@Html.RouteLink("Debug Mode", "Documentation", new { path = "debug-mode" })</li>
         <li>@Html.RouteLink("Browser Caching", "Documentation", new { path = "browser-caching" })</li>
@@ -24,6 +30,7 @@
                 <li>@Html.RouteLink("Create a Plugin", "Documentation", new { path = "plugins/create-plugin" })</li>
                 <li>@Html.RouteLink("Modify Pipeline", "Documentation", new { path = "plugins/modify-pipeline" })</li>
                 <li>@Html.RouteLink("Modify Patterns", "Documentation", new { path = "plugins/modify-search-patterns" })</li>
+                <li>@Html.RouteLink("Bundle Types", "Documentation", new { path = "plugins/bundle-types" })</li>
             </ul>
         </li>
         <li>@Html.RouteLink("Web.Config", "Documentation", new { path = "web-config" })

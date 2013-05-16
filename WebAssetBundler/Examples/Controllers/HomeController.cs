@@ -25,5 +25,10 @@ namespace Examples.Controllers
         {
             return View();
         }
+
+        public ActionResult ChangeLog()
+        {
+            return View();
+        }
     }
 }

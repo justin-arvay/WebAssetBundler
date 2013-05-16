@@ -28,7 +28,7 @@ namespace WebAssetBundler.Web.Mvc
             this.compiler = compiler;
         }
 
-        public Stream Modify(Stream openStream, AssetBase asset)
+        public Stream Modify(Stream openStream)
         {
             return compiler.Compile(openStream);
         }

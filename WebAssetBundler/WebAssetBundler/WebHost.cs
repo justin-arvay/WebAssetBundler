@@ -21,6 +21,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.Reflection;
     using System.Web;
+    using TinyIoC;
 
     public class WebHost : IDisposable
     {

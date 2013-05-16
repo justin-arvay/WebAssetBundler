@@ -46,28 +46,59 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Get_Content_And_Apply_Modifier()
+        public void Should_Get_Content()
         {
             var webAsset = new AssetBaseImpl("test");
-            var modifier = new Mock<IAssetModifier>();
+            var stream = webAsset.OpenStream();
 
-            //simulate a stream that was read in the modifier
-            var returnStream = "return test".ToStream();
-            returnStream.Position = 4;
-
-            modifier.Setup(m => m.Modify(It.IsAny<Stream>(), webAsset))
-                .Returns(returnStream);
-
-            webAsset.Modifiers.Add(modifier.Object);
-            webAsset.Modifiers.Add(modifier.Object);
-
-            var stream = webAsset.Content;
-
-            modifier.Verify(t => t.Modify(It.IsAny<Stream>(), webAsset), Times.Exactly(2));
             Assert.IsInstanceOf<MemoryStream>(stream);
             Assert.AreEqual(0, stream.Position);
-            Assert.AreEqual("return test", stream.ReadToEnd());
+            Assert.AreEqual("test", stream.ReadToEnd());
         }
 
+        [Test]
+        public void Should_Modify_Asset()
+        {
+            var asset = new AssetBaseImpl("test");
+            asset.Modify(new ModTest());
+
+            Assert.AreEqual("test1", asset.OpenStream().ReadToEnd());
+        }
+
+        [Test]
+        public void Should_Return_Open_Stream_Everytime()
+        {
+            var asset = new AssetBaseImpl("test");
+
+            asset.Modify(new ModTest());
+            var stream = asset.OpenStream();
+
+            asset.Modify(new ModTest());
+            var streamTwo = asset.OpenStream();
+
+            Assert.AreEqual("test1", stream.ReadToEnd());
+            Assert.AreEqual("test11", streamTwo.ReadToEnd());
+        }
+
+        [Test]
+        public void Should_Close_Internal_Stream()
+        {
+            string root = TestHelper.RootPath;
+            var file = new FileSystemFile(root + "/Files/AssetFileTest.css");
+            var asset = new FileSystemAsset(file);
+
+            asset.OpenStream();
+            Assert.DoesNotThrow(() => asset.OpenStream());
+        }
+
+        public class ModTest : IAssetModifier
+        {
+            public Stream Modify(Stream openStream)
+            {
+                var content = openStream.ReadToEnd();
+                content = content + 1;
+                return content.ToStream();
+            }
+        }
     }
 }

@@ -17,6 +17,7 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using TinyIoC;
 
     public class StyleSheetPipeline : BundlePipeline<StyleSheetBundle>
     {
@@ -25,7 +26,15 @@ namespace WebAssetBundler.Web.Mvc
         {
             Add<AssignHashProcessor>();            
             Add<UrlAssignmentProcessor<StyleSheetBundle>>();
-            Add<ExpandPathProcessor>();
+
+            if (settings.EnableImagePipeline)
+            {
+                Add<ImageProcessor>();
+            }
+            else
+            {
+                Add<ExpandPathProcessor>();
+            }
 
             if (settings.DebugMode == false)
             {

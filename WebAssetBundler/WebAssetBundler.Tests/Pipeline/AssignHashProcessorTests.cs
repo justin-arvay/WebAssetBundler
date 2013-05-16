@@ -39,8 +39,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             processor.Process(bundle);
 
-            Assert.AreEqual(16, bundle.Hash.Length);
-            Assert.AreEqual("testtest", bundle.Assets[0].Content.ReadToEnd() + bundle.Assets[1].Content.ReadToEnd());
+            Assert.AreEqual("d41d8cd98f00b204e9800998ecf8427e", bundle.Hash.ToHexString());
+            Assert.AreEqual("testtest", bundle.Assets[0].OpenStream().ReadToEnd() + bundle.Assets[1].OpenStream().ReadToEnd());
         }
     }
 }

@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Collections.Generic;
+    using TinyIoC;
 
     public class BundlePipeline<T> : List<IPipelineProcessor<T>>, IBundlePipeline<T>
         where T : Bundle

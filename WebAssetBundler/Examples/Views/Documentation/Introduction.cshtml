@@ -1,9 +1,8 @@
 ﻿@{
-    ViewBag.Title = "Introduction";
+    ViewBag.Title = "Getting Started";
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
 }
 
-<h1>Getting Started</h1>
 <p>Web asset bundler only requires minimal configuration to get started. Configuration is easy and straight forward. Just follow the steps below:</p>
 
 <h6>1. Install via NuGet</h6>
@@ -13,29 +12,31 @@
 
 <h6>2. Configure</h6>
 <pre data-language="csharp">
-    using WebAssetBundler.Web.Mvc;
+@Html.Code(@"
+using WebAssetBundler.Web.Mvc;
 
-    public class LayoutScriptBundle : ScriptBundleConfiguration
+public class LayoutScriptBundle : BundleConfiguration<ScriptBundle>
+{
+    public override void Configure()
     {
-        public override void Configure()
-        {
-            Name("Scripts");
-            Add("~/Scripts/jquery-1.8.3.js");
-            Add("~/Scripts/jquery-ui-1.9.2.custom.min.js");
-            Add("~/Scripts/rainbow-custom.min.js");
-        }
+        Name(""Scripts"");
+        Add(""~/Scripts/jquery-1.8.3.js"");
+        Add(""~/Scripts/jquery-ui-1.9.2.custom.min.js"");
+        Add(""~/Scripts/rainbow-custom.min.js"");
     }
+}
 
-    public class LayoutStyleSheetBundle : StyleSheetBundleConfiguration
+public class LayoutStyleSheetBundle : BundleConfiguration<StyleSheetBundle>
+{
+    public override void Configure()
     {
-        public override void Configure()
-        {
-            Name("StyleSheets");
-            Add("~/Content/reset.css");
-            Add("~/Content/pepper-grinder/jquery-ui-1.9.2.custom.css");
-            Add("~/Content/layout.css");
-        }
+        Name(""StyleSheets"");
+        Add(""~/Content/reset.css"");
+        Add(""~/Content/pepper-grinder/jquery-ui-1.9.2.custom.css"");
+        Add(""~/Content/layout.css"");
     }
+}
+")
 </pre>
 
 <h6>3. Render</h6>
@@ -48,3 +49,5 @@
     @@Bundler.Scripts.Render("Scripts")
     @@Bundler.Scripts.Include("https://apis.google.com/js/plusone.js")
 </pre>
+
+<p><strong>Note:</strong> If the library is not recognized in the view make sure you add the namespace to the view. See @Html.RouteLink("Web.Config", "Documentation", new { path = "web-config" }).</p>

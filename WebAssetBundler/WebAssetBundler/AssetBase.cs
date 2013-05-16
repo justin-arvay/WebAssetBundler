@@ -23,7 +23,7 @@ namespace WebAssetBundler.Web.Mvc
 
     public abstract class AssetBase
     {
-        readonly List<IAssetModifier> modifiers = new List<IAssetModifier>();
+        private byte[] assetBytes;
 
         public string Name
         {
@@ -33,14 +33,11 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public List<IAssetModifier> Modifiers
+        public IFile File
         {
-            get 
-            { 
-                return modifiers; 
-            }
+            get;
+            protected set;
         }
-
         
         public virtual string Source
         {
@@ -62,24 +59,43 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public virtual Stream Content
+        public void Modify(IAssetModifier modifier)
         {
-            get
-            {
-                //TODO: isolate stream incase half read stream is returned?
-                var createStream = modifiers.Aggregate<IAssetModifier, Stream>(
-                OpenSourceStream(),
-                (openStream, modifier) => 
-                    {
-                        var stream = modifier.Modify(openStream, this);
-                        stream.Position = 0;
-                        return stream;
-                    });
+            var stream = modifier.Modify(OpenInternalStream());            
 
-                return createStream;
+            if (stream.CanRead == false)
+            {
+                throw new InvalidDataException(TextResource.Exceptions.ModifierNotReadable.FormatWith(modifier.GetType().FullName));
             }
+
+            SaveInternalStream(stream);
         }
 
-        protected abstract Stream OpenSourceStream();
+        public Stream OpenStream()
+        {
+            return OpenInternalStream();
+        }
+
+        private void SaveInternalStream(Stream stream)
+        {
+            stream.Position = 0;
+            assetBytes = stream.ReadAllBytes();
+        }
+
+        private Stream OpenInternalStream()
+        {
+            //if we havent modified it yet, create a snapshot after this point OpenSourceStream will not be used anymore
+            if (assetBytes == null)
+            {
+                using (Stream stream = OpenSourceStream())
+                {
+                    assetBytes = stream.ReadAllBytes();
+                }                
+            }
+
+            return new MemoryStream(assetBytes.ToArray());
+        }
+        
+        protected abstract Stream OpenSourceStream();        
     }
 }

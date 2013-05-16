@@ -14,7 +14,9 @@
             <div class="top">
                 <div class="wrapper">
                     <a href="@Url.RouteUrl("Home")">
-                        <img alt="Logo" class="logo" src="/Images/Logo.png" width="170" height="80"/>
+                        @Bundler.Images.Render("~/Images/Logo.png", b => b
+                            .AddClass("logo")
+                            .Alt("Web Asset Bundler Logo"))
                     </a>
 
                     <div class="right">
@@ -34,7 +36,7 @@
                     
                     <div class="download">
                         <a href="@Url.RouteUrl("Download")">
-                            <img src="/Images/download-icon.png" /> 
+                            @Bundler.Images.Render("~/Images/download-icon.png")                            
                             Download
                         </a>
                     </div>
@@ -45,7 +47,8 @@
                 <div class="wrapper">
                     @Html.RouteLink("Getting Started", "Documentation", new { path = "introduction" })                   
                     @Html.RouteLink("Documentation", "Documentation", new { path = "introduction" })   
-                    @Html.RouteLink("License", "License")                 
+                    @Html.RouteLink("License", "License")  
+                    @Html.RouteLink("Change Log", "ChangeLog")               
                     @Html.RouteLink("Download", "Download")
                     
                 </div>
@@ -70,7 +73,8 @@
         
                 <div class="osi">
                     <a href="http://opensource.org/">
-                        <img alt="This software fully supports the Open Source Initiative" src="/Images/osi-logo.png" />        
+                        @Bundler.Images.Render("~/Images/osi-logo.png", b => b
+                            .Alt("This software full supports the Open Source Initiative"))      
                         <span><strong>Open</strong> Source Initiative</span>
                     </a>
                 </div>

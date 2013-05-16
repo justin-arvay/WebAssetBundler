@@ -28,9 +28,9 @@ namespace WebAssetBundler.Web.Mvc
         /// <summary>
         /// Gets a bundle by source.
         /// </summary>
-        /// <param name="soure"></param>
+        /// <param name="source"></param>
         /// <returns></returns>
-        TBundle GetSourceBundle(string soure);
+        TBundle GetSourceBundle(string source);
 
         /// <summary>
         /// Gets a bundle for an external source.

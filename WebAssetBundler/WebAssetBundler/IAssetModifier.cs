@@ -21,6 +21,12 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IAssetModifier
     {
-        Stream Modify(Stream openStream, AssetBase asset);
+        /// <summary>
+        /// Modifies the content of an asset as a stream. An open stream 
+        /// must be returned containing the modifications.
+        /// </summary>
+        /// <param name="openStream"></param>
+        /// <returns></returns>
+        Stream Modify(Stream openStream);
     }
 }

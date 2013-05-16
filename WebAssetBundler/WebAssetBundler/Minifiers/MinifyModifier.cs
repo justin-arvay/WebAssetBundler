@@ -28,7 +28,7 @@ namespace WebAssetBundler.Web.Mvc
             this.minifier = minifier;
         }
 
-        public Stream Modify(Stream openStream, AssetBase asset)
+        public Stream Modify(Stream openStream)
         {
             var content = openStream.ReadToEnd();
             content = minifier.Minify(content);

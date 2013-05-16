@@ -22,6 +22,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System.Collections.Generic;
     using System;
     using System.IO;
+    using TinyIoC;
 
     [TestFixture]
     public class AssetProviderTests
@@ -32,10 +33,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IDirectoryFactory> directoryFactory;
         private IDirectory directory;
         private SettingsContext settings;
+        private string root;
 
         [SetUp]
         public void Setup()
         {
+            root = root = PathHelper.NormalizePath(AppDomain.CurrentDomain.BaseDirectory + "/../../");
             var container = new TinyIoCContainer();
 
             settings = new SettingsContext(false, ".min");
@@ -111,59 +114,79 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Asset()
         {
-            server.Setup(m => m.MapPath("~/File.css"))
-                .Returns("../../Files/AssetProvider/Mixed/FirstFile.css");
+            var file = new FileSystemFile(root + "/Files/AssetProvider/Mixed/FirstFile.css");
+            var directory = new Mock<IDirectory>();
+
+            directory.Setup(d => d.GetFile("~/File.css"))
+                .Returns(file);
+
+            settings.AppRootDirectory = directory.Object;
 
             var asset = provider.GetAsset("~/File.css");
 
-            Assert.AreEqual("../../Files/AssetProvider/Mixed/FirstFile.min.css", asset.Source);
-        }
-
-        [Test]
-        public void Should_Throw_Exception_If_Not_Virtual_Source()
-        {
-            Assert.Throws<ArgumentException>(() => provider.GetAsset("File.css"));
-            Assert.Throws<ArgumentException>(() => provider.GetAsset("File.css"));
+            Assert.AreEqual(root + "/Files/AssetProvider/Mixed/FirstFile.min.css", asset.Source);
         }
 
         [Test]
         public void Should_Get_Raw_Asset()
         {
-            server.Setup(m => m.MapPath("~/File.css"))
-                .Returns("../../Files/AssetProvider/Raw/FirstFile.css");
+            var file = new FileSystemFile(root + "/Files/AssetProvider/Raw/FirstFile.css");
+            var directory = new Mock<IDirectory>();
+
+            directory.Setup(d => d.GetFile("~/File.css"))
+                .Returns(file);
+
+            settings.AppRootDirectory = directory.Object;
 
             var asset = provider.GetAsset("~/File.css");
 
-            Assert.AreEqual("../../Files/AssetProvider/Raw/FirstFile.css", asset.Source);
+            Assert.AreEqual(root + "/Files/AssetProvider/Raw/FirstFile.css", asset.Source);
         }
 
         [Test]
         public void Should_Always_Get_Raw_Asset_In_Debug_Mode()
         {
-            settings.DebugMode = true;
+            var file = new FileSystemFile(root + "/Files/AssetProvider/Mixed/FirstFile.min.css"); 
+            var directory = new Mock<IDirectory>();
 
-            server.Setup(m => m.MapPath("~/File.min.css"))
-                .Returns("../../Files/AssetProvider/Mixed/FirstFile.min.css");
+            directory.Setup(d => d.GetFile("~/File.min.css"))
+                .Returns(file);
+
+            settings.DebugMode = true;
+            settings.AppRootDirectory = directory.Object;
 
             var asset = provider.GetAsset("~/File.min.css");
 
-            Assert.AreEqual("../../Files/AssetProvider/Mixed/FirstFile.css", asset.Source);
+            Assert.AreEqual(root + "/Files/AssetProvider/Mixed/FirstFile.css", asset.Source);
         }
 
         [Test]
         public void Should_Get_MinifiedAsset()
         {
-            server.Setup(m => m.MapPath("~/File.css"))
-                .Returns("../../Files/AssetProvider/Mixed/FirstFile.css");
+            var file = new FileSystemFile(root + "/Files/AssetProvider/Mixed/FirstFile.css");
+            var directory = new Mock<IDirectory>();
+
+            directory.Setup(d => d.GetFile("~/File.css"))
+                .Returns(file);
+
+            settings.AppRootDirectory = directory.Object;
 
             var asset = provider.GetAsset("~/File.css");
 
-            Assert.AreEqual("../../Files/AssetProvider/Mixed/FirstFile.min.css", asset.Source);
+            Assert.AreEqual(root + "/Files/AssetProvider/Mixed/FirstFile.min.css", asset.Source);
         }
 
         [Test]
         public void Should_Throw_Exception_When_Getting_Asset_That_Does_Not_Exist()
         {
+            var file = new FileSystemFile(root + "/test.css");
+            var directory = new Mock<IDirectory>();
+
+            directory.Setup(d => d.GetFile("~/test.css"))
+                .Returns(file);
+
+            settings.AppRootDirectory = directory.Object;
+
             Assert.Throws<FileNotFoundException>(() => provider.GetAsset("~/test.css"));
         }
 

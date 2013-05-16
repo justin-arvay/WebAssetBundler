@@ -41,6 +41,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
@@ -51,7 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssetBaseImpl.cs" />
+    <Compile Include="AssetCollectionTests.cs" />
     <Compile Include="BasicUrlGeneratorTests.cs" />
+    <Compile Include="Bootstrap\BundleBaseTaskImpl.cs" />
+    <Compile Include="Bootstrap\BundleBaseTaskTests.cs" />
     <Compile Include="Bootstrap\ConfigureScriptsTaskTests.cs" />
     <Compile Include="Bootstrap\ConfigureStyleSheetTaskTests.cs" />
     <Compile Include="Bootstrap\LoadSettingsTaskTests.cs" />
@@ -61,7 +65,6 @@
     <Compile Include="FileSystemDirectoryTests.cs" />
     <Compile Include="FileSystemFileTests.cs" />
     <Compile Include="Caching\BundlesCacheTests.cs" />
-    <Compile Include="ComponentBuilderTests.cs" />
     <Compile Include="AssetBaseTests.cs" />
     <Compile Include="BundleConfigurationImpl.cs" />
     <Compile Include="BundleConfigurationTests.cs" />
@@ -69,10 +72,18 @@
     <Compile Include="BundleProviderBaseImpl.cs" />
     <Compile Include="BundleProviderBaseTests.cs" />
     <Compile Include="BundleTests.cs" />
+    <Compile Include="Helpers\ImageHelperTests.cs" />
     <Compile Include="Helpers\PathHelperTests.cs" />
     <Compile Include="HttpHandlers\ImageResponseWriterTests.cs" />
     <Compile Include="HttpHandlers\ResponseWriterFactoryTests.cs" />
+    <Compile Include="Image\ImageBundleFactoryTests.cs" />
+    <Compile Include="Image\ImageBundleProviderTests.cs" />
+    <Compile Include="Image\ImageBundlerTests.cs" />
     <Compile Include="Image\ImageBundleTests.cs" />
+    <Compile Include="Image\ImagePipelineRunnerTests.cs" />
+    <Compile Include="Image\ImagePipelineTests.cs" />
+    <Compile Include="Image\ImageTagBuilderTests.cs" />
+    <Compile Include="Image\ImageTagWriterTests.cs" />
     <Compile Include="Image\ImageUrlGeneratorTests.cs" />
     <Compile Include="Minifiers\MinifyModifierTests.cs" />
     <Compile Include="Pipeline\AssignHashProcessorTests.cs" />
@@ -84,7 +95,7 @@
     <Compile Include="Pipeline\ProcessorImpl.cs" />
     <Compile Include="DefaultBundleConfigurationProviderTests.cs" />
     <Compile Include="AssetProviderTests.cs" />
-    <Compile Include="FileAssetTest.cs" />
+    <Compile Include="FileSystemAssetTest.cs" />
     <Compile Include="DirectorySearchBuilderTests.cs" />
     <Compile Include="DirectorySearchTests.cs" />
     <Compile Include="Plugins\PluginCollectionTests.cs" />
@@ -94,7 +105,9 @@
     <Compile Include="Script\ScriptBundleProviderTests.cs" />
     <Compile Include="Script\ScriptBundleTests.cs" />
     <Compile Include="Script\ScriptBundlerTests.cs" />
-    <Compile Include="StyleSheet\ImagePathResolverProviderTests.cs" />
+    <Compile Include="StyleSheet\BackgroundImageModifierTests.cs" />
+    <Compile Include="StyleSheet\BackgroundImageReaderTests.cs" />
+    <Compile Include="StyleSheet\ImageProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleCachePrimerTests.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleConfigurationImpl.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleProviderTests.cs" />
@@ -118,9 +131,11 @@
     <Compile Include="Script\ScriptPipelineTests.cs" />
     <Compile Include="StyleSheet\ExpandPathProcessorTests.cs" />
     <Compile Include="StyleSheet\StyleSheetPipelineTests.cs" />
-    <Compile Include="StyleSheet\UnversionedImagePathResolverTests.cs" />
-    <Compile Include="StyleSheet\VersionedImagePathResolverTests.cs" />
     <Compile Include="TestHelper.cs" />
+    <Compile Include="View\ComponentBuilderImpl.cs" />
+    <Compile Include="View\ComponentBuilderTests.cs" />
+    <Compile Include="View\HtmlAttributeDictionaryTests.cs" />
+    <Compile Include="View\HtmlElementTests.cs" />
     <Compile Include="WebHostTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +154,8 @@
     <Content Include="Files\FileSystem\DirOne\FileOne.txt" />
     <Content Include="Files\FileSystem\DirTwo\FileOne.txt" />
     <Content Include="Files\FileSystem\DirTwo\FileTwo.txt" />
+    <Content Include="Files\Images\ImageHelperTests.png" />
+    <Content Include="Files\Images\ImageBundleFactoryTests.png" />
     <Content Include="Files\Images\VersionImageTest.png" />
     <Content Include="Files\read.txt" />
   </ItemGroup>

@@ -33,5 +33,30 @@ namespace WebAssetBundler.Web.Mvc
                 return reader.ReadToEnd();
             }           
         }
+
+        /// <summary>
+        /// Reads all bytes in the stream from the current position.
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns></returns>
+        public static byte[] ReadAllBytes(this Stream stream)
+        {
+            byte[] assetBytes = null;
+
+            // Create the file stream to be used 
+            // to read the asset file.
+            using (stream)
+            {
+                // Instantiate the byte array.
+                int bytesInFile = (int)stream.Length;
+                assetBytes = new Byte[bytesInFile];
+
+                // Convert the file stream into a byte array.
+                stream.Read(assetBytes, 0, bytesInFile);
+
+            }
+
+            return assetBytes;
+        }
     }
 }

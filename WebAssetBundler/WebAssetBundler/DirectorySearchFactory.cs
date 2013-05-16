@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Collections.Generic;
+    using TinyIoC;
 
     public class DirectorySearchFactory : IDirectorySearchFactory
     {

@@ -49,7 +49,7 @@ using System.IO;
 
         public void WriteAsset(AssetBase asset, StreamWriter writer, string separator)
         {
-            using (var reader = new StreamReader(asset.Content))
+            using (var reader = new StreamReader(asset.OpenStream()))
             {
                 var content = reader.ReadToEnd();
                 writer.Write(content);

@@ -57,8 +57,10 @@
   <ItemGroup>
     <Compile Include="AssetCollection.cs" />
     <Compile Include="BasicUrlGenerator.cs" />
+    <Compile Include="Bootstrap\BundleBaseTask.cs" />
     <Compile Include="Bootstrap\ConfigureCommonTask.cs" />
     <Compile Include="Bootstrap\ConfigureStyleSheetsTask.cs" />
+    <Compile Include="Bootstrap\ConfigureImagesTask.cs" />
     <Compile Include="Bootstrap\LoadSettingsTask.cs" />
     <Compile Include="Bootstrap\ConfigureScriptsTask.cs" />
     <Compile Include="Configuration\WabConfigurationSection.cs" />
@@ -69,6 +71,7 @@
     <Compile Include="Bootstrap\IBootstrapTask.cs" />
     <Compile Include="FileSystemDirectory.cs" />
     <Compile Include="FileSystemFileComparer.cs" />
+    <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\PathHelper.cs" />
     <Compile Include="HttpHandlers\IHttpHandlerFactory.cs" />
     <Compile Include="HttpHandlers\ImageResponseWriter.cs" />
@@ -78,7 +81,21 @@
     <Compile Include="IDirectoryFactory.cs" />
     <Compile Include="IDirectorySearch.cs" />
     <Compile Include="IDirectorySearchFactory.cs" />
+    <Compile Include="IBundleFactory.cs" />
+    <Compile Include="Image\ImageBundleFactory.cs" />
+    <Compile Include="Image\IImagePipelineRunner.cs" />
+    <Compile Include="Image\ImageBundleProvider.cs" />
+    <Compile Include="Image\ImageBundler.cs" />
+    <Compile Include="Image\ImagePipelineRunner.cs" />
+    <Compile Include="Image\ImagePipelineRunnerContext.cs" />
+    <Compile Include="Image\ImageTagBuilder.cs" />
+    <Compile Include="Image\ImageTagWriter.cs" />
+    <Compile Include="StyleSheet\BackgroundImageReader.cs" />
+    <Compile Include="StyleSheet\BackgroundImageModifier.cs" />
+    <Compile Include="StyleSheet\IBackgroundImageReader.cs" />
+    <Compile Include="StyleSheet\ImageProcessor.cs" />
     <Compile Include="Image\ImageBundle.cs" />
+    <Compile Include="Image\ImagePipeline.cs" />
     <Compile Include="Image\ImageUrlGenerator.cs" />
     <Compile Include="IUrlGenerator.cs" />
     <Compile Include="Minifiers\IMinifier.cs" />
@@ -115,7 +132,7 @@
     <Compile Include="Minifiers\YuiStyleSheetMinifier.cs" />
     <Compile Include="DefaultBundleConfigurationProvider.cs" />
     <Compile Include="AssetProvider.cs" />
-    <Compile Include="FileAsset.cs" />
+    <Compile Include="FileSystemAsset.cs" />
     <Compile Include="DirectorySearchBuilder.cs" />
     <Compile Include="DirectorySearch.cs" />
     <Compile Include="IAssetProvider.cs" />
@@ -123,10 +140,7 @@
     <Compile Include="IBundleConfigurationProvider.cs" />
     <Compile Include="Script\ScriptBundle.cs" />
     <Compile Include="Script\ScriptBundleProvider.cs" />
-    <Compile Include="StyleSheet\IImagePathResolver.cs" />
-    <Compile Include="StyleSheet\IImagePathResolverProvider.cs" />
-    <Compile Include="StyleSheet\ImagePathResolverProvider.cs" />
-    <Compile Include="StyleSheet\PathRewriteResult.cs" />
+    <Compile Include="Image\ImagePipelineRunnerResult.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleCachePrimer.cs" />
     <Compile Include="StyleSheet\StyleSheetBundle.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleProvider.cs" />
@@ -158,10 +172,14 @@
     <Compile Include="Pipeline\IPipelineProcessor.cs" />
     <Compile Include="DefaultSettings.cs" />
     <Compile Include="BundleCollection.cs" />
-    <Compile Include="StyleSheet\UnversionedImagePathResolver.cs" />
-    <Compile Include="StyleSheet\VersionedImagePathResolver.cs" />
+    <Compile Include="TinyIoC.cs" />
+    <Compile Include="TinyIoCAspNetExtensions.cs" />
     <Compile Include="TypeProvider.cs" />
     <Compile Include="SettingsContext.cs" />
+    <Compile Include="View\HtmlAttributeDictionary.cs" />
+    <Compile Include="View\ComponentBuilder.cs" />
+    <Compile Include="View\HtmlElement.cs" />
+    <Compile Include="View\IHtmlNode.cs" />
     <Compile Include="WebAssetType.cs" />
     <Compile Include="StyleSheet\StyleSheetBundler.cs" />
     <Compile Include="AssetBase.cs" />
@@ -176,8 +194,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Exceptions.resx</DependentUpon>
     </Compile>
-    <Compile Include="TinyIoC\TinyIoC.cs" />
-    <Compile Include="TinyIoC\TinyIoCExtensions.cs" />
     <Compile Include="WabHttpModule.cs" />
     <Compile Include="WebHost.cs" />
   </ItemGroup>
