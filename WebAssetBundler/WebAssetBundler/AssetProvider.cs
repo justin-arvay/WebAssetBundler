@@ -25,14 +25,10 @@ namespace WebAssetBundler.Web.Mvc
     public class AssetProvider : IAssetProvider
     {
         private SettingsContext settings;
-        private IDirectoryFactory directoryFactory;
-        private HttpServerUtilityBase server;
 
-        public AssetProvider(IDirectoryFactory directoryFactory, HttpServerUtilityBase server, SettingsContext settings)
+        public AssetProvider(SettingsContext settings)
         {
             this.settings = settings;
-            this.directoryFactory = directoryFactory;
-            this.server = server;
         }
 
         public AssetBase GetAsset(string source)
@@ -49,7 +45,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public ICollection<AssetBase> GetAssets(string source, IDirectorySearch context)
         {
-            var directory = directoryFactory.Create(source);
+            var directory = settings.AppRootDirectory.GetDirectory(source);
 
             if (directory.Exists == false)
             {

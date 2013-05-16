@@ -64,7 +64,6 @@
     <Compile Include="Bootstrap\LoadSettingsTask.cs" />
     <Compile Include="Bootstrap\ConfigureScriptsTask.cs" />
     <Compile Include="Configuration\WabConfigurationSection.cs" />
-    <Compile Include="DirectoryFactory.cs" />
     <Compile Include="DirectorySearchFactory.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="FileSystemFile.cs" />
@@ -78,7 +77,6 @@
     <Compile Include="HttpHandlers\IResponseWriterFactory.cs" />
     <Compile Include="HttpHandlers\ResponseWriterFactory.cs" />
     <Compile Include="IDirectory.cs" />
-    <Compile Include="IDirectoryFactory.cs" />
     <Compile Include="IDirectorySearch.cs" />
     <Compile Include="IDirectorySearchFactory.cs" />
     <Compile Include="IBundleFactory.cs" />

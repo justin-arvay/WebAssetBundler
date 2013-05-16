@@ -25,8 +25,7 @@ namespace WebAssetBundler.Web.Mvc
     {
         public void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
         {
-            container.Register<ICacheProvider, CacheProvider>();
-            container.Register<IDirectoryFactory, DirectoryFactory>();            
+            container.Register<ICacheProvider, CacheProvider>();         
             container.Register<IAssetProvider, AssetProvider>();
             container.Register<IDirectorySearchFactory, DirectorySearchFactory>();
                       

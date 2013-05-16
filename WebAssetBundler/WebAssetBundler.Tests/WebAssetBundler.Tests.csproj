@@ -59,7 +59,6 @@
     <Compile Include="Bootstrap\ConfigureScriptsTaskTests.cs" />
     <Compile Include="Bootstrap\ConfigureStyleSheetTaskTests.cs" />
     <Compile Include="Bootstrap\LoadSettingsTaskTests.cs" />
-    <Compile Include="DirectoryFactoryTests.cs" />
     <Compile Include="DirectorySearchFactoryTests.cs" />
     <Compile Include="Extensions\StreamExtensionsTests.cs" />
     <Compile Include="FileSystemDirectoryTests.cs" />
