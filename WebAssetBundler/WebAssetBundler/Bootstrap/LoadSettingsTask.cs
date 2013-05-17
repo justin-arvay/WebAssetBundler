@@ -31,20 +31,22 @@ namespace WebAssetBundler.Web.Mvc
             var section = (WebConfigurationManager.GetSection("wab") as WabConfigurationSection)
                    ?? new WabConfigurationSection();
 
+           
+            container.Register<SettingsContext>(CreateSettingsContext(section, container));
+        }
+
+        public SettingsContext CreateSettingsContext(WabConfigurationSection section, TinyIoCContainer container)
+        {
             var httpContext = container.Resolve<HttpContextBase>();
             var rootPath = MappedApplicationPath(httpContext);
 
-            container.Register<SettingsContext>(CreateSettingsContext(section, rootPath));
-        }
-
-        public SettingsContext CreateSettingsContext(WabConfigurationSection section, string rootPath)
-        {
             return new SettingsContext
             {
                 DebugMode = section.DebugMode,
                 MinifyIdentifier = section.MinifyIdentifier,
                 EnableImagePipeline = section.EnableImagePipeline,
-                AppRootDirectory = new FileSystemDirectory(rootPath)
+                AppRootDirectory = new FileSystemDirectory(rootPath),
+                HttpContext = httpContext
             };
         }
 

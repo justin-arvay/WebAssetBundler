@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Collections.Generic;
+    using System.Web;
 
 
     public class SettingsContext
@@ -56,7 +57,7 @@ namespace WebAssetBundler.Web.Mvc
             set;
         }
 
-        public IAssetProvider AssetProvider
+        public HttpContextBase HttpContext
         {
             get;
             set;
