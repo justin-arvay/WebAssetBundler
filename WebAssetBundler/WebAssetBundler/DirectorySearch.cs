@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Text.RegularExpressions;
 
     public class DirectorySearch : IDirectorySearch
     {
@@ -73,6 +74,14 @@ namespace WebAssetBundler.Web.Mvc
                 matches.AddRange(files.Where((file) => IsMatch(pattern, file)));
             }
 
+            //distinct checks from the start and removes matches at the end which destroys
+            // and wildcard ordering so by reversing it first we ensure the order is preserved
+            // while also removing all the duplicates at the begining. 
+            matches.Reverse();
+            matches = matches.Distinct(new FileSystemFileComparer()).ToList();
+            matches.Reverse();
+
+            //gather the remaining files that where not matches for ordering
             var remaining = (from f in files
                              where NotIn(f, matches)
                              select f).ToList();
@@ -90,7 +99,49 @@ namespace WebAssetBundler.Web.Mvc
 
         private bool IsMatch(string pattern, IFile file)
         {
-            return file.Path.EndsWith(pattern);            
+            var wildcard = new Wildcard(pattern);
+            
+            //TODO:: fix for patterns like dir/file* where dir is a sub directory from the specified directory
+            return wildcard.IsMatch(Path.GetFileName(file.Path));   
+        }
+
+        /// <summary>
+        /// Represents a wildcard running on the
+        /// <see cref="System.Text.RegularExpressions"/> engine.
+        /// </summary>
+        public class Wildcard : Regex
+        {
+            /// <summary>
+            /// Initializes a wildcard with the given search pattern.
+            /// </summary>
+            /// <param name="pattern">The wildcard pattern to match.</param>
+            public Wildcard(string pattern)
+                : base(WildcardToRegex(pattern))
+            {
+            }
+
+            /// <summary>
+            /// Initializes a wildcard with the given search pattern and options.
+            /// </summary>
+            /// <param name="pattern">The wildcard pattern to match.</param>
+            /// <param name="options">A combination of one or more
+            /// <see cref="System.Text.RegexOptions"/>.</param>
+            public Wildcard(string pattern, RegexOptions options)
+                : base(WildcardToRegex(pattern), options)
+            {
+            }
+
+            /// <summary>
+            /// Converts a wildcard to a regex.
+            /// </summary>
+            /// <param name="pattern">The wildcard pattern to convert.</param>
+            /// <returns>A regex equivalent of the given wildcard.</returns>
+            public static string WildcardToRegex(string pattern)
+            {
+                return "^" + Regex.Escape(pattern).
+                 Replace("\\*", ".*").
+                 Replace("\\?", ".") + "$";
+            }
         }
     }
 }

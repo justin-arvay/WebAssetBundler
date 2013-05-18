@@ -55,7 +55,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Set_Order()
         {
-            Assert.Fail();
+            var returnBuilder = builder.Order(o => o
+                .First("test.js"));
+
+            Assert.AreEqual(1, context.OrderPatterns.Count);
+            Assert.IsInstanceOf<DirectorySearchBuilder>(returnBuilder);
         }
     }
 }

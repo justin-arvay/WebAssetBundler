@@ -72,18 +72,47 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var files = new List<IFile>()
             {
-                new File("first-but-shouldnt-be.js"),
-                new File("jquery.js"),
-                new File("jquery-ui.js"),
-                new File("something-else.js")
+                new File("/Dir/first-but-shouldnt-be.js"),
+                new File("/Dir/jquery.js"),
+                new File("/Dir/jquery-ui.js"),
+                new File("/Dir/something-else.js")
             };
 
             IList<IFile> returnFiles = directorySearch.OrderFiles(files).ToList();
 
-            Assert.AreEqual("jquery.js", returnFiles[0].Path);
-            Assert.AreEqual("jquery-ui.js", returnFiles[1].Path);
-            Assert.AreEqual("first-but-shouldnt-be.js", returnFiles[2].Path);
-            Assert.AreEqual("something-else.js", returnFiles[3].Path);
+            Assert.AreEqual("/Dir/jquery.js", returnFiles[0].Path);
+            Assert.AreEqual("/Dir/jquery-ui.js", returnFiles[1].Path);
+            Assert.AreEqual("/Dir/first-but-shouldnt-be.js", returnFiles[2].Path);
+            Assert.AreEqual("/Dir/something-else.js", returnFiles[3].Path);
+        }
+
+        [Test]
+        public void Should_Order_Files_With_Wildcard()
+        {
+            directorySearch.OrderPatterns.Add("jquery*");
+            directorySearch.OrderPatterns.Add("jquery-ui*");
+            directorySearch.OrderPatterns.Add("jquery*ui*");
+
+            var files = new List<IFile>()
+            {
+                new File("/Dir/jquery-tree.js"),
+                new File("/Dir/jquery-ui.js"),
+                new File("/Dir/test.js"),
+                new File("/Dir/jquery.js")                               
+            };
+
+            IList<IFile> returnFiles = directorySearch.OrderFiles(files).ToList();
+
+            Assert.AreEqual("/Dir/jquery.js", returnFiles[0].Path);
+            Assert.AreEqual("/Dir/jquery-tree.js", returnFiles[1].Path);
+            Assert.AreEqual("/Dir/jquery-ui.js", returnFiles[2].Path);
+            Assert.AreEqual("/Dir/test.js", returnFiles[3].Path);            
+        }
+
+        [Test]
+        public void Should_Order_Files_With_Sub_Directory_In_Pattern()
+        {
+            Assert.Fail();
         }
 
         private class File : IFile

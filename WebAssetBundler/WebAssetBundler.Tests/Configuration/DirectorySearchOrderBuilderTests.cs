@@ -22,10 +22,34 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class DirectorySearchOrderBuilderTests
     {
-        [Test]
-        public void test()
+        private DirectorySearchOrderBuilder builder;
+        private DirectorySearch directorySearch;
+
+        [SetUp]
+        public void Setup()
         {
-            Assert.Fail();
+            directorySearch = new DirectorySearch();
+            builder = new DirectorySearchOrderBuilder(directorySearch);
+        }
+
+        [Test]
+        public void Should_Add_First()
+        {
+            var returnBuilder = builder.First("file.js");
+
+            Assert.AreEqual("file.js", directorySearch.OrderPatterns[0]);
+            Assert.IsInstanceOf<DirectorySearchOrderBuilder>(returnBuilder);
+        }
+
+        [Test]
+        public void Should_Add_Next()
+        {
+            var returnBuilder = builder.Next("file.js");
+            builder.Next("file-two.js");
+
+            Assert.AreEqual("file.js", directorySearch.OrderPatterns[0]);
+            Assert.AreEqual("file-two.js", directorySearch.OrderPatterns[1]);
+            Assert.IsInstanceOf<DirectorySearchOrderBuilder>(returnBuilder);
         }
     }
 }
