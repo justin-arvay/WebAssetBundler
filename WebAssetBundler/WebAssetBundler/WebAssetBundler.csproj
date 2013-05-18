@@ -63,6 +63,7 @@
     <Compile Include="Bootstrap\ConfigureImagesTask.cs" />
     <Compile Include="Bootstrap\LoadSettingsTask.cs" />
     <Compile Include="Bootstrap\ConfigureScriptsTask.cs" />
+    <Compile Include="Configuration\DirectorySearchOrderBuilder.cs" />
     <Compile Include="Configuration\WabConfigurationSection.cs" />
     <Compile Include="DirectorySearchFactory.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />

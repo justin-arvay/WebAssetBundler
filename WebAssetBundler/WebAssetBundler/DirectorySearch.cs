@@ -27,6 +27,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             SearchOption = SearchOption.AllDirectories;
             Patterns = new List<string>();
+            OrderPatterns = new List<string>();
         }
 
         public ICollection<string> Patterns
@@ -41,6 +42,12 @@ namespace WebAssetBundler.Web.Mvc
             set; 
         }
 
+        public IList<string> OrderPatterns
+        {
+            get;
+            set;
+        }
+
         public IEnumerable<IFile> FindFiles(IDirectory directory)
         {
             IEnumerable<IFile> files =
@@ -48,13 +55,42 @@ namespace WebAssetBundler.Web.Mvc
                 from file in directory.GetFiles(pattern, SearchOption)
                 select file;
 
-            return files.Distinct(new FileSystemFileComparer());
+            return OrderFiles(files.Distinct(new FileSystemFileComparer()));
         }
 
-        public static string GetDirectorySearchName<TBundle>()
-            where TBundle : Bundle
+        /// <summary>
+        /// Orders files by the order patterns in a LILO form. That is if two patterns match the same
+        /// file, the last most pattern will determine where to position the file in the returned collection.
+        /// </summary>
+        /// <param name="files"></param>
+        /// <returns></returns>
+        public IEnumerable<IFile> OrderFiles(IEnumerable<IFile> files)
         {
-            return typeof(TBundle).Name + ".DirectorySearch";
+            var matches = new List<IFile>();
+
+            foreach (var pattern in OrderPatterns)
+            {
+                matches.AddRange(files.Where((file) => IsMatch(pattern, file)));
+            }
+
+            var remaining = (from f in files
+                             where NotIn(f, matches)
+                             select f).ToList();
+
+            matches.AddRange(remaining);
+
+            return matches;
+        }
+
+        private bool NotIn(IFile file, IEnumerable<IFile> files)
+        {
+            return (from f in files select f)
+                .Contains(file, new FileSystemFileComparer()) == false;
+        }
+
+        private bool IsMatch(string pattern, IFile file)
+        {
+            return file.Path.EndsWith(pattern);            
         }
     }
 }

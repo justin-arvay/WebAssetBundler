@@ -25,7 +25,10 @@ namespace Examples
         {
             Name("StyleSheets");
             Compress(true);
-            AddDirectory("~/Content");
+            AddDirectory("~/Content", d => d
+                .Order(o => o
+                    .First("reset.css")
+                    .Next("layout.css")));
         }
     }
 }

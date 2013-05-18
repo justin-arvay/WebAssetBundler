@@ -50,6 +50,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual(SearchOption.TopDirectoryOnly, context.SearchOption);
             Assert.IsInstanceOf<DirectorySearchBuilder>(returnBuilder);
-        }        
+        }
+
+        [Test]
+        public void Should_Set_Order()
+        {
+            Assert.Fail();
+        }
     }
 }

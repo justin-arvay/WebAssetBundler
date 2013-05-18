@@ -21,33 +21,112 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System;
     using System.IO;
     using System.Linq;
+    using System.Collections.Generic;
 
     [TestFixture]
     public class DirectorySearchTests
     {
+        private DirectorySearch directorySearch;
+        private Mock<IDirectory> directory;
 
         [SetUp]
         public void Setup()
         {
-            
+            directorySearch = new DirectorySearch();
+            directory = new Mock<IDirectory>();
         }
 
 
         [Test]
         public void Should_Set_Defaults()
         {
-            var context = new DirectorySearch();
-
-            Assert.AreEqual(SearchOption.AllDirectories, context.SearchOption);
-            Assert.NotNull(context.Patterns);
+            Assert.AreEqual(SearchOption.AllDirectories, directorySearch.SearchOption);
+            Assert.NotNull(directorySearch.Patterns);
         }
 
         [Test]
-        public void Should_Get_Directory_Search_Registration_Name()
+        public void Should_Find_Files()
         {
-            var name = DirectorySearch.GetDirectorySearchName<BundleImpl>();
+            directorySearch.Patterns.Add("*.js");
 
-            Assert.AreEqual("BundleImpl.DirectorySearch", name);
+            var files = new List<IFile>()
+            {
+                new File("jquery.js"),
+                new File("jquery-ui.js")
+            };
+
+            directory.Setup(d => d.GetFiles(It.IsAny<string>(), SearchOption.AllDirectories))
+                .Returns(files);
+
+            IList<IFile> returnFiles = directorySearch.FindFiles(directory.Object).ToList();
+
+            Assert.AreEqual("jquery.js", returnFiles[0].Path);
+            Assert.AreEqual("jquery-ui.js", returnFiles[1].Path);
+        }
+
+        [Test]
+        public void Should_Order_Files()
+        {
+            directorySearch.OrderPatterns.Add("jquery.js");
+            directorySearch.OrderPatterns.Add("jquery-ui.js");
+
+            var files = new List<IFile>()
+            {
+                new File("first-but-shouldnt-be.js"),
+                new File("jquery.js"),
+                new File("jquery-ui.js"),
+                new File("something-else.js")
+            };
+
+            IList<IFile> returnFiles = directorySearch.OrderFiles(files).ToList();
+
+            Assert.AreEqual("jquery.js", returnFiles[0].Path);
+            Assert.AreEqual("jquery-ui.js", returnFiles[1].Path);
+            Assert.AreEqual("first-but-shouldnt-be.js", returnFiles[2].Path);
+            Assert.AreEqual("something-else.js", returnFiles[3].Path);
+        }
+
+        private class File : IFile
+        {
+            private string path;
+
+            public File(string path)
+            {
+                this.path = path;
+            }
+
+            public bool Exists
+            {
+                get { throw new NotImplementedException(); }
+            }
+
+            public string Path
+            {
+                get 
+                {
+                    return path;
+                }
+            }
+
+            public IDirectory Directory
+            {
+                get { throw new NotImplementedException(); }
+            }
+
+            public Stream Open(FileMode mode)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Stream Open(FileMode mode, FileAccess access)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Stream Open(FileMode mode, FileAccess access, FileShare fileShare)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

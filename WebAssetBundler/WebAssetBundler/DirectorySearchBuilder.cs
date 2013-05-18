@@ -40,5 +40,11 @@ namespace WebAssetBundler.Web.Mvc
             directorySearch.SearchOption = option;
             return this;
         }
+
+        public DirectorySearchBuilder Order(Action<DirectorySearchOrderBuilder> builder)
+        {
+            builder(new DirectorySearchOrderBuilder(directorySearch));
+            return this;
+        }
     }
 }

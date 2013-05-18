@@ -14,21 +14,29 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace Examples
+namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using WebAssetBundler.Web.Mvc;
 
-    public class LayoutScriptBundle : BundleConfiguration<ScriptBundle>
+    public class DirectorySearchOrderBuilder
     {
-        public override void Configure()
+        private DirectorySearch directorySearch;
+
+        public DirectorySearchOrderBuilder(DirectorySearch directorySearch)
         {
-            Name("Scripts");
-            Compress(true);
-            AddDirectory("~/Scripts", d => d
-                .Order(o => o
-                    .First("jquery*")
-                    .Next("jquery-ui*")));
+            this.directorySearch = directorySearch;
+        }
+
+        public DirectorySearchOrderBuilder First(string relativePath)
+        {
+            directorySearch.OrderPatterns.Insert(0, relativePath);
+            return this;
+        }
+
+        public DirectorySearchOrderBuilder Next(string relativePath)
+        {
+            directorySearch.OrderPatterns.Add(relativePath);
+            return this;
         }
     }
 }
