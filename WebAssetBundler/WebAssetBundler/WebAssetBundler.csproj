@@ -175,6 +175,7 @@
     <Compile Include="TinyIoCAspNetExtensions.cs" />
     <Compile Include="TypeProvider.cs" />
     <Compile Include="SettingsContext.cs" />
+    <Compile Include="Utility\Wildcard.cs" />
     <Compile Include="View\HtmlAttributeDictionary.cs" />
     <Compile Include="View\ComponentBuilder.cs" />
     <Compile Include="View\HtmlElement.cs" />
