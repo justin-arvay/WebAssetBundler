@@ -43,20 +43,23 @@ namespace WebAssetBundler.Web.Mvc
             set; 
         }
 
+        /// <summary>
+        /// A list of different patterns that determine how files are ordered when being returned by Search
+        /// </summary>
         public IList<string> OrderPatterns
         {
             get;
             set;
         }
 
-        public IEnumerable<IFile> FindFiles(IDirectory directory)
+        public IEnumerable<IFile> Search(IDirectory directory)
         {
             IEnumerable<IFile> files =
                 from pattern in Patterns
                 from file in directory.GetFiles(pattern, SearchOption)
                 select file;
-
-            return OrderFiles(files.Distinct(new FileSystemFileComparer()));
+            
+            return OrderFiles(files.Distinct(new FileSystemFileComparer()), directory.FullPath);
         }
 
         /// <summary>
@@ -64,14 +67,21 @@ namespace WebAssetBundler.Web.Mvc
         /// file, the last most pattern will determine where to position the file in the returned collection.
         /// </summary>
         /// <param name="files"></param>
+        /// <param name="dirPath"></param>
         /// <returns></returns>
-        public IEnumerable<IFile> OrderFiles(IEnumerable<IFile> files)
+        public IEnumerable<IFile> OrderFiles(IEnumerable<IFile> files, string dirPath)
         {
             var matches = new List<IFile>();
 
             foreach (var pattern in OrderPatterns)
             {
-                matches.AddRange(files.Where((file) => IsMatch(pattern, file)));
+                if (IsPatternValid(pattern) == false)
+                {
+                    throw new InvalidDataException(TextResource.Exceptions.InvalidDirectorySearchOrderPattern.FormatWith(pattern));
+                }
+
+                var fullPattern = PathHelper.NormalizePath(Path.Combine(dirPath, pattern));
+                matches.AddRange(files.Where((file) => IsMatch(fullPattern, file)));
             }
 
             //distinct checks from the start and removes matches at the end which destroys
@@ -101,8 +111,22 @@ namespace WebAssetBundler.Web.Mvc
         {
             var wildcard = new Wildcard(pattern);
             
-            //TODO:: fix for patterns like dir/file* where dir is a sub directory from the specified directory
-            return wildcard.IsMatch(Path.GetFileName(file.Path));   
+            return wildcard.IsMatch(file.Path);   
+        }
+
+        /// <summary>
+        /// Checks if the pattern is considered valid. Must be a relative path to the directory we are searching through. Cannot use: (~) or (/) or (..)
+        /// </summary>
+        /// <param name="pattern"></param>
+        /// <returns></returns>
+        private bool IsPatternValid(string pattern)
+        {
+            if (pattern.StartsWith("~") || pattern.StartsWith("/") || pattern.StartsWith(".."))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>

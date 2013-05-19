@@ -123,6 +123,9 @@
   <data name="FileNotFound" xml:space="preserve">
     <value>The file does not exist. Source: {0}</value>
   </data>
+  <data name="InvalidDirectorySearchOrderPattern" xml:space="preserve">
+    <value>You must specify a relative directory only. Pattern:{0}</value>
+  </data>
   <data name="ItemWithSpecifiedSourceAlreadyExists" xml:space="preserve">
     <value>Item with specified source already exists. Source: {0}</value>
   </data>

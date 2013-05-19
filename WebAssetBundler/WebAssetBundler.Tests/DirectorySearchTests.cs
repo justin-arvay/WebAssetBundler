@@ -58,7 +58,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             directory.Setup(d => d.GetFiles(It.IsAny<string>(), SearchOption.AllDirectories))
                 .Returns(files);
 
-            IList<IFile> returnFiles = directorySearch.FindFiles(directory.Object).ToList();
+            IList<IFile> returnFiles = directorySearch.Search(directory.Object).ToList();
 
             Assert.AreEqual("jquery.js", returnFiles[0].Path);
             Assert.AreEqual("jquery-ui.js", returnFiles[1].Path);
@@ -70,6 +70,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             directorySearch.OrderPatterns.Add("jquery.js");
             directorySearch.OrderPatterns.Add("jquery-ui.js");
 
+            var path = "/Dir";
             var files = new List<IFile>()
             {
                 new File("/Dir/first-but-shouldnt-be.js"),
@@ -78,7 +79,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 new File("/Dir/something-else.js")
             };
 
-            IList<IFile> returnFiles = directorySearch.OrderFiles(files).ToList();
+            IList<IFile> returnFiles = directorySearch.OrderFiles(files, path).ToList();
 
             Assert.AreEqual("/Dir/jquery.js", returnFiles[0].Path);
             Assert.AreEqual("/Dir/jquery-ui.js", returnFiles[1].Path);
@@ -93,26 +94,83 @@ namespace WebAssetBundler.Web.Mvc.Tests
             directorySearch.OrderPatterns.Add("jquery-ui*");
             directorySearch.OrderPatterns.Add("jquery*ui*");
 
+            var path = "/Dir";
             var files = new List<IFile>()
             {
-                new File("/Dir/jquery-tree.js"),
+                new File("/Dir/jquery-ui-tree.js"),
                 new File("/Dir/jquery-ui.js"),
                 new File("/Dir/test.js"),
                 new File("/Dir/jquery.js")                               
             };
 
-            IList<IFile> returnFiles = directorySearch.OrderFiles(files).ToList();
+            IList<IFile> returnFiles = directorySearch.OrderFiles(files, path).ToList();
 
             Assert.AreEqual("/Dir/jquery.js", returnFiles[0].Path);
-            Assert.AreEqual("/Dir/jquery-tree.js", returnFiles[1].Path);
+            Assert.AreEqual("/Dir/jquery-ui-tree.js", returnFiles[1].Path);
             Assert.AreEqual("/Dir/jquery-ui.js", returnFiles[2].Path);
             Assert.AreEqual("/Dir/test.js", returnFiles[3].Path);            
         }
 
         [Test]
-        public void Should_Order_Files_With_Sub_Directory_In_Pattern()
+        public void Should_Order_Files_Specifying_Relative_Sub_Directory()
         {
-            Assert.Fail();
+            directorySearch.OrderPatterns.Add("Dir/jquery.js");
+            directorySearch.OrderPatterns.Add("Dir/jquery-ui.js");
+
+            var path = "/Main";
+            var files = new List<IFile>()
+            {
+                new File("/Main/Dir/jquery-ui-tree.js"),
+                new File("/Main/Dir/jquery-ui.js"),
+                new File("/Main/Dir/test.js"),
+                new File("/Main/Dir/jquery.js")                               
+            };
+
+            IList<IFile> returnFiles = directorySearch.OrderFiles(files, path).ToList();
+
+            Assert.AreEqual("/Main/Dir/jquery.js", returnFiles[0].Path);
+            Assert.AreEqual("/Main/Dir/jquery-ui.js", returnFiles[1].Path);
+            Assert.AreEqual("/Main/Dir/jquery-ui-tree.js", returnFiles[2].Path);
+            Assert.AreEqual("/Main/Dir/test.js", returnFiles[3].Path);
+        }
+
+        [Test]
+        public void Should_Order_Files_With_A_Wildcard_Relative_Sub_Directory()
+        {
+            directorySearch.OrderPatterns.Add("*/jquery.js");
+            directorySearch.OrderPatterns.Add("*/jquery-ui.js");
+
+            var path = "/Main";
+            var files = new List<IFile>()
+            {
+                new File("/Main/Dir/jquery-ui-tree.js"),
+                new File("/Main/Dir/jquery-ui.js"),
+                new File("/Main/Dir/test.js"),
+                new File("/Main/Dir/jquery.js")                               
+            };
+
+            IList<IFile> returnFiles = directorySearch.OrderFiles(files, path).ToList();
+
+            Assert.AreEqual("/Main/Dir/jquery.js", returnFiles[0].Path);
+            Assert.AreEqual("/Main/Dir/jquery-ui.js", returnFiles[1].Path);
+            Assert.AreEqual("/Main/Dir/jquery-ui-tree.js", returnFiles[2].Path);
+            Assert.AreEqual("/Main/Dir/test.js", returnFiles[3].Path);
+        }
+
+        [Test]
+        public void Should_Throw_Exception_When_Ordering_Files_With_Non_Relative_Pattern()
+        {                     
+            var path = "/Main";
+            var files = new List<IFile>() { };
+
+            directorySearch.OrderPatterns.Add("~/Dir/jquery.js");
+            Assert.Throws<InvalidDataException>(() => directorySearch.OrderFiles(files, path));
+
+            directorySearch.OrderPatterns.Add("/Dir/jquery.js");
+            Assert.Throws<InvalidDataException>(() => directorySearch.OrderFiles(files, path));
+
+            directorySearch.OrderPatterns.Add("../Dir/jquery.js");
+            Assert.Throws<InvalidDataException>(() => directorySearch.OrderFiles(files, path));
         }
 
         private class File : IFile
