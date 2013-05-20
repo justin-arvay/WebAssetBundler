@@ -59,6 +59,14 @@ namespace WebAssetBundler.Web.Mvc
         IHtmlNode AddAttribute(string key, string value);
 
         /// <summary>
+        /// Adds an attribute with no value to the node. Example: <script asnyc type="text/javascript" src="http://www.google.com/file.js"></script>
+        /// Where asnyc is a value-less attribute.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        IHtmlNode AddValuelessAttribute(string key);
+
+        /// <summary>
         /// Merges with the attributes in the node. Replaces all values that already exist in the node with matching key.
         /// </summary>
         /// <param name="attributesIn"></param>

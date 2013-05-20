@@ -107,6 +107,7 @@
     <Compile Include="Script\ScriptBundleProviderTests.cs" />
     <Compile Include="Script\ScriptBundleTests.cs" />
     <Compile Include="Script\ScriptBundlerTests.cs" />
+    <Compile Include="Script\ScriptTagBuilder.cs" />
     <Compile Include="StyleSheet\BackgroundImageModifierTests.cs" />
     <Compile Include="StyleSheet\BackgroundImageReaderTests.cs" />
     <Compile Include="StyleSheet\ImageProcessorTests.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="HttpHandlers\HttpHandlerFactoryTests.cs" />
     <Compile Include="HttpHandlers\ResponseWriterTests.cs" />
     <Compile Include="Script\ScriptTagWriterTests.cs" />
+    <Compile Include="StyleSheet\StyleSheetTagBuilderTests.cs" />
     <Compile Include="StyleSheet\StyleSheetTagWriterTests.cs" />
     <Compile Include="Pipeline\UrlAssignmentProcessorTests.cs" />
     <Compile Include="Pipeline\MergedAssetTests.cs" />

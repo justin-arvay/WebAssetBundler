@@ -49,6 +49,9 @@ namespace WebAssetBundler.Web.Mvc
             return WriteBundle(bundle);
         }
 
+        /// <summary>
+        /// Renders the stylesheets into the responce stream.
+        /// </summary>
         public IHtmlString Render(string name, Action<StyleSheetTagBuilder> builder)
         {
             var bundle = bundleProvider.GetNamedBundle(name);
@@ -58,6 +61,11 @@ namespace WebAssetBundler.Web.Mvc
             return WriteBundle(bundle);
         }
 
+        /// <summary>
+        /// Renders and included asset or external script bundle into the response stream.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
         public IHtmlString Include(string source)
         {
             StyleSheetBundle bundle = GetBundleBySource(source);
@@ -65,6 +73,12 @@ namespace WebAssetBundler.Web.Mvc
             return WriteBundle(bundle);
         }
 
+        /// <summary>
+        /// Renders and included asset or external script bundle into the response stream.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="builder"></param>
+        /// <returns></returns>
         public IHtmlString Include(string source, Action<StyleSheetTagBuilder> builder)
         {
             StyleSheetBundle bundle = GetBundleBySource(source);

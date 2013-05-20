@@ -31,6 +31,7 @@ namespace WebAssetBundler.Web.Mvc
                 node.AddAttribute("rel", "stylesheet");
             }
 
+            node.AddAttribute("type", "text/css");
             node.MergeAttributes(bundle.Attributes);
 
             if (bundle.IsExternal)

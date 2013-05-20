@@ -66,9 +66,9 @@ namespace WebAssetBundler.Web.Mvc
 
         public IHtmlNode AddAttribute(string key, string value)
         {
-            if (value != null && key != null)
+            if (key != null)
             {
-                if (value.Length > 0 && key.Length > 0)
+                if (key.Length > 0)
                 {
                     if (attributes.ContainsKey(key))
                     {
@@ -118,7 +118,12 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (var pair in attributes)
             {                
-                outputBuilder.Append(" {0}=\"{1}\"".FormatWith(pair.Key, pair.Value));
+                outputBuilder.Append(" {0}".FormatWith(pair.Key));
+
+                if (pair.Value != null)
+                {
+                    outputBuilder.Append("=\"{0}\"".FormatWith(pair.Value));
+                }
             }
 
             if (SelfClosing)
@@ -158,6 +163,13 @@ namespace WebAssetBundler.Web.Mvc
             }
 
             return string.Empty;
+        }
+
+
+        public IHtmlNode AddValuelessAttribute(string key)
+        {
+            AddAttribute(key, null);
+            return this;
         }
     }
 }

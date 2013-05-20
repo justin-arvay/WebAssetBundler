@@ -67,19 +67,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
             node.AddAttribute(null, "test");
             Assert.AreEqual(0, node.GetAttributes().Count);
 
-            node.AddAttribute("test", null);
-            Assert.AreEqual(0, node.GetAttributes().Count);
-
             node.AddAttribute("", "");
             Assert.AreEqual(0, node.GetAttributes().Count);
 
             node.AddAttribute("", "test");
-            Assert.AreEqual(0, node.GetAttributes().Count);
-
-            node.AddAttribute("test", "");
-            Assert.AreEqual(0, node.GetAttributes().Count);
-
-            node.AddAttribute("", null);
             Assert.AreEqual(0, node.GetAttributes().Count);
         }
 
@@ -137,6 +128,19 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Write_Children_To_Output()
         {
             Assert.Ignore();
+        }
+
+        [Test]
+        public void Should_Add_And_Write_Valueless_Attribute()
+        {
+            var writer = new StringWriter();
+            var node = new HtmlElement("script", false);
+
+            node.AddValuelessAttribute("async");
+            Assert.AreEqual(null, node.GetAttributes()["async"]);
+
+            node.WriteTo(writer);            
+            Assert.AreEqual("<script async></script>", writer.ToString());
         }
     }
 }

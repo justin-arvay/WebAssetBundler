@@ -42,8 +42,8 @@ namespace WebAssetBundler.Web.Mvc
             bundle.Url = "/test";
 
             tagWriter.Write(textWriter, bundle);
-            
-            Assert.AreEqual("<link href=\"/test\" type=\"text/css\" rel=\"stylesheet\"/>", textWriter.ToString());
+
+            Assert.AreEqual("<link rel=\"stylesheet\" type=\"text/css\" href=\"/test\"/>", textWriter.ToString());
         }
 
         [Test]
@@ -57,7 +57,7 @@ namespace WebAssetBundler.Web.Mvc
 
             tagWriter.Write(textWriter, bundle);
 
-            Assert.AreEqual("<link href=\"http://www.google.com/file.css\" type=\"text/css\" rel=\"stylesheet\"/>", textWriter.ToString());
+            Assert.AreEqual("<link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.google.com/file.css\"/>", textWriter.ToString());
         }
     }
 }

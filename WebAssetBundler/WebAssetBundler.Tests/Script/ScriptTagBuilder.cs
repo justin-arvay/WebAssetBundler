@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -17,31 +17,19 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.IO;
-    using System.Collections.Generic;
 
-    public class ScriptTagWriter : ITagWriter<ScriptBundle>
+    public class ScriptTagBuilder : ComponentBuilder<ScriptBundle, ScriptTagBuilder>
     {
-        public void Write(TextWriter writer, ScriptBundle bundle)
+        public ScriptTagBuilder(ScriptBundle bundle)
+            : base(bundle)
         {
-            var node = new HtmlElement("script", false);
-            node.AddAttribute("type", "text/javascript");
-
-            if (bundle.Asnyc)
-            {
-                node.AddAttribute("asnyc", null);
-            }
             
-            if (bundle.IsExternal)
-            {
-                node.AddAttribute("src", bundle.Assets[0].Source);
-            }
-            else
-            {
-                node.AddAttribute("src", bundle.Url);
-            }
+        }
 
-            node.WriteTo(writer);
+        public ScriptTagBuilder Asnyc()
+        {
+            Bundle.Asnyc = true;
+            return this;
         }
     }
 }

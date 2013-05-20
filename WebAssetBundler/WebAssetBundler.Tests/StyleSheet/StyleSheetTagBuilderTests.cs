@@ -14,29 +14,31 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
-    using System.IO;
+    using NUnit.Framework;
+    using Moq;
 
-    public class ImageTagWriter : ITagWriter<ImageBundle>
+    [TestFixture]
+    public class StyleSheetTagBuilderTests
     {
-        public void Write(TextWriter writer, ImageBundle bundle)
+        private StyleSheetTagBuilder builder;
+        private StyleSheetBundle bundle;
+
+        [SetUp]
+        public void Setup()
         {
-            var node = new HtmlElement("img", true);
-            node.AddAttribute("src", bundle.Url);
-            node.AddAttribute("height", bundle.Height.ToString());
-            node.AddAttribute("width", bundle.Width.ToString());
+            bundle = new StyleSheetBundle();
+            builder = new StyleSheetTagBuilder(bundle);
+        }
 
-            if (bundle.Alt != null && bundle.Alt.Length > 0)
-            {
-                node.AddAttribute("alt", bundle.Alt);
-            }
+        [Test]
+        public void Should_Set_Rel()
+        {
+            var returnBuilder = builder.Rel("test");
 
-            node.MergeAttributes(bundle.Attributes);
-
-            node.WriteTo(writer);
+            Assert.IsInstanceOf<StyleSheetTagBuilder>(returnBuilder);
+            Assert.AreEqual("test", bundle.Rel);
         }
     }
 }
-

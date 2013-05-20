@@ -62,6 +62,20 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
+        public void Should_Build_And_Render_Bundle()
+        {
+            var bundle = new StyleSheetBundle();
+            bundleProvider.Setup(p => p.GetNamedBundle("test")).Returns(bundle);
+
+            var htmlString = bundler.Render("test", b => b
+                .AddAttribute("test", "test"));
+
+            Assert.IsInstanceOf<IHtmlString>(htmlString);
+            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), bundle), Times.Once());
+            Assert.AreEqual("test", bundle.Attributes["test"]);
+        }
+
+        [Test]
         public void Should_Include_Bundle()
         {
             var bundle = new StyleSheetBundle();
@@ -72,6 +86,21 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
             tagWriter.Verify(w => w.Write(It.IsAny<TextWriter>(), bundle), Times.Once());
+        }
+
+        [Test]
+        public void Should_Build_And_Include_Bundle()
+        {
+            var bundle = new StyleSheetBundle();
+
+            bundleProvider.Setup(p => p.GetSourceBundle("~/file.css")).Returns(bundle);
+
+            var htmlString = bundler.Include("~/file.css", b => b
+                .AddAttribute("test", "test"));
+
+            Assert.IsInstanceOf<IHtmlString>(htmlString);
+            tagWriter.Verify(w => w.Write(It.IsAny<TextWriter>(), bundle), Times.Once());
+            Assert.AreEqual("test", bundle.Attributes["test"]);
         }
 
         [Test]
