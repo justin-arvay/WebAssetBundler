@@ -18,14 +18,62 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System.Web;
+    using System.IO;
 
     [TestFixture]
     public class BundlerBaseTests
     {
-        [Test]
-        public void test()
+        private BundlerBaseImpl bundler;
+        private Mock<IBundleProvider<BundleImpl>> provider;
+        private Mock<ITagWriter<BundleImpl>> writer;
+
+        [SetUp]
+        public void Setup()
         {
-            Assert.Fail();
+            writer = new Mock<ITagWriter<BundleImpl>>();
+            provider = new Mock<IBundleProvider<BundleImpl>>();
+            bundler = new BundlerBaseImpl(provider.Object, writer.Object);
+        }
+
+        [Test]
+        public void Should_Get_Bundle_By_External_Source()
+        {
+            var bundle = new BundleImpl();
+            var source = "http://www.google.com/file.js";
+
+            provider.Setup(p => p.GetExternalBundle(source))
+                .Returns(bundle);
+
+            var returnBundle = bundler.GetBundleBySource(source);
+
+            Assert.IsInstanceOf<BundleImpl>(returnBundle);
+            provider.Verify(p => p.GetExternalBundle(source));
+        }
+
+        [Test]
+        public void Should_Get_Bundle_By_Virtual_Source()
+        {
+            var bundle = new BundleImpl();
+            var source = "~/file.js";
+
+            provider.Setup(p => p.GetSourceBundle(source))
+                .Returns(bundle);
+
+            var returnBundle = bundler.GetBundleBySource(source);
+
+            Assert.IsInstanceOf<BundleImpl>(returnBundle);
+            provider.Verify(p => p.GetSourceBundle(source));
+        }
+
+        [Test]
+        public void Should_Write()
+        {
+            var bundle = new BundleImpl();
+            IHtmlString output = bundler.WriteBundle(bundle);
+
+            writer.Verify(w => w.Write(It.IsAny<TextWriter>(), bundle));
+            Assert.NotNull(output);
         }
     }
 }
