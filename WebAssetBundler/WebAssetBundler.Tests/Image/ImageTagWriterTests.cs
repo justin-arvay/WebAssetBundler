@@ -43,10 +43,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
             bundle.Width = 98;
             bundle.Alt = "this is alt";
             bundle.Url = "/wab.axd/image/asdasd/image-png";
+            bundle.Attributes.Add("test", "test");
 
             writer.Write(textWriter, bundle);
 
-            Assert.AreEqual("<img src=\"/wab.axd/image/asdasd/image-png\" height=\"99\" width=\"98\" alt=\"this is alt\"/>", textWriter.ToString());
+            Assert.AreEqual("<img src=\"/wab.axd/image/asdasd/image-png\" height=\"99\" width=\"98\" alt=\"this is alt\" test=\"test\"/>", textWriter.ToString());
         }
     }
 }

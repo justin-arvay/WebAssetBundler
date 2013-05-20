@@ -52,5 +52,21 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.IsInstanceOf<IHtmlString>(htmlString);
             tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), bundle), Times.Once());
         }
+
+        [Test]
+        public void Should_Build_And_Render_Bundle()
+        {
+            var bundle = new ImageBundle("image/png");
+            string source = "~/image.png";
+
+            bundleProvider.Setup(p => p.GetSourceBundle(source))
+                .Returns(bundle);
+
+            IHtmlString htmlString = bundler.Render(source, b => b.Alt("test alt"));
+
+            Assert.IsInstanceOf<IHtmlString>(htmlString);
+            Assert.AreEqual("test alt", bundle.Alt);
+            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), bundle), Times.Once());
+        }
     }
 }
