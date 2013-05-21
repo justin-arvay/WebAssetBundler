@@ -92,6 +92,7 @@
     <Compile Include="Image\ImagePipelineRunnerContext.cs" />
     <Compile Include="Image\ImageTagBuilder.cs" />
     <Compile Include="Image\ImageTagWriter.cs" />
+    <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Script\ScriptTagBuilder.cs" />
     <Compile Include="StyleSheet\BackgroundImageReader.cs" />
     <Compile Include="StyleSheet\BackgroundImageModifier.cs" />

@@ -19,6 +19,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
     using System.IO;
+    using WebAssetBundler.Web.Mvc.Less;
 
     [TestFixture]
     public class LessCompilerTests

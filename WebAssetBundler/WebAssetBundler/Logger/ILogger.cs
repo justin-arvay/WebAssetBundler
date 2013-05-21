@@ -14,12 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc.Less
+namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public interface ILessCompiler : ICompiler
+    public interface ILogger
     {
+        void Debug(string message);
+        void Debug(string message, Exception exception);
 
+        void Info(string message);
+        void Info(string message, Exception exception);
+
+        void Warn(string message);
+        void Warn(string message, Exception exception);
+
+        void Error(string message);
+        void Error(string message, Exception exception);
+
+        void Fatal(string message);
+        void Fatal(string message, Exception exception);
     }
 }
