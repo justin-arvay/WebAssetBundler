@@ -24,14 +24,14 @@ namespace WebAssetBundler.Web.Mvc
 
     public class StyleSheetTagWriterTests
     {
-        private Mock<TextWriter> textWriter;
+        private StringWriter textWriter;
         private StyleSheetTagWriter tagWriter;
         private StyleSheetBundle bundle;
 
         [SetUp]
         public void SetUp()
         {
-            textWriter = new Mock<TextWriter>();
+            textWriter = new StringWriter();
             tagWriter = new StyleSheetTagWriter();
             bundle = new StyleSheetBundle();
         }
@@ -41,9 +41,9 @@ namespace WebAssetBundler.Web.Mvc
         {
             bundle.Url = "/test";
 
-            tagWriter.Write(textWriter.Object, bundle);
+            tagWriter.Write(textWriter, bundle);
 
-            textWriter.Verify(m => m.WriteLine("<link type=\"text/css\" href=\"/test\" rel=\"stylesheet\"/>"), Times.Exactly(1));   
+            Assert.AreEqual("<link rel=\"stylesheet\" type=\"text/css\" href=\"/test\"/>", textWriter.ToString());
         }
 
         [Test]
@@ -55,9 +55,9 @@ namespace WebAssetBundler.Web.Mvc
                 Source = "http://www.google.com/file.css"
             });
 
-            tagWriter.Write(textWriter.Object, bundle);
+            tagWriter.Write(textWriter, bundle);
 
-            textWriter.Verify(m => m.WriteLine("<link type=\"text/css\" href=\"http://www.google.com/file.css\" rel=\"stylesheet\"/>"), Times.Exactly(1));
+            Assert.AreEqual("<link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.google.com/file.css\"/>", textWriter.ToString());
         }
     }
 }

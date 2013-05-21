@@ -25,56 +25,66 @@ namespace WebAssetBundler.Web.Mvc
     using WebAssetBundler.Web.Mvc;
     using System.Collections.Generic;
 
-    public class ScriptBundler
+    public class ScriptBundler : BundlerBase<ScriptBundle>
     {
-        private ITagWriter<ScriptBundle> tagWriter;       
-        private IBundleProvider<ScriptBundle> bundleProvider;
-
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="viewContext"></param>
         /// <param name="resolver"></param>
-        public ScriptBundler(
-            IBundleProvider<ScriptBundle> bundleProvider,
-            ITagWriter<ScriptBundle> tagWriter)
+        public ScriptBundler(IBundleProvider<ScriptBundle> bundleProvider, ITagWriter<ScriptBundle> tagWriter)
+            : base(bundleProvider, tagWriter)
         {
-            this.bundleProvider = bundleProvider;
-            this.tagWriter = tagWriter;
         }
 
         /// <summary>
-        /// Renders the stylesheets into the responce stream.
+        /// Renders the script into the responce stream.
         /// </summary>
         public IHtmlString Render(string name)
         {
-            var bundle = bundleProvider.GetNamedBundle(name);
+            ScriptBundle bundle = bundleProvider.GetNamedBundle(name);
 
-            using (StringWriter textWriter = new StringWriter())
-            {
-                tagWriter.Write(textWriter, bundle);
-                return new HtmlString(textWriter.ToString());
-            }            
+            return WriteBundle(bundle);           
         }
 
+        /// <summary>
+        ///  Renders the script into the responce stream.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="builder"></param>
+        /// <returns></returns>
+        public IHtmlString Render(string name, Action<ScriptTagBuilder> builder)
+        {
+            ScriptBundle bundle = bundleProvider.GetNamedBundle(name);
+
+            builder(new ScriptTagBuilder(bundle));
+
+            return WriteBundle(bundle);
+        }
+
+        /// <summary>
+        /// Renders and included asset or external script bundle into the response stream.
+        /// </summary>
         public IHtmlString Include(string source)
         {
-            ScriptBundle bundle = null;
+            ScriptBundle bundle = GetBundleBySource(source);
 
-            if (source.StartsWith("http", StringComparison.OrdinalIgnoreCase))
-            {
-                bundle = bundleProvider.GetExternalBundle(source);
-            }
-            else 
-            {
-                bundle = bundleProvider.GetSourceBundle(source);
-            }            
+            return WriteBundle(bundle);
+        }
 
-            using (StringWriter textWriter = new StringWriter())
-            {
-                tagWriter.Write(textWriter, bundle);
-                return new HtmlString(textWriter.ToString());
-            } 
+        /// <summary>
+        /// Renders and included asset or external script bundle into the response stream.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="builder"></param>
+        /// <returns></returns>
+        public IHtmlString Include(string source, Action<ScriptTagBuilder> builder)
+        {
+            ScriptBundle bundle = GetBundleBySource(source);
+
+            builder(new ScriptTagBuilder(bundle));
+
+            return WriteBundle(bundle);
         }
     }
 }

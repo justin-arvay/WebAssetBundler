@@ -57,6 +57,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual(".min", settings.MinifyIdentifier);
             Assert.IsTrue(settings.EnableImagePipeline);
             Assert.AreEqual("c://", settings.AppRootDirectory.FullPath);
+            Assert.IsInstanceOf<HttpContextBase>(settings.HttpContext);
         }
     }
 }

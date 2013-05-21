@@ -79,6 +79,15 @@ namespace WebAssetBundler.TextResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must specify a relative directory only. Pattern:{0}.
+        /// </summary>
+        internal static string InvalidDirectorySearchOrderPattern {
+            get {
+                return ResourceManager.GetString("InvalidDirectorySearchOrderPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Item with specified source already exists. Source: {0}.
         /// </summary>
         internal static string ItemWithSpecifiedSourceAlreadyExists {

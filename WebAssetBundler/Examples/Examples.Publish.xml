@@ -1,25 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <publishData>
   <publishProfile publishUrl="ftp://ftp.getwab.net" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="WabToWinHost" publishMethod="FTP" replaceMatchingFiles="False" userName="getwabne" savePWD="True" userPWD="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAARO+X3d51jUS1GwrwX9jbnAAAAAACAAAAAAAQZgAAAAEAACAAAACIIphvP6Rqk2MDAg1jDI7Ah9MJIX3P6IFOruG+/rMFWQAAAAAOgAAAAAIAACAAAADNKITyh6J5KxQfger3AVNoh50We6mY7rT0cXUwNnfEQyAAAAA5tomS1FZuMRHGF7ds0qfN01JAlbKEHw1htWxmnOH0akAAAADcn6IFvRjDLRi0T2VTdRuQpylgYZTxrzUXZpveSuoSixmcOY4KoDbiAvIK2WAB0da/PeRN1GHIPlospKvoIXL7" SelectedForPublish="True">
-    <file relUrl="Views/Documentation/BrowserCaching.cshtml" publishTime="05/11/2013 06:45:48" />
-    <file relUrl="Views/Documentation/Plugins/BundleTypes.cshtml" publishTime="05/11/2013 06:45:48" />
-    <file relUrl="Views/Documentation/WebConfig/WabSection.cshtml" publishTime="05/11/2013 06:45:48" />
+    <file relUrl="Views/Documentation/BrowserCaching.cshtml" publishTime="05/15/2013 19:13:49" />
+    <file relUrl="Views/Documentation/Plugins/BundleTypes.cshtml" publishTime="05/15/2013 19:13:50" />
+    <file relUrl="Views/Documentation/WebConfig/WabSection.cshtml" publishTime="05/15/2013 19:13:49" />
     <file relUrl="bin/EntityFramework.xml" publishTime="07/22/2012 20:43:38" />
     <file relUrl="Content/pepper-grinder/images/ui-bg_fine-grain_68_b83400_60x60.png" publishTime="05/03/2013 19:46:20" />
     <file relUrl="bin/System.Web.Mvc.dll" publishTime="01/05/2011 17:42:16" />
-    <file relUrl="Views/Documentation/WebConfig.cshtml" publishTime="05/11/2013 06:45:48" />
-    <file relUrl="Web.config" publishTime="05/15/2013 15:32:52" />
+    <file relUrl="Views/Documentation/WebConfig.cshtml" publishTime="05/15/2013 19:13:49" />
+    <file relUrl="sitemap.xml" publishTime="05/15/2013 20:19:38" />
     <file relUrl="Content/pepper-grinder/images/ui-icons_ffffff_256x240.png" publishTime="05/03/2013 19:46:20" />
     <file relUrl="Images/ScreenCaps/no-debug-mode-browser-caching.png" publishTime="05/03/2013 19:46:20" />
     <file relUrl="Content/pepper-grinder/images/ui-bg_fine-grain_65_654b24_60x60.png" publishTime="05/03/2013 19:46:20" />
-    <file relUrl="bin/WebAssetBundler.Less.dll" publishTime="05/15/2013 15:29:46" />
-    <file relUrl="Content/layout.css" publishTime="05/11/2013 06:45:48" />
-    <file relUrl="Views/Home/Support.cshtml" publishTime="05/09/2013 08:49:17" />
+    <file relUrl="bin/WebAssetBundler.Less.dll" publishTime="05/21/2013 08:26:24" />
+    <file relUrl="Content/layout.css" publishTime="05/15/2013 19:13:49" />
+    <file relUrl="Views/Home/Support.cshtml" publishTime="05/15/2013 19:13:49" />
     <file relUrl="Scripts/jquery-ui-1.10.0.custom.min.js" publishTime="05/03/2013 19:46:21" />
     <file relUrl="Content/pepper-grinder/images/ui-icons_3572ac_256x240.png" publishTime="05/03/2013 19:46:24" />
     <file relUrl="Global.asax" publishTime="07/22/2012 20:43:37" />
-    <file relUrl="Views/Home/Index.cshtml" publishTime="05/08/2013 20:37:42" />
-    <file relUrl="Views/Documentation/Configuration.cshtml" publishTime="05/11/2013 06:45:48" />
+    <file relUrl="Views/Home/Index.cshtml" publishTime="05/21/2013 08:08:41" />
+    <file relUrl="Views/Documentation/Configuration.cshtml" publishTime="05/15/2013 19:13:49" />
     <file relUrl="bin/Yahoo.Yui.Compressor.dll" publishTime="05/03/2013 19:46:23" />
     <file relUrl="Content/pepper-grinder/images/ui-bg_diagonal-maze_20_6e4f1c_10x10.png" publishTime="05/03/2013 19:46:20" />
     <file relUrl="Content/pepper-grinder/images/ui-bg_fine-grain_15_f7f3de_60x60.png" publishTime="05/03/2013 19:46:20" />
@@ -27,64 +27,65 @@
     <file relUrl="bin/System.Web.WebPages.dll" publishTime="01/05/2011 15:45:38" />
     <file relUrl="bin/AjaxMin.dll" publishTime="05/03/2013 19:46:22" />
     <file relUrl="Scripts/jquery-1.9.0.min.js" publishTime="05/03/2013 19:46:20" />
-    <file relUrl="Views/Documentation/BundleConfiguration/ConfigurationProvider.cshtml" publishTime="05/11/2013 06:45:48" />
+    <file relUrl="Views/Documentation/BundleConfiguration/ConfigurationProvider.cshtml" publishTime="05/15/2013 19:13:49" />
     <file relUrl="Content/pepper-grinder/images/ui-bg_fine-grain_10_eceadf_60x60.png" publishTime="05/03/2013 19:46:20" />
     <file relUrl="Content/reset.css" publishTime="05/03/2013 19:46:20" />
-    <file relUrl="robots.txt" publishTime="05/05/2013 08:34:22" />
     <file relUrl="bin/System.Web.Helpers.dll" publishTime="01/05/2011 15:45:38" />
-    <file relUrl="Views/Home/ChangeLog.cshtml" publishTime="05/15/2013 15:40:10" />
+    <file relUrl="Views/Home/ChangeLog.cshtml" publishTime="05/21/2013 08:29:40" />
     <file relUrl="bin/Microsoft.Web.Infrastructure.dll" publishTime="07/19/2012 10:59:52" />
     <file relUrl="Content/pepper-grinder/images/ui-bg_diagonal-maze_40_000000_10x10.png" publishTime="05/03/2013 19:46:20" />
     <file relUrl="Images/download-icon.png" publishTime="05/03/2013 19:46:20" />
     <file relUrl="Content/pepper-grinder/images/ui-icons_fbdb93_256x240.png" publishTime="05/03/2013 19:46:20" />
-    <file relUrl="Views/Documentation/RenderingBundles.cshtml" publishTime="05/15/2013 07:46:50" />
+    <file relUrl="Views/Documentation/RenderingBundles.cshtml" publishTime="05/20/2013 16:57:57" />
     <file relUrl="Content/pepper-grinder/images/ui-bg_fine-grain_15_eceadf_60x60.png" publishTime="05/03/2013 19:46:20" />
+    <file relUrl="Views/Documentation/Pipelines/Customization.cshtml" publishTime="05/15/2013 19:13:49" />
     <file relUrl="Content/pepper-grinder/images/ui-bg_fine-grain_15_ffffff_60x60.png" publishTime="05/03/2013 19:46:20" />
     <file relUrl="Images/nugetlogo.png" publishTime="05/03/2013 19:46:20" />
-    <file relUrl="Views/Shared/_DocumentationLayout.cshtml" publishTime="05/10/2013 16:14:22" />
+    <file relUrl="Views/Shared/_DocumentationLayout.cshtml" publishTime="05/15/2013 19:13:49" />
     <file relUrl="Content/pepper-grinder/jquery-ui-1.9.2.custom.min.css" publishTime="05/03/2013 19:46:20" />
     <file relUrl="packages.config" publishTime="05/03/2013 19:46:21" />
     <file relUrl="bin/System.Web.WebPages.Razor.dll" publishTime="01/05/2011 15:45:38" />
     <file relUrl="Content/pepper-grinder/images/ui-bg_fine-grain_10_f8f7f6_60x60.png" publishTime="05/03/2013 19:46:20" />
-    <file relUrl="Views/Home/Download.cshtml" publishTime="05/15/2013 08:31:53" />
-    <file relUrl="Views/Documentation/Pipelines.cshtml" publishTime="05/15/2013 08:45:20" />
-    <file relUrl="Content/change-log.css" publishTime="05/15/2013 15:42:03" />
+    <file relUrl="Views/Home/Download.cshtml" publishTime="05/15/2013 19:13:49" />
+    <file relUrl="Views/Documentation/Pipelines.cshtml" publishTime="05/15/2013 19:13:50" />
+    <file relUrl="Content/change-log.css" publishTime="05/15/2013 20:19:38" />
     <file relUrl="bin/EcmaScript.NET.dll" publishTime="05/03/2013 19:46:22" />
     <file relUrl="Views/Shared/Error.cshtml" publishTime="07/22/2012 20:43:38" />
-    <file relUrl="Views/Documentation/Pipelines/Customization.cshtml" publishTime="05/11/2013 06:45:48" />
+    <file relUrl="Web.config" publishTime="05/21/2013 08:30:07" />
     <file relUrl="Images/octocat.png" publishTime="05/03/2013 19:46:20" />
     <file relUrl="Content/pepper-grinder/images/ui-icons_b83400_256x240.png" publishTime="05/03/2013 19:46:24" />
-    <file relUrl="bin/WebAssetBundler.dll" publishTime="05/15/2013 15:29:45" />
+    <file relUrl="bin/WebAssetBundler.dll" publishTime="05/21/2013 08:26:23" />
     <file relUrl="Images/Logo.png" publishTime="05/03/2013 19:46:20" />
-    <file relUrl="Views/Documentation/Plugins/ModifyPipeline.cshtml" publishTime="05/10/2013 16:16:21" />
-    <file relUrl="sitemap.xml" publishTime="05/05/2013 08:13:03" />
+    <file relUrl="Views/Documentation/Plugins/ModifyPipeline.cshtml" publishTime="05/15/2013 19:13:49" />
     <file relUrl="bin/System.Web.Razor.dll" publishTime="01/05/2011 15:45:38" />
-    <file relUrl="Views/Shared/_Layout.cshtml" publishTime="05/15/2013 15:29:29" />
+    <file relUrl="Views/Shared/_Layout.cshtml" publishTime="05/15/2013 19:13:49" />
     <file relUrl="Content/pepper-grinder/jquery-ui-1.9.2.custom.css" publishTime="05/03/2013 19:46:20" />
     <file relUrl="Views/Web.config" publishTime="05/03/2013 19:46:21" />
-    <file relUrl="Views/Home/License.cshtml" publishTime="05/09/2013 08:49:27" />
-    <file relUrl="Views/Documentation/BundleConfiguration/AddingAssets.cshtml" publishTime="05/11/2013 06:45:48" />
-    <file relUrl="Content/documentation.css" publishTime="05/10/2013 16:14:28" />
+    <file relUrl="Views/Home/License.cshtml" publishTime="05/15/2013 19:13:49" />
+    <file relUrl="Views/Documentation/BundleConfiguration/AddingAssets.cshtml" publishTime="05/20/2013 07:45:27" />
+    <file relUrl="Content/documentation.css" publishTime="05/15/2013 19:13:49" />
     <file relUrl="bin/EntityFramework.dll" publishTime="07/22/2012 20:43:38" />
     <file relUrl="Views/Shared/_BasicLayout.cshtml" publishTime="05/03/2013 19:46:21" />
-    <file relUrl="Content/download.css" publishTime="05/04/2013 15:14:23" />
-    <file relUrl="bin/dotless.ClientOnly.dll" publishTime="05/03/2013 19:46:22" />
+    <file relUrl="Content/download.css" publishTime="05/15/2013 19:13:49" />
+    <file relUrl="robots.txt" publishTime="05/15/2013 19:13:49" />
     <file relUrl="Views/_ViewStart.cshtml" publishTime="07/22/2012 20:43:38" />
-    <file relUrl="Views/Documentation/Introduction.cshtml" publishTime="05/11/2013 08:42:35" />
-    <file relUrl="Views/Documentation/Plugins/CreatePlugin.cshtml" publishTime="05/11/2013 06:45:48" />
-    <file relUrl="Views/Documentation/Plugins/ModifySearchPatterns.cshtml" publishTime="05/15/2013 15:07:29" />
+    <file relUrl="Scripts/j.js" publishTime="05/17/2013 20:51:24" />
+    <file relUrl="bin/dotless.ClientOnly.dll" publishTime="05/03/2013 19:46:22" />
+    <file relUrl="Views/Documentation/Introduction.cshtml" publishTime="05/15/2013 19:13:49" />
+    <file relUrl="Views/Documentation/Plugins/CreatePlugin.cshtml" publishTime="05/15/2013 19:13:49" />
+    <file relUrl="Views/Documentation/Plugins/ModifySearchPatterns.cshtml" publishTime="05/15/2013 19:13:49" />
     <file relUrl="Images/document-icon.png" publishTime="05/03/2013 19:46:20" />
     <file relUrl="Content/pepper-grinder/images/ui-icons_8c291d_256x240.png" publishTime="05/03/2013 19:46:24" />
-    <file relUrl="Views/Documentation/BundleConfiguration/Other.cshtml" publishTime="05/11/2013 06:45:48" />
-    <file relUrl="Views/Documentation/DebugMode.cshtml" publishTime="05/11/2013 06:45:48" />
-    <file relUrl="google52b0af22e33782b5.html" publishTime="05/04/2013 15:56:10" />
-    <file relUrl="bin/Examples.dll" publishTime="05/15/2013 15:29:47" />
+    <file relUrl="Views/Documentation/BundleConfiguration/Other.cshtml" publishTime="05/15/2013 19:13:49" />
+    <file relUrl="Views/Documentation/DebugMode.cshtml" publishTime="05/15/2013 19:13:49" />
+    <file relUrl="google52b0af22e33782b5.html" publishTime="05/15/2013 19:13:49" />
+    <file relUrl="bin/Examples.dll" publishTime="05/21/2013 08:26:24" />
     <file relUrl="Scripts/jquery-ui-1.10.0.custom.js" publishTime="05/03/2013 19:46:20" />
     <file relUrl="Images/osi-logo.png" publishTime="05/03/2013 19:46:20" />
     <file relUrl="Views/Shared/Benefits.cshtml" publishTime="05/03/2013 19:46:21" />
     <file relUrl="Scripts/rainbow-custom.min.js" publishTime="05/03/2013 19:46:21" />
-    <file relUrl="Views/Documentation/Plugins.cshtml" publishTime="05/11/2013 06:45:48" />
-    <file relUrl="Views/Documentation/CustomMinifiers.cshtml" publishTime="05/11/2013 06:45:48" />
+    <file relUrl="Views/Documentation/Plugins.cshtml" publishTime="05/15/2013 19:13:49" />
+    <file relUrl="Views/Documentation/CustomMinifiers.cshtml" publishTime="05/15/2013 19:13:49" />
     <file relUrl="bin/System.Web.WebPages.Deployment.dll" publishTime="01/05/2011 15:45:38" />
   </publishProfile>
 </publishData>

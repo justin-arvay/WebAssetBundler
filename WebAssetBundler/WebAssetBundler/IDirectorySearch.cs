@@ -27,6 +27,6 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="directory"></param>
         /// <returns></returns>
-        IEnumerable<IFile> FindFiles(IDirectory directory);
+        IEnumerable<IFile> Search(IDirectory directory);
     }
 }

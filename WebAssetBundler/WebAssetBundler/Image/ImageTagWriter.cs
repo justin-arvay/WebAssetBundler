@@ -27,7 +27,12 @@ namespace WebAssetBundler.Web.Mvc
             node.AddAttribute("src", bundle.Url);
             node.AddAttribute("height", bundle.Height.ToString());
             node.AddAttribute("width", bundle.Width.ToString());
-            node.AddAttribute("alt", bundle.Alt);
+
+            if (bundle.Alt != null && bundle.Alt.Length > 0)
+            {
+                node.AddAttribute("alt", bundle.Alt);
+            }
+
             node.MergeAttributes(bundle.Attributes);
 
             node.WriteTo(writer);

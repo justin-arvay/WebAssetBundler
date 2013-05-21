@@ -21,17 +21,18 @@ namespace WebAssetBundler.Web.Mvc
     using Moq;
     using System.Collections.Generic;
     using System.IO;
+    using System.Text;
 
     public class ScriptTagWriterTests
     {
-        private Mock<TextWriter> textWriter;
+        private StringWriter textWriter;
         private ScriptTagWriter tagWriter;
         private ScriptBundle bundle;
 
         [SetUp]
         public void SetUp()
         {
-            textWriter = new Mock<TextWriter>();
+            textWriter = new StringWriter();
             tagWriter = new ScriptTagWriter();
             bundle = new ScriptBundle();
         }
@@ -41,9 +42,9 @@ namespace WebAssetBundler.Web.Mvc
         {
             bundle.Url = "/test";
 
-            tagWriter.Write(textWriter.Object, bundle);
+            tagWriter.Write(textWriter, bundle);
 
-            textWriter.Verify(m => m.WriteLine("<script type=\"text/javascript\" src=\"/test\"></script>"), Times.Exactly(1));   
+            Assert.AreEqual("<script type=\"text/javascript\" src=\"/test\"></script>", textWriter.ToString());
         }
 
         [Test]
@@ -55,9 +56,9 @@ namespace WebAssetBundler.Web.Mvc
                 Source = "http://www.google.com/file.js"
             });
 
-            tagWriter.Write(textWriter.Object, bundle);
+            tagWriter.Write(textWriter, bundle);
 
-            textWriter.Verify(m => m.WriteLine("<script type=\"text/javascript\" src=\"http://www.google.com/file.js\"></script>"), Times.Exactly(1));   
+            Assert.AreEqual("<script type=\"text/javascript\" src=\"http://www.google.com/file.js\"></script>", textWriter.ToString()); 
         }
     }
 }

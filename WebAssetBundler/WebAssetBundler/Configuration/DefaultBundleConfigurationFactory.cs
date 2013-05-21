@@ -17,25 +17,13 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.Web;
 
-    public class DirectoryFactory : IDirectoryFactory
+    public class DefaultBundleConfigurationFactory<TBundle> : IBundleConfigurationFactory<TBundle>
+        where TBundle : Bundle
     {
-        private HttpServerUtilityBase server;
-
-        public DirectoryFactory(HttpServerUtilityBase server)
+        public IBundleConfiguration<TBundle> Create(Type configurationType)
         {
-            this.server = server;
-        }
-
-        public IDirectory Create(string source)
-        {
-            if (source.StartsWith("~/") == false && source.StartsWith("/") == false)
-            {
-                throw new ArgumentException("Directory source must be virtual path: " + source);  
-            }
-
-            return new FileSystemDirectory(server.MapPath(source));
+            return (IBundleConfiguration<TBundle>)Activator.CreateInstance(configurationType);
         }
     }
 }

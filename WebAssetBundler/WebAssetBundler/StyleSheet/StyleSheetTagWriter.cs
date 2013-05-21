@@ -24,16 +24,26 @@ namespace WebAssetBundler.Web.Mvc
     {
         public void Write(TextWriter writer, StyleSheetBundle bundle)
         {
-            var link = "<link type=\"text/css\" href=\"{0}\" rel=\"stylesheet\"/>";
+            var node = new HtmlElement("link", true);
+
+            if (bundle.Rel == null || bundle.Rel.Length == 0)
+            {
+                node.AddAttribute("rel", "stylesheet");
+            }
+
+            node.AddAttribute("type", "text/css");
+            node.MergeAttributes(bundle.Attributes);
 
             if (bundle.IsExternal)
             {
-                writer.WriteLine(link.FormatWith(bundle.Assets[0].Source));
+                node.AddAttribute("href", bundle.Assets[0].Source);
             }
             else
             {
-                writer.WriteLine(link.FormatWith(bundle.Url));
-            }     
+                node.AddAttribute("href", bundle.Url);
+            }
+
+            node.WriteTo(writer);
         }
     }
 }

@@ -16,11 +16,21 @@ public override void Configure()
 <p>In order to render the script bundle in the view you would:</p>
 <pre data-language="csharp">
 @@Bundler.Scripts.Render("Script")
+
+//modifying the html elements
+@@Bundler.Scripts.Render("Script", b => b
+    .Asnyc()
+    .AddAttribute("test", "test"))
 </pre>
 
 <p>If you want to render a style sheet bundle in the view you would:</p>
 <pre data-language="csharp">
 @@Bundler.StyleSheets.Render("StyleSheet")
+
+//modifying the html elements
+@@Bundler.StyleSheets.Render("StyleSheet", b => b
+    .Rel("media")
+    .AddAttribute("test", "test"))
 </pre>
 
 <h6>Rending Images</h6>
@@ -30,8 +40,7 @@ other bundles, image bundles are cached and versioned. Example:</p>
 @Html.Code(@"
 @Bundler.Images.Render(""~/Images/logo.png"");
 
-//additionally you can modify the html element
-
+//modifying the html elements
 @Bundler.Images.Render(""~/Images/Logo.png"", b => b
     .AddClass(""logo"")
     .Alt(""Web Asset Bundler Logo""))

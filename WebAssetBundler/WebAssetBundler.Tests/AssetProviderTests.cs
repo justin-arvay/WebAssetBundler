@@ -29,31 +29,26 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private AssetProvider provider;
         private DirectorySearch context;
-        private Mock<HttpServerUtilityBase> server;
-        private Mock<IDirectoryFactory> directoryFactory;
         private IDirectory directory;
         private SettingsContext settings;
         private string root;
+        private IDirectory rootDirectory;
 
         [SetUp]
         public void Setup()
         {
-            root = root = PathHelper.NormalizePath(AppDomain.CurrentDomain.BaseDirectory + "/../../");
+            root = PathHelper.NormalizePath(AppDomain.CurrentDomain.BaseDirectory + "/../../");
+            rootDirectory = new FileSystemDirectory(root);
             var container = new TinyIoCContainer();
 
             settings = new SettingsContext(false, ".min");
+            settings.AppRootDirectory = rootDirectory;
+
             container.Register(settings);
-            
-            server = new Mock<HttpServerUtilityBase>();
-            directoryFactory = new Mock<IDirectoryFactory>();
-            provider = new AssetProvider(directoryFactory.Object, server.Object, settings);
+
+            provider = new AssetProvider(settings);
 
             context = new DirectorySearch();
-
-            directory = new FileSystemDirectory("../../Files/AssetProvider/Mixed");
-
-            directoryFactory.Setup(d => d.Create("~/Files/AssetProvider/Mixed"))
-                .Returns(directory);
         }
 
         [Test]
@@ -63,8 +58,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var assets = (IList<AssetBase>)provider.GetAssets("~/Files/AssetProvider/Mixed", context);
 
-            Assert.AreEqual("../../Files/AssetProvider/Mixed\\FirstFile.min.css", assets[0].Source);
-            Assert.AreEqual("../../Files/AssetProvider/Mixed\\SecondFile.min.css", assets[1].Source);
+            Assert.AreEqual(root + "/Files/AssetProvider/Mixed\\FirstFile.min.css", assets[0].Source);
+            Assert.AreEqual(root + "/Files/AssetProvider/Mixed\\SecondFile.min.css", assets[1].Source);
             Assert.AreEqual(2, assets.Count);
         }
 
@@ -73,15 +68,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             context.Patterns = new List<string>() { "*.css" };
 
-            directory = new FileSystemDirectory("../../Files/AssetProvider/Raw");
-
-            directoryFactory.Setup(d => d.Create("~/Files/AssetProvider/Raw"))
-                .Returns(directory);
-
             var assets = (IList<AssetBase>)provider.GetAssets("~/Files/AssetProvider/Raw", context);
 
-            Assert.AreEqual("../../Files/AssetProvider/Raw\\FirstFile.css", assets[0].Source);
-            Assert.AreEqual("../../Files/AssetProvider/Raw\\SecondFile.css", assets[1].Source);
+            Assert.AreEqual(root + "/Files/AssetProvider/Raw\\FirstFile.css", assets[0].Source);
+            Assert.AreEqual(root + "/Files/AssetProvider/Raw\\SecondFile.css", assets[1].Source);
             Assert.AreEqual(2, assets.Count);
         }
 
@@ -93,8 +83,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var assets = (IList<AssetBase>)provider.GetAssets("~/Files/AssetProvider/Mixed", context);
 
-            Assert.AreEqual("../../Files/AssetProvider/Mixed\\FirstFile.css", assets[0].Source);
-            Assert.AreEqual("../../Files/AssetProvider/Mixed\\SecondFile.css", assets[1].Source);
+            Assert.AreEqual(root + "/Files/AssetProvider/Mixed\\FirstFile.css", assets[0].Source);
+            Assert.AreEqual(root + "/Files/AssetProvider/Mixed\\SecondFile.css", assets[1].Source);
             Assert.AreEqual(2, assets.Count);
         }
 
@@ -105,8 +95,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var assets = (IList<AssetBase>)provider.GetAssets("~/Files/AssetProvider/Mixed", context);
 
-            Assert.AreEqual("../../Files/AssetProvider/Mixed\\FirstFile.min.css", assets[0].Source);
-            Assert.AreEqual("../../Files/AssetProvider/Mixed\\SecondFile.min.css", assets[1].Source);
+            Assert.AreEqual(root + "/Files/AssetProvider/Mixed\\FirstFile.min.css", assets[0].Source);
+            Assert.AreEqual(root + "/Files/AssetProvider/Mixed\\SecondFile.min.css", assets[1].Source);
             Assert.AreEqual(2, assets.Count);
         }
 
@@ -194,8 +184,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Throw_Exception_When_Getting_Assets_From_A_Directory_That_Does_Not_Exist()
         {
             context = new DirectorySearch();
-            directoryFactory.Setup(d => d.Create("~/FakeDir"))
-               .Returns(new FileSystemDirectory("../../FakeDir"));
 
             Assert.Throws<DirectoryNotFoundException>(() => provider.GetAssets("~/FakeDir", context));
         }

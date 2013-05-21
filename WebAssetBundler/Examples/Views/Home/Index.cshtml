@@ -52,9 +52,9 @@ public class LayoutScriptBundle : BundleConfiguration<ScriptBundle>
 </pre>
 
 <h6>Production Output</h6>
-<p>With @Html.RouteLink("debug mode", "Documentation", new { path = "debug-mode" }) off bundles are complied (combined/minified) and then 
-cached for the lifetime of the application. Additionally cache headers are sent to the browser which will cache for 1 year (modifiable). Url 
-will change if bundle is changed, breaking the browser cache and forcing it to download the new bundle.</p>
+<p>With @Html.RouteLink("debug mode", "Documentation", new { path = "debug-mode" }) off, bundles are complied (combined/minified) and then 
+cached for the lifetime of the application. Additionally cache headers are sent to the browser which will cache for 1 year (modifiable). Any changes to the content 
+will result in the url changing, breaking the browser cache and forcing it to download the new bundle.</p>
 <pre data-language="html">
 <html>
 @Html.Code(@"

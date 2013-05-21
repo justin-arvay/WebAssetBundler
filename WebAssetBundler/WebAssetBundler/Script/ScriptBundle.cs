@@ -26,6 +26,12 @@ namespace WebAssetBundler.Web.Mvc
             Extension = "js";
         }
 
+        public bool Asnyc
+        {
+            get;
+            set;
+        }
+
         public override string ContentType
         {
             get { return "text/javascript"; }

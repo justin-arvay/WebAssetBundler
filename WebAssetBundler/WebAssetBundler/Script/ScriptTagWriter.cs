@@ -24,16 +24,24 @@ namespace WebAssetBundler.Web.Mvc
     {
         public void Write(TextWriter writer, ScriptBundle bundle)
         {
-            var script = "<script type=\"text/javascript\" src=\"{0}\"></script>";
+            var node = new HtmlElement("script", false);
+            node.AddAttribute("type", "text/javascript");
 
+            if (bundle.Asnyc)
+            {
+                node.AddAttribute("asnyc", null);
+            }
+            
             if (bundle.IsExternal)
             {
-                writer.WriteLine(script.FormatWith(bundle.Assets[0].Source));
+                node.AddAttribute("src", bundle.Assets[0].Source);
             }
             else
-            {                
-                writer.WriteLine(script.FormatWith(bundle.Url));
+            {
+                node.AddAttribute("src", bundle.Url);
             }
+
+            node.WriteTo(writer);
         }
     }
 }

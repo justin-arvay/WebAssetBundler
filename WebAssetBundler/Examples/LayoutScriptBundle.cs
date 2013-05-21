@@ -25,7 +25,10 @@ namespace Examples
         {
             Name("Scripts");
             Compress(true);
-            AddDirectory("~/Scripts");
+            AddDirectory("~/Scripts", d => d
+                .Order(o => o
+                    .First("jquery*")
+                    .Next("jquery-ui*")));
         }
     }
 }

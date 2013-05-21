@@ -18,13 +18,9 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public interface IDirectoryFactory
+    public interface IBundleConfigurationFactory<TBundle> 
+        where TBundle : Bundle
     {
-        /// <summary>
-        /// Creates a file system directory from a absolute or virtual path.
-        /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        IDirectory Create(string source);
+        IBundleConfiguration<TBundle> Create(Type configurationType);
     }
 }

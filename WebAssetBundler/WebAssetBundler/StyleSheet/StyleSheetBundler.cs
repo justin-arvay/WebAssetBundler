@@ -25,23 +25,18 @@ namespace WebAssetBundler.Web.Mvc
     using WebAssetBundler.Web.Mvc;
     using System.Collections.Generic;
 
-    public class StyleSheetBundler
+    public class StyleSheetBundler : BundlerBase<StyleSheetBundle>
     {
-        private ITagWriter<StyleSheetBundle> tagWriter;
-        private IBundleProvider<StyleSheetBundle> bundleProvider;
-
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="manager"></param>
         /// <param name="viewContext"></param>
         /// <param name="resolver"></param>
-        public StyleSheetBundler(
-            IBundleProvider<StyleSheetBundle> bundleProvider,
-            ITagWriter<StyleSheetBundle> tagWriter)
+        public StyleSheetBundler(IBundleProvider<StyleSheetBundle> bundleProvider, ITagWriter<StyleSheetBundle> tagWriter) 
+            : base(bundleProvider, tagWriter)
         {
-            this.bundleProvider = bundleProvider;
-            this.tagWriter = tagWriter;
+
         }
 
         /// <summary>
@@ -51,31 +46,46 @@ namespace WebAssetBundler.Web.Mvc
         {
             var bundle = bundleProvider.GetNamedBundle(name);
 
-            using (StringWriter textWriter = new StringWriter())
-            {
-                tagWriter.Write(textWriter, bundle);
-                return new HtmlString(textWriter.ToString());
-            }
+            return WriteBundle(bundle);
         }
 
+        /// <summary>
+        /// Renders the stylesheets into the responce stream.
+        /// </summary>
+        public IHtmlString Render(string name, Action<StyleSheetTagBuilder> builder)
+        {
+            var bundle = bundleProvider.GetNamedBundle(name);
+
+            builder(new StyleSheetTagBuilder(bundle));
+
+            return WriteBundle(bundle);
+        }
+
+        /// <summary>
+        /// Renders and included asset or external script bundle into the response stream.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
         public IHtmlString Include(string source)
         {
-            StyleSheetBundle bundle = null;
+            StyleSheetBundle bundle = GetBundleBySource(source);
 
-            if (source.StartsWith("http", StringComparison.OrdinalIgnoreCase))
-            {
-                bundle = bundleProvider.GetExternalBundle(source);
-            }
-            else
-            {
-                bundle = bundleProvider.GetSourceBundle(source);
-            }
+            return WriteBundle(bundle);
+        }
 
-            using (StringWriter textWriter = new StringWriter())
-            {
-                tagWriter.Write(textWriter, bundle);
-                return new HtmlString(textWriter.ToString());
-            } 
+        /// <summary>
+        /// Renders and included asset or external script bundle into the response stream.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="builder"></param>
+        /// <returns></returns>
+        public IHtmlString Include(string source, Action<StyleSheetTagBuilder> builder)
+        {
+            StyleSheetBundle bundle = GetBundleBySource(source);
+
+            builder(new StyleSheetTagBuilder(bundle));
+
+            return WriteBundle(bundle);
         }
     }
 }

@@ -26,6 +26,12 @@ namespace WebAssetBundler.Web.Mvc
             Extension = "css";
         }
 
+        public string Rel
+        {
+            get;
+            set;
+        }
+
         public override string ContentType
         {
             get { return "text/css"; }

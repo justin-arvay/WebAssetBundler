@@ -29,7 +29,7 @@ public override void Configure()
 
     //adds assets based on criteria
     AddDirectory("~/Script", a => a
-        .Pattern("jQuery*")));
+        .Pattern("jQuery*"));
 }
 </pre>
 <p>The above example will only include assets from the script directory that start with <strong>jQuery</strong>. Multiple 
@@ -38,12 +38,98 @@ wildcards can be used. For instance:</p>
 public override void Configure()
 {
     AddDirectory("~/Script", a => a
-        .Pattern("*jQuery*")));
+        .Pattern("*jQuery*"));
 }
 </pre>
+
 <p>This example will include all assets with the word jQuery in it.</p>
 <p><strong>Note: </strong>When adding by directory be aware that by default it will only add assets that end in the bundles
-corresponding extension (.css or .js for example). This can also be modified heavily by installed plugins.</p>
+corresponding extension (.css or .js for example). This can also be modified by installed plugins.</p>
+
+<p>By default adding assets by directory will include all sub directories. You can change it:</p>
+<pre data-language="csharp">
+public override void Configure()
+{
+    AddDirectory("~/Script", a => a
+        .SearchOption(System.IO.SearchOption.TopDirectoryOnly));
+}
+</pre>
+
+<h6>Ordering</h6>
+<p>You can also order the assets as they are included from the directory. Specify each file relative to the directory in the order you wish them
+to be combined in the bundle. Example:</p>
+<pre data-language="csharp">
+public override void Configure()
+{
+    AddDirectory("~/Script", a => a
+        .Order(o => o
+            .First("jquery.js")
+            .Next("jquery-ui.js")));
+}
+</pre>
+
+<p>Ordering also supports ordering with files in sub directories under the added directory (must have SearchOption.AllDirectories set). Example:</p>
+<pre data-language="csharp">
+public override void Configure()
+{
+    AddDirectory("~/Script", a => a
+        .Order(o => o
+            .First("jquery/jquery.js")
+            .Next("jquery/jquery-ui.js")));
+}
+</pre>
+<p><strong>Note:</strong> You can only use relative paths to the file.</p>
+
+<p>Ordering can also use wildcards (multiple wildcards are supported). Using wildcards can mean multiple assets are ordered for each pattern. For example <em>First("jquery*")</em> 
+would place a few assets in at the start. Those assets would be ordered alphabetically.</p>
+<pre data-language="csharp">
+public override void Configure()
+{
+    AddDirectory("~/Script", a => a
+        .Order(o => o
+            .First("jquery*")
+            .Next("jquery-ui*")));
+}
+</pre>
+
+<p>Wildcards are also supported in the sub directory:</p>
+<pre data-language="csharp">
+public override void Configure()
+{
+    AddDirectory("~/Script", a => a
+        .Order(o => o
+            .First("*/jquery.js")
+            .Next("*/jquery-ui.js")));
+}
+</pre>
+
+<p><strong>Note:</strong> Depending on how they are used multiple patterns using wildcards can match the same asset. When this happens the last 
+pattern will set the order of that asset (Last in, last out). Example:</p>
+
+<pre data-language="csharp">
+public override void Configure()
+{
+    AddDirectory("~/Script", a => a
+        .Order(o => o
+            .First("jquery*")
+            .Next("init.js"
+            .Next("jquery-ui*")));
+}
+</pre>
+<pre>
+//directory with assets
+init.js
+jquery.js
+jquery-ui.js
+jquery-ui-tree.js
+
+//added to the bundle in this order
+jquery.js
+init.js
+jquery-ui.js
+jquery-ui-tree.js
+</pre>
+
 
 <h2>Additional Behavior</h2>
 <p>When adding an asset a check is done to see if the asset is already considered minified. This check is done to ensure we do not 

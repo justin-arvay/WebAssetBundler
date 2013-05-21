@@ -63,8 +63,11 @@
     <Compile Include="Bootstrap\ConfigureImagesTask.cs" />
     <Compile Include="Bootstrap\LoadSettingsTask.cs" />
     <Compile Include="Bootstrap\ConfigureScriptsTask.cs" />
+    <Compile Include="BundlerBase.cs" />
+    <Compile Include="Configuration\DefaultBundleConfigurationFactory.cs" />
+    <Compile Include="Configuration\DirectorySearchOrderBuilder.cs" />
+    <Compile Include="Configuration\IBundleConfigurationFactory.cs" />
     <Compile Include="Configuration\WabConfigurationSection.cs" />
-    <Compile Include="DirectoryFactory.cs" />
     <Compile Include="DirectorySearchFactory.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="FileSystemFile.cs" />
@@ -78,7 +81,6 @@
     <Compile Include="HttpHandlers\IResponseWriterFactory.cs" />
     <Compile Include="HttpHandlers\ResponseWriterFactory.cs" />
     <Compile Include="IDirectory.cs" />
-    <Compile Include="IDirectoryFactory.cs" />
     <Compile Include="IDirectorySearch.cs" />
     <Compile Include="IDirectorySearchFactory.cs" />
     <Compile Include="IBundleFactory.cs" />
@@ -90,6 +92,8 @@
     <Compile Include="Image\ImagePipelineRunnerContext.cs" />
     <Compile Include="Image\ImageTagBuilder.cs" />
     <Compile Include="Image\ImageTagWriter.cs" />
+    <Compile Include="Logger\ILogger.cs" />
+    <Compile Include="Script\ScriptTagBuilder.cs" />
     <Compile Include="StyleSheet\BackgroundImageReader.cs" />
     <Compile Include="StyleSheet\BackgroundImageModifier.cs" />
     <Compile Include="StyleSheet\IBackgroundImageReader.cs" />
@@ -164,6 +168,7 @@
     <Compile Include="IFile.cs" />
     <Compile Include="ITagWriter.cs" />
     <Compile Include="Script\ScriptTagWriter.cs" />
+    <Compile Include="StyleSheet\StyleSheetTagBuilder.cs" />
     <Compile Include="StyleSheet\StyleSheetTagWriter.cs" />
     <Compile Include="Script\ScriptBundler.cs" />
     <Compile Include="Pipeline\MergedAsset.cs" />
@@ -176,6 +181,7 @@
     <Compile Include="TinyIoCAspNetExtensions.cs" />
     <Compile Include="TypeProvider.cs" />
     <Compile Include="SettingsContext.cs" />
+    <Compile Include="Utility\Wildcard.cs" />
     <Compile Include="View\HtmlAttributeDictionary.cs" />
     <Compile Include="View\ComponentBuilder.cs" />
     <Compile Include="View\HtmlElement.cs" />

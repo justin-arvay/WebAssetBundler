@@ -18,28 +18,38 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
-    using System.Web;
 
     [TestFixture]
-    public class DirectoryFactoryTests
+    public class DirectorySearchOrderBuilderTests
     {
-        private DirectoryFactory factory;
-        private Mock<HttpServerUtilityBase> server;
+        private DirectorySearchOrderBuilder builder;
+        private DirectorySearch directorySearch;
 
         [SetUp]
         public void Setup()
         {
-            server = new Mock<HttpServerUtilityBase>();
-            factory = new DirectoryFactory(server.Object);
+            directorySearch = new DirectorySearch();
+            builder = new DirectorySearchOrderBuilder(directorySearch);
         }
 
         [Test]
-        public void Should_Create_Directory()
+        public void Should_Add_First()
         {
-            var directory = factory.Create("~/Script");
+            var returnBuilder = builder.First("file.js");
 
-            Assert.IsNotNull(directory);
+            Assert.AreEqual("file.js", directorySearch.OrderPatterns[0]);
+            Assert.IsInstanceOf<DirectorySearchOrderBuilder>(returnBuilder);
+        }
 
+        [Test]
+        public void Should_Add_Next()
+        {
+            var returnBuilder = builder.Next("file.js");
+            builder.Next("file-two.js");
+
+            Assert.AreEqual("file.js", directorySearch.OrderPatterns[0]);
+            Assert.AreEqual("file-two.js", directorySearch.OrderPatterns[1]);
+            Assert.IsInstanceOf<DirectorySearchOrderBuilder>(returnBuilder);
         }
     }
 }

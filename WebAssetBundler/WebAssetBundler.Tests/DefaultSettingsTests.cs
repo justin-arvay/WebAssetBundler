@@ -52,13 +52,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void ScriptsFilesPath_Should_Use_MVC_Scripts_Folder_By_Default()
+        public void Scripts_Files_Path_Should_Use_MVC_Scripts_Folder_By_Default()
         {
             Assert.AreEqual("~/Scripts", DefaultSettings.ScriptFilesPath);
         }
 
         [Test]
-        public void StyleSheetFilesPath_Should_Use_MVC_Content_Folder_By_Default()
+        public void StyleSheet_Files_Path_Should_Use_MVC_Content_Folder_By_Default()
         {
             Assert.AreEqual("~/Content", DefaultSettings.StyleSheetFilesPath);
         }
@@ -98,10 +98,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Be_Default_Style_Sheet_Config_Factory()
+        public void Should_Be_Default_Style_Sheet_Config_Provider()
         {
             var container = new TinyIoCContainer();
             container.Register<ITypeProvider>((new Mock<ITypeProvider>()).Object);
+            container.Register<IBundleConfigurationFactory<StyleSheetBundle>>((new Mock<IBundleConfigurationFactory<StyleSheetBundle>>()).Object);
             
             var provider = DefaultSettings.StyleSheetConfigurationProvider(container);
 
@@ -109,14 +110,37 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Be_Default_Script_Config_Factory()
+        public void Should_Be_Default_Script_Config_Provider()
         {
             var container = new TinyIoCContainer();
             container.Register<ITypeProvider>((new Mock<ITypeProvider>()).Object);
+            container.Register<IBundleConfigurationFactory<ScriptBundle>>((new Mock<IBundleConfigurationFactory<ScriptBundle>>()).Object);
 
             var provider = DefaultSettings.ScriptConfigurationProvider(container);
 
             Assert.IsInstanceOf<DefaultBundleConfigurationProvider<ScriptBundle>>(provider);
+        }
+
+        [Test]
+        public void Should_Be_Default_Script_Config_Factory()
+        {
+            var container = new TinyIoCContainer();
+            container.Register<IBundleConfigurationFactory<ScriptBundle>>((new Mock<IBundleConfigurationFactory<ScriptBundle>>()).Object);
+
+            var factory = DefaultSettings.ScriptConfigurationFactory(container);
+
+            Assert.IsInstanceOf < DefaultBundleConfigurationFactory<ScriptBundle>>(factory);
+        }
+
+        [Test]
+        public void Should_Be_Default_Style_Sheet_Config_Factory()
+        {
+            var container = new TinyIoCContainer();
+            container.Register<IBundleConfigurationFactory<StyleSheetBundle>>((new Mock<IBundleConfigurationFactory<StyleSheetBundle>>()).Object);
+
+            var factory = DefaultSettings.StyleSheetConfigurationFactory(container);
+
+            Assert.IsInstanceOf<DefaultBundleConfigurationFactory<StyleSheetBundle>>(factory);
         }
     }
 }
