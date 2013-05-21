@@ -25,10 +25,12 @@ namespace WebAssetBundler.Web.Mvc
         where TBundle : Bundle
     {
         private ITypeProvider typeProvider;
+        private IBundleConfigurationFactory<TBundle> factory;
 
-        public DefaultBundleConfigurationProvider(ITypeProvider typeProvider)
+        public DefaultBundleConfigurationProvider(ITypeProvider typeProvider, IBundleConfigurationFactory<TBundle> factory)
         {
             this.typeProvider = typeProvider;
+            this.factory = factory;
         }
 
         public IList<IBundleConfiguration<TBundle>> GetConfigs()
@@ -38,7 +40,7 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (Type type in types)
             {
-                configs.Add((IBundleConfiguration<TBundle>)Activator.CreateInstance(type));
+                configs.Add(factory.Create(type));
             }
 
             return configs;

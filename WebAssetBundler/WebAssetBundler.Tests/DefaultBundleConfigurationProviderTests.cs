@@ -25,13 +25,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class DefaultBundleConfigurationProviderTest
     {
         private DefaultBundleConfigurationProvider<BundleImpl> provider;
+        private Mock<IBundleConfigurationFactory<BundleImpl>> factory;
         private Mock<ITypeProvider> typeProvider;
 
         [SetUp]
         public void Setup()
         {
             typeProvider = new Mock<ITypeProvider>();
-            provider = new DefaultBundleConfigurationProvider<BundleImpl>(typeProvider.Object);
+            factory = new Mock<IBundleConfigurationFactory<BundleImpl>>();
+            provider = new DefaultBundleConfigurationProvider<BundleImpl>(typeProvider.Object, factory.Object);
         }
 
         [Test]
@@ -41,12 +43,16 @@ namespace WebAssetBundler.Web.Mvc.Tests
             types.Add(typeof(BundleConfigurationImpl));
             types.Add(typeof(BundleConfigurationImpl));
 
+            factory.Setup(f => f.Create(It.IsAny<Type>()))
+                .Returns(new BundleConfigurationImpl());
+
             typeProvider.Setup(t => t.GetImplementationTypes(typeof(IBundleConfiguration<BundleImpl>)))
                 .Returns(types);
 
             var configs = provider.GetConfigs();
 
             Assert.AreEqual(2, configs.Count);
+            factory.Verify(f => f.Create(It.IsAny<Type>()));
         }
     }
 }
