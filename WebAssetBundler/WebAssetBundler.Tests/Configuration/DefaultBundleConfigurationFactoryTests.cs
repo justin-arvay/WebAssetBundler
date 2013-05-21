@@ -22,10 +22,22 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class DefaultBundleConfigurationFactoryTests
     {
-        [Test]
-        public void test()
+        private DefaultBundleConfigurationFactory<BundleImpl> factory;
+
+        [SetUp]
+        public void Setup()
         {
-            Assert.Fail();
+            factory = new DefaultBundleConfigurationFactory<BundleImpl>();
+        }
+
+        [Test]
+        public void Should_Create_Configuration()
+        {
+            var type = typeof(BundleConfigurationImpl);
+
+            var config = factory.Create(type);
+
+            Assert.IsInstanceOf<BundleConfigurationImpl>(config);
         }
     }
 }
