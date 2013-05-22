@@ -25,7 +25,7 @@ namespace WebAssetBundler.Web.Mvc.Log4Net
 
         public Log4NetLogger()
         {
-            log = LogManager.GetLogger(Name)
+            log = LogManager.GetLogger(Name);
         }
 
         public string Name

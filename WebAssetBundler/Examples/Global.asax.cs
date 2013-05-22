@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using WebAssetBundler.Web.Mvc;
-using log4net;
 
 namespace Examples
 {
@@ -44,11 +43,6 @@ namespace Examples
 
         protected void Application_Start()
         {
-            log4net.Config.XmlConfigurator.Configure();
-            log4net.Config.XmlConfigurator.Configure().
-            ILog log = LogManager.GetLogger("myLog");
-            log.Info("message");
-
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
