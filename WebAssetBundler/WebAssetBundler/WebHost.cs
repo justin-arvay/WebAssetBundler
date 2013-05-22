@@ -55,6 +55,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<TinyIoCContainer>(container);
             container.Register<ITypeProvider>(typeProvider);
             container.Register<IPluginLoader, PluginLoader>();
+            container.Register<ILogger>((c, p) => DefaultSettings.Logger);
 
             var httpContext = CreateHttpContext();
             container.Register((c, p) => httpContext);            
@@ -64,7 +65,7 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
-        /// Bootstraps the application by prepairing the container and plugins.
+        /// Bootstraps the application by preparing the container and plugins.
         /// </summary>
         public void RunBootstrapTasks()
         {

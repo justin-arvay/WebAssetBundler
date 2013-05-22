@@ -46,7 +46,10 @@ namespace Examples
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
-            RegisterRoutes(RouteTable.Routes);        
+            RegisterRoutes(RouteTable.Routes);
+
+            //enable log4net logging support
+            DefaultSettings.Logger = new Log4NetLogger();
         }
     }
 }

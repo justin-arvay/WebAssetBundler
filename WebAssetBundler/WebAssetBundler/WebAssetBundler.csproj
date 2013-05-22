@@ -38,6 +38,9 @@
     <Reference Include="EcmaScript.NET">
       <HintPath>..\packages\EcmaScript.Net.1.0.1.0\lib\net20\EcmaScript.NET.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -92,7 +95,9 @@
     <Compile Include="Image\ImagePipelineRunnerContext.cs" />
     <Compile Include="Image\ImageTagBuilder.cs" />
     <Compile Include="Image\ImageTagWriter.cs" />
+    <Compile Include="Logger\DoNothingLogger.cs" />
     <Compile Include="Logger\ILogger.cs" />
+    <Compile Include="Logger\Log4NetLogger.cs" />
     <Compile Include="Script\ScriptTagBuilder.cs" />
     <Compile Include="StyleSheet\BackgroundImageReader.cs" />
     <Compile Include="StyleSheet\BackgroundImageModifier.cs" />

@@ -89,6 +89,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.IsInstanceOf<HttpResponseBase>(container.Resolve<HttpResponseBase>());
             Assert.IsInstanceOf<HttpRequestBase>(container.Resolve<HttpRequestBase>());
             Assert.IsInstanceOf<HttpServerUtilityBase>(container.Resolve<HttpServerUtilityBase>());
+            Assert.IsInstanceOf<DoNothingLogger>(container.Resolve<ILogger>());
         }
     }
 }

@@ -88,6 +88,7 @@
     <Compile Include="Image\ImageTagBuilderTests.cs" />
     <Compile Include="Image\ImageTagWriterTests.cs" />
     <Compile Include="Image\ImageUrlGeneratorTests.cs" />
+    <Compile Include="Logger\Log4NetLoggerTests.cs" />
     <Compile Include="Minifiers\MinifyModifierTests.cs" />
     <Compile Include="Pipeline\AssignHashProcessorTests.cs" />
     <Compile Include="Pipeline\BundlePipelineImpl.cs" />

@@ -27,9 +27,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public static class DefaultSettings
     {
-        private static string styleSheetFilesPath = "~/Content";
-        private static string scriptFilesPath = "~/Scripts";
-
         private static IScriptMinifier scriptMinifier = new MsScriptMinifier();
         private static IStyleSheetMinifier styleSheetMinfier = new MsStyleSheetMinifier();
 
@@ -45,35 +42,20 @@ namespace WebAssetBundler.Web.Mvc
         private static Func<TinyIoCContainer, IBundleConfigurationFactory<ScriptBundle>> scriptConfigurationFactory =
             (c) => c.Resolve<DefaultBundleConfigurationFactory<ScriptBundle>>();
 
-        /// <summary>
-        /// Gets or sets the style sheet files path. Path must be a virtual path.
-        /// </summary>
-        /// <value>The style sheet files path.</value>
-        public static string StyleSheetFilesPath
-        {
-            get
-            {
-                return styleSheetFilesPath;
-            }
-            set
-            {
-                styleSheetFilesPath = value;
-            }
-        }
+        private static ILogger logger = new DoNothingLogger();
 
         /// <summary>
-        /// Gets or sets the script files path. Path must be a virtual path.
+        /// Gets or sets the logger used by the application to log events and errors.
         /// </summary>
-        /// <value>The style sheet files path.</value>
-        public static string ScriptFilesPath
+        public static ILogger Logger
         {
             get
             {
-                return scriptFilesPath;
+                return logger;
             }
             set
             {
-                scriptFilesPath = value;
+                logger = value;
             }
         }
 
