@@ -34,54 +34,25 @@ namespace WebAssetBundler.Web.Mvc.Log4Net
             set;
         }
 
-        public void Debug(string message)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Debug(string message, Exception exception)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Info(string message)
         {
-            throw new NotImplementedException();
+            log.Info(message);
         }
 
         public void Info(string message, Exception exception)
         {
-            throw new NotImplementedException();
+            log.Info(message, exception);
         }
 
-        public void Warn(string message)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Warn(string message, Exception exception)
-        {
-            throw new NotImplementedException();
-        }
 
         public void Error(string message)
         {
-            throw new NotImplementedException();
+            log.Error(message);
         }
 
         public void Error(string message, Exception exception)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Fatal(string message)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Fatal(string message, Exception exception)
-        {
-            throw new NotImplementedException();
+            log.Error(message, exception);
         }
     }
 }
