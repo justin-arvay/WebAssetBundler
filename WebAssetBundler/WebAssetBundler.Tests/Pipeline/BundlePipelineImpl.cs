@@ -21,7 +21,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
     public class BundlePipelineImpl : BundlePipeline<BundleImpl>
     {
-        public BundlePipelineImpl(TinyIoCContainer container) : base(container)
+        public BundlePipelineImpl(TinyIoCContainer container, ILogger logger) : base(container, logger)
         {
 
         }

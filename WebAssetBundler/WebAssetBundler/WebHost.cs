@@ -69,10 +69,11 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         public void RunBootstrapTasks()
         {
+            var logger = container.Resolve<ILogger>();
+
             //TODO:: consider moving bootstraping to fascade to abstract implementation details from the web host.
             GetBootstrapTasks().ToList().ForEach(task =>
             {
-                logTask(logger, task);
                 task.StartUp(container, typeProvider);
                 task.ShutDown();
             });

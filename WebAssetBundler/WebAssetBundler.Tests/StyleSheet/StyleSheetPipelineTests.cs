@@ -28,6 +28,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private StyleSheetPipeline pipeline;
         private TinyIoCContainer container;
         private SettingsContext settings;
+        private Mock<ILogger> logger;
 
         [SetUp]
         public void Setup()
@@ -54,7 +55,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             settings.DebugMode = true;
             settings.MinifyIdentifier = ".min";
 
-            pipeline = new StyleSheetPipeline(container, settings);  
+            pipeline = new StyleSheetPipeline(container, settings, logger.Object);  
 
             Assert.IsInstanceOf<AssignHashProcessor>(pipeline[0]);
             Assert.IsInstanceOf<UrlAssignmentProcessor<StyleSheetBundle>>(pipeline[1]);
@@ -67,7 +68,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             settings.DebugMode = false;
 
-            pipeline = new StyleSheetPipeline(container, settings);  
+            pipeline = new StyleSheetPipeline(container, settings, logger.Object);  
 
             Assert.IsInstanceOf<AssignHashProcessor>(pipeline[0]);
             Assert.IsInstanceOf<UrlAssignmentProcessor<StyleSheetBundle>>(pipeline[1]);
@@ -83,7 +84,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             container.Register<IImagePipelineRunner>((new Mock<IImagePipelineRunner>()).Object);
 
-            pipeline = new StyleSheetPipeline(container, settings);
+            pipeline = new StyleSheetPipeline(container, settings, logger.Object);
 
             Assert.IsInstanceOf<ImageProcessor>(pipeline[2]);
         }
@@ -95,7 +96,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             container.Register<IImagePipelineRunner>((new Mock<IImagePipelineRunner>()).Object);
 
-            pipeline = new StyleSheetPipeline(container, settings);
+            pipeline = new StyleSheetPipeline(container, settings, logger.Object);
 
             Assert.IsInstanceOf<ExpandPathProcessor>(pipeline[2]);
         }

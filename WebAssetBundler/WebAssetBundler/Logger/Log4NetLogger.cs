@@ -21,39 +21,53 @@ namespace WebAssetBundler.Web.Mvc
 
     public class Log4NetLogger : ILogger
     {
-        private ILog infoLog;
-        private ILog errorLog;
+        private ILog log;
 
         public Log4NetLogger()
         {
-            infoLog = LogManager.GetLogger("WabInfoLogger");
-            errorLog = LogManager.GetLogger("WabErrorLogger");
+            log4net.Config.XmlConfigurator.Configure();
+            log = LogManager.GetLogger("WabLogger");
         }
 
-        public Log4NetLogger(ILog infoLog, ILog errorLog)
+        public Log4NetLogger(ILog log)
         {
-            this.infoLog = infoLog;
-            this.errorLog = errorLog;
+            this.log = log;
         }
 
         public void Info(string message)
         {
-            infoLog.Info(message);
+            log.Info(message);
         }
 
         public void Info(string message, Exception exception)
         {
-            infoLog.Info(message, exception);
+            log.Info(message, exception);
         }
 
         public void Error(string message)
         {
-            errorLog.Error(message);
+            log.Error(message);
         }
 
         public void Error(string message, Exception exception)
         {
-            errorLog.Error(message, exception);
+            log.Error(message, exception);
+        }
+
+        public bool IsInfoEnabled
+        {
+            get 
+            { 
+                return log.IsInfoEnabled; 
+            }
+        }
+
+        public bool IsErrorEnabled
+        {
+            get 
+            { 
+                return log.IsErrorEnabled; 
+            }
         }
     }
 }

@@ -21,24 +21,34 @@ namespace WebAssetBundler.Web.Mvc
     public class DoNothingLogger : ILogger
     {
 
-        public void Info(string message)
-        {            
+        public bool IsInfoEnabled
+        {
+            get { return false; }
+        }
 
+        public bool IsErrorEnabled
+        {
+            get { return false; }
+        }        
+
+        public void Info(string message)
+        {
+            throw new NotImplementedException();
         }
 
         public void Info(string message, Exception exception)
         {
-           
+            throw new NotImplementedException();
         }
 
         public void Error(string message)
         {
-        
+            throw new NotImplementedException();
         }
 
         public void Error(string message, Exception exception)
         {
-        
+            throw new NotImplementedException();
         }
     }
 }

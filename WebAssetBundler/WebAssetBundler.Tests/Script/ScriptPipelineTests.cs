@@ -26,6 +26,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private ScriptPipeline pipeline;
         private TinyIoCContainer container;
         private SettingsContext settings;
+        private Mock<ILogger> logger;
 
         [SetUp]
         public void Setup()
@@ -45,7 +46,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             settings.DebugMode = true;
             settings.MinifyIdentifier = ".min";
 
-            pipeline = new ScriptPipeline(container, settings);            
+            pipeline = new ScriptPipeline(container, settings, logger.Object);            
 
             Assert.IsInstanceOf<AssignHashProcessor>(pipeline[0]);
             Assert.IsInstanceOf<UrlAssignmentProcessor<ScriptBundle>>(pipeline[1]);
@@ -57,7 +58,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             settings.DebugMode = false;
 
-            pipeline = new ScriptPipeline(container, settings);            
+            pipeline = new ScriptPipeline(container, settings, logger.Object);            
            
             Assert.IsInstanceOf<AssignHashProcessor>(pipeline[0]);
             Assert.IsInstanceOf<UrlAssignmentProcessor<ScriptBundle>>(pipeline[1]);

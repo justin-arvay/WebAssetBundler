@@ -21,8 +21,8 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ScriptPipeline : BundlePipeline<ScriptBundle>
     {
-        public ScriptPipeline(TinyIoCContainer container, SettingsContext settings)
-            : base(container)
+        public ScriptPipeline(TinyIoCContainer container, SettingsContext settings, ILogger logger)
+            : base(container, logger)
         {
             Add<AssignHashProcessor>();
             Add<UrlAssignmentProcessor<ScriptBundle>>();                

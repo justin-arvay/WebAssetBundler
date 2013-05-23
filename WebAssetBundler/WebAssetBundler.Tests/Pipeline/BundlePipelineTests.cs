@@ -25,12 +25,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private BundlePipeline<BundleImpl> pipeline;
         private TinyIoCContainer ioc;
+        private Mock<ILogger> logger;
 
         [SetUp]
         public void Setup()
         {
             ioc = new TinyIoCContainer();
-            pipeline = new BundlePipelineImpl(ioc);
+            pipeline = new BundlePipelineImpl(ioc, logger.Object);
         }
 
         [Test]

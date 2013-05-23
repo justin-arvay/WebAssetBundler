@@ -19,7 +19,18 @@ namespace WebAssetBundler.Web.Mvc
     using System;
 
     public interface ILogger
-    {
+    {       
+
+        /// <summary>
+        /// Checks if info logging is enabled.
+        /// </summary>
+        bool IsInfoEnabled { get; }
+
+        /// <summary>
+        /// Checks if error logging is enabled.
+        /// </summary>
+        bool IsErrorEnabled { get; }
+
         void Info(string message);
         void Info(string message, Exception exception);
 

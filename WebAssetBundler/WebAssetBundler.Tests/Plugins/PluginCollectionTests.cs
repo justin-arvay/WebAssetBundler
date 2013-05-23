@@ -73,7 +73,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var plugin = new Mock<IPlugin<BundleImpl>>();
             var container = new TinyIoCContainer();
-            var pipeline = new TestStyleSheetPipeline(container);
+            var pipeline = new TestStyleSheetPipeline(container, (new Mock<ILogger>()).Object);
 
             collection.Add(plugin.Object);
             collection.ModifyPipeline(pipeline);
@@ -83,8 +83,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
         internal class TestStyleSheetPipeline : BundlePipeline<BundleImpl>
         {
-            public TestStyleSheetPipeline(TinyIoCContainer container)
-                : base(container)
+            public TestStyleSheetPipeline(TinyIoCContainer container, ILogger logger)
+                : base(container, logger)
             {
             }
         }

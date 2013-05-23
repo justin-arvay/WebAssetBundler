@@ -9,8 +9,8 @@
     </layout>
   </appender>
 
-<root>
-<level value="ALL" />
-      <appender-ref ref="FileAppender" />
-</root>
+<logger name="WabLogger">
+    <level value="All" />
+    <appender-ref ref="FileAppender" />
+</logger>
 </log4net>

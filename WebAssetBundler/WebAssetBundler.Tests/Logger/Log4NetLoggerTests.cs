@@ -25,16 +25,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class Log4NetLoggerTests
     {
         private Log4NetLogger logger;
-        private Mock<ILog> infoLog;
-        private Mock<ILog> errorLog;
+        private Mock<ILog> log;
 
         [SetUp]
         public void Setup()
         {
-            infoLog = new Mock<ILog>();
-            errorLog = new Mock<ILog>();
+            log = new Mock<ILog>();
 
-            logger = new Log4NetLogger(infoLog.Object, errorLog.Object);
+            logger = new Log4NetLogger(log.Object);
         }
 
         [Test]
@@ -42,7 +40,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             logger.Info("info");
 
-            infoLog.Verify(i => i.Info("info"));
+            log.Verify(i => i.Info("info"));
         }
 
         [Test]
@@ -51,7 +49,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var exception = new Exception();
             logger.Info("info", exception);
 
-            infoLog.Verify(i => i.Info("info", exception));
+            log.Verify(i => i.Info("info", exception));
         }
 
         [Test]
@@ -59,7 +57,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             logger.Error("error");
 
-            errorLog.Verify(i => i.Error("error"));
+            log.Verify(i => i.Error("error"));
         }
 
         [Test]
@@ -68,7 +66,21 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var exception = new Exception();
             logger.Error("error", exception);
 
-            errorLog.Verify(i => i.Error("error", exception));
+            log.Verify(i => i.Error("error", exception));
+        }
+
+        [Test]
+        public void Should_Have_Info_Enabled()
+        {
+            log.Setup(l => l.IsInfoEnabled).Returns(true);
+            Assert.IsTrue(logger.IsInfoEnabled);
+        }
+
+        [Test]
+        public void Should_Have_Error_Enabled()
+        {
+            log.Setup(l => l.IsErrorEnabled).Returns(true);
+            Assert.IsTrue(logger.IsErrorEnabled);
         }
     }
 }

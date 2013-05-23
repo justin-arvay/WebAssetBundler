@@ -26,6 +26,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private ImagePipeline pipeline;
         private SettingsContext settings;
         private TinyIoCContainer container;
+        private Mock<ILogger> logger;
 
         [SetUp]
         public void Setup()
@@ -37,7 +38,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Use_Default_Processors()
         {
-            pipeline = new ImagePipeline(container, settings);
+            pipeline = new ImagePipeline(container, settings, logger.Object);
 
             Assert.IsInstanceOf<AssignHashProcessor>(pipeline[0]);
             Assert.IsInstanceOf<UrlAssignmentProcessor<ImageBundle>>(pipeline[1]);                           

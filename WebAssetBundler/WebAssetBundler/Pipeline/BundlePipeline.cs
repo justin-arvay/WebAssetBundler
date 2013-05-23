@@ -23,29 +23,58 @@ namespace WebAssetBundler.Web.Mvc
     public class BundlePipeline<T> : List<IPipelineProcessor<T>>, IBundlePipeline<T>
         where T : Bundle
     {
-        protected TinyIoCContainer container;
-
-        public BundlePipeline(TinyIoCContainer container)
+        public BundlePipeline(TinyIoCContainer container, ILogger logger)
         {
-            this.container = container;
+            Container = container;
+            Logger = logger;
+        }
+
+        protected ILogger Logger
+        {
+            get;
+            private set;
+        }
+
+        protected TinyIoCContainer Container
+        {
+            get;
+            private set;
         }
         
         public virtual void Process(T bundle)
         {
+            bool logEnabled = Logger.IsInfoEnabled;
+
+            if (logEnabled)
+            {
+                Logger.Info("Start processing bundle: {0}".FormatWith(bundle.Name));
+            }
+
             foreach (var processor in this)
             {
+                if (logEnabled)
+                {
+                    Logger.Info("Executing processor {0}".FormatWith(processor.GetType().AssemblyQualifiedName));
+                }
+
                 processor.Process(bundle);
+                
+            }
+
+            if (logEnabled)
+            {
+                Logger.Info("End processing bundle: {0}".FormatWith(bundle.Name));
             }
         }
 
         public void Add<TProcessor>() where TProcessor : class, IPipelineProcessor<T>
         {
-            Add(container.Resolve<TProcessor>());
+            Add(Container.Resolve<TProcessor>());
         }
 
         public void Insert<TProcessor>(int index) where TProcessor : class, IPipelineProcessor<T>
         {
-            Insert(index, container.Resolve<TProcessor>());
+            Insert(index, Container.Resolve<TProcessor>());
         }
 
         public void Remove<TProcessor>() where TProcessor : class, IPipelineProcessor<T>

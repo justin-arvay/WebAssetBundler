@@ -58,7 +58,7 @@ namespace WebAssetBundler.Web.Mvc.Less.Tests
             var container = new TinyIoCContainer();
             container.Register<ILessCompiler>((new Mock<ILessCompiler>()).Object);
 
-            var pipeline = new TestStyleSheetPipeline(container);
+            var pipeline = new TestStyleSheetPipeline(container, (new Mock<ILogger>()).Object);
 
             plugin.ModifyPipeline(pipeline);
 
@@ -67,8 +67,8 @@ namespace WebAssetBundler.Web.Mvc.Less.Tests
 
         internal class TestStyleSheetPipeline : BundlePipeline<StyleSheetBundle>
         {
-            public TestStyleSheetPipeline(TinyIoCContainer container)
-                : base(container)
+            public TestStyleSheetPipeline(TinyIoCContainer container, ILogger logger)
+                : base(container, logger)
             {
             }
         }

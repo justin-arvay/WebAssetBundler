@@ -1,2 +1,264 @@
- INFO [2013-05-21 21:28:32,625] - message
- INFO [2013-05-21 21:30:48,111] - message
+ INFO [2013-05-23 13:47:22,618] - Start processing bundle: StyleSheets
+ INFO [2013-05-23 13:47:22,627] - Executing processor WebAssetBundler.Web.Mvc.Less.LessProcessor, WebAssetBundler.Less, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,627] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,629] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.StyleSheetBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,630] - Executing processor WebAssetBundler.Web.Mvc.ImageProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,635] - Start processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png
+ INFO [2013-05-23 13:47:22,635] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,635] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,636] - End processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png
+ INFO [2013-05-23 13:47:22,639] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png
+ INFO [2013-05-23 13:47:22,639] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,639] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,639] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png
+ INFO [2013-05-23 13:47:22,639] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png
+ INFO [2013-05-23 13:47:22,639] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,639] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,639] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png
+ INFO [2013-05-23 13:47:22,640] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png
+ INFO [2013-05-23 13:47:22,640] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,640] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,640] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png
+ INFO [2013-05-23 13:47:22,640] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png
+ INFO [2013-05-23 13:47:22,640] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,640] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,640] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png
+ INFO [2013-05-23 13:47:22,641] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png
+ INFO [2013-05-23 13:47:22,641] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,641] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,641] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png
+ INFO [2013-05-23 13:47:22,641] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png
+ INFO [2013-05-23 13:47:22,641] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,642] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,642] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png
+ INFO [2013-05-23 13:47:22,642] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png
+ INFO [2013-05-23 13:47:22,642] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,642] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,642] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png
+ INFO [2013-05-23 13:47:22,643] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png
+ INFO [2013-05-23 13:47:22,643] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,643] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,643] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png
+ INFO [2013-05-23 13:47:22,644] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png
+ INFO [2013-05-23 13:47:22,644] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,644] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,644] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png
+ INFO [2013-05-23 13:47:22,645] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png
+ INFO [2013-05-23 13:47:22,645] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,645] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,645] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png
+ INFO [2013-05-23 13:47:22,646] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png
+ INFO [2013-05-23 13:47:22,646] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,646] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,646] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png
+ INFO [2013-05-23 13:47:22,646] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png
+ INFO [2013-05-23 13:47:22,646] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,647] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,647] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png
+ INFO [2013-05-23 13:47:22,647] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png
+ INFO [2013-05-23 13:47:22,647] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,647] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,647] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png
+ INFO [2013-05-23 13:47:22,648] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png
+ INFO [2013-05-23 13:47:22,648] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,648] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,648] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png
+ INFO [2013-05-23 13:47:22,648] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png
+ INFO [2013-05-23 13:47:22,648] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,648] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,648] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png
+ INFO [2013-05-23 13:47:22,654] - Executing processor WebAssetBundler.Web.Mvc.MergeProcessor`1[[WebAssetBundler.Web.Mvc.StyleSheetBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,655] - End processing bundle: StyleSheets
+ INFO [2013-05-23 13:47:22,662] - Start processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-Logo-png
+ INFO [2013-05-23 13:47:22,662] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,662] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,662] - End processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-Logo-png
+ INFO [2013-05-23 13:47:22,664] - Start processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png
+ INFO [2013-05-23 13:47:22,664] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,665] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,665] - End processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png
+ INFO [2013-05-23 13:47:22,666] - Start processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png
+ INFO [2013-05-23 13:47:22,666] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,666] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,666] - End processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png
+ INFO [2013-05-23 13:47:22,669] - Start processing bundle: Scripts
+ INFO [2013-05-23 13:47:22,669] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,672] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ScriptBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,672] - Executing processor WebAssetBundler.Web.Mvc.MergeProcessor`1[[WebAssetBundler.Web.Mvc.ScriptBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:22,685] - End processing bundle: Scripts
+ INFO [2013-05-23 13:47:25,007] - Start processing bundle: StyleSheets
+ INFO [2013-05-23 13:47:25,007] - Executing processor WebAssetBundler.Web.Mvc.Less.LessProcessor, WebAssetBundler.Less, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,007] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,008] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.StyleSheetBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,008] - Executing processor WebAssetBundler.Web.Mvc.ImageProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,009] - Start processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png
+ INFO [2013-05-23 13:47:25,009] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,009] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,009] - End processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png
+ INFO [2013-05-23 13:47:25,010] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png
+ INFO [2013-05-23 13:47:25,010] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,010] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,010] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png
+ INFO [2013-05-23 13:47:25,011] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png
+ INFO [2013-05-23 13:47:25,011] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,011] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,011] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png
+ INFO [2013-05-23 13:47:25,011] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png
+ INFO [2013-05-23 13:47:25,011] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,011] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,011] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png
+ INFO [2013-05-23 13:47:25,012] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png
+ INFO [2013-05-23 13:47:25,012] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,012] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,012] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png
+ INFO [2013-05-23 13:47:25,012] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png
+ INFO [2013-05-23 13:47:25,012] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,012] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,012] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png
+ INFO [2013-05-23 13:47:25,013] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png
+ INFO [2013-05-23 13:47:25,013] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,013] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,013] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png
+ INFO [2013-05-23 13:47:25,013] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png
+ INFO [2013-05-23 13:47:25,013] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,014] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,014] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png
+ INFO [2013-05-23 13:47:25,014] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png
+ INFO [2013-05-23 13:47:25,014] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,014] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,014] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png
+ INFO [2013-05-23 13:47:25,015] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png
+ INFO [2013-05-23 13:47:25,015] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,015] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,015] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png
+ INFO [2013-05-23 13:47:25,016] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png
+ INFO [2013-05-23 13:47:25,016] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,016] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,016] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png
+ INFO [2013-05-23 13:47:25,017] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png
+ INFO [2013-05-23 13:47:25,017] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,017] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,017] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png
+ INFO [2013-05-23 13:47:25,018] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png
+ INFO [2013-05-23 13:47:25,018] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,018] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,018] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png
+ INFO [2013-05-23 13:47:25,019] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png
+ INFO [2013-05-23 13:47:25,019] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,019] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,019] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png
+ INFO [2013-05-23 13:47:25,019] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png
+ INFO [2013-05-23 13:47:25,019] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,019] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,019] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png
+ INFO [2013-05-23 13:47:25,020] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png
+ INFO [2013-05-23 13:47:25,020] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,020] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,020] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png
+ INFO [2013-05-23 13:47:25,032] - Executing processor WebAssetBundler.Web.Mvc.MergeProcessor`1[[WebAssetBundler.Web.Mvc.StyleSheetBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,032] - End processing bundle: StyleSheets
+ INFO [2013-05-23 13:47:25,033] - Start processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-Logo-png
+ INFO [2013-05-23 13:47:25,033] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,033] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,033] - End processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-Logo-png
+ INFO [2013-05-23 13:47:25,034] - Start processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png
+ INFO [2013-05-23 13:47:25,034] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,034] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,034] - End processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png
+ INFO [2013-05-23 13:47:25,034] - Start processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png
+ INFO [2013-05-23 13:47:25,034] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,035] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,035] - End processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png
+ INFO [2013-05-23 13:47:25,036] - Start processing bundle: Scripts
+ INFO [2013-05-23 13:47:25,036] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,039] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ScriptBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,039] - Executing processor WebAssetBundler.Web.Mvc.MergeProcessor`1[[WebAssetBundler.Web.Mvc.ScriptBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,046] - End processing bundle: Scripts
+ INFO [2013-05-23 13:47:25,422] - Start processing bundle: StyleSheets
+ INFO [2013-05-23 13:47:25,422] - Executing processor WebAssetBundler.Web.Mvc.Less.LessProcessor, WebAssetBundler.Less, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,422] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,422] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.StyleSheetBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,422] - Executing processor WebAssetBundler.Web.Mvc.ImageProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,423] - Start processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png
+ INFO [2013-05-23 13:47:25,423] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,423] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,423] - End processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png
+ INFO [2013-05-23 13:47:25,424] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png
+ INFO [2013-05-23 13:47:25,424] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,424] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,425] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png
+ INFO [2013-05-23 13:47:25,425] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png
+ INFO [2013-05-23 13:47:25,425] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,425] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,425] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png
+ INFO [2013-05-23 13:47:25,425] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png
+ INFO [2013-05-23 13:47:25,425] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,425] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,426] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png
+ INFO [2013-05-23 13:47:25,426] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png
+ INFO [2013-05-23 13:47:25,426] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,426] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,426] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png
+ INFO [2013-05-23 13:47:25,426] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png
+ INFO [2013-05-23 13:47:25,426] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,427] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,427] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png
+ INFO [2013-05-23 13:47:25,427] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png
+ INFO [2013-05-23 13:47:25,427] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,427] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,427] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png
+ INFO [2013-05-23 13:47:25,428] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png
+ INFO [2013-05-23 13:47:25,428] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,428] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,428] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png
+ INFO [2013-05-23 13:47:25,429] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png
+ INFO [2013-05-23 13:47:25,430] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,430] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,430] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png
+ INFO [2013-05-23 13:47:25,430] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png
+ INFO [2013-05-23 13:47:25,430] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,431] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,431] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png
+ INFO [2013-05-23 13:47:25,431] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png
+ INFO [2013-05-23 13:47:25,431] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,431] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,431] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png
+ INFO [2013-05-23 13:47:25,432] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png
+ INFO [2013-05-23 13:47:25,432] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,432] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,432] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png
+ INFO [2013-05-23 13:47:25,433] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png
+ INFO [2013-05-23 13:47:25,433] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,433] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,433] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png
+ INFO [2013-05-23 13:47:25,434] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png
+ INFO [2013-05-23 13:47:25,434] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,434] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,434] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png
+ INFO [2013-05-23 13:47:25,434] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png
+ INFO [2013-05-23 13:47:25,434] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,434] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,434] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png
+ INFO [2013-05-23 13:47:25,435] - Start processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png
+ INFO [2013-05-23 13:47:25,435] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,435] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,435] - End processing bundle: a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png
+ INFO [2013-05-23 13:47:25,438] - Executing processor WebAssetBundler.Web.Mvc.MergeProcessor`1[[WebAssetBundler.Web.Mvc.StyleSheetBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,439] - End processing bundle: StyleSheets
+ INFO [2013-05-23 13:47:25,440] - Start processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-Logo-png
+ INFO [2013-05-23 13:47:25,440] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,440] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,440] - End processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-Logo-png
+ INFO [2013-05-23 13:47:25,440] - Start processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png
+ INFO [2013-05-23 13:47:25,440] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,440] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,440] - End processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png
+ INFO [2013-05-23 13:47:25,441] - Start processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png
+ INFO [2013-05-23 13:47:25,441] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,441] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ImageBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,441] - End processing bundle: 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png
+ INFO [2013-05-23 13:47:25,442] - Start processing bundle: Scripts
+ INFO [2013-05-23 13:47:25,442] - Executing processor WebAssetBundler.Web.Mvc.AssignHashProcessor, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,445] - Executing processor WebAssetBundler.Web.Mvc.UrlAssignmentProcessor`1[[WebAssetBundler.Web.Mvc.ScriptBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,446] - Executing processor WebAssetBundler.Web.Mvc.MergeProcessor`1[[WebAssetBundler.Web.Mvc.ScriptBundle, WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], WebAssetBundler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ INFO [2013-05-23 13:47:25,450] - End processing bundle: Scripts
