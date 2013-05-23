@@ -18,15 +18,57 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using log4net;
+    using System;
 
     [TestFixture]
     public class Log4NetLoggerTests
     {
+        private Log4NetLogger logger;
+        private Mock<ILog> infoLog;
+        private Mock<ILog> errorLog;
+
+        [SetUp]
+        public void Setup()
+        {
+            infoLog = new Mock<ILog>();
+            errorLog = new Mock<ILog>();
+
+            logger = new Log4NetLogger(infoLog.Object, errorLog.Object);
+        }
 
         [Test]
-        public void test()
+        public void Should_Log_Info()
         {
-            Assert.Fail();
+            logger.Info("info");
+
+            infoLog.Verify(i => i.Info("info"));
+        }
+
+        [Test]
+        public void Should_Log_Info_And_Exception()
+        {
+            var exception = new Exception();
+            logger.Info("info", exception);
+
+            infoLog.Verify(i => i.Info("info", exception));
+        }
+
+        [Test]
+        public void Should_Log_Error()
+        {
+            logger.Error("error");
+
+            errorLog.Verify(i => i.Error("error"));
+        }
+
+        [Test]
+        public void Should_Log_Error_And_Exception()
+        {
+            var exception = new Exception();
+            logger.Error("error", exception);
+
+            errorLog.Verify(i => i.Error("error", exception));
         }
     }
 }

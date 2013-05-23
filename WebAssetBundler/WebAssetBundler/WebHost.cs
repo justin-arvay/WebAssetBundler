@@ -72,6 +72,7 @@ namespace WebAssetBundler.Web.Mvc
             //TODO:: consider moving bootstraping to fascade to abstract implementation details from the web host.
             GetBootstrapTasks().ToList().ForEach(task =>
             {
+                logTask(logger, task);
                 task.StartUp(container, typeProvider);
                 task.ShutDown();
             });
