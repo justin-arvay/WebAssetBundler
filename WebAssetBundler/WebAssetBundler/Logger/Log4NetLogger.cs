@@ -26,11 +26,12 @@ namespace WebAssetBundler.Web.Mvc
         public Log4NetLogger()
         {
             log4net.Config.XmlConfigurator.Configure();
-            log = LogManager.GetLogger("WabLogger");
+            log = LogManager.GetLogger("WebAssetBundlerLogger");
         }
 
         public Log4NetLogger(ILog log)
         {
+            log4net.Config.XmlConfigurator.Configure();
             this.log = log;
         }
 
