@@ -31,6 +31,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Setup()
         {
             ioc = new TinyIoCContainer();
+            logger = new Mock<ILogger>();
             pipeline = new BundlePipelineImpl(ioc, logger.Object);
         }
 
@@ -56,19 +57,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             pipeline.Add<IPipelineProcessor<BundleImpl>>();
 
             Assert.AreEqual(1, pipeline.Count);
-        }
-        
-        [Test]
-        public void Should_Add_Processor_With_Factory()
-        {
-            var resolver = new Mock<IPipelineProcessor<BundleImpl>>();
-            ioc.Register<IPipelineProcessor<BundleImpl>>(resolver.Object);
-
-            pipeline.Add<ProcessorImpl.Factory>(c => c("test"));
-
-            Assert.AreEqual(1, pipeline.Count);
-        }
-        
+        }              
 
         [Test]
         public void Should_Insert_Processor()
@@ -81,22 +70,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             pipeline.Insert<IPipelineProcessor<BundleImpl>>(1);
 
             Assert.IsInstanceOf<ProcessorImpl>(pipeline[1]);
-        }
-
-        
-        [Test]
-        public void Should_Insert_Processor_With_Factory()
-        {
-            ioc.Register<IPipelineProcessor<BundleImpl>>(new ProcessorImpl());
-
-            pipeline.Add(new FakeProcessor());
-            pipeline.Add(new FakeProcessor());
-
-            pipeline.Insert<ProcessorImpl.Factory>(1, c => c("test"));
-
-            Assert.IsInstanceOf<ProcessorImpl>(pipeline[1]);
-        }
-        
+        }        
 
         [Test]
         public void Should_Remove_Processor()
@@ -132,12 +106,19 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var processor = new Mock<IPipelineProcessor<BundleImpl>>();
             var bundle = new BundleImpl();
+            bundle.Name = "test";
+
+            logger.Setup(l => l.IsInfoEnabled).Returns(true);
 
             pipeline.Add(processor.Object);
 
             pipeline.Process(bundle);
-            processor.Verify(p => p.Process(bundle), Times.Exactly(2));
-            logger.Verify()
+            processor.Verify(p => p.Process(bundle));
+            logger.Verify(l => l.Info(TextResource.Logging.StartBundleProcessing.FormatWith(bundle.Name)));
+            logger.Verify(l => l.Info(TextResource.Logging.ExecutingProcessor.FormatWith(
+                processor.Object.GetType().Name,
+                bundle.Name)));
+            logger.Verify(l => l.Info(TextResource.Logging.EndBundleProcessing.FormatWith(bundle.Name)));
 
         }
 

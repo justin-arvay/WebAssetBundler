@@ -218,6 +218,8 @@
     <Content Include="Views\Shared\Benefits.cshtml" />
     <Content Include="Views\Documentation\WebConfig\WabSection.cshtml" />
     <Content Include="Views\Home\ChangeLog.cshtml" />
+    <Content Include="Views\Documentation\Logging\Log4Net.cshtml" />
+    <Content Include="Views\Documentation\Logging\CustomLogger.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

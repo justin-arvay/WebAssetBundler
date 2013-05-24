@@ -57,6 +57,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
             host.CallBase = true;
 
             var task = new Mock<IBootstrapTask>();
+            var logger = new Mock<ILogger>();
+
+            host.Object.Container.Register<ILogger>(logger.Object);
 
             host.Setup(h => h.GetBootstrapTasks())
                 .Returns(new List<IBootstrapTask>()
@@ -68,6 +71,29 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             task.Verify(t => t.StartUp(It.IsAny<TinyIoCContainer>(), It.IsAny<ITypeProvider>()));
             task.Verify(t => t.ShutDown());
+        }
+
+        [Test]
+        public void Should_Log_Tasks()
+        {
+            var host = new Mock<WebHost>();
+            host.CallBase = true;
+
+            var task = new Mock<IBootstrapTask>();
+            var logger = new Mock<ILogger>();
+            logger.Setup(l => l.IsInfoEnabled).Returns(true);
+
+            host.Object.Container.Register<ILogger>(logger.Object);
+
+            host.Setup(h => h.GetBootstrapTasks())
+                .Returns(new List<IBootstrapTask>()
+                {
+                    task.Object
+                });
+
+            host.Object.RunBootstrapTasks();
+
+            logger.Verify(l => l.Info(TextResource.Logging.RunBootstrapTask.FormatWith(task.Object.GetType().Name)));
         }
 
         [Test]

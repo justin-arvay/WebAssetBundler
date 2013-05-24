@@ -55,7 +55,7 @@ namespace WebAssetBundler.Web.Mvc
                 if (logEnabled)
                 {
                     Logger.Info(TextResource.Logging.ExecutingProcessor.FormatWith(
-                        processor.GetType().AssemblyQualifiedName,
+                        processor.GetType().Name,
                         bundle.Name));
                 }
 

@@ -123,6 +123,9 @@
   <data name="ExecutingProcessor" xml:space="preserve">
     <value>Executing processor {0} for bundle {1}.</value>
   </data>
+  <data name="RunBootstrapTask" xml:space="preserve">
+    <value>Running bootstrap task {0}.</value>
+  </data>
   <data name="StartBundleProcessing" xml:space="preserve">
     <value>Start processing for bundle {0}.</value>
   </data>

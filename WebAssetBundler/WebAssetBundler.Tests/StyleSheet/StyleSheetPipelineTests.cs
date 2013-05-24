@@ -37,10 +37,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var server = new Mock<HttpServerUtilityBase>();
 
             settings = new SettingsContext();
+            logger = new Mock<ILogger>();
 
             container = new TinyIoCContainer();
             container.Register<IStyleSheetMinifier>((a, c) => compressor.Object);
             container.Register<HttpServerUtilityBase>((a, c) => server.Object);
+            container.Register<ILogger>(logger.Object);
 
             container.Register<ICacheProvider, CacheProvider>();
             container.Register<IBundlesCache<ImageBundle>, BundlesCache<ImageBundle>>();

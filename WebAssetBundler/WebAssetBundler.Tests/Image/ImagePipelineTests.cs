@@ -33,6 +33,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             settings = new SettingsContext();
             container = new TinyIoCContainer();
+
+            logger = new Mock<ILogger>();
         }
 
         [Test]
