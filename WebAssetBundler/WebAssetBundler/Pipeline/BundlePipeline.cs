@@ -47,23 +47,24 @@ namespace WebAssetBundler.Web.Mvc
 
             if (logEnabled)
             {
-                Logger.Info("Start processing bundle: {0}".FormatWith(bundle.Name));
+                Logger.Info(TextResource.Logging.StartBundleProcessing.FormatWith(bundle.Name));
             }
 
             foreach (var processor in this)
             {
                 if (logEnabled)
                 {
-                    Logger.Info("Executing processor {0}".FormatWith(processor.GetType().AssemblyQualifiedName));
+                    Logger.Info(TextResource.Logging.ExecutingProcessor.FormatWith(
+                        processor.GetType().AssemblyQualifiedName,
+                        bundle.Name));
                 }
 
-                processor.Process(bundle);
-                
+                processor.Process(bundle);                
             }
 
             if (logEnabled)
             {
-                Logger.Info("End processing bundle: {0}".FormatWith(bundle.Name));
+                Logger.Info(TextResource.Logging.EndBundleProcessing.FormatWith(bundle.Name));
             }
         }
 

@@ -182,6 +182,11 @@
     <Compile Include="Pipeline\IPipelineProcessor.cs" />
     <Compile Include="DefaultSettings.cs" />
     <Compile Include="BundleCollection.cs" />
+    <Compile Include="TextResource\Logging.Designer.cs">
+      <DependentUpon>Logging.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="TinyIoC.cs" />
     <Compile Include="TinyIoCAspNetExtensions.cs" />
     <Compile Include="TypeProvider.cs" />
@@ -209,6 +214,11 @@
     <Compile Include="WebHost.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="TextResource\Logging.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Logging.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="TextResource\Exceptions.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Exceptions.Designer.cs</LastGenOutput>
