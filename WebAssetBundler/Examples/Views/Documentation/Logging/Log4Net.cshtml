@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
 }
 
-<p>By default logging is disabled. If you wish to add logging you can use the build in 
+<p>By default logging is disabled. If you wish to add logging you can use the built in 
     <strong>log4net</strong> provider. Or you can create your own provider.</p>
 
 <h2>FileAppender Configuration Example</h2>
@@ -15,7 +15,7 @@
 <configSections>
     ...
     <section name=""log4net"" type=""log4net.Config.Log4NetConfigurationSectionHandler, log4net"" />
-  </configSections>
+</configSections>
 ")
 </pre>
 
@@ -40,7 +40,7 @@
 ")
 </pre>
 
-<p>The above configuration will configure the logger to output to a name named <strong>log.txt</strong> in the application root. It will
+<p>The above configuration will configure the logger to output to a log named <strong>log.txt</strong> in the application root. It will
     continually append to this file. The log4net logger is configured to log all levels for the WebAssetBundlerLogger. Internally the log4net provider
     only uses <strong>Error and Info</strong> levels.
 </p>
