@@ -24,6 +24,7 @@ namespace Examples
 
             routes.MapRoute("Home", "", new { controller = "Home", action = "Index" });
             routes.MapRoute("Download", "download", new { controller = "Home", action = "Download" });
+            routes.MapRoute("Benefits", "benefits", new { controller = "Home", action = "Benefits" });
             routes.MapRoute("License", "license", new { controller = "Home", action = "License" });
             routes.MapRoute("ChangeLog", "change-log", new { controller = "Home", action = "ChangeLog" });
 

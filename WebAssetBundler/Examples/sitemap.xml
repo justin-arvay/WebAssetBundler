@@ -2,122 +2,128 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
 		<loc>http://getwab.net/</loc>
-		<lastmod>2013-05-15</lastmod>
+		<lastmod>2013-05-25</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.9</priority>
 	</url>
 	<url>
 		<loc>http://getwab.net/download</loc>
-		<lastmod>2013-05-15</lastmod>
+		<lastmod>2013-05-25</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://getwab.net/docs/introduction</loc>
-		<lastmod>2013-05-15</lastmod>
+		<lastmod>2013-05-25</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://getwab.net/license</loc>
-		<lastmod>2013-05-15</lastmod>
+		<lastmod>2013-05-25</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://getwab.net/docs/plugins</loc>
-		<lastmod>2013-05-15</lastmod>
+		<lastmod>2013-05-25</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://getwab.net/docs/debug-mode</loc>
-		<lastmod>2013-05-15</lastmod>
+		<lastmod>2013-05-25</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://getwab.net/docs/configuration</loc>
-		<lastmod>2013-05-15</lastmod>
+		<lastmod>2013-05-25</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://getwab.net/docs/bundle-configuration/adding-assets</loc>
-		<lastmod>2013-05-15</lastmod>
+		<lastmod>2013-05-25</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://getwab.net/docs/bundle-configuration/other</loc>
-		<lastmod>2013-05-15</lastmod>
+		<lastmod>2013-05-25</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://getwab.net/docs/rendering-bundles</loc>
-		<lastmod>2013-05-15</lastmod>
+		<lastmod>2013-05-25</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://getwab.net/docs/bundle-pipelines</loc>
-		<lastmod>2013-05-15</lastmod>
+		<lastmod>2013-05-25</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://getwab.net/docs/pipeline-customization</loc>
-		<lastmod>2013-05-15</lastmod>
+		<lastmod>2013-05-25</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://getwab.net/docs/custom-minifiers</loc>
-		<lastmod>2013-05-15</lastmod>
+		<lastmod>2013-05-25</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://getwab.net/docs/browser-caching</loc>
-		<lastmod>2013-05-15</lastmod>
+		<lastmod>2013-05-25</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://getwab.net/docs/plugins/create-plugin</loc>
-		<lastmod>2013-05-15</lastmod>
+		<lastmod>2013-05-25</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://getwab.net/docs/plugins/modify-pipeline</loc>
-		<lastmod>2013-05-15</lastmod>
+		<lastmod>2013-05-25</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://getwab.net/docs/plugins/modify-search-patterns</loc>
-		<lastmod>2013-05-15</lastmod>
+		<lastmod>2013-05-25</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://getwab.net/docs/web-config</loc>
-		<lastmod>2013-05-15</lastmod>
+		<lastmod>2013-05-25</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://getwab.net/docs/web-config/wab-section</loc>
-		<lastmod>2013-05-15</lastmod>
+		<lastmod>2013-05-25</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://getwab.net/change-log</loc>
-		<lastmod>2013-05-15</lastmod>
+		<lastmod>2013-05-25</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
+  <url>
+    <loc>http://getwab.net/benefits</loc>
+    <lastmod>2013-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

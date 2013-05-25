@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
     <title>@ViewBag.Title</title>
+    <meta name="description" content="@ViewBag.Description" />
 
     @Bundler.StyleSheets.Render("StyleSheets")
 
@@ -47,6 +48,7 @@
                 <div class="wrapper">
                     @Html.RouteLink("Getting Started", "Documentation", new { path = "introduction" })                   
                     @Html.RouteLink("Documentation", "Documentation", new { path = "introduction" })   
+                    @Html.RouteLink("Benefits", "Benefits")
                     @Html.RouteLink("License", "License")  
                     @Html.RouteLink("Change Log", "ChangeLog")               
                     @Html.RouteLink("Download", "Download")
