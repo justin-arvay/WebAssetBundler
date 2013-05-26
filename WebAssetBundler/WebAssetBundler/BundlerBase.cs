@@ -24,6 +24,7 @@ namespace WebAssetBundler.Web.Mvc
     {
         protected ITagWriter<TBundle> tagWriter;
         protected IBundleProvider<TBundle> bundleProvider;
+        private BundleReferenceState referenceState;
 
         /// <summary>
         /// Constructor
@@ -33,7 +34,8 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="resolver"></param>
         public BundlerBase(
             IBundleProvider<TBundle> bundleProvider,
-            ITagWriter<TBundle> tagWriter)
+            ITagWriter<TBundle> tagWriter,
+            BundleReferenceState referenceState)
         {
             this.bundleProvider = bundleProvider;
             this.tagWriter = tagWriter;
@@ -73,6 +75,25 @@ namespace WebAssetBundler.Web.Mvc
                 tagWriter.Write(textWriter, bundle);
                 return new HtmlString(textWriter.ToString());
             }
+        }
+
+        /// <summary>
+        /// References a bundle to be rendered when RendereReferences is called.
+        /// </summary>
+        /// <param name="bundleName"></param>
+        public void Reference(string bundleName)
+        {
+            referenceState.AddReference(bundleName);
+        }
+
+        public IHtmlString RenderReferenced()
+        {
+            if (referenceState.Rendered)
+            {
+                throw new InvalidOperationException(TextResource.Exceptions.RenderReferencedCalledTooManyTimes);
+            }
+
+            return new HtmlString("");
         }
     }
 }

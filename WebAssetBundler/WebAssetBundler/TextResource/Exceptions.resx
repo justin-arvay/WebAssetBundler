@@ -135,6 +135,9 @@
   <data name="PathMustBeVirtual" xml:space="preserve">
     <value>The supplied path must be virtual. Source: {0}</value>
   </data>
+  <data name="RenderReferencedCalledTooManyTimes" xml:space="preserve">
+    <value>Referenced bundles have already been rendered for this request You cannot call RenderReferenced more than once per request per user.</value>
+  </data>
   <data name="YouCannotCallRenderMoreThanOnce" xml:space="preserve">
     <value>You can not call render more than once.</value>
   </data>
