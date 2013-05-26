@@ -33,8 +33,8 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="manager"></param>
         /// <param name="viewContext"></param>
         /// <param name="resolver"></param>
-        public StyleSheetBundler(IBundleProvider<StyleSheetBundle> bundleProvider, ITagWriter<StyleSheetBundle> tagWriter) 
-            : base(bundleProvider, tagWriter)
+        public StyleSheetBundler(IBundleProvider<StyleSheetBundle> bundleProvider, ITagWriter<StyleSheetBundle> tagWriter, BundlerState state) 
+            : base(bundleProvider, tagWriter, state)
         {
 
         }

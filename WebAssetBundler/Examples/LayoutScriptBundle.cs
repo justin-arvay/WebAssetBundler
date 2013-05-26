@@ -24,7 +24,7 @@ namespace Examples
         public override void Configure()
         {
             Name("Scripts");
-            Compress(true);
+            Minify(true);
             AddDirectory("~/Scripts", d => d
                 .Order(o => o
                     .First("jquery*")

@@ -64,9 +64,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Set_Compress()
+        public void Should_Set_Minify()
         {
-            bundleConfig.Compress(true);
+            bundleConfig.Minify(true);
 
             Assert.IsTrue(bundleConfig.Bundle.Minify);
         }

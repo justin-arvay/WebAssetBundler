@@ -27,13 +27,15 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private BundlerBaseImpl bundler;
         private Mock<IBundleProvider<BundleImpl>> provider;
         private Mock<ITagWriter<BundleImpl>> writer;
+        private BundlerState state;
 
         [SetUp]
         public void Setup()
         {
+            state = new BundlerState();
             writer = new Mock<ITagWriter<BundleImpl>>();
             provider = new Mock<IBundleProvider<BundleImpl>>();
-            bundler = new BundlerBaseImpl(provider.Object, writer.Object);
+            bundler = new BundlerBaseImpl(provider.Object, writer.Object, state);
         }
 
         [Test]
@@ -74,6 +76,18 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             writer.Verify(w => w.Write(It.IsAny<TextWriter>(), bundle));
             Assert.NotNull(output);
+        }
+
+        [Test]
+        public void Should_Reference_Bundle()
+        {
+            Assert.Fail();
+        }
+
+        [Test]
+        public void Should_Render_Referenced()
+        {
+            Assert.Fail();
         }
     }
 }

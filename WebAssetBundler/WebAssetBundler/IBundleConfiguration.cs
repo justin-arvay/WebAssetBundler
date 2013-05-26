@@ -25,12 +25,19 @@ namespace WebAssetBundler.Web.Mvc
         void AddDirectory(string path, Action<DirectorySearchBuilder> builder);
         void AddDirectory(string path, DirectorySearch dirSearch);
         void Name(string name);
-        void Compress(bool compress);
+        void Minify(bool compress);
         void Host(string host);
         void BrowserTtl(int timeToLive);
         TBundle Bundle { get; set; }
         IAssetProvider AssetProvider { get; set; }
         IDirectorySearchFactory DirectorySearchFactory { get; set; }
+
+        /// <summary>
+        /// Sets a bundle that is required for this bundle to function. When this bundle is rendered all bundles it requires 
+        /// are rendered before it (recursively). You can only require bundles of the same bundle type.
+        /// </summary>
+        /// <param name="bundleName"></param>
+        void Required(string bundleName);
         void Configure();
     }
 }

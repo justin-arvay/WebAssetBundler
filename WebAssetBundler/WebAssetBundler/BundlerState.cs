@@ -14,21 +14,32 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace Examples
+namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using WebAssetBundler.Web.Mvc;
+    using System.Collections.Generic;
 
-    public class LayoutStyleSheetBundle : BundleConfiguration<StyleSheetBundle>
+    public class BundlerState
     {
-        public override void Configure()
+        private IList<string> bundleNames = new List<string>();
+
+        public bool Rendered
         {
-            Name("StyleSheets");
-            Minify(true);
-            AddDirectory("~/Content", d => d
-                .Order(o => o
-                    .First("reset.css")
-                    .Next("layout.css")));
+            get;
+            set;
+        }
+
+        public IEnumerable<string> BundleNames
+        {
+            get
+            {
+                return bundleNames;
+            }
+        }
+
+        public void AddReference(string bundleName)
+        {
+            bundleNames.Add(bundleName);
         }
     }
 }

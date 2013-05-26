@@ -20,9 +20,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
     public class BundlerBaseImpl : BundlerBase<BundleImpl>
     {
-        private IBundleProvider<BundleImpl> bundleProvider;
-        private ITagWriter<BundleImpl> tagWriter;
-
         public BundlerBaseImpl(IBundleProvider<BundleImpl> bundleProvider, ITagWriter<BundleImpl> tagWriter)
             : base(bundleProvider, tagWriter)
         {

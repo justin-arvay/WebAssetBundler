@@ -3684,3 +3684,453 @@
  INFO [2013-05-25 09:54:27,617] - Executing processor UrlAssignmentProcessor`1 for bundle Scripts.
  INFO [2013-05-25 09:54:27,617] - Executing processor MergeProcessor`1 for bundle Scripts.
  INFO [2013-05-25 09:54:27,626] - End processing for bundle Scripts.
+ INFO [2013-05-26 16:31:58,278] - Running bootstrap task LoadSettingsTask.
+ INFO [2013-05-26 16:31:58,304] - Running bootstrap task ConfigureCommonTask.
+ INFO [2013-05-26 16:31:58,305] - Running bootstrap task ConfigureImagesTask.
+ INFO [2013-05-26 16:31:58,309] - Running bootstrap task ConfigureStyleSheetsTask.
+ INFO [2013-05-26 16:31:58,312] - Running bootstrap task ConfigureScriptsTask.
+ INFO [2013-05-26 16:32:11,062] - Running bootstrap task LoadSettingsTask.
+ INFO [2013-05-26 16:32:11,074] - Running bootstrap task ConfigureCommonTask.
+ INFO [2013-05-26 16:32:11,074] - Running bootstrap task ConfigureImagesTask.
+ INFO [2013-05-26 16:32:11,080] - Running bootstrap task ConfigureStyleSheetsTask.
+ INFO [2013-05-26 16:32:11,082] - Running bootstrap task ConfigureScriptsTask.
+ INFO [2013-05-26 16:32:13,273] - Start processing for bundle StyleSheets.
+ INFO [2013-05-26 16:32:13,274] - Executing processor LessProcessor for bundle StyleSheets.
+ INFO [2013-05-26 16:32:13,274] - Executing processor AssignHashProcessor for bundle StyleSheets.
+ INFO [2013-05-26 16:32:13,281] - Executing processor UrlAssignmentProcessor`1 for bundle StyleSheets.
+ INFO [2013-05-26 16:32:13,284] - Executing processor ImageProcessor for bundle StyleSheets.
+ INFO [2013-05-26 16:32:13,293] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+ INFO [2013-05-26 16:32:13,293] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+ INFO [2013-05-26 16:32:13,293] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+ INFO [2013-05-26 16:32:13,294] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+ INFO [2013-05-26 16:32:13,297] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:13,297] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:13,297] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:13,297] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:13,298] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png.
+ INFO [2013-05-26 16:32:13,298] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png.
+ INFO [2013-05-26 16:32:13,298] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png.
+ INFO [2013-05-26 16:32:13,298] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png.
+ INFO [2013-05-26 16:32:13,298] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png.
+ INFO [2013-05-26 16:32:13,298] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png.
+ INFO [2013-05-26 16:32:13,298] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png.
+ INFO [2013-05-26 16:32:13,298] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png.
+ INFO [2013-05-26 16:32:13,299] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png.
+ INFO [2013-05-26 16:32:13,299] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png.
+ INFO [2013-05-26 16:32:13,299] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png.
+ INFO [2013-05-26 16:32:13,299] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png.
+ INFO [2013-05-26 16:32:13,299] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:13,299] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:13,300] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:13,300] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:13,300] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png.
+ INFO [2013-05-26 16:32:13,300] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png.
+ INFO [2013-05-26 16:32:13,300] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png.
+ INFO [2013-05-26 16:32:13,300] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png.
+ INFO [2013-05-26 16:32:13,301] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png.
+ INFO [2013-05-26 16:32:13,301] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png.
+ INFO [2013-05-26 16:32:13,301] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png.
+ INFO [2013-05-26 16:32:13,301] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png.
+ INFO [2013-05-26 16:32:13,302] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png.
+ INFO [2013-05-26 16:32:13,302] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png.
+ INFO [2013-05-26 16:32:13,302] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png.
+ INFO [2013-05-26 16:32:13,302] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png.
+ INFO [2013-05-26 16:32:13,303] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png.
+ INFO [2013-05-26 16:32:13,303] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png.
+ INFO [2013-05-26 16:32:13,303] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png.
+ INFO [2013-05-26 16:32:13,303] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png.
+ INFO [2013-05-26 16:32:13,303] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png.
+ INFO [2013-05-26 16:32:13,303] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png.
+ INFO [2013-05-26 16:32:13,304] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png.
+ INFO [2013-05-26 16:32:13,304] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png.
+ INFO [2013-05-26 16:32:13,304] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png.
+ INFO [2013-05-26 16:32:13,304] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png.
+ INFO [2013-05-26 16:32:13,304] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png.
+ INFO [2013-05-26 16:32:13,304] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png.
+ INFO [2013-05-26 16:32:13,305] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png.
+ INFO [2013-05-26 16:32:13,305] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png.
+ INFO [2013-05-26 16:32:13,305] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png.
+ INFO [2013-05-26 16:32:13,305] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png.
+ INFO [2013-05-26 16:32:13,306] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png.
+ INFO [2013-05-26 16:32:13,306] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png.
+ INFO [2013-05-26 16:32:13,306] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png.
+ INFO [2013-05-26 16:32:13,306] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png.
+ INFO [2013-05-26 16:32:13,307] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png.
+ INFO [2013-05-26 16:32:13,307] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png.
+ INFO [2013-05-26 16:32:13,307] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png.
+ INFO [2013-05-26 16:32:13,307] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png.
+ INFO [2013-05-26 16:32:13,307] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png.
+ INFO [2013-05-26 16:32:13,307] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png.
+ INFO [2013-05-26 16:32:13,307] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png.
+ INFO [2013-05-26 16:32:13,307] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png.
+ INFO [2013-05-26 16:32:13,317] - Executing processor MergeProcessor`1 for bundle StyleSheets.
+ INFO [2013-05-26 16:32:13,318] - End processing for bundle StyleSheets.
+ INFO [2013-05-26 16:32:13,324] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-Logo-png.
+ INFO [2013-05-26 16:32:13,324] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-Logo-png.
+ INFO [2013-05-26 16:32:13,324] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-Logo-png.
+ INFO [2013-05-26 16:32:13,324] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-Logo-png.
+ INFO [2013-05-26 16:32:13,326] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png.
+ INFO [2013-05-26 16:32:13,326] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png.
+ INFO [2013-05-26 16:32:13,327] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png.
+ INFO [2013-05-26 16:32:13,327] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png.
+ INFO [2013-05-26 16:32:13,328] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png.
+ INFO [2013-05-26 16:32:13,328] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png.
+ INFO [2013-05-26 16:32:13,328] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png.
+ INFO [2013-05-26 16:32:13,328] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png.
+ INFO [2013-05-26 16:32:13,333] - Start processing for bundle Scripts.
+ INFO [2013-05-26 16:32:13,333] - Executing processor AssignHashProcessor for bundle Scripts.
+ INFO [2013-05-26 16:32:13,336] - Executing processor UrlAssignmentProcessor`1 for bundle Scripts.
+ INFO [2013-05-26 16:32:13,336] - Executing processor MergeProcessor`1 for bundle Scripts.
+ INFO [2013-05-26 16:32:13,347] - End processing for bundle Scripts.
+ INFO [2013-05-26 16:32:35,201] - Start processing for bundle StyleSheets.
+ INFO [2013-05-26 16:32:35,201] - Executing processor LessProcessor for bundle StyleSheets.
+ INFO [2013-05-26 16:32:35,201] - Executing processor AssignHashProcessor for bundle StyleSheets.
+ INFO [2013-05-26 16:32:35,202] - Executing processor UrlAssignmentProcessor`1 for bundle StyleSheets.
+ INFO [2013-05-26 16:32:35,202] - Executing processor ImageProcessor for bundle StyleSheets.
+ INFO [2013-05-26 16:32:35,203] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+ INFO [2013-05-26 16:32:35,203] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+ INFO [2013-05-26 16:32:35,203] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+ INFO [2013-05-26 16:32:35,203] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+ INFO [2013-05-26 16:32:35,204] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:35,204] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:35,204] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:35,204] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:35,205] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png.
+ INFO [2013-05-26 16:32:35,205] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png.
+ INFO [2013-05-26 16:32:35,205] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png.
+ INFO [2013-05-26 16:32:35,205] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png.
+ INFO [2013-05-26 16:32:35,205] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png.
+ INFO [2013-05-26 16:32:35,205] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png.
+ INFO [2013-05-26 16:32:35,205] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png.
+ INFO [2013-05-26 16:32:35,205] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png.
+ INFO [2013-05-26 16:32:35,206] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png.
+ INFO [2013-05-26 16:32:35,206] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png.
+ INFO [2013-05-26 16:32:35,206] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png.
+ INFO [2013-05-26 16:32:35,206] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png.
+ INFO [2013-05-26 16:32:35,206] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:35,206] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:35,207] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:35,207] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:35,207] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png.
+ INFO [2013-05-26 16:32:35,207] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png.
+ INFO [2013-05-26 16:32:35,207] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png.
+ INFO [2013-05-26 16:32:35,207] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png.
+ INFO [2013-05-26 16:32:35,208] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png.
+ INFO [2013-05-26 16:32:35,208] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png.
+ INFO [2013-05-26 16:32:35,208] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png.
+ INFO [2013-05-26 16:32:35,208] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png.
+ INFO [2013-05-26 16:32:35,208] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png.
+ INFO [2013-05-26 16:32:35,209] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png.
+ INFO [2013-05-26 16:32:35,209] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png.
+ INFO [2013-05-26 16:32:35,209] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png.
+ INFO [2013-05-26 16:32:35,210] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png.
+ INFO [2013-05-26 16:32:35,210] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png.
+ INFO [2013-05-26 16:32:35,210] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png.
+ INFO [2013-05-26 16:32:35,210] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png.
+ INFO [2013-05-26 16:32:35,211] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png.
+ INFO [2013-05-26 16:32:35,211] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png.
+ INFO [2013-05-26 16:32:35,211] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png.
+ INFO [2013-05-26 16:32:35,211] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png.
+ INFO [2013-05-26 16:32:35,212] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png.
+ INFO [2013-05-26 16:32:35,212] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png.
+ INFO [2013-05-26 16:32:35,212] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png.
+ INFO [2013-05-26 16:32:35,212] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png.
+ INFO [2013-05-26 16:32:35,212] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png.
+ INFO [2013-05-26 16:32:35,212] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png.
+ INFO [2013-05-26 16:32:35,213] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png.
+ INFO [2013-05-26 16:32:35,213] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png.
+ INFO [2013-05-26 16:32:35,213] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png.
+ INFO [2013-05-26 16:32:35,213] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png.
+ INFO [2013-05-26 16:32:35,213] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png.
+ INFO [2013-05-26 16:32:35,213] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png.
+ INFO [2013-05-26 16:32:35,214] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png.
+ INFO [2013-05-26 16:32:35,214] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png.
+ INFO [2013-05-26 16:32:35,214] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png.
+ INFO [2013-05-26 16:32:35,214] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png.
+ INFO [2013-05-26 16:32:35,214] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png.
+ INFO [2013-05-26 16:32:35,214] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png.
+ INFO [2013-05-26 16:32:35,214] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png.
+ INFO [2013-05-26 16:32:35,214] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png.
+ INFO [2013-05-26 16:32:35,219] - Executing processor MergeProcessor`1 for bundle StyleSheets.
+ INFO [2013-05-26 16:32:35,219] - End processing for bundle StyleSheets.
+ INFO [2013-05-26 16:32:35,220] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-Logo-png.
+ INFO [2013-05-26 16:32:35,220] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-Logo-png.
+ INFO [2013-05-26 16:32:35,220] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-Logo-png.
+ INFO [2013-05-26 16:32:35,220] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-Logo-png.
+ INFO [2013-05-26 16:32:35,221] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png.
+ INFO [2013-05-26 16:32:35,221] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png.
+ INFO [2013-05-26 16:32:35,221] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png.
+ INFO [2013-05-26 16:32:35,221] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png.
+ INFO [2013-05-26 16:32:35,222] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png.
+ INFO [2013-05-26 16:32:35,222] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png.
+ INFO [2013-05-26 16:32:35,222] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png.
+ INFO [2013-05-26 16:32:35,222] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png.
+ INFO [2013-05-26 16:32:35,223] - Start processing for bundle Scripts.
+ INFO [2013-05-26 16:32:35,223] - Executing processor AssignHashProcessor for bundle Scripts.
+ INFO [2013-05-26 16:32:35,226] - Executing processor UrlAssignmentProcessor`1 for bundle Scripts.
+ INFO [2013-05-26 16:32:35,226] - Executing processor MergeProcessor`1 for bundle Scripts.
+ INFO [2013-05-26 16:32:35,232] - End processing for bundle Scripts.
+ INFO [2013-05-26 16:32:37,211] - Start processing for bundle StyleSheets.
+ INFO [2013-05-26 16:32:37,211] - Executing processor LessProcessor for bundle StyleSheets.
+ INFO [2013-05-26 16:32:37,211] - Executing processor AssignHashProcessor for bundle StyleSheets.
+ INFO [2013-05-26 16:32:37,211] - Executing processor UrlAssignmentProcessor`1 for bundle StyleSheets.
+ INFO [2013-05-26 16:32:37,211] - Executing processor ImageProcessor for bundle StyleSheets.
+ INFO [2013-05-26 16:32:37,212] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+ INFO [2013-05-26 16:32:37,212] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+ INFO [2013-05-26 16:32:37,212] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+ INFO [2013-05-26 16:32:37,212] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+ INFO [2013-05-26 16:32:37,213] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:37,213] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:37,213] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:37,213] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:37,214] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png.
+ INFO [2013-05-26 16:32:37,214] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png.
+ INFO [2013-05-26 16:32:37,214] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png.
+ INFO [2013-05-26 16:32:37,214] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png.
+ INFO [2013-05-26 16:32:37,214] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png.
+ INFO [2013-05-26 16:32:37,214] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png.
+ INFO [2013-05-26 16:32:37,214] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png.
+ INFO [2013-05-26 16:32:37,214] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png.
+ INFO [2013-05-26 16:32:37,215] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png.
+ INFO [2013-05-26 16:32:37,215] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png.
+ INFO [2013-05-26 16:32:37,215] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png.
+ INFO [2013-05-26 16:32:37,215] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png.
+ INFO [2013-05-26 16:32:37,216] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:37,216] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:37,216] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:37,216] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:37,216] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png.
+ INFO [2013-05-26 16:32:37,216] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png.
+ INFO [2013-05-26 16:32:37,216] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png.
+ INFO [2013-05-26 16:32:37,216] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png.
+ INFO [2013-05-26 16:32:37,217] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png.
+ INFO [2013-05-26 16:32:37,217] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png.
+ INFO [2013-05-26 16:32:37,217] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png.
+ INFO [2013-05-26 16:32:37,217] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png.
+ INFO [2013-05-26 16:32:37,218] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png.
+ INFO [2013-05-26 16:32:37,218] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png.
+ INFO [2013-05-26 16:32:37,218] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png.
+ INFO [2013-05-26 16:32:37,218] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png.
+ INFO [2013-05-26 16:32:37,219] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png.
+ INFO [2013-05-26 16:32:37,219] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png.
+ INFO [2013-05-26 16:32:37,219] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png.
+ INFO [2013-05-26 16:32:37,219] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png.
+ INFO [2013-05-26 16:32:37,220] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png.
+ INFO [2013-05-26 16:32:37,220] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png.
+ INFO [2013-05-26 16:32:37,220] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png.
+ INFO [2013-05-26 16:32:37,220] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png.
+ INFO [2013-05-26 16:32:37,221] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png.
+ INFO [2013-05-26 16:32:37,221] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png.
+ INFO [2013-05-26 16:32:37,221] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png.
+ INFO [2013-05-26 16:32:37,221] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png.
+ INFO [2013-05-26 16:32:37,222] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png.
+ INFO [2013-05-26 16:32:37,222] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png.
+ INFO [2013-05-26 16:32:37,222] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png.
+ INFO [2013-05-26 16:32:37,222] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png.
+ INFO [2013-05-26 16:32:37,223] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png.
+ INFO [2013-05-26 16:32:37,223] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png.
+ INFO [2013-05-26 16:32:37,223] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png.
+ INFO [2013-05-26 16:32:37,223] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png.
+ INFO [2013-05-26 16:32:37,223] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png.
+ INFO [2013-05-26 16:32:37,223] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png.
+ INFO [2013-05-26 16:32:37,223] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png.
+ INFO [2013-05-26 16:32:37,223] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png.
+ INFO [2013-05-26 16:32:37,224] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png.
+ INFO [2013-05-26 16:32:37,224] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png.
+ INFO [2013-05-26 16:32:37,224] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png.
+ INFO [2013-05-26 16:32:37,224] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png.
+ INFO [2013-05-26 16:32:37,231] - Executing processor MergeProcessor`1 for bundle StyleSheets.
+ INFO [2013-05-26 16:32:37,231] - End processing for bundle StyleSheets.
+ INFO [2013-05-26 16:32:37,232] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-Logo-png.
+ INFO [2013-05-26 16:32:37,232] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-Logo-png.
+ INFO [2013-05-26 16:32:37,232] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-Logo-png.
+ INFO [2013-05-26 16:32:37,232] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-Logo-png.
+ INFO [2013-05-26 16:32:37,233] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png.
+ INFO [2013-05-26 16:32:37,233] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png.
+ INFO [2013-05-26 16:32:37,233] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png.
+ INFO [2013-05-26 16:32:37,233] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png.
+ INFO [2013-05-26 16:32:37,233] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png.
+ INFO [2013-05-26 16:32:37,233] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png.
+ INFO [2013-05-26 16:32:37,234] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png.
+ INFO [2013-05-26 16:32:37,234] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png.
+ INFO [2013-05-26 16:32:37,235] - Start processing for bundle Scripts.
+ INFO [2013-05-26 16:32:37,235] - Executing processor AssignHashProcessor for bundle Scripts.
+ INFO [2013-05-26 16:32:37,238] - Executing processor UrlAssignmentProcessor`1 for bundle Scripts.
+ INFO [2013-05-26 16:32:37,238] - Executing processor MergeProcessor`1 for bundle Scripts.
+ INFO [2013-05-26 16:32:37,245] - End processing for bundle Scripts.
+ INFO [2013-05-26 16:32:37,912] - Start processing for bundle StyleSheets.
+ INFO [2013-05-26 16:32:37,912] - Executing processor LessProcessor for bundle StyleSheets.
+ INFO [2013-05-26 16:32:37,912] - Executing processor AssignHashProcessor for bundle StyleSheets.
+ INFO [2013-05-26 16:32:37,913] - Executing processor UrlAssignmentProcessor`1 for bundle StyleSheets.
+ INFO [2013-05-26 16:32:37,913] - Executing processor ImageProcessor for bundle StyleSheets.
+ INFO [2013-05-26 16:32:37,914] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+ INFO [2013-05-26 16:32:37,914] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+ INFO [2013-05-26 16:32:37,914] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+ INFO [2013-05-26 16:32:37,914] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+ INFO [2013-05-26 16:32:37,915] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:37,915] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:37,915] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:37,915] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:37,916] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png.
+ INFO [2013-05-26 16:32:37,916] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png.
+ INFO [2013-05-26 16:32:37,916] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png.
+ INFO [2013-05-26 16:32:37,916] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png.
+ INFO [2013-05-26 16:32:37,916] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png.
+ INFO [2013-05-26 16:32:37,916] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png.
+ INFO [2013-05-26 16:32:37,916] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png.
+ INFO [2013-05-26 16:32:37,916] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png.
+ INFO [2013-05-26 16:32:37,917] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png.
+ INFO [2013-05-26 16:32:37,917] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png.
+ INFO [2013-05-26 16:32:37,917] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png.
+ INFO [2013-05-26 16:32:37,917] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png.
+ INFO [2013-05-26 16:32:37,917] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:37,917] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:37,917] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:37,917] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:37,918] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png.
+ INFO [2013-05-26 16:32:37,918] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png.
+ INFO [2013-05-26 16:32:37,918] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png.
+ INFO [2013-05-26 16:32:37,918] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png.
+ INFO [2013-05-26 16:32:37,918] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png.
+ INFO [2013-05-26 16:32:37,918] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png.
+ INFO [2013-05-26 16:32:37,919] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png.
+ INFO [2013-05-26 16:32:37,919] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png.
+ INFO [2013-05-26 16:32:37,919] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png.
+ INFO [2013-05-26 16:32:37,919] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png.
+ INFO [2013-05-26 16:32:37,920] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png.
+ INFO [2013-05-26 16:32:37,920] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png.
+ INFO [2013-05-26 16:32:37,922] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png.
+ INFO [2013-05-26 16:32:37,922] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png.
+ INFO [2013-05-26 16:32:37,922] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png.
+ INFO [2013-05-26 16:32:37,922] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png.
+ INFO [2013-05-26 16:32:37,923] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png.
+ INFO [2013-05-26 16:32:37,923] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png.
+ INFO [2013-05-26 16:32:37,923] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png.
+ INFO [2013-05-26 16:32:37,923] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png.
+ INFO [2013-05-26 16:32:37,924] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png.
+ INFO [2013-05-26 16:32:37,924] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png.
+ INFO [2013-05-26 16:32:37,924] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png.
+ INFO [2013-05-26 16:32:37,924] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png.
+ INFO [2013-05-26 16:32:37,925] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png.
+ INFO [2013-05-26 16:32:37,925] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png.
+ INFO [2013-05-26 16:32:37,925] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png.
+ INFO [2013-05-26 16:32:37,925] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png.
+ INFO [2013-05-26 16:32:37,926] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png.
+ INFO [2013-05-26 16:32:37,926] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png.
+ INFO [2013-05-26 16:32:37,926] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png.
+ INFO [2013-05-26 16:32:37,926] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png.
+ INFO [2013-05-26 16:32:37,926] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png.
+ INFO [2013-05-26 16:32:37,926] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png.
+ INFO [2013-05-26 16:32:37,926] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png.
+ INFO [2013-05-26 16:32:37,926] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png.
+ INFO [2013-05-26 16:32:37,927] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png.
+ INFO [2013-05-26 16:32:37,927] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png.
+ INFO [2013-05-26 16:32:37,927] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png.
+ INFO [2013-05-26 16:32:37,927] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png.
+ INFO [2013-05-26 16:32:37,931] - Executing processor MergeProcessor`1 for bundle StyleSheets.
+ INFO [2013-05-26 16:32:37,931] - End processing for bundle StyleSheets.
+ INFO [2013-05-26 16:32:37,932] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-Logo-png.
+ INFO [2013-05-26 16:32:37,932] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-Logo-png.
+ INFO [2013-05-26 16:32:37,932] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-Logo-png.
+ INFO [2013-05-26 16:32:37,932] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-Logo-png.
+ INFO [2013-05-26 16:32:37,932] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png.
+ INFO [2013-05-26 16:32:37,932] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png.
+ INFO [2013-05-26 16:32:37,933] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png.
+ INFO [2013-05-26 16:32:37,933] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png.
+ INFO [2013-05-26 16:32:37,933] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png.
+ INFO [2013-05-26 16:32:37,933] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png.
+ INFO [2013-05-26 16:32:37,933] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png.
+ INFO [2013-05-26 16:32:37,933] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png.
+ INFO [2013-05-26 16:32:37,935] - Start processing for bundle Scripts.
+ INFO [2013-05-26 16:32:37,935] - Executing processor AssignHashProcessor for bundle Scripts.
+ INFO [2013-05-26 16:32:37,938] - Executing processor UrlAssignmentProcessor`1 for bundle Scripts.
+ INFO [2013-05-26 16:32:37,938] - Executing processor MergeProcessor`1 for bundle Scripts.
+ INFO [2013-05-26 16:32:37,945] - End processing for bundle Scripts.
+ INFO [2013-05-26 16:32:54,705] - Start processing for bundle StyleSheets.
+ INFO [2013-05-26 16:32:54,705] - Executing processor LessProcessor for bundle StyleSheets.
+ INFO [2013-05-26 16:32:54,705] - Executing processor AssignHashProcessor for bundle StyleSheets.
+ INFO [2013-05-26 16:32:54,706] - Executing processor UrlAssignmentProcessor`1 for bundle StyleSheets.
+ INFO [2013-05-26 16:32:54,706] - Executing processor ImageProcessor for bundle StyleSheets.
+ INFO [2013-05-26 16:32:54,706] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+ INFO [2013-05-26 16:32:54,706] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+ INFO [2013-05-26 16:32:54,706] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+ INFO [2013-05-26 16:32:54,706] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+ INFO [2013-05-26 16:32:54,708] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:54,708] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:54,708] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:54,708] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:54,708] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png.
+ INFO [2013-05-26 16:32:54,708] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png.
+ INFO [2013-05-26 16:32:54,708] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png.
+ INFO [2013-05-26 16:32:54,708] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_ffffff_60x60-png.
+ INFO [2013-05-26 16:32:54,709] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png.
+ INFO [2013-05-26 16:32:54,709] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png.
+ INFO [2013-05-26 16:32:54,709] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png.
+ INFO [2013-05-26 16:32:54,709] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_10_f8f7f6_60x60-png.
+ INFO [2013-05-26 16:32:54,709] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png.
+ INFO [2013-05-26 16:32:54,709] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png.
+ INFO [2013-05-26 16:32:54,710] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png.
+ INFO [2013-05-26 16:32:54,710] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_65_654b24_60x60-png.
+ INFO [2013-05-26 16:32:54,710] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:54,710] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:54,710] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:54,710] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_eceadf_60x60-png.
+ INFO [2013-05-26 16:32:54,711] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png.
+ INFO [2013-05-26 16:32:54,711] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png.
+ INFO [2013-05-26 16:32:54,711] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png.
+ INFO [2013-05-26 16:32:54,711] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_15_f7f3de_60x60-png.
+ INFO [2013-05-26 16:32:54,711] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png.
+ INFO [2013-05-26 16:32:54,711] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png.
+ INFO [2013-05-26 16:32:54,712] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png.
+ INFO [2013-05-26 16:32:54,712] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_fine-grain_68_b83400_60x60-png.
+ INFO [2013-05-26 16:32:54,712] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png.
+ INFO [2013-05-26 16:32:54,712] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png.
+ INFO [2013-05-26 16:32:54,712] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png.
+ INFO [2013-05-26 16:32:54,713] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_222222_256x240-png.
+ INFO [2013-05-26 16:32:54,713] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png.
+ INFO [2013-05-26 16:32:54,713] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png.
+ INFO [2013-05-26 16:32:54,714] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png.
+ INFO [2013-05-26 16:32:54,714] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_b83400_256x240-png.
+ INFO [2013-05-26 16:32:54,714] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png.
+ INFO [2013-05-26 16:32:54,714] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png.
+ INFO [2013-05-26 16:32:54,714] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png.
+ INFO [2013-05-26 16:32:54,714] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_ffffff_256x240-png.
+ INFO [2013-05-26 16:32:54,715] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png.
+ INFO [2013-05-26 16:32:54,715] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png.
+ INFO [2013-05-26 16:32:54,715] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png.
+ INFO [2013-05-26 16:32:54,715] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_8c291d_256x240-png.
+ INFO [2013-05-26 16:32:54,716] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png.
+ INFO [2013-05-26 16:32:54,716] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png.
+ INFO [2013-05-26 16:32:54,716] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png.
+ INFO [2013-05-26 16:32:54,716] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_3572ac_256x240-png.
+ INFO [2013-05-26 16:32:54,717] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png.
+ INFO [2013-05-26 16:32:54,717] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png.
+ INFO [2013-05-26 16:32:54,717] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png.
+ INFO [2013-05-26 16:32:54,717] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-icons_fbdb93_256x240-png.
+ INFO [2013-05-26 16:32:54,717] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png.
+ INFO [2013-05-26 16:32:54,717] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png.
+ INFO [2013-05-26 16:32:54,718] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png.
+ INFO [2013-05-26 16:32:54,718] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_20_6e4f1c_10x10-png.
+ INFO [2013-05-26 16:32:54,718] - Start processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png.
+ INFO [2013-05-26 16:32:54,718] - Executing processor AssignHashProcessor for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png.
+ INFO [2013-05-26 16:32:54,718] - Executing processor UrlAssignmentProcessor`1 for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png.
+ INFO [2013-05-26 16:32:54,718] - End processing for bundle a22d74eba48d3245360fa608ebf1fdba-ui-bg_diagonal-maze_40_000000_10x10-png.
+ INFO [2013-05-26 16:32:54,723] - Executing processor MergeProcessor`1 for bundle StyleSheets.
+ INFO [2013-05-26 16:32:54,723] - End processing for bundle StyleSheets.
+ INFO [2013-05-26 16:32:54,724] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-Logo-png.
+ INFO [2013-05-26 16:32:54,724] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-Logo-png.
+ INFO [2013-05-26 16:32:54,724] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-Logo-png.
+ INFO [2013-05-26 16:32:54,724] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-Logo-png.
+ INFO [2013-05-26 16:32:54,725] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png.
+ INFO [2013-05-26 16:32:54,725] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png.
+ INFO [2013-05-26 16:32:54,725] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png.
+ INFO [2013-05-26 16:32:54,725] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-download-icon-png.
+ INFO [2013-05-26 16:32:54,725] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png.
+ INFO [2013-05-26 16:32:54,726] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png.
+ INFO [2013-05-26 16:32:54,726] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png.
+ INFO [2013-05-26 16:32:54,726] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-osi-logo-png.
+ INFO [2013-05-26 16:32:54,727] - Start processing for bundle Scripts.
+ INFO [2013-05-26 16:32:54,727] - Executing processor AssignHashProcessor for bundle Scripts.
+ INFO [2013-05-26 16:32:54,730] - Executing processor UrlAssignmentProcessor`1 for bundle Scripts.
+ INFO [2013-05-26 16:32:54,730] - Executing processor MergeProcessor`1 for bundle Scripts.
+ INFO [2013-05-26 16:32:54,735] - End processing for bundle Scripts.

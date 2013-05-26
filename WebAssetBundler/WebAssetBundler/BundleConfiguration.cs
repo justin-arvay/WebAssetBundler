@@ -109,16 +109,16 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         /// <summary>
-        /// Informs the bundling process to compress all assets when bundling.
+        /// Informs the bundling process to minify all assets when bundling.
         /// </summary>
-        /// <param name="compress"></param>
-        public void Compress(bool compress)
+        /// <param name="minify"></param>
+        public void Minify(bool minify)
         {
-            Bundle.Minify = compress;
+            Bundle.Minify = minify;
         }
 
         /// <summary>
-        /// Sets a specific host for the bundle.s
+        /// Sets a specific host for the bundles.
         /// </summary>
         /// <param name="host"></param>
         public void Host(string host)
@@ -160,5 +160,9 @@ namespace WebAssetBundler.Web.Mvc
             return Bundle.Assets.Any(i => i.Source.Equals(item.Source));
         }
 
+        public void Required(string bundleName)
+        {
+            Bundle.Required.Add(bundleName);
+        }
     }
 }

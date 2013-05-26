@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2010
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAssetBundler", "WebAssetBundler\WebAssetBundler.csproj", "{2AC03817-4112-47FE-AF34-44A8AE4717AB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples", "Examples\Examples.csproj", "{CFA5D4E1-15BE-4921-81A9-61951B12BCBD}"
@@ -83,5 +83,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C2F105DA-2979-4493-AEDF-F4027FBEE1F2} = {942E22EA-D63B-4F48-9678-89E8159A70CC}
 		{9000799C-4762-4C84-ADA6-DDCA535B5D1E} = {942E22EA-D63B-4F48-9678-89E8159A70CC}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

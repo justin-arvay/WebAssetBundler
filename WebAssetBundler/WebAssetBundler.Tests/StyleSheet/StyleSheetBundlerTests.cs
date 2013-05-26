@@ -35,16 +35,19 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<ITagWriter<StyleSheetBundle>> tagWriter;
         private StyleSheetBundler bundler;
         private Mock<IBundleProvider<StyleSheetBundle>> bundleProvider;
+        private BundlerState state;
 
         [SetUp]
         public void Setup()
         {
             bundleProvider = new Mock<IBundleProvider<StyleSheetBundle>>();
             tagWriter = new Mock<ITagWriter<StyleSheetBundle>>();
+            state = new BundlerState();
 
             bundler = new StyleSheetBundler(
                 bundleProvider.Object,
-                tagWriter.Object);
+                tagWriter.Object, 
+                state);
         }
  
 

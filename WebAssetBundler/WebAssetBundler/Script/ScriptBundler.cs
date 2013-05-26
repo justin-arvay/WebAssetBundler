@@ -32,8 +32,8 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="viewContext"></param>
         /// <param name="resolver"></param>
-        public ScriptBundler(IBundleProvider<ScriptBundle> bundleProvider, ITagWriter<ScriptBundle> tagWriter)
-            : base(bundleProvider, tagWriter)
+        public ScriptBundler(IBundleProvider<ScriptBundle> bundleProvider, ITagWriter<ScriptBundle> tagWriter, BundlerState state)
+            : base(bundleProvider, tagWriter, state)
         {
         }
 

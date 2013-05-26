@@ -19,12 +19,12 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Web;
     using System.IO;
+    using System.Collections.Generic;
 
     public abstract class BundlerBase<TBundle> where TBundle : Bundle
     {
         protected ITagWriter<TBundle> tagWriter;
         protected IBundleProvider<TBundle> bundleProvider;
-        private BundleReferenceState referenceState;
 
         /// <summary>
         /// Constructor
@@ -35,12 +35,17 @@ namespace WebAssetBundler.Web.Mvc
         public BundlerBase(
             IBundleProvider<TBundle> bundleProvider,
             ITagWriter<TBundle> tagWriter,
-            BundleReferenceState referenceState)
+            BundlerState referenceState)
         {
             this.bundleProvider = bundleProvider;
             this.tagWriter = tagWriter;
         }
 
+        internal BundlerState State
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Gets the bundle from either a url or a virtual path depending on the source passed.
@@ -83,17 +88,46 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="bundleName"></param>
         public void Reference(string bundleName)
         {
-            referenceState.AddReference(bundleName);
+            State.AddReference(bundleName);
         }
 
+
+        /// <summary>
+        /// Renders all referenced bundles including any bundles that are required by the referenced bundles.
+        /// </summary>
+        /// <returns></returns>
         public IHtmlString RenderReferenced()
         {
-            if (referenceState.Rendered)
+            if (State.Rendered)
             {
                 throw new InvalidOperationException(TextResource.Exceptions.RenderReferencedCalledTooManyTimes);
             }
+            
+            State.Rendered = true;
 
-            return new HtmlString("");
+            IEnumerable<TBundle> bundles = GetReferencedBundles(State);
+
+            using (StringWriter textWriter = new StringWriter())
+            {
+                foreach (var bundle in bundles)
+                {
+                    tagWriter.Write(textWriter, bundle);
+                }
+
+                return new HtmlString(textWriter.ToString());
+            }
+        }
+
+        private IEnumerable<TBundle> GetReferencedBundles(BundlerState state)
+        {
+            var bundles = new List<TBundle>();
+
+            foreach (string name in state.BundleNames)
+            {
+                bundles.Add(bundleProvider.GetNamedBundle(name));
+            }
+
+            return bundles;
         }
     }
 }

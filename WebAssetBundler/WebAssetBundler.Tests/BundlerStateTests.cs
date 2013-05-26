@@ -14,24 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
-    using System.Collections.Generic;
+    using NUnit.Framework;
+    using Moq;
 
-    public class BundleReferenceState
+    [TestFixture]
+    public class BundlerStateTests
     {
-        private IList<string> bundleNames = new List<string>();
-
-        public bool Rendered
+        [Test]
+        public void test()
         {
-            get;
-            set;
-        }
-
-        public void AddReference(string bundleName)
-        {
-            bundleNames.Add(bundleName);
+            Assert.Fail();
         }
     }
 }

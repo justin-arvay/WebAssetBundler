@@ -16,6 +16,7 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
+    using System.Web;
     using System.Web.Mvc;
 
     public static class Bundler
@@ -53,6 +54,22 @@ namespace WebAssetBundler.Web.Mvc
             {
                 return imageBundler;
             }
+        }
+
+        private static TType GetPerRequestObject<TType>(string name) 
+            where TType : new()            
+        
+        {
+            var context = WabHttpModule.Host.Container.Resolve<HttpContextBase>();
+            var obj = (TType)context.Items[name];
+
+            if (obj == null)
+            {
+                obj = new TType();
+                context.Items[name] = obj;
+            }
+
+            return obj;
         }
     }
 }
