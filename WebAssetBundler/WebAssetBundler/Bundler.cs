@@ -36,6 +36,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             get
             {
+                styleSheetBundler.State = GetBundlerState("StyleSheetBundlerState");
                 return styleSheetBundler;
             }
         }
@@ -44,6 +45,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             get
             {
+                scriptBundler.State = GetBundlerState("ScriptBundlerState");
                 return scriptBundler;
             }
         }
@@ -56,16 +58,14 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        private static TType GetPerRequestObject<TType>(string name) 
-            where TType : new()            
-        
+        private static BundlerState GetBundlerState(string name)
         {
             var context = WabHttpModule.Host.Container.Resolve<HttpContextBase>();
-            var obj = (TType)context.Items[name];
+            var obj = (BundlerState)context.Items[name];
 
             if (obj == null)
             {
-                obj = new TType();
+                obj = new BundlerState();
                 context.Items[name] = obj;
             }
 

@@ -18,14 +18,25 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System.Collections.Generic;
 
     [TestFixture]
     public class BundlerStateTests
     {
-        [Test]
-        public void test()
+        private BundlerState state;
+
+        [SetUp]
+        public void Setup()
         {
-            Assert.Fail();
+            state = new BundlerState();
+        }
+
+        [Test]
+        public void Should_Add_Reference()
+        {
+            state.AddReference("TestBundle");
+
+            Assert.AreEqual("TestBundle", ((List<string>)state.BundleNames)[0]);
         }
     }
 }

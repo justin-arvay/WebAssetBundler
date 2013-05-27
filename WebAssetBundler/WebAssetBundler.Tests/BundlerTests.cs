@@ -18,36 +18,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
-    using System.Web;
-    using System.IO;
-    using System.Collections.Generic;
 
     [TestFixture]
-    public class BundlerBaseTests
+    public class BundlerTests
     {
-        private BundlerBaseImpl bundler;
-        private Mock<IBundleProvider<BundleImpl>> provider;
-        private Mock<ITagWriter<BundleImpl>> writer;
-
-        [SetUp]
-        public void Setup()
-        {            
-            writer = new Mock<ITagWriter<BundleImpl>>();
-            provider = new Mock<IBundleProvider<BundleImpl>>();
-            bundler = new BundlerBaseImpl(provider.Object, writer.Object);
-            bundler.State = new BundlerState();
-        }
-
         [Test]
-        public void Should_Reference_Bundle()
-        {
-            bundler.Reference("TestBundle");
-
-            Assert.AreEqual("TestBundle", ((List<string>)bundler.State.BundleNames)[0]);
-        }
-
-        [Test]
-        public void Should_Render_Referenced()
+        public void test()
         {
             Assert.Fail();
         }

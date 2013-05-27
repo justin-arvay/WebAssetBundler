@@ -31,21 +31,18 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<ITagWriter<ScriptBundle>> tagWriter;
         private ScriptBundler bundler;
         private Mock<IBundleProvider<ScriptBundle>> bundleProvider;
-        private BundlerState state;
 
         [SetUp]
         public void Setup()
         {
             bundleProvider = new Mock<IBundleProvider<ScriptBundle>>();
-            state = new BundlerState();
 
             var collection = new BundleCollection<ScriptBundle>();
             tagWriter = new Mock<ITagWriter<ScriptBundle>>();
 
             bundler = new ScriptBundler(
                 bundleProvider.Object,
-                tagWriter.Object,
-                state);
+                tagWriter.Object);
         }
 
         [Test]

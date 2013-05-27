@@ -181,5 +181,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual(1, bundleConfig.Bundle.Assets.Count);
         }
+
+        [Test]
+        public void Should_Add_Required_Bundle()
+        {
+            bundleConfig.Required("TestBundle");
+
+            Assert.AreEqual("TestBundle", ((List<string>)bundleConfig.Bundle.Required)[0]);
+        }
     }
 }

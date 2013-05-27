@@ -34,8 +34,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="resolver"></param>
         public BundlerBase(
             IBundleProvider<TBundle> bundleProvider,
-            ITagWriter<TBundle> tagWriter,
-            BundlerState referenceState)
+            ITagWriter<TBundle> tagWriter)
         {
             this.bundleProvider = bundleProvider;
             this.tagWriter = tagWriter;
@@ -45,41 +44,6 @@ namespace WebAssetBundler.Web.Mvc
         {
             get;
             set;
-        }
-
-        /// <summary>
-        /// Gets the bundle from either a url or a virtual path depending on the source passed.
-        /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        public TBundle GetBundleBySource(string source)
-        {
-            TBundle bundle = null;
-
-            if (source.StartsWith("http", StringComparison.OrdinalIgnoreCase))
-            {
-                bundle = bundleProvider.GetExternalBundle(source);
-            }
-            else
-            {
-                bundle = bundleProvider.GetSourceBundle(source);
-            }
-
-            return bundle;
-        }
-
-        /// <summary>
-        /// Writes the bundle to an HtmlString
-        /// </summary>
-        /// <param name="bundle"></param>
-        /// <returns></returns>
-        public IHtmlString WriteBundle(TBundle bundle)
-        {
-            using (StringWriter textWriter = new StringWriter())
-            {
-                tagWriter.Write(textWriter, bundle);
-                return new HtmlString(textWriter.ToString());
-            }
         }
 
         /// <summary>
@@ -102,7 +66,7 @@ namespace WebAssetBundler.Web.Mvc
             {
                 throw new InvalidOperationException(TextResource.Exceptions.RenderReferencedCalledTooManyTimes);
             }
-            
+
             State.Rendered = true;
 
             IEnumerable<TBundle> bundles = GetReferencedBundles(State);
@@ -117,6 +81,41 @@ namespace WebAssetBundler.Web.Mvc
                 return new HtmlString(textWriter.ToString());
             }
         }
+
+        /// <summary>
+        /// Gets the bundle from either a url or a virtual path depending on the source passed.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        protected TBundle GetBundleBySource(string source)
+        {
+            TBundle bundle = null;
+
+            if (source.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+            {
+                bundle = bundleProvider.GetExternalBundle(source);
+            }
+            else
+            {
+                bundle = bundleProvider.GetSourceBundle(source);
+            }
+
+            return bundle;
+        }
+
+        /// <summary>
+        /// Writes the bundle to an HtmlString
+        /// </summary>
+        /// <param name="bundle"></param>
+        /// <returns></returns>
+        protected IHtmlString WriteBundle(TBundle bundle)
+        {
+            using (StringWriter textWriter = new StringWriter())
+            {
+                tagWriter.Write(textWriter, bundle);
+                return new HtmlString(textWriter.ToString());
+            }
+        }        
 
         private IEnumerable<TBundle> GetReferencedBundles(BundlerState state)
         {

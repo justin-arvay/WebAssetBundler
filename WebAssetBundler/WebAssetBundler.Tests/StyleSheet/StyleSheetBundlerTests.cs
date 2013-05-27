@@ -35,19 +35,16 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<ITagWriter<StyleSheetBundle>> tagWriter;
         private StyleSheetBundler bundler;
         private Mock<IBundleProvider<StyleSheetBundle>> bundleProvider;
-        private BundlerState state;
 
         [SetUp]
         public void Setup()
         {
             bundleProvider = new Mock<IBundleProvider<StyleSheetBundle>>();
             tagWriter = new Mock<ITagWriter<StyleSheetBundle>>();
-            state = new BundlerState();
 
             bundler = new StyleSheetBundler(
                 bundleProvider.Object,
-                tagWriter.Object, 
-                state);
+                tagWriter.Object);
         }
  
 
@@ -107,7 +104,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Incude_External_Bundle()
+        public void Should_Include_External_Bundle()
         {
             var bundle = new StyleSheetBundle();
 
