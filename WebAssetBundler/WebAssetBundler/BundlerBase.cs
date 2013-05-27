@@ -117,13 +117,48 @@ namespace WebAssetBundler.Web.Mvc
             }
         }        
 
-        private IEnumerable<TBundle> GetReferencedBundles(BundlerState state)
+        protected IEnumerable<TBundle> GetReferencedBundles(BundlerState state)
         {
             var bundles = new List<TBundle>();
 
             foreach (string name in state.BundleNames)
             {
                 bundles.Add(bundleProvider.GetNamedBundle(name));
+            }
+
+            return bundles;
+        }
+
+        /// <summary>
+        /// Recursively gets all the required bundles specificed by a bundle. Cannot be deeper than 25.
+        /// </summary>
+        /// <param name="bundle"></param>
+        /// <param name="depth"></param>
+        /// <returns></returns>
+        protected ICollection<TBundle> GetRequiredBundles(TBundle bundle,  int depth)
+        {
+            var bundles = new List<TBundle>();
+            TBundle reqBundle = null;
+
+            //assume anything deeper than 25 is a mistake.
+            //That is a large amount of bundles that require eachother. 
+            //At this point it is probably too difficult to keep track of bundle requirements.
+            //Safe guards against circular reference through bundle names in the configuration.
+            if (depth > 25)
+            {
+                throw new InvalidDataException();
+            }
+
+            foreach (var name in bundle.Required)
+            {
+                reqBundle = bundleProvider.GetNamedBundle(name);
+
+                depth++;  //add to depth because we are about to go deeper
+
+                bundles.Add(reqBundle);
+                bundles.AddRange(GetRequiredBundles(reqBundle, depth));
+
+                depth--; //we came up one level
             }
 
             return bundles;

@@ -47,6 +47,91 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
+        public void Should_Get_Required_Bundles_Recursively()
+        {
+            var bundleOne = new BundleImpl();
+            bundleOne.Name = "BundleOne";
+            bundleOne.Required.Add("BundleTwo");
+            bundleOne.Required.Add("BundleThree");
+
+            var bundleTwo = new BundleImpl();
+            bundleTwo.Name = "BundleTwo";
+            bundleTwo.Required.Add("BundleFour");
+            bundleTwo.Required.Add("BundleSix");
+
+            var bundleThree = new BundleImpl();
+            bundleThree.Name = "BundleThree";
+            bundleThree.Required.Add("BundleFive");
+            bundleThree.Required.Add("BundleSeven");
+
+            var bundleFour = new BundleImpl();
+            bundleFour.Name = "BundleFour";
+
+            var bundleFive = new BundleImpl();
+            bundleFive.Name = "BundleFive";
+
+            var bundleSix = new BundleImpl();
+            bundleSix.Name = "BundleFour";
+
+            var bundleSeven = new BundleImpl();
+            bundleSeven.Name = "BundleFive";
+
+            provider.Setup(p => p.GetNamedBundle(bundleOne.Name))
+                .Returns(bundleOne);
+
+            provider.Setup(p => p.GetNamedBundle(bundleTwo.Name))
+                .Returns(bundleTwo);
+
+            provider.Setup(p => p.GetNamedBundle(bundleThree.Name))
+                .Returns(bundleThree);
+
+            provider.Setup(p => p.GetNamedBundle(bundleFour.Name))
+                .Returns(bundleFour);
+
+            provider.Setup(p => p.GetNamedBundle(bundleFive.Name))
+                .Returns(bundleFive);
+
+            provider.Setup(p => p.GetNamedBundle(bundleSix.Name))
+                .Returns(bundleSix);
+
+            provider.Setup(p => p.GetNamedBundle(bundleSeven.Name))
+                .Returns(bundleSeven);
+
+            var bundles = (IList<BundleImpl>)bundler.GetRequiredBundles(bundleOne);
+
+            Assert.AreEqual("BundleTwo", bundles[0].Name);
+            Assert.AreEqual("BundleFour", bundles[1].Name);
+            Assert.AreEqual("BundleSix", bundles[2].Name);
+            Assert.AreEqual("BundleThree", bundles[3].Name);
+            Assert.AreEqual("BundleFive", bundles[4].Name);
+            Assert.AreEqual("BundleSeven", bundles[5].Name);
+        }
+
+        [Test]
+        public void Should_Throw_Exception_When_Getting_Required_Bundles()
+        {
+            var bundleOne = new BundleImpl();
+            bundleOne.Name = "BundleOne";
+            bundleOne.Required.Add("BundleTwo");
+
+            var bundleTwo = new BundleImpl();
+            bundleTwo.Name = "BundleTwo";
+            bundleTwo.Required.Add("BundleOne");
+
+            provider.Setup(p => p.GetNamedBundle(bundleOne.Name))
+                .Returns(bundleOne);
+
+            provider.Setup(p => p.GetNamedBundle(bundleTwo.Name))
+                .Returns(bundleTwo);
+
+            //the above should create a cirular reference through bundle names
+            //simulates unintentional behavior when configuring bundles wrong.
+            //max of 25 depth, however infinate required bundles are allowed
+
+            Assert.Throws<InvalidDataException>(() => bundler.GetRequiredBundles(bundleOne));
+        }
+
+        [Test]
         public void Should_Render_Referenced()
         {
             Assert.Fail();
