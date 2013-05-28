@@ -33,8 +33,8 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="manager"></param>
         /// <param name="viewContext"></param>
         /// <param name="resolver"></param>
-        public StyleSheetBundler(IBundleProvider<StyleSheetBundle> bundleProvider, ITagWriter<StyleSheetBundle> tagWriter) 
-            : base(bundleProvider, tagWriter)
+        public StyleSheetBundler(IBundleProvider<StyleSheetBundle> bundleProvider, IBundleRenderer<StyleSheetBundle> renderer)
+            : base(bundleProvider, renderer)
         {
 
         }
@@ -46,7 +46,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             var bundle = Provider.GetNamedBundle(name);
 
-            return WriteBundle(bundle);
+            return Renderer.Render(bundle, State);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace WebAssetBundler.Web.Mvc
 
             builder(new StyleSheetTagBuilder(bundle));
 
-            return WriteBundle(bundle);
+            return Renderer.Render(bundle, State);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             StyleSheetBundle bundle = GetBundleBySource(source);
 
-            return WriteBundle(bundle);
+            return Renderer.Render(bundle, State);
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace WebAssetBundler.Web.Mvc
 
             builder(new StyleSheetTagBuilder(bundle));
 
-            return WriteBundle(bundle);
+            return Renderer.Render(bundle, State);
         }
     }
 }

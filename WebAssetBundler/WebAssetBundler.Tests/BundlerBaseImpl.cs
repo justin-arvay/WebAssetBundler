@@ -21,8 +21,8 @@ using System.Collections.Generic;
 
     public class BundlerBaseImpl : BundlerBase<BundleImpl>
     {
-        public BundlerBaseImpl(IBundleProvider<BundleImpl> bundleProvider, ITagWriter<BundleImpl> tagWriter)
-            : base(bundleProvider, tagWriter)
+        public BundlerBaseImpl(IBundleProvider<BundleImpl> bundleProvider, IBundleRenderer<BundleImpl> renderer)
+            : base(bundleProvider, renderer)
         {
            
         }

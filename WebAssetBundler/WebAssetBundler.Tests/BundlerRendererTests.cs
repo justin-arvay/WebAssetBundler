@@ -18,6 +18,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System.Web;
+    using System.IO;
 
     [TestFixture]
     public class BundlerRendererTests
@@ -35,7 +37,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Render_Bundle()
         {
-            Assert.Fail();
+            var bundle = new BundleImpl();
+            bundle.Name = "test";
+            var state = new BundlerState();
+
+            renderer.Render(bundle, state);
+
+            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), bundle));
+            Assert.True(state.IsRendered(bundle));
         }
 
         [Test]

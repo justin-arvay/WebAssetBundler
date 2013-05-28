@@ -27,13 +27,9 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ScriptBundler : BundlerBase<ScriptBundle>
     {
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="viewContext"></param>
-        /// <param name="resolver"></param>
-        public ScriptBundler(IBundleProvider<ScriptBundle> bundleProvider, ITagWriter<ScriptBundle> tagWriter)
-            : base(bundleProvider, tagWriter)
+
+        public ScriptBundler(IBundleProvider<ScriptBundle> bundleProvider, IBundleRenderer<ScriptBundle> renderer)
+            : base(bundleProvider, renderer)
         {
         }
 
@@ -44,7 +40,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             ScriptBundle bundle = Provider.GetNamedBundle(name);
 
-            return WriteBundle(bundle);           
+            return Renderer.Render(bundle, State);           
         }
 
         /// <summary>
@@ -59,7 +55,7 @@ namespace WebAssetBundler.Web.Mvc
 
             builder(new ScriptTagBuilder(bundle));
 
-            return WriteBundle(bundle);
+            return Renderer.Render(bundle, State);
         }
 
         /// <summary>
@@ -69,7 +65,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             ScriptBundle bundle = GetBundleBySource(source);
 
-            return WriteBundle(bundle);
+            return Renderer.Render(bundle, State);
         }
 
         /// <summary>
@@ -84,7 +80,7 @@ namespace WebAssetBundler.Web.Mvc
 
             builder(new ScriptTagBuilder(bundle));
 
-            return WriteBundle(bundle);
+            return Renderer.Render(bundle, State);
         }
     }
 }

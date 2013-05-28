@@ -33,19 +33,19 @@ namespace WebAssetBundler.Web.Mvc
         internal BundlerState State
         {
             get;
-            private set;
+            set;
         }
 
         internal IBundleRenderer<TBundle> Renderer
         {
             get;
-            private set;
+            set;
         }
 
         internal IBundleProvider<TBundle> Provider
         {
             get;
-            private set;
+            set;
         }
 
         /// <summary>
