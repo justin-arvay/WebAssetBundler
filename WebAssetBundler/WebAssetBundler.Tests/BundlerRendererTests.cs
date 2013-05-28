@@ -14,16 +14,34 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Web;
+    using NUnit.Framework;
+    using Moq;
 
-    public interface IBundleRenderer<TBundle>
-        where TBundle : Bundle
+    [TestFixture]
+    public class BundlerRendererTests
     {
-        IHtmlString Render(TBundle bundle, BundlerState state);
-        IHtmlString RenderAll(IEnumerable<TBundle> bundles, BundlerState state);
+        private BundlerRenderer<BundleImpl> renderer;
+        private Mock<ITagWriter<BundleImpl>> tagWriter;
+
+        [SetUp]
+        public void Setup()
+        {
+            tagWriter = new Mock<ITagWriter<BundleImpl>>();
+            renderer = new BundlerRenderer<BundleImpl>(tagWriter.Object);
+        }
+
+        [Test]
+        public void Should_Render_Bundle()
+        {
+            Assert.Fail();
+        }
+
+        [Test]
+        public void Should_Render_All_Bundles()
+        {
+            Assert.Fail();
+        }
     }
 }

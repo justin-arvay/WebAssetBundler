@@ -42,7 +42,7 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         public IHtmlString Render(string name)
         {
-            ScriptBundle bundle = bundleProvider.GetNamedBundle(name);
+            ScriptBundle bundle = Provider.GetNamedBundle(name);
 
             return WriteBundle(bundle);           
         }
@@ -55,7 +55,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public IHtmlString Render(string name, Action<ScriptTagBuilder> builder)
         {
-            ScriptBundle bundle = bundleProvider.GetNamedBundle(name);
+            ScriptBundle bundle = Provider.GetNamedBundle(name);
 
             builder(new ScriptTagBuilder(bundle));
 

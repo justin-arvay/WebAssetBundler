@@ -44,7 +44,7 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         public IHtmlString Render(string name)
         {
-            var bundle = bundleProvider.GetNamedBundle(name);
+            var bundle = Provider.GetNamedBundle(name);
 
             return WriteBundle(bundle);
         }
@@ -54,7 +54,7 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         public IHtmlString Render(string name, Action<StyleSheetTagBuilder> builder)
         {
-            var bundle = bundleProvider.GetNamedBundle(name);
+            var bundle = Provider.GetNamedBundle(name);
 
             builder(new StyleSheetTagBuilder(bundle));
 

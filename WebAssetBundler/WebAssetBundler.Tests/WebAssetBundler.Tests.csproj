@@ -64,6 +64,7 @@
     <Compile Include="Bootstrap\LoadSettingsTaskTests.cs" />
     <Compile Include="BundlerBaseImpl.cs" />
     <Compile Include="BundlerBaseTests.cs" />
+    <Compile Include="BundlerRendererTests.cs" />
     <Compile Include="BundlerStateTests.cs" />
     <Compile Include="BundlerTests.cs" />
     <Compile Include="Configuration\DefaultBundleConfigurationFactoryTests.cs" />

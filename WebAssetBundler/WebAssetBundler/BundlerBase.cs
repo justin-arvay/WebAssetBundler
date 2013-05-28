@@ -24,27 +24,28 @@ namespace WebAssetBundler.Web.Mvc
 
     public abstract class BundlerBase<TBundle> where TBundle : Bundle
     {
-        protected ITagWriter<TBundle> tagWriter;
-        protected IBundleProvider<TBundle> bundleProvider;
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="manager"></param>
-        /// <param name="viewContext"></param>
-        /// <param name="resolver"></param>
-        public BundlerBase(
-            IBundleProvider<TBundle> bundleProvider,
-            ITagWriter<TBundle> tagWriter)
+        public BundlerBase(IBundleProvider<TBundle> provider, IBundleRenderer<TBundle> renderer)
         {
-            this.bundleProvider = bundleProvider;
-            this.tagWriter = tagWriter;
+            Provider = provider;
+            Renderer = renderer;
         }
 
         internal BundlerState State
         {
             get;
-            set;
+            private set;
+        }
+
+        internal IBundleRenderer<TBundle> Renderer
+        {
+            get;
+            private set;
+        }
+
+        internal IBundleProvider<TBundle> Provider
+        {
+            get;
+            private set;
         }
 
         /// <summary>
@@ -72,7 +73,7 @@ namespace WebAssetBundler.Web.Mvc
 
             IEnumerable<TBundle> bundles = GetReferencedBundles(State);
 
-            return WriteBundles(bundles);
+            return Renderer.RenderAll(bundles, State);
         }
 
         /// <summary>
@@ -86,55 +87,14 @@ namespace WebAssetBundler.Web.Mvc
 
             if (source.StartsWith("http", StringComparison.OrdinalIgnoreCase))
             {
-                bundle = bundleProvider.GetExternalBundle(source);
+                bundle = Provider.GetExternalBundle(source);
             }
             else
             {
-                bundle = bundleProvider.GetSourceBundle(source);
+                bundle = Provider.GetSourceBundle(source);
             }
 
             return bundle;
-        }
-
-        /// <summary>
-        /// Writes the bundle to an HtmlString
-        /// </summary>
-        /// <param name="bundle"></param>
-        /// <returns></returns>
-        protected IHtmlString WriteBundle(TBundle bundle)
-        {
-            using (StringWriter textWriter = new StringWriter())
-            {
-                if (State.IsRendered(bundle) == false)
-                {
-                    State.MarkRendered(bundle);
-                    tagWriter.Write(textWriter, bundle);
-                }
-
-                return new HtmlString(textWriter.ToString());
-            }
-        }
-
-        /// <summary>
-        /// Writes all bundles to an HtmlString
-        /// </summary>
-        /// <param name="bundle"></param>
-        /// <returns></returns>
-        protected IHtmlString WriteBundles(IEnumerable<TBundle> bundles)
-        {
-            using (StringWriter textWriter = new StringWriter())
-            {
-                foreach (var bundle in bundles)
-                {
-                    if (State.IsRendered(bundle) == false)
-                    {
-                        State.MarkRendered(bundle);
-                        tagWriter.Write(textWriter, bundle);
-                    }
-                }
-                
-                return new HtmlString(textWriter.ToString());
-            }
         }
 
         protected IEnumerable<TBundle> GetReferencedBundles(BundlerState state)
@@ -143,7 +103,7 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (string name in state.ReferencedBundleNames)
             {
-                bundles.Add(bundleProvider.GetNamedBundle(name));
+                bundles.Add(Provider.GetNamedBundle(name));
             }
 
             return bundles;
@@ -171,7 +131,7 @@ namespace WebAssetBundler.Web.Mvc
 
             foreach (var name in bundle.Required)
             {
-                reqBundle = bundleProvider.GetNamedBundle(name);
+                reqBundle = Provider.GetNamedBundle(name);
 
                 depth++;  //add to depth because we are about to go deeper
 

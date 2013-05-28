@@ -17,10 +17,49 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Web;
 
     public class BundlerRenderer<TBundle> : IBundleRenderer<TBundle>
         where TBundle : Bundle
     {
+        private ITagWriter<TBundle> tagWriter;
 
+        public BundlerRenderer(ITagWriter<TBundle> tagWriter)
+        {
+            this.tagWriter = tagWriter;
+        }
+
+        public IHtmlString Render(TBundle bundle, BundlerState state)
+        {
+            using (StringWriter textWriter = new StringWriter())
+            {
+                if (state.IsRendered(bundle) == false)
+                {
+                    state.MarkRendered(bundle);
+                    tagWriter.Write(textWriter, bundle);
+                }
+
+                return new HtmlString(textWriter.ToString());
+            }            
+        }
+
+        public IHtmlString RenderAll(IEnumerable<TBundle> bundles, BundlerState state)
+        {
+            using (StringWriter textWriter = new StringWriter())
+            {
+                foreach (var bundle in bundles)
+                {
+                    if (state.IsRendered(bundle) == false)
+                    {
+                        state.MarkRendered(bundle);
+                        tagWriter.Write(textWriter, bundle);
+                    }
+                }
+
+                return new HtmlString(textWriter.ToString());
+            }
+        }
     }
 }
