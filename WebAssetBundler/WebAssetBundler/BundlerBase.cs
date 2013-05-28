@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.Web;
     using System.IO;
     using System.Collections.Generic;
+    using System.Linq;
 
     public abstract class BundlerBase<TBundle> where TBundle : Bundle
     {
@@ -71,15 +72,7 @@ namespace WebAssetBundler.Web.Mvc
 
             IEnumerable<TBundle> bundles = GetReferencedBundles(State);
 
-            using (StringWriter textWriter = new StringWriter())
-            {
-                foreach (var bundle in bundles)
-                {
-                    tagWriter.Write(textWriter, bundle);
-                }
-
-                return new HtmlString(textWriter.ToString());
-            }
+            return WriteBundles(bundles);
         }
 
         /// <summary>
@@ -112,16 +105,43 @@ namespace WebAssetBundler.Web.Mvc
         {
             using (StringWriter textWriter = new StringWriter())
             {
-                tagWriter.Write(textWriter, bundle);
+                if (State.IsRendered(bundle) == false)
+                {
+                    State.MarkRendered(bundle);
+                    tagWriter.Write(textWriter, bundle);
+                }
+
                 return new HtmlString(textWriter.ToString());
             }
-        }        
+        }
+
+        /// <summary>
+        /// Writes all bundles to an HtmlString
+        /// </summary>
+        /// <param name="bundle"></param>
+        /// <returns></returns>
+        protected IHtmlString WriteBundles(IEnumerable<TBundle> bundles)
+        {
+            using (StringWriter textWriter = new StringWriter())
+            {
+                foreach (var bundle in bundles)
+                {
+                    if (State.IsRendered(bundle) == false)
+                    {
+                        State.MarkRendered(bundle);
+                        tagWriter.Write(textWriter, bundle);
+                    }
+                }
+                
+                return new HtmlString(textWriter.ToString());
+            }
+        }
 
         protected IEnumerable<TBundle> GetReferencedBundles(BundlerState state)
         {
             var bundles = new List<TBundle>();
 
-            foreach (string name in state.BundleNames)
+            foreach (string name in state.ReferencedBundleNames)
             {
                 bundles.Add(bundleProvider.GetNamedBundle(name));
             }
@@ -162,6 +182,38 @@ namespace WebAssetBundler.Web.Mvc
             }
 
             return bundles;
+        }
+
+        /// <summary>
+        /// Ensures the required bundles are in the correct order for writing the tags. Additionally removes duplicate bundles.
+        /// Correct bundle order should always put the bundles with the more dependancy first, bundles that are the least dependant last.
+        /// </summary>
+        /// <param name="bundles"></param>
+        /// <returns></returns>
+        protected IEnumerable<TBundle> CorrectBundleOrder(IEnumerable<TBundle> bundles)
+        {
+            var sortedBundles = new List<TBundle>(bundles);
+            sortedBundles.Reverse(); //reverse is needed for distinct
+
+            //distince will keep the first bundles it encounter and remove the later
+            //reversing before distinct will ensure that the required bundles are always first for bundlers that appear later in the list
+            sortedBundles = sortedBundles.Distinct(new BundleComparer()).ToList(); 
+
+            return sortedBundles;
+        }
+
+        private class BundleComparer : IEqualityComparer<TBundle>
+        {
+
+            public bool Equals(TBundle x, TBundle y)
+            {
+                return x.Name.IsCaseInsensitiveEqual(y.Name);
+            }
+
+            public int GetHashCode(TBundle obj)
+            {
+                return obj.Name.GetHashCode();
+            }
         }
     }
 }

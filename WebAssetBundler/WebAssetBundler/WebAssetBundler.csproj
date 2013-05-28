@@ -67,6 +67,7 @@
     <Compile Include="Bootstrap\LoadSettingsTask.cs" />
     <Compile Include="Bootstrap\ConfigureScriptsTask.cs" />
     <Compile Include="BundlerBase.cs" />
+    <Compile Include="BundlerRenderer.cs" />
     <Compile Include="BundlerState.cs" />
     <Compile Include="Configuration\DefaultBundleConfigurationFactory.cs" />
     <Compile Include="Configuration\DirectorySearchOrderBuilder.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="HttpHandlers\ImageResponseWriter.cs" />
     <Compile Include="HttpHandlers\IResponseWriterFactory.cs" />
     <Compile Include="HttpHandlers\ResponseWriterFactory.cs" />
+    <Compile Include="IBundleRenderer.cs" />
     <Compile Include="IDirectory.cs" />
     <Compile Include="IDirectorySearch.cs" />
     <Compile Include="IDirectorySearchFactory.cs" />

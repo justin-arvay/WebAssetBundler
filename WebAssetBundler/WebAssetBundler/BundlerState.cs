@@ -21,7 +21,8 @@ namespace WebAssetBundler.Web.Mvc
 
     public class BundlerState
     {
-        private IList<string> bundleNames = new List<string>();
+        private ICollection<string> referencedBundleNames = new List<string>();
+        private ICollection<string> renderedBundleNames = new List<string>();
 
         public bool Rendered
         {
@@ -29,17 +30,27 @@ namespace WebAssetBundler.Web.Mvc
             set;
         }
 
-        public IEnumerable<string> BundleNames
+        public IEnumerable<string> ReferencedBundleNames
         {
             get
             {
-                return bundleNames;
+                return referencedBundleNames;
             }
+        }
+
+        public void MarkRendered(Bundle bundle)
+        {
+            renderedBundleNames.Add(bundle.Name);
+        }
+
+        public bool IsRendered(Bundle bundle)
+        {
+            return renderedBundleNames.Contains(bundle.Name);
         }
 
         public void AddReference(string bundleName)
         {
-            bundleNames.Add(bundleName);
+            referencedBundleNames.Add(bundleName);
         }
     }
 }

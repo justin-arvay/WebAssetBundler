@@ -14,27 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc.Tests
+namespace WebAssetBundler.Web.Mvc
 {
     using System;
-using System.Collections.Generic;
 
-    public class BundlerBaseImpl : BundlerBase<BundleImpl>
+    public class BundlerRenderer<TBundle> : IBundleRenderer<TBundle>
+        where TBundle : Bundle
     {
-        public BundlerBaseImpl(IBundleProvider<BundleImpl> bundleProvider, ITagWriter<BundleImpl> tagWriter)
-            : base(bundleProvider, tagWriter)
-        {
-           
-        }
 
-        public ICollection<BundleImpl> GetRequiredBundles(BundleImpl bundle)
-        {
-            return GetRequiredBundles(bundle, 0);
-        }
-
-        public IEnumerable<BundleImpl> GetCorrectedBundleOrder(IEnumerable<BundleImpl> bundles)
-        {
-            return CorrectBundleOrder(bundles);
-        }
     }
 }
