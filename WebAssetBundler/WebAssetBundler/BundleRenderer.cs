@@ -21,12 +21,12 @@ namespace WebAssetBundler.Web.Mvc
     using System.IO;
     using System.Web;
 
-    public class BundlerRenderer<TBundle> : IBundleRenderer<TBundle>
+    public class BundleRenderer<TBundle> : IBundleRenderer<TBundle>
         where TBundle : Bundle
     {
         private ITagWriter<TBundle> tagWriter;
 
-        public BundlerRenderer(ITagWriter<TBundle> tagWriter)
+        public BundleRenderer(ITagWriter<TBundle> tagWriter)
         {
             this.tagWriter = tagWriter;
         }

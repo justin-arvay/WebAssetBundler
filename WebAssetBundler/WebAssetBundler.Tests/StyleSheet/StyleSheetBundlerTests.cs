@@ -32,7 +32,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class StyleSheetBundlerTests
     {
-        private Mock<ITagWriter<StyleSheetBundle>> tagWriter;
+        private Mock<IBundleRenderer<StyleSheetBundle>> renderer;
         private StyleSheetBundler bundler;
         private Mock<IBundleProvider<StyleSheetBundle>> bundleProvider;
 
@@ -40,11 +40,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Setup()
         {
             bundleProvider = new Mock<IBundleProvider<StyleSheetBundle>>();
-            tagWriter = new Mock<ITagWriter<StyleSheetBundle>>();
+            renderer = new Mock<IBundleRenderer<StyleSheetBundle>>();
 
             bundler = new StyleSheetBundler(
                 bundleProvider.Object,
-                tagWriter.Object);
+                renderer.Object);
         }
  
 
@@ -53,12 +53,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var bundle = new StyleSheetBundle();
             bundleProvider.Setup(p => p.GetNamedBundle("test")).Returns(bundle);
-            
+            renderer.Setup(r => r.Render(bundle, It.IsAny<BundlerState>())).Returns(new HtmlString(""));
+
             var htmlString = bundler.Render("test");
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
-            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), bundle), Times.Once());
-
+            renderer.Verify(t => t.Render(bundle, It.IsAny<BundlerState>()));
         }
 
         [Test]
@@ -66,12 +66,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var bundle = new StyleSheetBundle();
             bundleProvider.Setup(p => p.GetNamedBundle("test")).Returns(bundle);
+            renderer.Setup(r => r.Render(bundle, It.IsAny<BundlerState>())).Returns(new HtmlString(""));
 
             var htmlString = bundler.Render("test", b => b
                 .AddAttribute("test", "test"));
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
-            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), bundle), Times.Once());
+            renderer.Verify(t => t.Render(bundle, It.IsAny<BundlerState>()), Times.Once());
             Assert.AreEqual("test", bundle.Attributes["test"]);
         }
 
@@ -81,11 +82,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var bundle = new StyleSheetBundle();
 
             bundleProvider.Setup(p => p.GetSourceBundle("~/file.css")).Returns(bundle);
+            renderer.Setup(r => r.Render(bundle, It.IsAny<BundlerState>())).Returns(new HtmlString(""));
 
             var htmlString = bundler.Include("~/file.css");
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
-            tagWriter.Verify(w => w.Write(It.IsAny<TextWriter>(), bundle), Times.Once());
+            renderer.Verify(w => w.Render(bundle, It.IsAny<BundlerState>()), Times.Once());
         }
 
         [Test]
@@ -94,12 +96,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var bundle = new StyleSheetBundle();
 
             bundleProvider.Setup(p => p.GetSourceBundle("~/file.css")).Returns(bundle);
+            renderer.Setup(r => r.Render(bundle, It.IsAny<BundlerState>())).Returns(new HtmlString(""));
 
             var htmlString = bundler.Include("~/file.css", b => b
                 .AddAttribute("test", "test"));
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
-            tagWriter.Verify(w => w.Write(It.IsAny<TextWriter>(), bundle), Times.Once());
+            renderer.Verify(w => w.Render(bundle, It.IsAny<BundlerState>()), Times.Once());
             Assert.AreEqual("test", bundle.Attributes["test"]);
         }
 
@@ -109,11 +112,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var bundle = new StyleSheetBundle();
 
             bundleProvider.Setup(p => p.GetExternalBundle("http://www.google.com/file.css")).Returns(bundle);
+            renderer.Setup(r => r.Render(bundle, It.IsAny<BundlerState>())).Returns(new HtmlString(""));
 
             var htmlString = bundler.Include("http://www.google.com/file.css");
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
-            tagWriter.Verify(w => w.Write(It.IsAny<TextWriter>(), bundle), Times.Once());
+            renderer.Verify(w => w.Render(bundle, It.IsAny<BundlerState>()), Times.Once());
             bundleProvider.Verify(p => p.GetExternalBundle("http://www.google.com/file.css"), Times.Once());
         }
     }

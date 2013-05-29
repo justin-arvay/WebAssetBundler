@@ -27,14 +27,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
     {
         private BundlerBaseImpl bundler;
         private Mock<IBundleProvider<BundleImpl>> provider;
-        private Mock<ITagWriter<BundleImpl>> writer;
+        private Mock<IBundleRenderer<BundleImpl>> renderer;
 
         [SetUp]
         public void Setup()
-        {            
-            writer = new Mock<ITagWriter<BundleImpl>>();
+        {
+            renderer = new Mock<IBundleRenderer<BundleImpl>>();
             provider = new Mock<IBundleProvider<BundleImpl>>();
-            bundler = new BundlerBaseImpl(provider.Object, writer.Object);
+            bundler = new BundlerBaseImpl(provider.Object, renderer.Object);
             bundler.State = new BundlerState();
         }
 

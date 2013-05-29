@@ -20,18 +20,19 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
     using System.Web;
     using System.IO;
+using System.Collections.Generic;
 
     [TestFixture]
-    public class BundlerRendererTests
+    public class BundleRendererTests
     {
-        private BundlerRenderer<BundleImpl> renderer;
+        private BundleRenderer<BundleImpl> renderer;
         private Mock<ITagWriter<BundleImpl>> tagWriter;
 
         [SetUp]
         public void Setup()
         {
             tagWriter = new Mock<ITagWriter<BundleImpl>>();
-            renderer = new BundlerRenderer<BundleImpl>(tagWriter.Object);
+            renderer = new BundleRenderer<BundleImpl>(tagWriter.Object);
         }
 
         [Test]
@@ -50,7 +51,25 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Render_All_Bundles()
         {
-            Assert.Fail();
-        }
+            var bundle = new BundleImpl();
+            bundle.Name = "test";
+
+            var bundleTwo = new BundleImpl();
+            bundleTwo.Name = "testTwo";
+
+            var state = new BundlerState();
+            var bundles = new List<BundleImpl>()
+            {
+                bundle,
+                bundleTwo
+            };
+
+            renderer.RenderAll(bundles, state);
+
+            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), bundle));
+            tagWriter.Verify(t => t.Write(It.IsAny<TextWriter>(), bundleTwo));
+            Assert.True(state.IsRendered(bundle));
+            Assert.True(state.IsRendered(bundleTwo));
+        }        
     }
 }
