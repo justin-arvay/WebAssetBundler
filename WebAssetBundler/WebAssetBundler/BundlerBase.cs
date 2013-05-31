@@ -162,6 +162,13 @@ namespace WebAssetBundler.Web.Mvc
             return sortedBundles;
         }
 
+        protected IEnumerable<TBundle> ResolveBundleDependancies(TBundle bundle)
+        {
+            var bundles = (ICollection<TBundle>)GetRequiredBundles(bundle, 0);
+            bundles.Add(bundle);
+            return bundles;
+        }
+
         private class BundleComparer : IEqualityComparer<TBundle>
         {
 

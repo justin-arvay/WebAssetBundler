@@ -58,6 +58,8 @@ namespace WebAssetBundler.Web.Mvc
 
             builder(new StyleSheetTagBuilder(bundle));
 
+            IEnumerable<StyleSheetBundle> bundles = GetRequiredBundles(bundle, 0);
+
             return Renderer.Render(bundle, State);
         }
 
