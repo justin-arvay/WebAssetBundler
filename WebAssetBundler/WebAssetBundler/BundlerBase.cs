@@ -150,12 +150,12 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         /// <param name="bundles"></param>
         /// <returns></returns>
-        protected IEnumerable<TBundle> CorrectBundleOrder(IEnumerable<TBundle> bundles)
+        protected IEnumerable<TBundle> PrepareBundles(IEnumerable<TBundle> bundles)
         {
             var sortedBundles = new List<TBundle>(bundles);
             sortedBundles.Reverse(); //reverse is needed for distinct
 
-            //distince will keep the first bundles it encounter and remove the later
+            //distinct will keep the first bundles it encounter and remove the later
             //reversing before distinct will ensure that the required bundles are always first for bundlers that appear later in the list
             sortedBundles = sortedBundles.Distinct(new BundleComparer()).ToList(); 
 

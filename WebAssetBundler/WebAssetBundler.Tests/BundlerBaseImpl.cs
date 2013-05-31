@@ -34,7 +34,7 @@ using System.Collections.Generic;
 
         public IEnumerable<BundleImpl> GetCorrectedBundleOrder(IEnumerable<BundleImpl> bundles)
         {
-            return CorrectBundleOrder(bundles);
+            return PrepareBundles(bundles);
         }
     }
 }
