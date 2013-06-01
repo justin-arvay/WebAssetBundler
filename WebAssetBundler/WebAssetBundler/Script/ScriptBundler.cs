@@ -28,8 +28,9 @@ namespace WebAssetBundler.Web.Mvc
     public class ScriptBundler : BundlerBase<ScriptBundle>
     {
 
-        public ScriptBundler(IBundleProvider<ScriptBundle> bundleProvider, IBundleRenderer<ScriptBundle> renderer)
-            : base(bundleProvider, renderer)
+        public ScriptBundler(IBundleProvider<ScriptBundle> bundleProvider, IBundleRenderer<ScriptBundle> renderer,
+            IBundleDependencyResolver<ScriptBundle> resolver)
+            : base(bundleProvider, renderer, resolver)
         {
         }
 
@@ -40,7 +41,9 @@ namespace WebAssetBundler.Web.Mvc
         {
             ScriptBundle bundle = Provider.GetNamedBundle(name);
 
-            return Renderer.Render(bundle, State);           
+            IEnumerable<ScriptBundle> bundles = Resolver.Resolve(bundle);
+
+            return Renderer.RenderAll(bundles, State);           
         }
 
         /// <summary>
@@ -55,7 +58,9 @@ namespace WebAssetBundler.Web.Mvc
 
             builder(new ScriptTagBuilder(bundle));
 
-            return Renderer.Render(bundle, State);
+            IEnumerable<ScriptBundle> bundles = Resolver.Resolve(bundle);
+
+            return Renderer.RenderAll(bundles, State);           
         }
 
         /// <summary>
@@ -65,7 +70,9 @@ namespace WebAssetBundler.Web.Mvc
         {
             ScriptBundle bundle = GetBundleBySource(source);
 
-            return Renderer.Render(bundle, State);
+            IEnumerable<ScriptBundle> bundles = Resolver.Resolve(bundle);
+
+            return Renderer.RenderAll(bundles, State);           
         }
 
         /// <summary>
@@ -80,7 +87,9 @@ namespace WebAssetBundler.Web.Mvc
 
             builder(new ScriptTagBuilder(bundle));
 
-            return Renderer.Render(bundle, State);
+            IEnumerable<ScriptBundle> bundles = Resolver.Resolve(bundle);
+
+            return Renderer.RenderAll(bundles, State);           
         }
     }
 }

@@ -16,34 +16,23 @@
 
 namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using NUnit.Framework;
+    using System;
     using Moq;
-    using System.Web;
-    using System.IO;
+    using NUnit.Framework;
     using System.Collections.Generic;
+    using System.IO;
 
     [TestFixture]
-    public class BundlerBaseTests
+    public class BundlerDependencyResolverTests
     {
-        private BundlerBaseImpl bundler;
+        private BundleDependencyResolver<BundleImpl> resolver;
         private Mock<IBundleProvider<BundleImpl>> provider;
-        private Mock<IBundleRenderer<BundleImpl>> renderer;
 
         [SetUp]
         public void Setup()
         {
-            renderer = new Mock<IBundleRenderer<BundleImpl>>();
             provider = new Mock<IBundleProvider<BundleImpl>>();
-            bundler = new BundlerBaseImpl(provider.Object, renderer.Object);
-            bundler.State = new BundlerState();
-        }
-
-        [Test]
-        public void Should_Reference_Bundle()
-        {
-            bundler.Reference("TestBundle");
-
-            Assert.AreEqual("TestBundle", ((List<string>)bundler.State.ReferencedBundleNames)[0]);
+            resolver = new BundleDependencyResolver<BundleImpl>(provider.Object);
         }
 
         [Test]
@@ -97,7 +86,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             provider.Setup(p => p.GetNamedBundle(bundleSeven.Name))
                 .Returns(bundleSeven);
 
-            var bundles = (IList<BundleImpl>)bundler.GetRequiredBundles(bundleOne);
+            var bundles = (IList<BundleImpl>)resolver.Resolve(bundleOne);
 
             Assert.AreEqual("BundleTwo", bundles[0].Name);
             Assert.AreEqual("BundleFour", bundles[1].Name);
@@ -128,7 +117,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             //simulates unintentional behavior when configuring bundles wrong.
             //max of 25 depth, however infinate required bundles are allowed
 
-            Assert.Throws<InvalidDataException>(() => bundler.GetRequiredBundles(bundleOne));
+            Assert.Throws<InvalidDataException>(() => resolver.Resolve(bundleOne));
         }
 
         [Test]
@@ -149,30 +138,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var bundleFive = new BundleImpl();
             bundleFive.Name = "BundleFive";
 
-            IList<BundleImpl> bundles = new List<BundleImpl>()
-            {
-                bundleOne,
-                bundleTwo,
-                bundleFour,
-                bundleFive,
-                bundleThree,
-                bundleFour,
-                bundleFive                
-            };
-
-            bundles = (IList<BundleImpl>)bundler.GetCorrectedBundleOrder(bundles);
+            var bundles = (IList<BundleImpl>)resolver.Resolve(bundleOne);
 
             Assert.AreEqual("BundleFive", bundles[0].Name);
             Assert.AreEqual("BundleFour", bundles[1].Name);
             Assert.AreEqual("BundleThree", bundles[2].Name);
             Assert.AreEqual("BundleTwo", bundles[3].Name);
             Assert.AreEqual("BundleOne", bundles[4].Name);
-        }
-
-        [Test]
-        public void Should_Render_Referenced()
-        {
-            Assert.Fail();
         }
     }
 }

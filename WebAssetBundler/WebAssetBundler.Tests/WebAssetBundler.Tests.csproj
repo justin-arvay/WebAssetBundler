@@ -62,11 +62,12 @@
     <Compile Include="Bootstrap\ConfigureScriptsTaskTests.cs" />
     <Compile Include="Bootstrap\ConfigureStyleSheetTaskTests.cs" />
     <Compile Include="Bootstrap\LoadSettingsTaskTests.cs" />
-    <Compile Include="BundlerBaseImpl.cs" />
-    <Compile Include="BundlerBaseTests.cs" />
-    <Compile Include="BundleRendererTests.cs" />
-    <Compile Include="BundlerStateTests.cs" />
-    <Compile Include="BundlerTests.cs" />
+    <Compile Include="Bundler\BundlerBaseImpl.cs" />
+    <Compile Include="Bundler\BundlerBaseTests.cs" />
+    <Compile Include="Bundler\BundleRendererTests.cs" />
+    <Compile Include="Bundler\BundlerStateTests.cs" />
+    <Compile Include="Bundler\BundlerTests.cs" />
+    <Compile Include="Bundler\BundlerDependencyResolverTests.cs" />
     <Compile Include="Configuration\DefaultBundleConfigurationFactoryTests.cs" />
     <Compile Include="Configuration\DirectorySearchOrderBuilderTests.cs" />
     <Compile Include="DirectorySearchFactoryTests.cs" />

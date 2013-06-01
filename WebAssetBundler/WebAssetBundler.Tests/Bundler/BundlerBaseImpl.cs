@@ -21,20 +21,12 @@ using System.Collections.Generic;
 
     public class BundlerBaseImpl : BundlerBase<BundleImpl>
     {
-        public BundlerBaseImpl(IBundleProvider<BundleImpl> bundleProvider, IBundleRenderer<BundleImpl> renderer)
-            : base(bundleProvider, renderer)
+        public BundlerBaseImpl(IBundleProvider<BundleImpl> bundleProvider, IBundleRenderer<BundleImpl> renderer,
+            IBundleDependencyResolver<BundleImpl> resolver)
+            : base(bundleProvider, renderer, resolver)
         {
            
         }
 
-        public ICollection<BundleImpl> GetRequiredBundles(BundleImpl bundle)
-        {
-            return GetRequiredBundles(bundle, 0);
-        }
-
-        public IEnumerable<BundleImpl> GetCorrectedBundleOrder(IEnumerable<BundleImpl> bundles)
-        {
-            return PrepareBundles(bundles);
-        }
     }
 }

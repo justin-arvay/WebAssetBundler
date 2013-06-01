@@ -35,6 +35,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IBundleRenderer<StyleSheetBundle>> renderer;
         private StyleSheetBundler bundler;
         private Mock<IBundleProvider<StyleSheetBundle>> bundleProvider;
+        private Mock<IBundleDependencyResolver<StyleSheetBundle>> resolver;
 
         [SetUp]
         public void Setup()
@@ -44,9 +45,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             bundler = new StyleSheetBundler(
                 bundleProvider.Object,
-                renderer.Object);
+                renderer.Object,
+                resolver.Object);
         }
- 
 
         [Test]
         public void Should_Render_Bundle()
@@ -59,6 +60,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
             renderer.Verify(t => t.Render(bundle, It.IsAny<BundlerState>()));
+            resolver.Verify(t => t.Resolve(bundle));
         }
 
         [Test]
@@ -73,6 +75,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
             renderer.Verify(t => t.Render(bundle, It.IsAny<BundlerState>()), Times.Once());
+            resolver.Verify(t => t.Resolve(bundle));
             Assert.AreEqual("test", bundle.Attributes["test"]);
         }
 
@@ -88,6 +91,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
             renderer.Verify(w => w.Render(bundle, It.IsAny<BundlerState>()), Times.Once());
+            resolver.Verify(t => t.Resolve(bundle));
         }
 
         [Test]
@@ -103,6 +107,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
             renderer.Verify(w => w.Render(bundle, It.IsAny<BundlerState>()), Times.Once());
+            resolver.Verify(t => t.Resolve(bundle));
             Assert.AreEqual("test", bundle.Attributes["test"]);
         }
 
@@ -118,6 +123,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
             renderer.Verify(w => w.Render(bundle, It.IsAny<BundlerState>()), Times.Once());
+            resolver.Verify(t => t.Resolve(bundle));
             bundleProvider.Verify(p => p.GetExternalBundle("http://www.google.com/file.css"), Times.Once());
         }
     }

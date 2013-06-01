@@ -66,9 +66,9 @@
     <Compile Include="Bootstrap\ConfigureImagesTask.cs" />
     <Compile Include="Bootstrap\LoadSettingsTask.cs" />
     <Compile Include="Bootstrap\ConfigureScriptsTask.cs" />
-    <Compile Include="BundlerBase.cs" />
-    <Compile Include="BundleRenderer.cs" />
-    <Compile Include="BundlerState.cs" />
+    <Compile Include="Bundler\BundlerBase.cs" />
+    <Compile Include="Bundler\BundleRenderer.cs" />
+    <Compile Include="Bundler\BundlerState.cs" />
     <Compile Include="Bundler\BundleDependencyResolver.cs" />
     <Compile Include="Bundler\IBundleDependencyResolver.cs" />
     <Compile Include="Configuration\DefaultBundleConfigurationFactory.cs" />
@@ -87,7 +87,7 @@
     <Compile Include="HttpHandlers\ImageResponseWriter.cs" />
     <Compile Include="HttpHandlers\IResponseWriterFactory.cs" />
     <Compile Include="HttpHandlers\ResponseWriterFactory.cs" />
-    <Compile Include="IBundleRenderer.cs" />
+    <Compile Include="Bundler\IBundleRenderer.cs" />
     <Compile Include="IDirectory.cs" />
     <Compile Include="IDirectorySearch.cs" />
     <Compile Include="IDirectorySearchFactory.cs" />
@@ -137,7 +137,7 @@
     <Compile Include="Caching\IBundleCachePrimer.cs" />
     <Compile Include="Caching\IBundlesCache.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
-    <Compile Include="Bundler.cs" />
+    <Compile Include="Bundler\Bundler.cs" />
     <Compile Include="Minifiers\IScriptMinifier.cs" />
     <Compile Include="Minifiers\IStyleSheetMinifier.cs" />
     <Compile Include="Minifiers\MsScriptMinifier.cs" />

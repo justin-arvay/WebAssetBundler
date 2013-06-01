@@ -17,12 +17,17 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-using System.Collections.Generic;
+    using System.Collections.Generic;
 
     public interface IBundleDependencyResolver<TBundle>
         where TBundle : Bundle
     {
-        IEnumerable<TBundle> Resolve<TBundle>(TBundle bundle);
-        IEnumerable<TBundle> Resolve<TBundle>(TBundle bundle, BundlerState state);
+        /// <summary>
+        /// Resolves all the required dependencies of a bundle. Ensures returning a list of dependent bundles that are ready to be rendered.
+        /// </summary>
+        /// <param name="bundle"></param>
+        /// <returns></returns>
+        IEnumerable<TBundle> Resolve(TBundle bundle);
+        IEnumerable<TBundle> ResolveReferenced(IEnumerable<TBundle> bundles);
     }
 }

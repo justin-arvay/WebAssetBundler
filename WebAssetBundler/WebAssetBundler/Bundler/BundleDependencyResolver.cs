@@ -18,18 +18,107 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
 
     public class BundleDependencyResolver<TBundle> : IBundleDependencyResolver<TBundle>
         where TBundle : Bundle
-    {       
-        public IEnumerable<TBundle> Resolve(TBundle bundle)
+    {
+
+        private IBundleProvider<TBundle> provider;
+
+        public BundleDependencyResolver(IBundleProvider<TBundle> provider)
         {
-            throw new NotImplementedException();
+            this.provider = provider;
         }
 
-        public IEnumerable<TBundle> Resolve(TBundle bundle, BundlerState state)
+        public IEnumerable<TBundle> Resolve(TBundle bundle)
         {
-            throw new NotImplementedException();
+            List<TBundle> resolvedBundles = null;
+            resolvedBundles.Add(bundle);
+            resolvedBundles.AddRange(GetRequiredBundles(bundle, 0));
+            
+            return PrepareBundles(resolvedBundles);
+        }
+
+        public IEnumerable<TBundle> ResolveReferenced(IEnumerable<TBundle> bundles)
+        {
+            List<TBundle> resolvedBundles = null;
+
+            foreach (var bundle in bundles)
+            {
+                resolvedBundles.Add(bundle);
+                resolvedBundles.AddRange(GetRequiredBundles(bundle, 0));                
+            }
+
+            return PrepareBundles(resolvedBundles);        
+        }
+
+        /// <summary>
+        /// Recursively gets all the required bundles specificed by a bundle. Cannot be deeper than 25.
+        /// </summary>
+        /// <param name="bundle"></param>
+        /// <param name="depth"></param>
+        /// <returns></returns>
+        protected ICollection<TBundle> GetRequiredBundles(TBundle bundle, int depth)
+        {
+            var bundles = new List<TBundle>();
+            TBundle reqBundle = null;
+
+            //assume anything deeper than 25 is a mistake.
+            //That is a large amount of bundles that require eachother. 
+            //At this point it is probably too difficult to keep track of bundle requirements.
+            //Safe guards against circular reference through bundle names in the configuration.
+            if (depth > 25)
+            {
+                throw new InvalidDataException();
+            }
+
+            foreach (var name in bundle.Required)
+            {
+                reqBundle = provider.GetNamedBundle(name);
+
+                depth++;  //add to depth because we are about to go deeper
+
+                bundles.Add(reqBundle);
+                bundles.AddRange(GetRequiredBundles(reqBundle, depth));
+
+                depth--; //we came up one level
+            }
+
+            return bundles;
+        }
+
+        /// <summary>
+        /// Ensures the required bundles are in the correct order for writing the tags. Additionally removes duplicate bundles.
+        /// Correct bundle order should always put the bundles with the more dependancy first, bundles that are the least dependant last.
+        /// </summary>
+        /// <param name="bundles"></param>
+        /// <returns></returns>
+        protected IEnumerable<TBundle> PrepareBundles(IEnumerable<TBundle> bundles)
+        {
+            var sortedBundles = new List<TBundle>(bundles);
+            sortedBundles.Reverse(); //reverse is needed for distinct
+
+            //distinct will keep the first bundles it encounter and remove the later
+            //reversing before distinct will ensure that the required bundles are always first for bundlers that appear later in the list
+            sortedBundles = sortedBundles.Distinct(new BundleComparer()).ToList();
+
+            return sortedBundles;
+        }
+
+        private class BundleComparer : IEqualityComparer<TBundle>
+        {
+
+            public bool Equals(TBundle x, TBundle y)
+            {
+                return x.Name.IsCaseInsensitiveEqual(y.Name);
+            }
+
+            public int GetHashCode(TBundle obj)
+            {
+                return obj.Name.GetHashCode();
+            }
         }
     }
 }

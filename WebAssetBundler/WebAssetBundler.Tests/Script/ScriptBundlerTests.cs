@@ -31,6 +31,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private Mock<IBundleRenderer<ScriptBundle>> renderer;
         private ScriptBundler bundler;
         private Mock<IBundleProvider<ScriptBundle>> bundleProvider;
+        private Mock<IBundleDependencyResolver<ScriptBundle>> resolver;
 
         [SetUp]
         public void Setup()
@@ -42,7 +43,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             bundler = new ScriptBundler(
                 bundleProvider.Object,
-                renderer.Object);
+                renderer.Object,
+                resolver.Object);
         }
 
         [Test]
@@ -56,6 +58,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
             renderer.Verify(t => t.Render(bundle, It.IsAny<BundlerState>()), Times.Once());
+            resolver.Verify(t => t.Resolve(bundle));
         }
 
         [Test]
@@ -69,6 +72,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
             renderer.Verify(t => t.Render(bundle, It.IsAny<BundlerState>()), Times.Once());
+            resolver.Verify(t => t.Resolve(bundle));
             Assert.AreEqual("test", bundle.Attributes["test"]);
         }
 
@@ -84,6 +88,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
             renderer.Verify(w => w.Render(bundle, It.IsAny<BundlerState>()), Times.Once());
+            resolver.Verify(t => t.Resolve(bundle));
         }
 
         [Test]
@@ -98,6 +103,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
             renderer.Verify(w => w.Render(bundle, It.IsAny<BundlerState>()), Times.Once());
+            resolver.Verify(t => t.Resolve(bundle));
             Assert.AreEqual("test", bundle.Attributes["test"]);
         }
 
@@ -113,6 +119,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
             renderer.Verify(w => w.Render(bundle, It.IsAny<BundlerState>()), Times.Once());
+            resolver.Verify(t => t.Resolve(bundle));
             bundleProvider.Verify(p => p.GetExternalBundle("http://www.google.com/file.js"), Times.Once());
         }
     }

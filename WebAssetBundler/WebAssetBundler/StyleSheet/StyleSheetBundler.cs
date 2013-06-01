@@ -33,8 +33,9 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="manager"></param>
         /// <param name="viewContext"></param>
         /// <param name="resolver"></param>
-        public StyleSheetBundler(IBundleProvider<StyleSheetBundle> bundleProvider, IBundleRenderer<StyleSheetBundle> renderer)
-            : base(bundleProvider, renderer)
+        public StyleSheetBundler(IBundleProvider<StyleSheetBundle> bundleProvider, IBundleRenderer<StyleSheetBundle> renderer,
+            IBundleDependencyResolver<StyleSheetBundle> resolver)
+            : base(bundleProvider, renderer, resolver)
         {
 
         }
@@ -58,9 +59,9 @@ namespace WebAssetBundler.Web.Mvc
 
             builder(new StyleSheetTagBuilder(bundle));
 
-            IEnumerable<StyleSheetBundle> bundles = GetRequiredBundles(bundle, 0);
+            IEnumerable<StyleSheetBundle> bundles = Resolver.Resolve(bundle);
 
-            return Renderer.Render(bundle, State);
+            return Renderer.RenderAll(bundles, State);
         }
 
         /// <summary>
@@ -72,7 +73,9 @@ namespace WebAssetBundler.Web.Mvc
         {
             StyleSheetBundle bundle = GetBundleBySource(source);
 
-            return Renderer.Render(bundle, State);
+            IEnumerable<StyleSheetBundle> bundles = Resolver.Resolve(bundle);
+
+            return Renderer.RenderAll(bundles, State);
         }
 
         /// <summary>
@@ -87,7 +90,9 @@ namespace WebAssetBundler.Web.Mvc
 
             builder(new StyleSheetTagBuilder(bundle));
 
-            return Renderer.Render(bundle, State);
+            IEnumerable<StyleSheetBundle> bundles = Resolver.Resolve(bundle);
+
+            return Renderer.RenderAll(bundles, State);
         }
     }
 }
