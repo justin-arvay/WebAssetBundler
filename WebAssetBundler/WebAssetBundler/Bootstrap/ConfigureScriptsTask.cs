@@ -41,6 +41,8 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IBundleCachePrimer<ScriptBundle>, ScriptBundleCachePrimer>();
             container.Register<IBundleProvider<ScriptBundle>, ScriptBundleProvider>();
             container.Register<IPluginCollection<ScriptBundle>>(Plugins);
+            container.Register<IBundleRenderer<ScriptBundle>, BundleRenderer<ScriptBundle>>()
+                .AsSingleton();
             container.Register<IBundleDependencyResolver<ScriptBundle>, BundleDependencyResolver<ScriptBundle>>()
                 .AsSingleton();
         }

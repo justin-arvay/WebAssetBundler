@@ -34,7 +34,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public IEnumerable<TBundle> Resolve(TBundle bundle)
         {
-            List<TBundle> resolvedBundles = null;
+            var resolvedBundles = new List<TBundle>();
             resolvedBundles.Add(bundle);
             resolvedBundles.AddRange(GetRequiredBundles(bundle, 0));
             
@@ -43,7 +43,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public IEnumerable<TBundle> ResolveReferenced(IEnumerable<TBundle> bundles)
         {
-            List<TBundle> resolvedBundles = null;
+            var resolvedBundles = new List<TBundle>();
 
             foreach (var bundle in bundles)
             {

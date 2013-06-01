@@ -35,11 +35,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_External_Bundle()
         {
-            var bundle = provider.GetExternalBundle("http://www.google.com/file.js");
+            string source = "http://www.google.com/file.js";
+            var bundle = provider.GetExternalBundle(source);
 
             Assert.True(bundle.IsExternal);
             Assert.AreEqual(1, bundle.Assets.Count);
-            Assert.AreEqual("http://www.google.com/file.js", bundle.Assets[0].Source);
+            Assert.AreEqual(source.ToHash(), bundle.Name);
+            Assert.AreEqual(source, bundle.Assets[0].Source);
         }
     }
 }

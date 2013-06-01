@@ -28,6 +28,13 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="bundle"></param>
         /// <returns></returns>
         IEnumerable<TBundle> Resolve(TBundle bundle);
+
+        /// <summary>
+        /// Resolves a list of bundles that have been referenced by resolving required dependencies for each referenced bundle. Ensures returning a
+        /// list of dependant bundles that are ready to be rendered.
+        /// </summary>
+        /// <param name="bundles"></param>
+        /// <returns></returns>
         IEnumerable<TBundle> ResolveReferenced(IEnumerable<TBundle> bundles);
     }
 }

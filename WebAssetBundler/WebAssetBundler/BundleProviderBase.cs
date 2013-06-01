@@ -37,9 +37,10 @@ namespace WebAssetBundler.Web.Mvc
         public TBundle GetExternalBundle(string source) 
         {
             var bundle = new TBundle();
+            bundle.Name = source.ToHash();
             bundle.Assets.Add(new ExternalAsset()
             {
-                Source = source
+                Source = source,
             });
 
             return bundle;
