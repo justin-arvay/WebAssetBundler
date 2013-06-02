@@ -146,5 +146,76 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual("BundleTwo", bundles[3].Name);
             Assert.AreEqual("BundleOne", bundles[4].Name);
         }
+
+        [Test]
+        public void Should_Resolve_Referenced()
+        {
+            /** Referenced Bundles **/
+
+            var bundleOne = new BundleImpl();
+            bundleOne.Name = "BundleOne";
+            bundleOne.Required.Add("BundleThree");
+
+            var bundleTwo = new BundleImpl();
+            bundleTwo.Name = "BundleTwo";
+            bundleTwo.Required.Add("BundleFour");
+            bundleTwo.Required.Add("BundleSix");
+
+            /** Required Bundles **/
+            var bundleThree = new BundleImpl();
+            bundleThree.Name = "BundleThree";
+            bundleThree.Required.Add("BundleFive");
+            bundleThree.Required.Add("BundleSeven");
+
+            var bundleFour = new BundleImpl();
+            bundleFour.Name = "BundleFour";
+            bundleFour.Required.Add("BundleFive");
+
+
+            var bundleFive = new BundleImpl();
+            bundleFive.Name = "BundleFive";
+
+            var bundleSix = new BundleImpl();
+            bundleSix.Name = "BundleSix";
+
+            var bundleSeven = new BundleImpl();
+            bundleSeven.Name = "BundleSeven";
+
+            //referenced bundle list
+            var bundles = new List<BundleImpl>()
+            {
+                bundleOne,
+                bundleTwo
+            };
+
+            provider.Setup(p => p.GetNamedBundle(bundleThree.Name))
+                .Returns(bundleThree);
+
+            provider.Setup(p => p.GetNamedBundle(bundleFour.Name))
+                .Returns(bundleFour);
+
+            provider.Setup(p => p.GetNamedBundle(bundleFive.Name))
+                .Returns(bundleFive);
+
+            provider.Setup(p => p.GetNamedBundle(bundleSix.Name))
+                .Returns(bundleSix);
+
+            provider.Setup(p => p.GetNamedBundle(bundleSeven.Name))
+                .Returns(bundleSeven);
+
+            var results = (IList<BundleImpl>)resolver.ResolveReferenced(bundles);
+
+            //should reverse ordering when resolving
+            //should remove bundle 5, keeping the last bundle resolved, or first after reversing
+            //should recursively get required bundles
+            Assert.AreSame(bundleSix, results[0]);
+            Assert.AreSame(bundleFive, results[1]);
+            Assert.AreSame(bundleFour, results[2]);
+            Assert.AreSame(bundleTwo, results[3]);
+            Assert.AreSame(bundleSeven, results[4]);
+            Assert.AreSame(bundleThree, results[5]);
+            Assert.AreSame(bundleOne, results[6]);
+
+        }
     }
 }

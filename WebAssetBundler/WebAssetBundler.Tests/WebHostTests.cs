@@ -116,6 +116,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.IsInstanceOf<HttpRequestBase>(container.Resolve<HttpRequestBase>());
             Assert.IsInstanceOf<HttpServerUtilityBase>(container.Resolve<HttpServerUtilityBase>());
             Assert.IsInstanceOf<DoNothingLogger>(container.Resolve<ILogger>());
+
+            //ensures sequential calls creates a new HttpContextBase so we are always dealing with the current context.
+            Assert.AreNotSame(container.Resolve<HttpContextBase>(), container.Resolve<HttpContextBase>());
         }
     }
 }

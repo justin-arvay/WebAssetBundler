@@ -57,11 +57,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IPluginLoader, PluginLoader>();
             container.Register<ILogger>((c, p) => DefaultSettings.Logger);
 
-            var httpContext = CreateHttpContext();
-            container.Register((c, p) => httpContext);            
-            container.Register((c, p) => httpContext.Request);
-            container.Register((c, p) => httpContext.Response);
-            container.Register((c, p) => httpContext.Server);
+            container.Register((c, p) => CreateHttpContext());
         }
 
         /// <summary>
