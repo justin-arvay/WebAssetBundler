@@ -70,9 +70,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             ScriptBundle bundle = GetBundleBySource(source);
 
-            IEnumerable<ScriptBundle> bundles = Resolver.Resolve(bundle);
-
-            return Renderer.RenderAll(bundles, State);           
+            return Renderer.Render(bundle, State);           
         }
 
         /// <summary>
@@ -87,9 +85,7 @@ namespace WebAssetBundler.Web.Mvc
 
             builder(new ScriptTagBuilder(bundle));
 
-            IEnumerable<ScriptBundle> bundles = Resolver.Resolve(bundle);
-
-            return Renderer.RenderAll(bundles, State);           
+            return Renderer.Render(bundle, State);           
         }
     }
 }

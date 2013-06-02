@@ -47,7 +47,9 @@ namespace WebAssetBundler.Web.Mvc
         {
             var bundle = Provider.GetNamedBundle(name);
 
-            return Renderer.Render(bundle, State);
+            IEnumerable<StyleSheetBundle> bundles = Resolver.Resolve(bundle);
+
+            return Renderer.RenderAll(bundles, State);
         }
 
         /// <summary>
@@ -73,9 +75,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             StyleSheetBundle bundle = GetBundleBySource(source);
 
-            IEnumerable<StyleSheetBundle> bundles = Resolver.Resolve(bundle);
-
-            return Renderer.RenderAll(bundles, State);
+            return Renderer.Render(bundle, State);
         }
 
         /// <summary>
@@ -90,9 +90,7 @@ namespace WebAssetBundler.Web.Mvc
 
             builder(new StyleSheetTagBuilder(bundle));
 
-            IEnumerable<StyleSheetBundle> bundles = Resolver.Resolve(bundle);
-
-            return Renderer.RenderAll(bundles, State);
+            return Renderer.Render(bundle, State);
         }
     }
 }

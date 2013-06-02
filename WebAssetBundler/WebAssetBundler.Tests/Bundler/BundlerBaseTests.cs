@@ -53,5 +53,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             Assert.Fail();
         }
+
+        [Test]
+        public void Should_Throw_Exception_If_Rendered_Referenced_Already()
+        {
+            Assert.Fail();
+        }
     }
 }

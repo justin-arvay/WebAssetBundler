@@ -40,6 +40,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var collection = new BundleCollection<ScriptBundle>();
             renderer = new Mock<IBundleRenderer<ScriptBundle>>();
+            resolver = new Mock<IBundleDependencyResolver<ScriptBundle>>();
 
             bundler = new ScriptBundler(
                 bundleProvider.Object,
@@ -51,13 +52,24 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Render_Bundle()
         {
             var bundle = new ScriptBundle();
-            bundleProvider.Setup(p => p.GetNamedBundle("test")).Returns(bundle);
-            renderer.Setup(r => r.Render(bundle, It.IsAny<BundlerState>())).Returns(new HtmlString(""));
+            var bundles = new List<ScriptBundle>() 
+            {
+                bundle
+            };
+
+            bundleProvider.Setup(p => p.GetNamedBundle("test"))
+                .Returns(bundle);
+            
+            renderer.Setup(r => r.RenderAll(bundles, It.IsAny<BundlerState>()))
+                .Returns(new HtmlString("")); 
+            
+            resolver.Setup(r => r.Resolve(bundle))
+                 .Returns(bundles);
             
             var htmlString = bundler.Render("test");
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
-            renderer.Verify(t => t.Render(bundle, It.IsAny<BundlerState>()), Times.Once());
+            renderer.Verify(t => t.RenderAll(bundles, It.IsAny<BundlerState>()), Times.Once());
             resolver.Verify(t => t.Resolve(bundle));
         }
 
@@ -65,13 +77,24 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Build_And_Render_Bundle()
         {
             var bundle = new ScriptBundle();
-            bundleProvider.Setup(p => p.GetNamedBundle("test")).Returns(bundle);
-            renderer.Setup(r => r.Render(bundle, It.IsAny<BundlerState>())).Returns(new HtmlString(""));
+            var bundles = new List<ScriptBundle>() 
+            {
+                bundle
+            };
+
+            bundleProvider.Setup(p => p.GetNamedBundle("test"))
+                .Returns(bundle);
+
+            renderer.Setup(r => r.RenderAll(bundles, It.IsAny<BundlerState>()))
+                .Returns(new HtmlString(""));
+
+            resolver.Setup(r => r.Resolve(bundle))
+                .Returns(bundles);
 
             var htmlString = bundler.Render("test", b => b.AddAttribute("test", "test"));
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
-            renderer.Verify(t => t.Render(bundle, It.IsAny<BundlerState>()), Times.Once());
+            renderer.Verify(t => t.RenderAll(bundles, It.IsAny<BundlerState>()), Times.Once());
             resolver.Verify(t => t.Resolve(bundle));
             Assert.AreEqual("test", bundle.Attributes["test"]);
         }
@@ -88,7 +111,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
             renderer.Verify(w => w.Render(bundle, It.IsAny<BundlerState>()), Times.Once());
-            resolver.Verify(t => t.Resolve(bundle));
         }
 
         [Test]
@@ -103,7 +125,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
             renderer.Verify(w => w.Render(bundle, It.IsAny<BundlerState>()), Times.Once());
-            resolver.Verify(t => t.Resolve(bundle));
             Assert.AreEqual("test", bundle.Attributes["test"]);
         }
 
@@ -119,7 +140,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.IsInstanceOf<IHtmlString>(htmlString);
             renderer.Verify(w => w.Render(bundle, It.IsAny<BundlerState>()), Times.Once());
-            resolver.Verify(t => t.Resolve(bundle));
             bundleProvider.Verify(p => p.GetExternalBundle("http://www.google.com/file.js"), Times.Once());
         }
     }
