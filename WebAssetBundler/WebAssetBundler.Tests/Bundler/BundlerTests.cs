@@ -23,9 +23,37 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class BundlerTests
     {
         [Test]
-        public void test()
+        public void Should_Create_StyleSheet_Bundler()
         {
-            Assert.Fail();
+            StyleSheetBundler bundler = Bundler.StyleSheets;
+            StyleSheetBundler bundlerTwo = Bundler.StyleSheets;
+
+            Assert.IsInstanceOf<StyleSheetBundler>(bundler);
+            Assert.AreSame(bundler, bundlerTwo);
+            Assert.IsInstanceOf<BundlerState>(bundler.State);
+            Assert.AreSame(bundler.State, bundlerTwo.State);
+        }
+
+        [Test]
+        public void Should_Create_Script_Bundler()
+        {
+            ScriptBundler bundler = Bundler.Scripts;
+            ScriptBundler bundlerTwo = Bundler.Scripts;
+
+            Assert.IsInstanceOf<ScriptBundler>(bundler);
+            Assert.AreSame(bundler, bundlerTwo);
+            Assert.IsInstanceOf<BundlerState>(bundler.State);
+            Assert.AreSame(bundler.State, bundlerTwo.State);
+        }
+
+        [Test]
+        public void Should_Create_Image_Bundler()
+        {
+            ImageBundler bundler = Bundler.Images;
+            ImageBundler bundlerTwo = Bundler.Images;
+
+            Assert.IsInstanceOf<ImageBundler>(bundler);
+            Assert.AreSame(bundler, bundlerTwo);
         }
     }
 }
