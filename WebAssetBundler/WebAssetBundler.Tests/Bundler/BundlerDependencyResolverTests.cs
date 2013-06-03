@@ -36,7 +36,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Get_Required_Bundles_Recursively()
+        public void Should_Get_Required_Bundles_Recursively_And_Order_Correctly()
         {
             var bundleOne = new BundleImpl();
             bundleOne.Name = "BundleOne";
@@ -88,12 +88,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var bundles = (IList<BundleImpl>)resolver.Resolve(bundleOne);
 
-            Assert.AreEqual("BundleTwo", bundles[0].Name);
-            Assert.AreEqual("BundleFour", bundles[1].Name);
-            Assert.AreEqual("BundleSix", bundles[2].Name);
-            Assert.AreEqual("BundleThree", bundles[3].Name);
-            Assert.AreEqual("BundleFive", bundles[4].Name);
-            Assert.AreEqual("BundleSeven", bundles[5].Name);
+            Assert.AreEqual("BundleSeven", bundles[0].Name);
+            Assert.AreEqual("BundleFive", bundles[1].Name);
+            Assert.AreEqual("BundleThree", bundles[2].Name);
+            Assert.AreEqual("BundleSix", bundles[3].Name);
+            Assert.AreEqual("BundleFour", bundles[4].Name);
+            Assert.AreEqual("BundleTwo", bundles[5].Name);                                                        
         }
 
         [Test]
@@ -118,33 +118,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             //max of 25 depth, however infinate required bundles are allowed
 
             Assert.Throws<InvalidDataException>(() => resolver.Resolve(bundleOne));
-        }
-
-        [Test]
-        public void Should_Correct_Bundles_Order()
-        {
-            var bundleOne = new BundleImpl();
-            bundleOne.Name = "BundleOne";
-
-            var bundleTwo = new BundleImpl();
-            bundleTwo.Name = "BundleTwo";
-
-            var bundleThree = new BundleImpl();
-            bundleThree.Name = "BundleThree";
-
-            var bundleFour = new BundleImpl();
-            bundleFour.Name = "BundleFour";
-
-            var bundleFive = new BundleImpl();
-            bundleFive.Name = "BundleFive";
-
-            var bundles = (IList<BundleImpl>)resolver.Resolve(bundleOne);
-
-            Assert.AreEqual("BundleFive", bundles[0].Name);
-            Assert.AreEqual("BundleFour", bundles[1].Name);
-            Assert.AreEqual("BundleThree", bundles[2].Name);
-            Assert.AreEqual("BundleTwo", bundles[3].Name);
-            Assert.AreEqual("BundleOne", bundles[4].Name);
         }
 
         [Test]

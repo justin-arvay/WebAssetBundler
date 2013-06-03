@@ -112,9 +112,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.IsInstanceOf<TypeProvider>(container.Resolve<ITypeProvider>());
             Assert.IsInstanceOf<PluginLoader>(container.Resolve<IPluginLoader>());
             Assert.IsInstanceOf<HttpContextBase>(container.Resolve<HttpContextBase>());
-            Assert.IsInstanceOf<HttpResponseBase>(container.Resolve<HttpResponseBase>());
-            Assert.IsInstanceOf<HttpRequestBase>(container.Resolve<HttpRequestBase>());
-            Assert.IsInstanceOf<HttpServerUtilityBase>(container.Resolve<HttpServerUtilityBase>());
             Assert.IsInstanceOf<DoNothingLogger>(container.Resolve<ILogger>());
 
             //ensures sequential calls creates a new HttpContextBase so we are always dealing with the current context.

@@ -24,7 +24,7 @@ namespace WebAssetBundler.Web.Mvc
         private ICollection<string> referencedBundleNames = new List<string>();
         private ICollection<string> renderedBundleNames = new List<string>();
 
-        public bool ReferencedRendered
+        public bool IsReferencedRendered
         {
             get;
             set;

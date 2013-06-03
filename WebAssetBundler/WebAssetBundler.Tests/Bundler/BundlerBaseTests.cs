@@ -21,6 +21,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System.Web;
     using System.IO;
     using System.Collections.Generic;
+    using System;
 
     [TestFixture]
     public class BundlerBaseTests
@@ -51,13 +52,32 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Render_Referenced()
         {
-            Assert.Fail();
+            var bundle = new BundleImpl();
+            bundle.Name = "Test";
+
+            var bundles = new List<BundleImpl>() { bundle };
+
+            bundler.State.IsReferencedRendered = false;
+            bundler.State.AddReference(bundle.Name);
+
+            provider.Setup(p => p.GetNamedBundle(bundle.Name))
+                .Returns(bundle);
+
+            resolver.Setup(r => r.ResolveReferenced(It.IsAny<IEnumerable<BundleImpl>>()))
+                .Returns(bundles);
+
+            bundler.RenderReferenced();
+
+            Assert.IsTrue(bundler.State.IsReferencedRendered);
+            renderer.Verify(r => r.RenderAll(bundles, bundler.State));
         }
 
         [Test]
         public void Should_Throw_Exception_If_Rendered_Referenced_Already()
         {
-            Assert.Fail();
+            bundler.State.IsReferencedRendered = true;
+
+            Assert.Throws<InvalidOperationException>(() => bundler.RenderReferenced());
         }
     }
 }

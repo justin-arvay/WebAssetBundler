@@ -72,12 +72,12 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public IHtmlString RenderReferenced()
         {
-            if (State.ReferencedRendered)
+            if (State.IsReferencedRendered)
             {
                 throw new InvalidOperationException(TextResource.Exceptions.RenderReferencedCalledTooManyTimes);
             }
 
-            State.ReferencedRendered = true;
+            State.IsReferencedRendered = true;
 
             IEnumerable<TBundle> bundles = GetReferencedBundles(State);
             bundles = Resolver.ResolveReferenced(bundles);
