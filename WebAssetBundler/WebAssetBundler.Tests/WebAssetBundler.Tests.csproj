@@ -65,6 +65,7 @@
     <Compile Include="Bundler\BundlerBaseImpl.cs" />
     <Compile Include="Bundler\BundlerBaseTests.cs" />
     <Compile Include="Bundler\BundleRendererTests.cs" />
+    <Compile Include="Bundler\BundlerFactory.cs" />
     <Compile Include="Bundler\BundlerStateTests.cs" />
     <Compile Include="Bundler\BundlerTests.cs" />
     <Compile Include="Bundler\BundlerDependencyResolverTests.cs" />
