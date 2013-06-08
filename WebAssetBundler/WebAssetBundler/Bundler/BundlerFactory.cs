@@ -32,8 +32,8 @@ namespace WebAssetBundler.Web.Mvc
         }
 
         public T Create<T, TBundle>()
-            where T : BundlerBase<TBundle>
             where TBundle : Bundle
+            where T : BundlerBase<TBundle>
         {
             T bundler = container.Resolve<T>();
             bundler.State = GetBundlerState(bundler.GetType().Name);

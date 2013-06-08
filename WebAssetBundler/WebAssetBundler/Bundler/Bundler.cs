@@ -21,14 +21,12 @@ namespace WebAssetBundler.Web.Mvc
 
     public static class Bundler
     {
-        private static StyleSheetBundler styleSheetBundler;
-        private static ScriptBundler scriptBundler;
+        private static BundlerFactory factory;
         private static ImageBundler imageBundler;
 
         static Bundler()
         {
-            styleSheetBundler = WabHttpModule.Host.Container.Resolve<StyleSheetBundler>();
-            scriptBundler = WabHttpModule.Host.Container.Resolve<ScriptBundler>();
+            var factory = WabHttpModule.Host.Container.Resolve<BundlerFactory>();
             imageBundler = WabHttpModule.Host.Container.Resolve<ImageBundler>();
         }
 
@@ -36,8 +34,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             get
             {
-                styleSheetBundler.State = GetBundlerState("StyleSheetBundlerState");
-                return styleSheetBundler;
+                return factory.Create<StyleSheetBundler, StyleSheetBundle>();
             }
         }
 
@@ -45,8 +42,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             get
             {
-                scriptBundler.State = GetBundlerState("ScriptBundlerState");
-                return scriptBundler;
+                return factory.Create<ScriptBundler, ScriptBundle>();
             }
         }
 
@@ -56,20 +52,6 @@ namespace WebAssetBundler.Web.Mvc
             {
                 return imageBundler;
             }
-        }
-
-        private static BundlerState GetBundlerState(string name)
-        {
-            var context = WabHttpModule.Host.Container.Resolve<HttpContextBase>();
-            var obj = (BundlerState)context.Items[name];
-
-            if (obj == null)
-            {
-                obj = new BundlerState();
-                context.Items[name] = obj;
-            }
-
-            return obj;
         }
     }
 }

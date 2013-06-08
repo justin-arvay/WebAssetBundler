@@ -8313,3 +8313,8 @@
  INFO [2013-06-02 09:31:57,902] - Executing processor UrlAssignmentProcessor`1 for bundle Scripts.
  INFO [2013-06-02 09:31:57,902] - Executing processor MergeProcessor`1 for bundle Scripts.
  INFO [2013-06-02 09:31:57,908] - End processing for bundle Scripts.
+ INFO [2013-06-07 22:08:59,751] - Running bootstrap task LoadSettingsTask.
+ INFO [2013-06-07 22:08:59,769] - Running bootstrap task ConfigureCommonTask.
+ INFO [2013-06-07 22:08:59,769] - Running bootstrap task ConfigureImagesTask.
+ INFO [2013-06-07 22:08:59,773] - Running bootstrap task ConfigureStyleSheetsTask.
+ INFO [2013-06-07 22:08:59,776] - Running bootstrap task ConfigureScriptsTask.

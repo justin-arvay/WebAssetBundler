@@ -68,6 +68,7 @@
     <Compile Include="Bootstrap\ConfigureScriptsTask.cs" />
     <Compile Include="Bundler\BundlerBase.cs" />
     <Compile Include="Bundler\BundleRenderer.cs" />
+    <Compile Include="Bundler\BundlerFactory.cs" />
     <Compile Include="Bundler\BundlerState.cs" />
     <Compile Include="Bundler\BundleDependencyResolver.cs" />
     <Compile Include="Bundler\IBundleDependencyResolver.cs" />
