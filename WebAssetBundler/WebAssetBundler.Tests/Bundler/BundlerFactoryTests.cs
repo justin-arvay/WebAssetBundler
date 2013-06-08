@@ -45,13 +45,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
             context.Setup(c => c.Items)
                 .Returns(items);
 
-            factory = new BundlerFactory(context.Object, container);
+            factory = new BundlerFactory(container);
         }
 
         [Test]
         public void Should_Create_Bundler()
         {
-            var bundler = factory.Create<BundlerBaseImpl, BundleImpl>();
+            var bundler = factory.Create<BundlerBaseImpl, BundleImpl>(context.Object);
 
             Assert.IsInstanceOf<BundlerBaseImpl>(bundler);
             Assert.IsInstanceOf<BundlerState>(bundler.State);
@@ -62,7 +62,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Override_State_Each_Request()
         {
             // create first request bunder and state
-            var bundler = factory.Create<BundlerBaseImpl, BundleImpl>();
+            var bundler = factory.Create<BundlerBaseImpl, BundleImpl>(context.Object);
 
             // change context and items
             var newItems = new Dictionary<object, object>();
@@ -73,7 +73,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
                 .Returns(newItems);
 
             // create second request bunder and state
-            var bundlerTwo = factory.Create<BundlerBaseImpl, BundleImpl>();
+            var bundlerTwo = factory.Create<BundlerBaseImpl, BundleImpl>(context.Object);
 
             Assert.AreNotSame(bundler.State, bundlerTwo.State);
         }

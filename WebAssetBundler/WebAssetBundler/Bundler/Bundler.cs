@@ -26,7 +26,7 @@ namespace WebAssetBundler.Web.Mvc
 
         static Bundler()
         {
-            var factory = WabHttpModule.Host.Container.Resolve<BundlerFactory>();
+            factory = WabHttpModule.Host.Container.Resolve<BundlerFactory>();
             imageBundler = WabHttpModule.Host.Container.Resolve<ImageBundler>();
         }
 
@@ -34,7 +34,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             get
             {
-                return factory.Create<StyleSheetBundler, StyleSheetBundle>();
+                return factory.Create<StyleSheetBundler, StyleSheetBundle>(WabHttpModule.Host.Container.Resolve<HttpContextBase>());
             }
         }
 
@@ -42,7 +42,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             get
             {
-                return factory.Create<ScriptBundler, ScriptBundle>();
+                return factory.Create<ScriptBundler, ScriptBundle>(WabHttpModule.Host.Container.Resolve<HttpContextBase>());
             }
         }
 

@@ -22,26 +22,24 @@ namespace WebAssetBundler.Web.Mvc
 
     public class BundlerFactory
     {
-        private HttpContextBase context;
         private TinyIoCContainer container;
 
-        public BundlerFactory(HttpContextBase context, TinyIoCContainer container)
+        public BundlerFactory(TinyIoCContainer container)
         {
-            this.context = context;
             this.container = container;
         }
 
-        public T Create<T, TBundle>()
+        public T Create<T, TBundle>(HttpContextBase context)
             where TBundle : Bundle
             where T : BundlerBase<TBundle>
         {
             T bundler = container.Resolve<T>();
-            bundler.State = GetBundlerState(bundler.GetType().Name);
+            bundler.State = GetBundlerState(bundler.GetType().Name, context);
             
             return bundler;
         }
 
-        private BundlerState GetBundlerState(string name)
+        private BundlerState GetBundlerState(string name, HttpContextBase context)
         {
             var obj = (BundlerState)context.Items[name];
 
