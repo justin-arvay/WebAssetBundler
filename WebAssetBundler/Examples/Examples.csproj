@@ -229,6 +229,7 @@
     <Content Include="Views\Documentation\Logging\CustomLogger.cshtml" />
     <Content Include="Views\Documentation\Logging.cshtml" />
     <Content Include="Views\Documentation\Rendering\Referencing.cshtml" />
+    <Content Include="Views\Documentation\Rendering\DependencyResolution.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Dependency Resolution";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<h2>Dependencies</h2>
+<p>Bundles can be dependant on other bundles. This allows you to seperate bundles in groups and cascade dependencies to multiple bundles. For instance,
+    you may have a jQuery bundle and then a bundle for all your other javascript libraries that requires the jQuery bundle. You can tell Web Asset Bundler
+    that your bundle is dependent on the jQuery bundle. Web Asset Bundler will ensure that the jQuery bundle gets rendered with your bundle.
+</p>
+
+<h6>Specifying Dependencies</h6>
+<p>Dependencies are set by using the <em>Required</em> method. You must pass the name of the bundle that is required for the bundle you are in. </p>
+<pre data-language="csharp">
+public override void Configure()
+{
+    Add("~/Scripts/javascript.js")
+
+    ...
+
+    Required("jQuery"); //jquery bundle by bundle name
+    Required("other"); //another javascript bundle
+}
+</pre>
+
+<p class="note"><strong>Note:</strong> You cannot have a javascript bundle depend on a stylesheet bundle or visa versa.</p>
