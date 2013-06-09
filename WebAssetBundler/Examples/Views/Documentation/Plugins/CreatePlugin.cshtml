@@ -31,7 +31,7 @@ public class LessPlugin : IPlugin<StyleSheetBundle>
 ")
 </pre>
 
-<p><strong>Note: </strong>When implementing the IPlugin<> internface TBundle must be of type Bundle.</p>
+<p class="note"><strong>Note: </strong>When implementing the IPlugin<> internface TBundle must be of type Bundle.</p>
 
 <p>Here is a breakdown of the methods in the interface and their general function:</p>
 <ul>
@@ -43,5 +43,5 @@ public class LessPlugin : IPlugin<StyleSheetBundle>
     for style sheet and script bundles.</li>
 </ul>
 
-<p><strong>Note:</strong> If you create the plugin in its own library the plugins library will need to be <a href="http://msdn.microsoft.com/en-us/library/7314433t.aspx">referenced</a> by the startup project. As long as the plugin is referenced
+<p class="note"><strong>Note:</strong> If you create the plugin in its own library the plugins library will need to be <a href="http://msdn.microsoft.com/en-us/library/7314433t.aspx">referenced</a> by the startup project. As long as the plugin is referenced
 by the startup project it will automatically be run. You do not need to tell Web Asset Bundler to use your plugin.</p>

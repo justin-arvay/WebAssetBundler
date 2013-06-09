@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Bundle Referencing";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<h2>Referencing</h2>
+<p>Referencing allows you to build up a grouping of bundles that need to be rendered for a specific page. For an example, you could reference specific bundles
+    that are only required for specific views and have them rendered along side other bundles:
+</p>
+
+<p><strong>In your view reference the bundles by name:</strong></p>
+<pre data-language="csharp">
+@Html.Code(@"
+...
+
+@Bundler.Scripts.Reference(""BundleName"")
+@Bundler.Scripts.Reference(""BundleTwoName"")
+
+@Bundler.StyleSheets.Reference(""BundleName"")
+@Bundler.StyleSheets.Reference(""BundleTwoName"")
+")
+</pre>
+
+<p><strong>Rendering referenced bundles in your layout:</strong></p>
+<pre data-language="csharp">
+@Html.Code(@"
+<head>
+    ...
+
+    @Bundler.StyleSheets.RenderReferenced()
+</head>
+
+<body>
+    ...
+
+    @Bundler.Scripts.RenderReferenced()
+</body>
+")
+</pre>
+<p>This above will result in all bundles being rendered in the order they are referenced. You are not restricted to 
+    referencing bundles in the view. Bundles can be referenced anywhere in the application a long as the 
+    bundle gets referenced <strong>before</strong> you call the render method for example: controllers and nested layouts.</p>
+
+<p class="note"><strong>Note:</strong> All referenced bundles will also have their dependencies resolved. That is, if any referenced bundle required another bundle to function,
+    that bundle will also be rendered inline with the resolving bundle. If two or more referenced bundles require the same bundle, bundle order will be corrected
+    to ensure the required bundle comes before resolving bundles. Finally, if a referenced or required bundle has already been rendered on the page, that bundle 
+    will not be rendered again.
+   </p>

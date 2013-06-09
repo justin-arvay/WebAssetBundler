@@ -43,7 +43,7 @@ public override void Configure()
 </pre>
 
 <p>This example will include all assets with the word jQuery in it.</p>
-<p><strong>Note: </strong>When adding by directory be aware that by default it will only add assets that end in the bundles
+<p class="note"><strong>Note: </strong>When adding by directory be aware that by default it will only add assets that end in the bundles
 corresponding extension (.css or .js for example). This can also be modified by installed plugins.</p>
 
 <p>By default adding assets by directory will include all sub directories. You can change it:</p>
@@ -78,7 +78,7 @@ public override void Configure()
             .Next("jquery/jquery-ui.js")));
 }
 </pre>
-<p><strong>Note:</strong> You can only use relative paths to the file.</p>
+<p class="note"><strong>Note:</strong> You can only use relative paths to the file.</p>
 
 <p>Ordering can also use wildcards (multiple wildcards are supported). Using wildcards can mean multiple assets are ordered for each pattern. For example <em>First("jquery*")</em> 
 would place a few assets in at the start. Those assets would be ordered alphabetically.</p>
@@ -103,7 +103,7 @@ public override void Configure()
 }
 </pre>
 
-<p><strong>Note:</strong> Depending on how they are used multiple patterns using wildcards can match the same asset. When this happens the last 
+<p class="note"><strong>Note:</strong> Depending on how they are used multiple patterns using wildcards can match the same asset. When this happens the last 
 pattern will set the order of that asset (Last in, last out). Example:</p>
 
 <pre data-language="csharp">

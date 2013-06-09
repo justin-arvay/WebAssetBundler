@@ -15,7 +15,11 @@
                 <li>@Html.RouteLink("Other Options", "Documentation", new { path = "bundle-configuration/other" })</li>
             </ul>
         </li>
-        <li>@Html.RouteLink("Rendering Bundles", "Documentation", new { path = "rendering-bundles" })</li>
+        <li>@Html.RouteLink("Rendering Bundles", "Documentation", new { path = "rendering-bundles" })
+            <ul>
+                <li>@Html.RouteLink("Referencing", "Documentation", new { path = "rendering/referencing" })</li>
+            </ul>
+        </li>
         <li>@Html.RouteLink("Pipelines", "Documentation", new { path = "pipelines" })
             <ul>
                 <li>@Html.RouteLink("Customization", "Documentation", new { path = "pipelines/customization" })</li>
