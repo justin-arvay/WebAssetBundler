@@ -50,7 +50,7 @@
 	</url>
 	<url>
 		<loc>http://getwab.net/docs/bundle-configuration/other</loc>
-		<lastmod>2013-05-25</lastmod>
+		<lastmod>2013-06-09</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</url>
@@ -123,6 +123,18 @@
   <url>
     <loc>http://getwab.net/benefits</loc>
     <lastmod>2013-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://getwab.net/docs/rendering/referencing</loc>
+    <lastmod>2013-06-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>http://getwab.net/docs/rendering/dependency-resolution</loc>
+    <lastmod>2013-06-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

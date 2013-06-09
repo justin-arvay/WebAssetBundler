@@ -76,3 +76,20 @@ public override void Configure()
     BrowserTtl(1000);
 }
 </pre>
+
+<h2>Required Bundles</h2>
+<p>Dependencies are set by using the <em>Required</em> method. You must give the name of the bundle that is required for the bundle you are in. You
+    can also have a bundle depend on more than one other bundle. The below example will render the jQuery and other bunde before the Test bundle.
+</p>
+<pre data-language="csharp">
+public override void Configure()
+{
+    Add("~/Scripts/javascript.js");
+    Name("Test");
+
+    ...
+
+    Required("jQuery"); //jquery bundle by bundle name
+    Required("other"); //another javascript bundle
+}
+</pre>

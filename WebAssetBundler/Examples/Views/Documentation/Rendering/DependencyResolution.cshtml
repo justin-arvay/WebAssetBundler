@@ -6,15 +6,19 @@
 <h2>Dependencies</h2>
 <p>Bundles can be dependant on other bundles. This allows you to seperate bundles in groups and cascade dependencies to multiple bundles. For instance,
     you may have a jQuery bundle and then a bundle for all your other javascript libraries that requires the jQuery bundle. You can tell Web Asset Bundler
-    that your bundle is dependent on the jQuery bundle. Web Asset Bundler will ensure that the jQuery bundle gets rendered with your bundle.
+    that your bundle is dependent on the jQuery bundle. Web Asset Bundler will ensure that the jQuery bundle gets rendered with your bundle. Bundle resolution
+    works for Script and StlyeSheet bundles only.
 </p>
 
 <h6>Specifying Dependencies</h6>
-<p>Dependencies are set by using the <em>Required</em> method. You must pass the name of the bundle that is required for the bundle you are in. </p>
+<p>Dependencies are set by using the <em>Required</em> method. You must give the name of the bundle that is required for the bundle you are in. You
+    can also have a bundle depend on more than one other bundle. The below example will render the jQuery and other bunde before the Test bundle.
+</p>
 <pre data-language="csharp">
 public override void Configure()
 {
-    Add("~/Scripts/javascript.js")
+    Add("~/Scripts/javascript.js");
+    Name("Test");
 
     ...
 
@@ -24,3 +28,14 @@ public override void Configure()
 </pre>
 
 <p class="note"><strong>Note:</strong> You cannot have a javascript bundle depend on a stylesheet bundle or visa versa.</p>
+
+<h6>Renedered State</h6>
+<p>All bundles that have been rendered on a specific request are tracked to ensure that a bundle dependency does not get rendered twice. For
+    example, you have two bundles that require a jQuery bundle. The jQuery javascript bundle has already been rendered earlier in the page. When the two bundles resolve their 
+    dependencies, they will not render the jQuery bundle again. Here is another example using referenced bundles. You have referenced three bundles in a view. Two of the referenced require the other bundle. Rendering would ensure
+    that the required bundle was rendered before the other bundles.
+</p>
+
+<p class="note"><strong>Note:</strong> It is important to remember that this behavior will work in most situations. However, if some of your bundles are 
+    loaded asynchronous, dependency resolution might not provide the desired out come.
+</p>

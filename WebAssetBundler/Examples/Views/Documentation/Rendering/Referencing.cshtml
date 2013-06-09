@@ -13,11 +13,15 @@
 @Html.Code(@"
 ...
 
-@Bundler.Scripts.Reference(""BundleName"")
-@Bundler.Scripts.Reference(""BundleTwoName"")
+@{
+    Bundler.Scripts.Reference(""BundleName"")
+    Bundler.Scripts.Reference(""BundleTwoName"")
 
-@Bundler.StyleSheets.Reference(""BundleName"")
-@Bundler.StyleSheets.Reference(""BundleTwoName"")
+    ...
+
+    Bundler.StyleSheets.Reference(""BundleName"")
+    Bundler.StyleSheets.Reference(""BundleTwoName"")
+}
 ")
 </pre>
 
