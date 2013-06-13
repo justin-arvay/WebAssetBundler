@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -16,11 +16,14 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
-    public enum WebAssetType
+    using System;
+
+    public class BundleMetadataCache : IBundleMetadataCache
     {
-        None = 0,
-        StyleSheet = 1,
-        Script = 2,
-        Image = 3
+
+        public BundleMetadata GetMetadata(string name)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

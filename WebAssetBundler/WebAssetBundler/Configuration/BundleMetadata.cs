@@ -1,4 +1,4 @@
-﻿// WebAssetBundler - Bundles web assets so you dont have to.
+﻿// Web Asset Bundler - Bundles web assets so you dont have to.
 // Copyright (C) 2012  Justin Arvay
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -16,11 +16,18 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
-    public enum WebAssetType
+    using System;
+    using System.Collections.Generic;
+
+    public class BundleMetadata
     {
-        None = 0,
-        StyleSheet = 1,
-        Script = 2,
-        Image = 3
+        public string Name { get; set; }
+        public bool Minify { get; set; }
+        public string Host { get; set; }
+        public string Extension { get; set; }
+        public IEnumerable<AssetBase> Assets { get; set; }
+        public int BrowserTtl { get; set; }
+        public HtmlAttributeDictionary Attributes { get; set; }
+        public IEnumerable<string> Required { get; set; }
     }
 }

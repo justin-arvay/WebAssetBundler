@@ -72,9 +72,14 @@
     <Compile Include="Bundler\BundlerState.cs" />
     <Compile Include="Bundler\BundleDependencyResolver.cs" />
     <Compile Include="Bundler\IBundleDependencyResolver.cs" />
+    <Compile Include="Configuration\BundleMetadata.cs" />
+    <Compile Include="Configuration\BundleMetadataCache.cs" />
     <Compile Include="Configuration\DefaultBundleConfigurationFactory.cs" />
     <Compile Include="Configuration\DirectorySearchOrderBuilder.cs" />
     <Compile Include="Configuration\IBundleConfigurationFactory.cs" />
+    <Compile Include="Configuration\IBundleMetadataCache.cs" />
+    <Compile Include="Configuration\IBundleMetadataProvider.cs" />
+    <Compile Include="Configuration\IConfigDriver.cs" />
     <Compile Include="Configuration\WabConfigurationSection.cs" />
     <Compile Include="DirectorySearchFactory.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
