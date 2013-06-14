@@ -18,9 +18,20 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public interface IBundleMetadataProvider
+    public class BundleMetadataProvider : IBundleMetadataProvider
     {
-        BundleMetadata GetMetadata<TBundle>(string name)
-            where TBundle : Bundle;
+        private IConfigDriver driver;
+        private IBundleMetadataCache cache;
+
+        public BundleMetadataProvider(IBundleMetadataCache cache)
+        {
+            this.cache = cache;
+        }
+
+        public BundleMetadata GetMetadata<TBundle>(string name) 
+            where TBundle : Bundle
+        {
+            throw new NotImplementedException();
+        }
     }
 }

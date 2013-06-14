@@ -74,6 +74,7 @@
     <Compile Include="Bundler\IBundleDependencyResolver.cs" />
     <Compile Include="Configuration\BundleMetadata.cs" />
     <Compile Include="Configuration\BundleMetadataCache.cs" />
+    <Compile Include="Configuration\BundleMetadataProvider.cs" />
     <Compile Include="Configuration\DefaultBundleConfigurationFactory.cs" />
     <Compile Include="Configuration\DirectorySearchOrderBuilder.cs" />
     <Compile Include="Configuration\IBundleConfigurationFactory.cs" />

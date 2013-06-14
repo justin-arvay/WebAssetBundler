@@ -20,10 +20,29 @@ namespace WebAssetBundler.Web.Mvc
 
     public class BundleMetadataCache : IBundleMetadataCache
     {
+        private ICacheProvider provider;
 
-        public BundleMetadata GetMetadata(string name)
+        public BundleMetadataCache(ICacheProvider provider)
         {
-            throw new NotImplementedException();
+            this.provider = provider;
+        }
+
+        public BundleMetadata GetMetadata<TBundle>(string name)
+            where TBundle : Bundle
+        {
+            string key = GetKey(name, typeof(TBundle));
+            return (BundleMetadata)provider.Get(key);
+        }
+
+        public void AddMetadata(BundleMetadata metadata)
+        {
+            string key = GetKey(metadata.Name, metadata.Type);
+            provider.Insert(key, metadata);
+        }
+
+        private string GetKey(string name, Type type)
+        {
+            return name + "-" + type.Name;
         }
     }
 }

@@ -29,5 +29,10 @@ namespace WebAssetBundler.Web.Mvc
         public int BrowserTtl { get; set; }
         public HtmlAttributeDictionary Attributes { get; set; }
         public IEnumerable<string> Required { get; set; }
+
+        /// <summary>
+        /// The type of bundle, should inherit from Bundle
+        /// </summary>
+        public Type Type { get; set; }
     }
 }
