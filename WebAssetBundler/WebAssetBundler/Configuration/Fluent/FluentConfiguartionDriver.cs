@@ -20,8 +20,18 @@ namespace WebAssetBundler.Web.Mvc
 
     public class FluentConfiguartionDriver : IConfigurationDriver
     {
+        private IFluentConfigurationProvider configProvider;
+        private IAssetProvider assetProvider;
 
-        public BundleMetadata LoadMetadata<TBundle>(string name) where TBundle : Bundle
+
+        public FluentConfiguartionDriver(IFluentConfigurationProvider configProvider, IAssetProvider assetProvider)
+        {
+            this.configProvider = configProvider;
+            this.assetProvider = assetProvider;
+        }
+
+        public BundleMetadata LoadMetadata<TBundle>(string name) 
+            where TBundle : Bundle
         {
             throw new NotImplementedException();
         }

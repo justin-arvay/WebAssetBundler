@@ -39,24 +39,37 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             var loadedMetadata = new BundleMetadata();
             driver.Setup(d => d.LoadMetadata<BundleImpl>("Test"))
-                .Returns(new BundleMetadata());
+                .Returns(loadedMetadata);
 
             BundleMetadata metadata = provider.GetMetadata<BundleImpl>("Test");
 
-            Assert.IsInstanceOf<BundleMetadata>(metadata);
+            Assert.AreSame(loadedMetadata, metadata);
             cache.Verify(c => c.Add(loadedMetadata));
         }
 
         [Test]
         public void Should_Get_Metadata_From_Cache()
         {
-            Assert.Fail();
+            var cacheMetadata = new BundleMetadata();
+
+            cache.Setup(c => c.Get<BundleImpl>("Test"))
+                .Returns(cacheMetadata);
+
+            BundleMetadata metadata = provider.GetMetadata<BundleImpl>("Test");
+
+            Assert.AreSame(cacheMetadata, metadata);
+            cache.Verify(c => c.Get<BundleImpl>("Test"));
+            driver.Verify(c => c.LoadMetadata<BundleImpl>("Test"), Times.Never());
         }
 
         [Test]
         public void Should_Return_Null_If_No_Metadata()
         {
-            Assert.Fail();
+            BundleMetadata metadata = provider.GetMetadata<BundleImpl>("Test");
+
+            Assert.Null(metadata);
+            cache.Verify(c => c.Get<BundleImpl>("Test"));
+            driver.Verify(c => c.LoadMetadata<BundleImpl>("Test"));
         }
     }
 }
