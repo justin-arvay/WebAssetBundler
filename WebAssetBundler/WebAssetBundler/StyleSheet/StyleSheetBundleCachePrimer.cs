@@ -46,9 +46,9 @@ namespace WebAssetBundler.Web.Mvc
         }
 
 
-        public void Prime(IList<IBundleConfiguration<StyleSheetBundle>> configs)
+        public void Prime(IList<IFluentConfiguration<StyleSheetBundle>> configs)
         {
-            foreach (IBundleConfiguration<StyleSheetBundle> item in configs)
+            foreach (IFluentConfiguration<StyleSheetBundle> item in configs)
             {
                 item.Bundle = new StyleSheetBundle();
                 item.Bundle.Name = item.GetType().Name;

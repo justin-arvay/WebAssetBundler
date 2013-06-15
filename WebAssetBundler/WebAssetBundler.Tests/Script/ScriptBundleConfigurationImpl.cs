@@ -19,7 +19,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
 
-    public class ScriptBundleConfigurationImpl : BundleConfiguration<ScriptBundle>
+    public class ScriptBundleConfigurationImpl : FluentConfiguration<ScriptBundle>
     {
         public int CallCount { get; set; }
 

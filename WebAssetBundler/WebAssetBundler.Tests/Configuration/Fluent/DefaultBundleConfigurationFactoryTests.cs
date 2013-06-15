@@ -22,12 +22,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class DefaultBundleConfigurationFactoryTests
     {
-        private DefaultBundleConfigurationFactory<BundleImpl> factory;
+        private FluentConfigurationFactory<BundleImpl> factory;
 
         [SetUp]
         public void Setup()
         {
-            factory = new DefaultBundleConfigurationFactory<BundleImpl>();
+            factory = new FluentConfigurationFactory<BundleImpl>();
         }
 
         [Test]

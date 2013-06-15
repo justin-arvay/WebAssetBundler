@@ -18,9 +18,12 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public interface IBundleConfigurationFactory<TBundle> 
-        where TBundle : Bundle
+    public class FluentConfigurationFactory : IFluentConfigurationFactory
     {
-        IBundleConfiguration<TBundle> Create(Type configurationType);
+        public IFluentConfiguration<TBundle> Create<TBundle>(Type configurationType) 
+            where TBundle : Bundle
+        {
+            return (IFluentConfiguration<TBundle>)Activator.CreateInstance(configurationType);
+        }
     }
 }

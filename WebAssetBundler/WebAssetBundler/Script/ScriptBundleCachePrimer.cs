@@ -46,9 +46,9 @@ namespace WebAssetBundler.Web.Mvc
             }
         }
 
-        public void Prime(IList<IBundleConfiguration<ScriptBundle>> configs)
+        public void Prime(IList<IFluentConfiguration<ScriptBundle>> configs)
         {
-            foreach (IBundleConfiguration<ScriptBundle> item in configs)
+            foreach (IFluentConfiguration<ScriptBundle> item in configs)
             {
                 item.Bundle = new ScriptBundle();
                 item.Bundle.Name = item.GetType().Name;

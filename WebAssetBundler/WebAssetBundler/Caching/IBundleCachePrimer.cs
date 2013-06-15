@@ -30,6 +30,6 @@ namespace WebAssetBundler.Web.Mvc
         /// Primes the cache from the provided configuration.
         /// </summary>
         /// <param name="configs"></param>
-        void Prime(IList<IBundleConfiguration<TBundle>> configs);
+        void Prime(IList<IFluentConfiguration<TBundle>> configs);
     }
 }

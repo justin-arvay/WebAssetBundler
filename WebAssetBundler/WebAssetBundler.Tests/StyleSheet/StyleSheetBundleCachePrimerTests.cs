@@ -44,7 +44,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Be_Primed()
         {
-            primer.Prime(new List<IBundleConfiguration<StyleSheetBundle>>());
+            primer.Prime(new List<IFluentConfiguration<StyleSheetBundle>>());
 
             Assert.IsTrue(primer.IsPrimed);
         }
@@ -55,7 +55,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var configOne = new StyleSheetBundleConfigurationImpl();
             var configTwo = new StyleSheetBundleConfigurationImpl();
 
-            var configs = new List<IBundleConfiguration<StyleSheetBundle>>();
+            var configs = new List<IFluentConfiguration<StyleSheetBundle>>();
             configs.Add(configOne);
             configs.Add(configTwo);
 
@@ -79,7 +79,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Not_Prime_Cache()
         {
-            primer.Prime(new List<IBundleConfiguration<StyleSheetBundle>>());
+            primer.Prime(new List<IFluentConfiguration<StyleSheetBundle>>());
 
             cache.Verify(c => c.Add(It.IsAny<StyleSheetBundle>()), Times.Never());
         }

@@ -45,7 +45,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Be_Primed()
         {
-            primer.Prime(new List<IBundleConfiguration<ScriptBundle>>());
+            primer.Prime(new List<IFluentConfiguration<ScriptBundle>>());
 
             Assert.IsTrue(primer.IsPrimed);
         }
@@ -56,7 +56,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             var configOne = new ScriptBundleConfigurationImpl();
             var configTwo = new ScriptBundleConfigurationImpl();
 
-            var configs = new List<IBundleConfiguration<ScriptBundle>>();
+            var configs = new List<IFluentConfiguration<ScriptBundle>>();
             configs.Add(configOne);
             configs.Add(configTwo);
 
@@ -81,7 +81,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Not_Prime_Cache()
         {
 
-            primer.Prime(new List<IBundleConfiguration<ScriptBundle>>());
+            primer.Prime(new List<IFluentConfiguration<ScriptBundle>>());
 
             cache.Verify(c => c.Add(It.IsAny<ScriptBundle>()), Times.Never());
         }

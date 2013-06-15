@@ -98,7 +98,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var factory = DefaultSettings.ScriptConfigurationFactory(container);
 
-            Assert.IsInstanceOf < DefaultBundleConfigurationFactory<ScriptBundle>>(factory);
+            Assert.IsInstanceOf < FluentConfigurationFactory<ScriptBundle>>(factory);
         }
 
         [Test]
@@ -109,7 +109,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             var factory = DefaultSettings.StyleSheetConfigurationFactory(container);
 
-            Assert.IsInstanceOf<DefaultBundleConfigurationFactory<StyleSheetBundle>>(factory);
+            Assert.IsInstanceOf<FluentConfigurationFactory<StyleSheetBundle>>(factory);
         }
     }
 }

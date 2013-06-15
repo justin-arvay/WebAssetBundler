@@ -37,10 +37,10 @@ namespace WebAssetBundler.Web.Mvc
             (c) => c.Resolve<DefaultBundleConfigurationProvider<ScriptBundle>>();
 
         private static Func<TinyIoCContainer, IBundleConfigurationFactory<StyleSheetBundle>> styleSheetConfigurationFactory =
-             (c) => c.Resolve<DefaultBundleConfigurationFactory<StyleSheetBundle>>();
+             (c) => c.Resolve<FluentConfigurationFactory<StyleSheetBundle>>();
 
         private static Func<TinyIoCContainer, IBundleConfigurationFactory<ScriptBundle>> scriptConfigurationFactory =
-            (c) => c.Resolve<DefaultBundleConfigurationFactory<ScriptBundle>>();
+            (c) => c.Resolve<FluentConfigurationFactory<ScriptBundle>>();
 
         private static ILogger logger = new DoNothingLogger();
 

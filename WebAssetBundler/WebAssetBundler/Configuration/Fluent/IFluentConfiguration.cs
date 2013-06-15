@@ -18,7 +18,8 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
 
-    public interface IBundleConfiguration<TBundle> where TBundle : Bundle
+    public interface IFluentConfiguration<TBundle> 
+        where TBundle : Bundle
     {
         void Add(string source);
         void AddDirectory(string path);
@@ -28,7 +29,8 @@ namespace WebAssetBundler.Web.Mvc
         void Minify(bool compress);
         void Host(string host);
         void BrowserTtl(int timeToLive);
-        TBundle Bundle { get; set; }
+
+        BundleMetadata Metadata { get; set; }
         IAssetProvider AssetProvider { get; set; }
         IDirectorySearchFactory DirectorySearchFactory { get; set; }
 

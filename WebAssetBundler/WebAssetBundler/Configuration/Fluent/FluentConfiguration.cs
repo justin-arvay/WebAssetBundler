@@ -21,7 +21,7 @@ namespace WebAssetBundler.Web.Mvc
     using System.IO;
     using System.Linq;
 
-    public abstract class BundleConfiguration<TBundle> : IBundleConfiguration<TBundle>
+    public abstract class FluentConfiguration<TBundle> : IFluentConfiguration<TBundle>
         where TBundle : Bundle
     {
 

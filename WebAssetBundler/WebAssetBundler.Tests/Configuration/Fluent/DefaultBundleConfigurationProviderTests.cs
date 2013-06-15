@@ -46,7 +46,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             factory.Setup(f => f.Create(It.IsAny<Type>()))
                 .Returns(new BundleConfigurationImpl());
 
-            typeProvider.Setup(t => t.GetImplementationTypes(typeof(IBundleConfiguration<BundleImpl>)))
+            typeProvider.Setup(t => t.GetImplementationTypes(typeof(IFluentConfiguration<BundleImpl>)))
                 .Returns(types);
 
             var configs = provider.GetConfigs();

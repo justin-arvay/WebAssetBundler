@@ -19,7 +19,7 @@ namespace Examples
     using System;
     using WebAssetBundler.Web.Mvc;
 
-    public class LayoutStyleSheetBundle : BundleConfiguration<StyleSheetBundle>
+    public class LayoutStyleSheetBundle : FluentConfiguration<StyleSheetBundle>
     {
         public override void Configure()
         {

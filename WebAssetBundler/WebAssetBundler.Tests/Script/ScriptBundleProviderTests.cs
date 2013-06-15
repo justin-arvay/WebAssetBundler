@@ -62,7 +62,7 @@ using System;
         [Test]
         public void Should_Prime_Cache_When_Getting_Named_Bundle()
         {
-            var configs = new List<IBundleConfiguration<ScriptBundle>>();
+            var configs = new List<IFluentConfiguration<ScriptBundle>>();
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
 
@@ -75,7 +75,7 @@ using System;
         [Test]
         public void Should_Not_Prime_Cache_When_Getting_Named_Bundle()
         {
-            var configs = new List<IBundleConfiguration<ScriptBundle>>();
+            var configs = new List<IFluentConfiguration<ScriptBundle>>();
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
             primer.Setup(p => p.IsPrimed).Returns(true);
@@ -90,7 +90,7 @@ using System;
         {
             settings.DebugMode = true;
 
-            var configs = new List<IBundleConfiguration<ScriptBundle>>();
+            var configs = new List<IFluentConfiguration<ScriptBundle>>();
 
             configProvider.Setup(c => c.GetConfigs()).Returns(configs);
             primer.Setup(p => p.IsPrimed).Returns(true);

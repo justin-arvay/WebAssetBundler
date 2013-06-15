@@ -18,7 +18,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System;
 
-    public class BundleConfigurationImpl : BundleConfiguration<BundleImpl>
+    public class BundleConfigurationImpl : FluentConfiguration<BundleImpl>
     {
         public override void Configure()
         {
