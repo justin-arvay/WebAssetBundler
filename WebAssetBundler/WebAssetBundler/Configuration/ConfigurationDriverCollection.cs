@@ -19,7 +19,7 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public class ConfigurationDriverCollection : IConfigurationDriver, ICollection<IConfigurationDriver>
+    public class ConfigurationDriverCollection : List<IConfigurationDriver>, IConfigurationDriver
     {
 
         public BundleMetadata LoadMetadata<TBundle>(string name) where TBundle : Bundle
@@ -38,5 +38,7 @@ namespace WebAssetBundler.Web.Mvc
 
             return null;
         }
+
+
     }
 }

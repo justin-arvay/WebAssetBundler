@@ -26,6 +26,7 @@ namespace WebAssetBundler.Web.Mvc
         public BundleMetadataProvider(IBundleMetadataCache cache, IConfigurationDriver driver)
         {
             this.cache = cache;
+            this.driver = driver;
         }
 
         public BundleMetadata GetMetadata<TBundle>(string name) 
@@ -37,7 +38,10 @@ namespace WebAssetBundler.Web.Mvc
             {
                 metadata = driver.LoadMetadata<TBundle>(name);
 
-                cache.Add(metadata);
+                if (metadata != null)
+                {
+                    cache.Add(metadata);
+                }
             }
 
             return metadata;

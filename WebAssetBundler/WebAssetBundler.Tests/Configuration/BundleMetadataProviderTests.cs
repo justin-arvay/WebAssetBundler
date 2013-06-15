@@ -22,8 +22,39 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class BundleMetadataProviderTests
     {
+        private BundleMetadataProvider provider;
+        private Mock<IConfigurationDriver> driver;
+        private Mock<IBundleMetadataCache> cache;
+
+        [SetUp]
+        public void Setup()
+        {
+            driver = new Mock<IConfigurationDriver>();
+            cache = new Mock<IBundleMetadataCache>();
+            provider = new BundleMetadataProvider(cache.Object, driver.Object);
+        }
+
         [Test]
-        public void test()
+        public void Should_Load_Metadata()
+        {
+            var loadedMetadata = new BundleMetadata();
+            driver.Setup(d => d.LoadMetadata<BundleImpl>("Test"))
+                .Returns(new BundleMetadata());
+
+            BundleMetadata metadata = provider.GetMetadata<BundleImpl>("Test");
+
+            Assert.IsInstanceOf<BundleMetadata>(metadata);
+            cache.Verify(c => c.Add(loadedMetadata));
+        }
+
+        [Test]
+        public void Should_Get_Metadata_From_Cache()
+        {
+            Assert.Fail();
+        }
+
+        [Test]
+        public void Should_Return_Null_If_No_Metadata()
         {
             Assert.Fail();
         }

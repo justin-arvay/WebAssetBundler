@@ -18,14 +18,39 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System.Collections.Generic;
 
     [TestFixture]
     public class ConfigurationDriverCollectionTests
     {
-        [Test]
-        public void test()
+        private ConfigurationDriverCollection collection;
+
+        [SetUp]
+        public void Setup()
         {
-            Assert.Fail();
+            collection = new ConfigurationDriverCollection();
+        }
+
+        [Test]
+        public void Should_Load_Driver()
+        {
+            var driver = new Mock<IConfigurationDriver>();
+            driver.Setup(d => d.LoadMetadata<BundleImpl>("Test"))
+                .Returns(new BundleMetadata());
+
+            collection.Add(driver.Object);
+
+            BundleMetadata metadata = collection.LoadMetadata<BundleImpl>("Test");
+
+            Assert.IsInstanceOf<BundleMetadata>(metadata);
+        }
+
+        [Test]
+        public void Should_Return_Null_If_Unable_To_Load()
+        {
+            BundleMetadata metadata = collection.LoadMetadata<BundleImpl>("Test");
+
+            Assert.Null(metadata);
         }
     }
 }
