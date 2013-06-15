@@ -38,7 +38,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             provider.Setup(p => p.Get("Test-BundleImpl"))
                 .Returns(new BundleMetadata());
 
-            BundleMetadata metadata = cache.GetMetadata<BundleImpl>("Test");
+            BundleMetadata metadata = cache.Get<BundleImpl>("Test");
 
             Assert.IsInstanceOf<BundleMetadata>(metadata);
         }
@@ -54,7 +54,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             string key = metadata.Name + "-" + metadata.Type.Name;
 
-            cache.AddMetadata(metadata);
+            cache.Add(metadata);
 
 
             provider.Verify(p => p.Insert(key, metadata));

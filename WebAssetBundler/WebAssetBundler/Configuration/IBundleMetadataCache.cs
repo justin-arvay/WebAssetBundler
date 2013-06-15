@@ -20,9 +20,9 @@ namespace WebAssetBundler.Web.Mvc
 
     public interface IBundleMetadataCache
     {
-        BundleMetadata GetMetadata<TBundle>(string name)
+        BundleMetadata Get<TBundle>(string name)
             where TBundle : Bundle;
 
-        void AddMetadata(BundleMetadata metadata);
+        void Add(BundleMetadata metadata);
     }
 }

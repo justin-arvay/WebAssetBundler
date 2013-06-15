@@ -17,17 +17,13 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.Collections.Generic;
 
-    public interface IConfigurationDriver
+    public class FluentConfiguartionDriver : IConfigurationDriver
     {
-        /// <summary>
-        /// Attempts to load the metadata for the given bundle type and name. Returns null if no metadata found.
-        /// </summary>
-        /// <typeparam name="TBundle"></typeparam>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        BundleMetadata LoadMetadata<TBundle>(string name)
-            where TBundle : Bundle;
+
+        public BundleMetadata LoadMetadata<TBundle>(string name) where TBundle : Bundle
+        {
+            throw new NotImplementedException();
+        }
     }
 }
