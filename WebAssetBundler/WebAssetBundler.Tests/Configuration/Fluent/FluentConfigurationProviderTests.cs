@@ -22,37 +22,42 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System.Collections.Generic;
 
     [TestFixture]
-    public class DefaultBundleConfigurationProviderTest
+    public class FluentConfigurationProviderTests
     {
-        private DefaultBundleConfigurationProvider<BundleImpl> provider;
-        private Mock<IBundleConfigurationFactory<BundleImpl>> factory;
+        private FluentConfigurationProvider provider;
+        private Mock<IFluentConfigurationFactory> factory;
         private Mock<ITypeProvider> typeProvider;
+        private Mock<IDirectorySearchFactory> searchFactory;
+        private Mock<IAssetProvider> assetProvider;
 
         [SetUp]
         public void Setup()
         {
             typeProvider = new Mock<ITypeProvider>();
-            factory = new Mock<IBundleConfigurationFactory<BundleImpl>>();
-            provider = new DefaultBundleConfigurationProvider<BundleImpl>(typeProvider.Object, factory.Object);
+            factory = new Mock<IFluentConfigurationFactory>();
+            provider = new FluentConfigurationProvider(typeProvider.Object, assetProvider.Object, searchFactory.Object, factory.Object);
         }
 
         [Test]
         public void Should_Get_Configuration()
         {
             var types = new List<Type>();
-            types.Add(typeof(BundleConfigurationImpl));
-            types.Add(typeof(BundleConfigurationImpl));
+            types.Add(typeof(FluentConfigurationImpl));
+            types.Add(typeof(FluentConfigurationImpl));
 
-            factory.Setup(f => f.Create(It.IsAny<Type>()))
-                .Returns(new BundleConfigurationImpl());
+            factory.Setup(f => f.Create<BundleImpl>(It.IsAny<Type>()))
+                .Returns(new FluentConfigurationImpl());
 
             typeProvider.Setup(t => t.GetImplementationTypes(typeof(IFluentConfiguration<BundleImpl>)))
                 .Returns(types);
 
-            var configs = provider.GetConfigs();
+            var configs = provider.GetConfigurations<BundleImpl>();
 
             Assert.AreEqual(2, configs.Count);
-            factory.Verify(f => f.Create(It.IsAny<Type>()));
+            factory.Verify(f => f.Create<BundleImpl>(It.IsAny<Type>()));
+            Assert.AreSame(assetProvider.Object, configs[0].AssetProvider);
+            Assert.AreSame(searchFactory.Object, configs[0].DirectorySearchFactory);
+            Assert.IsInstanceOf<BundleMetadata>(configs[0].Metadata);
         }
     }
 }

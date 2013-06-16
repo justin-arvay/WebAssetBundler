@@ -16,13 +16,16 @@
 
 namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
+    using NUnit.Framework;
+    using Moq;
 
-    public class BundleConfigurationImpl : FluentConfiguration<BundleImpl>
+    [TestFixture]
+    public class FluentConfigurationDriverTests
     {
-        public override void Configure()
+        [Test]
+        public void test()
         {
-            throw new NotImplementedException();
+            Assert.Fail();
         }
     }
 }

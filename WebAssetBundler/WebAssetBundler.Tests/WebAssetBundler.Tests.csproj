@@ -70,8 +70,9 @@
     <Compile Include="Bundler\BundlerDependencyResolverTests.cs" />
     <Compile Include="Configuration\BundleMetadataCacheTests.cs" />
     <Compile Include="Configuration\BundleMetadataProviderTests.cs" />
-    <Compile Include="Configuration\Fluent\ConfigurationDriverCollectionTests.cs" />
-    <Compile Include="Configuration\Fluent\DefaultBundleConfigurationFactoryTests.cs" />
+    <Compile Include="Configuration\ConfigurationDriverCollectionTests.cs" />
+    <Compile Include="Configuration\Fluent\FluentConfigurationDriverTests.cs" />
+    <Compile Include="Configuration\Fluent\FluentConfigurationFactoryTests.cs" />
     <Compile Include="Configuration\DirectorySearchOrderBuilderTests.cs" />
     <Compile Include="DirectorySearchFactoryTests.cs" />
     <Compile Include="Extensions\StreamExtensionsTests.cs" />
@@ -79,8 +80,8 @@
     <Compile Include="FileSystemFileTests.cs" />
     <Compile Include="Caching\BundlesCacheTests.cs" />
     <Compile Include="AssetBaseTests.cs" />
-    <Compile Include="Configuration\Fluent\BundleConfigurationImpl.cs" />
-    <Compile Include="Configuration\Fluent\BundleConfigurationTests.cs" />
+    <Compile Include="Configuration\Fluent\FluentConfigurationImpl.cs" />
+    <Compile Include="Configuration\Fluent\FluentConfigurationTests.cs" />
     <Compile Include="BundleImpl.cs" />
     <Compile Include="BundleProviderBaseImpl.cs" />
     <Compile Include="BundleProviderBaseTests.cs" />
@@ -107,7 +108,7 @@
     <Compile Include="Pipeline\MergeProcessorTests.cs" />
     <Compile Include="Pipeline\MinifyProcessorTests.cs" />
     <Compile Include="Pipeline\ProcessorImpl.cs" />
-    <Compile Include="Configuration\Fluent\DefaultBundleConfigurationProviderTests.cs" />
+    <Compile Include="Configuration\Fluent\FluentConfigurationProviderTests.cs" />
     <Compile Include="AssetProviderTests.cs" />
     <Compile Include="FileSystemAssetTest.cs" />
     <Compile Include="DirectorySearchBuilderTests.cs" />

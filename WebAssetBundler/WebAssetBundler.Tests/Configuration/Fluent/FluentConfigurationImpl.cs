@@ -16,28 +16,13 @@
 
 namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using NUnit.Framework;
-    using Moq;
+    using System;
 
-    [TestFixture]
-    public class DefaultBundleConfigurationFactoryTests
+    public class FluentConfigurationImpl : FluentConfiguration<BundleImpl>
     {
-        private FluentConfigurationFactory<BundleImpl> factory;
-
-        [SetUp]
-        public void Setup()
+        public override void Configure()
         {
-            factory = new FluentConfigurationFactory<BundleImpl>();
-        }
-
-        [Test]
-        public void Should_Create_Configuration()
-        {
-            var type = typeof(BundleConfigurationImpl);
-
-            var config = factory.Create(type);
-
-            Assert.IsInstanceOf<BundleConfigurationImpl>(config);
+            throw new NotImplementedException();
         }
     }
 }

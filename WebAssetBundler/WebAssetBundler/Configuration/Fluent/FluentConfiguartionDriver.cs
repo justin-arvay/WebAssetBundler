@@ -17,23 +17,36 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Collections.Generic;
 
     public class FluentConfiguartionDriver : IConfigurationDriver
     {
         private IFluentConfigurationProvider configProvider;
-        private IAssetProvider assetProvider;
 
 
-        public FluentConfiguartionDriver(IFluentConfigurationProvider configProvider, IAssetProvider assetProvider)
+        public FluentConfiguartionDriver(IFluentConfigurationProvider configProvider)
         {
             this.configProvider = configProvider;
-            this.assetProvider = assetProvider;
         }
 
         public BundleMetadata LoadMetadata<TBundle>(string name) 
             where TBundle : Bundle
         {
-            throw new NotImplementedException();
+            List<BundleMetadata> metadatas = new List<BundleMetadata>();
+            IList<IFluentConfiguration<TBundle>> configs = configProvider.GetConfigurations<TBundle>();
+            
+            foreach (var config in configs)
+            {
+                config.Configure();
+                metadatas.Add(config.Metadata);
+            }
+
+            //Note: probably faster to store as a HashMap with a key of Name+Type
+
+            return metadatas.Find((metadata) => {
+                return metadata.Name.Equals(name) &&
+                    metadata.Type.Equals(typeof(TBundle));
+            });
         }
     }
 }

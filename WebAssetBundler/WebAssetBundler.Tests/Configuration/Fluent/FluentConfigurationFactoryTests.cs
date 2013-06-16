@@ -14,25 +14,30 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
-    using System.Collections.Generic;
+    using NUnit.Framework;
+    using Moq;
 
-    public class BundleMetadata
+    [TestFixture]
+    public class FluentConfigurationFactoryTests
     {
-        public string Name { get; set; }
-        public bool Minify { get; set; }
-        public string Host { get; set; }
-        public string Extension { get; set; }
-        public IList<AssetBase> Assets { get; set; }
-        public int BrowserTtl { get; set; }
-        public HtmlAttributeDictionary Attributes { get; set; }
-        public IList<string> Required { get; set; }
+        private FluentConfigurationFactory factory;
 
-        /// <summary>
-        /// The type of bundle, should inherit from Bundle
-        /// </summary>
-        public Type Type { get; set; }
+        [SetUp]
+        public void Setup()
+        {
+            factory = new FluentConfigurationFactory();
+        }
+
+        [Test]
+        public void Should_Create_Configuration()
+        {
+            var type = typeof(FluentConfigurationImpl);
+
+            var config = factory.Create<BundleImpl>(type);
+
+            Assert.IsInstanceOf<FluentConfigurationImpl>(config);
+        }
     }
 }
