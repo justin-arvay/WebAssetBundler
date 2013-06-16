@@ -17,35 +17,42 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Collections.Generic;
 
-    public class BundleMetadataProvider : IBundleMetadataProvider
+    public class BundleMetadataCachePrimer : IBundleMetadataCachePrimer
     {
+        private IConfigurationDriver driver;
         private IBundleMetadataCache cache;
-        private IBundleMetadataCachePrimer primer;
+        private static bool isPrimed = false;
+        static readonly object locker = new object();
 
-        public BundleMetadataProvider(IBundleMetadataCache cache, IBundleMetadataCachePrimer primer)
+        public BundleMetadataCachePrimer(IConfigurationDriver driver, IBundleMetadataCache cache)
         {
+            this.driver = driver;
             this.cache = cache;
-            this.primer = primer;
         }
 
-        public BundleMetadata GetMetadata<TBundle>(string name) 
-            where TBundle : Bundle
+        public bool IsPrimed
         {
-
-            if (primer.IsPrimed == false)
+            get
             {
-                primer.Prime();
+                return isPrimed;
             }
+        }
 
-            BundleMetadata metadata = cache.Get<TBundle>(name);
 
-            if (metadata == null)
+        public void Prime()
+        {
+            //lock to ensure we dont prime the cache twice. would be possible if two requests happen at the same time            
+            lock (locker)
             {
-                cache.Add(metadata);
-            }
+                foreach (var metadata in driver.LoadMetadata())
+                {
+                    cache.Add(metadata);
+                }
 
-            return metadata;
+                isPrimed = true;
+            }
         }
     }
 }

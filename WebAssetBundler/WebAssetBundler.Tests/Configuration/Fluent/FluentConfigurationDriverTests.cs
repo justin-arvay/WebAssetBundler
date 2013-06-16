@@ -22,6 +22,16 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class FluentConfigurationDriverTests
     {
+        public FluentConfiguartionDriver driver;
+        private Mock<IFluentConfigurationProvider> provider;
+
+        [SetUp]
+        public void Setup()
+        {
+            provider = new Mock<IFluentConfigurationProvider>();
+            driver = new FluentConfiguartionDriver(provider.Object);
+        }
+
         [Test]
         public void test()
         {

@@ -40,7 +40,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<IBundleConfigurationProvider<StyleSheetBundle>>((c, p) => DefaultSettings.StyleSheetConfigurationProvider(c));
             container.Register<ITagWriter<StyleSheetBundle>, StyleSheetTagWriter>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
-            container.Register<IBundleCachePrimer<StyleSheetBundle>, StyleSheetBundleCachePrimer>();
+            container.Register<IBundleMetadataCachePrimer<StyleSheetBundle>, BundleMetadataCachePrimer>();
             container.Register<IBundleProvider<StyleSheetBundle>, StyleSheetBundleProvider>();
             container.Register<IPluginCollection<StyleSheetBundle>>(Plugins);
             container.Register<IImagePipelineRunner, ImagePipelineRunner>();

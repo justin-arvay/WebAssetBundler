@@ -16,16 +16,18 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
-    using System;
     using System.Collections.Generic;
 
-    public interface IConfigurationDriver
+    public interface IBundleMetadataCachePrimer
     {
         /// <summary>
-        /// Attempts to load the metadata for the given bundle type. 
+        /// Returns true when the cache is primed.
         /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        IEnumerable<BundleMetadata> LoadMetadata();            
+        bool IsPrimed { get; }
+
+        /// <summary>
+        /// Primes the cache.
+        /// </summary>
+        void Prime();
     }
 }

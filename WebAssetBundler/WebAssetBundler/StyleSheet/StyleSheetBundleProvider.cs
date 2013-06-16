@@ -26,10 +26,10 @@ namespace WebAssetBundler.Web.Mvc
         private IBundlesCache<StyleSheetBundle> cache;
         private IAssetProvider assetProvider;
         private IBundlePipeline<StyleSheetBundle> pipeline;
-        private IBundleCachePrimer<StyleSheetBundle> primer;
+        private IBundleMetadataCachePrimer<StyleSheetBundle> primer;
 
         public StyleSheetBundleProvider(IBundleConfigurationProvider<StyleSheetBundle> configProvider, IBundlesCache<StyleSheetBundle> cache,
-            IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetProvider, IBundleCachePrimer<StyleSheetBundle> primer,
+            IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetProvider, IBundleMetadataCachePrimer<StyleSheetBundle> primer,
             SettingsContext settings)
             : base(settings)
         {

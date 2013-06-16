@@ -25,7 +25,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class StyleSheetBundleCachePrimerTests
     {
-        private StyleSheetBundleCachePrimer primer;
+        private BundleMetadataCachePrimer primer;
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
         private Mock<IBundlesCache<StyleSheetBundle>> cache;
@@ -38,7 +38,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             pipeline = new Mock<IBundlePipeline<StyleSheetBundle>>();
             cache = new Mock<IBundlesCache<StyleSheetBundle>>();
             dirSearchProvider = new Mock<IDirectorySearchFactory>();
-            primer = new StyleSheetBundleCachePrimer(assetProvider.Object, pipeline.Object, cache.Object, dirSearchProvider.Object);
+            primer = new BundleMetadataCachePrimer(assetProvider.Object, pipeline.Object, cache.Object, dirSearchProvider.Object);
         }
 
         [Test]

@@ -14,22 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System.Collections.Generic;
+    using System;
+    using NUnit.Framework;
+    using Moq;
 
-    public interface IBundleCachePrimer<TBundle> 
-        where TBundle : Bundle
+    [TestFixture]
+    public class BundleMetadataCachePrimerTests
     {
-        /// <summary>
-        /// Returns true when the cache is primed.
-        /// </summary>
-        bool IsPrimed { get; }
-
-        /// <summary>
-        /// Primes the cache from the provided configuration.
-        /// </summary>
-        /// <param name="configs"></param>
-        void Prime(IList<IFluentConfiguration<TBundle>> configs);
+        [Test]
+        public void test()
+        {
+            Assert.Fail();
+        }
     }
 }

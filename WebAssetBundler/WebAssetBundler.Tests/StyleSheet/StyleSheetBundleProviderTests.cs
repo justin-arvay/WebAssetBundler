@@ -31,7 +31,7 @@ using System;
         private Mock<IBundlesCache<StyleSheetBundle>> cache;
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
-        private Mock<IBundleCachePrimer<StyleSheetBundle>> primer;
+        private Mock<IBundleMetadataCachePrimer<StyleSheetBundle>> primer;
         private SettingsContext settings;
 
         [SetUp]
@@ -42,7 +42,7 @@ using System;
             configProvider = new Mock<IBundleConfigurationProvider<StyleSheetBundle>>();
             cache = new Mock<IBundlesCache<StyleSheetBundle>>();
             assetProvider = new Mock<IAssetProvider>();
-            primer = new Mock<IBundleCachePrimer<StyleSheetBundle>>();
+            primer = new Mock<IBundleMetadataCachePrimer<StyleSheetBundle>>();
 
             provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, pipeline.Object, 
                 assetProvider.Object, primer.Object, settings);

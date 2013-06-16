@@ -16,6 +16,7 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web;
     using System.Web.Caching;
@@ -41,7 +42,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             if (key.IsNotNullOrEmpty() && value != null)
             {
-                HttpRuntime.Cache.Insert(key, value);
+                HttpRuntime.Cache.Insert(key, value);                
             }
         }
 

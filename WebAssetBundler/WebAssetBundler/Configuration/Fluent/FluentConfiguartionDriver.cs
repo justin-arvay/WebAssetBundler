@@ -23,13 +23,21 @@ namespace WebAssetBundler.Web.Mvc
     {
         private IFluentConfigurationProvider configProvider;
 
-
         public FluentConfiguartionDriver(IFluentConfigurationProvider configProvider)
         {
             this.configProvider = configProvider;
         }
 
-        public BundleMetadata LoadMetadata<TBundle>(string name) 
+        public IEnumerable<BundleMetadata> LoadMetadata()
+        {
+            List<BundleMetadata> metadata = new List<BundleMetadata>();
+            metadata.AddRange(LoadMetadata<ScriptBundle>());
+            metadata.AddRange(LoadMetadata<StyleSheetBundle>());
+
+            return metadata;
+        }
+
+        private IEnumerable<BundleMetadata> LoadMetadata<TBundle>() 
             where TBundle : Bundle
         {
             List<BundleMetadata> metadatas = new List<BundleMetadata>();
@@ -41,12 +49,9 @@ namespace WebAssetBundler.Web.Mvc
                 metadatas.Add(config.Metadata);
             }
 
-            //Note: probably faster to store as a HashMap with a key of Name+Type
-
-            return metadatas.Find((metadata) => {
-                return metadata.Name.Equals(name) &&
-                    metadata.Type.Equals(typeof(TBundle));
-            });
+            return metadatas;
         }
+
+
     }
 }

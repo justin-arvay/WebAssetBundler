@@ -16,6 +16,7 @@
 
 namespace WebAssetBundler.Web.Mvc
 {
+    using System.Collections.Generic;
     using System.Web.Caching;
     
     /// <summary>

@@ -26,10 +26,10 @@ namespace WebAssetBundler.Web.Mvc
         private IBundlesCache<ScriptBundle> cache;
         private IAssetProvider assetProvider;
         private IBundlePipeline<ScriptBundle> pipeline;
-        private IBundleCachePrimer<ScriptBundle> primer;
+        private IBundleMetadataCachePrimer<ScriptBundle> primer;
 
         public ScriptBundleProvider(IBundleConfigurationProvider<ScriptBundle> configProvider, IBundlesCache<ScriptBundle> cache,
-            IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline, IBundleCachePrimer<ScriptBundle> primer,
+            IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline, IBundleMetadataCachePrimer<ScriptBundle> primer,
             SettingsContext settings)
             : base(settings)
         {

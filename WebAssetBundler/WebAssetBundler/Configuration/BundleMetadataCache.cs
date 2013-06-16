@@ -36,6 +36,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public void Add(BundleMetadata metadata)
         {
+            //TODO:: lock adding and prevent duplicates
             string key = GetKey(metadata.Name, metadata.Type);
             provider.Insert(key, metadata);
         }

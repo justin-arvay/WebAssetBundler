@@ -48,6 +48,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public void Add(TBundle bundle)
         {
+            //TODO:: lock adding and prevent duplicates
             var key = GetSingleBundleKey(bundle.Name);
             provider.Insert(key, bundle); 
         }

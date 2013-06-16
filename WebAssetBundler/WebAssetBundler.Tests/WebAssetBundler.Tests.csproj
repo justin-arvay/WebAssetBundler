@@ -68,6 +68,7 @@
     <Compile Include="Bundler\BundlerFactoryTests.cs" />
     <Compile Include="Bundler\BundlerStateTests.cs" />
     <Compile Include="Bundler\BundlerDependencyResolverTests.cs" />
+    <Compile Include="Configuration\BundleMetadataCachePrimerTests.cs" />
     <Compile Include="Configuration\BundleMetadataCacheTests.cs" />
     <Compile Include="Configuration\BundleMetadataProviderTests.cs" />
     <Compile Include="Configuration\ConfigurationDriverCollectionTests.cs" />

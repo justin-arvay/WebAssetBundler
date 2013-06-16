@@ -140,10 +140,9 @@
     <Compile Include="Plugins\IPluginLoader.cs" />
     <Compile Include="Plugins\PluginCollection.cs" />
     <Compile Include="Plugins\PluginLoader.cs" />
-    <Compile Include="Script\ScriptBundleCachePrimer.cs" />
     <Compile Include="Caching\BundlesCache.cs" />
     <Compile Include="Caching\CacheProvider.cs" />
-    <Compile Include="Caching\IBundleCachePrimer.cs" />
+    <Compile Include="Configuration\IBundleMetadataCachePrimer.cs" />
     <Compile Include="Caching\IBundlesCache.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
     <Compile Include="Bundler\Bundler.cs" />
@@ -164,7 +163,7 @@
     <Compile Include="Script\ScriptBundle.cs" />
     <Compile Include="Script\ScriptBundleProvider.cs" />
     <Compile Include="Image\ImagePipelineRunnerResult.cs" />
-    <Compile Include="StyleSheet\StyleSheetBundleCachePrimer.cs" />
+    <Compile Include="Configuration\BundleMetadataCachePrimer.cs" />
     <Compile Include="StyleSheet\StyleSheetBundle.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleProvider.cs" />
     <Compile Include="Extensions\ByteArrayExensions.cs" />
