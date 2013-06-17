@@ -24,7 +24,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class ImagePipelineRunnerTests
     {
         private ImagePipelineRunner runner;
-        private Mock<IBundlesCache<ImageBundle>> bundlesCache;
+        private Mock<BundleCache<ImageBundle>> bundlesCache;
         private Mock<IBundlePipeline<ImageBundle>> pipeline;
         private ImagePipelineRunnerContext context;
         private string root;
@@ -41,7 +41,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             context = new ImagePipelineRunnerContext();
             context.AppRootDirectory = directory.Object;
 
-            bundlesCache = new Mock<IBundlesCache<ImageBundle>>();
+            bundlesCache = new Mock<BundleCache<ImageBundle>>();
             pipeline = new Mock<IBundlePipeline<ImageBundle>>();
             runner = new ImagePipelineRunner(pipeline.Object, bundlesCache.Object, bundleFactory.Object);
         }

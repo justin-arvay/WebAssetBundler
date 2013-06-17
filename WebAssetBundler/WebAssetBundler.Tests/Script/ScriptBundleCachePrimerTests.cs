@@ -28,7 +28,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private ScriptBundleCachePrimer primer;
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<ScriptBundle>> pipeline;
-        private Mock<IBundlesCache<ScriptBundle>> cache;
+        private Mock<BundleCache<ScriptBundle>> cache;
         private Mock<IDirectorySearchFactory> dirSearchFactory;
 
         [SetUp]
@@ -36,7 +36,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             assetProvider = new Mock<IAssetProvider>();
             pipeline = new Mock<IBundlePipeline<ScriptBundle>>();
-            cache = new Mock<IBundlesCache<ScriptBundle>>();
+            cache = new Mock<BundleCache<ScriptBundle>>();
             dirSearchFactory = new Mock<IDirectorySearchFactory>();
 
             primer = new ScriptBundleCachePrimer(assetProvider.Object, pipeline.Object, cache.Object, dirSearchFactory.Object);

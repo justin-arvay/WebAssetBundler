@@ -19,11 +19,11 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public class BundlesCache<TBundle> : IBundlesCache<TBundle> where TBundle : Bundle
+    public class BundleCache<TBundle> : BundleCache<TBundle> where TBundle : Bundle
     {
         private ICacheProvider provider;
 
-        public BundlesCache(ICacheProvider provider)
+        public BundleCache(ICacheProvider provider)
         {
             this.provider = provider;
         }

@@ -35,22 +35,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Load_Driver()
         {
             var driver = new Mock<IConfigurationDriver>();
-            driver.Setup(d => d.LoadMetadata<BundleImpl>("Test"))
-                .Returns(new BundleMetadata());
+            driver.Setup(d => d.LoadMetadata())
+                .Returns(new List<BundleMetadata>() {
+                    new BundleMetadata()
+                });
 
             collection.Add(driver.Object);
 
-            BundleMetadata metadata = collection.LoadMetadata<BundleImpl>("Test");
+            var metadatas = (IList<BundleMetadata>)collection.LoadMetadata();
 
-            Assert.IsInstanceOf<BundleMetadata>(metadata);
-        }
-
-        [Test]
-        public void Should_Return_Null_If_Unable_To_Load()
-        {
-            BundleMetadata metadata = collection.LoadMetadata<BundleImpl>("Test");
-
-            Assert.Null(metadata);
+            Assert.IsInstanceOf<IEnumerable<BundleMetadata>>(metadatas);
+            Assert.AreEqual(1, metadatas.Count());
         }
     }
 }

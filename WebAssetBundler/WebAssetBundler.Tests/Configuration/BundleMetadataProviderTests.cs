@@ -18,37 +18,34 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System.Collections.Generic;
 
     [TestFixture]
     public class BundleMetadataProviderTests
     {
         private BundleMetadataProvider provider;
-        private Mock<IConfigurationDriver> driver;
+        private Mock<IBundleMetadataCachePrimer> primer;
         private Mock<IBundleMetadataCache> cache;
 
         [SetUp]
         public void Setup()
         {
-            driver = new Mock<IConfigurationDriver>();
+            primer = new Mock<IBundleMetadataCachePrimer>();
             cache = new Mock<IBundleMetadataCache>();
-            provider = new BundleMetadataProvider(cache.Object, driver.Object);
+            provider = new BundleMetadataProvider(cache.Object, primer.Object);
+        }
+
+        [Test]
+        public void Should_Prime_Cache()
+        {
+            provider.GetMetadata<BundleImpl>("Test");
+
+            primer.Verify(p => p.Prime());
+            primer.Verify(p => p.IsPrimed == true);
         }
 
         [Test]
         public void Should_Load_Metadata()
-        {
-            var loadedMetadata = new BundleMetadata();
-            driver.Setup(d => d.LoadMetadata<BundleImpl>("Test"))
-                .Returns(loadedMetadata);
-
-            BundleMetadata metadata = provider.GetMetadata<BundleImpl>("Test");
-
-            Assert.AreSame(loadedMetadata, metadata);
-            cache.Verify(c => c.Add(loadedMetadata));
-        }
-
-        [Test]
-        public void Should_Get_Metadata_From_Cache()
         {
             var cacheMetadata = new BundleMetadata();
 
@@ -59,7 +56,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreSame(cacheMetadata, metadata);
             cache.Verify(c => c.Get<BundleImpl>("Test"));
-            driver.Verify(c => c.LoadMetadata<BundleImpl>("Test"), Times.Never());
         }
 
         [Test]
@@ -69,7 +65,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.Null(metadata);
             cache.Verify(c => c.Get<BundleImpl>("Test"));
-            driver.Verify(c => c.LoadMetadata<BundleImpl>("Test"));
+        }
+
+
+        [Test]
+        public void Should_Always_Prime_In_Debug_Mode()
+        {
+            Assert.Fail();
         }
     }
 }

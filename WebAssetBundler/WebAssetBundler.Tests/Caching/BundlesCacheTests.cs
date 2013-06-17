@@ -25,13 +25,13 @@ using System;
     public class BundlesCacheTests
     {
         private Mock<ICacheProvider> provider;
-        private BundlesCache<BundleImpl> cache;
+        private BundleCache<BundleImpl> cache;
 
         [SetUp]
         public void Setup()
         {
             provider = new Mock<ICacheProvider>();
-            cache = new BundlesCache<BundleImpl>(provider.Object);
+            cache = new BundleCache<BundleImpl>(provider.Object);
         }
 
         [Test]

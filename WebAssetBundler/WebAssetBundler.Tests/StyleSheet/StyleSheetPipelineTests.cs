@@ -45,7 +45,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             container.Register<ILogger>(logger.Object);
 
             container.Register<ICacheProvider, CacheProvider>();
-            container.Register<IBundlesCache<ImageBundle>, BundlesCache<ImageBundle>>();
+            container.Register<BundleCache<ImageBundle>, BundleCache<ImageBundle>>();
             container.Register<IUrlGenerator<ImageBundle>, ImageUrlGenerator>();
             container.Register<IUrlGenerator<StyleSheetBundle>, BasicUrlGenerator<StyleSheetBundle>>();
             container.Register<SettingsContext>(new SettingsContext());

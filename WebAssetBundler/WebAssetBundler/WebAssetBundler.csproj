@@ -140,10 +140,10 @@
     <Compile Include="Plugins\IPluginLoader.cs" />
     <Compile Include="Plugins\PluginCollection.cs" />
     <Compile Include="Plugins\PluginLoader.cs" />
-    <Compile Include="Caching\BundlesCache.cs" />
+    <Compile Include="Caching\BundleCache.cs" />
     <Compile Include="Caching\CacheProvider.cs" />
     <Compile Include="Configuration\IBundleMetadataCachePrimer.cs" />
-    <Compile Include="Caching\IBundlesCache.cs" />
+    <Compile Include="Caching\IBundleCache.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
     <Compile Include="Bundler\Bundler.cs" />
     <Compile Include="Minifiers\IScriptMinifier.cs" />

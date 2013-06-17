@@ -19,14 +19,39 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using System;
     using NUnit.Framework;
     using Moq;
+    using System.Collections.Generic;
 
     [TestFixture]
     public class BundleMetadataCachePrimerTests
     {
-        [Test]
-        public void test()
+        private BundleMetadataCachePrimer primer;
+        private Mock<IConfigurationDriver> driver;
+        private Mock<IBundleMetadataCache> cache;
+
+        [SetUp]
+        public void Setup()
         {
-            Assert.Fail();
+            driver = new Mock<IConfigurationDriver>();
+            cache = new Mock<IBundleMetadataCache>();
+            primer = new BundleMetadataCachePrimer(driver.Object, cache.Object);
+        }
+
+        [Test]
+        public void Should_Prime_Cache()
+        {
+            var metadata = new BundleMetadata();
+            var metadatas = new List<BundleMetadata>()
+            {
+                metadata
+            };
+
+            driver.Setup(d => d.LoadMetadata())
+                .Returns(metadatas);
+
+            primer.Prime();
+
+            cache.Verify(c => c.Add(metadata));
+            Assert.True(primer.IsPrimed);
         }
     }
 }

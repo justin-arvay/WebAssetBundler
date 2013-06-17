@@ -28,7 +28,7 @@ using System;
     {
         private StyleSheetBundleProvider provider;
         private Mock<IBundleConfigurationProvider<StyleSheetBundle>> configProvider;
-        private Mock<IBundlesCache<StyleSheetBundle>> cache;
+        private Mock<BundleCache<StyleSheetBundle>> cache;
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
         private Mock<IBundleMetadataCachePrimer<StyleSheetBundle>> primer;
@@ -40,7 +40,7 @@ using System;
             settings = new SettingsContext(false, ".min");
             pipeline = new Mock<IBundlePipeline<StyleSheetBundle>>();
             configProvider = new Mock<IBundleConfigurationProvider<StyleSheetBundle>>();
-            cache = new Mock<IBundlesCache<StyleSheetBundle>>();
+            cache = new Mock<BundleCache<StyleSheetBundle>>();
             assetProvider = new Mock<IAssetProvider>();
             primer = new Mock<IBundleMetadataCachePrimer<StyleSheetBundle>>();
 

@@ -42,8 +42,7 @@ namespace WebAssetBundler.Web.Mvc
 
 
         public void Prime()
-        {
-            //lock to ensure we dont prime the cache twice. would be possible if two requests happen at the same time            
+        {           
             lock (locker)
             {
                 foreach (var metadata in driver.LoadMetadata())

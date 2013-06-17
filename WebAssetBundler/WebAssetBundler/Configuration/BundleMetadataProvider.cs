@@ -33,7 +33,7 @@ namespace WebAssetBundler.Web.Mvc
             where TBundle : Bundle
         {
 
-            if (primer.IsPrimed == false)
+            if (primer.IsPrimed == false || Settings.DebugMode)
             {
                 primer.Prime();
             }

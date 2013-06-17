@@ -20,13 +20,13 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ImageBundleProvider : IBundleProvider<ImageBundle>
     {
-        private IBundlesCache<ImageBundle> cache;
+        private BundleCache<ImageBundle> cache;
         private IBundlePipeline<ImageBundle> pipeline;
         private SettingsContext settings;
         private IBundleFactory<ImageBundle> bundleFactory;
         private IAssetProvider assetProvider;
 
-        public ImageBundleProvider(IBundlesCache<ImageBundle> cache, IBundlePipeline<ImageBundle> pipeline, 
+        public ImageBundleProvider(BundleCache<ImageBundle> cache, IBundlePipeline<ImageBundle> pipeline, 
             IBundleFactory<ImageBundle> bundleFactory, IAssetProvider assetProvider, SettingsContext settings)
         {
             this.cache = cache;

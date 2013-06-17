@@ -56,7 +56,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             cache.Add(metadata);
 
-
             provider.Verify(p => p.Insert(key, metadata));
         }
     }

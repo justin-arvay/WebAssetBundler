@@ -27,7 +27,7 @@ using System;
     {
         private ScriptBundleProvider provider;
         private Mock<IBundleConfigurationProvider<ScriptBundle>> configProvider;
-        private Mock<IBundlesCache<ScriptBundle>> cache;
+        private Mock<BundleCache<ScriptBundle>> cache;
         private Mock<IAssetProvider> assetProvider;
         private Mock<IBundlePipeline<ScriptBundle>> pipeline;
         private Mock<IBundleMetadataCachePrimer<ScriptBundle>> primer;
@@ -39,7 +39,7 @@ using System;
             settings = new SettingsContext(false, ".min");
             pipeline = new Mock<IBundlePipeline<ScriptBundle>>();
             configProvider = new Mock<IBundleConfigurationProvider<ScriptBundle>>();
-            cache = new Mock<IBundlesCache<ScriptBundle>>();
+            cache = new Mock<BundleCache<ScriptBundle>>();
             assetProvider = new Mock<IAssetProvider>();
             primer = new Mock<IBundleMetadataCachePrimer<ScriptBundle>>();
 

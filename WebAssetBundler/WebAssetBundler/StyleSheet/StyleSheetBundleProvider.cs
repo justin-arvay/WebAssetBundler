@@ -22,22 +22,22 @@ namespace WebAssetBundler.Web.Mvc
 
     public class StyleSheetBundleProvider : BundleProviderBase<StyleSheetBundle>
     {
-        private IBundleConfigurationProvider<StyleSheetBundle> configProvider;
-        private IBundlesCache<StyleSheetBundle> cache;
+        private BundleCache<StyleSheetBundle> cache;
         private IAssetProvider assetProvider;
         private IBundlePipeline<StyleSheetBundle> pipeline;
-        private IBundleMetadataCachePrimer<StyleSheetBundle> primer;
+        private IBundleMetadataProvider metadataProvider;
+        private IBundleFactory<StyleSheetBundle> factory;
 
-        public StyleSheetBundleProvider(IBundleConfigurationProvider<StyleSheetBundle> configProvider, IBundlesCache<StyleSheetBundle> cache,
-            IBundlePipeline<StyleSheetBundle> pipeline, IAssetProvider assetProvider, IBundleMetadataCachePrimer<StyleSheetBundle> primer,
-            SettingsContext settings)
+        public StyleSheetBundleProvider(BundleCache<StyleSheetBundle> cache, IBundlePipeline<StyleSheetBundle> pipeline, 
+            IBundleMetadataProvider metadataProvider, IBundleFactory<StyleSheetBundle> factory,
+            IAssetProvider assetProvider, SettingsContext settings)
             : base(settings)
         {
-            this.configProvider = configProvider;
             this.cache = cache;
             this.assetProvider = assetProvider;
             this.pipeline = pipeline;
-            this.primer = primer;
+            this.metadataProvider = metadataProvider;
+            this.factory = factory;
         }       
 
         public override StyleSheetBundle GetNamedBundle(string name)
