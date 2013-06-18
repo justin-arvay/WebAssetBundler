@@ -22,32 +22,39 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ScriptBundleProvider : BundleProviderBase<ScriptBundle>
     {
-        private IBundleConfigurationProvider<ScriptBundle> configProvider;
         private BundleCache<ScriptBundle> cache;
         private IAssetProvider assetProvider;
         private IBundlePipeline<ScriptBundle> pipeline;
-        private IBundleMetadataCachePrimer<ScriptBundle> primer;
+        private IBundleFactory<ScriptBundle> factory;
+        private IBundleMetadataProvider metadataProvider;
 
-        public ScriptBundleProvider(IBundleConfigurationProvider<ScriptBundle> configProvider, BundleCache<ScriptBundle> cache,
-            IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline, IBundleMetadataCachePrimer<ScriptBundle> primer,
+        public ScriptBundleProvider(BundleCache<ScriptBundle> cache, IBundleFactory<ScriptBundle> factory, 
+            IBundleMetadataProvider metadataProvider, IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline, 
             SettingsContext settings)
             : base(settings)
         {
-            this.configProvider = configProvider;
+
             this.cache = cache;
             this.assetProvider = assetProvider;
             this.pipeline = pipeline;
-            this.primer = primer;
+            this.metadataProvider = metadataProvider;
+            this.factory = factory;
+
         }
 
         public override ScriptBundle GetNamedBundle(string name)
         {
-            if (primer.IsPrimed == false || Settings.DebugMode)
+            ScriptBundle bundle = cache.Get(name);
+            BundleMetadata metadata = null;
+
+            if (bundle == null || Settings.DebugMode)
             {
-                primer.Prime(configProvider.GetConfigs());
+                metadata = metadataProvider.GetMetadata<ScriptBundle>(name);
+                bundle = factory.Create(metadata);
+                cache.Add(bundle);
             }
-            
-            return cache.Get(name);
+
+            return bundle;
         }
 
         public override ScriptBundle GetSourceBundle(string source)
@@ -58,9 +65,7 @@ namespace WebAssetBundler.Web.Mvc
             if (bundle == null || Settings.DebugMode)
             {
                 var asset = assetProvider.GetAsset(source);
-                bundle = new ScriptBundle();
-                bundle.Assets.Add(asset);
-                bundle.Name = name;
+                bundle = factory.Create(asset);
 
                 pipeline.Process(bundle);
                 cache.Add(bundle);

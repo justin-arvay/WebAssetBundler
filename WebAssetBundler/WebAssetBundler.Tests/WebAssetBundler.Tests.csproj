@@ -62,6 +62,7 @@
     <Compile Include="Bootstrap\ConfigureScriptsTaskTests.cs" />
     <Compile Include="Bootstrap\ConfigureStyleSheetTaskTests.cs" />
     <Compile Include="Bootstrap\LoadSettingsTaskTests.cs" />
+    <Compile Include="BundleFactoryTests.cs" />
     <Compile Include="Bundler\BundlerBaseImpl.cs" />
     <Compile Include="Bundler\BundlerBaseTests.cs" />
     <Compile Include="Bundler\BundleRendererTests.cs" />
@@ -79,7 +80,7 @@
     <Compile Include="Extensions\StreamExtensionsTests.cs" />
     <Compile Include="FileSystemDirectoryTests.cs" />
     <Compile Include="FileSystemFileTests.cs" />
-    <Compile Include="Caching\BundlesCacheTests.cs" />
+    <Compile Include="Caching\BundleCacheTests.cs" />
     <Compile Include="AssetBaseTests.cs" />
     <Compile Include="Configuration\Fluent\FluentConfigurationImpl.cs" />
     <Compile Include="Configuration\Fluent\FluentConfigurationTests.cs" />

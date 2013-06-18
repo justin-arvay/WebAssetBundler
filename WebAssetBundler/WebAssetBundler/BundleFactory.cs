@@ -17,12 +17,23 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.Collections.Generic;
 
-    public interface IBundleCache<TBundle> 
-        where TBundle : Bundle
+    public class BundleFactory<TBundle> : IBundleFactory<TBundle>
+        where TBundle : Bundle, new()
     {
-        TBundle Get(string name);
-        void Add(TBundle bundle);
+
+        public TBundle Create(AssetBase asset)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TBundle Create(BundleMetadata metadata)
+        {
+            var bundle = new TBundle();
+            bundle.Name = metadata.Name;
+            bundle.Assets.AddRange(metadata.Assets);
+
+            return bundle;
+        }
     }
 }

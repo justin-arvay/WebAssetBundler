@@ -22,13 +22,13 @@ namespace WebAssetBundler.Web.Mvc
 
     public class StyleSheetBundleProvider : BundleProviderBase<StyleSheetBundle>
     {
-        private BundleCache<StyleSheetBundle> cache;
+        private IBundleCache<StyleSheetBundle> cache;
         private IAssetProvider assetProvider;
         private IBundlePipeline<StyleSheetBundle> pipeline;
         private IBundleMetadataProvider metadataProvider;
         private IBundleFactory<StyleSheetBundle> factory;
 
-        public StyleSheetBundleProvider(BundleCache<StyleSheetBundle> cache, IBundlePipeline<StyleSheetBundle> pipeline, 
+        public StyleSheetBundleProvider(IBundleCache<StyleSheetBundle> cache, IBundlePipeline<StyleSheetBundle> pipeline, 
             IBundleMetadataProvider metadataProvider, IBundleFactory<StyleSheetBundle> factory,
             IAssetProvider assetProvider, SettingsContext settings)
             : base(settings)
@@ -42,12 +42,18 @@ namespace WebAssetBundler.Web.Mvc
 
         public override StyleSheetBundle GetNamedBundle(string name)
         {
-            if (primer.IsPrimed == false || Settings.DebugMode)
+            StyleSheetBundle bundle = cache.Get(name);
+            BundleMetadata metadata = null;
+
+            if (bundle == null || Settings.DebugMode)
             {
-                primer.Prime(configProvider.GetConfigs());
+                metadata = metadataProvider.GetMetadata<StyleSheetBundle>(name);
+                bundle = factory.Create(metadata);
+                pipeline.Process(bundle);
+                cache.Add(bundle);
             }
 
-            return cache.Get(name);
+            return bundle;
         }
 
         public override StyleSheetBundle GetSourceBundle(string source)
@@ -58,9 +64,7 @@ namespace WebAssetBundler.Web.Mvc
             if (bundle == null || Settings.DebugMode)
             {
                 var asset = assetProvider.GetAsset(source);
-                bundle = new StyleSheetBundle();
-                bundle.Assets.Add(asset);
-                bundle.Name = name;
+                bundle = factory.Create(asset);
 
                 pipeline.Process(bundle);
                 cache.Add(bundle);

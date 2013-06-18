@@ -22,18 +22,20 @@ namespace WebAssetBundler.Web.Mvc
     {
         private IBundleMetadataCache cache;
         private IBundleMetadataCachePrimer primer;
+        private SettingsContext settings;
 
-        public BundleMetadataProvider(IBundleMetadataCache cache, IBundleMetadataCachePrimer primer)
+        public BundleMetadataProvider(SettingsContext settings, IBundleMetadataCache cache, IBundleMetadataCachePrimer primer)
         {
             this.cache = cache;
             this.primer = primer;
+            this.settings = settings;
         }
 
         public BundleMetadata GetMetadata<TBundle>(string name) 
             where TBundle : Bundle
         {
 
-            if (primer.IsPrimed == false || Settings.DebugMode)
+            if (primer.IsPrimed == false || settings.DebugMode)
             {
                 primer.Prime();
             }

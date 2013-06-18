@@ -22,10 +22,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
 using System;
 
     [TestFixture]
-    public class BundlesCacheTests
+    public class BundleCacheTests
     {
         private Mock<ICacheProvider> provider;
-        private BundleCache<BundleImpl> cache;
+        private IBundleCache<BundleImpl> cache;
 
         [SetUp]
         public void Setup()

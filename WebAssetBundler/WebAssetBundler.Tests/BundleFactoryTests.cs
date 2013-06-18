@@ -14,15 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
-    using System;
-    using System.Collections.Generic;
+    using NUnit.Framework;
+    using Moq;
 
-    public interface IBundleCache<TBundle> 
-        where TBundle : Bundle
+    [TestFixture]
+    public class BundleFactoryTests
     {
-        TBundle Get(string name);
-        void Add(TBundle bundle);
+        [Test]
+        public void Test()
+        {
+            Assert.Fail();
+        }
     }
 }

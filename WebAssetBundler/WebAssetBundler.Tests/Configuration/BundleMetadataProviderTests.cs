@@ -26,13 +26,17 @@ namespace WebAssetBundler.Web.Mvc.Tests
         private BundleMetadataProvider provider;
         private Mock<IBundleMetadataCachePrimer> primer;
         private Mock<IBundleMetadataCache> cache;
+        private SettingsContext settings;
 
         [SetUp]
         public void Setup()
         {
             primer = new Mock<IBundleMetadataCachePrimer>();
             cache = new Mock<IBundleMetadataCache>();
-            provider = new BundleMetadataProvider(cache.Object, primer.Object);
+            settings = new SettingsContext();
+
+            provider = new BundleMetadataProvider(settings, cache.Object, primer.Object);
+            
         }
 
         [Test]
@@ -71,7 +75,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Always_Prime_In_Debug_Mode()
         {
-            Assert.Fail();
+            settings.DebugMode = true;
+
+            primer.Setup(p => p.IsPrimed)
+                .Returns(false);
+
+            provider.GetMetadata<BundleImpl>("Test");
+
+            primer.Verify(p => p.Prime());
         }
     }
 }
