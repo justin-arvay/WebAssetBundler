@@ -14,24 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace WebAssetBundler.Web.Mvc
+namespace WebAssetBundler.Web.Mvc.Tests
 {
     using System;
-    using System.Collections.Generic;
+    using NUnit.Framework;
 
-    public class BundleMetadata
+    [TestFixture]
+    public class AssetHelperTests
     {
-        public string Name { get; set; }
-        public bool Minify { get; set; }
-        public string Host { get; set; }
-        public IList<AssetBase> Assets { get; set; }
-        public int BrowserTtl { get; set; }
-        public HtmlAttributeDictionary Attributes { get; set; }
-        public IList<string> Required { get; set; }
+        [Test]
+        public void Should_Get_Bundle_Name()
+        {
+            string name = AssetHelper.GetBundleName("~/Source/file.css");
 
-        /// <summary>
-        /// The type of bundle, should inherit from Bundle
-        /// </summary>
-        public Type Type { get; set; }
+            Assert.AreEqual("", name);
+        }
     }
 }

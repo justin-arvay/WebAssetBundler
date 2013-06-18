@@ -59,8 +59,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public override ScriptBundle GetSourceBundle(string source)
         {
-            var name = source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source).Replace(".", "-");
-            var bundle = cache.Get(name);
+            var bundle = cache.Get(AssetHelper.GetBundleName(source));
 
             if (bundle == null || Settings.DebugMode)
             {

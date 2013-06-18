@@ -17,32 +17,13 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.IO;
 
-    public class BundleFactory<TBundle> : IBundleFactory<TBundle>
-        where TBundle : Bundle, new()
+    public static class AssetHelper
     {
-
-        public TBundle Create(AssetBase asset)
+        public static string GetBundleName(string source)
         {
-            var bundle = new TBundle();
-            bundle.Name = AssetHelper.GetBundleName(asset.Source);
-            bundle.Assets.Add(asset);
-
-            return bundle;
-        }
-
-        public TBundle Create(BundleMetadata metadata)
-        {
-            var bundle = new TBundle();
-            bundle.Name = metadata.Name;
-            bundle.Assets.AddRange(metadata.Assets);
-            bundle.BrowserTtl = metadata.BrowserTtl;
-            bundle.Attributes = metadata.Attributes;
-            bundle.Required = metadata.Required;
-            bundle.Minify = metadata.Minify;
-            bundle.Host = metadata.Host;
-
-            return bundle;
+            return source.ToHash() + "-" + Path.GetFileNameWithoutExtension(source).Replace(".", "-");
         }
     }
 }

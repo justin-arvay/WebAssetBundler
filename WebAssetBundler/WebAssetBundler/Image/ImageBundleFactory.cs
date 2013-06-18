@@ -21,13 +21,6 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ImageBundleFactory : IBundleFactory<ImageBundle>
     {
-        private IAssetProvider assetProvider;
-
-        public ImageBundleFactory(IAssetProvider assetProvider)
-        {
-            this.assetProvider = assetProvider;
-        }
-
         public ImageBundle Create(AssetBase asset)
         {
             string name = ImageHelper.CreateBundleName(asset);
@@ -44,7 +37,6 @@ namespace WebAssetBundler.Web.Mvc
 
             return bundle;
         }
-
 
         public ImageBundle Create(BundleMetadata metadata)
         {

@@ -58,6 +58,10 @@
             {
                 return attributes;
             }
+            internal set
+            {
+                attributes = value;
+            }
         }
 
         public Stream Content
@@ -99,7 +103,7 @@
         }
 
         /// <summary>
-        /// Adds collection of named bundles that are required by this bundle in order to work correctly. Can on require bundles
+        /// Adds collection of named bundles that are required by this bundle in order to work correctly. Can only require bundles
         /// of the same bundle type.
         /// </summary>
         public ICollection<string> Required
@@ -107,7 +111,11 @@
             get
             {
                 return required;
-            }            
+            }
+            internal set
+            {
+                required = value;
+            }
         }
     }
 }
