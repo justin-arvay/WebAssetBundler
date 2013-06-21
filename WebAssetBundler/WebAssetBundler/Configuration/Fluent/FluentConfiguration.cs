@@ -38,7 +38,7 @@ namespace WebAssetBundler.Web.Mvc
                 throw new ArgumentException(TextResource.Exceptions.ItemWithSpecifiedSourceAlreadyExists.FormatWith(asset.Source));
             }
 
-            Metadata.Assets.Add(asset);
+            Bundle.Assets.Add(asset);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace WebAssetBundler.Web.Mvc
             {
                 if (AlreadyExists(asset) == false)
                 {
-                    Metadata.Assets.Add(asset);
+                    Bundle.Assets.Add(asset);
                 }
             }
         }
@@ -71,7 +71,7 @@ namespace WebAssetBundler.Web.Mvc
             {
                 if (AlreadyExists(asset) == false)
                 {
-                    Metadata.Assets.Add(asset);
+                    Bundle.Assets.Add(asset);
                 }
             }
         }
@@ -83,7 +83,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="builder"></param>
         public void AddDirectory(string path, Action<DirectorySearchBuilder> builder)
         {
-            var component = DirectorySearchFactory.CreateForType<TBundle>(Metadata.Extension);
+            var component = DirectorySearchFactory.CreateForType<TBundle>(Bundle.Extension);
             builder(new DirectorySearchBuilder((DirectorySearch)component));
 
             var assets = AssetProvider.GetAssets(path, component);
@@ -92,7 +92,7 @@ namespace WebAssetBundler.Web.Mvc
             {
                 if (AlreadyExists(asset) == false)
                 {
-                    Metadata.Assets.Add(asset);
+                    Bundle.Assets.Add(asset);
                 }
             }
         }
@@ -105,7 +105,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="name"></param>
         public void Name(string name)
         {
-            Metadata.Name = name;
+            Bundle.Name = name;
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="minify"></param>
         public void Minify(bool minify)
         {
-            Metadata.Minify = minify;
+            Bundle.Minify = minify;
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="host"></param>
         public void Host(string host)
         {
-            Metadata.Host = host;
+            Bundle.Host = host;
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="timeToLive"></param>
         public void BrowserTtl(int timeToLive)
         {
-            Metadata.BrowserTtl = timeToLive;
+            Bundle.BrowserTtl = timeToLive;
         }
 
         public IAssetProvider AssetProvider
@@ -151,16 +151,16 @@ namespace WebAssetBundler.Web.Mvc
 
         private bool AlreadyExists(AssetBase item)
         {
-            return Metadata.Assets.Any(i => i.Source.Equals(item.Source));
+            return Bundle.Assets.Any(i => i.Source.Equals(item.Source));
         }
 
         public void Required(string bundleName)
         {
-            Metadata.Required.Add(bundleName);
+            Bundle.Required.Add(bundleName);
         }
 
 
-        public BundleMetadata Metadata
+        public TBundle Bundle
         {
             get;
             set;

@@ -18,19 +18,26 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class ConfigurationDriverCollection : List<IConfigurationDriver>, IConfigurationDriver
     {
-        public IEnumerable<BundleMetadata> LoadMetadata()
+
+        public TBundle LoadBundle<TBundle>(string name) where TBundle : Bundle
         {
-            var metadatas = new List<BundleMetadata>();
+            TBundle bundle = null;
 
             foreach (var driver in this)
             {
-                metadatas.AddRange(driver.LoadMetadata());               
+                bundle = driver.LoadBundle<TBundle>(name);
+
+                if (bundle != null)
+                {
+                    return bundle;
+                }
             }
 
-            return metadatas;
+            return null;
         }
     }
 }

@@ -35,7 +35,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             assetProvider = new Mock<IAssetProvider>();
             dirSearchFactory = new Mock<IDirectorySearchFactory>();
             bundleConfig = new FluentConfigurationImpl();
-            bundleConfig.Metadata = new BundleMetadata();
+            bundleConfig.Bundle = new BundleImpl();
 
             bundleConfig.AssetProvider = assetProvider.Object;
             bundleConfig.DirectorySearchFactory = dirSearchFactory.Object;
@@ -46,7 +46,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundleConfig.Add("");
 
-            Assert.AreEqual(1, bundleConfig.Metadata.Assets.Count);
+            Assert.AreEqual(1, bundleConfig.Bundle.Assets.Count);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundleConfig.Minify(true);
 
-            Assert.IsTrue(bundleConfig.Metadata.Minify);
+            Assert.IsTrue(bundleConfig.Bundle.Minify);
         }
 
         [Test]
@@ -76,7 +76,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundleConfig.Name("name");
 
-            Assert.AreEqual("name", bundleConfig.Metadata.Name);
+            Assert.AreEqual("name", bundleConfig.Bundle.Name);
         }
 
         [Test]
@@ -84,7 +84,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundleConfig.Host("http://www.test.com");
 
-            Assert.AreEqual("http://www.test.com", bundleConfig.Metadata.Host);
+            Assert.AreEqual("http://www.test.com", bundleConfig.Bundle.Host);
         }
 
         [Test]
@@ -102,7 +102,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             bundleConfig.AddDirectory("~/Files/Configration", b => b.ToString());
 
-            Assert.AreEqual(1, bundleConfig.Metadata.Assets.Count);
+            Assert.AreEqual(1, bundleConfig.Bundle.Assets.Count);
         }
 
         [Test]
@@ -119,7 +119,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             bundleConfig.AddDirectory("~/Files/Configration");
 
-            Assert.AreEqual(1, bundleConfig.Metadata.Assets.Count);
+            Assert.AreEqual(1, bundleConfig.Bundle.Assets.Count);
         }
 
         [Test]
@@ -142,7 +142,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             bundleConfig.AddDirectory("~/Test");
 
-            Assert.AreEqual(1, bundleConfig.Metadata.Assets.Count);
+            Assert.AreEqual(1, bundleConfig.Bundle.Assets.Count);
         }
 
         [Test]
@@ -165,7 +165,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             bundleConfig.AddDirectory("~/Test", b => b.ToString());
 
-            Assert.AreEqual(1, bundleConfig.Metadata.Assets.Count);
+            Assert.AreEqual(1, bundleConfig.Bundle.Assets.Count);
         }
 
         [Test]
@@ -179,7 +179,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             bundleConfig.AddDirectory("~/Files/Configration", new DirectorySearch());
 
-            Assert.AreEqual(1, bundleConfig.Metadata.Assets.Count);
+            Assert.AreEqual(1, bundleConfig.Bundle.Assets.Count);
         }
 
         [Test]
@@ -187,7 +187,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundleConfig.Required("TestBundle");
 
-            Assert.AreEqual("TestBundle", ((List<string>)bundleConfig.Metadata.Required)[0]);
+            Assert.AreEqual("TestBundle", ((List<string>)bundleConfig.Bundle.Required)[0]);
         }
     }
 }

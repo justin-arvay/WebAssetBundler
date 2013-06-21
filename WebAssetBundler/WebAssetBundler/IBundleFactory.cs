@@ -22,6 +22,5 @@ namespace WebAssetBundler.Web.Mvc
         where TBundle : Bundle
     {
         TBundle Create(AssetBase asset);
-        TBundle Create(BundleMetadata metadata);
     }
 }

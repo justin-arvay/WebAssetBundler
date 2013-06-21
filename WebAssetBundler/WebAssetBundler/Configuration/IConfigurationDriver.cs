@@ -22,10 +22,12 @@ namespace WebAssetBundler.Web.Mvc
     public interface IConfigurationDriver
     {
         /// <summary>
-        /// Attempts to load the metadata for the given bundle type. 
+        /// Attempts to load metadata by name for the bundle type.
         /// </summary>
+        /// <typeparam name="TBundle"></typeparam>
         /// <param name="name"></param>
         /// <returns></returns>
-        IEnumerable<BundleMetadata> LoadMetadata();            
+        TBundle LoadBundle<TBundle>(string name)
+            where TBundle : Bundle;            
     }
 }

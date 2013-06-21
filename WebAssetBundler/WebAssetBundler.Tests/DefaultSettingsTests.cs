@@ -65,51 +65,5 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             DefaultSettings.StyleSheetMinifier = previous;
         }
-
-        [Test]
-        public void Should_Be_Default_Style_Sheet_Config_Provider()
-        {
-            var container = new TinyIoCContainer();
-            container.Register<ITypeProvider>((new Mock<ITypeProvider>()).Object);
-            container.Register<IBundleConfigurationFactory<StyleSheetBundle>>((new Mock<IBundleConfigurationFactory<StyleSheetBundle>>()).Object);
-            
-            var provider = DefaultSettings.StyleSheetConfigurationProvider(container);
-
-            Assert.IsInstanceOf<DefaultBundleConfigurationProvider<StyleSheetBundle>>(provider);
-        }
-
-        [Test]
-        public void Should_Be_Default_Script_Config_Provider()
-        {
-            var container = new TinyIoCContainer();
-            container.Register<ITypeProvider>((new Mock<ITypeProvider>()).Object);
-            container.Register<IBundleConfigurationFactory<ScriptBundle>>((new Mock<IBundleConfigurationFactory<ScriptBundle>>()).Object);
-
-            var provider = DefaultSettings.ScriptConfigurationProvider(container);
-
-            Assert.IsInstanceOf<DefaultBundleConfigurationProvider<ScriptBundle>>(provider);
-        }
-
-        [Test]
-        public void Should_Be_Default_Script_Config_Factory()
-        {
-            var container = new TinyIoCContainer();
-            container.Register<IBundleConfigurationFactory<ScriptBundle>>((new Mock<IBundleConfigurationFactory<ScriptBundle>>()).Object);
-
-            var factory = DefaultSettings.ScriptConfigurationFactory(container);
-
-            Assert.IsInstanceOf < FluentConfigurationFactory<ScriptBundle>>(factory);
-        }
-
-        [Test]
-        public void Should_Be_Default_Style_Sheet_Config_Factory()
-        {
-            var container = new TinyIoCContainer();
-            container.Register<IBundleConfigurationFactory<StyleSheetBundle>>((new Mock<IBundleConfigurationFactory<StyleSheetBundle>>()).Object);
-
-            var factory = DefaultSettings.StyleSheetConfigurationFactory(container);
-
-            Assert.IsInstanceOf<FluentConfigurationFactory<StyleSheetBundle>>(factory);
-        }
     }
 }

@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class FluentConfiguartionDriver : IConfigurationDriver
     {
@@ -28,30 +29,16 @@ namespace WebAssetBundler.Web.Mvc
             this.configProvider = configProvider;
         }
 
-        public IEnumerable<BundleMetadata> LoadMetadata()
-        {
-            List<BundleMetadata> metadata = new List<BundleMetadata>();
-            metadata.AddRange(LoadMetadata<ScriptBundle>());
-            metadata.AddRange(LoadMetadata<StyleSheetBundle>());
-
-            return metadata;
-        }
-
-        private IEnumerable<BundleMetadata> LoadMetadata<TBundle>() 
+        public TBundle LoadBundle<TBundle>(string name)
             where TBundle : Bundle
         {
-            List<BundleMetadata> metadatas = new List<BundleMetadata>();
-            IList<IFluentConfiguration<TBundle>> configs = configProvider.GetConfigurations<TBundle>();
-            
-            foreach (var config in configs)
-            {
-                config.Configure();
-                metadatas.Add(config.Metadata);
-            }
+            IFluentConfiguration<TBundle> config = configProvider.GetConfigurations<TBundle>()
+                .Where(c => c.Bundle.Name == name)
+                .SingleOrDefault();
 
-            return metadatas;
+            config.Configure();
+
+            return config.Bundle;                        
         }
-
-
     }
 }

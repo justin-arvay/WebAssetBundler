@@ -49,10 +49,7 @@ namespace WebAssetBundler.Web.Mvc
                 config = factory.Create<TBundle>(type);
                 config.AssetProvider = assetProvider;
                 config.DirectorySearchFactory = searchFactory;
-                config.Metadata = new BundleMetadata()
-                {
-                    Type = typeof(TBundle)
-                };
+                config.Bundle = Activator.CreateInstance<TBundle>();
 
                 configs.Add(config);
             }

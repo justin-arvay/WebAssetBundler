@@ -73,16 +73,11 @@
     <Compile Include="Bundler\BundlerState.cs" />
     <Compile Include="Bundler\BundleDependencyResolver.cs" />
     <Compile Include="Bundler\IBundleDependencyResolver.cs" />
-    <Compile Include="Configuration\BundleMetadata.cs" />
-    <Compile Include="Configuration\BundleMetadataCache.cs" />
-    <Compile Include="Configuration\BundleMetadataProvider.cs" />
     <Compile Include="Configuration\ConfigurationDriverCollection.cs" />
     <Compile Include="Configuration\Fluent\FluentConfigurationFactory.cs" />
     <Compile Include="Configuration\DirectorySearchOrderBuilder.cs" />
     <Compile Include="Configuration\Fluent\FluentConfiguartionDriver.cs" />
     <Compile Include="Configuration\Fluent\IFluentConfigurationFactory.cs" />
-    <Compile Include="Configuration\IBundleMetadataCache.cs" />
-    <Compile Include="Configuration\IBundleMetadataProvider.cs" />
     <Compile Include="Configuration\IConfigurationDriver.cs" />
     <Compile Include="Configuration\WabConfigurationSection.cs" />
     <Compile Include="DirectorySearchFactory.cs" />
@@ -126,7 +121,7 @@
     <Compile Include="Minifiers\IMinifier.cs" />
     <Compile Include="Minifiers\JSMin.cs" />
     <Compile Include="Minifiers\JSMinMinifier.cs" />
-    <Compile Include="BundleProviderBase.cs" />
+    <Compile Include="BundleProvider.cs" />
     <Compile Include="ExternalAsset.cs" />
     <Compile Include="Configuration\Fluent\IFluentConfiguration.cs" />
     <Compile Include="ITypeProvider.cs" />
@@ -144,7 +139,6 @@
     <Compile Include="Plugins\PluginLoader.cs" />
     <Compile Include="Caching\BundleCache.cs" />
     <Compile Include="Caching\CacheProvider.cs" />
-    <Compile Include="Configuration\IBundleMetadataCachePrimer.cs" />
     <Compile Include="Caching\IBundleCache.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
     <Compile Include="Bundler\Bundler.cs" />
@@ -163,11 +157,8 @@
     <Compile Include="IBundleProvider.cs" />
     <Compile Include="Configuration\Fluent\IFluentConfigurationProvider.cs" />
     <Compile Include="Script\ScriptBundle.cs" />
-    <Compile Include="Script\ScriptBundleProvider.cs" />
     <Compile Include="Image\ImagePipelineRunnerResult.cs" />
-    <Compile Include="Configuration\BundleMetadataCachePrimer.cs" />
     <Compile Include="StyleSheet\StyleSheetBundle.cs" />
-    <Compile Include="StyleSheet\StyleSheetBundleProvider.cs" />
     <Compile Include="Extensions\ByteArrayExensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Bundle.cs" />

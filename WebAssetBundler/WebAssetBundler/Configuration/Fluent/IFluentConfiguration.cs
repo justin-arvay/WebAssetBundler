@@ -30,7 +30,7 @@ namespace WebAssetBundler.Web.Mvc
         void Host(string host);
         void BrowserTtl(int timeToLive);
 
-        BundleMetadata Metadata { get; set; }
+        TBundle Bundle { get; set; }
         IAssetProvider AssetProvider { get; set; }
         IDirectorySearchFactory DirectorySearchFactory { get; set; }
 

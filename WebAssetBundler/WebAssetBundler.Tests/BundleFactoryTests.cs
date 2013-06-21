@@ -18,14 +18,29 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System.Collections.Generic;
 
     [TestFixture]
     public class BundleFactoryTests
     {
-        [Test]
-        public void Test()
+        private BundleFactory<BundleImpl> factory;
+
+        [SetUp]
+        public void Setup()
         {
-            Assert.Fail();
+            factory = new BundleFactory<BundleImpl>();
+        }
+
+        [Test]
+        public void Should_Create_Bundle_From_Asset()
+        {
+            var asset = new AssetBaseImpl();
+            asset.Source = "~/Test/file.css";
+
+            BundleImpl bundle = factory.Create(asset);
+
+            Assert.AreSame(bundle.Assets[0], asset);
+            Assert.AreEqual(AssetHelper.GetBundleName(asset.Source), bundle.Name);
         }
     }
 }

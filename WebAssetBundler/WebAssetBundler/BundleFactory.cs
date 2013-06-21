@@ -30,19 +30,5 @@ namespace WebAssetBundler.Web.Mvc
 
             return bundle;
         }
-
-        public TBundle Create(BundleMetadata metadata)
-        {
-            var bundle = new TBundle();
-            bundle.Name = metadata.Name;
-            bundle.Assets.AddRange(metadata.Assets);
-            bundle.BrowserTtl = metadata.BrowserTtl;
-            bundle.Attributes = metadata.Attributes;
-            bundle.Required = metadata.Required;
-            bundle.Minify = metadata.Minify;
-            bundle.Host = metadata.Host;
-
-            return bundle;
-        }
     }
 }

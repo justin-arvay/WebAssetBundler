@@ -37,10 +37,5 @@ namespace WebAssetBundler.Web.Mvc
 
             return bundle;
         }
-
-        public ImageBundle Create(BundleMetadata metadata)
-        {
-            throw new NotSupportedException();
-        }
     }
 }

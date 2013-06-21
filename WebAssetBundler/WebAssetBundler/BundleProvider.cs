@@ -17,51 +17,60 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.Web;
-    using System.IO;
 
-    public class ScriptBundleProvider : BundleProviderBase<ScriptBundle>
+    public class BundleProvider<TBundle> : IBundleProvider<TBundle> 
+        where TBundle : Bundle, new()
     {
-        private BundleCache<ScriptBundle> cache;
-        private IAssetProvider assetProvider;
-        private IBundlePipeline<ScriptBundle> pipeline;
-        private IBundleFactory<ScriptBundle> factory;
-        private IBundleMetadataProvider metadataProvider;
+        protected BundleCache<TBundle> cache;
+        protected IAssetProvider assetProvider;
+        protected IBundlePipeline<TBundle> pipeline;
+        protected IBundleFactory<TBundle> factory;
+        protected IConfigurationDriver driver;
+        protected SettingsContext settings;
 
-        public ScriptBundleProvider(BundleCache<ScriptBundle> cache, IBundleFactory<ScriptBundle> factory, 
-            IBundleMetadataProvider metadataProvider, IAssetProvider assetProvider, IBundlePipeline<ScriptBundle> pipeline, 
+        public BundleProvider(BundleCache<TBundle> cache, IBundleFactory<TBundle> factory,
+            IConfigurationDriver driver, IAssetProvider assetProvider, IBundlePipeline<TBundle> pipeline,
             SettingsContext settings)
-            : base(settings)
         {
-
+            this.settings = settings;
             this.cache = cache;
             this.assetProvider = assetProvider;
             this.pipeline = pipeline;
-            this.metadataProvider = metadataProvider;
+            this.driver = driver;
             this.factory = factory;
-
         }
 
-        public override ScriptBundle GetNamedBundle(string name)
+        public virtual TBundle GetExternalBundle(string source) 
         {
-            ScriptBundle bundle = cache.Get(name);
-            BundleMetadata metadata = null;
-
-            if (bundle == null || Settings.DebugMode)
+            var bundle = new TBundle();
+            bundle.Name = source.ToHash();
+            bundle.Assets.Add(new ExternalAsset()
             {
-                metadata = metadataProvider.GetMetadata<ScriptBundle>(name);
-                bundle = factory.Create(metadata);
+                Source = source,
+            });
+
+            return bundle;
+        }
+
+        public virtual TBundle GetNamedBundle(string name)
+        {
+            TBundle bundle = cache.Get(name);
+
+            if (bundle == null || settings.DebugMode)
+            {
+                bundle = driver.LoadBundle<TBundle>(name);
+                pipeline.Process(bundle);
                 cache.Add(bundle);
             }
 
             return bundle;
         }
 
-        public override ScriptBundle GetSourceBundle(string source)
+        public virtual TBundle GetSourceBundle(string source)
         {
             var bundle = cache.Get(AssetHelper.GetBundleName(source));
 
-            if (bundle == null || Settings.DebugMode)
+            if (bundle == null || settings.DebugMode)
             {
                 var asset = assetProvider.GetAsset(source);
                 bundle = factory.Create(asset);

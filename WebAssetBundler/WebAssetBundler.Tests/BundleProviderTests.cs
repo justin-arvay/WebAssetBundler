@@ -19,39 +19,35 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
     using System.Collections.Generic;
-    using System.Web;
-    using System.IO;
-using System;
 
     [TestFixture]
-    public class StyleSheetBundleProviderTests
+    public class BundleProviderTests
     {
-        private StyleSheetBundleProvider provider;
-        private Mock<IBundleConfigurationProvider<StyleSheetBundle>> configProvider;
-        private Mock<BundleCache<StyleSheetBundle>> cache;
+        private BundleProvider<BundleImpl> provider;
+        private Mock<BundleCache<BundleImpl>> cache;
         private Mock<IAssetProvider> assetProvider;
-        private Mock<IBundlePipeline<StyleSheetBundle>> pipeline;
-        private Mock<IBundleMetadataCachePrimer<StyleSheetBundle>> primer;
+        private Mock<IBundlePipeline<BundleImpl>> pipeline;
+        private Mock<IConfigurationDriver> driver;
+        private Mock<IBundleFactory<BundleImpl>> factory;
         private SettingsContext settings;
 
         [SetUp]
         public void Setup()
         {
             settings = new SettingsContext(false, ".min");
-            pipeline = new Mock<IBundlePipeline<StyleSheetBundle>>();
-            configProvider = new Mock<IBundleConfigurationProvider<StyleSheetBundle>>();
-            cache = new Mock<BundleCache<StyleSheetBundle>>();
+            pipeline = new Mock<IBundlePipeline<BundleImpl>>();
+            cache = new Mock<BundleCache<BundleImpl>>();
             assetProvider = new Mock<IAssetProvider>();
-            primer = new Mock<IBundleMetadataCachePrimer<StyleSheetBundle>>();
+            driver = new Mock<IConfigurationDriver>();
 
-            provider = new StyleSheetBundleProvider(configProvider.Object, cache.Object, pipeline.Object, 
-                assetProvider.Object, primer.Object, settings);
+            provider = new BundleProvider<BundleImpl>(cache.Object, factory.Object, driver.Object, assetProvider.Object, pipeline.Object,
+                settings);
         }
 
         [Test]
         public void Should_Get_Named_Bundle()
         {
-            var bundle = new StyleSheetBundle();
+            var bundle = new BundleImpl();
             cache.Setup(c => c.Get("test")).Returns(bundle);
 
             var bundleOut = provider.GetNamedBundle("test");
@@ -61,46 +57,18 @@ using System;
         }
 
         [Test]
-        public void Should_Prime_Cache_When_Getting_Named_Bundle()
-        {
-            var configs = new List<IFluentConfiguration<StyleSheetBundle>>();
-
-            configProvider.Setup(c => c.GetConfigs()).Returns(configs);
-
-            provider.GetNamedBundle("test");
-
-            primer.Verify(p => p.Prime(configs), Times.Once());
-        }
-
-
-        [Test]
-        public void Should_Not_Prime_Cache_When_Getting_Named_Bundle()
-        {
-            var configs = new List<IFluentConfiguration<StyleSheetBundle>>();
-
-            configProvider.Setup(c => c.GetConfigs()).Returns(configs);
-            primer.Setup(p => p.IsPrimed).Returns(true);
-
-            provider.GetNamedBundle("test");
-
-            primer.Verify(p => p.Prime(configs), Times.Never());
-        }
-
-        [Test]
-        public void Should_Always_Prime_Cache_When_Getting_Named_Bundle()
+        public void Should_Always_Cache_When_Getting_Named_Bundle()
         {
             settings.DebugMode = true;
 
-            var configs = new List<IFluentConfiguration<StyleSheetBundle>>();
-
-            configProvider.Setup(c => c.GetConfigs()).Returns(configs);
-            primer.Setup(p => p.IsPrimed).Returns(true);
+            var bundle = new BundleImpl();
+            cache.Setup(c => c.Get("test")).Returns(bundle);
 
             provider.GetNamedBundle("test");
             provider.GetNamedBundle("test");
             provider.GetNamedBundle("test");
 
-            primer.Verify(p => p.Prime(configs), Times.Exactly(3));
+            cache.Verify(c => c.Get("test"), Times.Exactly(3));           
         }
 
         [Test]
@@ -108,9 +76,9 @@ using System;
         {
             assetProvider.Setup(p => p.GetAsset("~/file.tst.tst")).Returns(new AssetBaseImpl());
 
-            var bundle = provider.GetSourceBundle("~/file.tst.tst");            
+            var bundle = provider.GetSourceBundle("~/file.tst.tst");
 
-            pipeline.Verify(p => p.Process(It.IsAny<StyleSheetBundle>()), Times.Once());
+            pipeline.Verify(p => p.Process(It.IsAny<BundleImpl>()), Times.Once());
             cache.Verify(c => c.Add(bundle), Times.Once());
 
             Assert.IsInstanceOf<AssetBaseImpl>(bundle.Assets[0]);
@@ -121,7 +89,7 @@ using System;
         [Test]
         public void Should_Get_Bundle_By_Source_From_Cache()
         {
-            var bundle = new StyleSheetBundle();
+            var bundle = new BundleImpl();
             bundle.Name = "199b18f549a41c8d45fe0a5b526ac060-file";
 
             cache.Setup(c => c.Get("199b18f549a41c8d45fe0a5b526ac060-file")).Returns(bundle);
@@ -139,15 +107,15 @@ using System;
         {
             settings.DebugMode = true;
 
-            var bundle = new StyleSheetBundle();
+            var bundle = new BundleImpl();
             bundle.Name = "199b18f549a41c8d45fe0a5b526ac060-file";
 
             cache.Setup(c => c.Get("199b18f549a41c8d45fe0a5b526ac060-file")).Returns(bundle);
 
             var bundleOut = provider.GetSourceBundle("~/file.tst");
 
-            pipeline.Verify(p => p.Process(It.IsAny<StyleSheetBundle>()), Times.Once());
-            cache.Verify(c => c.Add(It.IsAny<StyleSheetBundle>()), Times.Once());
+            pipeline.Verify(p => p.Process(It.IsAny<BundleImpl>()), Times.Once());
+            cache.Verify(c => c.Add(It.IsAny<BundleImpl>()), Times.Once());
             cache.Verify(c => c.Get("199b18f549a41c8d45fe0a5b526ac060-file"), Times.Once());
             Assert.IsNotNull(bundle);
             Assert.AreEqual("199b18f549a41c8d45fe0a5b526ac060-file", bundle.Name);

@@ -57,7 +57,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             factory.Verify(f => f.Create<BundleImpl>(It.IsAny<Type>()));
             Assert.AreSame(assetProvider.Object, configs[0].AssetProvider);
             Assert.AreSame(searchFactory.Object, configs[0].DirectorySearchFactory);
-            Assert.IsInstanceOf<BundleMetadata>(configs[0].Metadata);
+            Assert.IsInstanceOf<BundleImpl>(configs[0].Bundle);
         }
     }
 }
