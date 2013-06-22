@@ -51,6 +51,8 @@ namespace WebAssetBundler.Web.Mvc
                 config.DirectorySearchFactory = searchFactory;
                 config.Bundle = Activator.CreateInstance<TBundle>();
 
+                config.Configure();
+
                 configs.Add(config);
             }
 

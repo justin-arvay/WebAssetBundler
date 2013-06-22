@@ -36,7 +36,7 @@ namespace WebAssetBundler.Web.Mvc
 
         public void ShutDown()
         {
-            throw new NotImplementedException();
+
         }
     }
 }

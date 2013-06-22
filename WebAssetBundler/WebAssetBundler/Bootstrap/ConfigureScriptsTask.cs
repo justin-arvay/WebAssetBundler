@@ -33,7 +33,8 @@ namespace WebAssetBundler.Web.Mvc
         {                       
             container.Register<IScriptMinifier>((c, p) => DefaultSettings.ScriptMinifier);
             container.Register<IUrlGenerator<ScriptBundle>, BasicUrlGenerator<ScriptBundle>>();
-            container.Register<BundleCache<ScriptBundle>, BundleCache<ScriptBundle>>();
+            container.Register<IBundleCache<ScriptBundle>, BundleCache<ScriptBundle>>();
+            container.Register<IBundleFactory<ScriptBundle>, BundleFactory<ScriptBundle>>();
             container.Register<IBundlePipeline<ScriptBundle>>((c, p) => CreatePipeline<ScriptPipeline>(c, Plugins));
             container.Register<ITagWriter<ScriptBundle>, ScriptTagWriter>();
             container.Register<IBundleProvider<ScriptBundle>, BundleProvider<ScriptBundle>>();

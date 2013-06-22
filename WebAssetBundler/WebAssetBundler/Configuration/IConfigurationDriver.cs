@@ -22,7 +22,7 @@ namespace WebAssetBundler.Web.Mvc
     public interface IConfigurationDriver
     {
         /// <summary>
-        /// Attempts to load metadata by name for the bundle type.
+        /// Attempts to load metadata by name for the bundle type. Null returned if none found.
         /// </summary>
         /// <typeparam name="TBundle"></typeparam>
         /// <param name="name"></param>

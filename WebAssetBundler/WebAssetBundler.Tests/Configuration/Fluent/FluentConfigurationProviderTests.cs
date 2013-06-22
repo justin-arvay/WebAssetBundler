@@ -43,12 +43,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Get_Configuration()
         {
+            var config = new Mock<IFluentConfiguration<BundleImpl>>();
+
             var types = new List<Type>();
-            types.Add(typeof(FluentConfigurationImpl));
-            types.Add(typeof(FluentConfigurationImpl));
+            types.Add(typeof(IFluentConfiguration<BundleImpl>));
+            types.Add(typeof(IFluentConfiguration<BundleImpl>));
 
             factory.Setup(f => f.Create<BundleImpl>(It.IsAny<Type>()))
-                .Returns(new FluentConfigurationImpl());
+                .Returns(config.Object);
 
             typeProvider.Setup(t => t.GetImplementationTypes(typeof(IFluentConfiguration<BundleImpl>)))
                 .Returns(types);
@@ -57,9 +59,10 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual(2, configs.Count);
             factory.Verify(f => f.Create<BundleImpl>(It.IsAny<Type>()));
-            Assert.AreSame(assetProvider.Object, configs[0].AssetProvider);
-            Assert.AreSame(searchFactory.Object, configs[0].DirectorySearchFactory);
-            Assert.IsInstanceOf<BundleImpl>(configs[0].Bundle);
+            config.VerifySet(c =>c.AssetProvider = It.IsAny<IAssetProvider>());
+            config.VerifySet(v => v.DirectorySearchFactory = It.IsAny<IDirectorySearchFactory>());
+            config.VerifySet(v => v.Bundle = It.IsAny<BundleImpl>());
+            config.Verify(c => c.Configure());
         }
     }
 }

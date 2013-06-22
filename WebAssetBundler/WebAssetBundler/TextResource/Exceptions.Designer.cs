@@ -61,6 +61,15 @@ namespace WebAssetBundler.TextResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A bundle with name &quot;{0}&quot; could not be loaded. No configuration found..
+        /// </summary>
+        internal static string BundleDoesNotExist {
+            get {
+                return ResourceManager.GetString("BundleDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The directory does not exist. Source: {0}.
         /// </summary>
         internal static string DirectoryNotFound {

@@ -36,9 +36,12 @@ namespace WebAssetBundler.Web.Mvc
                 .Where(c => c.Bundle.Name == name)
                 .SingleOrDefault();
 
-            config.Configure();
+            if (config != null)
+            {
+                return config.Bundle;
+            }
 
-            return config.Bundle;                        
+            throw new Exception(TextResource.Exceptions.BundleDoesNotExist.FormatWith(name));
         }
     }
 }
