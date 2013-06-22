@@ -29,6 +29,7 @@ namespace WebAssetBundler.Web.Mvc
     {
         private static IScriptMinifier scriptMinifier = new MsScriptMinifier();
         private static IStyleSheetMinifier styleSheetMinfier = new MsStyleSheetMinifier();
+        private static ConfigurationDriverCollection drivers = new ConfigurationDriverCollection();
 
         private static ILogger logger = new DoNothingLogger();
 
@@ -45,6 +46,11 @@ namespace WebAssetBundler.Web.Mvc
             {
                 logger = value;
             }
+        }
+
+        public static ConfigurationDriverCollection Drivers
+        {
+            get { return drivers; }
         }
 
         /// <summary>

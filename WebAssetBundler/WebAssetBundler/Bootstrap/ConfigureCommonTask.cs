@@ -28,6 +28,7 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<ICacheProvider, CacheProvider>();         
             container.Register<IAssetProvider, AssetProvider>();
             container.Register<IDirectorySearchFactory, DirectorySearchFactory>();
+            container.Register<IConfigurationDriver>((c, p) => DefaultSettings.Drivers);
                       
             ConfigureHttpHandler(container);
         }

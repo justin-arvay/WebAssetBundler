@@ -39,6 +39,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             cache = new Mock<BundleCache<BundleImpl>>();
             assetProvider = new Mock<IAssetProvider>();
             driver = new Mock<IConfigurationDriver>();
+            factory = new Mock<IBundleFactory<BundleImpl>>();
 
             provider = new BundleProvider<BundleImpl>(cache.Object, factory.Object, driver.Object, assetProvider.Object, pipeline.Object,
                 settings);

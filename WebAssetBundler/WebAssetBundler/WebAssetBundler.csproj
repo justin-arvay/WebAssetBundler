@@ -64,6 +64,7 @@
     <Compile Include="Bootstrap\ConfigureCommonTask.cs" />
     <Compile Include="Bootstrap\ConfigureStyleSheetsTask.cs" />
     <Compile Include="Bootstrap\ConfigureImagesTask.cs" />
+    <Compile Include="Bootstrap\FluentConfigurationConfigureTask.cs" />
     <Compile Include="Bootstrap\LoadSettingsTask.cs" />
     <Compile Include="Bootstrap\ConfigureScriptsTask.cs" />
     <Compile Include="BundleFactory.cs" />

@@ -17,13 +17,26 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
-    using System.IO;
+    using TinyIoC;
 
-    public static class AssetHelper
+    public class FluentConfigurationConfigureTask : IBootstrapTask
     {
-        public static string GetBundleName(string source)
+
+        public void StartUp(TinyIoCContainer container, ITypeProvider typeProvider)
         {
-            return source.ToHash() + "-" + Path.GetFileName(source).Replace(".", "-");
+            //only need to register the driver, after which the resources can be freed
+            using (TinyIoCContainer childContainer = container.GetChildContainer())
+            {
+                childContainer.Register<IFluentConfigurationProvider, FluentConfigurationProvider>();
+                childContainer.Register<IFluentConfigurationFactory, FluentConfigurationFactory>();
+
+                DefaultSettings.Drivers.Add(childContainer.Resolve<FluentConfiguartionDriver>());
+            }
+        }
+
+        public void ShutDown()
+        {
+            throw new NotImplementedException();
         }
     }
 }

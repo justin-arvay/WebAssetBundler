@@ -27,7 +27,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             string name = AssetHelper.GetBundleName("~/Source/file.css");
 
-            Assert.AreEqual("", name);
+            Assert.AreEqual("4241e6b965abab37aa7ab4e674391a84-file-css", name);
         }
     }
 }
