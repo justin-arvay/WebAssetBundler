@@ -22,10 +22,10 @@ namespace WebAssetBundler.Web.Mvc
     public class ImagePipelineRunner : IImagePipelineRunner
     {
         private IBundlePipeline<ImageBundle> pipeline;
-        private BundleCache<ImageBundle> bundlesCache;
+        private IBundleCache<ImageBundle> bundlesCache;
         private IBundleFactory<ImageBundle> bundleFactory;
 
-        public ImagePipelineRunner(IBundlePipeline<ImageBundle> pipeline, BundleCache<ImageBundle> bundlesCache,
+        public ImagePipelineRunner(IBundlePipeline<ImageBundle> pipeline, IBundleCache<ImageBundle> bundlesCache,
             IBundleFactory<ImageBundle> bundleFactory)
         {
             this.pipeline = pipeline;

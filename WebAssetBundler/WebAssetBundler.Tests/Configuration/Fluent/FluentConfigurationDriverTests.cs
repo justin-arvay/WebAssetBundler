@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System.Collections.Generic;
 
     [TestFixture]
     public class FluentConfigurationDriverTests
@@ -33,9 +34,25 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void test()
+        public void Should_Load_Bundle()
         {
-            Assert.Fail();
+            var config = new Mock<IFluentConfiguration<BundleImpl>>();
+            var configs = new List<IFluentConfiguration<BundleImpl>>();
+            configs.Add(config.Object);
+
+            config.Setup(c => c.Bundle)
+                .Returns(new BundleImpl()
+                {
+                    Name = "Test"
+                });
+
+            provider.Setup(p => p.GetConfigurations<BundleImpl>())
+                .Returns(configs);
+
+            BundleImpl bundle = driver.LoadBundle<BundleImpl>("Test");
+
+            config.Verify(c => c.Configure());
+            Assert.IsInstanceOf<BundleImpl>(bundle);
         }
     }
 }

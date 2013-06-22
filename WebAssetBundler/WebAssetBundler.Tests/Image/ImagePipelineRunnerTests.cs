@@ -24,7 +24,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class ImagePipelineRunnerTests
     {
         private ImagePipelineRunner runner;
-        private Mock<BundleCache<ImageBundle>> bundlesCache;
+        private Mock<IBundleCache<ImageBundle>> bundleCache;
         private Mock<IBundlePipeline<ImageBundle>> pipeline;
         private ImagePipelineRunnerContext context;
         private string root;
@@ -41,9 +41,9 @@ namespace WebAssetBundler.Web.Mvc.Tests
             context = new ImagePipelineRunnerContext();
             context.AppRootDirectory = directory.Object;
 
-            bundlesCache = new Mock<BundleCache<ImageBundle>>();
+            bundleCache = new Mock<IBundleCache<ImageBundle>>();
             pipeline = new Mock<IBundlePipeline<ImageBundle>>();
-            runner = new ImagePipelineRunner(pipeline.Object, bundlesCache.Object, bundleFactory.Object);
+            runner = new ImagePipelineRunner(pipeline.Object, bundleCache.Object, bundleFactory.Object);
         }
 
         [Test]
@@ -88,7 +88,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual(newUrl, result.NewPath);
             Assert.AreEqual(context.ImagePath, result.OldPath); 
             pipeline.Verify(p => p.Process(It.IsAny<ImageBundle>()));
-            bundlesCache.Verify(b => b.Add(It.IsAny<ImageBundle>()));
+            bundleCache.Verify(b => b.Add(It.IsAny<ImageBundle>()));
         }
 
         [Test]
@@ -105,7 +105,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual(null, result.NewPath);
             Assert.AreEqual(context.ImagePath, result.OldPath);
             pipeline.Verify(p => p.Process(It.IsAny<ImageBundle>()), Times.Never());
-            bundlesCache.Verify(b => b.Add(It.IsAny<ImageBundle>()), Times.Never());
+            bundleCache.Verify(b => b.Add(It.IsAny<ImageBundle>()), Times.Never());
         }
 
         [Test]
@@ -122,7 +122,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual(null, result.NewPath);
             Assert.AreEqual(context.ImagePath, result.OldPath);
             pipeline.Verify(p => p.Process(It.IsAny<ImageBundle>()), Times.Never());
-            bundlesCache.Verify(b => b.Add(It.IsAny<ImageBundle>()), Times.Never());
+            bundleCache.Verify(b => b.Add(It.IsAny<ImageBundle>()), Times.Never());
         }
     }
 }

@@ -22,9 +22,9 @@ namespace WebAssetBundler.Web.Mvc
 
     public class AssetHttpHandler<T> : IWabHttpHandler where T : Bundle
     {
-        private BundleCache<T> cache;
+        private IBundleCache<T> cache;
 
-        public AssetHttpHandler(BundleCache<T> cache)
+        public AssetHttpHandler(IBundleCache<T> cache)
         {
             this.cache = cache;
         }

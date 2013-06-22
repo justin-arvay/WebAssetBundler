@@ -35,6 +35,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             typeProvider = new Mock<ITypeProvider>();
             factory = new Mock<IFluentConfigurationFactory>();
+            searchFactory = new Mock<IDirectorySearchFactory>();
+            assetProvider = new Mock<IAssetProvider>();
             provider = new FluentConfigurationProvider(typeProvider.Object, assetProvider.Object, searchFactory.Object, factory.Object);
         }
 

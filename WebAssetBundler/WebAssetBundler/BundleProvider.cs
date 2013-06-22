@@ -21,14 +21,14 @@ namespace WebAssetBundler.Web.Mvc
     public class BundleProvider<TBundle> : IBundleProvider<TBundle> 
         where TBundle : Bundle, new()
     {
-        protected BundleCache<TBundle> cache;
+        protected IBundleCache<TBundle> cache;
         protected IAssetProvider assetProvider;
         protected IBundlePipeline<TBundle> pipeline;
         protected IBundleFactory<TBundle> factory;
         protected IConfigurationDriver driver;
         protected SettingsContext settings;
 
-        public BundleProvider(BundleCache<TBundle> cache, IBundleFactory<TBundle> factory,
+        public BundleProvider(IBundleCache<TBundle> cache, IBundleFactory<TBundle> factory,
             IConfigurationDriver driver, IAssetProvider assetProvider, IBundlePipeline<TBundle> pipeline,
             SettingsContext settings)
         {
