@@ -19,12 +19,12 @@ namespace Examples
     using System;
     using WebAssetBundler.Web.Mvc;
 
-    public class LayoutStyleSheetBundle : BundleConfiguration<StyleSheetBundle>
+    public class LayoutStyleSheetBundle : FluentConfiguration<StyleSheetBundle>
     {
         public override void Configure()
         {
             Name("StyleSheets");
-            Compress(true);
+            Minify(true);
             AddDirectory("~/Content", d => d
                 .Order(o => o
                     .First("reset.css")

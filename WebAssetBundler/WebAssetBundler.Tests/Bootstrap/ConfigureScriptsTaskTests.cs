@@ -59,19 +59,5 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             plugin.Verify(p => p.Dispose());
         }
-
-        [Test]
-        public void Should_Create_Pipeline()
-        {
-            var container = new TinyIoCContainer();
-            var plugins = new PluginCollection<ScriptBundle>();
-
-            container.Register<IScriptMinifier, MsScriptMinifier>();
-            container.Register<IUrlGenerator<ScriptBundle>, BasicUrlGenerator<ScriptBundle>>();
-
-            var pipeline = task.CreatePipeline<ScriptPipeline>(container, plugins);
-
-            Assert.IsInstanceOf<ScriptPipeline>(pipeline);            
-        }
     }
 }

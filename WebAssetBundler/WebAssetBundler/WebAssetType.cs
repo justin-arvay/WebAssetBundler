@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc
     {
         None = 0,
         StyleSheet = 1,
-        Script = 2
+        Script = 2,
+        Image = 3
     }
 }

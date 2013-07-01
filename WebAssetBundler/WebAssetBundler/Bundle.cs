@@ -3,10 +3,12 @@
     using System;
     using System.Linq;
     using System.IO;
+    using System.Collections.Generic;
 
     public abstract class Bundle
     {
         private HtmlAttributeDictionary attributes = new HtmlAttributeDictionary();
+        private ICollection<string> required = new List<string>();
 
         public Bundle()
         {
@@ -56,6 +58,10 @@
             {
                 return attributes;
             }
+            internal set
+            {
+                attributes = value;
+            }
         }
 
         public Stream Content
@@ -94,6 +100,22 @@
         {
             get;
             set;
+        }
+
+        /// <summary>
+        /// Adds collection of named bundles that are required by this bundle in order to work correctly. Can only require bundles
+        /// of the same bundle type.
+        /// </summary>
+        public ICollection<string> Required
+        {
+            get
+            {
+                return required;
+            }
+            internal set
+            {
+                required = value;
+            }
         }
     }
 }

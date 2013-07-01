@@ -19,29 +19,29 @@ namespace WebAssetBundler.Web.Mvc
     using System;
     using System.Collections.Generic;
 
-    public interface IBundlePipeline<T> : IList<IPipelineProcessor<T>>, IPipelineProcessor<T>
-        where T : Bundle
+    public interface IBundlePipeline<TBundle> : IList<IPipelineProcessor<TBundle>>, IPipelineProcessor<TBundle>
+        where TBundle : Bundle
     {
         /// <summary>
         /// Allows adding a processor to be resolved by the container.
         /// </summary>
         /// <typeparam name="TProcessor"></typeparam>
         void Add<TBundleProcessor>()
-            where TBundleProcessor : class, IPipelineProcessor<T>;
+            where TBundleProcessor : class, IPipelineProcessor<TBundle>;
 
         /// <summary>
         /// Allows inserting a processor to be resolved by the container.
         /// </summary>
         /// <typeparam name="TProcessor"></typeparam>
         void Insert<TProcessor>(int index)
-            where TProcessor : class, IPipelineProcessor<T>;
+            where TProcessor : class, IPipelineProcessor<TBundle>;
 
         /// <summary>
         /// Allows removal of a processor based on its type.
         /// </summary>
         /// <typeparam name="TProcessor"></typeparam>
         void Remove<TProcessor>()
-            where TProcessor : class, IPipelineProcessor<T>;
+            where TProcessor : class, IPipelineProcessor<TBundle>;
 
         /// <summary>
         /// Replaces the old process with the new processor at the same position.
@@ -49,14 +49,14 @@ namespace WebAssetBundler.Web.Mvc
         /// <typeparam name="OldProcessor"></typeparam>
         /// <typeparam name="NewProcessor"></typeparam>
         void Replace<OldProcessor, NewProcessor>()
-            where OldProcessor : class, IPipelineProcessor<T>
-            where NewProcessor : class, IPipelineProcessor<T>;
+            where OldProcessor : class, IPipelineProcessor<TBundle>
+            where NewProcessor : class, IPipelineProcessor<TBundle>;
 
         /// <summary>
         /// Finds the index of type T.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        int IndexOf<T>();
+        int IndexOf<TBundle>();
     }
 }

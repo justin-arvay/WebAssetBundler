@@ -33,8 +33,9 @@ namespace WebAssetBundler.Web.Mvc
         /// <param name="manager"></param>
         /// <param name="viewContext"></param>
         /// <param name="resolver"></param>
-        public StyleSheetBundler(IBundleProvider<StyleSheetBundle> bundleProvider, ITagWriter<StyleSheetBundle> tagWriter) 
-            : base(bundleProvider, tagWriter)
+        public StyleSheetBundler(IBundleProvider<StyleSheetBundle> bundleProvider, IBundleRenderer<StyleSheetBundle> renderer,
+            IBundleDependencyResolver<StyleSheetBundle> resolver)
+            : base(bundleProvider, renderer, resolver)
         {
 
         }
@@ -44,9 +45,11 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         public IHtmlString Render(string name)
         {
-            var bundle = bundleProvider.GetNamedBundle(name);
+            var bundle = Provider.GetNamedBundle(name);
 
-            return WriteBundle(bundle);
+            IEnumerable<StyleSheetBundle> bundles = Resolver.Resolve(bundle);
+
+            return Renderer.RenderAll(bundles, State);
         }
 
         /// <summary>
@@ -54,11 +57,13 @@ namespace WebAssetBundler.Web.Mvc
         /// </summary>
         public IHtmlString Render(string name, Action<StyleSheetTagBuilder> builder)
         {
-            var bundle = bundleProvider.GetNamedBundle(name);
+            var bundle = Provider.GetNamedBundle(name);
 
             builder(new StyleSheetTagBuilder(bundle));
 
-            return WriteBundle(bundle);
+            IEnumerable<StyleSheetBundle> bundles = Resolver.Resolve(bundle);
+
+            return Renderer.RenderAll(bundles, State);
         }
 
         /// <summary>
@@ -70,7 +75,7 @@ namespace WebAssetBundler.Web.Mvc
         {
             StyleSheetBundle bundle = GetBundleBySource(source);
 
-            return WriteBundle(bundle);
+            return Renderer.Render(bundle, State);
         }
 
         /// <summary>
@@ -85,7 +90,7 @@ namespace WebAssetBundler.Web.Mvc
 
             builder(new StyleSheetTagBuilder(bundle));
 
-            return WriteBundle(bundle);
+            return Renderer.Render(bundle, State);
         }
     }
 }

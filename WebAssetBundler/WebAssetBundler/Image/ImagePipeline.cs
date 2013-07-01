@@ -21,8 +21,8 @@ namespace WebAssetBundler.Web.Mvc
 
     public class ImagePipeline : BundlePipeline<ImageBundle>
     {
-        public ImagePipeline(TinyIoCContainer container, SettingsContext settings)
-            : base(container)
+        public ImagePipeline(TinyIoCContainer container, SettingsContext settings, ILogger logger)
+            : base(container, logger)
         {
             Add<AssignHashProcessor>();
             Add(new UrlAssignmentProcessor<ImageBundle>(new ImageUrlGenerator(settings)));

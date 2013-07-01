@@ -15,7 +15,12 @@
                 <li>@Html.RouteLink("Other Options", "Documentation", new { path = "bundle-configuration/other" })</li>
             </ul>
         </li>
-        <li>@Html.RouteLink("Rendering Bundles", "Documentation", new { path = "rendering-bundles" })</li>
+        <li>@Html.RouteLink("Rendering Bundles", "Documentation", new { path = "rendering-bundles" })
+            <ul>
+                <li>@Html.RouteLink("Referencing", "Documentation", new { path = "rendering/referencing" })</li>
+                <li>@Html.RouteLink("Dependency Resolution", "Documentation", new { path = "rendering/dependency-resolution" })</li>
+            </ul>
+        </li>
         <li>@Html.RouteLink("Pipelines", "Documentation", new { path = "pipelines" })
             <ul>
                 <li>@Html.RouteLink("Customization", "Documentation", new { path = "pipelines/customization" })</li>
@@ -36,6 +41,12 @@
         <li>@Html.RouteLink("Web.Config", "Documentation", new { path = "web-config" })
             <ul>
                 <li>@Html.RouteLink("WAB Section", "Documentation", new { path = "web-config/wab-section" })</li>
+            </ul>        
+        </li>
+        <li>@Html.RouteLink("Logging", "Documentation", new { path = "logging" })
+            <ul>
+                <li>@Html.RouteLink("Log4Net Config", "Documentation", new { path = "logging/log4-net" })</li>
+                <li>@Html.RouteLink("Custom Logger", "Documentation", new { path = "logging/custom-logger" })</li>
             </ul>        
         </li>
     </ul>

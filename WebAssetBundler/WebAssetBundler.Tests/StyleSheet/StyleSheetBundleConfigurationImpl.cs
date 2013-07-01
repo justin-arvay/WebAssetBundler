@@ -19,7 +19,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using NUnit.Framework;
     using Moq;
 
-    public class StyleSheetBundleConfigurationImpl : BundleConfiguration<StyleSheetBundle>
+    public class StyleSheetBundleConfigurationImpl : FluentConfiguration<StyleSheetBundle>
     {
         public int CallCount { get; set; }
 

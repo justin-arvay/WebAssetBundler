@@ -23,13 +23,11 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class ImageBundleFactoryTests
     {
         private ImageBundleFactory factory;
-        private Mock<IAssetProvider> assetProvider;
 
         [SetUp]
         public void Setup()
         {
-            assetProvider = new Mock<IAssetProvider>();
-            factory = new ImageBundleFactory(assetProvider.Object);
+            factory = new ImageBundleFactory();
         }
 
         [Test]

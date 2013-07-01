@@ -50,6 +50,8 @@ namespace WebAssetBundler.Web.Mvc.Tests
         public void Should_Create_Pipeline()
         {
             var container = new TinyIoCContainer();
+            container.Register<ILogger>(new DoNothingLogger());
+
             var plugins = new PluginCollection<BundleImpl>();
             var pipeline = task.CreatePipeline<BundlePipelineImpl>(container, plugins);
 

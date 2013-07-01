@@ -55,22 +55,26 @@ namespace WebAssetBundler.Web.Mvc
             container.Register<TinyIoCContainer>(container);
             container.Register<ITypeProvider>(typeProvider);
             container.Register<IPluginLoader, PluginLoader>();
+            container.Register<ILogger>((c, p) => DefaultSettings.Logger);
 
-            var httpContext = CreateHttpContext();
-            container.Register((c, p) => httpContext);            
-            container.Register((c, p) => httpContext.Request);
-            container.Register((c, p) => httpContext.Response);
-            container.Register((c, p) => httpContext.Server);
+            container.Register((c, p) => CreateHttpContext());
         }
 
         /// <summary>
-        /// Bootstraps the application by prepairing the container and plugins.
+        /// Bootstraps the application by preparing the container and plugins.
         /// </summary>
         public void RunBootstrapTasks()
         {
+            var logger = container.Resolve<ILogger>();
+
             //TODO:: consider moving bootstraping to fascade to abstract implementation details from the web host.
             GetBootstrapTasks().ToList().ForEach(task =>
             {
+                if (logger.IsInfoEnabled)
+                {
+                    logger.Info(TextResource.Logging.RunBootstrapTask.FormatWith(task.GetType().Name));
+                }
+
                 task.StartUp(container, typeProvider);
                 task.ShutDown();
             });

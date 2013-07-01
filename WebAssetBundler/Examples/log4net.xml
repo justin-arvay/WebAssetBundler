@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<log4net>
+  <appender name="FileAppender" type="log4net.Appender.FileAppender">
+    <file value="log.txt" />
+    <appendToFile value="true" />
+    <layout type="log4net.Layout.PatternLayout">
+      <param name="ConversionPattern" value="%5p [%d] - %m%n" />
+    </layout>
+  </appender>
+
+  <logger name="WebAssetBundlerLogger">
+      <level value="All" />
+      <appender-ref ref="FileAppender" />
+  </logger>
+</log4net>

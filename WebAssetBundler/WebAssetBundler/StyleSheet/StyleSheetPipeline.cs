@@ -21,8 +21,8 @@ namespace WebAssetBundler.Web.Mvc
 
     public class StyleSheetPipeline : BundlePipeline<StyleSheetBundle>
     {
-        public StyleSheetPipeline(TinyIoCContainer container, SettingsContext settings)
-            : base(container)
+        public StyleSheetPipeline(TinyIoCContainer container, SettingsContext settings, ILogger logger)
+            : base(container, logger)
         {
             Add<AssignHashProcessor>();            
             Add<UrlAssignmentProcessor<StyleSheetBundle>>();

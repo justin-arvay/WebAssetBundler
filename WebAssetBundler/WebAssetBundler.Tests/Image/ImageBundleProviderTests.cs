@@ -23,7 +23,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class ImageBundleProviderTests
     {
         private ImageBundleProvider provider;
-        private Mock<IBundlesCache<ImageBundle>> cache;
+        private Mock<IBundleCache<ImageBundle>> cache;
         private Mock<IBundlePipeline<ImageBundle>> pipeline;
         private SettingsContext settings;
         private Mock<IBundleFactory<ImageBundle>> bundleFactory;
@@ -34,7 +34,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             settings = new SettingsContext(false, ".min");
             pipeline = new Mock<IBundlePipeline<ImageBundle>>();
-            cache = new Mock<IBundlesCache<ImageBundle>>();
+            cache = new Mock<IBundleCache<ImageBundle>>();
             bundleFactory = new Mock<IBundleFactory<ImageBundle>>();
             assetProvider = new Mock<IAssetProvider>();
 

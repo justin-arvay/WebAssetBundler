@@ -88,6 +88,12 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
+        public void Should_Have_Zero_Required_Bundles_By_Default()
+        {
+            Assert.AreEqual(0, bundle.Required.Count);
+        }
+
+        [Test]
         public void Should_Modify_Assets()
         {
             var assetOne = new AssetBaseImpl("test");

@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2010
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAssetBundler", "WebAssetBundler\WebAssetBundler.csproj", "{2AC03817-4112-47FE-AF34-44A8AE4717AB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples", "Examples\Examples.csproj", "{CFA5D4E1-15BE-4921-81A9-61951B12BCBD}"
@@ -12,10 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAssetBundler.Less.Tests", "WebAssetBundler.Less.Tests\WebAssetBundler.Less.Tests.csproj", "{C2F105DA-2979-4493-AEDF-F4027FBEE1F2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{942E22EA-D63B-4F48-9678-89E8159A70CC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAssetBundler.Log4Net", "WebAssetBundler.Log4Net\WebAssetBundler.Log4Net.csproj", "{1C841BE3-645F-46EC-AED6-BCB139451545}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAssetBundler.Log4Net.Tests", "WebAssetBundler.Log4Net.Tests\WebAssetBundler.Log4Net.Tests.csproj", "{A3363F93-1F49-45E2-B960-84D31099BE85}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -80,26 +76,6 @@ Global
 		{C2F105DA-2979-4493-AEDF-F4027FBEE1F2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C2F105DA-2979-4493-AEDF-F4027FBEE1F2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C2F105DA-2979-4493-AEDF-F4027FBEE1F2}.Release|x86.ActiveCfg = Release|Any CPU
-		{1C841BE3-645F-46EC-AED6-BCB139451545}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1C841BE3-645F-46EC-AED6-BCB139451545}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1C841BE3-645F-46EC-AED6-BCB139451545}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{1C841BE3-645F-46EC-AED6-BCB139451545}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{1C841BE3-645F-46EC-AED6-BCB139451545}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{1C841BE3-645F-46EC-AED6-BCB139451545}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1C841BE3-645F-46EC-AED6-BCB139451545}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1C841BE3-645F-46EC-AED6-BCB139451545}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{1C841BE3-645F-46EC-AED6-BCB139451545}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{1C841BE3-645F-46EC-AED6-BCB139451545}.Release|x86.ActiveCfg = Release|Any CPU
-		{A3363F93-1F49-45E2-B960-84D31099BE85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A3363F93-1F49-45E2-B960-84D31099BE85}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A3363F93-1F49-45E2-B960-84D31099BE85}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{A3363F93-1F49-45E2-B960-84D31099BE85}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{A3363F93-1F49-45E2-B960-84D31099BE85}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A3363F93-1F49-45E2-B960-84D31099BE85}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A3363F93-1F49-45E2-B960-84D31099BE85}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A3363F93-1F49-45E2-B960-84D31099BE85}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A3363F93-1F49-45E2-B960-84D31099BE85}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{A3363F93-1F49-45E2-B960-84D31099BE85}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,7 +83,5 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C2F105DA-2979-4493-AEDF-F4027FBEE1F2} = {942E22EA-D63B-4F48-9678-89E8159A70CC}
 		{9000799C-4762-4C84-ADA6-DDCA535B5D1E} = {942E22EA-D63B-4F48-9678-89E8159A70CC}
-		{1C841BE3-645F-46EC-AED6-BCB139451545} = {942E22EA-D63B-4F48-9678-89E8159A70CC}
-		{A3363F93-1F49-45E2-B960-84D31099BE85} = {942E22EA-D63B-4F48-9678-89E8159A70CC}
 	EndGlobalSection
 EndGlobal

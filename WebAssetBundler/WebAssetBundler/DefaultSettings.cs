@@ -27,54 +27,30 @@ namespace WebAssetBundler.Web.Mvc
 
     public static class DefaultSettings
     {
-        private static string styleSheetFilesPath = "~/Content";
-        private static string scriptFilesPath = "~/Scripts";
-
         private static IScriptMinifier scriptMinifier = new MsScriptMinifier();
         private static IStyleSheetMinifier styleSheetMinfier = new MsStyleSheetMinifier();
+        private static ConfigurationDriverCollection drivers = new ConfigurationDriverCollection();
 
-        private static Func<TinyIoCContainer, IBundleConfigurationProvider<StyleSheetBundle>> styleSheetConfigurationProvider =
-            (c) => c.Resolve<DefaultBundleConfigurationProvider<StyleSheetBundle>>();
-
-        private static Func<TinyIoCContainer, IBundleConfigurationProvider<ScriptBundle>> scriptConfigurationProvider =
-            (c) => c.Resolve<DefaultBundleConfigurationProvider<ScriptBundle>>();
-
-        private static Func<TinyIoCContainer, IBundleConfigurationFactory<StyleSheetBundle>> styleSheetConfigurationFactory =
-             (c) => c.Resolve<DefaultBundleConfigurationFactory<StyleSheetBundle>>();
-
-        private static Func<TinyIoCContainer, IBundleConfigurationFactory<ScriptBundle>> scriptConfigurationFactory =
-            (c) => c.Resolve<DefaultBundleConfigurationFactory<ScriptBundle>>();
+        private static ILogger logger = new DoNothingLogger();
 
         /// <summary>
-        /// Gets or sets the style sheet files path. Path must be a virtual path.
+        /// Gets or sets the logger used by the application to log events and errors.
         /// </summary>
-        /// <value>The style sheet files path.</value>
-        public static string StyleSheetFilesPath
+        public static ILogger Logger
         {
             get
             {
-                return styleSheetFilesPath;
+                return logger;
             }
             set
             {
-                styleSheetFilesPath = value;
+                logger = value;
             }
         }
 
-        /// <summary>
-        /// Gets or sets the script files path. Path must be a virtual path.
-        /// </summary>
-        /// <value>The style sheet files path.</value>
-        public static string ScriptFilesPath
+        public static ConfigurationDriverCollection Drivers
         {
-            get
-            {
-                return scriptFilesPath;
-            }
-            set
-            {
-                scriptFilesPath = value;
-            }
+            get { return drivers; }
         }
 
         /// <summary>
@@ -104,66 +80,6 @@ namespace WebAssetBundler.Web.Mvc
             set
             {
                 styleSheetMinfier = value;
-            }
-        }
-
-        /// <summary>
-        /// Sets the configuration provider to be used when providing configuration for style sheet bundles.
-        /// </summary>
-        public static Func<TinyIoCContainer, IBundleConfigurationProvider<StyleSheetBundle>> StyleSheetConfigurationProvider
-        {
-            get
-            {
-                return styleSheetConfigurationProvider;
-            }
-            set
-            {
-                styleSheetConfigurationProvider = value;
-            }
-        }
-
-        /// <summary>
-        /// Sets the configuration provider to be used when providing configuration for script bundles.
-        /// </summary>
-        public static Func<TinyIoCContainer, IBundleConfigurationProvider<ScriptBundle>> ScriptConfigurationProvider
-        {
-            get
-            {
-                return scriptConfigurationProvider;
-            }
-            set
-            {
-                scriptConfigurationProvider = value;
-            }
-        }
-
-        /// <summary>
-        /// Sets the configuration factory that is used when instantiating style sheet configuration classes.
-        /// </summary>
-        public static Func<TinyIoCContainer, IBundleConfigurationFactory<StyleSheetBundle>> StyleSheetConfigurationFactory
-        {
-            get
-            {
-                return styleSheetConfigurationFactory;
-            }
-            set
-            {
-                styleSheetConfigurationFactory = value;
-            }
-        }
-
-        /// <summary>
-        /// Sets the configuration factory that is used when instantiating script configuration classes.
-        /// </summary>
-        public static Func<TinyIoCContainer, IBundleConfigurationFactory<ScriptBundle>> ScriptConfigurationFactory
-        {
-            get
-            {
-                return scriptConfigurationFactory;
-            }
-            set
-            {
-                scriptConfigurationFactory = value;
             }
         }
     }

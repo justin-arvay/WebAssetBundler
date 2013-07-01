@@ -34,19 +34,19 @@ namespace WebAssetBundler.Web.Mvc
 
             if (urlExtension.StartsWith("/js"))
             {
-                var cache = new BundlesCache<ScriptBundle>(cacheProvider); 
+                var cache = new BundleCache<ScriptBundle>(cacheProvider); 
                 return new AssetHttpHandler<ScriptBundle>(cache);
             }
 
             if (urlExtension.StartsWith("/css"))
             {
-                var cache = new BundlesCache<StyleSheetBundle>(cacheProvider);
+                var cache = new BundleCache<StyleSheetBundle>(cacheProvider);
                 return new AssetHttpHandler<StyleSheetBundle>(cache);
             }
 
             if (urlExtension.StartsWith("/image"))
             {
-                var cache = new BundlesCache<ImageBundle>(cacheProvider);
+                var cache = new BundleCache<ImageBundle>(cacheProvider);
                 return new AssetHttpHandler<ImageBundle>(cache);
             }
 

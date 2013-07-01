@@ -23,7 +23,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     public class AssetHttpHandlerTests
     {
         private Mock<IResponseWriter> writer;
-        private Mock<IBundlesCache<BundleImpl>> cache;
+        private Mock<IBundleCache<BundleImpl>> cache;
         private Mock<IEncoder> encoder;
         private AssetHttpHandler<BundleImpl> handler;
         private BundleImpl bundle;
@@ -33,7 +33,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         {
             bundle = new BundleImpl();
             writer = new Mock<IResponseWriter>();
-            cache = new Mock<IBundlesCache<BundleImpl>>();
+            cache = new Mock<IBundleCache<BundleImpl>>();
             encoder = new Mock<IEncoder>();
             handler = new AssetHttpHandler<BundleImpl>(cache.Object);            
         }

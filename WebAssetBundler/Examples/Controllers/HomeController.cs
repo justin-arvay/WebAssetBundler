@@ -30,5 +30,10 @@ namespace Examples.Controllers
         {
             return View();
         }
+
+        public ActionResult Benefits()
+        {
+            return View();
+        }
     }
 }

@@ -17,10 +17,11 @@
 namespace WebAssetBundler.Web.Mvc
 {
     using System;
+    using System.Web;
 
     public class ResponseWriterFactory : IResponseWriterFactory
     {
-        public IResponseWriter Create(System.Web.HttpContextBase httpContext)
+        public IResponseWriter Create(HttpContextBase httpContext)
         {
             var urlExtension = httpContext.Request.PathInfo;
 

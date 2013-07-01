@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Moq, Version=4.0.10827.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
@@ -59,22 +62,29 @@
     <Compile Include="Bootstrap\ConfigureScriptsTaskTests.cs" />
     <Compile Include="Bootstrap\ConfigureStyleSheetTaskTests.cs" />
     <Compile Include="Bootstrap\LoadSettingsTaskTests.cs" />
-    <Compile Include="BundlerBaseImpl.cs" />
-    <Compile Include="BundlerBaseTests.cs" />
-    <Compile Include="Configuration\DefaultBundleConfigurationFactoryTests.cs" />
+    <Compile Include="BundleFactoryTests.cs" />
+    <Compile Include="BundleProviderTests.cs" />
+    <Compile Include="Bundler\BundlerBaseImpl.cs" />
+    <Compile Include="Bundler\BundlerBaseTests.cs" />
+    <Compile Include="Bundler\BundleRendererTests.cs" />
+    <Compile Include="Bundler\BundlerFactoryTests.cs" />
+    <Compile Include="Bundler\BundlerStateTests.cs" />
+    <Compile Include="Bundler\BundlerDependencyResolverTests.cs" />
+    <Compile Include="Configuration\ConfigurationDriverCollectionTests.cs" />
+    <Compile Include="Configuration\Fluent\FluentConfigurationDriverTests.cs" />
+    <Compile Include="Configuration\Fluent\FluentConfigurationFactoryTests.cs" />
     <Compile Include="Configuration\DirectorySearchOrderBuilderTests.cs" />
     <Compile Include="DirectorySearchFactoryTests.cs" />
     <Compile Include="Extensions\StreamExtensionsTests.cs" />
     <Compile Include="FileSystemDirectoryTests.cs" />
     <Compile Include="FileSystemFileTests.cs" />
-    <Compile Include="Caching\BundlesCacheTests.cs" />
+    <Compile Include="Caching\BundleCacheTests.cs" />
     <Compile Include="AssetBaseTests.cs" />
-    <Compile Include="BundleConfigurationImpl.cs" />
-    <Compile Include="BundleConfigurationTests.cs" />
+    <Compile Include="Configuration\Fluent\FluentConfigurationImpl.cs" />
+    <Compile Include="Configuration\Fluent\FluentConfigurationTests.cs" />
     <Compile Include="BundleImpl.cs" />
-    <Compile Include="BundleProviderBaseImpl.cs" />
-    <Compile Include="BundleProviderBaseTests.cs" />
     <Compile Include="BundleTests.cs" />
+    <Compile Include="Helpers\AssetHelperTests.cs" />
     <Compile Include="Helpers\ImageHelperTests.cs" />
     <Compile Include="Helpers\PathHelperTests.cs" />
     <Compile Include="HttpHandlers\ImageResponseWriterTests.cs" />
@@ -88,6 +98,7 @@
     <Compile Include="Image\ImageTagBuilderTests.cs" />
     <Compile Include="Image\ImageTagWriterTests.cs" />
     <Compile Include="Image\ImageUrlGeneratorTests.cs" />
+    <Compile Include="Logger\Log4NetLoggerTests.cs" />
     <Compile Include="Minifiers\MinifyModifierTests.cs" />
     <Compile Include="Pipeline\AssignHashProcessorTests.cs" />
     <Compile Include="Pipeline\BundlePipelineImpl.cs" />
@@ -96,25 +107,21 @@
     <Compile Include="Pipeline\MergeProcessorTests.cs" />
     <Compile Include="Pipeline\MinifyProcessorTests.cs" />
     <Compile Include="Pipeline\ProcessorImpl.cs" />
-    <Compile Include="DefaultBundleConfigurationProviderTests.cs" />
+    <Compile Include="Configuration\Fluent\FluentConfigurationProviderTests.cs" />
     <Compile Include="AssetProviderTests.cs" />
     <Compile Include="FileSystemAssetTest.cs" />
     <Compile Include="DirectorySearchBuilderTests.cs" />
     <Compile Include="DirectorySearchTests.cs" />
     <Compile Include="Plugins\PluginCollectionTests.cs" />
     <Compile Include="Plugins\PluginLoaderTests.cs" />
-    <Compile Include="Script\ScriptBundleCachePrimerTests.cs" />
     <Compile Include="Script\ScriptBundleConfigurationImpl.cs" />
-    <Compile Include="Script\ScriptBundleProviderTests.cs" />
     <Compile Include="Script\ScriptBundleTests.cs" />
     <Compile Include="Script\ScriptBundlerTests.cs" />
     <Compile Include="Script\ScriptTagBuilder.cs" />
     <Compile Include="StyleSheet\BackgroundImageModifierTests.cs" />
     <Compile Include="StyleSheet\BackgroundImageReaderTests.cs" />
     <Compile Include="StyleSheet\ImageProcessorTests.cs" />
-    <Compile Include="StyleSheet\StyleSheetBundleCachePrimerTests.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleConfigurationImpl.cs" />
-    <Compile Include="StyleSheet\StyleSheetBundleProviderTests.cs" />
     <Compile Include="StyleSheet\StyleSheetBundleTests.cs" />
     <Compile Include="StyleSheet\StyleSheetBundlerTests.cs" />
     <Compile Include="BundleCollectionTests.cs" />

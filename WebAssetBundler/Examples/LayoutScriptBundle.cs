@@ -19,12 +19,12 @@ namespace Examples
     using System;
     using WebAssetBundler.Web.Mvc;
 
-    public class LayoutScriptBundle : BundleConfiguration<ScriptBundle>
+    public class LayoutScriptBundle : FluentConfiguration<ScriptBundle>
     {
         public override void Configure()
         {
             Name("Scripts");
-            Compress(true);
+            Minify(true);
             AddDirectory("~/Scripts", d => d
                 .Order(o => o
                     .First("jquery*")

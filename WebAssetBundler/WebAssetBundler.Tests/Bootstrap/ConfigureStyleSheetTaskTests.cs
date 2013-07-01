@@ -59,22 +59,5 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             plugin.Verify(p => p.Dispose());
         }
-
-        [Test]
-        public void Should_Create_Pipeline()
-        {
-            var container = new TinyIoCContainer();        
-            container.Register<IStyleSheetMinifier, MsStyleSheetMinifier>();
-            container.Register<ICacheProvider, CacheProvider>();
-            container.Register<IBundlesCache<ImageBundle>, BundlesCache<ImageBundle>>();
-            container.Register<IUrlGenerator<ImageBundle>, ImageUrlGenerator>();
-            container.Register<SettingsContext>(new SettingsContext());
-            container.Register<IUrlGenerator<StyleSheetBundle>, BasicUrlGenerator<StyleSheetBundle>>();
-
-            var plugins = new PluginCollection<StyleSheetBundle>();
-            var pipeline = task.CreatePipeline<StyleSheetPipeline>(container, plugins);
-
-            Assert.IsInstanceOf<StyleSheetPipeline>(pipeline);            
-        }
     }
 }

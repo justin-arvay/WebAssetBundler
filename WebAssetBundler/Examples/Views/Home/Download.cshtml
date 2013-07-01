@@ -1,12 +1,13 @@
 ﻿@{
     ViewBag.Title = "Download";
     Layout = "~/Views/Shared/_BasicLayout.cshtml";
+    ViewBag.Description = "Install Web Asset Bundler through NuGet or fork the GitHub source.";
 }
 
 <div id="download">
     <div class="warning">
         <p><strong>Web Asset Bundler is very much in "beta". Features and fixes will be added constantly as the library matures. Please head to 
-        <a href="https://github.com/justin-arvay/WebAssetBundler">Git Hub</a> to report an issue or request a feature.</strong></p>
+        <a href="https://github.com/justin-arvay/WebAssetBundler">Git Hub</a> to report an issue or request a feature. Supports .NET 4.0+ and ASP.NET MVC 3+</strong></p>
     </div>
 
     <div class="section">        
@@ -25,7 +26,7 @@
     </div>
 
     <div class="bottom-section">
-        <p><strong>Note:</strong> Plugin versions should match the main package version for best compatability. All plugins are 
+        <p class="note"><strong>Note:</strong> Plugin versions should match the main package version for best compatability. All plugins are 
         updated when the main package is updated. Updating all packages to the newest version will match the versions. 
         Eg: <strong>WebAssetBunder.Less 0.9.4 + WebAssetBunder 0.9.4</strong>.</p>
 

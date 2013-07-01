@@ -22,6 +22,10 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
     <TargetFrameworkProfile />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -104,7 +108,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="TestLogger.cs" />
     <Content Include="Content\change-log.css" />
+    <Content Include="log4net.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="robots.txt" />
     <Content Include="Content\documentation.css" />
     <Content Include="Content\download.css" />
@@ -142,7 +150,10 @@
     <Content Include="Scripts\jquery-ui-1.10.0.custom.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.custom.min.js" />
     <Content Include="Scripts\rainbow-custom.min.js" />
-    <Content Include="sitemap.xml" />
+    <Content Include="sitemap.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -184,6 +195,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PublishProfiles\WabToWinHost.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -210,9 +222,14 @@
     <Content Include="Views\Home\Support.cshtml" />
     <Content Include="Views\Documentation\Introduction.cshtml" />
     <Content Include="Views\Home\License.cshtml" />
-    <Content Include="Views\Shared\Benefits.cshtml" />
+    <Content Include="Views\Home\Benefits.cshtml" />
     <Content Include="Views\Documentation\WebConfig\WabSection.cshtml" />
     <Content Include="Views\Home\ChangeLog.cshtml" />
+    <Content Include="Views\Documentation\Logging\Log4Net.cshtml" />
+    <Content Include="Views\Documentation\Logging\CustomLogger.cshtml" />
+    <Content Include="Views\Documentation\Logging.cshtml" />
+    <Content Include="Views\Documentation\Rendering\Referencing.cshtml" />
+    <Content Include="Views\Documentation\Rendering\DependencyResolution.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

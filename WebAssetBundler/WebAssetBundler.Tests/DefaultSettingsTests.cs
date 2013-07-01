@@ -29,44 +29,13 @@ namespace WebAssetBundler.Web.Mvc.Tests
     [TestFixture]
     public class DefaultSettingsTests
     {
-        [Test]
-        public void Can_Set_Style_Sheet_Files_Path()
-        {
-            DefaultSettings.StyleSheetFilesPath = "~/test/";
-
-            Assert.AreEqual("~/test/", DefaultSettings.StyleSheetFilesPath);
-
-            //re-set the default
-            DefaultSettings.StyleSheetFilesPath = "~/Content";
-        }
 
         [Test]
-        public void Can_Set_Script_Files_Path()
+        public void Should_Be_Default_Logger()
         {
-            DefaultSettings.ScriptFilesPath = "~/test/";
+            var logger = DefaultSettings.Logger;
 
-            Assert.AreEqual("~/test/", DefaultSettings.ScriptFilesPath);
-
-            //re-set the default
-            DefaultSettings.ScriptFilesPath = "~/Scripts";
-        }
-
-        [Test]
-        public void Scripts_Files_Path_Should_Use_MVC_Scripts_Folder_By_Default()
-        {
-            Assert.AreEqual("~/Scripts", DefaultSettings.ScriptFilesPath);
-        }
-
-        [Test]
-        public void StyleSheet_Files_Path_Should_Use_MVC_Content_Folder_By_Default()
-        {
-            Assert.AreEqual("~/Content", DefaultSettings.StyleSheetFilesPath);
-        }
-      
-        [Test]
-        public void Should_Use_Ms_Script_Compressor_By_Default()
-        {
-            Assert.IsInstanceOf<MsScriptMinifier>(DefaultSettings.ScriptMinifier);
+            Assert.IsInstanceOf<DoNothingLogger>(logger);
         }
 
         [Test]
@@ -95,52 +64,6 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.IsInstanceOf<YuiStyleSheetMinifier>(DefaultSettings.StyleSheetMinifier);
 
             DefaultSettings.StyleSheetMinifier = previous;
-        }
-
-        [Test]
-        public void Should_Be_Default_Style_Sheet_Config_Provider()
-        {
-            var container = new TinyIoCContainer();
-            container.Register<ITypeProvider>((new Mock<ITypeProvider>()).Object);
-            container.Register<IBundleConfigurationFactory<StyleSheetBundle>>((new Mock<IBundleConfigurationFactory<StyleSheetBundle>>()).Object);
-            
-            var provider = DefaultSettings.StyleSheetConfigurationProvider(container);
-
-            Assert.IsInstanceOf<DefaultBundleConfigurationProvider<StyleSheetBundle>>(provider);
-        }
-
-        [Test]
-        public void Should_Be_Default_Script_Config_Provider()
-        {
-            var container = new TinyIoCContainer();
-            container.Register<ITypeProvider>((new Mock<ITypeProvider>()).Object);
-            container.Register<IBundleConfigurationFactory<ScriptBundle>>((new Mock<IBundleConfigurationFactory<ScriptBundle>>()).Object);
-
-            var provider = DefaultSettings.ScriptConfigurationProvider(container);
-
-            Assert.IsInstanceOf<DefaultBundleConfigurationProvider<ScriptBundle>>(provider);
-        }
-
-        [Test]
-        public void Should_Be_Default_Script_Config_Factory()
-        {
-            var container = new TinyIoCContainer();
-            container.Register<IBundleConfigurationFactory<ScriptBundle>>((new Mock<IBundleConfigurationFactory<ScriptBundle>>()).Object);
-
-            var factory = DefaultSettings.ScriptConfigurationFactory(container);
-
-            Assert.IsInstanceOf < DefaultBundleConfigurationFactory<ScriptBundle>>(factory);
-        }
-
-        [Test]
-        public void Should_Be_Default_Style_Sheet_Config_Factory()
-        {
-            var container = new TinyIoCContainer();
-            container.Register<IBundleConfigurationFactory<StyleSheetBundle>>((new Mock<IBundleConfigurationFactory<StyleSheetBundle>>()).Object);
-
-            var factory = DefaultSettings.StyleSheetConfigurationFactory(container);
-
-            Assert.IsInstanceOf<DefaultBundleConfigurationFactory<StyleSheetBundle>>(factory);
         }
     }
 }

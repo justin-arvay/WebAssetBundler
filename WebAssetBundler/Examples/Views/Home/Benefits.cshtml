@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Benefits";
+    Layout = "~/Views/Shared/_BasicLayout.cshtml";
+}
+
+<h1>Benefits</h1>
+
+<h6>Combine & Version Assets</h6>
+<p>Create a asset structure that fits your needs. Web Asset Bundler will take care of combining and versioning for you.</p>
+<pre data-language="html">
+@Html.Code(@"
+//from many javascript or css assets
+<link href=""/Content/jquery-ui.custom.css"" />
+<link href=""/Content/reset.css"" />
+<link href=""/Content/reset.css"" />
+<link href=""/Content/layout.css"" />
+<link href=""/Content/download.css"" />
+<link href=""/Content/documentation.css"" />
+<script type=""text/javascript"" src=""/Scripts/jquery.js""></script>
+<script type=""text/javascript"" src=""/Scripts/jquery-ui.js""></script>
+
+//to single asset bundles
+<link type=""text/css"" href=""/wab.axd/css/8190e9a67c00175a53de58ffc50ddee1/StyleSheets"" rel=""stylesheet"">
+<script type=""text/javascript"" src=""/wab.axd/css/8190e9a67c00175a53de58ffc50ddee1/Script""></script>
+")
+</pre>
+
+<h6>Automatic Browser Caching and Encoding</h6>
+<p>Bundles are cached for 1 year (configurable) and are automatically served encoded in GZip/Deflate. Any changes to the contents of the
+    bundle will automatically break the browser cache, forcing the browser to re-download the bundle.
+</p>
+@Bundler.Images.Render("~/Images/ScreenCaps/no-debug-mode-browser-caching.png")
+<pre>
+@Html.Code(@"
+Request URL:http://localhost:10000/wab.axd/css/313ebe1e217ecf8b9470b903023a4ca8/StyleSheets
+Response Headersview source
+Cache-Control:public
+Content-Encoding:deflate
+Content-Length:7270
+Content-Type:text/css; charset=utf-8
+Date:Wed, 24 Apr 2013 22:04:18 GMT
+ETag:6a4ec27f021f276479dd92e5afe08981
+Expires:Thu, 24 Apr 2014 22:04:17 GMT
+
+Request URL:http://localhost:10000/wab.axd/js/95fee1d9571e0b4a0764d77739d54a16/Scripts
+Response Headersview source
+Cache-Control:public
+Content-Encoding:deflate
+Content-Length:97759
+Content-Type:text/javascript; charset=utf-8
+Date:Wed, 24 Apr 2013 22:04:18 GMT
+ETag:95fee1d9571e0b4a0764d77739d54a16
+Expires:Thu, 24 Apr 2014 22:04:18 GMT
+")
+</pre>
+
+<h6>Inline Image Versioning</h6>
+<p>Like other assets you can choose to version images in the same way. This allows you to modify existing images without having
+    to worry about browser caching interfering. Additionally you can take advantage of the image pipeline for additional image manipulation.
+</p>
+<pre>
+@Html.Code(@"
+//basic html image node
+<img src=""/Images/image.png"" height=""80"" width=""170""/>
+
+//wab html image node
+<img src=""/wab.axd/image/501a23e114f37cea37bc1914eb850e2f05251394752/464ed1f3bb7416e5699c7692bc2900b3-Logo-png"" height=""80"" width=""170"">
+")
+</pre>
