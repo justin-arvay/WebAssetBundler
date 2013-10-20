@@ -57,7 +57,7 @@
 #endif
 
 #endregion
-namespace TinyIoC
+namespace WebAssetBundler.TinyIoC
 {
     using System;
     using System.Collections.Generic;
