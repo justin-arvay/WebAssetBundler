@@ -36,7 +36,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Replace_Old_With_New()
         {
-            var stream = "/Image/test.png".ToStream();
+            var stream = "/Image/test.png" .ToStream();
             var result = new ImagePipelineRunnerResult
             {
                 OldPath = "/Image/test.png",

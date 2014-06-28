@@ -1,0 +1,123 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="@ViewBag.Description" />
+
+    @Bundler.StyleSheets.Render("StyleSheets")
+
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-40359736-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+
+</head>
+<body>
+    <div id="wrap-all">
+        <div id="header">
+            <div class="top">
+                <div class="wrapper">
+                    <a href="@Url.RouteUrl("Home")">
+                        @Bundler.Images.Render("~/Images/Logo.png", b => b
+                            .AddClass("logo")
+                            .Alt("Web Asset Bundler Logo"))
+                    </a>
+
+                    <div class="right">
+                        <div class="button">
+                            <div class="g-plusone" data-size="medium"></div>
+                        </div>
+
+                        <div class="button">
+                            <div class="fb-like" data-send="false" data-layout="button_count" data-width="50" data-show-faces="true"></div>
+                        </div>
+
+                        <div class="button">
+                            <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+                        </div>
+                    </div>
+
+                    
+                    <div class="download">
+                        <a href="@Url.RouteUrl("Download")">
+                            @Bundler.Images.Render("~/Images/download-icon.png")                            
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom">
+
+                <div class="wrapper">
+                    @Html.RouteLink("Getting Started", "Documentation", new { path = "introduction" })                   
+                    @Html.RouteLink("Documentation", "Documentation", new { path = "introduction" })   
+                    @Html.RouteLink("Benefits", "Benefits")
+                    @Html.RouteLink("License", "License")  
+                    @Html.RouteLink("Change Log", "ChangeLog")               
+                    @Html.RouteLink("Download", "Download")
+                    
+                </div>
+            </div>
+        </div>
+
+        <div id="main">
+            <div class="wrapper">
+                @RenderBody()
+            </div>            
+        </div>
+
+        <div class="push"></div>
+    </div>
+
+    <div id="footer">
+        <div class="wrapper">
+            <div class="content">
+                <span>© 2013 Justin Arvay</span>
+                <a href="https://github.com/justin-arvay/WebAssetBundler">Git Hub</a>
+                <a href="https://github.com/justin-arvay/WebAssetBundler/issues">Report a Bug</a>
+        
+                <div class="osi">
+                    <a href="http://opensource.org/">
+                        @Bundler.Images.Render("~/Images/osi-logo.png", b => b
+                            .Alt("This software full supports the Open Source Initiative"))      
+                        <span><strong>Open</strong> Source Initiative</span>
+                    </a>
+                </div>
+            </div>
+        </div>        
+    </div>
+
+    @Bundler.Scripts.Render("Scripts")
+    @Bundler.Scripts.Include("https://apis.google.com/js/plusone.js")
+    @Bundler.Scripts.Include("http://platform.twitter.com/widgets.js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Rainbow.color();
+        });
+    </script>
+
+    <div id="fb-root"></div>
+    <script type="text/javascript">    
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
+            fjs.parentNode.insertBefore(js, fjs);
+        } (document, 'script', 'facebook-jssdk'));
+    </script>
+</body>
+</html>

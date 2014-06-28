@@ -20,6 +20,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
     using Moq;
     using System;
     using System.Drawing;
+    using System.IO;
 
     [TestFixture]
     public class ImageHelperTests
@@ -49,7 +50,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         }
 
         [Test]
-        public void Should_Get_Dimensions()
+        public void Should_Get_Dimensions_For_Png()
         {
             var root = TestHelper.RootPath;
             IFile file = new FileSystemFile(root + "/Files/Images/ImageHelperTests.png");
@@ -60,6 +61,33 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual(187.0f, dimensions.Height);
             Assert.AreEqual(196.0f, dimensions.Width);
+        }
+
+        [Test]
+        public void Should_Get_Dimensions_For_Gif()
+        {
+            var root = TestHelper.RootPath;
+            IFile file = new FileSystemFile(root + "/Files/Images/ImageHelperTests.gif");
+
+            SizeF dimensions = ImageHelper.GetDimensions(file);
+            //second call should trigger exception if stream was not closed properly
+            dimensions = ImageHelper.GetDimensions(file);
+
+            Assert.AreEqual(133.0f, dimensions.Height);
+            Assert.AreEqual(96.0f, dimensions.Width);
+        }
+
+        [Test]
+        public void Should_Throw_Exception()
+        {
+            var root = TestHelper.RootPath;
+            Mock<IFile> file = new Mock<IFile>();
+            file.Setup(x => x.Open(It.IsAny<FileMode>(), It.IsAny<FileAccess>())).Throws(new Exception());
+            file.Setup(x => x.Path).Returns("/test");
+
+            var execption = Assert.Throws<Exception>(() => ImageHelper.GetDimensions(file.Object));
+
+            Assert.AreEqual("Unable to get dimensions for image using path: /test", execption.Message);
         }
     }
 }

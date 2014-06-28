@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Debug Mode";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<p>To make life easier for the developer a debug mode has been added. In order to use the debug mode you just need to change the default setting. You can do 
+this in the web.config:</p>
+
+<h6>In Web.Config</h6>
+<pre data-language="xml">
+@Html.Code(@"
+<wab debugMode=""true"" />
+")
+</pre>
+<p class="note"><strong>Note:</strong> See @Html.RouteLink("Web.Config", "Documentation", new { path = "web-config" }) for more information on using web asset
+bundler in the web config.</p>
+
+<p>Using debug mode changes the behavior of the library like so:</p>
+<ul>
+    <li>Disables browser caching by changing the url every request.</li>
+    <li>Disables bundle caching so every request will process the bundles/assets.</li>
+    <li>Disables asset minifying so every asset will be combined with the source code.</li>
+    <li>Attempts to include assets that are not minifed (raw assets). See @Html.RouteLink("Adding Assets", "Documentation", new { path = "bundle-configuration/adding-assets" }).</li>
+</ul>

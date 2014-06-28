@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Log4Net Configuration";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<p>By default logging is disabled. If you wish to add logging you can use the built in 
+    <strong>log4net</strong> provider. Or you can create your own provider.</p>
+
+<h2>FileAppender Configuration Example</h2>
+
+<h6>Web.Config Section</h6>
+<p>Add the log4net section to the configSections in the Web.Config.</p>
+<pre data-language="xml">
+@Html.Code(@"
+<configSections>
+    ...
+    <section name=""log4net"" type=""log4net.Config.Log4NetConfigurationSectionHandler, log4net"" />
+</configSections>
+")
+</pre>
+
+<p>Now add the log4net section and configure the FileAppender. By Default the logger used by the Web Asset Bundler logging provider
+    is named <strong>WebAssetBundlerLogger</strong>.</p>
+<pre data-language="xml">
+@Html.Code(@"
+<log4net>
+  <appender name=""FileAppender"" type=""log4net.Appender.FileAppender"">
+    <file value=""log.txt"" />
+    <appendToFile value=""true"" />
+    <layout type=""log4net.Layout.PatternLayout"">
+      <param name=""ConversionPattern"" value=""%5p [%d] - %m%n"" />
+    </layout>
+  </appender>
+
+  <logger name=""WebAssetBundlerLogger"">
+      <level value=""All"" />
+      <appender-ref ref=""FileAppender"" />
+  </logger>
+</log4net>
+")
+</pre>
+
+<p>The above configuration will configure the logger to output to a log named <strong>log.txt</strong> in the application root. It will
+    continually append to this file. The log4net logger is configured to log all levels for the WebAssetBundlerLogger. Internally the log4net provider
+    only uses <strong>Error and Info</strong> levels.
+</p>
+
+<h6>Tell Wab to use Log4Net</h6>
+<p>You will just need to change the logger set in the DefaultSettings. Typically the best place for this is the Global.asax Application_Start. 
+    This will ensure that the logger is registered in the application pipeline before the http module is run:</p>
+<pre data-language="csharp">
+@Html.Code(@"
+protected void Application_Start()
+{
+    ...
+
+    //enable log4net logging support
+    DefaultSettings.Logger = new Log4NetLogger();
+}
+")
+</pre>
+
+<p>If you need to change the internal log being used by the logger provider you can create your own log and pass it to the provider
+    through an overloaded constructor:
+</p>
+<pre data-language="csharp">
+@Html.Code(@"
+protected void Application_Start()
+{
+    ...
+
+    var log = LogManager.GetLogger(""MyLogger"")
+
+    //enable log4net logging support
+    DefaultSettings.Logger = new Log4NetLogger(log);
+}
+")
+</pre>
+
+<p class="note"><strong>Note:</strong> log4net configuration is called when the provider is instantiated. Instantiation is defered until required.
+    Setting the logger in the default settings enables logging support. To disable logging support you must disable it 
+    through the configuration for that log provider.
+</p>

@@ -18,6 +18,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
 {
     using NUnit.Framework;
     using Moq;
+    using System;
 
     [TestFixture]
     public class ImageBundleFactoryTests
@@ -44,6 +45,16 @@ namespace WebAssetBundler.Web.Mvc.Tests
             Assert.AreEqual("image/png", returnBundle.ContentType);
             Assert.AreEqual(187, returnBundle.Height);
             Assert.AreEqual(196, returnBundle.Width);
+        }
+
+        [Test]
+        public void Should_Throw_Exception_If_Asset_Does_Not_Exist_On_Disk()
+        {
+            string source = "~/image.png";
+            var file = new FileSystemFile("../../Files/Images/does-not-exist.png");
+            var asset = new FileSystemAsset(file);
+
+            Assert.Throws<Exception>(() => factory.Create(asset));
         }
     }
 }

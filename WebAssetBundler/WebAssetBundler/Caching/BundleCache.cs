@@ -23,6 +23,8 @@ namespace WebAssetBundler.Web.Mvc
     {
         private ICacheProvider provider;
 
+        private Object thisLock = new Object();
+
         public BundleCache(ICacheProvider provider)
         {
             this.provider = provider;
@@ -48,9 +50,11 @@ namespace WebAssetBundler.Web.Mvc
 
         public void Add(TBundle bundle)
         {
-            //TODO:: lock adding and prevent duplicates
-            var key = GetSingleBundleKey(bundle.Name);
-            provider.Insert(key, bundle); 
+            lock (thisLock)
+            {
+                var key = GetSingleBundleKey(bundle.Name);
+                provider.Insert(key, bundle);
+            }
         }
     }
 }

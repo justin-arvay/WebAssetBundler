@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "Web Config Setup";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<p>In order to use the web.config you must first setup the section:</p>
+<pre>
+@Html.Code(@"
+<configuration>
+    <configSections>
+        <section name=""wab"" type=""WebAssetBundler.Web.Mvc.WabConfigurationSection, WebAssetBundler"" />
+    </configSections>
+
+    ...
+</configuration>
+")
+</pre>
+
+<p>Now you can add the web asset bundler tag:</p>
+<pre>
+@Html.Code(@"
+<configuration>
+    ...
+
+    <!-- Web Asset Bundler Config -->
+    <wab 
+        debugMode=""true|false"" 
+        minifyIdentifier="".min"" />
+
+</configuration>
+")
+</pre>
+
+<p>Add a namespace so you can use the @Html.RouteLink("Bundler", "Documentation", new { path = "rendering-bundles" }) helpers:</p>
+<pre>
+@Html.Code(@"
+<pages>
+    <namespaces>
+        <add namespace=""System.Web.Helpers"" />
+        ...
+        
+        <add namespace=""WebAssetBundler.Web.Mvc"" />
+    </namespaces>
+</pages>
+")
+</pre>
+
+<p>Finally, we need to add the modules and http handler. Depending on your environment you will need to configure 
+one of the below (or both if you arn't sure):</p>
+
+<p><strong>IIS 6.0 and IIS 7.0 running in Classic Mode</strong></p>
+<pre>
+@Html.Code(@"
+<configuration>
+    <system.web>
+
+        ...
+
+        <httpHandlers>
+            <add path=""wab.axd"" verb=""*"" type=""WebAssetBundler.Web.Mvc.WabHttpHandler"" />
+        </httpHandlers>
+
+        ...
+
+        <httpModules>
+            <add type=""WebAssetBundler.Web.Mvc.WabHttpModule"" name=""WabHttpModule"" />
+        </httpModules>
+    </system.web>
+</configuration>
+")
+</pre>
+
+<p>Or <strong>IIS 7.0 running in Integrated Mode</strong></p>
+<pre>
+@Html.Code(@"
+<configuration>
+    <system.webServer>
+        ...
+
+        <modules>
+          <add name=""WabHttpModule"" type=""WebAssetBundler.Web.Mvc.WabHttpModule, WebAssetBundler"" />
+        </modules>
+        <handlers>
+          <add name=""WabHttpHandler"" path=""wab.axd"" verb=""*"" allowPathInfo=""true"" type=""WebAssetBundler.Web.Mvc.WabHttpHandler, WebAssetBundler"" />
+        </handlers>
+    </system.webServer>
+</configuration>
+")
+</pre>

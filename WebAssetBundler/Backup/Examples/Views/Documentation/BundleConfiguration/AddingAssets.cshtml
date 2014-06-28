@@ -1,0 +1,162 @@
+﻿@{
+    ViewBag.Title = "Adding Assets to Configuration";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<h2>Add Single Assets</h2>
+
+<p>The <strong>Add</strong> method takes a relative or virtual path to the file you are adding to the bundle. Here 
+is an example:</p>
+
+<pre data-language="csharp">
+public override void Configure()
+{
+    //virtual path add
+    Add("~/Scripts/jquery-1.9.0.min.js");
+
+    //relative path add
+    Add("jquery-ui-1.10.0.custom.min.js");
+}
+</pre>
+
+<h2>Adding Per Directory</h2>
+<p>You can also add assets based on a directory. Here is an example:</p>
+<pre data-language="csharp">
+public override void Configure()
+{
+    //adds all assets in a specific directory
+    AddDirectory("~/Script");
+
+    //adds assets based on criteria
+    AddDirectory("~/Script", a => a
+        .Pattern("jQuery*"));
+}
+</pre>
+<p>The above example will only include assets from the script directory that start with <strong>jQuery</strong>. Multiple 
+wildcards can be used. For instance:</p>
+<pre data-language="csharp">
+public override void Configure()
+{
+    AddDirectory("~/Script", a => a
+        .Pattern("*jQuery*"));
+}
+</pre>
+
+<p>This example will include all assets with the word jQuery in it.</p>
+<p class="note"><strong>Note: </strong>When adding by directory be aware that by default it will only add assets that end in the bundles
+corresponding extension (.css or .js for example). This can also be modified by installed plugins.</p>
+
+<p>By default adding assets by directory will include all sub directories. You can change it:</p>
+<pre data-language="csharp">
+public override void Configure()
+{
+    AddDirectory("~/Script", a => a
+        .SearchOption(System.IO.SearchOption.TopDirectoryOnly));
+}
+</pre>
+
+<h6>Ordering</h6>
+<p>You can also order the assets as they are included from the directory. Specify each file relative to the directory in the order you wish them
+to be combined in the bundle. Example:</p>
+<pre data-language="csharp">
+public override void Configure()
+{
+    AddDirectory("~/Script", a => a
+        .Order(o => o
+            .First("jquery.js")
+            .Next("jquery-ui.js")));
+}
+</pre>
+
+<p>Ordering also supports ordering with files in sub directories under the added directory (must have SearchOption.AllDirectories set). Example:</p>
+<pre data-language="csharp">
+public override void Configure()
+{
+    AddDirectory("~/Script", a => a
+        .Order(o => o
+            .First("jquery/jquery.js")
+            .Next("jquery/jquery-ui.js")));
+}
+</pre>
+<p class="note"><strong>Note:</strong> You can only use relative paths to the file.</p>
+
+<p>Ordering can also use wildcards (multiple wildcards are supported). Using wildcards can mean multiple assets are ordered for each pattern. For example <em>First("jquery*")</em> 
+would place a few assets in at the start. Those assets would be ordered alphabetically.</p>
+<pre data-language="csharp">
+public override void Configure()
+{
+    AddDirectory("~/Script", a => a
+        .Order(o => o
+            .First("jquery*")
+            .Next("jquery-ui*")));
+}
+</pre>
+
+<p>Wildcards are also supported in the sub directory:</p>
+<pre data-language="csharp">
+public override void Configure()
+{
+    AddDirectory("~/Script", a => a
+        .Order(o => o
+            .First("*/jquery.js")
+            .Next("*/jquery-ui.js")));
+}
+</pre>
+
+<p class="note"><strong>Note:</strong> Depending on how they are used multiple patterns using wildcards can match the same asset. When this happens the last 
+pattern will set the order of that asset (Last in, last out). Example:</p>
+
+<pre data-language="csharp">
+public override void Configure()
+{
+    AddDirectory("~/Script", a => a
+        .Order(o => o
+            .First("jquery*")
+            .Next("init.js"
+            .Next("jquery-ui*")));
+}
+</pre>
+<pre>
+//directory with assets
+init.js
+jquery.js
+jquery-ui.js
+jquery-ui-tree.js
+
+//added to the bundle in this order
+jquery.js
+init.js
+jquery-ui.js
+jquery-ui-tree.js
+</pre>
+
+
+<h2>Additional Behavior</h2>
+<p>When adding an asset a check is done to see if the asset is already considered minified. This check is done to ensure we do not 
+waste processing time to re-minify something that does not need it. In addition this will also allow you to minify some assets ahead of time if you wish.</p>
+
+<p>For example, if we have two files like so:</p>
+<code>
+~/Scripts/jQuery.js
+~/Scripts/jQuery.min.js
+</code>
+<p>The <strong>~/Scripts/jQuery.min.js</strong> would be used as an asset instead of the jQuery.js file. If the application is set to debug mode, the raw 
+<strong>~/Scripts/jQuery.js</strong> file will be used.</p>
+
+<p>In order to identify which files are already considered minified, the provider will look at the file name. Any file name that matches this structure
+will not be minifed again:</p>
+<code>
+../path/file-name.min.ext
+</code>
+
+<p>The identifier in this case is the <strong>.min</strong>. The <strong>.min</strong> must appear at the end of the file name, before the extension. You 
+can configure this by changing a default setting like so:</p>
+<pre data-language="csharp">
+//script identifier
+DefaultSettings.MinifyIdentifier = ".minified";
+
+</pre>
+<p>The above example would <strong>not</strong> minify assets with file names like this:</p>
+<code>
+../path/file-name.minified.ext
+</code>

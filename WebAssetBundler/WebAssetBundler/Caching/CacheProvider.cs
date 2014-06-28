@@ -22,7 +22,8 @@ namespace WebAssetBundler.Web.Mvc
     using System.Web.Caching;
 
     public class CacheProvider : ICacheProvider
-    {
+    {        
+
         /// <summary>
         /// Retrieve an item from the cache.
         /// </summary>

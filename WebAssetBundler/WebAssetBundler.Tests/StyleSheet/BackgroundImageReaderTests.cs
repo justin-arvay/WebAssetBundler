@@ -52,7 +52,7 @@ namespace WebAssetBundler.Web.Mvc.Tests
         [Test]
         public void Should_Match_Url_With_No_Quotes()
         {
-            var content = "url(/img/test.jpg);";
+            var content = "url(/img/test.jpg); ";
             var paths = new List<string>(reader.ReadAll(content));
 
             Assert.AreEqual("/img/test.jpg", paths[0]);
@@ -66,5 +66,14 @@ namespace WebAssetBundler.Web.Mvc.Tests
 
             Assert.AreEqual("/img/test.jpg", paths[0]);
         }
+
+        [Test]
+        public void Should_Ignore_Data_Image()
+        {
+            var content = "url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAACAQMAAAAD0EyKAAAABlBMVEUAAAAdHRvEkCwcAAAAAXRSTlMAQObYZgAAAAxJREFUCNdjgIIGBgABCgCBvVLXcAAAAABJRU5ErkJggg==\");";
+            var paths = new List<string>(reader.ReadAll(content));
+
+            Assert.AreEqual(0, paths.Count);
+        }        
     }
 }

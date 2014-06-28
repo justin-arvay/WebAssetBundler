@@ -32,10 +32,18 @@ namespace WebAssetBundler.Web.Mvc
         {
             var matchesHash = new HashSet<string>();
             var urlMatches = Regex.Matches(css, @"url\s*\(\s*[""']{0,1}(.+?)[""']{0,1}\s*\)", RegexOptions.IgnoreCase);
+            String url;
 
             foreach (Match match in urlMatches)
             {
-                matchesHash.Add(GetUrlFromMatch(match));
+                url = GetUrlFromMatch(match);
+
+                if (url.Contains("data:image"))
+                {
+                    continue;
+                }
+
+                matchesHash.Add(url);
             }
 
             return matchesHash;

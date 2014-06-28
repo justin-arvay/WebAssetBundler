@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Custom Configuration Factory";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<p>By default there is a build in configuration provider for each bundle type that will find and instantiate the different configuration types
+that are inheriting from @Html.Code("IBundleConfigurationProvider<TBundle>"). You can override this and provide your own implementation if you need
+to inject your own behavior.</p>
+
+<p>The first thing you need to do is create a new implementation of providers. Here is an example that returns a hard coded list:</p>
+<pre data-language="csharp">
+
+@Html.Code(@"
+using WebAssetBundler.Web.Mvc;
+
+public class MyScriptBundleConfigurationProvider : IBundleConfigurationProvider<ScriptBundle>
+{
+    public IList<IBundleConfiguration<ScriptBundle>> GetConfigs()
+    {
+        var configs = new List<IBundleConfiguration<ScriptBundle>>();
+        configs.Add(new ScriptLayoutConfiguration());            
+
+        return configs;
+    }
+}
+
+public class MyStyleSheetBundleConfigurationProvider : IBundleConfigurationProvider<StyleSheetBundle>
+{
+    public IList<IBundleConfiguration<StyleSheetBundle>> GetConfigs()
+    {
+        //similar to above
+    }
+}")
+      
+</pre>
+
+<p>Now you just need to inform the bundler that you want to use your own provider:</p>
+<pre data-language="csharp">
+protected void Application_Start()
+{
+    AreaRegistration.RegisterAllAreas();
+
+    RegisterGlobalFilters(GlobalFilters.Filters);
+    RegisterRoutes(RouteTable.Routes);
+
+    //register the new providers 
+    DefaultSettings.ScriptConfigurationProvider = (c) => new MyScriptBundleConfigurationProvider();
+    DefaultSettings.StyleSheetConfigurationProvider = (c) => new MyStyleSheetBundleConfigurationProvider();
+
+}
+</pre>
+
+<p>The providers need to be registered <strong>before</strong> any rendering is done. In ASP.NET MVC framework, the 
+Global.asax would be a good place to put it.</p>
+
+<p>Using your own providers will give you mode freedom to configure the bundles as needed. For instance, you could use a custom provider to pull bundle
+configurations from the database, xml, json or any other format required by your project.</p>

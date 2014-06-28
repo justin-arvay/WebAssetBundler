@@ -59,10 +59,17 @@ namespace WebAssetBundler.Web.Mvc
         /// <returns></returns>
         public static SizeF GetDimensions(IFile file)
         {
-            using (var stream = file.Open(FileMode.Open, FileAccess.Read))
-            using (var image = new Bitmap(stream))
+            try
             {
-                return image.PhysicalDimension;
+                using (var stream = new MemoryStream(File.ReadAllBytes(file.Path)))
+                using (var image = new Bitmap(stream))
+                {
+                    return image.PhysicalDimension;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Unable to get dimensions for image using path: " + file.Path, e);
             }
         }
 

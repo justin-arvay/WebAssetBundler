@@ -23,6 +23,11 @@ namespace WebAssetBundler.Web.Mvc
     {
         public ImageBundle Create(AssetBase asset)
         {
+            if (asset.File.Exists == false)
+            {
+                throw new Exception("Could not create bundle for image: " + asset.File.Path + ". Image does not exist.");
+            }
+           
             string name = ImageHelper.CreateBundleName(asset);
             string contentType = ImageHelper.GetContentType(asset.Source);
             SizeF dimensions = ImageHelper.GetDimensions(asset.File);

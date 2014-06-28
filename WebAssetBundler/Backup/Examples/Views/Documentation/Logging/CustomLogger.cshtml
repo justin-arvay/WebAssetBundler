@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "CustomLogger";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<h6>Custom Log Provider</h6>
+<p>To create a custom provider you need to first implement the ILogger interface:</p>
+<pre data-language="csharp">
+@Html.Code(@"
+using WebAssetBundler.Web.Mvc;
+
+public class TestLogger : ILogger
+{
+    public bool IsInfoEnabled
+    {
+        get { throw new NotImplementedException(); }
+    }
+
+    public bool IsErrorEnabled
+    {
+        get { throw new NotImplementedException(); }
+    }
+
+    public void Info(string message)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Info(string message, Exception exception)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Error(string message)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Error(string message, Exception exception)
+    {
+        throw new NotImplementedException();
+    }
+}")
+</pre>
+
+<h6>Next you need to tell web asset bundler to use the new logger:</h6>
+<p>The best place for this is the Global.asax Application_Start. 
+    This will ensure that the logger is registered in the application pipeline before the http module is run:</p>
+<pre data-language="csharp">
+@Html.Code(@"
+protected void Application_Start()
+{
+    ...
+
+    DefaultSettings.Logger = new TestLogger(log);
+}
+")
+</pre>
+
+<p class="note"><strong>Note:</strong> If <strong>IsInfoEnabled or IsErrorEnabled</strong> return false, no logging will occur for those log levels.
+    Setting the logger in the default settings enables logging support. To disable logging support you must disable it 
+    through the configuration for that log provider.
+</p>

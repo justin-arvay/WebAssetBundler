@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Custom Minifiers";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<p>The bundle pipeline will use the minifiers when minifing each asset. By default the style sheet and script minifiers are using the <strong>Microsoft.Ajax.Utilities.Minifier</strong> class. However you can 
+can choose to use your own minifiers if you wish.</p>
+
+<p>In order to create a custom minifier you will need to implement an interface for each bundle type:</p>
+<pre data-language="csharp">
+using WebAssetBundler.Web.Mvc
+
+public class MyScriptMinifier: IScriptMinifier
+{
+    public string Minify(string content)
+    {
+        //remove all spaces
+        return content.Replace(' ', '');
+    }
+}
+
+public class MyStyleSheetMinifier: IStyleSheetMinifier
+{
+    public string Minify(string content)
+    {
+        //remove all spaces
+        return content.Replace(' ', '');
+    }
+}
+</pre>
+
+<p>You then need to register the new minifiers:</p>
+<pre data-language="csharp">
+protected void Application_Start()
+{
+    AreaRegistration.RegisterAllAreas();
+
+    RegisterGlobalFilters(GlobalFilters.Filters);
+    RegisterRoutes(RouteTable.Routes);
+
+    //register the new providers 
+    DefaultSettings.ScriptMinifier = new MyScriptMinfier();
+    DefaultSettings.StyleSheetMinifier = new MyStyleSheetMinifier();
+
+}
+</pre>

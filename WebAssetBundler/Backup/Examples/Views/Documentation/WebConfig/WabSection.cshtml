@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Section Properties";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<h2>Tag Properties</h2>
+<p>The below table shows all the available properties:</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Property</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    
+    </thead>
+    <tbody>
+        <tr>
+            <td>debugMode</td>
+            <td>false</td>
+            <td>
+                When false bundles are are cached by the browser and application for speed. When true, bundles will be refreshed every request to allow 
+                for developer changes. For more information see @Html.RouteLink("Debug Mode", "Documentation", new { path = "debug-mode" }).
+            </td>
+        </tr>
+        <tr>
+            <td>minifyIdentifier</td>
+            <td>.min</td>
+            <td>
+                Specifies an identifier in an asset file name that identifies that asset as already being minified. Minified/packed assets will not get minifed again.
+                Different behavior in debug mode vs production mode. 
+                See @Html.RouteLink("Adding Assets", "Documentation", new { path = "bundle-configuration/adding-assets" }).
+            </td>
+        </tr>
+        <tr>
+            <td>enableImagePipeline</td>
+            <td>true</td>
+            <td>When true, images found in style sheets will be put through the image pipeline. Additionally all images in css files will be versioned 
+            like javascript and css bundles. Images are served through the HttpHandler.</td>
+        </tr>
+    </tbody>
+</table>

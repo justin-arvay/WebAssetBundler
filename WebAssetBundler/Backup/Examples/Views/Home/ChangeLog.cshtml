@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Web Asset Bundler Change Log";
+    Layout = "~/Views/Shared/_BasicLayout.cshtml";
+}
+
+<div id="change-log">
+    <h1>Change  Log</h1>
+
+    <div class="release">
+        <h3>0.10.5 - Beta <span>Updated June 9 2013</span></h3> 
+        <p>Improvements</p>
+        <ul>
+            <li>Add bundle referencing to allow you to easily include bundles to render anywhere in the application. </li>
+            <li>Added bundle dependency resolution. Bundles can now depend on other bundles. Rendering will automatically resolve
+                the required bundles in the correct order.
+            </li>
+        </ul>
+    </div>
+
+    <div class="release">
+        <h3>0.10.4 - Beta <span>Updated May 24 2013</span></h3> 
+        <p>Improvements</p>
+        <ul>
+            <li>Added basic logging support for bundle pipelines. @Html.RouteLink("See Logging", "Documentation", new { path = "logging" }).</li>
+        </ul>
+    </div>
+
+    <div class="release">
+        <h3>0.10.3 - Beta <span>Updated May 21 2013</span></h3> 
+        <p>Improvements</p>
+        <ul>
+            <li>When adding assets by directory you can now specify the order of assets in that directory/sub directory. 
+            See @Html.RouteLink("Adding Assets", "Documentation", new { path = "bundle-configuration/adding-assets" }).</li>           
+            <li>You can now modify rendered html elements when rendering the bundle or in the pipeline. 
+            See @Html.RouteLink("Rendering Bundles", "Documentation", new { path = "rendering-bundles" }).</li> 
+        </ul>
+    </div>
+
+    <div class="release">
+        <h3>0.10.2 - Beta <span>Updated May 16 2013</span></h3> 
+        <p>Bugs:</p>
+        <ul>
+            <li>Fixed a bug that did not allow rendered images to use cache. Did not affect style sheet images.</li>
+            <li>Fixed a bug that prevented the bundle hash from updating when assets changed. Aka, was not forcing the browser to refresh the bundle.</li>
+        </ul>
+    </div>
+
+    <div class="release">
+        <h3>0.10.1 - Beta <span>Updated May 15 2013</span></h3>    
+        <p>Breaking Changes:</p>
+        <ul>
+            <li>The <strong>versionCssImages</strong> property has been removed from the WAB configuration section and 
+            replaced with <strong>enableImagePipeline</strong>. If you do not want css images versioned, set enambleImagePipeline to false.</li>
+            <li>Asset modifiers are no longer added to the asset but instead executed by a Modify method in the processor. </li>
+            <li>The Content property in an asset has been renamed to a method called OpenStream.</li>
+        </ul>
+
+        <p>Improvements:</p>
+        <ul>
+            <li>Added an ImagePipeline. When enabled css images are processed in a pipeline like scripts or style sheets. Plugins can also be used to 
+            target the image pipeline.</li>
+            <li>Add image rendering that takes advantage of the image pipeline. Useful for static images. Example: logos or icons.</li>
+        </ul>
+    </div>
+</div>

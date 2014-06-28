@@ -1,0 +1,10 @@
+﻿#documentation { width: 960px;}
+#documentation div.content { float:right; width: 740px; margin-top: 0px !important;}
+
+#documentation div.menu { width: 200px; float:left;  margin-top: 20px; margin-left: -10px;}
+#documentation div.menu ul li ul{ }
+#documentation div.menu ul li { background-image: url(../Images/document-icon.png); background-repeat:no-repeat; padding-left: 20px;}
+#documentation div.menu a { color: #333; display:block; text-decoration:none; padding: 5px 5px; }
+#documentation div.menu a:hover { color: #FF8B24;}
+
+#documentation div.title h1 {font-size:2.0em;color:#FF8B24; margin:0px 0px 20px 0px; padding-bottom:5px; border-bottom: 2px solid #5E5E5E;}

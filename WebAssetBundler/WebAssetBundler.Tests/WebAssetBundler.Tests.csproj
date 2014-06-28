@@ -168,6 +168,7 @@
     <Content Include="Files\FileSystem\DirTwo\FileTwo.txt" />
     <Content Include="Files\Images\ImageHelperTests.png" />
     <Content Include="Files\Images\ImageBundleFactoryTests.png" />
+    <Content Include="Files\Images\ImageHelperTests.gif" />
     <Content Include="Files\Images\VersionImageTest.png" />
     <Content Include="Files\read.txt" />
   </ItemGroup>

@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Logging";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<p>Web Asset Bundler supports basic logging for all pipelines. At this point there is no error logging support.
+    Only basic information on how and what in the pipeline is being processed.</p>
+
+<p>By default logging is disabled. You can use the built in log4net provider. 
+    @Html.RouteLink("See log4net Config", "Documentation", new { path = "logging/log4-net" })</p>
+
+<p>Here is an example of the log output using <strong>log4net</strong>:</p>
+<pre>
+INFO [2013-05-24 08:58:55,717] - Running bootstrap task LoadSettingsTask.
+INFO [2013-05-24 08:58:55,727] - Running bootstrap task ConfigureCommonTask.
+INFO [2013-05-24 08:58:55,728] - Running bootstrap task ConfigureImagesTask.
+INFO [2013-05-24 08:58:55,732] - Running bootstrap task ConfigureStyleSheetsTask.
+INFO [2013-05-24 08:58:55,733] - Running bootstrap task ConfigureScriptsTask.
+INFO [2013-05-24 08:58:56,954] - Start processing for bundle StyleSheets.
+INFO [2013-05-24 08:58:56,954] - Executing processor LessProcessor for bundle StyleSheets.
+INFO [2013-05-24 08:58:56,954] - Executing processor AssignHashProcessor for bundle StyleSheets.
+INFO [2013-05-24 08:58:56,957] - Executing processor UrlAssignmentProcessor`1 for bundle StyleSheets.
+INFO [2013-05-24 08:58:56,958] - Executing processor ImageProcessor for bundle StyleSheets.
+INFO [2013-05-24 08:58:56,963] - Start processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+INFO [2013-05-24 08:58:56,963] - Executing processor AssignHashProcessor for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+INFO [2013-05-24 08:58:56,963] - Executing processor UrlAssignmentProcessor`1 for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+INFO [2013-05-24 08:58:56,964] - End processing for bundle 464ed1f3bb7416e5699c7692bc2900b3-document-icon-png.
+</pre>

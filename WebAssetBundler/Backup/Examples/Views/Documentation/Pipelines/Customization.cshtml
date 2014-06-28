@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Customizing the Pipeline";
+    Layout = "~/Views/Shared/_DocumentationLayout.cshtml";
+}
+
+<h2>Processors</h2>
+<p>The pipeline can be modified by allowing you to insert processors anywhere in the pipeline. This can give you more freedom to control how the
+bundle is resolved.</p>
+
+<p>Create a custom processor(s) to insert into the pipeline. Example:</p>
+<pre data-language="csharp">
+@Html.Code(@"
+public class TestColorReplacerProcessor : IPipelineProcessor<StyleSheetBundle>
+{
+    public void Process(StyleSheetBundle bundle)
+    {
+        //modify the bundle or assets here
+    }
+}
+")
+</pre>
+
+<p>Now you can add it, or insert it into the pipeline. To do so you must create a plugin. Head over to 
+@Html.RouteLink("Create a Plugin", "Documentation", new { path = "plugins/create-plugin" }).</p>
+
+<h2>Modifing Asset Content</h2>
+<p>Asset content is served through a stream. You can modify this stream when the processor is run using the IAssetModifier interface. The 
+stream passed in represents the content in the asset or the latest modified content (dependant on previous processors and modifiers). Example:</p>
+<pre data-language="csharp">
+@Html.Code(@"
+    public class TestModifier : IAssetModifier
+    {
+        public Stream Modify(Stream openStream)
+        {
+            //ReadToEnd is an extension method.
+            var content = openStream.ReadToEnd();
+
+            //Replace all black colors with white.
+            content = content.Replace(""#000000"", ""#FFFFFF"");
+
+            //ToStream is an extension method.
+            return content.ToStream();
+        }
+    }
+")
+</pre>
+<p><strong>Notes:</strong> The modifier MUST return an open stream containing the changes made. The retuned stream is cached with the asset and used in further
+modifications. Flushing a stream does not write to the file.</p>
+
+<p>The modifier can now be used in a processor to modify the content of the stream. Example:</p>
+<pre data-language="csharp">
+@Html.Code(@"
+public class TestProcessor : IPipelineProcessor<StyleSheetBundle>
+{
+    public void Process(StyleSheetBundle bundle)
+    {
+        bundle.Modify(new TestModifier());
+
+        //or
+
+        foreach (var asset in bundle.Assets)
+        {
+            asset.Modify(new TestModifier());
+        }
+    }
+}
+")
+</pre>
+<p>The modifier is executed immediately and all changes are stored in the asset. Sequential calls to modify use the previous modifications. That is, previous
+processors and modifiers earlier in the pipeline may have already changed certain elements of the content. Multiple modifiers can be used in a single processor.</p>
+
+<h2>Processor Ordering</h2>
+
+<p>Order is very important. One processor can effect the next. Please ensure you understand how the default processors 
+work. See @Html.RouteLink("Bundle Pipelines", "Documentation", new { path = "bundle-pipelines" }).</p>
+
+<p>Customizer classes are <strong>automatically registered</strong> and applied to the pipeline when the application is started. You do not 
+need to manually register the class.</p>

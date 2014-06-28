@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "Web Asset Bundler";
+    Layout = "~/Views/Shared/_BasicLayout.cshtml";
+}
+
+<h1>What is Web Asset Bundler?</h1>
+
+<p>Web Asset Bundler is a light weight and extensible .NET library that aims to make CSS and Javascript management easier. With Web Asset Bundler you can minify,
+combine, version and cache your CSS and Javascript files. Web Asset Bundle is built to work with the ASP.NET MVC framework. Currently supports .net4.0+ and ASP.NET MVC 3+</p>
+
+<p>An asset is a javascript or stylesheet file. Assets are combined into bundles. Bundles are optimized to reduce load for your web application.</p>
+
+<h6>Install via NuGet</h6>
+<pre>
+PM> Install-Package WebAssetBundler
+</pre>
+<p>@Html.RouteLink("View a list of plugins", "Documentation", new { path = "plugins" })</p>
+
+<h6>Quick Configuration</h6>
+<p>Easily set up and configure each bundle. Configuration allows you to set up bundles exactly the way you need.</p>
+<pre data-language="csharp">
+@Html.Code(@"
+using WebAssetBundler.Web.Mvc;
+
+public class LayoutScriptBundle : BundleConfiguration<ScriptBundle>
+{
+    public override void Configure()
+    {
+        Name(""Scripts"");
+        Add(""~/Scripts/jquery-1.9.0.min.js"");
+        Add(""~/Scripts/jquery-ui-1.10.0.custom.min.js"");
+    }
+}
+")
+</pre>
+
+<h6>Rendering</h6>
+<p>Use helpers to easily render your configured bundles anywhere on the page.</p>
+<pre data-language="html">
+@Html.Code(@"
+<html>
+<head>
+  <title>Web App</title>
+   @Bundler.StyleSheets.Render(""StyleSheets"")
+</head>
+<body>
+  ...
+   @Bundler.Scripts.Render(""Scripts"")
+</body>
+</html>
+")
+</pre>
+
+<h6>Production Output</h6>
+<p>With @Html.RouteLink("debug mode", "Documentation", new { path = "debug-mode" }) off, bundles are complied (combined/minified) and then 
+cached for the lifetime of the application. Additionally cache headers are sent to the browser which will cache for 1 year (modifiable). Any changes to the content 
+will result in the url changing, breaking the browser cache and forcing it to download the new bundle.</p>
+<pre data-language="html">
+<html>
+@Html.Code(@"
+<head>
+  <title>Web App</title>
+  <link type=""text/css"" href=""/wab.axd/css/abfdfee9fe0d761c6daa84cc84436816/StyleSheets"" rel=""stylesheet"">
+</head>
+<body>
+  ...
+  <script type=""text/javascript"" src=""/wab.axd/js/71342a7deb366a76263940d937b4d44c/Scripts""></script>
+</body>
+</html>
+")
+</pre>
+
+<h6>Debug Mode</h6>
+<p>When @Html.RouteLink("debug mode", "Documentation", new { path = "debug-mode" }) is on, bundles are compiled every request to include 
+changes. The url is also changed every request to ensure the browser refreshes its cache.</p>
+<pre data-language="html">
+<html>
+@Html.Code(@"
+<head>
+  <title>Web App</title>
+  <link type=""text/css"" href=""/wab.axd/css/abfdfee9fe0d761c6daa84cc8443681604221384210/StyleSheets"" rel=""stylesheet"">
+</head>
+<body>
+  ...
+  <script type=""text/javascript"" src=""/wab.axd/js/71342a7deb366a76263940d937b4d44c04221384330/Scripts""></script>
+</body>
+</html>
+")
+</pre>
+
+<h2>Alternatives</h2>
+<p>If web asset bundle just isn't doing it for you, check out some of the alternatives:</p>
+<ul>
+    <li><a href="http://requestreduce.org/">Request Reduce</a></li>
+    <li><a href="http://getcassette.net/">Cassette</a></li>
+    <li><a href="https://github.com/jetheredge/SquishIt">Squish It</a></li>
+    <li><a href="https://github.com/buunguyen/combres">Combres</a></li>
+    <li><a href="http://bundletransformer.codeplex.com/">Bundle Transformer</a></li>
+    <li><a href="https://github.com/luckyllama/LuckyAssetManager">Lucky Asset Manager</a></li>
+    <li><a href="http://ajorkowski.github.io/NodeAssets/">Nodeassets</a></li>
+</ul>
+
+<p>Please contact me through <a href="https://github.com/justin-arvay/WebAssetBundler/issues">github</a> by opening a issue if you have, or 
+know of, other projects that I should add to this list.</p>
